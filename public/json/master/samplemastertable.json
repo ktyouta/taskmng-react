@@ -1,0 +1,19 @@
+{
+    "mastertable":[
+        {
+            "value":"sample",
+            "label":"サンプルマスタ",
+            "remarks":"備考"
+        },
+        {
+            "value":"sample2",
+            "label":"サンプルマスタ2",
+            "remarks":"備考2"
+        },
+        {
+            "value":"sample3",
+            "label":"サンプルマスタ3",
+            "remarks":"備考3"
+        }
+    ]
+}

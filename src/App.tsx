@@ -1,25 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
+import Login from './Login/Login';
+import { resUserInfoType } from './Common/Type/CommonType';
+import { useEffect, useState } from 'react';
+import React from 'react';
+import Content from './Content/Content';
+import { useCookies } from "react-cookie";
+
 
 function App() {
+
+  //認証クッキー
+  const [cookies] = useCookies();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      {/* クッキーが存在する場合：ホーム画面に遷移
+        クッキーが存在しない場合：ログイン画面に遷移 */}
+      <Route path="/login" element={Object.keys(cookies).length ? <Navigate to="/" /> : <Login />} />
+      <Route path="/*" element={Object.keys(cookies).length ? <Content /> : <Navigate to="/login" />} />
+    </Routes>
   );
 }
 

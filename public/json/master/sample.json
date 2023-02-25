@@ -1,0 +1,15 @@
+{
+    "master":[
+        {
+            "id":"1",
+            "name":"sample",
+            "remarks":"備考サンプル"
+        },
+        {
+            "id":"2",
+            "name":"sample2",
+            "remarks":"備考サンプル2"
+        }
+    ]
+
+}

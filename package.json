@@ -10,17 +10,32 @@
     "@types/node": "^16.18.11",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
+    "axios": "^1.2.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "html-react-parser": "^3.0.9",
+    "json-server": "^0.17.1",
+    "jsonwebtoken": "^9.0.0",
+    "npm-run-all": "^4.1.5",
     "react": "^18.2.0",
+    "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "typescript": "^4.9.4",
+    "styled-components": "^5.3.6",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "run-p local:*",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "json-server": "json-server --port 3001 --watch db.json",
+    "local": "run-p local:*",
+    "local:react": "react-scripts start",
+    "local:express": "./node_modules/.bin/ts-node server/index.tsx"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +54,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/styled-components": "^5.1.26"
   }
 }

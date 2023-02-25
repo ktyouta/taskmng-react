@@ -1,0 +1,17 @@
+.workhistory ul{
+    list-style:none;
+}
+
+.workhistory-main-area{
+    text-align: left;
+    margin-left: 5%;
+}
+
+.workhistory-ul-list{
+    overflow-y: scroll;
+    height: 125px;
+}
+
+.workhistory-message{
+    padding-left: 40px;
+}

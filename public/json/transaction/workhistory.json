@@ -1,0 +1,18 @@
+{
+    "history":[
+        {
+            "time":"2023/1/1",
+            "userName":"管理者",
+            "editMaster":"変更したマスタ",
+            "editData":"マスタ内の変更データ",
+            "editType":"1"
+        },
+        {
+            "time":"2023/1/2",
+            "userName":"管理者",
+            "editMaster":"変更したマスタ2",
+            "editData":"マスタ内の変更データ2",
+            "editType":"2"
+        }
+    ]
+}

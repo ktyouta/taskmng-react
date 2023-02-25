@@ -1,0 +1,25 @@
+{
+    "inputsetting":[
+        {
+            "id":"id",
+            "name":"ID",
+            "type":"input",
+            "length":100,
+            "value":""
+        },
+        {
+            "id":"name",
+            "name":"名称",
+            "type":"input",
+            "length":100,
+            "value":""
+        },
+        {
+            "id":"remarks",
+            "name":"備考",
+            "type":"input",
+            "length":500,
+            "value":""
+        }
+    ]
+}

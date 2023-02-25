@@ -1,0 +1,32 @@
+.login{
+    width: 100%;
+    height: 100vh;
+    background-color: #DDFFFF;
+}
+
+.login-area{
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3%;
+}
+
+.login-area .input-main-area{
+    margin-bottom: 13%;
+}
+
+.login-area button{
+    width: 40%;
+}
+
+.login-button-area{
+    display: flex;
+    margin-top: 5%;
+}
+
+.login-title-area{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 12%;
+}

@@ -1,0 +1,126 @@
+import express from 'express';
+import ENV from '../src/env.json';
+import { createData, readFile } from './FileFunction';
+import { bodyObj, userInfoType } from './Type/type';
+import { authenticate } from './AuthFunction';
+import { config } from './Config';
+
+const app: express.Express = express();
+const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+
+//crosの設定
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+});
+
+app.use(cors({
+    credentials: true,
+    origin: "http://localhost:3000"
+}));
+
+//postでデータを受け取る際に必要
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use(cookieParser());
+
+//ポートENV.PORT番で待ち受け
+app.listen(ENV.PORT, function () {
+    console.log(`Express listening on port ${ENV.PORT}!`);
+});
+
+
+/**
+ * GET
+ */
+/**
+ * masterにアクセスした際の動作
+ */
+app.get(ENV.GETMASTER, function (req, res) {
+    if (!req.query.filename) {
+        return;
+    }
+    let fileData = readFile(`./public/json/master/${req.query.filename}.json`);
+    res.json(JSON.parse(fileData));
+});
+
+/**
+ * データ取得用apiを動的に生成
+ */
+config.get.forEach((element)=>{
+    app.get(element.callUrl, function (req, res) {
+        let fileData = readFile(element.fileUrl);
+        res.json(JSON.parse(fileData));
+    });
+})
+
+
+/**
+ * POST
+ */
+/**
+ * masterの登録
+ */
+app.post(ENV.POSTMATERCREATE, function (req, res) {
+    //登録するファイル名を取得
+    let filename = req.body.master;
+    delete req.body["master"];
+    // データを登録
+    createData(`./public/json/master/${filename}.json`, req.body);
+});
+
+/**
+ * 認証+Tokenの発行
+ */
+app.post(ENV.LOGIN, function (req, res) {
+    //ID,PW取得
+    var userId = req.body.userId;
+    var password = req.body.password;
+
+    //認証
+    let fileData = readFile(`./public/json/setting/userinfo.json`);
+    //ファイルの読み込みに失敗
+    if (!fileData) {
+        return res
+            .status(500)
+            .json({ errMessage: '予期しないエラーが発生しました。' });
+    }
+
+    //ユーザー情報の配列
+    let userJson: userInfoType[] = JSON.parse(fileData).user;
+    let isExist: boolean = false;
+    for (let i = 0; i < userJson.length; i++) {
+        if (isExist = (userId === userJson[i].userId && password === userJson[i].password)) {
+            break;
+        }
+    }
+
+    //ユーザー情報が存在しない
+    if (!isExist) {
+        return res
+            .status(400)
+            .json({ errMessage: 'ユーザーIDまたはパスワードが違います。' });
+    }
+    //token生成
+    let jwtStr = `${userId},${password}`
+    const token = jwt.sign({ ID: jwtStr }, config.jwt.secret, { expiresIn: '1h' });
+    res.status(200).json({ errMessage: '', token: token, userInfo: { userId: userId } });
+});
+
+
+
+/**
+ * 認証チェック処理
+ */
+app.post(ENV.AUTH, function (req, res) {
+    let authResult = authenticate(req.cookies.cookie);
+    res.status(authResult.status).json({ errMessage: authResult.errMessage, userInfo: authResult.userInfo });
+});
