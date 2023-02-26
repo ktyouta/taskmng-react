@@ -14,8 +14,8 @@ export const selectedMasterContext = React.createContext({} as {
 });
 
 export const selectedDataContext = React.createContext({} as {
-  selectedData: { [key: string]: string }
-  setSelectedData: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>
+  selectedData: { [key: string]: string | JSX.Element }
+  setSelectedData: React.Dispatch<React.SetStateAction<{ [key: string]: string | JSX.Element }>>
 });
 
 export const editModeContext = React.createContext({} as {
@@ -44,7 +44,7 @@ function Master() {
   //現在選択しているマスタ
   const [selectedMaster, setSelectedMaster] = useState("");
   //テーブルで選択した行データ
-  const [selectedData, setSelectedData] = useState<{ [key: string]: string }>({});
+  const [selectedData, setSelectedData] = useState<{ [key: string]: string | JSX.Element }>({});
   //テーブルで選択したデータ(更新ボタン押下時の再取得データ)
   const [selectedDataElements, setSelectedDataElement] = useState<selectedMasterDataType>({ id: "", name: "", remarks: "" });
   //編集モード
@@ -61,7 +61,6 @@ function Master() {
             <editModeContext.Provider value={{ editMode, setEditMode }}>
               <Routes>
                 <Route path="/" element={<MasterTop />} />
-                {/* <Route path="edit" element={<MasterEdit />} /> */}
                 <Route path="edit" element={editMode === editModeEnum.noselect ? <Navigate to="/master" /> : <MasterEdit />} />
               </Routes>
             </editModeContext.Provider>

@@ -48,7 +48,7 @@ function useMainLogic(props: propsType) {
         if (!props.menu || props.menu.length < 1) {
             return;
         }
-        if(!props.userInfo){
+        if (!props.userInfo) {
             return;
         }
         const userAuth = parseInt(props.userInfo.auth);
@@ -59,10 +59,11 @@ function useMainLogic(props: propsType) {
             }
             const Component = jsxList[element.component];
             const path = element.componentPath;
-            return <Route path={path} element={Component} />
+            return <Route key={path} path={path} element={Component} />
         });
+
         //notfoundページ
-        tmpComponentList.push(<Route path="*" element={<NotFoundComponent />} />);
+        tmpComponentList.push(<Route key={"*"} path="*" element={<NotFoundComponent />} />);
         return tmpComponentList;
     }, [props.menu, props.userInfo]);
 

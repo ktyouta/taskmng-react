@@ -8,8 +8,8 @@ import ENV from '../../env.json';
 //引数の型
 type propsType = {
   selectedMaster: string,
-  selectedData: {[key:string]:string},
-  setSelectedData: React.Dispatch<React.SetStateAction<{[key:string]:string}>>,
+  selectedData: { [key: string]: string | JSX.Element },
+  setSelectedData: React.Dispatch<React.SetStateAction<{ [key: string]: string | JSX.Element }>>,
   setSelectedMaster: React.Dispatch<React.SetStateAction<string>>,
 }
 

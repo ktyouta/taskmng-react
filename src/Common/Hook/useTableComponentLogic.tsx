@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 //引数の型
 type tablePropsType = {
-    tableBody: { [key: string]: string }[],
+    tableBody: { [key: string]: string | JSX.Element }[],
 }
 
 /**
@@ -14,7 +14,7 @@ type tablePropsType = {
 function useTableComponentLogic(props: tablePropsType) {
 
     //テーブルボディ
-    const [tableBody, setTableBody] = useState<{ [key: string]: string }[]>([]);
+    const [tableBody, setTableBody] = useState<{ [key: string]: string | JSX.Element }[]>([]);
     //ヘッダクリック時のソート用
     const orderNum = useRef(1);
 
@@ -38,7 +38,11 @@ function useTableComponentLogic(props: tablePropsType) {
             }
             keyIndex++;
         }
-        if(!objKey){
+        if (!objKey) {
+            return;
+        }
+        //要素の型が文字列の場合のみソートする
+        if (tmpTableBody.some((element) => typeof element[objKey] !== 'string')) {
             return;
         }
         //クリックしたオブジェクトのキーでソート

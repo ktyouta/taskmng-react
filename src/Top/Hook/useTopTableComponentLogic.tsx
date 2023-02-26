@@ -5,13 +5,15 @@ import { selectedMasterDataType } from '../../Common/Type/CommonType';
 import { masterDataListType } from '../../Main/Main';
 import ENV from '../../env.json';
 import { refType } from '../../Common/BaseInputComponent';
+import ModalComponent from '../../Common/ModalComponent';
+import { AiOutlineFileText } from "react-icons/ai"
+import TableComponent from '../../Common/TableComponent';
 
 //引数の型
 type propsType = {
     tableBody: masterDataListType[],
     orgTableBody: masterDataListType[],
 }
-
 
 /**
  * テーブルコンポーネントのビジネスロジック
@@ -30,9 +32,11 @@ function useTopTableComponentLogic(props: propsType) {
     const textRef: RefObject<refType> = useRef(null);
     //備考(検索ボックス)参照用
     const reamarksRef: RefObject<refType> = useRef(null);
+    //マスタデータ取得用URL
+    const [masterGetUrl,setMasterUrl] = useState<string>("");
 
     //ヘッダとボディの更新
-    const { tableHeader } = useUpdateTableData({ orgTableBody: props.tableBody ? [...props.tableBody] : [], columnData: masterColumnList });
+    let { tableHeader } = useUpdateTableData({ orgTableBody: props.tableBody ? [...props.tableBody] : [], columnData: masterColumnList });
 
     //表示件数
     const resultNum = useMemo(() => {
@@ -47,21 +51,31 @@ function useTopTableComponentLogic(props: propsType) {
         if (!props.tableBody || props.tableBody.length < 1) {
             return;
         }
-        setMasterTableBody(filterTableData());
+        let tmpTableBody = [...props.tableBody].map((element) => {
+            //行ごとにモーダル開閉用のsvgをセット
+            element.component = <ModalComponent 
+                                    //モーダル内に表示するコンポーネント
+                                    component={<></>} 
+                                    icon={AiOutlineFileText} 
+                                    onclick={() => { modalClick(element) }} 
+                                />
+            return element;
+        });
+        setMasterTableBody(filterTableData(tmpTableBody));
     }, [props.tableBody]);
 
     /**
      * 検索ボタン押下
      */
     function clickSearchBtn() {
-        setMasterTableBody(filterTableData());
+        setMasterTableBody(filterTableData(props.tableBody));
     }
 
     /**
      * テーブルボディのフィルター
      */
-    function filterTableData() {
-        let tmpTableBody = [...props.tableBody];
+    function filterTableData(table: masterDataListType[]) {
+        let tmpTableBody = [...table];
         //名称で絞り込み
         if (textRef.current?.refValue) {
             let textValue = textRef.current?.refValue;
@@ -88,6 +102,22 @@ function useTopTableComponentLogic(props: propsType) {
         textRef.current?.clearValue();
         reamarksRef.current?.clearValue();
     }
+
+    /**
+     * モーダルオープンイベント
+     */
+    function modalClick(element: masterDataListType) {
+        let apiUrl = "";
+        //モーダル内に表示するマスタのURL
+        if(element && !element.value){
+            apiUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMASTER}?filename=${element.value}`;
+        }
+        setMasterUrl(apiUrl);
+    }
+
+    //画面に表示するマスタのボディ
+    //選択中のマスタのデータを取得する
+    const selectedMasterBody: selectedMasterDataType[] = useFetchJsonData(masterGetUrl).master;
 
     return { tableHeader, masterTableBody, textRef, reamarksRef, isDisplayMessage, resultNum, clickSearchBtn, clickClearBtn }
 }

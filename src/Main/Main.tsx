@@ -11,7 +11,8 @@ import { menuListType } from '../Common/Hook/useGetViewName';
 export type masterDataListType = {
   value: string,
   label: string,
-  remarks: string
+  remarks: string,
+  component?:JSX.Element,
 };
 
 export const masterDataListContext = React.createContext({} as {

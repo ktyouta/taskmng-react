@@ -55,9 +55,9 @@
     background-color: #00CCCC !important;
 }
 
-.tablecomponent-table-tag tr:first-child th:first-child {
+/* .tablecomponent-table-tag tr:first-child th:first-child {
     z-index: 1;
-}
+} */
 
 /* 左上 */
 /* .tablecomponent-table-tag thead th:first-child {

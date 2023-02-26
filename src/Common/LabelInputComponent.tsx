@@ -1,6 +1,5 @@
 import React, { forwardRef, useState } from 'react';
 import './css/HorizonLabelInputComponent.css';
-import styled from "styled-components";
 import BaseInputComponent, { refType } from './BaseInputComponent';
 
 //引数の型
@@ -12,7 +11,6 @@ type propsType = {
     titleWidth?: string,
     textWidth?: string,
 }
-
 
 const LabelInputComponent = forwardRef<refType, propsType>((props, ref) => {
 

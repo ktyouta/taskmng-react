@@ -7,8 +7,8 @@ import useTableComponentLogic from './Hook/useTableComponentLogic';
 type tablePropsType = {
   tableHeight?: string,
   tableHeader: string[],
-  tableBody: { [key: string]: string }[],
-  onclick?: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>,
+  tableBody: { [key: string]: string | JSX.Element}[],
+  onclick?: React.Dispatch<React.SetStateAction<{ [key: string]: string | JSX.Element}>>,
 }
 
 
@@ -46,7 +46,7 @@ function TableComponent(props: tablePropsType) {
                 cssNm = "selected"
               }
               //テーブルボディの行選択イベント
-              const rowClick = (element: { [key: string]: string }) => {
+              const rowClick = (element: { [key: string]: string | JSX.Element }) => {
                 setSelectedElement(element);
                 //呼び出し元からメソッドを受け取っている場合は実行
                 if (props.onclick) {
