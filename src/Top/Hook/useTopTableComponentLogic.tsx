@@ -5,9 +5,12 @@ import { selectedMasterDataType } from '../../Common/Type/CommonType';
 import { masterDataListType } from '../../Main/Main';
 import ENV from '../../env.json';
 import { refType } from '../../Common/BaseInputComponent';
-import ModalComponent from '../../Common/ModalComponent';
+import IconModalComponent from '../../Common/IconModalComponent';
 import { AiOutlineFileText } from "react-icons/ai"
 import TableComponent from '../../Common/TableComponent';
+import IconComponent from '../../Common/IconComponent';
+import useSwitch from '../../Common/Hook/useSwitch';
+import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 
 //引数の型
 type propsType = {
@@ -33,9 +36,11 @@ function useTopTableComponentLogic(props: propsType) {
     //備考(検索ボックス)参照用
     const reamarksRef: RefObject<refType> = useRef(null);
     //マスタデータ取得用URL
-    const [masterGetUrl,setMasterUrl] = useState<string>("");
+    const [masterGetUrl, setMasterUrl] = useState<string>("");
+    //モーダルの開閉用フラグ
+    const { flag, onFlag, offFlag } = useSwitch();
 
-    //ヘッダとボディの更新
+    //ヘッダの更新
     let { tableHeader } = useUpdateTableData({ orgTableBody: props.tableBody ? [...props.tableBody] : [], columnData: masterColumnList });
 
     //表示件数
@@ -53,12 +58,10 @@ function useTopTableComponentLogic(props: propsType) {
         }
         let tmpTableBody = [...props.tableBody].map((element) => {
             //行ごとにモーダル開閉用のsvgをセット
-            element.component = <ModalComponent 
-                                    //モーダル内に表示するコンポーネント
-                                    component={<></>} 
-                                    icon={AiOutlineFileText} 
-                                    onclick={() => { modalClick(element) }} 
-                                />
+            element.component = <IconComponent
+                icon={AiOutlineFileText}
+                onclick={() => { modalClick(element) }}
+            />
             return element;
         });
         setMasterTableBody(filterTableData(tmpTableBody));
@@ -109,17 +112,40 @@ function useTopTableComponentLogic(props: propsType) {
     function modalClick(element: masterDataListType) {
         let apiUrl = "";
         //モーダル内に表示するマスタのURL
-        if(element && !element.value){
+        if (element && element.value) {
             apiUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMASTER}?filename=${element.value}`;
         }
         setMasterUrl(apiUrl);
+        onFlag();
     }
 
     //画面に表示するマスタのボディ
     //選択中のマスタのデータを取得する
-    const selectedMasterBody: selectedMasterDataType[] = useFetchJsonData(masterGetUrl).master;
+    //const selectedMasterBody: selectedMasterDataType[] = useFetchJsonData(masterGetUrl).master;
 
-    return { tableHeader, masterTableBody, textRef, reamarksRef, isDisplayMessage, resultNum, clickSearchBtn, clickClearBtn }
+    //選択中のマスタのデータを取得する
+    const {data,isLoading,isError} = useQueryWrapper(masterGetUrl);
+
+    //ヘッダの更新
+    let { tableHeader: masterTableHeader } = useUpdateTableData({ orgTableBody: data && data.master ? [...data.master] : [], columnData: masterColumnList });
+
+    return {
+        tableHeader,
+        masterTableBody,
+        textRef,
+        reamarksRef,
+        isDisplayMessage,
+        resultNum,
+        flag,
+        masterTableHeader,
+        //selectedMasterBody,
+        data,
+        isLoading,
+        isError,
+        clickSearchBtn,
+        clickClearBtn,
+        offFlag
+    }
 }
 
 export default useTopTableComponentLogic;

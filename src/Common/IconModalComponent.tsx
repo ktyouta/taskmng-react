@@ -11,8 +11,8 @@ const customStyles = {
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
-        width: '60%',
-        height: '70%',
+        width:'60%',
+        height:'70%',
         transform: 'translate(-50%, -50%)',
     },
 };
@@ -20,18 +20,38 @@ const customStyles = {
 //引数の型
 type propsType = {
     component: JSX.Element,
-    modalIsOpen: boolean,
-    closeModal: () => void,
+    icon:IconType,
+    onclick: () => void,
 }
 
-function ModalComponent(props: propsType) {
+function IconModalComponent(props: propsType) {
+
+    //モーダル開閉用フラグ
+    const [modalIsOpen, setIsOpen] = React.useState(false);
+
+    //モーダルを開く
+    function openModal() {
+        if (props.onclick) {
+            props.onclick();
+        }
+        setIsOpen(true);
+    }
+
+    function afterOpenModal() {
+    }
+
+    //モーダルを閉じる
+    function closeModal() {
+        setIsOpen(false);
+    }
 
     return (
         <div>
+            <IconComponent icon={props.icon} onclick={openModal}/>
             <Modal
-                isOpen={props.modalIsOpen}
-                //onAfterOpen={props.openModal}
-                onRequestClose={props.closeModal}
+                isOpen={modalIsOpen}
+                onAfterOpen={afterOpenModal}
+                onRequestClose={closeModal}
                 style={customStyles}
                 ariaHideApp={false}
                 contentLabel="Example Modal"
@@ -43,4 +63,4 @@ function ModalComponent(props: propsType) {
     );
 }
 
-export default ModalComponent;
+export default IconModalComponent;

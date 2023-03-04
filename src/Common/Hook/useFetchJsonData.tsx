@@ -13,6 +13,7 @@ function useFetchJsonData(url:string) {
   //引数のurlからjsonを取得する
   const getData = async()=>{
     if(!url){
+      setJsonData([]);
       return;
     }
     const res = await fetch(url);

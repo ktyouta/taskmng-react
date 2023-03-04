@@ -11,6 +11,8 @@ import SpaceComponent from '../Common/SpaceComponent';
 import { masterDataListType } from '../Main/Main';
 import useTopTableComponentLogic from './Hook/useTopTableComponentLogic';
 import ResultNumComponent from '../Common/ResultNumComponent';
+import ModalComponent from '../Common/ModalComponent';
+import LoadingTableComponent from '../Common/LoadingTableComponent';
 
 
 //引数の型
@@ -23,7 +25,23 @@ function TopTableComponent(props: propsType) {
     console.log("mastertablecomponent render");
 
     //MasterTableComponentコンポーネントのビジネスロジック
-    const { tableHeader, masterTableBody, textRef, reamarksRef, isDisplayMessage, resultNum, clickSearchBtn, clickClearBtn } = useTopTableComponentLogic({ tableBody: props.selectedMasterBody, orgTableBody: props.selectedMasterBody });
+    const {
+        tableHeader,
+        masterTableBody,
+        textRef,
+        reamarksRef,
+        isDisplayMessage,
+        resultNum,
+        flag,
+        masterTableHeader,
+        //selectedMasterBody,
+        isLoading,
+        data,
+        isError,
+        clickSearchBtn,
+        clickClearBtn,
+        offFlag
+    } = useTopTableComponentLogic({ tableBody: props.selectedMasterBody, orgTableBody: props.selectedMasterBody });
 
     return (
         <div className="mastertablecomponent">
@@ -67,10 +85,23 @@ function TopTableComponent(props: propsType) {
                 <SpaceComponent space={"9%"} />
                 <ResultNumComponent num={resultNum} />
             </div>
-            <TableComponent
+            <LoadingTableComponent
+                isLoading={tableHeader.length < 0 || masterTableBody.length < 0}
+                isError={isError}
                 tableHeight="310px"
                 tableHeader={tableHeader}
                 tableBody={masterTableBody}
+            />
+            <ModalComponent
+                component={<LoadingTableComponent
+                    isLoading={isLoading}
+                    isError={isError}
+                    tableHeight="310px"
+                    tableHeader={masterTableHeader}
+                    tableBody={data && data.master? data.master : []} />
+                }
+                modalIsOpen={flag}
+                closeModal={offFlag}
             />
         </div>
     );
