@@ -4,6 +4,8 @@ import '../App.css';
 import { masterDataListContext } from '../Main/Main';
 import useWorkHistory from './Hook/useWorkHistory';
 import './css/WorkHistory.css';
+import LabelComponent from '../Common/LabelComponent';
+import LoadingWorkHistoryList from './LoadingWorkHistoryList';
 
 export type workHistoryType = {
   time: string,
@@ -18,27 +20,19 @@ function WorkHistory() {
   console.log("WorkHistory render");
 
   //WorkHistoryのビジネスロジック
-  const { workDisplayList } = useWorkHistory();
+  const { workDisplayList, isLoading, isError } = useWorkHistory();
 
   return (
     <div className="workhistory">
       <div className="workhistory-main-area">
-        <div>作業履歴</div>
-        {
-          !workDisplayList || workDisplayList.length < 1 ? <span className="workhistory-message">作業履歴がありません。</span> :
-            <ul className='workhistory-ul-list'>
-              {
-                workDisplayList.map((element, i) => {
-                  let key = `${Object.values(element).join("-")}-${i}`;
-                  return (
-                    <li key={key}>
-                      {element}
-                    </li>
-                  );
-                })
-              }
-            </ul>
-        }
+        <LabelComponent
+          title={"作業履歴"}
+        />
+        <LoadingWorkHistoryList
+          workDisplayList={workDisplayList}
+          isLoading={isLoading}
+          isError={isError}
+        />
       </div>
     </div>
   );

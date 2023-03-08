@@ -11,6 +11,7 @@ import TableComponent from '../../Common/TableComponent';
 import IconComponent from '../../Common/IconComponent';
 import useSwitch from '../../Common/Hook/useSwitch';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
+import useQueryClientWapper from '../../Common/Hook/useQueryClientWapper';
 
 //引数の型
 type propsType = {
@@ -39,6 +40,11 @@ function useTopTableComponentLogic(props: propsType) {
     const [masterGetUrl, setMasterUrl] = useState<string>("");
     //モーダルの開閉用フラグ
     const { flag, onFlag, offFlag } = useSwitch();
+    //選択しているマスタの名称
+    const [selectMasterNm,setSelectMasterNm] = useState("");
+
+    //
+    //const masterTableBody = useQueryClientWapper("");
 
     //ヘッダの更新
     let { tableHeader } = useUpdateTableData({ orgTableBody: props.tableBody ? [...props.tableBody] : [], columnData: masterColumnList });
@@ -116,18 +122,38 @@ function useTopTableComponentLogic(props: propsType) {
             apiUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMASTER}?filename=${element.value}`;
         }
         setMasterUrl(apiUrl);
+        setSelectMasterNm(element.label);
         onFlag();
     }
 
-    //画面に表示するマスタのボディ
-    //選択中のマスタのデータを取得する
-    //const selectedMasterBody: selectedMasterDataType[] = useFetchJsonData(masterGetUrl).master;
+    /**
+     * useQueryで取得したデータを加工
+     * @param data 
+     * @returns 
+     */
+    function selectData(data: selectedMasterDataType[]) {
+        return data;
+    }
 
     //選択中のマスタのデータを取得する
-    const {data,isLoading,isError} = useQueryWrapper(masterGetUrl);
+    const {
+        data: selectedMasterBody,
+        isLoading,
+        isFetching,
+        isError
+    } = useQueryWrapper(
+        { 
+            url: masterGetUrl, 
+            callback: selectData,
+            init: { master: [] }
+        }
+    );
 
     //ヘッダの更新
-    let { tableHeader: masterTableHeader } = useUpdateTableData({ orgTableBody: data && data.master ? [...data.master] : [], columnData: masterColumnList });
+    let { tableHeader: masterTableHeader } = useUpdateTableData({
+        orgTableBody: selectedMasterBody.master,
+        columnData: masterColumnList
+    });
 
     return {
         tableHeader,
@@ -138,9 +164,9 @@ function useTopTableComponentLogic(props: propsType) {
         resultNum,
         flag,
         masterTableHeader,
-        //selectedMasterBody,
-        data,
-        isLoading,
+        selectedMasterBody,
+        selectMasterNm,
+        isLoading: isLoading || isFetching,
         isError,
         clickSearchBtn,
         clickClearBtn,

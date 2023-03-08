@@ -13,11 +13,12 @@ import useTopTableComponentLogic from './Hook/useTopTableComponentLogic';
 import ResultNumComponent from '../Common/ResultNumComponent';
 import ModalComponent from '../Common/ModalComponent';
 import LoadingTableComponent from '../Common/LoadingTableComponent';
+import TopModalTable from './TopModalTable';
 
 
 //引数の型
 type propsType = {
-    selectedMasterBody: masterDataListType[]
+    masterDataList: masterDataListType[]
 }
 
 function TopTableComponent(props: propsType) {
@@ -34,14 +35,14 @@ function TopTableComponent(props: propsType) {
         resultNum,
         flag,
         masterTableHeader,
-        //selectedMasterBody,
+        selectMasterNm,
+        selectedMasterBody,
         isLoading,
-        data,
         isError,
         clickSearchBtn,
         clickClearBtn,
         offFlag
-    } = useTopTableComponentLogic({ tableBody: props.selectedMasterBody, orgTableBody: props.selectedMasterBody });
+    } = useTopTableComponentLogic({ tableBody: props.masterDataList, orgTableBody: props.masterDataList });
 
     return (
         <div className="mastertablecomponent">
@@ -93,12 +94,15 @@ function TopTableComponent(props: propsType) {
                 tableBody={masterTableBody}
             />
             <ModalComponent
-                component={<LoadingTableComponent
-                    isLoading={isLoading}
-                    isError={isError}
-                    tableHeight="310px"
-                    tableHeader={masterTableHeader}
-                    tableBody={data && data.master? data.master : []} />
+                component={
+                    <TopModalTable
+                        isLoading={isLoading}
+                        isError={isError}
+                        tableHeight="310px"
+                        selectMasterNm={selectMasterNm}
+                        tableHeader={masterTableHeader}
+                        tableBody={selectedMasterBody.master}
+                    />
                 }
                 modalIsOpen={flag}
                 closeModal={offFlag}

@@ -19,7 +19,7 @@ function Top() {
     <div className="top">
       <div className="top-title">マスタ一覧</div>
       <TopTableComponent
-        selectedMasterBody={masterDataList}
+        masterDataList={masterDataList}
       />
       <WorkHistory/>
     </div>

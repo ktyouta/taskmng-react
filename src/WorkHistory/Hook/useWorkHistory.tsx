@@ -4,12 +4,37 @@ import useFetchJsonData from '../../Common/Hook/useFetchJsonData';
 import ENV from '../../env.json';
 import { workHistoryType } from '../WorkHistory';
 import { userInfoContext } from '../../Content/Content';
+import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 
 
 function useWorkHistory() {
 
     //作業履歴リスト
-    const workHistoryList: workHistoryType[] = useFetchJsonData(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.WORKHISTORY}`).history;
+    //const workHistoryList: workHistoryType[] = useFetchJsonData(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.WORKHISTORY}`).history;
+
+    /**
+     * useQueryで取得したデータを加工
+     * @param data 
+     * @returns 
+     */
+    function selectData(data: { history: workHistoryType[] }) {
+        return data.history;
+    }
+
+    //作業履歴リスト
+    const {
+        data: workHistoryList,
+        isLoading,
+        isFetching,
+        isError
+    } = useQueryWrapper(
+        {
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.WORKHISTORY}`,
+            callback: selectData,
+            init: { history: [] },
+        }
+    );
+
     //作業履歴表示用リスト
     const [workDisplayList, setWorkDisplayList] = useState<string[]>([]);
     //ユーザー情報
@@ -24,7 +49,7 @@ function useWorkHistory() {
         if (!workHistoryList || workHistoryList.length < 1) {
             return;
         }
-        tmpWorkDisplayList = workHistoryList.map((element) => {
+        tmpWorkDisplayList = workHistoryList.map((element: workHistoryType) => {
             let history = `${element.time}　${element.editMaster}`;
             switch (element.editType) {
                 case "1":
@@ -50,7 +75,7 @@ function useWorkHistory() {
         setWorkDisplayList(tmpWorkDisplayList);
     }, [workHistoryList, userInfo]);
 
-    return { workDisplayList };
+    return { workDisplayList, isLoading: isLoading || isFetching, isError };
 }
 
 export default useWorkHistory;
