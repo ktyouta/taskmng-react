@@ -19,20 +19,13 @@ function WorkHistory() {
 
   console.log("WorkHistory render");
 
-  //WorkHistoryのビジネスロジック
-  const { workDisplayList, isLoading, isError } = useWorkHistory();
-
   return (
     <div className="workhistory">
       <div className="workhistory-main-area">
         <LabelComponent
           title={"作業履歴"}
         />
-        <LoadingWorkHistoryList
-          workDisplayList={workDisplayList}
-          isLoading={isLoading}
-          isError={isError}
-        />
+        <LoadingWorkHistoryList/>
       </div>
     </div>
   );

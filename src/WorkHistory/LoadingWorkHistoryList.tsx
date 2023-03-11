@@ -6,42 +6,28 @@ import useWorkHistory from './Hook/useWorkHistory';
 import './css/WorkHistory.css';
 import LabelComponent from '../Common/LabelComponent';
 import Loading from '../Common/Loading';
+import { userInfoContext } from '../Content/Content';
 
-type propsType = {
-    workDisplayList: string[],
-    isLoading: boolean,
-    isError: boolean,
-}
 
-function LoadingWorkHistoryList(props: propsType) {
+function LoadingWorkHistoryList() {
+
+    //WorkHistoryのビジネスロジック
+    const { workDisplayList, isLoading, isError } = useWorkHistory();
+
     //ローディング
-    if (props.isLoading) {
-        return <Loading isLoading={true} />;
+    if (isLoading) {
+        return <ul className='workhistory-ul-list'>Loading...</ul>;
     }
 
     //エラー
-    if(props.isError){
-        return <div>エラーが発生しました。</div>;
+    if (isError) {
+        return <ul className='workhistory-ul-list'>エラーが発生しました。</ul>;
     }
 
     return (
-        <React.Fragment>
-            {
-                !props.workDisplayList || props.workDisplayList.length < 1 ? <span className="workhistory-message">作業履歴がありません。</span> :
-                    <ul className='workhistory-ul-list'>
-                        {
-                            props.workDisplayList.map((element, i) => {
-                                let key = `${Object.values(element).join("-")}-${i}`;
-                                return (
-                                    <li key={key}>
-                                        {element}
-                                    </li>
-                                );
-                            })
-                        }
-                    </ul>
-            }
-        </React.Fragment>
+        <ul className='workhistory-ul-list'>
+            {workDisplayList}
+        </ul>
     );
 }
 

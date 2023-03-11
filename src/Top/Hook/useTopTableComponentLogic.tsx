@@ -41,10 +41,7 @@ function useTopTableComponentLogic(props: propsType) {
     //モーダルの開閉用フラグ
     const { flag, onFlag, offFlag } = useSwitch();
     //選択しているマスタの名称
-    const [selectMasterNm,setSelectMasterNm] = useState("");
-
-    //
-    //const masterTableBody = useQueryClientWapper("");
+    const [selectMasterNm, setSelectMasterNm] = useState("");
 
     //ヘッダの更新
     let { tableHeader } = useUpdateTableData({ orgTableBody: props.tableBody ? [...props.tableBody] : [], columnData: masterColumnList });
@@ -131,8 +128,8 @@ function useTopTableComponentLogic(props: propsType) {
      * @param data 
      * @returns 
      */
-    function selectData(data: selectedMasterDataType[]) {
-        return data;
+    function selectData(data: { master: selectedMasterDataType[] }) {
+        return data.master;
     }
 
     //選択中のマスタのデータを取得する
@@ -142,8 +139,8 @@ function useTopTableComponentLogic(props: propsType) {
         isFetching,
         isError
     } = useQueryWrapper(
-        { 
-            url: masterGetUrl, 
+        {
+            url: masterGetUrl,
             callback: selectData,
             init: { master: [] }
         }
@@ -151,7 +148,7 @@ function useTopTableComponentLogic(props: propsType) {
 
     //ヘッダの更新
     let { tableHeader: masterTableHeader } = useUpdateTableData({
-        orgTableBody: selectedMasterBody.master,
+        orgTableBody: selectedMasterBody ?? [],
         columnData: masterColumnList
     });
 

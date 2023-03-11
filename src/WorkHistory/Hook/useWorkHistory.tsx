@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import logo from './logo.svg';
 import useFetchJsonData from '../../Common/Hook/useFetchJsonData';
 import ENV from '../../env.json';
@@ -10,18 +10,6 @@ import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 function useWorkHistory() {
 
     //作業履歴リスト
-    //const workHistoryList: workHistoryType[] = useFetchJsonData(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.WORKHISTORY}`).history;
-
-    /**
-     * useQueryで取得したデータを加工
-     * @param data 
-     * @returns 
-     */
-    function selectData(data: { history: workHistoryType[] }) {
-        return data.history;
-    }
-
-    //作業履歴リスト
     const {
         data: workHistoryList,
         isLoading,
@@ -31,23 +19,32 @@ function useWorkHistory() {
         {
             url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.WORKHISTORY}`,
             callback: selectData,
-            init: { history: [] },
         }
     );
 
-    //作業履歴表示用リスト
-    const [workDisplayList, setWorkDisplayList] = useState<string[]>([]);
+    /**
+     * useQueryで取得したデータを加工
+     * @param data 
+     * @returns 
+     */
+    function selectData(data: workHistoryType[]) {
+        return data;
+    }
+
     //ユーザー情報
     const { userInfo } = useContext(userInfoContext);
 
     //画面表示用リストを作成する
-    useEffect(() => {
-        let tmpWorkDisplayList: string[] = [];
+    const workDisplayList: JSX.Element | JSX.Element[] | undefined = useMemo(() => {
+        let tmpWorkDisplayList: JSX.Element[] = [];
         if (!userInfo) {
-            return;
+            return <React.Fragment></React.Fragment>;
         }
-        if (!workHistoryList || workHistoryList.length < 1) {
-            return;
+        if (!workHistoryList) {
+            return <React.Fragment></React.Fragment>;
+        }
+        if (workHistoryList.length === 0) {
+            return <div>作業履歴がありません。</div>
         }
         tmpWorkDisplayList = workHistoryList.map((element: workHistoryType) => {
             let history = `${element.time}　${element.editMaster}`;
@@ -70,9 +67,15 @@ function useWorkHistory() {
                     history += `　　作業ユーザー：${element.userName}`;
                     break;
             }
-            return history;
+
+            let key = `${Object.values(element).join("-")}`;
+            return (
+                <li key={key}>
+                    {history}
+                </li>
+            );
         });
-        setWorkDisplayList(tmpWorkDisplayList);
+        return tmpWorkDisplayList;
     }, [workHistoryList, userInfo]);
 
     return { workDisplayList, isLoading: isLoading || isFetching, isError };

@@ -101,7 +101,7 @@ function TopTableComponent(props: propsType) {
                         tableHeight="310px"
                         selectMasterNm={selectMasterNm}
                         tableHeader={masterTableHeader}
-                        tableBody={selectedMasterBody.master}
+                        tableBody={selectedMasterBody ?? []}
                     />
                 }
                 modalIsOpen={flag}
