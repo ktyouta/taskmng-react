@@ -6,7 +6,7 @@ import { selectedMasterContext, selectedDataContext } from './Master';
 import ComboComponent from '../Common/ComboComponent';
 import useMasterTopLogic from './Hook/useMasterTopLogic';
 import './css/MasterTop.css';
-import ButtonComponent, { buttonType } from '../Common/ButtonComponent';
+import ButtonComponent from '../Common/ButtonComponent';
 import HorizonLabelInputComponent from '../Common/HorizonLabelInputComponent';
 import MasterTableComponent from './MasterTableComponent';
 
@@ -28,22 +28,22 @@ function MasterTop() {
     <div className="mastertop">
       <div className='mastertop-button-area'>
         <ButtonComponent
-          styleTypeNumber={buttonType.default}
+          styleTypeNumber="BASE"
           title={"閲覧"}
           onclick={viewData}
         />
         <ButtonComponent
-          styleTypeNumber={buttonType.primary}
+          styleTypeNumber="PRIMARY"
           title={"新規登録"}
           onclick={createData}
         />
         <ButtonComponent
-          styleTypeNumber={buttonType.primary}
+          styleTypeNumber="PRIMARY"
           title={"更新"}
           onclick={updateData}
         />
         <ButtonComponent
-          styleTypeNumber={buttonType.danger}
+          styleTypeNumber="DANGER"
           title={"削除"}
           onclick={deleteData}
         />

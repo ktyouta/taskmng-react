@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import '../App.css';
 import './css/MasterEditFooter.css';
 import { editModeContext } from './Master';
-import ButtonComponent, { buttonType } from '../Common/ButtonComponent';
+import ButtonComponent from '../Common/ButtonComponent';
 import SpaceComponent from '../Common/SpaceComponent';
 
 //引数の型
@@ -24,7 +24,7 @@ function MasterEditFooter(props: propsType) {
                 space={"10%"}
             />
             <ButtonComponent
-                styleTypeNumber={buttonType.default}
+                styleTypeNumber="BASE"
                 title={"戻る"}
                 onclick={props.backPageButtonFunc}
             />
@@ -32,7 +32,7 @@ function MasterEditFooter(props: propsType) {
                 space={"48%"}
             />
             <ButtonComponent
-                styleTypeNumber={buttonType.run}
+                styleTypeNumber="RUN"
                 title={"元に戻す"}
                 onclick={props.clearButtonFunc}
             />
@@ -42,7 +42,7 @@ function MasterEditFooter(props: propsType) {
             {
                 props.buttonTitle &&
                 <ButtonComponent
-                    styleTypeNumber={buttonType.run}
+                    styleTypeNumber="RUN"
                     title={props.buttonTitle}
                     onclick={props.runButtonFunc}
                 />

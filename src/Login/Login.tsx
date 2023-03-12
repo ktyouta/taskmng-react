@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import ButtonComponent, { buttonType } from '../Common/ButtonComponent';
+import ButtonComponent from '../Common/ButtonComponent';
 import HorizonLabelInputComponent from '../Common/HorizonLabelInputComponent';
 import useLoginLogic from './Hook/useLoginLogic';
 import './css/Login.css'
@@ -35,7 +35,7 @@ function Login() {
                 />
                 <div className="login-button-area">
                     <ButtonComponent
-                        styleTypeNumber={buttonType.run}
+                        styleTypeNumber="RUN"
                         title={"クリア"}
                         onclick={clickClearBtn}
                     />
@@ -43,7 +43,7 @@ function Login() {
                         space={"12%"}
                     />
                     <ButtonComponent
-                        styleTypeNumber={buttonType.run}
+                        styleTypeNumber="RUN"
                         title={"ログイン"}
                         onclick={clickLoginBtn}
                     />

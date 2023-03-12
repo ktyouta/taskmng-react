@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import '../App.css';
 import TableComponent from '../Common/TableComponent';
 import '../Master/css/MasterTop.css';
-import ButtonComponent, { buttonType } from '../Common/ButtonComponent';
+import ButtonComponent from '../Common/ButtonComponent';
 import HorizonLabelInputComponent from '../Common/HorizonLabelInputComponent';
 import { selectedMasterDataType } from '../Common/Type/CommonType';
 import '../Master/css/MasterTableComponent.css';
@@ -66,13 +66,13 @@ function TopTableComponent(props: propsType) {
                 />
                 <SpaceComponent space={"7%"} />
                 <ButtonComponent
-                    styleTypeNumber={buttonType.run}
+                    styleTypeNumber="RUN"
                     title={"クリア"}
                     onclick={clickClearBtn}
                 />
                 <SpaceComponent space={"1%"} />
                 <ButtonComponent
-                    styleTypeNumber={buttonType.run}
+                    styleTypeNumber="RUN"
                     title={"フィルター"}
                     onclick={clickSearchBtn}
                 />

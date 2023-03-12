@@ -1,5 +1,5 @@
 import useGetViewName, { menuListType } from '../../Common/Hook/useGetViewName';
-import ButtonComponent, { buttonType } from '../../Common/ButtonComponent';
+import ButtonComponent from '../../Common/ButtonComponent';
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import ENV from '../../env.json';

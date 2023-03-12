@@ -22,9 +22,6 @@ function useCheckAuth() {
      * 認証チェック
      */
     const checkUserInfo = () => {
-        //let userId = localStorage.getItem(ENV.LOCALSTRAGE.ID) as string;
-        //let body: reqUserInfoType = { userId };
-        //let body = {};
         //認証API呼び出し
         postJsonData(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.AUTH}`, cookie[ENV.AUTHENTICATION.cookie], {}, checkAuth);
     }
@@ -33,10 +30,9 @@ function useCheckAuth() {
      * 認証チェック後処理
      */
     const checkAuth = (data: apiResponseType) => {
-        //認証に失敗した場合は、クッキーとローカルストレージの情報を削除
+        //認証に失敗した場合は、クッキーの情報を削除
         if (data.status !== 200) {
             removeCookie(ENV.AUTHENTICATION.cookie);
-            localStorage.removeItem(ENV.LOCALSTRAGE.ID);
         }
         let userId = data.json?.userInfo?.userId as string;
         let userName = data.json?.userInfo?.userName as string;
@@ -47,6 +43,7 @@ function useCheckAuth() {
         }
     }
 
+    //マウント、アンマウント時に認証チェック
     useEffect(() => {
         return ()=> checkUserInfo();
     }, []);

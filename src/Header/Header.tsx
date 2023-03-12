@@ -1,6 +1,6 @@
 import '../App.css';
 import './css/Header.css';
-import ButtonComponent, { buttonType } from '../Common/ButtonComponent';
+import ButtonComponent from '../Common/ButtonComponent';
 import useHeader from './Hook/useHeader';
 import { menuListType } from '../Common/Hook/useGetViewName';
 
@@ -23,7 +23,7 @@ function Header(props: propsType) {
         ユーザー：{props.userName ? props.userName : ""}
       </div>
       <ButtonComponent
-        styleTypeNumber={buttonType.run}
+        styleTypeNumber="LOGOUT"
         title={"ログアウト"}
         onclick={logout}
       />
