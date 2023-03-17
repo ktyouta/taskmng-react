@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 //引数の型
-type propsType<TData, RData> = {
+type propsType<TData, RData, PData> = {
     url: string,
     queryKey?: [string, (Record<string, unknown> | string)?],
     options?: Omit<
@@ -13,6 +13,7 @@ type propsType<TData, RData> = {
     init?: TData,
     callback?: (data: TData) => RData,
     method?: methodType,
+    postData?: PData
 }
 
 //HTTPメソッド
@@ -21,7 +22,8 @@ type methodType = "GET" | "POST";
 const useQueryWrapper = <
     TData = unknown,
     RData = TData,
->(props: propsType<TData, RData>) => {
+    PData extends {} = {},
+>(props: propsType<TData, RData, PData>) => {
 
     //GET
     const getQuery = async () => {
@@ -31,7 +33,7 @@ const useQueryWrapper = <
 
     //POST
     const postQuery = async () => {
-        const { data } = await axios.post(props.url,{ withCredentials: true},);
+        const { data } = await axios.post(props.url, props.postData ?? {}, { withCredentials: true },);
         return data;
     }
 

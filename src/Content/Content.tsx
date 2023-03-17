@@ -5,9 +5,10 @@ import Main from '../Main/Main';
 import useContentLogic from './Hook/useContentLogic';
 import { resUserInfoType } from '../Common/Type/CommonType';
 import React from 'react';
+import Loading from '../Common/Loading';
 
 export const userInfoContext = React.createContext({} as {
-    userInfo: resUserInfoType | null,
+    userInfo: resUserInfoType | undefined,
 });
 
 function Content() {
@@ -15,13 +16,17 @@ function Content() {
     //Contentのビジネスロジック
     const { sideMenu, userInfo } = useContentLogic();
 
+    if (!userInfo || !sideMenu) {
+        return <React.Fragment><Loading height="80vh" isLoading={true} /></React.Fragment>;
+    }
+
     return (
         <div className="App">
-            <Menu menu={sideMenu} />
+            <Menu />
             <div className='App-maincontent-area'>
-                <Header menu={sideMenu} userName={userInfo?.userName} />
+                <Header userName={userInfo?.userName} />
                 <userInfoContext.Provider value={{ userInfo }}>
-                    <Main menu={sideMenu} userInfo={userInfo}/>
+                    <Main userInfo={userInfo} />
                 </userInfoContext.Provider>
             </div>
         </div>

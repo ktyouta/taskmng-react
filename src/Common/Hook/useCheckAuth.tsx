@@ -5,7 +5,17 @@ import { useCookies } from 'react-cookie';
 import { apiResponseType, reqUserInfoType, resUserInfoType } from '../Type/CommonType';
 import { postJsonData } from '../Function/Function';
 import ENV from '../../env.json';
+import useQueryWrapper from './useQueryWrapper';
 
+//認証チェックAPIのレスポンスの型
+type authResponseType = {
+    errMessage?: string | undefined,
+    userInfo?: {
+        userId?: string | undefined;
+        userName?: string | undefined;
+        auth?: string | undefined;
+    } | undefined;
+}
 
 /**
  * 認証チェック
@@ -15,41 +25,39 @@ function useCheckAuth() {
 
     //認証クッキー
     const [cookie, , removeCookie] = useCookies();
-    //ユーザー情報
-    const [userInfo, setUserInfo] = useState<resUserInfoType | null>(null)
+
+    //認証チェックおよびユーザー情報の取得
+    const {
+        data: userInfo,
+        isError
+    } = useQueryWrapper(
+        {
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.AUTH}`,
+            callback: createUserInfo,
+            method: "POST"
+        }
+    );
 
     /**
-     * 認証チェック
+     * 取得したデータから画面用のユーザー情報を作成
+     * @param data 
+     * @returns 
      */
-    const checkUserInfo = () => {
-        //認証API呼び出し
-        postJsonData(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.AUTH}`, cookie[ENV.AUTHENTICATION.cookie], {}, checkAuth);
+    function createUserInfo(data: authResponseType): resUserInfoType {
+        let userId = data.userInfo?.userId as string;
+        let userName = data?.userInfo?.userName as string;
+        let auth = data?.userInfo?.auth as string;
+        return { userId: userId, userName: userName, auth: auth };
     }
 
-    /**
-     * 認証チェック後処理
-     */
-    const checkAuth = (data: apiResponseType) => {
-        //認証に失敗した場合は、クッキーの情報を削除
-        if (data.status !== 200) {
-            removeCookie(ENV.AUTHENTICATION.cookie);
-        }
-        let userId = data.json?.userInfo?.userId as string;
-        let userName = data.json?.userInfo?.userName as string;
-        let auth = data.json?.userInfo?.auth as string;
-        //ユーザー情報をセット
-        if(!userInfo){
-            setUserInfo({ userId: userId, userName: userName, auth: auth });
-        }
+    //認証失敗
+    if (isError) {
+        Object.keys(cookie).forEach((key)=>{
+            removeCookie(key);
+        });
     }
-
-    //マウント、アンマウント時に認証チェック
-    useEffect(() => {
-        return ()=> checkUserInfo();
-    }, []);
 
     return { userInfo };
-
 }
 
 export default useCheckAuth;

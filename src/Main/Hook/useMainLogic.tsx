@@ -9,6 +9,7 @@ import { resUserInfoType } from '../../Common/Type/CommonType';
 import { menuListType } from '../../Common/Hook/useGetViewName';
 import { Route } from "react-router-dom";
 import NotFoundComponent from '../../NotFound/NotFoundComponent';
+import useQueryClientWapper from '../../Common/Hook/useQueryClientWapper';
 
 //マスタのリスト
 export type masterDataListType = {
@@ -19,8 +20,7 @@ export type masterDataListType = {
 
 //引数の型
 type propsType = {
-    menu: menuListType[],
-    userInfo: resUserInfoType | null,
+    userInfo: resUserInfoType | undefined,
 }
 
 export const masterDataListContext = React.createContext({} as {
@@ -39,20 +39,22 @@ function useMainLogic(props: propsType) {
         "Setting": <Setting />
     }
 
+    //キャッシュからメニューを取得
+    const menu = useQueryClientWapper<menuListType[]>(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMENU}`);
     //マスタのリスト(マスタメンテ画面のコンボ用)
     const masterDataList: masterDataListType[] = useFetchJsonData(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMASTERTABLE}`).mastertable;
 
     //Mainコンポーネントのルーティングリスト
     const componentList = useMemo(() => {
         let tmpComponentList: JSX.Element[] = [];
-        if (!props.menu || props.menu.length < 1) {
+        if (!menu || menu.length < 1) {
             return;
         }
         if (!props.userInfo) {
             return;
         }
         const userAuth = parseInt(props.userInfo.auth);
-        tmpComponentList = props.menu.map((element) => {
+        tmpComponentList = menu.map((element) => {
             //ログインユーザーの権限でルーティングを切り替える
             if (parseInt(element.auth) > userAuth) {
                 return <></>;
@@ -65,7 +67,7 @@ function useMainLogic(props: propsType) {
         //notfoundページ
         tmpComponentList.push(<Route key={"*"} path="*" element={<NotFoundComponent />} />);
         return tmpComponentList;
-    }, [props.menu, props.userInfo]);
+    }, [menu, props.userInfo]);
 
     return { masterDataList, componentList }
 }

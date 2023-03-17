@@ -12,7 +12,7 @@ export type masterDataListType = {
   value: string,
   label: string,
   remarks: string,
-  component?:JSX.Element,
+  component?: JSX.Element,
 };
 
 export const masterDataListContext = React.createContext({} as {
@@ -21,14 +21,13 @@ export const masterDataListContext = React.createContext({} as {
 
 //引数の型
 type propsType = {
-  menu: menuListType[],
-  userInfo: resUserInfoType | null,
+  userInfo: resUserInfoType | undefined,
 }
 
 function Main(props: propsType) {
 
   //Mainのビジネスロジック
-  const { masterDataList, componentList } = useMainLogic({ menu: props.menu, userInfo: props.userInfo });
+  const { masterDataList, componentList } = useMainLogic({ userInfo: props.userInfo });
 
   return (
     <div className="main">

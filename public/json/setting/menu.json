@@ -1,25 +1,23 @@
-{
-    "menu": [
-        {
-            "name": "ホーム",
-            "url": "/",
-            "component":"Top",
-            "componentPath": "/",
-            "auth":"1"
-        },
-        {
-            "name": "マスタ編集",
-            "url": "/master",
-            "component":"Master",
-            "componentPath": "/master/*",
-            "auth":"2"
-        },
-        {
-            "name": "設定",
-            "url": "/setting",
-            "component":"Setting",
-            "componentPath": "/setting/*",
-            "auth":"3"
-        }
-    ]
-}
+[
+    {
+        "name": "ホーム",
+        "url": "/",
+        "component":"Top",
+        "componentPath": "/",
+        "auth":"1"
+    },
+    {
+        "name": "マスタ編集",
+        "url": "/master",
+        "component":"Master",
+        "componentPath": "/master/*",
+        "auth":"2"
+    },
+    {
+        "name": "設定",
+        "url": "/setting",
+        "component":"Setting",
+        "componentPath": "/setting/*",
+        "auth":"3"
+    }
+]

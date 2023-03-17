@@ -5,14 +5,13 @@ import useHeader from './Hook/useHeader';
 import { menuListType } from '../Common/Hook/useGetViewName';
 
 type propsType = {
-  menu: menuListType[],
   userName: string | undefined,
 }
 
 function Header(props: propsType) {
 
   //ヘッダのビジネスロジック
-  const { headerTile, logout } = useHeader({ menu: props.menu });
+  const { headerTile, logout } = useHeader();
 
   return (
     <div className="header">
