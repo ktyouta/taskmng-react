@@ -20,10 +20,7 @@ const LabelInputComponent = forwardRef<refType, propsType>((props, ref) => {
                 props.editFlg ?
                     (
                         <BaseInputComponent
-                            type={props.type ? props.type : "text"}
-                            lenght={props.lenght}
-                            value={props.value}
-                            textWidth={props.textWidth}
+                            {...props}
                             ref={ref}
                         />
                     )

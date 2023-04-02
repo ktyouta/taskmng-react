@@ -5,11 +5,14 @@ import useCheckAuth from '../../Common/Hook/useCheckAuth';
 import Top from '../../Top/Top';
 import Master from '../../Master/Master';
 import Setting from '../../Setting/Setting';
-import { resUserInfoType } from '../../Common/Type/CommonType';
+import { resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
 import { menuListType } from '../../Common/Hook/useGetViewName';
 import { Route } from "react-router-dom";
 import NotFoundComponent from '../../NotFound/NotFoundComponent';
 import useQueryClientWapper from '../../Common/Hook/useQueryClientWapper';
+import { atom, useAtom, useAtomValue } from 'jotai';
+import { clientMenuListAtom, userInfoAtom } from '../../Content/Hook/useContentLogic';
+import useQueryAtomValue from '../../Common/Hook/useQueryAtomValue';
 
 //マスタのリスト
 export type masterDataListType = {
@@ -17,11 +20,6 @@ export type masterDataListType = {
     label: string,
     remarks: string
 };
-
-//引数の型
-type propsType = {
-    userInfo: resUserInfoType | undefined,
-}
 
 export const masterDataListContext = React.createContext({} as {
     masterDataList: masterDataListType[]
@@ -31,18 +29,37 @@ type jsxObjType = {
     [key: string]: JSX.Element
 }
 
-function useMainLogic(props: propsType) {
+const jsxList: jsxObjType = {
+    "Top": <Top />,
+    "Master": <Master />,
+    "Setting": <Setting />
+}
 
-    const jsxList: jsxObjType = {
-        "Top": <Top />,
-        "Master": <Master />,
-        "Setting": <Setting />
-    }
+//マスタのリスト(マスタメンテ画面のコンボ用)
+export const masterDataListAtom = atom<masterDataListType[]>([]);
 
-    //キャッシュからメニューを取得
-    const menu = useQueryClientWapper<menuListType[]>(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMENU}`);
+
+function useMainLogic() {
+
     //マスタのリスト(マスタメンテ画面のコンボ用)
-    const masterDataList: masterDataListType[] = useFetchJsonData(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMASTERTABLE}`).mastertable;
+    const masterDataListInfo: masterDataListType[] = useFetchJsonData(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMASTERTABLE}`).mastertable;
+    const [masterDataList,setMasterDataList] = useAtom(masterDataListAtom);
+
+    //ユーザー情報
+    const userInfo = useAtomValue(userInfoAtom);
+    //クライアント用メニューリスト
+    const menu = useAtomValue(clientMenuListAtom);
+
+    //useQueryAtomValueを使用した取得法
+    //const {data:userInfo} = useQueryAtomValue<userInfoType | undefined>(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.AUTH}`);
+
+    //取得データをAtomに保存
+    useEffect(()=>{
+        if(!masterDataListInfo){
+            return;
+        }
+        setMasterDataList(masterDataListInfo);
+    },[masterDataListInfo]);
 
     //Mainコンポーネントのルーティングリスト
     const componentList = useMemo(() => {
@@ -50,14 +67,14 @@ function useMainLogic(props: propsType) {
         if (!menu || menu.length < 1) {
             return;
         }
-        if (!props.userInfo) {
+        if (!userInfo) {
             return;
         }
-        const userAuth = parseInt(props.userInfo.auth);
+        const userAuth = parseInt(userInfo.auth);
         tmpComponentList = menu.map((element) => {
             //ログインユーザーの権限でルーティングを切り替える
             if (parseInt(element.auth) > userAuth) {
-                return <></>;
+                return <React.Fragment />;
             }
             const Component = jsxList[element.component];
             const path = element.componentPath;
@@ -67,7 +84,7 @@ function useMainLogic(props: propsType) {
         //notfoundページ
         tmpComponentList.push(<Route key={"*"} path="*" element={<NotFoundComponent />} />);
         return tmpComponentList;
-    }, [menu, props.userInfo]);
+    }, [menu, userInfo]);
 
     return { masterDataList, componentList }
 }

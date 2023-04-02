@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import '../App.css';
 import TableComponent from '../Common/TableComponent';
-import { masterDataListContext } from '../Main/Main';
 import { selectedMasterContext, selectedDataContext } from './Master';
 import ComboComponent from '../Common/ComboComponent';
 import useMasterTopLogic from './Hook/useMasterTopLogic';
@@ -9,13 +8,15 @@ import './css/MasterTop.css';
 import ButtonComponent from '../Common/ButtonComponent';
 import HorizonLabelInputComponent from '../Common/HorizonLabelInputComponent';
 import MasterTableComponent from './MasterTableComponent';
+import { useAtomValue } from 'jotai';
+import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
 function MasterTop() {
 
   console.log("mastertop render");
   //全マスタのリスト(マスタメンテ画面のコンボ用)
-  const { masterDataList } = useContext(masterDataListContext);
+  const masterDataList = useAtomValue(masterDataListAtom);
   //現在選択(テーブルに表示)しているマスタ
   const { selectedMaster, setSelectedMaster } = useContext(selectedMasterContext);
   //テーブルで選択したデータ

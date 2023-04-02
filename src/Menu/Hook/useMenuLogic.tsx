@@ -2,16 +2,18 @@ import { Link } from 'react-router-dom';
 import ENV from '../../env.json';
 import useGetViewName, { menuListType } from '../../Common/Hook/useGetViewName';
 import useQueryClientWapper from '../../Common/Hook/useQueryClientWapper';
+import { useAtomValue } from 'jotai';
+import { clientMenuListAtom } from '../../Content/Hook/useContentLogic';
 
 
 function useMenuLogic() {
 
-    //キャッシュからメニューを取得
-    const menu = useQueryClientWapper<menuListType[]>(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMENU}`);
+    //クライアント用メニューリスト
+    const menu = useAtomValue(clientMenuListAtom);
     //メニュー名
     const [selectedMenu] = useGetViewName({ menu });
 
-    return {menu,selectedMenu};
+    return { menu, selectedMenu };
 }
 
 export default useMenuLogic;

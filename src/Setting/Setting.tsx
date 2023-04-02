@@ -2,7 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import logo from './logo.svg';
 import '../App.css';
 import './css/Setting.css';
-import { masterDataListContext } from '../Main/Main';
+import { useAtomValue } from 'jotai';
+import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
 function Setting() {
@@ -10,7 +11,7 @@ function Setting() {
   console.log("top render");
 
   //全マスタのリスト(マスタメンテ画面のコンボ用)
-  const { masterDataList } = useContext(masterDataListContext);
+  const masterDataList = useAtomValue(masterDataListAtom);
 
   return (
     <div className="setting">

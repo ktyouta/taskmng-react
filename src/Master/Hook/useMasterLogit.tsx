@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
-import { masterDataListContext } from "../../Main/Main";
+import { masterDataListAtom } from "../../Main/Hook/useMainLogic";
+import { useAtomValue } from "jotai";
 
 //引数の型
 type propsType = {
@@ -13,8 +14,8 @@ type propsType = {
  */
 function useMasterLogit(props: propsType) {
 
-    //マスタのリスト(マスタメンテ画面のコンボ用)
-    const { masterDataList } = useContext(masterDataListContext);
+  //全マスタのリスト(マスタメンテ画面のコンボ用)
+  const masterDataList = useAtomValue(masterDataListAtom);
 
     //マスタデータリストの先頭のデータをセット
     useEffect(() => {

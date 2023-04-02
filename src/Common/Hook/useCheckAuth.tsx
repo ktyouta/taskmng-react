@@ -6,6 +6,7 @@ import { apiResponseType, reqUserInfoType, resUserInfoType } from '../Type/Commo
 import { postJsonData } from '../Function/Function';
 import ENV from '../../env.json';
 import useQueryWrapper from './useQueryWrapper';
+import useQueryAtom from './useQueryAtom';
 
 //認証チェックAPIのレスポンスの型
 type authResponseType = {
@@ -28,15 +29,32 @@ function useCheckAuth() {
 
     //認証チェックおよびユーザー情報の取得
     const {
-        data: userInfo,
+        data: info,
         isError
     } = useQueryWrapper(
         {
             url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.AUTH}`,
             callback: createUserInfo,
-            method: "POST"
+            method: "POST",
+            options: {
+                cacheTime: 0
+            }
         }
     );
+
+    // //認証チェックおよびユーザー情報の取得
+    // const {
+    //     data: infosample,
+    // } = useQueryAtom(
+    //     {
+    //         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.AUTH}`,
+    //         callback: createUserInfo,
+    //         method: "POST",
+    //         options: {
+    //             cacheTime: 0
+    //         }
+    //     }
+    // );
 
     /**
      * 取得したデータから画面用のユーザー情報を作成
@@ -52,12 +70,12 @@ function useCheckAuth() {
 
     //認証失敗
     if (isError) {
-        Object.keys(cookie).forEach((key)=>{
+        Object.keys(cookie).forEach((key) => {
             removeCookie(key);
         });
     }
 
-    return { userInfo };
+    return { info };
 }
 
 export default useCheckAuth;

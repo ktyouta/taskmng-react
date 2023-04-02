@@ -4,6 +4,7 @@ import Login from './Login/Login';
 import Content from './Content/Content';
 import { useCookies } from "react-cookie";
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from "react-query/devtools";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,6 +28,8 @@ function App() {
         <Route path="/login" element={Object.keys(cookies).length ? <Navigate to="/" /> : <Login />} />
         <Route path="/*" element={Object.keys(cookies).length ? <Content /> : <Navigate to="/login" />} />
       </Routes>
+      {/* React-query devtool */}
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

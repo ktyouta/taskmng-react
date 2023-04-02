@@ -25,11 +25,7 @@ const HorizonLabelInputComponent = forwardRef<refType, propsType>((props, ref) =
         width={props.titleWidth}
       />
       <LabelInputComponent
-        type={props.type ? props.type : "text"}
-        editFlg={props.editFlg}
-        lenght={props.lenght}
-        value={props.value}
-        textWidth={props.textWidth}
+        {...props}
         ref={ref}
       />
     </div>

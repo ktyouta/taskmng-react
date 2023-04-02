@@ -5,12 +5,15 @@ import { useNavigate } from "react-router-dom";
 import ENV from '../../env.json';
 import { menuType } from '../../Common/Type/CommonType';
 import useQueryClientWapper from '../../Common/Hook/useQueryClientWapper';
+import { useAtomValue } from 'jotai';
+import { clientMenuListAtom } from '../../Content/Hook/useContentLogic';
 
 
 function useHeader() {
 
-    //キャッシュからメニューを取得
-    const menu = useQueryClientWapper<menuListType[]>(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMENU}`);
+    //クライアント用メニューリスト
+    const menu = useAtomValue(clientMenuListAtom);
+
     //ヘッダタイトル
     const [headerTile] = useGetViewName({ menu });
     //認証クッキー

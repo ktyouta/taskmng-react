@@ -56,3 +56,10 @@ export type apiResponseType = {
         }
     }
 }
+
+//ユーザー情報
+export type userInfoType = {
+    userId: string,
+    userName: string,
+    auth: string,
+}

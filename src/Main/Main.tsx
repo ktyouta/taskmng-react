@@ -15,31 +15,21 @@ export type masterDataListType = {
   component?: JSX.Element,
 };
 
-export const masterDataListContext = React.createContext({} as {
-  masterDataList: masterDataListType[]
-});
 
-//引数の型
-type propsType = {
-  userInfo: resUserInfoType | undefined,
-}
-
-function Main(props: propsType) {
+function Main() {
 
   //Mainのビジネスロジック
-  const { masterDataList, componentList } = useMainLogic({ userInfo: props.userInfo });
+  const { masterDataList, componentList } = useMainLogic();
 
   return (
     <div className="main">
-      <masterDataListContext.Provider value={{ masterDataList }}>
-        <Routes>
-          {
-            componentList && componentList.length > 0 && componentList.map((element) => {
-              return element
-            })
-          }
-        </Routes>
-      </masterDataListContext.Provider>
+      <Routes>
+        {
+          componentList && componentList.length > 0 && componentList.map((element) => {
+            return element
+          })
+        }
+      </Routes>
     </div>
   );
 }

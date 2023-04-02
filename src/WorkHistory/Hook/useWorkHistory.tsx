@@ -3,8 +3,9 @@ import logo from './logo.svg';
 import useFetchJsonData from '../../Common/Hook/useFetchJsonData';
 import ENV from '../../env.json';
 import { workHistoryType } from '../WorkHistory';
-import { userInfoContext } from '../../Content/Content';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
+import { useAtomValue } from 'jotai';
+import { userInfoAtom } from '../../Content/Hook/useContentLogic';
 
 
 function useWorkHistory() {
@@ -32,7 +33,7 @@ function useWorkHistory() {
     }
 
     //ユーザー情報
-    const { userInfo } = useContext(userInfoContext);
+    const userInfo = useAtomValue(userInfoAtom);
 
     //画面表示用リストを作成する
     const workDisplayList: JSX.Element | JSX.Element[] | undefined = useMemo(() => {

@@ -10,7 +10,7 @@ import useMenuLogic from './Hook/useMenuLogic';
 function Menu() {
 
   //メニューのビジネスロジック
-  const {menu,selectedMenu} = useMenuLogic();
+  const { menu, selectedMenu } = useMenuLogic();
 
   return (
     <div className="menu">
