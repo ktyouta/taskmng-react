@@ -6,28 +6,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import MasterEdit from './MasterEdit';
 import useMasterLogit from './Hook/useMasterLogit';
 import { selectedMasterDataType } from '../Common/Type/CommonType';
-
-
-export const selectedMasterContext = React.createContext({} as {
-  selectedMaster: string
-  setSelectedMaster: React.Dispatch<React.SetStateAction<string>>
-});
-
-export const selectedDataContext = React.createContext({} as {
-  selectedData: { [key: string]: string | JSX.Element }
-  setSelectedData: React.Dispatch<React.SetStateAction<{ [key: string]: string | JSX.Element }>>
-});
-
-export const editModeContext = React.createContext({} as {
-  editMode: number
-  setEditMode: React.Dispatch<React.SetStateAction<number>>
-});
-
-export const selectedDataElementsContext = React.createContext({} as {
-  selectedDataElements: selectedMasterDataType
-  setSelectedDataElement: React.Dispatch<React.SetStateAction<selectedMasterDataType>>
-});
-
+import { Provider, atom, useAtomValue } from 'jotai';
 
 
 //編集モードの種類
@@ -38,35 +17,31 @@ export const editModeEnum = {
   update: 2,
 }
 
+//現在選択しているマスタ
+export const selectedMasterAtom = atom("");
+//テーブルで選択した行データ
+export const selectedDataAtom = atom<{ [key: string]: string | JSX.Element }>({});
+//テーブルで選択したデータ(更新ボタン押下時の再取得データ)
+export const selectedDataElementsAtom = atom<selectedMasterDataType>({ id: "", name: "", remarks: "" });
+//編集モード
+export const editModeAtom = atom(editModeEnum.noselect);
+
+
 function Master() {
 
   console.log("master render");
-  //現在選択しているマスタ
-  const [selectedMaster, setSelectedMaster] = useState("");
-  //テーブルで選択した行データ
-  const [selectedData, setSelectedData] = useState<{ [key: string]: string | JSX.Element }>({});
-  //テーブルで選択したデータ(更新ボタン押下時の再取得データ)
-  const [selectedDataElements, setSelectedDataElement] = useState<selectedMasterDataType>({ id: "", name: "", remarks: "" });
   //編集モード
-  const [editMode, setEditMode] = useState<number>(editModeEnum.noselect);
+  const editMode = useAtomValue(editModeAtom);
 
   //Masterコンポーネントのビジネスロジック
-  useMasterLogit({ setSelectedMaster });
+  useMasterLogit();
 
   return (
     <div className="master">
-      <selectedDataElementsContext.Provider value={{ selectedDataElements, setSelectedDataElement }}>
-        <selectedMasterContext.Provider value={{ selectedMaster, setSelectedMaster }}>
-          <selectedDataContext.Provider value={{ selectedData, setSelectedData }}>
-            <editModeContext.Provider value={{ editMode, setEditMode }}>
-              <Routes>
-                <Route path="/" element={<MasterTop />} />
-                <Route path="edit" element={editMode === editModeEnum.noselect ? <Navigate to="/master" /> : <MasterEdit />} />
-              </Routes>
-            </editModeContext.Provider>
-          </selectedDataContext.Provider>
-        </selectedMasterContext.Provider>
-      </selectedDataElementsContext.Provider>
+      <Routes>
+        <Route path="/" element={<MasterTop />} />
+        <Route path="edit" element={editMode === editModeEnum.noselect ? <Navigate to="/master" /> : <MasterEdit />} />
+      </Routes>
     </div>
   );
 }

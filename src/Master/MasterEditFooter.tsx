@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import logo from './logo.svg';
 import '../App.css';
 import './css/MasterEditFooter.css';
-import { editModeContext } from './Master';
 import ButtonComponent from '../Common/ButtonComponent';
 import SpaceComponent from '../Common/SpaceComponent';
 

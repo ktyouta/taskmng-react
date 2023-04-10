@@ -1,8 +1,7 @@
 import { RefObject, useEffect, useMemo, useRef, useState } from 'react';
 import useFetchJsonData from '../../Common/Hook/useFetchJsonData';
 import useUpdateTableData from '../../Common/Hook/useUpdateTableData';
-import { selectedMasterDataType } from '../../Common/Type/CommonType';
-import { masterDataListType } from '../../Main/Main';
+import { masterDataListType, selectedMasterDataType } from '../../Common/Type/CommonType';
 import ENV from '../../env.json';
 import { refType } from '../../Common/BaseInputComponent';
 import IconModalComponent from '../../Common/IconModalComponent';

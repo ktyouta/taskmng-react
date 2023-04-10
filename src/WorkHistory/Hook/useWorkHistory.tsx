@@ -6,6 +6,7 @@ import { workHistoryType } from '../WorkHistory';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import { useAtomValue } from 'jotai';
 import { userInfoAtom } from '../../Content/Hook/useContentLogic';
+import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 
 
 function useWorkHistory() {
@@ -33,7 +34,7 @@ function useWorkHistory() {
     }
 
     //ユーザー情報
-    const userInfo = useAtomValue(userInfoAtom);
+    const userInfo = useGlobalAtomValue(userInfoAtom);
 
     //画面表示用リストを作成する
     const workDisplayList: JSX.Element | JSX.Element[] | undefined = useMemo(() => {

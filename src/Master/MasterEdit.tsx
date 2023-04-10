@@ -8,6 +8,7 @@ function MasterEdit() {
 
   console.log("masteredit render");
 
+  //MasterEditコンポーネントのビジネスロジック
   const { refInfoArray, buttonTitle, backPageButtonFunc, runButtonFunc, clearButtonFunc } = useMasterEditLogic();
 
   return (

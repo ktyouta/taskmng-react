@@ -7,6 +7,7 @@ import './css/Top.css';
 import WorkHistory from '../WorkHistory/WorkHistory';
 import { useAtomValue } from 'jotai';
 import { masterDataListAtom } from '../Main/Hook/useMainLogic';
+import {useGlobalAtom, useGlobalAtomValue} from '../Common/Hook/useGlobalAtom';
 
 
 function Top() {
@@ -14,7 +15,8 @@ function Top() {
   console.log("top render");
 
   //全マスタのリスト(マスタメンテ画面のコンボ用)
-  const masterDataList = useAtomValue(masterDataListAtom);
+  //const masterDataList = useAtomValue(masterDataListAtom);
+  const masterDataList = useGlobalAtomValue(masterDataListAtom);
 
   return (
     <div className="top">

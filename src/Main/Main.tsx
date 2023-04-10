@@ -7,14 +7,6 @@ import { masterColumnListType, resUserInfoType } from '../Common/Type/CommonType
 import useMainLogic from './Hook/useMainLogic';
 import { menuListType } from '../Common/Hook/useGetViewName';
 
-//マスタのリスト
-export type masterDataListType = {
-  value: string,
-  label: string,
-  remarks: string,
-  component?: JSX.Element,
-};
-
 
 function Main() {
 

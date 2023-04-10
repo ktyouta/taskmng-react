@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import '../App.css';
 import TableComponent from '../Common/TableComponent';
-import { selectedDataContext } from './Master';
+import { selectedDataAtom } from './Master';
 import './css/MasterTop.css';
 import ButtonComponent from '../Common/ButtonComponent';
 import HorizonLabelInputComponent from '../Common/HorizonLabelInputComponent';
@@ -11,11 +11,12 @@ import './css/MasterTableComponent.css';
 import MessageComponent, { labelType } from '../Common/MessageComponent';
 import SpaceComponent from '../Common/SpaceComponent';
 import ResultNumComponent from '../Common/ResultNumComponent';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 
 //引数の型
 type propsType = {
-    selectedMasterBody: selectedMasterDataType[]
+    selectedMasterBody: selectedMasterDataType[] | undefined
 }
 
 function MasterTableComponent(props: propsType) {
@@ -23,7 +24,7 @@ function MasterTableComponent(props: propsType) {
     console.log("mastertablecomponent render");
 
     //テーブルで選択したデータ
-    const { setSelectedData } = useContext(selectedDataContext);
+    const setSelectedData = useSetAtom(selectedDataAtom);
 
     //MasterTableComponentコンポーネントのビジネスロジック
     const { tableHeader, masterTableBody, textRef, reamarksRef, isDisplayMessage, resultNum, clickSearchBtn, clickClearBtn } = useMasterTableComponentLogic({ tableBody: props.selectedMasterBody });

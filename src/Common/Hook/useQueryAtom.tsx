@@ -46,46 +46,45 @@ const useQueryAtom = <
     );
 
     //取得後のデータを保存
-    const [qAtom, setQAtom] = useAtom(queryAtom);
+    const [fetchDataMap, setFetchDataMap] = useAtom(queryAtom);
     //キーに対応したデータ
-    const [selectQAtom, setSelectQAtom] = useAtom(selectQueryAtom);
+    const [selectKeyData, setSelectKeyData] = useAtom(selectQueryAtom);
 
     useEffect(() => {
-        let tmpAtom = [...qAtom];
+        let tmpAtom = [...fetchDataMap];
         let key = props.queryKey ?? [props.url];
         let isChange = false;
-        for (let i = 0; i < tmpAtom.length; i++) {
+        tmpAtom.some((element) => {
             //更新
-            if (tmpAtom[i].key === key) {
-                tmpAtom[i].data = res.data;
-                isChange = true;
-                break;
+            if (JSON.stringify(element.key) === JSON.stringify(key)) {
+                element.data = res.data;
+                return isChange = true;
             }
-        }
+        });
         //データを追加
         if (!isChange && res.data) {
             tmpAtom.push({ key, data: res.data });
         }
-        setQAtom(tmpAtom);
+        setFetchDataMap(tmpAtom);
     }, [res.data]);
 
     useEffect(() => {
         let key = props.queryKey ?? [props.url];
-        let tmpAtom = [...qAtom];
+        let tmpAtom = [...fetchDataMap];
         let tmp = undefined;
-        for (let i = 0; i < tmpAtom.length; i++) {
-            if (JSON.stringify(tmpAtom[i].key) === JSON.stringify(key)) {
-                tmp = tmpAtom[i].data;
-                break;
+        tmpAtom.some((element) => {
+            if (JSON.stringify(element.key) === JSON.stringify(key)) {
+                tmp = element.data;
+                return true;
             }
-        }
-        if(!tmp){
+        });
+        if (!tmp) {
             return;
         }
-        setSelectQAtom(tmp);
-    }, [qAtom]);
+        setSelectKeyData(tmp);
+    }, [fetchDataMap]);
 
-    return { ...res, data: selectQAtom as TData | RData };
+    return { ...res, clientData: selectKeyData as TData | RData };
 }
 
 export default useQueryAtom;

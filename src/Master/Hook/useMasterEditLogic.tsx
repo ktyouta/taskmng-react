@@ -1,5 +1,5 @@
 import { createRef, RefObject, useContext, useEffect, useMemo } from "react";
-import { editModeContext, editModeEnum, selectedDataElementsContext, selectedMasterContext } from "../Master";
+import { editModeAtom, editModeEnum, selectedDataElementsAtom, selectedMasterAtom } from "../Master";
 import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
 import { inputSettingType } from "../Type/MasterType";
@@ -8,11 +8,8 @@ import ENV from '../../env.json';
 import { bodyObj } from "../../Common/Type/CommonType";
 import { useCookies } from "react-cookie";
 import { refType } from "../../Common/BaseInputComponent";
+import { useAtom, useAtomValue } from "jotai";
 
-//引数の型
-type propsType = {
-    setSelectedMaster: React.Dispatch<React.SetStateAction<string>>
-}
 
 //返り値の型
 type retType = {
@@ -44,11 +41,11 @@ function useMasterEditLogic(): retType {
     //ルーティング用
     const navigate = useNavigate();
     //編集モード
-    const { editMode } = useContext(editModeContext);
+    const editMode = useAtomValue(editModeAtom);
     //現在選択しているマスタ
-    const { selectedMaster } = useContext(selectedMasterContext);
+    const selectedMaster = useAtom(selectedMasterAtom);
     //テーブルで選択したデータ
-    const { selectedDataElements } = useContext(selectedDataElementsContext);
+    const selectedDataElements = useAtomValue(selectedDataElementsAtom);
     //認証クッキー
     const [cookie] = useCookies();
 
@@ -123,7 +120,7 @@ function useMasterEditLogic(): retType {
      * 入力値の初期化
      */
     const clearButtonFunc = () => {
-        if(!window.confirm("入力を元に戻しますか？")){
+        if (!window.confirm("入力を元に戻しますか？")) {
             return;
         }
         refInfoArray.forEach((element) => {

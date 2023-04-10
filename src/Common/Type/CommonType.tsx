@@ -22,7 +22,7 @@ export type masterColumnListType = {
 export type menuType = {
     url: string,
     name: string,
-    auth:string,
+    auth: string,
 }
 
 //リクエストボディのタイプ
@@ -63,3 +63,11 @@ export type userInfoType = {
     userName: string,
     auth: string,
 }
+
+//マスタのリスト
+export type masterDataListType = {
+    value: string,
+    label: string,
+    remarks: string,
+    component?: JSX.Element,
+};

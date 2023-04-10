@@ -7,7 +7,7 @@ import ENV from '../../env.json';
 
 //引数の型
 type propsType = {
-    tableBody: selectedMasterDataType[],
+    tableBody: selectedMasterDataType[] | undefined,
     //orgTableBody: selectedMasterDataType[],
 }
 
@@ -60,6 +60,9 @@ function useMasterTableComponentLogic(props: propsType) {
      * テーブルボディのフィルター
      */
     function filterTableData() {
+        if(!props.tableBody){
+            return [];
+        }
         let tmpTableBody = [...props.tableBody];
         //名称で絞り込み
         if (textRef.current?.refValue) {

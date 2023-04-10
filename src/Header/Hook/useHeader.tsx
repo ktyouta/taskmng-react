@@ -7,12 +7,13 @@ import { menuType } from '../../Common/Type/CommonType';
 import useQueryClientWapper from '../../Common/Hook/useQueryClientWapper';
 import { useAtomValue } from 'jotai';
 import { clientMenuListAtom } from '../../Content/Hook/useContentLogic';
+import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 
 
 function useHeader() {
 
     //クライアント用メニューリスト
-    const menu = useAtomValue(clientMenuListAtom);
+    const menu = useGlobalAtomValue(clientMenuListAtom);
 
     //ヘッダタイトル
     const [headerTile] = useGetViewName({ menu });

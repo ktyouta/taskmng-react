@@ -6,6 +6,7 @@ import { menuListType } from '../../Common/Hook/useGetViewName';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import { atom, useAtom } from 'jotai';
 import { resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
+import { useGlobalAtom } from '../../Common/Hook/useGlobalAtom';
 
 //マスタのリスト
 export type masterDataListType = {
@@ -31,9 +32,9 @@ function useContentLogic() {
     );
 
     // ユーザー情報
-    const [userInfo, setUserInfoAtom] = useAtom(userInfoAtom);
+    const [userInfo, setUserInfoAtom] = useGlobalAtom(userInfoAtom);
     //クライアント用メニューリスト
-    const [clientMenuList, setClientMenuList] = useAtom(clientMenuListAtom);
+    const [clientMenuList, setClientMenuList] = useGlobalAtom(clientMenuListAtom);
 
     //ユーザー情報をセット
     useEffect(() => {

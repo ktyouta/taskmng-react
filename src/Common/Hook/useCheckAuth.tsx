@@ -19,6 +19,19 @@ type authResponseType = {
 }
 
 /**
+ * 取得したデータから画面用のユーザー情報を作成
+ * @param data 
+ * @returns 
+ */
+function createUserInfo(data: authResponseType): resUserInfoType {
+    let userId = data.userInfo?.userId as string;
+    let userName = data?.userInfo?.userName as string;
+    let auth = data?.userInfo?.auth as string;
+    return { userId: userId, userName: userName, auth: auth };
+}
+
+
+/**
  * 認証チェック
  * @param props 
  */
@@ -44,7 +57,7 @@ function useCheckAuth() {
 
     // //認証チェックおよびユーザー情報の取得
     // const {
-    //     data: infosample,
+    //     clientData: infosample,
     // } = useQueryAtom(
     //     {
     //         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.AUTH}`,
@@ -56,17 +69,6 @@ function useCheckAuth() {
     //     }
     // );
 
-    /**
-     * 取得したデータから画面用のユーザー情報を作成
-     * @param data 
-     * @returns 
-     */
-    function createUserInfo(data: authResponseType): resUserInfoType {
-        let userId = data.userInfo?.userId as string;
-        let userName = data?.userInfo?.userName as string;
-        let auth = data?.userInfo?.auth as string;
-        return { userId: userId, userName: userName, auth: auth };
-    }
 
     //認証失敗
     if (isError) {

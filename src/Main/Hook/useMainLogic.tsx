@@ -10,9 +10,10 @@ import { menuListType } from '../../Common/Hook/useGetViewName';
 import { Route } from "react-router-dom";
 import NotFoundComponent from '../../NotFound/NotFoundComponent';
 import useQueryClientWapper from '../../Common/Hook/useQueryClientWapper';
-import { atom, useAtom, useAtomValue } from 'jotai';
+import { Provider, atom, useAtom, useAtomValue } from 'jotai';
 import { clientMenuListAtom, userInfoAtom } from '../../Content/Hook/useContentLogic';
 import useQueryAtomValue from '../../Common/Hook/useQueryAtomValue';
+import {useGlobalAtom, useGlobalAtomValue} from '../../Common/Hook/useGlobalAtom';
 
 //マスタのリスト
 export type masterDataListType = {
@@ -43,15 +44,15 @@ function useMainLogic() {
 
     //マスタのリスト(マスタメンテ画面のコンボ用)
     const masterDataListInfo: masterDataListType[] = useFetchJsonData(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMASTERTABLE}`).mastertable;
-    const [masterDataList,setMasterDataList] = useAtom(masterDataListAtom);
+    const [masterDataList,setMasterDataList] = useGlobalAtom(masterDataListAtom);
 
     //ユーザー情報
-    const userInfo = useAtomValue(userInfoAtom);
+    const userInfo = useGlobalAtomValue(userInfoAtom);
     //クライアント用メニューリスト
-    const menu = useAtomValue(clientMenuListAtom);
+    const menu = useGlobalAtomValue(clientMenuListAtom);
 
     //useQueryAtomValueを使用した取得法
-    //const {data:userInfo} = useQueryAtomValue<userInfoType | undefined>(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.AUTH}`);
+    //const {clientData:userInfo} = useQueryAtomValue<userInfoType | undefined>(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.AUTH}`);
 
     //取得データをAtomに保存
     useEffect(()=>{
@@ -78,7 +79,7 @@ function useMainLogic() {
             }
             const Component = jsxList[element.component];
             const path = element.componentPath;
-            return <Route key={path} path={path} element={Component} />
+            return <Route key={path} path={path} element={<Provider>{Component}</Provider>} />
         });
 
         //notfoundページ
