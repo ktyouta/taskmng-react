@@ -15,7 +15,7 @@ function Setting() {
 
   return (
     <div className="setting">
-      <h3>設定</h3>
+      <div className="setting-title">設定</div>
     </div>
   );
 }

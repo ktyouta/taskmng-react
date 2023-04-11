@@ -5,7 +5,7 @@ import useCheckAuth from '../../Common/Hook/useCheckAuth';
 import Top from '../../Top/Top';
 import Master from '../../Master/Master';
 import Setting from '../../Setting/Setting';
-import { resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
+import { masterDataListType, resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
 import { menuListType } from '../../Common/Hook/useGetViewName';
 import { Route } from "react-router-dom";
 import NotFoundComponent from '../../NotFound/NotFoundComponent';
@@ -13,18 +13,9 @@ import useQueryClientWapper from '../../Common/Hook/useQueryClientWapper';
 import { Provider, atom, useAtom, useAtomValue } from 'jotai';
 import { clientMenuListAtom, userInfoAtom } from '../../Content/Hook/useContentLogic';
 import useQueryAtomValue from '../../Common/Hook/useQueryAtomValue';
-import {useGlobalAtom, useGlobalAtomValue} from '../../Common/Hook/useGlobalAtom';
+import { useGlobalAtom, useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
+import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 
-//マスタのリスト
-export type masterDataListType = {
-    value: string,
-    label: string,
-    remarks: string
-};
-
-export const masterDataListContext = React.createContext({} as {
-    masterDataList: masterDataListType[]
-});
 
 type jsxObjType = {
     [key: string]: JSX.Element
@@ -39,12 +30,26 @@ const jsxList: jsxObjType = {
 //マスタのリスト(マスタメンテ画面のコンボ用)
 export const masterDataListAtom = atom<masterDataListType[]>([]);
 
+/**
+ * 取得したデータからマスタのリスト(マスタメンテ画面のコンボ用)を作成
+ * @param data 
+ * @returns 
+ */
+function createMasterDataListInfo(data: { mastertable: masterDataListType[] }): masterDataListType[] {
+    return data.mastertable;
+}
+
 
 function useMainLogic() {
 
     //マスタのリスト(マスタメンテ画面のコンボ用)
-    const masterDataListInfo: masterDataListType[] = useFetchJsonData(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMASTERTABLE}`).mastertable;
-    const [masterDataList,setMasterDataList] = useGlobalAtom(masterDataListAtom);
+    const { data: masterDataListInfo } = useQueryWrapper(
+        {
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMASTERTABLE}`,
+            callback: createMasterDataListInfo,
+        }
+    );
+    const [masterDataList, setMasterDataList] = useGlobalAtom(masterDataListAtom);
 
     //ユーザー情報
     const userInfo = useGlobalAtomValue(userInfoAtom);
@@ -55,12 +60,12 @@ function useMainLogic() {
     //const {clientData:userInfo} = useQueryAtomValue<userInfoType | undefined>(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.AUTH}`);
 
     //取得データをAtomに保存
-    useEffect(()=>{
-        if(!masterDataListInfo){
+    useEffect(() => {
+        if (!masterDataListInfo) {
             return;
         }
         setMasterDataList(masterDataListInfo);
-    },[masterDataListInfo]);
+    }, [masterDataListInfo]);
 
     //Mainコンポーネントのルーティングリスト
     const componentList = useMemo(() => {

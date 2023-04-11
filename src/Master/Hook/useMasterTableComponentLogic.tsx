@@ -4,6 +4,7 @@ import useFetchJsonData from '../../Common/Hook/useFetchJsonData';
 import useUpdateTableData from '../../Common/Hook/useUpdateTableData';
 import { selectedMasterDataType } from '../../Common/Type/CommonType';
 import ENV from '../../env.json';
+import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 
 //引数の型
 type propsType = {
@@ -22,7 +23,12 @@ function useMasterTableComponentLogic(props: propsType) {
     //mastertablecomponent内のテーブルデータ(画面上に表示されているデータ)
     const [masterTableBody, setMasterTableBody] = useState<selectedMasterDataType[]>([]);
     //テーブルのカラム設定リスト
-    const masterColumnList: object = useFetchJsonData(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETTABLECOLUMN}`);
+    const { data: masterColumnList } = useQueryWrapper<object>(
+        {
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETTABLECOLUMN}`,
+        }
+    );
+
     //エラーメッセージの表示フラグ
     const [isDisplayMessage, setIsDisplayMessage] = useState(false);
     //名称(検索ボックス)参照用
@@ -60,7 +66,7 @@ function useMasterTableComponentLogic(props: propsType) {
      * テーブルボディのフィルター
      */
     function filterTableData() {
-        if(!props.tableBody){
+        if (!props.tableBody) {
             return [];
         }
         let tmpTableBody = [...props.tableBody];

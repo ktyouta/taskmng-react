@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 import logo from './logo.svg';
 import useFetchJsonData from '../../Common/Hook/useFetchJsonData';
 import ENV from '../../env.json';
-import { workHistoryType } from '../WorkHistory';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import { useAtomValue } from 'jotai';
 import { userInfoAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
+import { workHistoryType } from '../Type/WorkHistoryType';
 
 
 function useWorkHistory() {
@@ -17,21 +17,11 @@ function useWorkHistory() {
         isLoading,
         isFetching,
         isError
-    } = useQueryWrapper(
+    } = useQueryWrapper<workHistoryType[]>(
         {
             url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.WORKHISTORY}`,
-            callback: selectData,
         }
     );
-
-    /**
-     * useQueryで取得したデータを加工
-     * @param data 
-     * @returns 
-     */
-    function selectData(data: workHistoryType[]) {
-        return data;
-    }
 
     //ユーザー情報
     const userInfo = useGlobalAtomValue(userInfoAtom);

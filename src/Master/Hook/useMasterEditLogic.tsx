@@ -9,6 +9,7 @@ import { bodyObj } from "../../Common/Type/CommonType";
 import { useCookies } from "react-cookie";
 import { refType } from "../../Common/BaseInputComponent";
 import { useAtom, useAtomValue } from "jotai";
+import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 
 
 //返り値の型
@@ -32,6 +33,16 @@ export type refInfoType = {
 }
 
 /**
+ * 入力欄設定リストを作成
+ * @param data 
+ * @returns 
+ */
+function createInputSettingList(data: { inputsetting: inputSettingType[] }): inputSettingType[] {
+    return data.inputsetting;
+}
+
+
+/**
  * MasterTopコンポーネントのビジネスロジック
  * @param selectedMaster 
  * @returns 
@@ -50,7 +61,10 @@ function useMasterEditLogic(): retType {
     const [cookie] = useCookies();
 
     //入力欄設定リスト
-    const inputsSettingList: inputSettingType[] = useFetchJsonData(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETINPUTSETTING}`).inputsetting;
+    const { data: inputsSettingList } = useQueryWrapper({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETINPUTSETTING}`,
+        callback: createInputSettingList
+    });
 
     //実行ボタンタイトル
     const buttonTitle = useMemo(() => {

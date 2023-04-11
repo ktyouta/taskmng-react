@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
 import { selectedMasterDataType } from "../../Common/Type/CommonType";
@@ -63,6 +63,11 @@ function useMasterTopLogic(): retType {
     }
   );
 
+  //マウント時に選択データをクリアする
+  useEffect(()=>{
+    setSelectedData({});
+  },[]);
+
   //マスタのデータを取得して選択行のデータを返却
   const getMasterData = async (url: string) => {
     if (!url) {
@@ -88,7 +93,7 @@ function useMasterTopLogic(): retType {
   * 閲覧
   */
   async function viewData() {
-    if (!selectedData) {
+    if (!selectedData || !Object.keys(selectedData).length) {
       alert("データを選択してください。");
       return;
     }
@@ -117,7 +122,7 @@ function useMasterTopLogic(): retType {
    * 更新
    */
   async function updateData() {
-    if (!selectedData) {
+    if (!selectedData || !Object.keys(selectedData).length) {
       alert("データを選択してください。");
       return;
     }
@@ -136,7 +141,7 @@ function useMasterTopLogic(): retType {
    * 削除
    */
   function deleteData() {
-    if (!selectedData) {
+    if (!selectedData || !Object.keys(selectedData).length) {
       alert("データを選択してください。");
       return;
     }

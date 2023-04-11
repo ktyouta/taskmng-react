@@ -32,7 +32,7 @@ function TopTableComponent(props: propsType) {
         reamarksRef,
         isDisplayMessage,
         resultNum,
-        flag,
+        flag:modalOpenFlag,
         masterTableHeader,
         selectMasterNm,
         selectedMasterBody,
@@ -103,7 +103,7 @@ function TopTableComponent(props: propsType) {
                         tableBody={selectedMasterBody ?? []}
                     />
                 }
-                modalIsOpen={flag}
+                modalIsOpen={modalOpenFlag}
                 closeModal={offFlag}
             />
         </div>

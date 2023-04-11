@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 //引数の型
 type propsType<T, U> = {
   orgTableBody: T[],
-  columnData: U,
+  columnData: U | undefined,
 }
 
 //返り値の型
@@ -27,7 +27,7 @@ function useUpdateTableData<T extends {}, U extends object>(props: propsType<T, 
     if (props.orgTableBody.length === 0) {
       return headList;
     }
-    if (Object.keys(props.columnData).length === 0) {
+    if (!props.columnData || Object.keys(props.columnData).length === 0) {
       return headList;
     }
 

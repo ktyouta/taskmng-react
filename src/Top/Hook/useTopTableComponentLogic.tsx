@@ -28,7 +28,12 @@ function useTopTableComponentLogic(props: propsType) {
     //mastertablecomponent内のテーブルデータ(画面上に表示されているデータ)
     const [masterTableBody, setMasterTableBody] = useState<masterDataListType[]>([]);
     //テーブルのカラム設定リスト
-    const masterColumnList: object = useFetchJsonData(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETTABLECOLUMN}`);
+    const { data: masterColumnList } = useQueryWrapper<object>(
+        {
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETTABLECOLUMN}`,
+        }
+    );
+
     //エラーメッセージの表示フラグ
     const [isDisplayMessage, setIsDisplayMessage] = useState(false);
     //名称(検索ボックス)参照用

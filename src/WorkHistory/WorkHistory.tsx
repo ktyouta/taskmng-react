@@ -6,13 +6,6 @@ import './css/WorkHistory.css';
 import LabelComponent from '../Common/LabelComponent';
 import LoadingWorkHistoryList from './LoadingWorkHistoryList';
 
-export type workHistoryType = {
-  time: string,
-  userName: string,
-  editMaster: string,
-  editData: string,
-  editType: string
-}
 
 function WorkHistory() {
 
