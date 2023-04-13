@@ -6,12 +6,13 @@ import styled from "styled-components";
 //引数の型
 type propsType = {
   combo: comboType[],
-  onChange: (e: string) => void
+  onChange: (e: string) => void,
+  selectedValue:string,
 }
 
 type comboType = {
   value: string,
-  label: string,
+  label: string
 }
 
 //コンボボックスの基本スタイル
@@ -36,7 +37,7 @@ function ComboComponent(props: propsType) {
     <React.Fragment>
       {
         props.combo && props.combo.length > 0 &&
-        <BaseSelect onChange={change}>
+        <BaseSelect onChange={change} value={props.selectedValue}>
           {
             props.combo.map((element) => {
               return (

@@ -11,6 +11,7 @@ import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 //返り値の型
 type retType = {
   selectedMasterBody: selectedMasterDataType[] | undefined,
+  selectedMaster: string,
   viewData: () => void,
   createData: () => void,
   updateData: () => void,
@@ -64,9 +65,9 @@ function useMasterTopLogic(): retType {
   );
 
   //マウント時に選択データをクリアする
-  useEffect(()=>{
+  useEffect(() => {
     setSelectedData({});
-  },[]);
+  }, []);
 
   //マスタのデータを取得して選択行のデータを返却
   const getMasterData = async (url: string) => {
@@ -155,7 +156,7 @@ function useMasterTopLogic(): retType {
     setSelectedMaster(e);
   }
 
-  return { selectedMasterBody, viewData, createData, updateData, deleteData, changeCombo };
+  return { selectedMasterBody, selectedMaster, viewData, createData, updateData, deleteData, changeCombo };
 }
 
 export default useMasterTopLogic;

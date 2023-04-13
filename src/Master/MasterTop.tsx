@@ -20,7 +20,7 @@ function MasterTop() {
   const masterDataList = useGlobalAtomValue(masterDataListAtom);
 
   //MasterTopコンポーネントのビジネスロジック
-  const { selectedMasterBody, viewData, createData, updateData, deleteData, changeCombo } = useMasterTopLogic();
+  const { selectedMasterBody, selectedMaster, viewData, createData, updateData, deleteData, changeCombo } = useMasterTopLogic();
 
   return (
     <div className="mastertop">
@@ -46,7 +46,7 @@ function MasterTop() {
           onclick={deleteData}
         />
         <span className={"selected-mastername-span"}>選択中のマスタ</span>
-        <ComboComponent combo={masterDataList} onChange={changeCombo} />
+        <ComboComponent combo={masterDataList} onChange={changeCombo} selectedValue={selectedMaster} />
       </div>
       <MasterTableComponent
         selectedMasterBody={selectedMasterBody}

@@ -10,7 +10,7 @@ import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
  * @param selectedMaster 
  * @returns 
  */
-function useMasterLogit() {
+function useMasterLogic() {
 
     //全マスタのリスト(マスタメンテ画面のコンボ用)
     const masterDataList = useGlobalAtomValue(masterDataListAtom);
@@ -25,4 +25,4 @@ function useMasterLogit() {
     }, [masterDataList]);
 }
 
-export default useMasterLogit;
+export default useMasterLogic;

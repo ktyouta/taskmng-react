@@ -4,7 +4,7 @@ import './css/Master.css';
 import MasterTop from './MasterTop';
 import { Routes, Route, Navigate } from "react-router-dom";
 import MasterEdit from './MasterEdit';
-import useMasterLogit from './Hook/useMasterLogit';
+import useMasterLogic from './Hook/useMasterLogic';
 import { selectedMasterDataType } from '../Common/Type/CommonType';
 import { Provider, atom, useAtomValue } from 'jotai';
 
@@ -34,7 +34,7 @@ function Master() {
   const editMode = useAtomValue(editModeAtom);
 
   //Masterコンポーネントのビジネスロジック
-  useMasterLogit();
+  useMasterLogic();
 
   return (
     <div className="master">
