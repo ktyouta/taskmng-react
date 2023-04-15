@@ -1,15 +1,18 @@
 import { useContext, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
-import { selectedMasterDataType } from "../../Common/Type/CommonType";
-import { editModeAtom, editModeEnum, selectedDataAtom, selectedDataElementsAtom, selectedMasterAtom } from "../Master";
+import { masterDataListType, selectedMasterDataType } from "../../Common/Type/CommonType";
+import { editModeAtom, editModeEnum, selectedDataAtom, selectedDataElementsAtom, selectedMasterAtom, selectedMasterNmAtom } from "../Master";
 import ENV from '../../env.json';
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
+import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
+import { masterDataListAtom } from "../../Main/Hook/useMainLogic";
 
 
 //返り値の型
 type retType = {
+  masterDataList: masterDataListType[],
   selectedMasterBody: selectedMasterDataType[] | undefined,
   selectedMaster: string,
   viewData: () => void,
@@ -37,15 +40,24 @@ function useMasterTopLogic(): retType {
 
   //ルーティング用
   const navigate = useNavigate();
+  //全マスタのリスト(マスタメンテ画面のコンボ用)
+  const masterDataList = useGlobalAtomValue(masterDataListAtom);
   //編集モード
   const setEditMode = useSetAtom(editModeAtom);
   //テーブルで選択したデータ
   const setSelectedDataElement = useSetAtom(selectedDataElementsAtom);
   //現在選択(テーブルに表示)しているマスタ
   const [selectedMaster, setSelectedMaster] = useAtom(selectedMasterAtom);
+  //現在選択(テーブルに表示)しているマスタの名称
+  const setSelectedMasterNm = useSetAtom(selectedMasterNmAtom);
   //テーブルで選択したデータ
   const [selectedData, setSelectedData] = useAtom(selectedDataAtom);
 
+
+  //マウント時に選択データをクリアする
+  useEffect(() => {
+    setSelectedData({});
+  }, []);
 
   //jsonデータ取得用url
   let masterJsonUrl = useMemo(() => {
@@ -63,11 +75,6 @@ function useMasterTopLogic(): retType {
       callback: createUserInfo
     }
   );
-
-  //マウント時に選択データをクリアする
-  useEffect(() => {
-    setSelectedData({});
-  }, []);
 
   //マスタのデータを取得して選択行のデータを返却
   const getMasterData = async (url: string) => {
@@ -113,7 +120,7 @@ function useMasterTopLogic(): retType {
    * 新規登録
    */
   function createData() {
-    setSelectedDataElement({ id: "", name: "", remarks: "" });
+    setSelectedDataElement({});
     //登録モード
     setEditMode(editModeEnum.create);
     navigate(`/master/edit`);
@@ -154,9 +161,16 @@ function useMasterTopLogic(): retType {
   function changeCombo(e: string) {
     setSelectedData({});
     setSelectedMaster(e);
+    //選択中のマスタの名称を取得
+    let tmpSelectedMasterNm = masterDataList.find((element) => {
+      return element.value === e;
+    });
+    if (tmpSelectedMasterNm) {
+      setSelectedMasterNm(tmpSelectedMasterNm.label);
+    }
   }
 
-  return { selectedMasterBody, selectedMaster, viewData, createData, updateData, deleteData, changeCombo };
+  return { masterDataList, selectedMasterBody, selectedMaster, viewData, createData, updateData, deleteData, changeCombo };
 }
 
 export default useMasterTopLogic;

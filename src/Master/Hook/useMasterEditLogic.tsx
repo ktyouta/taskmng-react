@@ -2,7 +2,7 @@ import { createRef, RefObject, useContext, useEffect, useMemo } from "react";
 import { editModeAtom, editModeEnum, selectedDataElementsAtom, selectedMasterAtom } from "../Master";
 import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
-import { inputSettingType } from "../Type/MasterType";
+import { inputSettingType, refInfoType } from "../Type/MasterType";
 import { createJsonData, postJsonData } from "../../Common/Function/Function";
 import ENV from '../../env.json';
 import { bodyObj } from "../../Common/Type/CommonType";
@@ -17,20 +17,10 @@ type retType = {
     refInfoArray: refInfoType[]
     buttonTitle: string | undefined,
     backPageButtonFunc: () => void,
-    runButtonFunc: () => void | undefined,
+    runButtonFunc: (() => void) | undefined,
     clearButtonFunc: () => void | undefined,
 }
 
-//入力欄参照用の型
-export type refInfoType = {
-    id: string,
-    name: string,
-    type: string,
-    lenght: number,
-    editFlg: boolean,
-    value: string,
-    ref: RefObject<refType>,
-}
 
 /**
  * 入力欄設定リストを作成
@@ -66,28 +56,6 @@ function useMasterEditLogic(): retType {
         callback: createInputSettingList
     });
 
-    //実行ボタンタイトル
-    const buttonTitle = useMemo(() => {
-        switch (editMode) {
-            //閲覧
-            case editModeEnum.view:
-                return;
-            //登録
-            case editModeEnum.create:
-                return "登録";
-            //更新
-            case editModeEnum.update:
-                return "更新";
-            default:
-                return;
-        }
-    }, []);
-
-    const buttonTitleList = [
-        "",
-        "登録",
-        "更新"
-    ]
 
     //入力欄参照用refの作成
     const refInfoArray: refInfoType[] = useMemo(() => {
@@ -96,22 +64,34 @@ function useMasterEditLogic(): retType {
             return tmpRefInfoArray;
         }
         inputsSettingList.forEach((element) => {
+            let tmpValue: string | undefined = undefined;
             for (const [columnKey, value] of Object.entries(selectedDataElements as {})) {
                 //キーの一致する要素を取り出す
                 if (element.id === columnKey) {
-                    let strValue = value as string;
-                    tmpRefInfoArray.push({
-                        id: element.id,
-                        name: element.name,
-                        type: element.type,
-                        lenght: element.length,
-                        value: strValue,
-                        editFlg: editMode !== editModeEnum.view ? true : false,
-                        ref: createRef()
-                    });
+                    tmpValue = value as string;
                     break;
                 }
             }
+            let isVisible = true;
+            //項目の表示非表示
+            if (element.isHidden) {
+                isVisible = false;
+            }
+            else if (editMode === editModeEnum.create) {
+                isVisible = element.isNewCreateVisible;
+            }
+            tmpRefInfoArray.push({
+                id: element.id,
+                name: element.name,
+                type: element.type,
+                lenght: element.length,
+                //キーに一致するデータが存在する場合はその値を表示
+                value: tmpValue ?? element.value,
+                //閲覧モードの場合は全項目編集不可
+                editFlg: editMode !== editModeEnum.view && element.isEditable,
+                visible: isVisible,
+                ref: createRef(),
+            });
         });
         return tmpRefInfoArray;
     }, [inputsSettingList]);
@@ -121,13 +101,6 @@ function useMasterEditLogic(): retType {
      */
     const backPageButtonFunc = () => {
         navigate(`/master`);
-    }
-
-    /**
-     * 登録更新ボタンイベント
-     */
-    const runButtonFunc = () => {
-        create();
     }
 
     /**
@@ -174,7 +147,45 @@ function useMasterEditLogic(): retType {
         navigate(`/master`);
     }
 
-    return { refInfoArray, buttonTitle: buttonTitleList[editMode], backPageButtonFunc, runButtonFunc, clearButtonFunc }
+    /**
+     * 実行ボタンタイトル
+     */
+    const buttonTitle = useMemo(() => {
+        switch (editMode) {
+            //閲覧
+            case editModeEnum.view:
+                return;
+            //登録
+            case editModeEnum.create:
+                return "登録";
+            //更新
+            case editModeEnum.update:
+                return "更新";
+            default:
+                return;
+        }
+    }, []);
+
+    /**
+    * 登録更新ボタンイベント
+    */
+    const runButtonFunc = useMemo(() => {
+        switch (editMode) {
+            //閲覧
+            case editModeEnum.view:
+                return;
+            //登録
+            case editModeEnum.create:
+                return create;
+            //更新
+            case editModeEnum.update:
+                return update;
+            default:
+                return;
+        }
+    }, []);
+
+    return { refInfoArray, buttonTitle: buttonTitle, backPageButtonFunc, runButtonFunc, clearButtonFunc }
 }
 
 export default useMasterEditLogic;

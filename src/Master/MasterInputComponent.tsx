@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import '../App.css';
 import './css/MasterEdit.css';
-import { refInfoType } from './Hook/useMasterEditLogic';
 import HorizonLabelInputComponent from '../Common/HorizonLabelInputComponent';
+import { refInfoType } from './Type/MasterType';
 
 //引数の型
 type propsType = {
@@ -18,7 +18,11 @@ function MasterInputComponent(props: propsType) {
             {
                 props.refInfoArray.map((element, index) => {
                     return (
-                        <div className="masteredit-input-area" key={`${element.id}-${index}`}>
+                        <div
+                            className="masteredit-input-area"
+                            key={`${element.id}-${index}`}
+                            style={{ display: element.visible ? "block" : "none" }}
+                        >
                             {
                                 (() => {
                                     switch (element.type) {

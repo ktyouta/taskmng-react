@@ -9,7 +9,7 @@ import SpaceComponent from '../Common/SpaceComponent';
 type propsType = {
     buttonTitle: string | undefined,
     backPageButtonFunc: () => void,
-    runButtonFunc: () => void,
+    runButtonFunc: (() => void) | undefined,
     clearButtonFunc: () => void,
 }
 
@@ -39,7 +39,7 @@ function MasterEditFooter(props: propsType) {
                 space={"3%"}
             />
             {
-                props.buttonTitle &&
+                props.buttonTitle && props.runButtonFunc &&
                 <ButtonComponent
                     styleTypeNumber="RUN"
                     title={props.buttonTitle}

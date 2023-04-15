@@ -19,10 +19,12 @@ export const editModeEnum = {
 
 //現在選択しているマスタ
 export const selectedMasterAtom = atom("");
+//現在選択(テーブルに表示)しているマスタの名称
+export const selectedMasterNmAtom = atom("");
 //テーブルで選択した行データ
 export const selectedDataAtom = atom<{ [key: string]: string | JSX.Element }>({});
 //テーブルで選択したデータ(更新ボタン押下時の再取得データ)
-export const selectedDataElementsAtom = atom<selectedMasterDataType>({ id: "", name: "", remarks: "" });
+export const selectedDataElementsAtom = atom<{ [key: string]: string }>({});
 //編集モード
 export const editModeAtom = atom(editModeEnum.noselect);
 

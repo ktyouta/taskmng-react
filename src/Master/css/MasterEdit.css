@@ -1,16 +1,23 @@
-.masteredit{
+.masteredit {
     height: 100%;
 }
 
-.masteredit-main-area{
-    height: 85%;
+.masteredit-header-area {
+    height: 7%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
 }
 
-.masteredit-footer-area{
+.masteredit-main-area {
+    height: 78%;
+}
+
+.masteredit-footer-area {
     height: 15%;
 }
 
-.masteredit-input-main-area{
+.masteredit-input-main-area {
     overflow: auto;
     height: 95%;
     margin-left: 15%;

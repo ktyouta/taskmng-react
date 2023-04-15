@@ -16,11 +16,9 @@ import { useGlobalAtom, useGlobalAtomValue } from '../Common/Hook/useGlobalAtom'
 function MasterTop() {
 
   console.log("mastertop render");
-  //全マスタのリスト(マスタメンテ画面のコンボ用)
-  const masterDataList = useGlobalAtomValue(masterDataListAtom);
 
   //MasterTopコンポーネントのビジネスロジック
-  const { selectedMasterBody, selectedMaster, viewData, createData, updateData, deleteData, changeCombo } = useMasterTopLogic();
+  const { masterDataList, selectedMasterBody, selectedMaster, viewData, createData, updateData, deleteData, changeCombo } = useMasterTopLogic();
 
   return (
     <div className="mastertop">

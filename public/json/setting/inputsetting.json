@@ -5,21 +5,30 @@
             "name":"ID",
             "type":"input",
             "length":100,
-            "value":""
+            "value":"",
+            "isEditable":false,
+            "isNewCreateVisible":false,
+            "isHidden":false
         },
         {
             "id":"name",
             "name":"名称",
             "type":"input",
             "length":100,
-            "value":""
+            "value":"",
+            "isEditable":true,
+            "isNewCreateVisible":true,
+            "isHidden":false
         },
         {
             "id":"remarks",
             "name":"備考",
             "type":"input",
             "length":500,
-            "value":""
+            "value":"",
+            "isEditable":true,
+            "isNewCreateVisible":true,
+            "isHidden":false
         }
     ]
 }
