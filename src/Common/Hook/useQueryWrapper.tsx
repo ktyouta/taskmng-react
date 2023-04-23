@@ -12,6 +12,7 @@ type propsType<TData, RData, PData> = {
     >,
     init?: TData,
     callback?: (data: TData) => RData,
+    afSuccessFn?: (data: RData) => void,
     method?: methodType,
     postData?: PData
 }
@@ -51,6 +52,7 @@ const useQueryWrapper = <
             notifyOnChangeProps: "tracked",
             select: props.callback,
             initialData: props.init,
+            onSuccess: props.afSuccessFn,
             ...props.options
         }
     );

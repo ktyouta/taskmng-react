@@ -1,6 +1,6 @@
 import express from 'express';
 import ENV from '../src/env.json';
-import { createData, readFile } from './FileFunction';
+import { checkFile, createData, readFile } from './FileFunction';
 import { bodyObj, userInfoType } from './Type/type';
 import { authenticate } from './AuthFunction';
 import { config } from './Config';
@@ -55,7 +55,7 @@ app.get(ENV.GETMASTER, function (req, res) {
 /**
  * データ取得用apiを動的に生成
  */
-config.get.forEach((element)=>{
+config.get.forEach((element) => {
     app.get(element.callUrl, function (req, res) {
         let fileData = readFile(element.fileUrl);
         res.json(JSON.parse(fileData));
@@ -71,10 +71,26 @@ config.get.forEach((element)=>{
  */
 app.post(ENV.POSTMATERCREATE, function (req, res) {
     //登録するファイル名を取得
-    let filename = req.body.master;
-    delete req.body["master"];
+    let filename = req.body["masternm"];
+    console.log("filename:"+filename);
+    if (checkFile(filename)) {
+        return res
+            .status(400)
+            .json({ errMessage: 'ファイルが存在しません。' });
+    }
+    //マスタ名のプロパティを削除
+    delete req.body["masternm"];
     // データを登録
-    createData(`./public/json/master/${filename}.json`, req.body);
+    let errMessage = createData(`./public/json/master/test.json`, JSON.stringify(req.body, null, '\t'));
+    //登録に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage: '登録に失敗しました。' });
+    }
+    return res
+        .status(200)
+        .json({ errMessage: '登録が完了しました。' });
 });
 
 /**

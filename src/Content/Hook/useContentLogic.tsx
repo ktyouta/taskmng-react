@@ -46,7 +46,6 @@ function useContentLogic() {
             //ユーザーの権限によりメニューの表示を制限する
             return parseInt(userInfo.auth) >= parseInt(element.auth);
         });
-        //setSideMenu(tmpMenuList);
         setClientMenuList(tmpMenuList);
     }, [menuList, userInfo]);
 

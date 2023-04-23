@@ -15,7 +15,7 @@ function Content() {
 
     //データが取得できるまでローディングを表示
     if (!userInfo || !clientMenuList || clientMenuList.length < 1) {
-        return <Loading height="80vh" isLoading={true} />;
+        return <Loading height="80vh"/>;
     }
 
     return (

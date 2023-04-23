@@ -42,11 +42,15 @@ function createMasterDataListInfo(data: { mastertable: masterDataListType[] }): 
 
 function useMainLogic() {
 
-    //マスタのリスト(マスタメンテ画面のコンボ用)
-    const { data: masterDataListInfo } = useQueryWrapper(
+    //マスタのリスト(マスタメンテ画面のコンボ用)を取得
+    useQueryWrapper(
         {
             url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMASTERTABLE}`,
             callback: createMasterDataListInfo,
+            //取得データをAtomに保存
+            afSuccessFn: (data) => {
+                setMasterDataList(data);
+            }
         }
     );
     const [masterDataList, setMasterDataList] = useGlobalAtom(masterDataListAtom);
@@ -59,14 +63,7 @@ function useMainLogic() {
     //useQueryAtomValueを使用した取得法
     //const {clientData:userInfo} = useQueryAtomValue<userInfoType | undefined>(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.AUTH}`);
 
-    //取得データをAtomに保存
-    useEffect(() => {
-        if (!masterDataListInfo) {
-            return;
-        }
-        setMasterDataList(masterDataListInfo);
-    }, [masterDataListInfo]);
-
+    
     //Mainコンポーネントのルーティングリスト
     const componentList = useMemo(() => {
         let tmpComponentList: JSX.Element[] = [];

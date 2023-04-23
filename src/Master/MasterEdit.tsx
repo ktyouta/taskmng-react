@@ -6,16 +6,21 @@ import MasterInputComponent from './MasterInputComponent';
 import { useAtomValue } from 'jotai';
 import { selectedMasterNmAtom } from './Master';
 import LabelComponent from '../Common/LabelComponent';
+import Loading from '../Common/Loading';
 
 function MasterEdit() {
 
   console.log("masteredit render");
 
-  //現在選択(テーブルに表示)しているマスタの名称
-  const selectedMasterNm = useAtomValue(selectedMasterNmAtom);
-
   //MasterEditコンポーネントのビジネスロジック
-  const { refInfoArray, buttonTitle, backPageButtonFunc, runButtonFunc, clearButtonFunc } = useMasterEditLogic();
+  const {
+    refInfoArray,
+    buttonTitle,
+    selectedMasterNm,
+    isLoading,
+    backPageButtonFunc,
+    runButtonFunc,
+    clearButtonFunc } = useMasterEditLogic();
 
   return (
     <div className="masteredit">
@@ -38,6 +43,14 @@ function MasterEdit() {
           clearButtonFunc={clearButtonFunc}
         />
       </div>
+      {
+        isLoading && (
+          <div className="loading-area">
+            <Loading />
+          </div>
+        )
+      }
+
     </div>
   );
 }

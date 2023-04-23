@@ -20,7 +20,7 @@ function LoadingTableComponent(props: tablePropsType) {
 
     //ローディング
     if (props.isLoading) {
-        return <Loading isLoading={true} />;
+        return <Loading height='50vh'/>;
     }
 
     //エラー

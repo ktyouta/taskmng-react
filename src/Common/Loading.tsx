@@ -1,5 +1,6 @@
 import { useState, CSSProperties } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
+import styled from "styled-components";
 
 const override: CSSProperties = {
     display: "block",
@@ -7,28 +8,36 @@ const override: CSSProperties = {
     borderColor: "#a9a9a9",
 };
 
+//ローディング領域のスタイル
+const LoadingDiv = styled.div<{ height: string | undefined }>`
+  height: ${({ height }) => (height ? height : "100vh")};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align:center;
+`;
+
 //引数の型
 type propsType = {
-    isLoading: boolean,
-    height?:string,
+    height?: string,
 }
+
 
 function Loading(props: propsType) {
 
     return (
-        <div
+        <LoadingDiv
             className="sweet-loading"
-            style={{ display: "flex", justifyContent: "center", alignItems: "cneter", textAlign: "center",height:props.height?props.height:"40vh" }}
+            height={props.height}
         >
             <ClipLoader
                 color="#a9a9a9"
-                loading={props.isLoading}
                 cssOverride={override}
                 size={100}
                 aria-label="Loading Spinner"
                 data-testid="loader"
             />
-        </div>
+        </LoadingDiv>
     );
 }
 
