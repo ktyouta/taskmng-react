@@ -64,7 +64,7 @@ function useMasterTopLogic(): retType {
     if (!selectedMaster) {
       return "";
     }
-    return `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMASTER}?filename=${selectedMaster}`;
+    return `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MASTER}?filename=${selectedMaster}`;
   }, [selectedMaster]);
 
   //画面に表示するマスタのボディ

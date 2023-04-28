@@ -30,7 +30,7 @@ function useTopTableComponentLogic(props: propsType) {
     //テーブルのカラム設定リスト
     const { data: masterColumnList } = useQueryWrapper<object>(
         {
-            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETTABLECOLUMN}`,
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TABLECOLUMN}`,
         }
     );
 
@@ -120,7 +120,7 @@ function useTopTableComponentLogic(props: propsType) {
         let apiUrl = "";
         //モーダル内に表示するマスタのURL
         if (element && element.value) {
-            apiUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMASTER}?filename=${element.value}`;
+            apiUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MASTER}?filename=${element.value}`;
         }
         setMasterUrl(apiUrl);
         setSelectMasterNm(element.label);

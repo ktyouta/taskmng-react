@@ -1,15 +1,19 @@
 import express from 'express';
 import ENV from '../src/env.json';
-import { checkFile, createData, readFile } from './FileFunction';
+import { checkFile, overWriteData, readFile } from './FileFunction';
 import { bodyObj, userInfoType } from './Type/type';
 import { authenticate } from './AuthFunction';
 import { config } from './Config';
+import { createAddMasterData, runRegister } from './MasterDataFunction';
+import { JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH } from './Constant';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+
+
 
 //crosの設定
 app.use(function (req, res, next) {
@@ -44,11 +48,11 @@ app.listen(ENV.PORT, function () {
 /**
  * masterにアクセスした際の動作
  */
-app.get(ENV.GETMASTER, function (req, res) {
+app.get(ENV.MASTER, function (req, res) {
     if (!req.query.filename) {
         return;
     }
-    let fileData = readFile(`./public/json/master/${req.query.filename}.json`);
+    let fileData = readFile(`${MASTERFILEPATH}${req.query.filename}${JSONEXTENSION}`);
     res.json(JSON.parse(fileData));
 });
 
@@ -58,6 +62,7 @@ app.get(ENV.GETMASTER, function (req, res) {
 config.get.forEach((element) => {
     app.get(element.callUrl, function (req, res) {
         let fileData = readFile(element.fileUrl);
+        //デコードしてクライアントに返却
         res.json(JSON.parse(fileData));
     });
 })
@@ -69,29 +74,10 @@ config.get.forEach((element) => {
 /**
  * masterの登録
  */
-app.post(ENV.POSTMATERCREATE, function (req, res) {
-    //登録するファイル名を取得
-    let filename = req.body["masternm"];
-    console.log("filename:"+filename);
-    if (checkFile(filename)) {
-        return res
-            .status(400)
-            .json({ errMessage: 'ファイルが存在しません。' });
-    }
-    //マスタ名のプロパティを削除
-    delete req.body["masternm"];
-    // データを登録
-    let errMessage = createData(`./public/json/master/test.json`, JSON.stringify(req.body, null, '\t'));
-    //登録に失敗
-    if (errMessage) {
-        return res
-            .status(400)
-            .json({ errMessage: '登録に失敗しました。' });
-    }
-    return res
-        .status(200)
-        .json({ errMessage: '登録が完了しました。' });
+app.post(ENV.MASTER, function (req, res) {
+    runRegister(res, req, createAddMasterData);
 });
+
 
 /**
  * 認証+Tokenの発行
@@ -102,7 +88,7 @@ app.post(ENV.LOGIN, function (req, res) {
     var password = req.body.password;
 
     //認証
-    let fileData = readFile(`./public/json/setting/userinfo.json`);
+    let fileData = readFile(`${SETTINGFILEPATH}userinfo${JSONEXTENSION}`);
     //ファイルの読み込みに失敗
     if (!fileData) {
         return res
@@ -130,7 +116,6 @@ app.post(ENV.LOGIN, function (req, res) {
     const token = jwt.sign({ ID: jwtStr }, config.jwt.secret, { expiresIn: '1h' });
     res.status(200).json({ errMessage: '', token: token, userInfo: { userId: userId } });
 });
-
 
 
 /**

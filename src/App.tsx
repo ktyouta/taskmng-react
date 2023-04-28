@@ -20,6 +20,8 @@ const queryClient = new QueryClient({
 
 function App() {
 
+  console.log(`apprender`);
+
   //認証クッキー
   const [cookies] = useCookies();
 

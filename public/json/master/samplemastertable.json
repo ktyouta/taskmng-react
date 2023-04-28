@@ -14,6 +14,11 @@
             "value":"sample3",
             "label":"サンプルマスタ3",
             "remarks":"備考3"
+        },
+        {
+            "value":"test",
+            "label":"登録テスト用",
+            "remarks":"登録テスト用ファイル"
         }
     ]
 }

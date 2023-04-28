@@ -1,18 +1,26 @@
-import { QueryKey, useMutation, useQuery, UseQueryOptions } from 'react-query';
+import { QueryKey, useMutation, useQuery, useQueryClient, UseQueryOptions } from 'react-query';
 import axios from "axios";
 import { useMemo } from 'react';
 
+
+//レスポンスの型
+export type resType = {
+    status: number,
+    errMessage: string,
+}
 
 //引数の型
 type propsType<T> = {
     url: string,
     method: T,
+    queryKey?: [string, (Record<string, unknown> | string)?],
     //処理待ち中の処理
     waitingFn?: () => void,
     //処理成功後の処理
-    afSuccessFn?: () => void,
+    afSuccessFn?: (res: resType) => void,
     //失敗後の処理
-    afErrorFn?: () => void,
+    afErrorFn?: (res: resType) => void,
+    finaliryFn?: () => void,
 }
 
 //DELETEメソッドの場合はmutateの引数なし
@@ -21,10 +29,13 @@ type axiosDataType<T, U> = T extends "DELETE" ? void : U;
 //HTTPメソッド
 type methodType = "POST" | "PUT" | "DELETE" | undefined;
 
+
 const useMutationWrapper = <
     T extends methodType,
     U,
 >(props: propsType<T>) => {
+
+    const queryClient = useQueryClient();
 
     //POST
     const postQuery = async (postData: axiosDataType<T, U>) => {
@@ -64,6 +75,9 @@ const useMutationWrapper = <
         onMutate: props.waitingFn ?? undefined,
         onSuccess: props.afSuccessFn ?? undefined,
         onError: props.afErrorFn ?? undefined,
+        onSettled: props.queryKey ? () => {
+            queryClient.invalidateQueries(props.queryKey);
+        } : undefined,
     });
 }
 

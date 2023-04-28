@@ -25,7 +25,7 @@ function useMasterTableComponentLogic(props: propsType) {
     //テーブルのカラム設定リスト
     const { data: masterColumnList } = useQueryWrapper<object>(
         {
-            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETTABLECOLUMN}`,
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TABLECOLUMN}`,
         }
     );
 

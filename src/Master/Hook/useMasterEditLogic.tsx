@@ -10,7 +10,7 @@ import { useCookies } from "react-cookie";
 import { refType } from "../../Common/BaseInputComponent";
 import { useAtom, useAtomValue } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
-import useMutationWrapper from "../../Common/Hook/useMutationWrapper";
+import useMutationWrapper, { resType } from "../../Common/Hook/useMutationWrapper";
 
 
 //返り値の型
@@ -47,17 +47,15 @@ function useMasterEditLogic(): retType {
     //編集モード
     const editMode = useAtomValue(editModeAtom);
     //現在選択しているマスタ
-    const selectedMaster = useAtom(selectedMasterAtom);
+    const selectedMaster = useAtomValue(selectedMasterAtom);
     //現在選択(テーブルに表示)しているマスタの名称
     const selectedMasterNm = useAtomValue(selectedMasterNmAtom);
     //テーブルで選択したデータ
     const selectedDataElements = useAtomValue(selectedDataElementsAtom);
-    //認証クッキー
-    const [cookie] = useCookies();
 
     //入力欄設定リスト
     const { data: inputsSettingList } = useQueryWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETINPUTSETTING}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.INPUTSETTING}`,
         callback: createInputSettingList
     });
 
@@ -73,21 +71,28 @@ function useMasterEditLogic(): retType {
 
     //登録更新用フック
     const mutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.POSTMATERCREATE}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MASTER}`,
         method: methodNm,
-        afSuccessFn: () => {
-            alert("処理が完了しました。");
+        queryKey: [`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MASTER}?filename=${selectedMaster}`],
+        //正常終了後の処理
+        afSuccessFn: (res: resType) => {
+            alert(res.errMessage);
+            //メッセージを表示してマスタトップ画面に遷移する
             navigate(`/master`);
         },
-        afErrorFn: () => {
-            alert("処理に失敗しました。");
-        }
+        //失敗後の処理
+        afErrorFn: (res: resType) => {
+            //エラーメッセージを表示
+            alert(res.errMessage);
+        },
     });
 
     //入力欄参照用refの作成
     const refInfoArray: refInfoType[] = useMemo(() => {
         let tmpRefInfoArray: refInfoType[] = [];
-        if (!inputsSettingList) {
+        if (!inputsSettingList ||
+            inputsSettingList.length === 0
+        ) {
             return tmpRefInfoArray;
         }
         inputsSettingList.forEach((element) => {
@@ -146,6 +151,9 @@ function useMasterEditLogic(): retType {
      * 登録押下処理
      */
     const create = () => {
+        if (!refInfoArray || refInfoArray.length === 0) {
+            return;
+        }
         if (!window.confirm('データを登録しますか？')) {
             return
         }
@@ -154,6 +162,7 @@ function useMasterEditLogic(): retType {
             return;
         }
         let body: bodyObj = {};
+        //bodyの作成
         refInfoArray.forEach((element) => {
             let postValue: string | undefined = element.value;
             if (element.ref && element.ref.current) {
@@ -217,7 +226,7 @@ function useMasterEditLogic(): retType {
             default:
                 return;
         }
-    }, []);
+    }, [refInfoArray]);
 
     return {
         refInfoArray,

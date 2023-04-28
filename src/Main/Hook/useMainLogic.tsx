@@ -45,7 +45,7 @@ function useMainLogic() {
     //マスタのリスト(マスタメンテ画面のコンボ用)を取得
     useQueryWrapper(
         {
-            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GETMASTERTABLE}`,
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MASTERTABLE}`,
             callback: createMasterDataListInfo,
             //取得データをAtomに保存
             afSuccessFn: (data) => {

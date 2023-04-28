@@ -52,8 +52,8 @@ export function authenticate(cookie:string): authInfoType {
         }
 
     } catch (err) {
-        tmpAuthInfo.status = 400;
-        tmpAuthInfo.errMessage = '認証に失敗しました。';
+        tmpAuthInfo.status = 500;
+        tmpAuthInfo.errMessage = '予期しないエラーが発生しました。';
     }
     return tmpAuthInfo;
 }

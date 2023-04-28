@@ -7,7 +7,7 @@ export type bodyObj = {
 export type authInfoType = {
     status: number,
     errMessage: string,
-    userInfo: userInfoType
+    userInfo?: userInfoType
 }
 
 //ユーザー情報

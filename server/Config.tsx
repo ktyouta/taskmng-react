@@ -12,19 +12,19 @@ export const config = {
     //GETメソッド用
     get:[
         {
-            callUrl:ENV.GETMENU,
+            callUrl:ENV.MENU,
             fileUrl:"./public/json/setting/menu.json"
         },
         {
-            callUrl:ENV.GETMASTERTABLE,
+            callUrl:ENV.MASTERTABLE,
             fileUrl:"./public/json/master/samplemastertable.json"
         },
         {
-            callUrl:ENV.GETINPUTSETTING,
+            callUrl:ENV.INPUTSETTING,
             fileUrl:"./public/json/setting/inputsetting.json"
         },
         {
-            callUrl:ENV.GETTABLECOLUMN,
+            callUrl:ENV.TABLECOLUMN,
             fileUrl:"./public/json/setting/tablecolumn.json"
         },
         {

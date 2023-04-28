@@ -35,9 +35,9 @@ export function readFile(filePath: string) {
  * @param stream 
  * @returns 
  */
-export function createData(filePath: string, stream: string) {
+export function overWriteData(filePath: string, stream: string) {
     try {
-        fs.appendFileSync(filePath, stream);
+        fs.writeFileSync (filePath, stream);
         return "";
     } catch (err) {
         return "エラーが発生しました。";
