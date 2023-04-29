@@ -4,7 +4,7 @@ import { checkFile, overWriteData, readFile } from './FileFunction';
 import { bodyObj, userInfoType } from './Type/type';
 import { authenticate } from './AuthFunction';
 import { config } from './Config';
-import { createAddMasterData, runRegister } from './MasterDataFunction';
+import { createAddMasterData, createUpdMasterData, runRegister } from './MasterDataFunction';
 import { JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH } from './Constant';
 
 const app: express.Express = express();
@@ -124,4 +124,15 @@ app.post(ENV.LOGIN, function (req, res) {
 app.post(ENV.AUTH, function (req, res) {
     let authResult = authenticate(req.cookies.cookie);
     res.status(authResult.status).json({ errMessage: authResult.errMessage, userInfo: authResult.userInfo });
+});
+
+
+/**
+ * PUT
+ */
+/**
+ * masterの更新
+ */
+app.put(ENV.MASTER, function (req, res) {
+    runRegister(res, req, createUpdMasterData, "PUT");
 });

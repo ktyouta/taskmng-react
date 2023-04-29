@@ -1,7 +1,7 @@
 import { authenticate } from "./AuthFunction";
 import { JSONEXTENSION, MASTERFILEPATH } from "./Constant";
 import { checkFile, overWriteData, readFile } from "./FileFunction";
-import { authInfoType } from "./Type/type";
+import { authInfoType, methodType } from "./Type/type";
 
 /**
  * 登録用データの作成
@@ -19,6 +19,64 @@ export function createAddMasterData(fileDataObj: { master: { [key: string]: any 
 }
 
 /**
+ * 更新用データの作成
+ * @param filePath 
+ * @param stream 
+ * @returns 
+ */
+export function createUpdMasterData(fileDataObj: { master: { [key: string]: any }[] }, registData: { [key: string]: any })
+    : { master: { [key: string]: any }[] } {
+
+    fileDataObj.master.some((element) => {
+        //IDの一致するデータを更新
+        if (element.id === registData.id) {
+            Object.keys(element).forEach((item) => {
+                element[item] = registData[item];
+            });
+            return true;
+        }
+    });
+
+    return fileDataObj;
+}
+
+/**
+ * 更新削除データの存在チェック
+ */
+function checkExistData(fileDataObj: { master: { [key: string]: any }[] }, registData: { [key: string]: any }) {
+    let isExist = false;
+
+    fileDataObj.master.some((element) => {
+        //IDの一致するデータを更新
+        if (element.id === registData.id) {
+            return isExist = true;
+        }
+    });
+    return isExist;
+}
+
+/**
+ * メソッドからクライアント用のメッセージワードを返却
+ */
+function getMethodWord(method: methodType) {
+    //クライアントメッセージ用
+    let updMessage = "";
+    switch (method) {
+        case "POST":
+            updMessage = "登録";
+            break;
+        case "PUT":
+            updMessage = "更新";
+            break;
+        case "DELETE":
+            updMessage = "削除";
+            break;
+    }
+    return updMessage;
+}
+
+
+/**
  * マスタデータ登録更新用
  * @param res 
  * @param req 
@@ -27,7 +85,9 @@ export function createAddMasterData(fileDataObj: { master: { [key: string]: any 
  */
 export function runRegister(res: any,
     req: any,
-    regstFunction: (fileDataObj: { master: { [key: string]: any }[] }, registData: { [key: string]: any }) => { master: { [key: string]: any }[] }) {
+    regstFunction: (fileDataObj: { master: { [key: string]: any }[] }, registData: { [key: string]: any }) => { master: { [key: string]: any }[] },
+    method: methodType = "POST"
+) {
     try {
         //認証権限チェック
         let authResult = checkUpdAuth(req.cookies.cookie);
@@ -46,8 +106,18 @@ export function runRegister(res: any,
                 .json({ errMessage: 'ファイルが存在しません。' });
         }
 
+        //クライアントメッセージ用
+        let updMessage = getMethodWord(method);
+
         //登録に不要なプロパティ(マスタ名)を削除
         delete req.body["masternm"];
+
+        //更新削除の場合は対象データの存在チェックを行う
+        if ((method === "PUT" || method === "DELETE") && !checkExistData(JSON.parse(readFile(filePath)), req.body)) {
+            return res
+                .status(400)
+                .json({ errMessage: `${updMessage}対象のデータが存在しません。` });
+        }
 
         //引数で受け取った登録更新用データ作成メソッドを呼び出す
         let tmpFileDataObj = regstFunction(JSON.parse(readFile(filePath)), req.body);
@@ -55,15 +125,17 @@ export function runRegister(res: any,
         // データを登録
         let errMessage = overWriteData(filePath, JSON.stringify(tmpFileDataObj, null, '\t'));
 
-        //登録に失敗
+        //登録更新削除に失敗
         if (errMessage) {
             return res
                 .status(400)
                 .json({ errMessage });
         }
+
+        //正常終了
         return res
             .status(200)
-            .json({ errMessage: '登録が完了しました。' });
+            .json({ errMessage: `${updMessage}が完了しました。` });
 
     }
     catch (e) {

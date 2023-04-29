@@ -182,15 +182,27 @@ function useMasterEditLogic(): retType {
      * 更新ボタン押下処理
      */
     const update = () => {
+        if (!refInfoArray || refInfoArray.length === 0) {
+            return;
+        }
         if (!window.confirm('データを更新しますか？')) {
             return
         }
+        if (!mutation) {
+            alert("リクエストの送信に失敗しました。");
+            return;
+        }
         let body: bodyObj = {};
+        //bodyの作成
         refInfoArray.forEach((element) => {
-            console.log("inputvalue:" + element.ref?.current?.refValue);
+            let postValue: string | undefined = element.value;
+            if (element.ref && element.ref.current) {
+                postValue = element.ref?.current?.refValue;
+            }
+            body[element.id] = postValue;
         });
-        body['master'] = selectedMaster;
-        navigate(`/master`);
+        body['masternm'] = selectedMaster;
+        mutation.mutate(body);
     }
 
     /**

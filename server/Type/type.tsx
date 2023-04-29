@@ -17,3 +17,6 @@ export type userInfoType = {
     password?: string,
     auth: string,
 }
+
+//メソッドタイプ
+export type methodType = "POST" | "PUT" | "DELETE"
