@@ -40,6 +40,6 @@ export function overWriteData(filePath: string, stream: string) {
         fs.writeFileSync (filePath, stream);
         return "";
     } catch (err) {
-        return "エラーが発生しました。";
+        return "ファイルの書き込みに失敗しました。";
     }
 }

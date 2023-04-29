@@ -9,6 +9,11 @@ export type resType = {
     errMessage: string,
 }
 
+//エラーレスポンスの型
+export type errResType = {
+    response: { data: { errMessage: string } }
+}
+
 //引数の型
 type propsType<T> = {
     url: string,
@@ -19,7 +24,7 @@ type propsType<T> = {
     //処理成功後の処理
     afSuccessFn?: (res: resType) => void,
     //失敗後の処理
-    afErrorFn?: (res: resType) => void,
+    afErrorFn?: (res: errResType) => void,
     finaliryFn?: () => void,
 }
 

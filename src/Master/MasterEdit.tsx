@@ -7,6 +7,8 @@ import { useAtomValue } from 'jotai';
 import { selectedMasterNmAtom } from './Master';
 import LabelComponent from '../Common/LabelComponent';
 import Loading from '../Common/Loading';
+import { SnackbarComponent } from '../Common/SnackbarComponent';
+
 
 function MasterEdit() {
 
@@ -18,6 +20,7 @@ function MasterEdit() {
     buttonTitle,
     selectedMasterNm,
     isLoading,
+    updErrMessage,
     backPageButtonFunc,
     runButtonFunc,
     clearButtonFunc } = useMasterEditLogic();
@@ -32,10 +35,18 @@ function MasterEdit() {
       </div>
       <div className="masteredit-main-area">
         <div className="masteredit-input-main-area">
+          {/* 入力欄 */}
           <MasterInputComponent refInfoArray={refInfoArray} />
         </div>
+        {/* エラーメッセージ用スナックバー */}
+        <SnackbarComponent
+          open={!!updErrMessage}
+          message={updErrMessage}
+          severity='error'
+        />
       </div>
       <div className="masteredit-footer-area">
+        {/* 編集画面用フッター */}
         <MasterEditFooter
           buttonTitle={buttonTitle}
           backPageButtonFunc={backPageButtonFunc}
@@ -43,6 +54,7 @@ function MasterEdit() {
           clearButtonFunc={clearButtonFunc}
         />
       </div>
+      {/* ローディング */}
       {
         isLoading && (
           <div className="loading-area">
@@ -50,7 +62,6 @@ function MasterEdit() {
           </div>
         )
       }
-
     </div>
   );
 }

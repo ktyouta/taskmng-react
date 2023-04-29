@@ -11,6 +11,7 @@
 
 .masteredit-main-area {
     height: 78%;
+    overflow-y: auto;
 }
 
 .masteredit-footer-area {
@@ -19,6 +20,6 @@
 
 .masteredit-input-main-area {
     overflow: auto;
-    height: 95%;
+    height: 90%;
     margin-left: 15%;
 }

@@ -59,7 +59,7 @@ export function runRegister(res: any,
         if (errMessage) {
             return res
                 .status(400)
-                .json({ errMessage: '登録に失敗しました。' });
+                .json({ errMessage });
         }
         return res
             .status(200)

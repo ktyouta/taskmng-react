@@ -1,4 +1,4 @@
-import { createRef, RefObject, useContext, useEffect, useMemo } from "react";
+import { createRef, RefObject, useContext, useEffect, useMemo, useState } from "react";
 import { editModeAtom, editModeEnum, selectedDataElementsAtom, selectedMasterAtom, selectedMasterNmAtom } from "../Master";
 import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
@@ -10,7 +10,8 @@ import { useCookies } from "react-cookie";
 import { refType } from "../../Common/BaseInputComponent";
 import { useAtom, useAtomValue } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
-import useMutationWrapper, { resType } from "../../Common/Hook/useMutationWrapper";
+import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
+import useSwitch from "../../Common/Hook/useSwitch";
 
 
 //返り値の型
@@ -19,6 +20,7 @@ type retType = {
     buttonTitle: string | undefined,
     selectedMasterNm: string,
     isLoading: boolean,
+    updErrMessage: string,
     backPageButtonFunc: () => void,
     runButtonFunc: (() => void) | undefined,
     clearButtonFunc: () => void | undefined,
@@ -52,6 +54,8 @@ function useMasterEditLogic(): retType {
     const selectedMasterNm = useAtomValue(selectedMasterNmAtom);
     //テーブルで選択したデータ
     const selectedDataElements = useAtomValue(selectedDataElementsAtom);
+    //スナックバーに表示する登録更新時のエラーメッセージ
+    const [updErrMessage, setUpdErrMessage] = useState(``);
 
     //入力欄設定リスト
     const { data: inputsSettingList } = useQueryWrapper({
@@ -81,9 +85,9 @@ function useMasterEditLogic(): retType {
             navigate(`/master`);
         },
         //失敗後の処理
-        afErrorFn: (res: resType) => {
+        afErrorFn: (res: errResType) => {
             //エラーメッセージを表示
-            alert(res.errMessage);
+            setUpdErrMessage(res.response.data.errMessage);
         },
     });
 
@@ -232,6 +236,7 @@ function useMasterEditLogic(): retType {
         buttonTitle: buttonTitle,
         selectedMasterNm,
         isLoading: mutation.isLoading,
+        updErrMessage,
         backPageButtonFunc,
         runButtonFunc,
         clearButtonFunc

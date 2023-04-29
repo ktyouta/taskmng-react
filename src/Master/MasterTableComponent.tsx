@@ -75,6 +75,7 @@ function MasterTableComponent(props: propsType) {
                 tableHeader={tableHeader}
                 tableBody={masterTableBody}
                 onclick={setSelectedData}
+                tableHeight="371px"
             />
         </div>
     );
