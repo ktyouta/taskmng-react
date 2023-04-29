@@ -168,7 +168,6 @@ function useMasterEditLogic(): retType {
             if (element.ref && element.ref.current) {
                 postValue = element.ref?.current?.refValue;
             }
-            console.log(`key:${element.id} value:${postValue}`);
             body[element.id] = postValue;
         });
         body['masternm'] = selectedMaster;

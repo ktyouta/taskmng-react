@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import Modal from 'react-modal';
 import { IconType } from 'react-icons';
 import IconComponent from './IconComponent';
@@ -19,9 +19,9 @@ const customStyles = {
 
 //引数の型
 type propsType = {
-    component: JSX.Element,
     modalIsOpen: boolean,
     closeModal: () => void,
+    children: ReactNode,
 }
 
 function ModalComponent(props: propsType) {
@@ -37,7 +37,7 @@ function ModalComponent(props: propsType) {
                 contentLabel="Example Modal"
                 overlayClassName="Overlay"
             >
-                {props.component}
+                {props.children}
             </Modal>
         </div>
     );

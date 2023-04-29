@@ -32,7 +32,7 @@ function TopTableComponent(props: propsType) {
         reamarksRef,
         isDisplayMessage,
         resultNum,
-        flag:modalOpenFlag,
+        flag: modalOpenFlag,
         masterTableHeader,
         selectMasterNm,
         selectedMasterBody,
@@ -93,19 +93,18 @@ function TopTableComponent(props: propsType) {
                 tableBody={masterTableBody}
             />
             <ModalComponent
-                component={
-                    <TopModalTable
-                        isLoading={isLoading}
-                        isError={isError}
-                        tableHeight="310px"
-                        selectMasterNm={selectMasterNm}
-                        tableHeader={masterTableHeader}
-                        tableBody={selectedMasterBody ?? []}
-                    />
-                }
                 modalIsOpen={modalOpenFlag}
                 closeModal={offFlag}
-            />
+            >
+                <TopModalTable
+                    isLoading={isLoading}
+                    isError={isError}
+                    tableHeight="310px"
+                    selectMasterNm={selectMasterNm}
+                    tableHeader={masterTableHeader}
+                    tableBody={selectedMasterBody ?? []}
+                />
+            </ModalComponent>
         </div>
     );
 }
