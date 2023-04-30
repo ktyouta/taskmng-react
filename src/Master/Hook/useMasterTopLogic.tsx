@@ -8,6 +8,7 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import { masterDataListAtom } from "../../Main/Hook/useMainLogic";
+import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 
 
 //返り値の型
@@ -15,6 +16,7 @@ type retType = {
   masterDataList: masterDataListType[],
   selectedMasterBody: selectedMasterDataType[] | undefined,
   selectedMaster: string,
+  isLoading: boolean,
   viewData: () => void,
   createData: () => void,
   updateData: () => void,
@@ -67,6 +69,14 @@ function useMasterTopLogic(): retType {
     return `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MASTER}?filename=${selectedMaster}`;
   }, [selectedMaster]);
 
+  //削除用URL
+  let deleteUrl = useMemo(() => {
+    if (!selectedMaster || !selectedData) {
+      return "";
+    }
+    return `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MASTER}/${selectedMaster}-${selectedData.id}`;
+  }, [selectedMaster, selectedData]);
+
   //画面に表示するマスタのボディ
   //選択中のマスタのデータを取得する
   const { data: selectedMasterBody } = useQueryWrapper(
@@ -75,6 +85,23 @@ function useMasterTopLogic(): retType {
       callback: createUserInfo
     }
   );
+
+  //削除用フック
+  const mutation = useMutationWrapper({
+    url: deleteUrl,
+    method: "DELETE",
+    queryKey: [`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MASTER}?filename=${selectedMaster}`],
+    //正常終了後の処理
+    afSuccessFn: (res: resType) => {
+      alert(res.errMessage);
+    },
+    //失敗後の処理
+    afErrorFn: (res: errResType) => {
+      //エラーメッセージを表示
+      alert(res.response.data.errMessage);
+    },
+  });
+
 
   //マスタのデータを取得して選択行のデータを返却
   const getMasterData = async (url: string) => {
@@ -153,6 +180,14 @@ function useMasterTopLogic(): retType {
       alert("データを選択してください。");
       return;
     }
+    if (!window.confirm('データを削除しますか？')) {
+      return
+    }
+    if (!mutation) {
+      alert("リクエストの送信に失敗しました。");
+      return;
+    }
+    mutation.mutate();
   }
 
   /**
@@ -170,7 +205,17 @@ function useMasterTopLogic(): retType {
     }
   }
 
-  return { masterDataList, selectedMasterBody, selectedMaster, viewData, createData, updateData, deleteData, changeCombo };
+  return {
+    masterDataList,
+    selectedMasterBody,
+    selectedMaster,
+    isLoading: mutation.isLoading,
+    viewData,
+    createData,
+    updateData,
+    deleteData,
+    changeCombo
+  };
 }
 
 export default useMasterTopLogic;

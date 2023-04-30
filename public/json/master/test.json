@@ -11,19 +11,9 @@
 			"remarks": "備考サンプル2Upd"
 		},
 		{
-			"id": "3",
-			"name": "test1nm",
-			"remarks": "test1"
-		},
-		{
 			"id": "4",
 			"name": "testnm",
 			"remarks": "test"
-		},
-		{
-			"id": "5",
-			"name": "testnm2",
-			"remarks": "test2"
 		},
 		{
 			"id": "6",
@@ -67,13 +57,8 @@
 		},
 		{
 			"id": "14",
-			"name": "testnm11upd",
-			"remarks": "test11upd"
-		},
-		{
-			"id": "15",
-			"name": "testnm12Upd",
-			"remarks": "test12Upd"
+			"name": "testnm11upd2",
+			"remarks": "test11upd2"
 		}
 	]
 }

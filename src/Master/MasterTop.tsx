@@ -11,6 +11,8 @@ import MasterTableComponent from './MasterTableComponent';
 import { useAtomValue } from 'jotai';
 import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 import { useGlobalAtom, useGlobalAtomValue } from '../Common/Hook/useGlobalAtom';
+import Loading from '../Common/Loading';
+import WaitLoading from '../Common/WaitLoading';
 
 
 function MasterTop() {
@@ -18,7 +20,16 @@ function MasterTop() {
   console.log("mastertop render");
 
   //MasterTopコンポーネントのビジネスロジック
-  const { masterDataList, selectedMasterBody, selectedMaster, viewData, createData, updateData, deleteData, changeCombo } = useMasterTopLogic();
+  const {
+    masterDataList,
+    selectedMasterBody,
+    selectedMaster,
+    isLoading,
+    viewData,
+    createData,
+    updateData,
+    deleteData,
+    changeCombo } = useMasterTopLogic();
 
   return (
     <div className="mastertop">
@@ -48,6 +59,10 @@ function MasterTop() {
       </div>
       <MasterTableComponent
         selectedMasterBody={selectedMasterBody}
+      />
+      {/* ローディング */}
+      <WaitLoading
+        isLoading={isLoading}
       />
     </div>
   );

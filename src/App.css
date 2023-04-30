@@ -50,16 +50,3 @@
     transform: rotate(360deg);
   }
 }
-
-.loading-area {
-  background-color: #3333331a;
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 2000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}

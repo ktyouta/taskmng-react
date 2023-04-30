@@ -41,6 +41,25 @@ export function createUpdMasterData(fileDataObj: { master: { [key: string]: any 
 }
 
 /**
+ * 削除用データの作成
+ * @param filePath 
+ * @param stream 
+ * @returns 
+ */
+export function createDelMasterData(fileDataObj: { master: { [key: string]: any }[] }, registData: { [key: string]: any })
+    : { master: { [key: string]: any }[] } {
+    let tmp: { [key: string]: any }[] = [];
+
+    tmp = fileDataObj.master.filter((element) => {
+        //IDの一致するデータをフィルター
+        return element.id !== registData.id;
+    });
+    fileDataObj.master = tmp;
+    return fileDataObj;
+}
+
+
+/**
  * 更新削除データの存在チェック
  */
 function checkExistData(fileDataObj: { master: { [key: string]: any }[] }, registData: { [key: string]: any }) {
@@ -86,7 +105,8 @@ function getMethodWord(method: methodType) {
 export function runRegister(res: any,
     req: any,
     regstFunction: (fileDataObj: { master: { [key: string]: any }[] }, registData: { [key: string]: any }) => { master: { [key: string]: any }[] },
-    method: methodType = "POST"
+    method: methodType = "POST",
+    pathPrm: string = ""
 ) {
     try {
         //認証権限チェック
@@ -97,8 +117,32 @@ export function runRegister(res: any,
                 .json({ errMessage: authResult.errMessage });
         }
 
+        //ファイル名
+        let fileNm;
+        //リクエストボディ
+        let body: { [key: string]: any } = {};
+
+        //ファイル名とボディを取得
+        if (method === "DELETE") {
+            //パスパラメータは、ファイル名/IDの形式で受け取る
+            let pathPrmArry = pathPrm.split(`-`);
+            if (pathPrmArry.length !== 2) {
+                return res
+                    .status(400)
+                    .json({ errMessage: 'パラメータが不正です。' });
+            }
+            fileNm = pathPrmArry[0];
+            body['id'] = pathPrmArry[1];
+        }
+        else {
+            fileNm = req.body["masternm"];
+            //登録に不要なプロパティ(マスタ名)を削除
+            delete req.body["masternm"];
+            body = req.body;
+        }
+
         //登録するファイルのパスを取得
-        let filePath = `${MASTERFILEPATH}${req.body["masternm"]}${JSONEXTENSION}`;
+        let filePath = `${MASTERFILEPATH}${fileNm}${JSONEXTENSION}`;
         //ファイルの存在チェック
         if (!checkFile(filePath)) {
             return res
@@ -109,20 +153,17 @@ export function runRegister(res: any,
         //クライアントメッセージ用
         let updMessage = getMethodWord(method);
 
-        //登録に不要なプロパティ(マスタ名)を削除
-        delete req.body["masternm"];
-
         //更新削除の場合は対象データの存在チェックを行う
-        if ((method === "PUT" || method === "DELETE") && !checkExistData(JSON.parse(readFile(filePath)), req.body)) {
+        if ((method === "PUT" || method === "DELETE") && !checkExistData(JSON.parse(readFile(filePath)), body)) {
             return res
                 .status(400)
                 .json({ errMessage: `${updMessage}対象のデータが存在しません。` });
         }
 
         //引数で受け取った登録更新用データ作成メソッドを呼び出す
-        let tmpFileDataObj = regstFunction(JSON.parse(readFile(filePath)), req.body);
+        let tmpFileDataObj = regstFunction(JSON.parse(readFile(filePath)), body);
 
-        // データを登録
+        //データを登録
         let errMessage = overWriteData(filePath, JSON.stringify(tmpFileDataObj, null, '\t'));
 
         //登録更新削除に失敗

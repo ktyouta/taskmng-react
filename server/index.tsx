@@ -4,7 +4,7 @@ import { checkFile, overWriteData, readFile } from './FileFunction';
 import { bodyObj, userInfoType } from './Type/type';
 import { authenticate } from './AuthFunction';
 import { config } from './Config';
-import { createAddMasterData, createUpdMasterData, runRegister } from './MasterDataFunction';
+import { createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterDataFunction';
 import { JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH } from './Constant';
 
 const app: express.Express = express();
@@ -135,4 +135,12 @@ app.post(ENV.AUTH, function (req, res) {
  */
 app.put(ENV.MASTER, function (req, res) {
     runRegister(res, req, createUpdMasterData, "PUT");
+});
+
+
+/**
+ * DELETE
+ */
+app.delete(`${ENV.MASTER}/:param`, function (req, res) {
+    runRegister(res, req, createDelMasterData, "DELETE",req.params.param);
 });

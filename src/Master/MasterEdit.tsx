@@ -8,6 +8,7 @@ import { selectedMasterNmAtom } from './Master';
 import LabelComponent from '../Common/LabelComponent';
 import Loading from '../Common/Loading';
 import { SnackbarComponent } from '../Common/SnackbarComponent';
+import WaitLoading from '../Common/WaitLoading';
 
 
 function MasterEdit() {
@@ -55,13 +56,9 @@ function MasterEdit() {
         />
       </div>
       {/* ローディング */}
-      {
-        isLoading && (
-          <div className="loading-area">
-            <Loading />
-          </div>
-        )
-      }
+      <WaitLoading
+        isLoading={isLoading}
+      />
     </div>
   );
 }

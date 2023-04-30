@@ -72,7 +72,7 @@ const useMutationWrapper = <
             default:
                 return undefined;
         }
-    }, []);
+    }, [props.url]);
 
     return useMutation({
         //HTTPリクエスト送信処理
