@@ -1,5 +1,5 @@
 {
-    "inputsetting":[
+    "inputMasterSetting":[
         {
             "id":"id",
             "name":"ID",
@@ -7,6 +7,38 @@
             "length":100,
             "value":"",
             "isEditable":false,
+            "isNewCreateVisible":false,
+            "isHidden":false
+        },
+        {
+            "id":"name",
+            "name":"名称",
+            "type":"input",
+            "length":100,
+            "value":"",
+            "isEditable":true,
+            "isNewCreateVisible":true,
+            "isHidden":false
+        },
+        {
+            "id":"remarks",
+            "name":"備考",
+            "type":"input",
+            "length":500,
+            "value":"",
+            "isEditable":true,
+            "isNewCreateVisible":true,
+            "isHidden":false
+        }
+    ],
+    "addMasterSummarySetting":[
+        {
+            "id":"id",
+            "name":"ファイル名",
+            "type":"input",
+            "length":100,
+            "value":"",
+            "isEditable":true,
             "isNewCreateVisible":false,
             "isHidden":false
         },

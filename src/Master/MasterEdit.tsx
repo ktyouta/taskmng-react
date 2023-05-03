@@ -9,6 +9,7 @@ import LabelComponent from '../Common/LabelComponent';
 import Loading from '../Common/Loading';
 import { SnackbarComponent } from '../Common/SnackbarComponent';
 import WaitLoading from '../Common/WaitLoading';
+import AddMasterForm from '../Common/AddMasterForm';
 
 
 function MasterEdit() {
@@ -18,48 +19,23 @@ function MasterEdit() {
   //MasterEditコンポーネントのビジネスロジック
   const {
     refInfoArray,
-    buttonTitle,
-    selectedMasterNm,
+    title,
     isLoading,
     updErrMessage,
-    backPageButtonFunc,
-    runButtonFunc,
-    clearButtonFunc } = useMasterEditLogic();
+    backPageButtonObj,
+    negativeButtonObj,
+    positiveButtonObj, } = useMasterEditLogic();
 
   return (
-    <div className="masteredit">
-      <div className="masteredit-header-area">
-        <LabelComponent
-          title={`マスタ名：${selectedMasterNm}`}
-          width="100%"
-        />
-      </div>
-      <div className="masteredit-main-area">
-        <div className="masteredit-input-main-area">
-          {/* 入力欄 */}
-          <MasterInputComponent refInfoArray={refInfoArray} />
-        </div>
-        {/* エラーメッセージ用スナックバー */}
-        <SnackbarComponent
-          open={!!updErrMessage}
-          message={updErrMessage}
-          severity='error'
-        />
-      </div>
-      <div className="masteredit-footer-area">
-        {/* 編集画面用フッター */}
-        <MasterEditFooter
-          buttonTitle={buttonTitle}
-          backPageButtonFunc={backPageButtonFunc}
-          runButtonFunc={runButtonFunc}
-          clearButtonFunc={clearButtonFunc}
-        />
-      </div>
-      {/* ローディング */}
-      <WaitLoading
-        isLoading={isLoading}
-      />
-    </div>
+    <AddMasterForm
+      refInfoArray={refInfoArray}
+      updErrMessage={updErrMessage}
+      title={title}
+      isLoading={isLoading}
+      backPageButtonObj={backPageButtonObj}
+      negativeButtonObj={negativeButtonObj}
+      positiveButtonObj={positiveButtonObj}
+    />
   );
 }
 

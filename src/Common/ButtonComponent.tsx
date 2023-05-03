@@ -8,7 +8,7 @@ type propsType = {
 }
 
 //ボタンの種類
-type buttonType = "BASE" | "PRIMARY" | "DANGER" | "RUN" | "LOGOUT";
+export type buttonType = "BASE" | "PRIMARY" | "DANGER" | "RUN" | "LOGOUT";
 
 //ボタンの基本スタイル
 const BaseButton = styled.button`

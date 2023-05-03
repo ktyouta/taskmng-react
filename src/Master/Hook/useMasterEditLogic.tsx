@@ -2,28 +2,27 @@ import { createRef, RefObject, useContext, useEffect, useMemo, useState } from "
 import { editModeAtom, editModeEnum, selectedDataElementsAtom, selectedMasterAtom, selectedMasterNmAtom } from "../Master";
 import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
-import { inputSettingType, refInfoType } from "../Type/MasterType";
 import { createJsonData, postJsonData } from "../../Common/Function/Function";
 import ENV from '../../env.json';
-import { bodyObj } from "../../Common/Type/CommonType";
+import { bodyObj, inputMasterSettingType, inputSettingType, refInfoType } from "../../Common/Type/CommonType";
 import { useCookies } from "react-cookie";
 import { refType } from "../../Common/BaseInputComponent";
 import { useAtom, useAtomValue } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import useSwitch from "../../Common/Hook/useSwitch";
+import { buttonObjType } from "../MasterEditFooter";
 
 
 //返り値の型
 type retType = {
     refInfoArray: refInfoType[]
-    buttonTitle: string | undefined,
-    selectedMasterNm: string,
+    title: string,
     isLoading: boolean,
     updErrMessage: string,
-    backPageButtonFunc: () => void,
-    runButtonFunc: (() => void) | undefined,
-    clearButtonFunc: () => void | undefined,
+    backPageButtonObj: buttonObjType,
+    negativeButtonObj: buttonObjType,
+    positiveButtonObj: buttonObjType,
 }
 
 
@@ -32,8 +31,8 @@ type retType = {
  * @param data 
  * @returns 
  */
-function createInputSettingList(data: { inputsetting: inputSettingType[] }): inputSettingType[] {
-    return data.inputsetting;
+function createInputSettingList(data: inputSettingType): inputMasterSettingType[] {
+    return data.inputMasterSetting;
 }
 
 
@@ -208,21 +207,22 @@ function useMasterEditLogic(): retType {
     /**
      * 実行ボタンタイトル
      */
-    const buttonTitle = useMemo(() => {
-        switch (editMode) {
-            //閲覧
-            case editModeEnum.view:
-                return;
-            //登録
-            case editModeEnum.create:
-                return "登録";
-            //更新
-            case editModeEnum.update:
-                return "更新";
-            default:
-                return;
-        }
-    }, []);
+    let buttonTitle = "";
+    switch (editMode) {
+        //閲覧
+        case editModeEnum.view:
+            break;
+        //登録
+        case editModeEnum.create:
+            buttonTitle = "登録";
+            break;
+        //更新
+        case editModeEnum.update:
+            buttonTitle = "更新";
+            break;
+        default:
+            break;
+    }
 
     /**
     * 登録更新ボタンイベント
@@ -245,13 +245,12 @@ function useMasterEditLogic(): retType {
 
     return {
         refInfoArray,
-        buttonTitle: buttonTitle,
-        selectedMasterNm,
+        title: selectedMaster && selectedMasterNm ? `ファイル名：${selectedMaster}.json（${selectedMasterNm}）` : ``,
         isLoading: mutation.isLoading,
         updErrMessage,
-        backPageButtonFunc,
-        runButtonFunc,
-        clearButtonFunc
+        backPageButtonObj: { title: `戻る`, type: `BASE`, onclick: backPageButtonFunc },
+        negativeButtonObj: { title: `元に戻す`, type: `RUN`, onclick: clearButtonFunc },
+        positiveButtonObj: { title: buttonTitle, type: `RUN`, onclick: runButtonFunc },
     }
 }
 

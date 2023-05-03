@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import '../App.css';
 import './css/MasterEdit.css';
 import HorizonLabelInputComponent from '../Common/HorizonLabelInputComponent';
-import { refInfoType } from './Type/MasterType';
+import { refInfoType } from '../Common/Type/CommonType';
 
 //引数の型
 type propsType = {

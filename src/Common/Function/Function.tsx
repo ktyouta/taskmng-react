@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiResponseType, bodyObj } from '../Type/CommonType';
+import { apiResponseType, bodyObj, refInfoType } from '../Type/CommonType';
 
 //jsonファイルにデータを登録する
 export const createJsonData = (url: string, name: bodyObj) => {
@@ -30,4 +30,23 @@ export const postJsonData = (url: string, cookie: string, body: bodyObj, callbac
             callback(apiResponse);
         }
     })
+}
+
+//パスパラメータの作成
+export function createPathPrm() {
+
+}
+
+//リクエストボディの作成
+export function createRequestBody(refInputArray: refInfoType[]) {
+    let tmpBody: bodyObj = {};
+    //bodyの作成
+    refInputArray.forEach((element) => {
+        let postValue: string | undefined = element.value;
+        if (element.ref && element.ref.current) {
+            postValue = element.ref?.current?.refValue;
+        }
+        tmpBody[element.id] = postValue;
+    });
+    return tmpBody;
 }

@@ -1,0 +1,25 @@
+.addmasteredit {
+    height: 100%;
+}
+
+.addmasteredit-header-area {
+    height: 7%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.addmasteredit-main-area {
+    height: 78%;
+    overflow-y: auto;
+}
+
+.addmasteredit-footer-area {
+    height: 15%;
+}
+
+.addmasteredit-input-main-area {
+    overflow: auto;
+    height: 90%;
+    margin-left: 15%;
+}

@@ -1,3 +1,6 @@
+import { RefObject } from "react"
+import { refType } from "../BaseInputComponent"
+
 //画面に表示するテーブル
 export type selectedMasterDataType = {
     id: string,
@@ -71,3 +74,47 @@ export type masterDataListType = {
     remarks: string,
     component?: JSX.Element,
 };
+
+//入力欄参照用の型
+export type refInfoType = {
+    id: string,
+    name: string,
+    type: string,
+    lenght: number,
+    editFlg: boolean,
+    visible: boolean,
+    value: string,
+    ref: RefObject<refType>,
+}
+
+
+//マスタ編集画面の入力欄の設定
+export type inputMasterSettingType = {
+    id: string,
+    name: string,
+    type: string,
+    length: number,
+    value: string,
+    isEditable: boolean,
+    isNewCreateVisible: boolean,
+    isHidden: boolean,
+}
+
+//マスタ追加画面の入力欄の設定
+export type inputAddMasterSettingType = {
+    id: string,
+    name: string,
+    type: string,
+    length: number,
+    value: string,
+    isEditable: boolean,
+    isNewCreateVisible: boolean,
+    isHidden: boolean,
+}
+
+
+//入力欄設定
+export type inputSettingType = {
+    inputMasterSetting: inputMasterSettingType[],
+    addMasterSummarySetting: inputAddMasterSettingType[],
+}

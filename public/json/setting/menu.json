@@ -14,6 +14,13 @@
         "auth":"2"
     },
     {
+        "name": "新規マスタ追加",
+        "url": "/addmaster",
+        "component":"AddMaster",
+        "componentPath": "/addmaster/*",
+        "auth":"2"
+    },
+    {
         "name": "設定",
         "url": "/setting",
         "component":"Setting",

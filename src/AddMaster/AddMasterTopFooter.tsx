@@ -1,26 +1,18 @@
 import React, { useContext } from 'react';
 import logo from './logo.svg';
 import '../App.css';
-import './css/MasterEditFooter.css';
-import ButtonComponent, { buttonType } from '../Common/ButtonComponent';
+import '../Master/css/MasterEditFooter.css';
+import ButtonComponent from '../Common/ButtonComponent';
 import SpaceComponent from '../Common/SpaceComponent';
-
-
-//ボタン用
-export type buttonObjType = {
-    title: string,
-    type: buttonType,
-    onclick: (() => void) | undefined,
-}
+import { buttonObjType } from '../Master/MasterEditFooter';
 
 //引数の型
 type propsType = {
-    backPageButtonObj: buttonObjType,
     negativeButtonObj: buttonObjType,
     positiveButtonObj: buttonObjType,
 }
 
-function MasterEditFooter(props: propsType) {
+function AddMasterTopFooter(props: propsType) {
 
     console.log("mastereditfooter render");
 
@@ -28,19 +20,6 @@ function MasterEditFooter(props: propsType) {
         <div className="mastereditfooter">
             <SpaceComponent
                 space={"10%"}
-            />
-            {
-                props.backPageButtonObj &&
-                props.backPageButtonObj.title &&
-                props.backPageButtonObj.onclick &&
-                <ButtonComponent
-                    styleTypeNumber={props.backPageButtonObj.type}
-                    title={props.backPageButtonObj.title}
-                    onclick={props.backPageButtonObj.onclick}
-                />
-            }
-            <SpaceComponent
-                space={"48%"}
             />
             {
                 props.negativeButtonObj &&
@@ -54,7 +33,7 @@ function MasterEditFooter(props: propsType) {
                 />
             }
             <SpaceComponent
-                space={"3%"}
+                space={"51%"}
             />
             {
                 props.positiveButtonObj &&
@@ -70,4 +49,4 @@ function MasterEditFooter(props: propsType) {
     );
 }
 
-export default MasterEditFooter;
+export default AddMasterTopFooter;

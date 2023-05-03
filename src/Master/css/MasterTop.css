@@ -1,23 +1,27 @@
+.mastertop {
+    height: 100%;
+}
+
 .mastertop-button-area {
     display: flex;
-    padding-top: 5%;
+    padding-top: 2%;
     padding-bottom: 2%;
     margin-left: auto;
     margin-right: auto;
     width: 85%;
 }
 
-.mastertop-button-area button{
+.mastertop-button-area button {
     margin-right: 2%;
 }
 
-.selected-mastername-span{
+.selected-mastername-span {
     margin-top: 10px;
     margin-right: 15px;
     margin-left: 70px;
 }
 
-.mastertop-search-area{
+.mastertop-search-area {
     display: flex;
     padding-bottom: 2%;
     margin-left: auto;

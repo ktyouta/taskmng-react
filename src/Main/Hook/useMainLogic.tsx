@@ -15,6 +15,7 @@ import { clientMenuListAtom, userInfoAtom } from '../../Content/Hook/useContentL
 import useQueryAtomValue from '../../Common/Hook/useQueryAtomValue';
 import { useGlobalAtom, useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
+import AddMaster from '../../AddMaster/AddMaster';
 
 
 type jsxObjType = {
@@ -24,6 +25,7 @@ type jsxObjType = {
 const jsxList: jsxObjType = {
     "Top": <Top />,
     "Master": <Master />,
+    "AddMaster": <AddMaster />,
     "Setting": <Setting />
 }
 
@@ -63,7 +65,7 @@ function useMainLogic() {
     //useQueryAtomValueを使用した取得法
     //const {clientData:userInfo} = useQueryAtomValue<userInfoType | undefined>(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.AUTH}`);
 
-    
+
     //Mainコンポーネントのルーティングリスト
     const componentList = useMemo(() => {
         let tmpComponentList: JSX.Element[] = [];

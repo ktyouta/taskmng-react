@@ -190,7 +190,7 @@ export function runRegister(res: any,
 /**
  * 登録更新削除前認証チェック
  */
-function checkUpdAuth(cookie: any): authInfoType {
+export function checkUpdAuth(cookie: any): authInfoType {
     let tmpAuthInfo = {
         status: 200,
         errMessage: "",

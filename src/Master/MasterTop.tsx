@@ -13,6 +13,7 @@ import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 import { useGlobalAtom, useGlobalAtomValue } from '../Common/Hook/useGlobalAtom';
 import Loading from '../Common/Loading';
 import WaitLoading from '../Common/WaitLoading';
+import LabelComponent from '../Common/LabelComponent';
 
 
 function MasterTop() {
@@ -33,6 +34,14 @@ function MasterTop() {
 
   return (
     <div className="mastertop">
+      <div className="masteredit-header-area">
+        {
+          selectedMaster && <LabelComponent
+            title={`ファイル名：${selectedMaster}.json`}
+            width="100%"
+          />
+        }
+      </div>
       <div className='mastertop-button-area'>
         <ButtonComponent
           styleTypeNumber="BASE"
@@ -46,7 +55,7 @@ function MasterTop() {
         />
         <ButtonComponent
           styleTypeNumber="PRIMARY"
-          title={"更新"}
+          title={"編集"}
           onclick={updateData}
         />
         <ButtonComponent

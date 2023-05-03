@@ -11,7 +11,7 @@ import { menuListType } from '../Common/Hook/useGetViewName';
 function Main() {
 
   //Mainのビジネスロジック
-  const { masterDataList, componentList } = useMainLogic();
+  const { componentList } = useMainLogic();
 
   return (
     <div className="main">
