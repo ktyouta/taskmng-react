@@ -24,7 +24,7 @@ function AddMasterSummary(props: propsType) {
   return (
     <AddMasterSummaryForm
       refInfoArray={summaryInputRefArray}
-      title='マスタ概要入力'
+      title='新規マスタ概要入力'
       updErrMessage={''}
       negativeButtonObj={negativeButtonObj}
       positiveButtonObj={positiveButtonObj}

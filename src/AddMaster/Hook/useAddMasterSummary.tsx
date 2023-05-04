@@ -10,7 +10,7 @@ import { useAtom, useAtomValue } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import useSwitch from "../../Common/Hook/useSwitch";
-import { summaryInputAtom } from "../AddMaster";
+import { addDataInputBodyAtom } from "../AddMaster";
 import { buttonObjType } from "../../Master/MasterEditFooter";
 
 
@@ -39,11 +39,10 @@ function useAddMasterTop(props: propsType): retType {
     //入力欄用
     const [summaryInputRefArray, setSummaryInputRefArray] = useState<refInfoType[]>([]);
     //概要画面の入力値(POST用のボディ)
-    const [summaryInputBody, setSummaryInputBody] = useAtom(summaryInputAtom);
+    const [summaryInputBody, setSummaryInputBody] = useAtom(addDataInputBodyAtom);
 
     //入力項目設定値の作成
     useEffect(() => {
-
         let tmpRefInfoArray: refInfoType[] = [];
         if (!props.addMasterSummarySetting) {
             return;
@@ -91,11 +90,11 @@ function useAddMasterTop(props: propsType): retType {
     /**
      * 次へボタン押下処理
      */
-    const create = () => {
+    const nextPage = () => {
         if (!summaryInputRefArray) {
             return;
         }
-        //リクエストボディの作成
+        //入力値を保存する
         let body: bodyObj = createRequestBody(summaryInputRefArray);
         setSummaryInputBody(body);
         navigate(`/addmaster/data`);
@@ -104,7 +103,7 @@ function useAddMasterTop(props: propsType): retType {
     return {
         summaryInputRefArray,
         negativeButtonObj: { title: `元に戻す`, type: `RUN`, onclick: clearButtonFunc },
-        positiveButtonObj: { title: `次へ`, type: `RUN`, onclick: create },
+        positiveButtonObj: { title: `次へ`, type: `RUN`, onclick: nextPage },
     }
 }
 

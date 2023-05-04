@@ -2,8 +2,8 @@ import ENV from '../../env.json';
 import { bodyObj, inputSettingType } from "../../Common/Type/CommonType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { useSetAtom } from 'jotai';
-import { addDataInputAtom, summaryInputAtom } from '../AddMaster';
 import { useEffect } from 'react';
+import { addDataInputBodyAtom, summaryInputBodyAtom } from "../AddMaster";
 
 
 //返り値の型
@@ -28,9 +28,9 @@ function useAddMaster(): retType {
     });
 
     //概要画面の入力値(POST用のボディ)
-    const setSummaryInputBody = useSetAtom(summaryInputAtom);
+    const setSummaryInputBody = useSetAtom(summaryInputBodyAtom);
     //概要画面の入力値(POST用のボディ保存用)
-    const setAddDataInput = useSetAtom(addDataInputAtom);
+    const setAddDataInput = useSetAtom(addDataInputBodyAtom);
 
     //マウント時に入力値をリセット
     useEffect(() => {

@@ -6,3 +6,6 @@ export const MASTERFILEPATH = `./public/json/master/`;
 export const SETTINGFILEPATH = `./public/json/setting/`;
 //JSON拡張子
 export const JSONEXTENSION = `.json`;
+
+//マスタテーブルファイル名
+export const MASTERTABLEFILENM = `samplemastertable`;

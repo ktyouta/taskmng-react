@@ -11,8 +11,9 @@ import { authInfoType, methodType } from "./Type/type";
  */
 export function createAddMasterData(fileDataObj: { master: { [key: string]: any }[] }, registData: { [key: string]: any })
     : { master: { [key: string]: any }[] } {
+    let fileDataObjLen = fileDataObj.master.length;
     //IDを取得
-    let id = fileDataObj.master[fileDataObj.master.length - 1]['id'];
+    let id = fileDataObjLen === 0 ? "0" : fileDataObj.master[fileDataObjLen - 1]['id'];
     registData['id'] = `${parseInt(id) + 1}`;
     fileDataObj.master.push(registData);
     return fileDataObj;

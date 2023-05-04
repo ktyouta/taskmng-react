@@ -1,0 +1,14 @@
+{
+	"master": [
+		{
+			"id": "1",
+			"name": "testcomponent",
+			"remarks": "test"
+		},
+		{
+			"id": "2",
+			"name": "testcomponent2Upd",
+			"remarks": "addtest2Upd"
+		}
+	]
+}

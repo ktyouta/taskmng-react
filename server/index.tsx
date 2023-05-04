@@ -6,6 +6,7 @@ import { authenticate } from './AuthFunction';
 import { config } from './Config';
 import { checkUpdAuth, createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterDataFunction';
 import { JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH } from './Constant';
+import { runAddMaster } from './AddMasterDataFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -82,55 +83,7 @@ app.post(ENV.MASTER, function (req, res) {
  * 新規マスタ追加
  */
 app.post(ENV.MASTERTABLE, function (req, res) {
-    try {
-        //認証権限チェック
-        let authResult = checkUpdAuth(req.cookies.cookie);
-        if (authResult.errMessage) {
-            return res
-                .status(authResult.status)
-                .json({ errMessage: authResult.errMessage });
-        }
-
-        //ファイル名
-        let fileNm;
-        //リクエストボディ
-        let body: { [key: string]: any } = {};
-
-        //ファイル名とボディを取得
-        fileNm = req.body["id"];
-        body = req.body;
-
-        //ファイル名の重複チェック
-
-
-        //登録するファイルのパスを取得
-        let filePath = `${MASTERFILEPATH}${fileNm}${JSONEXTENSION}`;
-
-        //登録データの作成
-        let tmpFileDataObj: { master: {}[] } = { master: [] };
-
-        //データを登録
-        let errMessage = overWriteData(filePath, JSON.stringify(tmpFileDataObj, null, '\t'));
-
-        //登録更新削除に失敗
-        if (errMessage) {
-            return res
-                .status(400)
-                .json({ errMessage });
-        }
-
-        //正常終了
-        return res
-            .status(200)
-            .json({ errMessage: `登録が完了しました。` });
-
-    }
-    catch (e) {
-        console.log(`e:${e}`);
-        return res
-            .status(500)
-            .json({ errMessage: '予期しないエラーが発生しました。' });
-    }
+    runAddMaster(res, req);
 });
 
 

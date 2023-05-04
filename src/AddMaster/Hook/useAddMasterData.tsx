@@ -10,8 +10,9 @@ import { useAtom, useAtomValue } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import useSwitch from "../../Common/Hook/useSwitch";
-import { addDataInputAtom } from "../AddMaster";
+import { addDataInputBodyAtom, summaryInputBodyAtom } from "../AddMaster";
 import { buttonObjType } from "../../Master/MasterEditFooter";
+import { postAddMasterBodyType } from "../Type/AddMasterType";
 
 
 //引数の型
@@ -35,7 +36,7 @@ type retType = {
  * @param selectedMaster 
  * @returns 
  */
-function useAddMasterData(props:propsType): retType {
+function useAddMasterData(props: propsType): retType {
 
     //ルーティング用
     const navigate = useNavigate();
@@ -43,9 +44,10 @@ function useAddMasterData(props:propsType): retType {
     const [updErrMessage, setUpdErrMessage] = useState(``);
     //入力欄用
     const [addDataInputRefArray, setAddDataInputRefArray] = useState<refInfoType[]>([]);
-    //概要画面の入力値(POST用のボディ保存用)
-    const [addDataInput, setAddDataInput] = useAtom(addDataInputAtom);
-
+    //新規データ追加画面の入力値(POST用のボディ保存用)
+    const [addDataInput, setAddDataInput] = useAtom(summaryInputBodyAtom);
+    //概要画面の入力値(POST用のボディ)
+    const [summaryInputBody, setSummaryInputBody] = useAtom(addDataInputBodyAtom);
 
     //登録更新用フック
     const mutation = useMutationWrapper({
@@ -55,6 +57,8 @@ function useAddMasterData(props:propsType): retType {
         afSuccessFn: (res: resType) => {
             alert(res.errMessage);
             //メッセージを表示してマスタトップ画面に遷移する
+            setSummaryInputBody({});
+            setAddDataInput({});
             navigate(`/addmaster`);
         },
         //失敗後の処理
@@ -73,7 +77,7 @@ function useAddMasterData(props:propsType): retType {
         props.inputsSettingList.forEach((element) => {
             let tmpValue: string | undefined = undefined;
             //入力値と一致するキーが存在する
-            if(element.id in addDataInput){
+            if (element.id in addDataInput) {
                 tmpValue = addDataInput[element.id]
             }
             tmpRefInfoArray.push({
@@ -118,16 +122,15 @@ function useAddMasterData(props:propsType): retType {
             alert("リクエストの送信に失敗しました。");
             return;
         }
-        let body: bodyObj = {};
+        //POSTリクエスト用ボディ
+        let postBody: postAddMasterBodyType = {
+            summary: {},
+            data: {}
+        };
         //bodyの作成
-        addDataInputRefArray.forEach((element) => {
-            let postValue: string | undefined = element.value;
-            if (element.ref && element.ref.current) {
-                postValue = element.ref?.current?.refValue;
-            }
-            body[element.id] = postValue;
-        });
-        //mutation.mutate(body);
+        let addDataBody: bodyObj = createRequestBody(addDataInputRefArray);
+        postBody = { summary: summaryInputBody, data: addDataBody }
+        mutation.mutate(postBody);
     }
 
     /**

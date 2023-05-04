@@ -33,7 +33,7 @@
     ],
     "addMasterSummarySetting":[
         {
-            "id":"id",
+            "id":"value",
             "name":"ファイル名",
             "type":"input",
             "length":100,
@@ -43,7 +43,7 @@
             "isHidden":false
         },
         {
-            "id":"name",
+            "id":"label",
             "name":"名称",
             "type":"input",
             "length":100,
