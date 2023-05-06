@@ -1,0 +1,8 @@
+.taskfooter{
+    display: flex;
+    align-items: center;
+    height: 15%;
+    padding: 0% 5% 0% 8%;
+    background-color: aquamarine;
+    /* justify-content:space-around; */
+}

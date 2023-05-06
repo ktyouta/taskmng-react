@@ -21,6 +21,13 @@
         "auth":"2"
     },
     {
+        "name": "タスク管理",
+        "url": "/task",
+        "component":"Task",
+        "componentPath": "/task/*",
+        "auth":"2"
+    },
+    {
         "name": "設定",
         "url": "/setting",
         "component":"Setting",

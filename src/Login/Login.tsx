@@ -6,6 +6,7 @@ import useLoginLogic from './Hook/useLoginLogic';
 import './css/Login.css'
 import VerticalLabellInputComponent from '../Common/VerticalLabellInputComponent';
 import SpaceComponent from '../Common/SpaceComponent';
+import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
 
 function Login() {
 
@@ -23,6 +24,9 @@ function Login() {
                     editFlg={true}
                     ref={userIdRef}
                     textWidth={"350px"}
+                />
+                <VerticalSpaceComponent 
+                    space={'15px'}                    
                 />
                 <VerticalLabellInputComponent
                     title={"パスワード"}

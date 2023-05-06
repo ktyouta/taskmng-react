@@ -16,6 +16,7 @@ import useQueryAtomValue from '../../Common/Hook/useQueryAtomValue';
 import { useGlobalAtom, useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import AddMaster from '../../AddMaster/AddMaster';
+import Task from '../../Task/Task';
 
 
 type jsxObjType = {
@@ -26,6 +27,7 @@ const jsxList: jsxObjType = {
     "Top": <Top />,
     "Master": <Master />,
     "AddMaster": <AddMaster />,
+    "Task": <Task />,
     "Setting": <Setting />
 }
 
