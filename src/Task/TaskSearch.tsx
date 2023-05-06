@@ -42,19 +42,10 @@ function TaskSearch() {
                 <SpaceComponent space={"1%"} />
                 <ButtonComponent
                     styleTypeNumber="RUN"
-                    title={"フィルター"}
+                    title={"検索"}
                     onclick={clickSearchBtn}
                 />
             </div>
-            {/* <div className="tasktablecomponent-message-area">
-                <div style={{ width: "75%" }}>
-                    {
-                        isDisplayMessage && <MessageComponent message={"該当するデータがありません。"} styleTypeNumber={labelType.danger} />
-                    }
-                </div>
-                <SpaceComponent space={"9%"} />
-                <ResultNumComponent num={resultNum} />
-            </div> */}
         </div>
     );
 }

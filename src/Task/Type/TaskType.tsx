@@ -1,6 +1,6 @@
 //タスクリストの型
 export type taskListType = {
-    id:string,
+    id: string,
     registerTime: string,
     content: string,
     updTime: string,
@@ -12,7 +12,7 @@ export type taskListType = {
 
 //画面表示用タスクリストの型
 export type displayTaskListType = {
-    id:string,
+    id: string,
     content: string,
     registerTime: string,
     updTime: string,

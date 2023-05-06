@@ -13,6 +13,7 @@ import { refType } from "../../Common/BaseInputComponent";
 import useQueryClientWapper from "../../Common/Hook/useQueryClientWapper";
 import { taskListUrlAtom } from "./useTaskTop";
 import useSwitch from "../../Common/Hook/useSwitch";
+import ButtonComponent from "../../Common/ButtonComponent";
 
 
 //画面表示用タスクリスト
@@ -24,12 +25,12 @@ export const displayTaskListAtom = atom<displayTaskListType[]>([]);
  * @param selectedMaster 
  * @returns 
  */
-function useTaskTop() {
+function useTaskListContent() {
 
     //タスクリスト取得用URL
     const taskListUrl = useAtomValue(taskListUrlAtom);
     //タスクリスト
-    const taskList = useQueryClientWapper<taskListType>(taskListUrl);
+    const taskList = useQueryClientWapper<taskListType[]>(taskListUrl);
     //画面表示用タスクリスト
     const [displayTaskList, setDisplayTaskList] = useAtom(displayTaskListAtom);
     //モーダルの開閉用フラグ
@@ -37,11 +38,31 @@ function useTaskTop() {
 
     //取得したタスクリストを画面表示用に加工
     useEffect(() => {
-        
+        let tmpDisplayTaskList: displayTaskListType[] = [];
+        if (!taskList) {
+            return;
+        }
+        taskList.forEach(element => {
+            tmpDisplayTaskList.push({
+                id: element.id,
+                content: element.content,
+                registerTime: element.registerTime,
+                updTime: element.updTime,
+                limiTtime: element.limiTtime,
+                priority: element.priority,
+                status: element.status,
+                editButton: <ButtonComponent
+                    styleTypeNumber={"BASE"}
+                    title={"編集"}
+                    onclick={openModal}
+                />
+            });
+        });
+        setDisplayTaskList(tmpDisplayTaskList);
     }, [taskList]);
 
     //モーダルオープン
-    const openModal = ()=>{
+    const openModal = () => {
         onFlag();
     };
 
@@ -52,4 +73,4 @@ function useTaskTop() {
     };
 }
 
-export default useTaskTop;
+export default useTaskListContent;

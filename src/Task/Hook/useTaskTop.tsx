@@ -23,36 +23,22 @@ export const taskListUrlAtom = atom(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${EN
  */
 function useTaskTop() {
 
+    console.log("useTaskTop render");
+
     //タスクリスト取得用URL
-    const [taskListUrl, setTaskListUrl] = useAtom(taskListUrlAtom);
+    const taskListUrl = useAtomValue(taskListUrlAtom);
     //登録するタスク内容
     const contentRef: RefObject<refType> = useRef(null);
 
-
     //タスクリストを取得
-    const { data: taskList } = useQueryWrapper<taskListType>(
+    useQueryWrapper<taskListType>(
         {
             url: taskListUrl,
         }
     );
 
-    /**
-     * 検索ボタン押下
-     */
-    function clickSearchBtn() {
-    }
-
-    /**
-     * クリアボタン押下
-     */
-    function clickClearBtn() {
-        contentRef.current?.clearValue();
-    }
-
     return {
         contentRef,
-        clickSearchBtn,
-        clickClearBtn
     };
 }
 

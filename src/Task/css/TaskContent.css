@@ -1,0 +1,32 @@
+.taskcontent{
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: #c0c0c0;
+    min-height: 65px;
+    height: auto;
+}
+
+.taskcontent-content{
+    text-align: left;
+    height: auto;
+    min-height: 30px;
+    border-bottom: 1px solid;
+    border-color: #a9a9a9;
+    overflow-wrap: break-word;
+    font-size: 20px;
+    padding-left: 10px;
+    background-color: #d3d3d3;
+}
+
+.taskcontent-info{
+    display: flex;
+    align-items: center;
+    height: auto;
+    min-height: 30px;
+    padding-left: 10px;
+    background-color: #dcdcdc;
+}
+
+.taskcontent-buttonarea{
+    margin:0 0 0 auto;
+}

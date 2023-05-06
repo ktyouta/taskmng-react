@@ -25,6 +25,7 @@ function TaskFooter() {
                 editFlg={true}
                 ref={taskContentRef}
                 textWidth={"350px"}
+                titleWidth={"100px"}
             />
             <SpaceComponent
                 space={"34%"}

@@ -4,8 +4,17 @@ export const TESTFILEPATH = `./public/json/master/test.json`;
 export const MASTERFILEPATH = `./public/json/master/`;
 //設定ファイルパス
 export const SETTINGFILEPATH = `./public/json/setting/`;
+//トランザクションファイルパス
+export const TRANSACTION = `./public/json/transaction/`;
 //JSON拡張子
 export const JSONEXTENSION = `.json`;
 
 //マスタテーブルファイル名
 export const MASTERTABLEFILENM = `samplemastertable`;
+//汎用ファイルパス
+export const GENERALFILEPATH = `general`;
+//汎用詳細ファイルパス
+export const GENERALDETAILFILEPATH = `generaldetail`;
+
+//タスクファイル名
+export const TASKFILENM = `task`;

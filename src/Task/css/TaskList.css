@@ -1,0 +1,12 @@
+.tasklist{
+    overflow: auto;
+}
+
+.tasklist ul {
+    padding-left: 0;
+}
+
+.tasklist li {
+    list-style: none;
+    padding: 0% 5% 0% 2%
+}

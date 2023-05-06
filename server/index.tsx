@@ -1,11 +1,11 @@
 import express from 'express';
 import ENV from '../src/env.json';
 import { checkFile, overWriteData, readFile } from './FileFunction';
-import { bodyObj, userInfoType } from './Type/type';
+import { bodyObj, generalDetailType, taskListType, userInfoType } from './Type/type';
 import { authenticate } from './AuthFunction';
 import { config } from './Config';
 import { checkUpdAuth, createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterDataFunction';
-import { JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH } from './Constant';
+import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from './Constant';
 import { runAddMaster } from './AddMasterDataFunction';
 
 const app: express.Express = express();
@@ -66,7 +66,71 @@ config.get.forEach((element) => {
         //デコードしてクライアントに返却
         res.json(JSON.parse(fileData));
     });
-})
+});
+
+
+/**
+ * taskにアクセスした際の動作
+ */
+app.get(ENV.TASK, function (req, res) {
+    //認証チェック
+    let authResult = authenticate(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return authResult;
+    }
+    //タスクファイルの読み込み
+    let fileData = readFile(`${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`);
+    let decodeFileData: taskListType[] = JSON.parse(fileData);
+    //内容でフィルター
+    if (req.query.content) {
+        let content = req.query.content as string;
+        decodeFileData = decodeFileData.filter((element) => {
+            return element.content.includes(content);
+        });
+    }
+
+    //汎用詳細ファイルの読み込み
+    let generalDetailFileData = readFile(`${MASTERFILEPATH}${GENERALDETAILFILEPATH}${JSONEXTENSION}`);
+    let decodeGeneralDetailFileData: generalDetailType[] = JSON.parse(generalDetailFileData);
+
+    //タスク優先度リスト
+    let taskPriorityList = decodeGeneralDetailFileData.filter((element)=>{
+        return element.id === "2";
+    });
+
+    //タスクステータスリスト
+    let taskStatusList = decodeGeneralDetailFileData.filter((element)=>{
+        return element.id === "3";
+    });
+
+    //優先度およびステータスの紐づけを行う
+    let joinTaskData:taskListType[] = [];
+    decodeFileData.forEach((element)=>{
+        let isMatchPriority = false;
+        let isMatchStatus = false;
+        taskPriorityList.some((item)=>{
+            //優先度が一致
+            if(element.priority === item.value){
+                element.priority = item.name;
+                return isMatchPriority = true;
+            }
+        });
+        taskStatusList.some((item)=>{
+            //ステータスが一致
+            if(element.status === item.value){
+                element.status = item.name;
+                return isMatchStatus = true;
+            }
+        });
+        //優先度とステータスの結合に成功したデータのみクライアントに返却する
+        if(isMatchPriority && isMatchStatus){
+            joinTaskData.push(element);
+        }
+    });
+
+    res.json(joinTaskData);
+});
+
 
 
 /**

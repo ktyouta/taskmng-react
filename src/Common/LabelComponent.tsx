@@ -8,13 +8,11 @@ import { refType } from './BaseInputComponent';
 type propsType = {
     title: string,
     width?: string,
-    height?: string,
 }
 
 //ラベルの基本スタイル
-const BaseLabel = styled.label<{ width: string | undefined, height: string | undefined }>`
+const BaseLabel = styled.label<{ width: string | undefined }>`
   width: ${({ width }) => (width ? width : "150px")};
-  height:: ${({ width }) => (width ? width : "30px")};
 `;
 
 const LabelComponent = (props: propsType) => {
@@ -22,7 +20,6 @@ const LabelComponent = (props: propsType) => {
     return (
         <BaseLabel
             width={props.width}
-            height={props.height}
         >
             {props.title}
         </BaseLabel>

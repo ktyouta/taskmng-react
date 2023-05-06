@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../App.css';
-import useTaskList from './Hook/useTaskList';
+import useTaskListContent from './Hook/useTaskListContent';
 import TaskContent from './TaskContent';
 import TaskList from './TaskList';
 import ModalComponent from '../Common/ModalComponent';
@@ -8,16 +8,25 @@ import ModalComponent from '../Common/ModalComponent';
 
 function TaskListContent() {
 
-    console.log("TaskList render");
+    console.log("TaskListContent render");
 
     const {
         isModalOpen,
         offFlag,
         displayTaskList
-    } = useTaskList();
+    } = useTaskListContent();
 
     return (
         <div className="tasklistcontent">
+            {/* <div className="tasktablecomponent-message-area">
+                <div style={{ width: "75%" }}>
+                    {
+                        isDisplayMessage && <MessageComponent message={"該当するデータがありません。"} styleTypeNumber={labelType.danger} />
+                    }
+                </div>
+                <SpaceComponent space={"9%"} />
+                <ResultNumComponent num={resultNum} />
+            </div> */}
             <TaskList
                 displayTaskList={displayTaskList}
             />

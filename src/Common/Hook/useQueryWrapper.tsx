@@ -28,7 +28,7 @@ const useQueryWrapper = <
 
     //GET
     const getQuery = async () => {
-        const { data } = await axios.get(props.url);
+        const { data } = await axios.get(props.url, { withCredentials: true });
         return data;
     }
 
