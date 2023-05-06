@@ -4,6 +4,8 @@ import useTaskListContent from './Hook/useTaskListContent';
 import TaskContent from './TaskContent';
 import TaskList from './TaskList';
 import ModalComponent from '../Common/ModalComponent';
+import MessageComponent, { labelType } from '../Common/MessageComponent';
+import './css/TaskListContent.css';
 
 
 function TaskListContent() {
@@ -13,20 +15,24 @@ function TaskListContent() {
     const {
         isModalOpen,
         offFlag,
-        displayTaskList
+        displayTaskList,
+        errMessage
     } = useTaskListContent();
+
+    //該当データが存在しない
+    if (errMessage) {
+        return (
+            <div className='tasklistcontent-errarea'>
+                <MessageComponent
+                    message={errMessage}
+                    styleTypeNumber={labelType.danger}
+                />
+            </div>
+        );
+    }
 
     return (
         <div className="tasklistcontent">
-            {/* <div className="tasktablecomponent-message-area">
-                <div style={{ width: "75%" }}>
-                    {
-                        isDisplayMessage && <MessageComponent message={"該当するデータがありません。"} styleTypeNumber={labelType.danger} />
-                    }
-                </div>
-                <SpaceComponent space={"9%"} />
-                <ResultNumComponent num={resultNum} />
-            </div> */}
             <TaskList
                 displayTaskList={displayTaskList}
             />

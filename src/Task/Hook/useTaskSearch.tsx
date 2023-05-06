@@ -10,7 +10,7 @@ import { masterDataListAtom } from "../../Main/Hook/useMainLogic";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import { taskListType } from "../Type/TaskType";
 import { refType } from "../../Common/BaseInputComponent";
-import { taskListUrlAtom } from "./useTaskTop";
+import { taskListUrlAtom } from "./useTaskListContent";
 
 
 /**
@@ -49,7 +49,6 @@ function useTaskSearch() {
         contentRef.current?.clearValue();
         setTaskListUrl(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`);
     }
-
 
     return {
         contentRef,

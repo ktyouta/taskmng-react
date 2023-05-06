@@ -1,4 +1,4 @@
-import { RefObject, useContext, useEffect, useMemo, useRef } from "react";
+import { RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
 import { masterDataListType, selectedMasterDataType } from "../../Common/Type/CommonType";
@@ -11,14 +11,14 @@ import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMu
 import { displayTaskListType, taskListType } from "../Type/TaskType";
 import { refType } from "../../Common/BaseInputComponent";
 import useQueryClientWapper from "../../Common/Hook/useQueryClientWapper";
-import { taskListUrlAtom } from "./useTaskTop";
 import useSwitch from "../../Common/Hook/useSwitch";
 import ButtonComponent from "../../Common/ButtonComponent";
 
 
 //画面表示用タスクリスト
 export const displayTaskListAtom = atom<displayTaskListType[]>([]);
-
+//タスク取得用URL
+export const taskListUrlAtom = atom(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`);
 
 /**
  * MasterTopコンポーネントのビジネスロジック
@@ -30,11 +30,28 @@ function useTaskListContent() {
     //タスクリスト取得用URL
     const taskListUrl = useAtomValue(taskListUrlAtom);
     //タスクリスト
-    const taskList = useQueryClientWapper<taskListType[]>(taskListUrl);
+    //const taskList = useQueryClientWapper<taskListType[]>(taskListUrl);
     //画面表示用タスクリスト
     const [displayTaskList, setDisplayTaskList] = useAtom(displayTaskListAtom);
     //モーダルの開閉用フラグ
     const { flag: isModalOpen, onFlag, offFlag } = useSwitch();
+    //データの取得に失敗した場合のメッセージ
+    const [errMessage, setErrMessage] = useState("");
+
+    //タスクリストを取得
+    const { data: taskList } = useQueryWrapper<taskListType[]>(
+        {
+            url: taskListUrl,
+            afSuccessFn: (data) => {
+                let errMessage = "";
+                //データが存在しない
+                if (!data || data.length === 0) {
+                    errMessage = "データが存在しません。";
+                }
+                setErrMessage(errMessage);
+            }
+        }
+    );
 
     //取得したタスクリストを画面表示用に加工
     useEffect(() => {
@@ -69,7 +86,8 @@ function useTaskListContent() {
     return {
         isModalOpen,
         offFlag,
-        displayTaskList
+        displayTaskList,
+        errMessage,
     };
 }
 

@@ -111,14 +111,14 @@ app.get(ENV.TASK, function (req, res) {
         taskPriorityList.some((item)=>{
             //優先度が一致
             if(element.priority === item.value){
-                element.priority = item.name;
+                element.priority = item.label;
                 return isMatchPriority = true;
             }
         });
         taskStatusList.some((item)=>{
             //ステータスが一致
             if(element.status === item.value){
-                element.status = item.name;
+                element.status = item.label;
                 return isMatchStatus = true;
             }
         });

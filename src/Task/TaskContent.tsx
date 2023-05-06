@@ -41,7 +41,7 @@ function TaskContent(props: displayTaskListType) {
                 <div>
                     ステータス：{props.status}
                 </div>
-                <div className='taskcontent-buttonarea'>
+                <div className='taskcontent-editarea'>
                     {props.editButton}
                 </div>
             </div>

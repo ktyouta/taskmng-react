@@ -2,46 +2,46 @@
     {
         "id":"1",
         "value":"1",
-        "name":"一般"
+        "label":"一般"
     },
     {
         "id":"1",
         "value":"2",
-        "name":"専用ユーザー権限"
+        "label":"専用ユーザー権限"
     },
     {
         "id":"1",
         "value":"3",
-        "name":"管理者"
+        "label":"管理者"
     },
     {
         "id":"2",
         "value":"1",
-        "name":"高"
+        "label":"高"
     },
     {
         "id":"2",
         "value":"2",
-        "name":"中"
+        "label":"中"
     },
     {
         "id":"2",
         "value":"3",
-        "name":"低"
+        "label":"低"
     },
     {
         "id":"3",
         "value":"1",
-        "name":"未対応"
+        "label":"未対応"
     },
     {
         "id":"3",
         "value":"2",
-        "name":"完了"
+        "label":"完了"
     },
     {
         "id":"3",
         "value":"3",
-        "name":"保留"
+        "label":"保留"
     }
 ]

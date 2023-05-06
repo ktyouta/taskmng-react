@@ -37,5 +37,5 @@ export type taskListType = {
 export type generalDetailType = {
     id: string,
     value: string,
-    name: string,
+    label: string,
 }
