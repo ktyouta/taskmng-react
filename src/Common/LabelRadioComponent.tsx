@@ -9,7 +9,10 @@ type propsType = {
     title: string,
     value: string,
     selectedValue: string,
+    htmlForId: string,
     onChange: (e: string) => void,
+    key: string,
+    width?:string,
 }
 
 
@@ -18,7 +21,7 @@ function LabelRadioComponent(props: propsType) {
     return (
         <React.Fragment>
             <LabelComponent
-                title={props.title}
+                {...props}
             />
             <RadioComponent
                 {...props}

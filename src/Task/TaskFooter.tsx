@@ -5,6 +5,8 @@ import useTaskFooter from './Hook/useTaskFooter';
 import ButtonComponent from '../Common/ButtonComponent';
 import SpaceComponent from '../Common/SpaceComponent';
 import './css/TaskFooter.css';
+import LabelRadioListComponent from '../Common/LabelRadioListComponent';
+import VerticalLabelRadioListComponent from '../Common/VerticalLabelRadioListComponent';
 
 
 function TaskFooter() {
@@ -13,8 +15,10 @@ function TaskFooter() {
 
     const {
         taskContentRef,
+        selectedPriorityRef,
+        priorityList,
         create,
-        clearButtonFunc } = useTaskFooter();
+        clearButtonFunc, } = useTaskFooter();
 
     return (
         <div className="taskfooter">
@@ -28,7 +32,20 @@ function TaskFooter() {
                 titleWidth={"100px"}
             />
             <SpaceComponent
-                space={"34%"}
+                space={"1%"}
+            />
+            {
+                priorityList && priorityList.length > 0 &&
+                <VerticalLabelRadioListComponent
+                    title='優先度'
+                    labelWidth='75px'
+                    radioList={priorityList}
+                    selectedValue={priorityList[0].value}
+                    ref={selectedPriorityRef}
+                />
+            }
+            <SpaceComponent
+                space={"23%"}
             />
             <ButtonComponent
                 styleTypeNumber="BASE"

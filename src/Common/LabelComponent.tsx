@@ -8,6 +8,8 @@ import { refType } from './BaseInputComponent';
 type propsType = {
     title: string,
     width?: string,
+    htmlForId?: string,
+    key?: string,
 }
 
 //ラベルの基本スタイル
@@ -20,6 +22,8 @@ const LabelComponent = (props: propsType) => {
     return (
         <BaseLabel
             width={props.width}
+            htmlFor={props.htmlForId}
+            key={props.key}
         >
             {props.title}
         </BaseLabel>

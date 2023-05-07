@@ -6,15 +6,21 @@ import { Provider, atom, useAtomValue } from 'jotai';
 import TaskTop from './TaskTop';
 import TaskFooter from './TaskFooter';
 import './css/Task.css';
+import ENV from '../env.json';
+import useTask from './Hook/useTask';
 
 
-//取得したタスクリスト
-export const taskLlistAtom = atom<{ [key: string]: string }[]>([]);
+//汎用詳細取得URL(優先度)
+export const PRIORITY_URL = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}?id=2`;
+//汎用詳細取得URL(ステータス)
+export const STATUS_URL = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}?id=3`;
 
 
 function Task() {
 
   console.log("Task render");
+
+  useTask();
 
   return (
     <div className="task">

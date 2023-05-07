@@ -21,3 +21,9 @@ export type displayTaskListType = {
     status: string,
     editButton: JSX.Element,
 }
+
+//汎用詳細データの型
+export type generalDataType = {
+    value: string,
+    label: string,
+}

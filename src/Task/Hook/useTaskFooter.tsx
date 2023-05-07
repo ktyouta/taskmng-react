@@ -7,14 +7,20 @@ import { useCookies } from "react-cookie";
 import { apiResponseType } from '../../Common/Type/CommonType';
 import { refType } from '../../Common/BaseInputComponent';
 import useMutationWrapper, { errResType, resType } from '../../Common/Hook/useMutationWrapper';
+import useQueryClientWapper from '../../Common/Hook/useQueryClientWapper';
+import { PRIORITY_URL } from '../Task';
+import { generalDataType } from '../Type/TaskType';
 
 
 function useTaskFooter() {
 
-    //ルーティング用
-    const navigate = useNavigate();
     //登録するタスク内容
     const taskContentRef: RefObject<refType> = useRef(null);
+    //優先度リストラジオボタン用リスト(優先度)
+    const priorityList = useQueryClientWapper<generalDataType[]>(PRIORITY_URL);
+    //登録する優先度
+    const selectedPriorityRef: RefObject<refType> = useRef(null);
+
 
     //登録用フック
     const mutation = useMutationWrapper({
@@ -24,7 +30,7 @@ function useTaskFooter() {
         afSuccessFn: (res: resType) => {
             alert(res.errMessage);
             //メッセージを表示してマスタトップ画面に遷移する
-            navigate(`/master`);
+            //navigate(`/master`);
         },
         //失敗後の処理
         afErrorFn: (res: errResType) => {
@@ -42,10 +48,18 @@ function useTaskFooter() {
      * 入力値クリア
      */
     const clearButtonFunc = () => {
-
+        taskContentRef.current?.clearValue();
+        selectedPriorityRef.current?.clearValue();
     };
 
-    return { taskContentRef, create, clearButtonFunc }
+    return {
+        taskContentRef,
+        selectedPriorityRef,
+        priorityList,
+        create,
+        clearButtonFunc,
+
+    }
 }
 
 export default useTaskFooter;

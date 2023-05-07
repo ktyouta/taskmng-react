@@ -7,6 +7,7 @@ import { config } from './Config';
 import { checkUpdAuth, createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterDataFunction';
 import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from './Constant';
 import { runAddMaster } from './AddMasterDataFunction';
+import { getGeneralDetailData } from './GeneralFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -54,7 +55,7 @@ app.get(ENV.MASTER, function (req, res) {
         return;
     }
     let fileData = readFile(`${MASTERFILEPATH}${req.query.filename}${JSONEXTENSION}`);
-    res.json(JSON.parse(fileData));
+    res.status(200).json(JSON.parse(fileData));
 });
 
 /**
@@ -64,8 +65,25 @@ config.get.forEach((element) => {
     app.get(element.callUrl, function (req, res) {
         let fileData = readFile(element.fileUrl);
         //デコードしてクライアントに返却
-        res.json(JSON.parse(fileData));
+        res.status(200).json(JSON.parse(fileData));
     });
+});
+
+/**
+ * generaldetailにアクセスした際の動作
+ */
+app.get(ENV.GENERALDETAIL, function (req, res) {
+    //認証チェック
+    let authResult = authenticate(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return authResult;
+    }
+    let id = "";
+    if (req.query.id) {
+        id = req.query.id as string;
+    }
+    let generalDetailList = getGeneralDetailData(id);
+    res.status(200).json(generalDetailList);
 });
 
 
@@ -89,46 +107,39 @@ app.get(ENV.TASK, function (req, res) {
         });
     }
 
-    //汎用詳細ファイルの読み込み
-    let generalDetailFileData = readFile(`${MASTERFILEPATH}${GENERALDETAILFILEPATH}${JSONEXTENSION}`);
-    let decodeGeneralDetailFileData: generalDetailType[] = JSON.parse(generalDetailFileData);
-
+    //汎用詳細データを取得
     //タスク優先度リスト
-    let taskPriorityList = decodeGeneralDetailFileData.filter((element)=>{
-        return element.id === "2";
-    });
+    let taskPriorityList = getGeneralDetailData("2");
 
     //タスクステータスリスト
-    let taskStatusList = decodeGeneralDetailFileData.filter((element)=>{
-        return element.id === "3";
-    });
+    let taskStatusList = getGeneralDetailData("3");
 
     //優先度およびステータスの紐づけを行う
-    let joinTaskData:taskListType[] = [];
-    decodeFileData.forEach((element)=>{
+    let joinTaskData: taskListType[] = [];
+    decodeFileData.forEach((element) => {
         let isMatchPriority = false;
         let isMatchStatus = false;
-        taskPriorityList.some((item)=>{
+        taskPriorityList.some((item) => {
             //優先度が一致
-            if(element.priority === item.value){
+            if (element.priority === item.value) {
                 element.priority = item.label;
                 return isMatchPriority = true;
             }
         });
-        taskStatusList.some((item)=>{
+        taskStatusList.some((item) => {
             //ステータスが一致
-            if(element.status === item.value){
+            if (element.status === item.value) {
                 element.status = item.label;
                 return isMatchStatus = true;
             }
         });
         //優先度とステータスの結合に成功したデータのみクライアントに返却する
-        if(isMatchPriority && isMatchStatus){
+        if (isMatchPriority && isMatchStatus) {
             joinTaskData.push(element);
         }
     });
 
-    res.json(joinTaskData);
+    res.status(200).json(joinTaskData);
 });
 
 

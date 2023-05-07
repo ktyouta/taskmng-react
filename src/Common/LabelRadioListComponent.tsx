@@ -6,7 +6,7 @@ import LabelRadioComponent from './LabelRadioComponent';
 
 //ラジオボタンの型
 export type radioType = {
-    title: string,
+    label: string,
     value: string,
 }
 
@@ -14,6 +14,7 @@ export type radioType = {
 type propsType = {
     radioList: radioType[],
     selectedValue: string,
+    labelWidth?: string,
 }
 
 //参照の型
@@ -21,6 +22,11 @@ export type refType = {
     refValue: string,
     clearValue: () => void
 }
+
+//ラジオボタンリストの基本スタイル
+const RadioListDiv = styled.div`
+  display:flex;
+`;
 
 
 const LabelRadioListComponent = forwardRef<refType, propsType>((props, ref) => {
@@ -45,20 +51,23 @@ const LabelRadioListComponent = forwardRef<refType, propsType>((props, ref) => {
     };
 
     return (
-        <React.Fragment>
+        <RadioListDiv>
             {
                 props.radioList.map((element) => {
                     return (
                         <LabelRadioComponent
-                            title={element.title}
+                            key={element.value}
+                            title={element.label}
                             value={element.value}
-                            selectedValue={props.selectedValue}
+                            selectedValue={radioValue}
                             onChange={changeRadio}
+                            htmlForId={element.value}
+                            width = {props.labelWidth}
                         />
                     );
                 })
             }
-        </React.Fragment>
+        </RadioListDiv>
     );
 })
 

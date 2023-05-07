@@ -7,6 +7,8 @@ type propsType = {
     value: string,
     selectedValue: string,
     onChange: (e: string) => void,
+    htmlForId: string,
+    key?: string,
 }
 
 
@@ -23,6 +25,8 @@ function RadioComponent(props: propsType) {
             value={props.value}
             checked={props.selectedValue === props.value}
             onChange={change}
+            id={props.htmlForId}
+            key={props.key}
         />
     );
 }
