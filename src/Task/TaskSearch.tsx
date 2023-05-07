@@ -34,7 +34,7 @@ function TaskSearch() {
                 />
                 <SpaceComponent space={"38%"} />
                 <ButtonComponent
-                    styleTypeNumber="RUN"
+                    styleTypeNumber="BASE"
                     title={"クリア"}
                     onclick={clickClearBtn}
                 />

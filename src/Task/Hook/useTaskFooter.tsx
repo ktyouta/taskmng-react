@@ -20,7 +20,8 @@ function useTaskFooter() {
     const priorityList = useQueryClientWapper<generalDataType[]>(PRIORITY_URL);
     //登録する優先度
     const selectedPriorityRef: RefObject<refType> = useRef(null);
-
+    //期限
+    const limitDateRef: RefObject<refType> = useRef(null);
 
     //登録用フック
     const mutation = useMutationWrapper({
@@ -48,17 +49,21 @@ function useTaskFooter() {
      * 入力値クリア
      */
     const clearButtonFunc = () => {
+        if (!window.confirm(`入力を元に戻しますか？`)) {
+            return;
+        }
         taskContentRef.current?.clearValue();
         selectedPriorityRef.current?.clearValue();
+        limitDateRef.current?.clearValue();
     };
 
     return {
         taskContentRef,
         selectedPriorityRef,
+        limitDateRef,
         priorityList,
         create,
         clearButtonFunc,
-
     }
 }
 

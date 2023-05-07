@@ -7,6 +7,8 @@ import SpaceComponent from '../Common/SpaceComponent';
 import './css/TaskFooter.css';
 import LabelRadioListComponent from '../Common/LabelRadioListComponent';
 import VerticalLabelRadioListComponent from '../Common/VerticalLabelRadioListComponent';
+import DatePickerComponent from '../Common/DatePickerComponent';
+import VerticalLabelDatePickerComponent from '../Common/VerticalLabelDatePickerComponent';
 
 
 function TaskFooter() {
@@ -17,6 +19,7 @@ function TaskFooter() {
         taskContentRef,
         selectedPriorityRef,
         priorityList,
+        limitDateRef,
         create,
         clearButtonFunc, } = useTaskFooter();
 
@@ -38,14 +41,23 @@ function TaskFooter() {
                 priorityList && priorityList.length > 0 &&
                 <VerticalLabelRadioListComponent
                     title='優先度'
-                    labelWidth='75px'
+                    titleWidth="100px"
+                    radioLabelWidth='75px'
                     radioList={priorityList}
                     selectedValue={priorityList[0].value}
                     ref={selectedPriorityRef}
                 />
             }
             <SpaceComponent
-                space={"23%"}
+                space={"3%"}
+            />
+            <VerticalLabelDatePickerComponent
+                title={'期限'}
+                titleWidth="50px"
+                ref={limitDateRef}
+            />
+            <SpaceComponent
+                space={"7%"}
             />
             <ButtonComponent
                 styleTypeNumber="BASE"

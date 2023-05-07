@@ -5,18 +5,17 @@ import LabelInputComponent from './LabelInputComponent';
 import { refType } from './BaseInputComponent';
 import LabelComponent from './LabelComponent';
 import LabelRadioListComponent, { radioType } from './LabelRadioListComponent';
+import DatePickerComponent from './DatePickerComponent';
 
 //引数の型
 type propsType = {
     title: string,
-    titleWidth: string,
-    radioList: radioType[],
-    selectedValue: string,
-    radioLabelWidth?: string,
+    titleWidth?: string,
+    onChange?: (e: string) => void,
 }
 
 
-const VerticalLabelRadioListComponent = forwardRef<refType, propsType>((props, ref) => {
+const VerticalLabelDatePickerComponent = forwardRef<refType, propsType>((props, ref) => {
 
     return (
         <div className="input-vertical-area">
@@ -24,7 +23,7 @@ const VerticalLabelRadioListComponent = forwardRef<refType, propsType>((props, r
                 title={props.title}
                 width={props.titleWidth}
             />
-            <LabelRadioListComponent
+            <DatePickerComponent
                 {...props}
                 ref={ref}
             />
@@ -32,4 +31,4 @@ const VerticalLabelRadioListComponent = forwardRef<refType, propsType>((props, r
     );
 })
 
-export default VerticalLabelRadioListComponent;
+export default VerticalLabelDatePickerComponent;
