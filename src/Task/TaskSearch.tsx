@@ -8,7 +8,7 @@ import ResultNumComponent from '../Common/ResultNumComponent';
 import TableComponent from '../Common/TableComponent';
 import { refType } from '../Common/BaseInputComponent';
 import useTaskSearch from './Hook/useTaskSearch';
-
+import './css/TaskSearch.css';
 
 
 function TaskSearch() {
@@ -22,8 +22,8 @@ function TaskSearch() {
     } = useTaskSearch();
 
     return (
-        <div className="tasktablecomponent">
-            <div className="tasktablecomponent-search-area">
+        <div className="tasksearch">
+            <div className="tasksearch-area">
                 <HorizonLabelInputComponent
                     title={"内容"}
                     value={""}

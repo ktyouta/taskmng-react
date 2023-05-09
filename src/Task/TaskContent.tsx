@@ -39,7 +39,7 @@ function TaskContent(props: displayTaskListType) {
                     space='2%'
                 />
                 <div>
-                    ステータス：{props.status}
+                    状態：{props.status}
                 </div>
                 <div className='taskcontent-editarea'>
                     {props.editButton}

@@ -1,0 +1,13 @@
+.tasksearch{
+    height: 15%;
+}
+
+.tasksearch-area{
+    height: 100%;
+    display: flex;
+    /* padding-bottom: 2%; */
+    margin-left: auto;
+    margin-right: auto;
+    width: 85%;
+    align-items: center;
+}

@@ -8,6 +8,7 @@ import { checkUpdAuth, createAddMasterData, createDelMasterData, createUpdMaster
 import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from './Constant';
 import { runAddMaster } from './AddMasterDataFunction';
 import { getGeneralDetailData } from './GeneralFunction';
+import { getTask, runAddTask } from './TaskFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -91,55 +92,7 @@ app.get(ENV.GENERALDETAIL, function (req, res) {
  * taskにアクセスした際の動作
  */
 app.get(ENV.TASK, function (req, res) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return authResult;
-    }
-    //タスクファイルの読み込み
-    let fileData = readFile(`${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`);
-    let decodeFileData: taskListType[] = JSON.parse(fileData);
-    //内容でフィルター
-    if (req.query.content) {
-        let content = req.query.content as string;
-        decodeFileData = decodeFileData.filter((element) => {
-            return element.content.includes(content);
-        });
-    }
-
-    //汎用詳細データを取得
-    //タスク優先度リスト
-    let taskPriorityList = getGeneralDetailData("2");
-
-    //タスクステータスリスト
-    let taskStatusList = getGeneralDetailData("3");
-
-    //優先度およびステータスの紐づけを行う
-    let joinTaskData: taskListType[] = [];
-    decodeFileData.forEach((element) => {
-        let isMatchPriority = false;
-        let isMatchStatus = false;
-        taskPriorityList.some((item) => {
-            //優先度が一致
-            if (element.priority === item.value) {
-                element.priority = item.label;
-                return isMatchPriority = true;
-            }
-        });
-        taskStatusList.some((item) => {
-            //ステータスが一致
-            if (element.status === item.value) {
-                element.status = item.label;
-                return isMatchStatus = true;
-            }
-        });
-        //優先度とステータスの結合に成功したデータのみクライアントに返却する
-        if (isMatchPriority && isMatchStatus) {
-            joinTaskData.push(element);
-        }
-    });
-
-    res.status(200).json(joinTaskData);
+    getTask(res, req);
 });
 
 
@@ -160,6 +113,14 @@ app.post(ENV.MASTER, function (req, res) {
 app.post(ENV.MASTERTABLE, function (req, res) {
     runAddMaster(res, req);
 });
+
+/**
+ * タスクの登録
+ */
+app.post(ENV.TASK, function (req, res) {
+    runAddTask(res, req);
+});
+
 
 
 /**

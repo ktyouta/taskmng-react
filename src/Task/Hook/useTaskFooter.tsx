@@ -25,7 +25,7 @@ function useTaskFooter() {
 
     //登録用フック
     const mutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MASTER}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`,
         method: "POST",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
@@ -35,6 +35,8 @@ function useTaskFooter() {
         },
         //失敗後の処理
         afErrorFn: (res: errResType) => {
+            //エラーメッセージを表示
+            alert(res.response.data.errMessage);
         },
     });
 
@@ -42,7 +44,18 @@ function useTaskFooter() {
      * 登録
      */
     const create = () => {
-
+        if (!window.confirm('タスクを登録しますか？')) {
+            return
+        }
+        if (!mutation) {
+            alert("リクエストの送信に失敗しました。");
+            return;
+        }
+        let body: { [key: string]: string } = {};
+        body[`content`] = taskContentRef.current ? taskContentRef.current.refValue : "";
+        body[`priority`] = selectedPriorityRef.current ? selectedPriorityRef.current.refValue : "";
+        body[`limiTtime`] = limitDateRef.current ? limitDateRef.current.refValue : "";
+        mutation.mutate(body);
     };
 
     /**
@@ -64,6 +77,7 @@ function useTaskFooter() {
         priorityList,
         create,
         clearButtonFunc,
+        isLoading:mutation.isLoading,
     }
 }
 

@@ -1,3 +1,7 @@
 .tasklistcontent-errarea {
     padding: 0 1%;
 }
+
+.tasklistcontent{
+    height: 78%;
+}

@@ -21,6 +21,16 @@ export type refType = {
     clearValue: () => void
 }
 
+/**
+ * 現在日時を取得
+ */
+const getNowDate = (now: Date) => {
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, "0");
+    const date = (now.getDate()).toString().padStart(2, "0");
+    return `${year}${month}${date}`;
+}
+
 
 const DatePickerComponent = forwardRef<refType, propsType>((props, ref) => {
 
@@ -30,7 +40,7 @@ const DatePickerComponent = forwardRef<refType, propsType>((props, ref) => {
 
     //デートピッカーの選択値を割り当てる
     React.useImperativeHandle(ref, () => ({
-        refValue: date ? date?.toString() : "",
+        refValue: date ? getNowDate(date) : "",
         clearValue: clearDate
     }));
 
@@ -51,6 +61,17 @@ const DatePickerComponent = forwardRef<refType, propsType>((props, ref) => {
         setDate(null);
     };
 
+    //フォーカスアウトイベント
+    const blur = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+        let tmp = Date.parse(e.target.value);
+        let tmpDate = null;
+        //日付の変換に成功
+        if (!Number.isNaN(tmp)) {
+            tmpDate = new Date(Date.parse(e.target.value));
+        }
+        setDate(tmpDate);
+    }
+
     return (
         <DatePicker
             dateFormat={props.dateFormat ?? "yyyy/MM/dd"}
@@ -58,6 +79,7 @@ const DatePickerComponent = forwardRef<refType, propsType>((props, ref) => {
             selected={date}
             onChange={selectedDate => { changeDate(selectedDate || Today) }}
             className='datepicker-input'
+            onBlur={selectedDate => { blur(selectedDate) }}
         />
     );
 })
