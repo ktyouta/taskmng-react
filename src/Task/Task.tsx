@@ -11,9 +11,9 @@ import useTask from './Hook/useTask';
 
 
 //汎用詳細取得URL(優先度)
-export const PRIORITY_URL = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}?id=2`;
+export const PRIORITY_URL = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}/2`;
 //汎用詳細取得URL(ステータス)
-export const STATUS_URL = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}?id=3`;
+export const STATUS_URL = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}/3`;
 
 
 function Task() {

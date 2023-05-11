@@ -6,6 +6,7 @@ import TaskList from './TaskList';
 import ModalComponent from '../Common/ModalComponent';
 import MessageComponent, { labelType } from '../Common/MessageComponent';
 import './css/TaskListContent.css';
+import TaskEdit from './TaskEdit';
 
 
 function TaskListContent() {
@@ -16,7 +17,8 @@ function TaskListContent() {
         isModalOpen,
         offFlag,
         displayTaskList,
-        errMessage
+        errMessage,
+        updTask,
     } = useTaskListContent();
 
     //該当データが存在しない
@@ -40,7 +42,9 @@ function TaskListContent() {
                 modalIsOpen={isModalOpen}
                 closeModal={offFlag}
             >
-                タスク内容
+                <TaskEdit
+                    updTask={updTask}
+                />
             </ModalComponent>
         </div>
     );

@@ -19,6 +19,8 @@ import ButtonComponent from "../../Common/ButtonComponent";
 export const displayTaskListAtom = atom<displayTaskListType[]>([]);
 //タスク取得用URL
 export const taskListUrlAtom = atom(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`);
+//更新用タスク
+export const updTaskAtom = atom([]);
 
 /**
  * MasterTopコンポーネントのビジネスロジック
@@ -29,14 +31,14 @@ function useTaskListContent() {
 
     //タスクリスト取得用URL
     const taskListUrl = useAtomValue(taskListUrlAtom);
-    //タスクリスト
-    //const taskList = useQueryClientWapper<taskListType[]>(taskListUrl);
     //画面表示用タスクリスト
     const [displayTaskList, setDisplayTaskList] = useAtom(displayTaskListAtom);
     //モーダルの開閉用フラグ
     const { flag: isModalOpen, onFlag, offFlag } = useSwitch();
     //データの取得に失敗した場合のメッセージ
     const [errMessage, setErrMessage] = useState("");
+    //更新用タスク取得用URL
+    const [updTaskUrl, setUpdTaskUrl] = useState(``);
 
     //タスクリストを取得
     const { data: taskList } = useQueryWrapper<taskListType[]>(
@@ -71,15 +73,39 @@ function useTaskListContent() {
                 editButton: <ButtonComponent
                     styleTypeNumber={"BASE"}
                     title={"編集"}
-                    onclick={openModal}
+                    onclick={() => { openModal(element.id) }}
                 />
             });
         });
         setDisplayTaskList(tmpDisplayTaskList);
     }, [taskList]);
 
+
+    //モーダル展開時に更新用タスクを取得
+    const { data: updTask } = useQueryWrapper<taskListType>(
+        {
+            url: updTaskUrl,
+            afSuccessFn: (data) => {
+                let errMessage = "";
+                //データが存在しない
+                if (!data) {
+                    errMessage = "データが存在しません。";
+                }
+                setErrMessage(errMessage);
+            }
+        }
+    );
+
     //モーダルオープン
-    const openModal = () => {
+    const openModal = (id: string) => {
+        //IDが存在しない
+        if (!id) {
+            setUpdTaskUrl(``);
+            alert(`データの取得に失敗しました。`);
+            return;
+        }
+        //更新用タスク取得URL
+        setUpdTaskUrl(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}/${id}`);
         onFlag();
     };
 
@@ -88,6 +114,7 @@ function useTaskListContent() {
         offFlag,
         displayTaskList,
         errMessage,
+        updTask,
     };
 }
 

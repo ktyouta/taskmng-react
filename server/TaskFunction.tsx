@@ -8,7 +8,7 @@ import { taskListType } from "./Type/type";
 /**
  * タスクの取得
  */
-export function getTask(res: any, req: any) {
+export function getTask(res: any, req: any, id?: string) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
@@ -57,7 +57,12 @@ export function getTask(res: any, req: any) {
         }
     });
 
-    res.status(200).json(joinTaskData);
+    //パスパラメータの指定あり
+    if (id) {
+        return res.status(200).json(joinTaskData.find((element) => { return element.id === id }));
+    }
+
+    return res.status(200).json(joinTaskData);
 }
 
 /**

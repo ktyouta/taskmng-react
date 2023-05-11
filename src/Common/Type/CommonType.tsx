@@ -84,6 +84,7 @@ export type refInfoType = {
     editFlg: boolean,
     visible: boolean,
     value: string,
+    selectList?: { value: string, label: string }[],
     ref: RefObject<refType>,
 }
 
@@ -112,9 +113,22 @@ export type inputAddMasterSettingType = {
     isHidden: boolean,
 }
 
+//タスク編集画面の入力欄の設定
+export type inputTaskSettingType = {
+    id: string,
+    name: string,
+    type: string,
+    length: number,
+    value: string,
+    isEditable: boolean,
+    isNewCreateVisible: boolean,
+    isHidden: boolean,
+}
+
 
 //入力欄設定
 export type inputSettingType = {
     inputMasterSetting: inputMasterSettingType[],
     addMasterSummarySetting: inputAddMasterSettingType[],
+    taskEditSetting: inputTaskSettingType[]
 }

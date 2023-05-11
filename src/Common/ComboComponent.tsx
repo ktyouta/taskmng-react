@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, useState } from 'react';
 import '../App.css';
 import styled from "styled-components";
 
@@ -7,13 +7,20 @@ import styled from "styled-components";
 type propsType = {
   combo: comboType[],
   onChange: (e: string) => void,
-  selectedValue:string,
+  selectedValue: string,
 }
 
 type comboType = {
   value: string,
   label: string
 }
+
+//参照の型
+export type refType = {
+  refValue: string,
+  clearValue: () => void
+}
+
 
 //コンボボックスの基本スタイル
 const BaseSelect = styled.select`
@@ -26,11 +33,23 @@ const BaseSelect = styled.select`
 `;
 
 
-function ComboComponent(props: propsType) {
+const ComboComponent = forwardRef<refType, propsType>((props, ref) => {
+
+  //コンボボックスの選択値
+  const [selectValue, setSelectValue] = useState<string>(props.selectedValue);
+
+  //コンボボックスの選択値を割り当てる
+  React.useImperativeHandle(ref, () => ({
+    refValue: selectValue,
+    clearValue: () => { }
+  }));
 
   //コンボボックスの切り替えイベント
   const change: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
-    props.onChange(e.target.value);
+    if (props.onChange) {
+      props.onChange(e.target.value);
+    }
+    setSelectValue(e.target.value);
   }
 
   return (
@@ -55,6 +74,6 @@ function ComboComponent(props: propsType) {
     </React.Fragment>
 
   );
-}
+})
 
 export default ComboComponent;

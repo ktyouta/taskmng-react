@@ -1,0 +1,25 @@
+.taskedit {
+    height: 100%;
+}
+
+.taskedit-header-area {
+    height: 7%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.taskedit-main-area {
+    height: 78%;
+    overflow-y: auto;
+}
+
+.taskedit-footer-area {
+    height: 15%;
+}
+
+.taskedit-input-main-area {
+    overflow: auto;
+    height: 90%;
+    margin-left: 15%;
+}

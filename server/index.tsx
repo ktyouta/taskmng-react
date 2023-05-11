@@ -73,17 +73,13 @@ config.get.forEach((element) => {
 /**
  * generaldetailにアクセスした際の動作
  */
-app.get(ENV.GENERALDETAIL, function (req, res) {
+app.get(`${ENV.GENERALDETAIL}/:param`, function (req, res) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
         return authResult;
     }
-    let id = "";
-    if (req.query.id) {
-        id = req.query.id as string;
-    }
-    let generalDetailList = getGeneralDetailData(id);
+    let generalDetailList = getGeneralDetailData(req.params.param);
     res.status(200).json(generalDetailList);
 });
 
@@ -94,6 +90,14 @@ app.get(ENV.GENERALDETAIL, function (req, res) {
 app.get(ENV.TASK, function (req, res) {
     getTask(res, req);
 });
+
+/**
+ * task/idにアクセスした際の動作
+ */
+app.get(`${ENV.TASK}/:param`, function (req, res) {
+    getTask(res, req, req.params.param);
+});
+
 
 
 
