@@ -7,12 +7,12 @@ import './css/ModalComponent.css';
 const customStyles = {
     content: {
         top: '50%',
-        left: '55%',
+        left: '51%',
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
-        width: '60%',
-        height: '70%',
+        width: '70%',
+        height: '85%',
         transform: 'translate(-50%, -50%)',
     },
 };

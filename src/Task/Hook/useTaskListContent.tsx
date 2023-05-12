@@ -36,7 +36,7 @@ function useTaskListContent() {
     //モーダルの開閉用フラグ
     const { flag: isModalOpen, onFlag, offFlag } = useSwitch();
     //データの取得に失敗した場合のメッセージ
-    const [errMessage, setErrMessage] = useState("");
+    const [errMessage, setErrMessage] = useState(``);
     //更新用タスク取得用URL
     const [updTaskUrl, setUpdTaskUrl] = useState(``);
 
@@ -80,22 +80,6 @@ function useTaskListContent() {
         setDisplayTaskList(tmpDisplayTaskList);
     }, [taskList]);
 
-
-    //モーダル展開時に更新用タスクを取得
-    const { data: updTask } = useQueryWrapper<taskListType>(
-        {
-            url: updTaskUrl,
-            afSuccessFn: (data) => {
-                let errMessage = "";
-                //データが存在しない
-                if (!data) {
-                    errMessage = "データが存在しません。";
-                }
-                setErrMessage(errMessage);
-            }
-        }
-    );
-
     //モーダルオープン
     const openModal = (id: string) => {
         //IDが存在しない
@@ -114,7 +98,7 @@ function useTaskListContent() {
         offFlag,
         displayTaskList,
         errMessage,
-        updTask,
+        updTaskUrl,
     };
 }
 

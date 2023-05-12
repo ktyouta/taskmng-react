@@ -10,7 +10,8 @@
 }
 
 .taskedit-main-area {
-    height: 78%;
+    min-height: 78%;
+    height: auto;
     overflow-y: auto;
 }
 

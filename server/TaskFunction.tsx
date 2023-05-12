@@ -17,6 +17,7 @@ export function getTask(res: any, req: any, id?: string) {
     //タスクファイルの読み込み
     let fileData = readFile(`${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`);
     let decodeFileData: taskListType[] = JSON.parse(fileData);
+    
     //内容でフィルター
     if (req.query.content) {
         let content = req.query.content as string;
@@ -25,41 +26,16 @@ export function getTask(res: any, req: any, id?: string) {
         });
     }
 
-    //汎用詳細データを取得
-    //タスク優先度リスト
-    let taskPriorityList = getGeneralDetailData("2");
-
-    //タスクステータスリスト
-    let taskStatusList = getGeneralDetailData("3");
-
     //優先度およびステータスの紐づけを行う
-    let joinTaskData: taskListType[] = [];
-    decodeFileData.forEach((element) => {
-        let isMatchPriority = false;
-        let isMatchStatus = false;
-        taskPriorityList.some((item) => {
-            //優先度が一致
-            if (element.priority === item.value) {
-                element.priority = item.label;
-                return isMatchPriority = true;
-            }
-        });
-        taskStatusList.some((item) => {
-            //ステータスが一致
-            if (element.status === item.value) {
-                element.status = item.label;
-                return isMatchStatus = true;
-            }
-        });
-        //優先度とステータスの結合に成功したデータのみクライアントに返却する
-        if (isMatchPriority && isMatchStatus) {
-            joinTaskData.push(element);
-        }
-    });
+    let joinTaskData: taskListType[] = joinTask(decodeFileData);
 
     //パスパラメータの指定あり
     if (id) {
-        return res.status(200).json(joinTaskData.find((element) => { return element.id === id }));
+        let singleTaskData = joinTaskData.find((element) => { return element.id === id });
+        if (!singleTaskData) {
+            return res.status(400).json({ errMessage: `該当データがありません。` });
+        }
+        return res.status(200).json(singleTaskData);
     }
 
     return res.status(200).json(joinTaskData);
@@ -136,6 +112,44 @@ function createAddTaskData(fileDataObj: taskListType[], registData: taskListType
     registData['id'] = `${parseInt(id) + 1}`;
     fileDataObj.push(registData);
     return fileDataObj;
+}
+
+/**
+ * タスクのjoinを行う
+ */
+function joinTask(decodeFileData: taskListType[]) {
+    //汎用詳細データを取得
+    //タスク優先度リスト
+    let taskPriorityList = getGeneralDetailData("2");
+
+    //タスクステータスリスト
+    let taskStatusList = getGeneralDetailData("3");
+
+    //優先度およびステータスの紐づけを行う
+    let joinTaskData: taskListType[] = [];
+    decodeFileData.forEach((element) => {
+        let isMatchPriority = false;
+        let isMatchStatus = false;
+        taskPriorityList.some((item) => {
+            //優先度が一致
+            if (element.priority === item.value) {
+                element.priority = item.label;
+                return isMatchPriority = true;
+            }
+        });
+        taskStatusList.some((item) => {
+            //ステータスが一致
+            if (element.status === item.value) {
+                element.status = item.label;
+                return isMatchStatus = true;
+            }
+        });
+        //優先度とステータスの結合に成功したデータのみクライアントに返却する
+        if (isMatchPriority && isMatchStatus) {
+            joinTaskData.push(element);
+        }
+    });
+    return joinTaskData;
 }
 
 /**

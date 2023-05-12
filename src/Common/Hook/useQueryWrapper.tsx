@@ -2,6 +2,12 @@ import { QueryKey, useQuery, UseQueryOptions } from 'react-query';
 import axios from "axios";
 
 
+//エラーレスポンスの型
+export type errResType = {
+    response: { data: { errMessage: string } }
+}
+
+
 //引数の型
 type propsType<TData, RData, PData> = {
     url: string,
@@ -13,6 +19,7 @@ type propsType<TData, RData, PData> = {
     init?: TData,
     callback?: (data: TData) => RData,
     afSuccessFn?: (data: RData) => void,
+    afErrorFn?: (res: unknown) => void,
     method?: methodType,
     postData?: PData
 }
@@ -53,6 +60,7 @@ const useQueryWrapper = <
             select: props.callback,
             initialData: props.init,
             onSuccess: props.afSuccessFn,
+            onError: props.afErrorFn,
             ...props.options
         }
     );

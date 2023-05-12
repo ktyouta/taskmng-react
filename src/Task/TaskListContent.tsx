@@ -18,7 +18,7 @@ function TaskListContent() {
         offFlag,
         displayTaskList,
         errMessage,
-        updTask,
+        updTaskUrl,
     } = useTaskListContent();
 
     //該当データが存在しない
@@ -43,7 +43,8 @@ function TaskListContent() {
                 closeModal={offFlag}
             >
                 <TaskEdit
-                    updTask={updTask}
+                    updTaskUrl={updTaskUrl}
+                    closeFn={offFlag}
                 />
             </ModalComponent>
         </div>

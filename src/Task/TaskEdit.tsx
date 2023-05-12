@@ -10,11 +10,13 @@ import TaskEditForm from './TaskEditForm';
 import MasterEditFooter from '../Master/MasterEditFooter';
 import { taskListType } from './Type/TaskType';
 import useTaskEdit from './Hook/useTaskEdit';
+import MessageComponent, { labelType } from '../Common/MessageComponent';
 
 
 //引数の型
 type propsType = {
-  updTask: taskListType | undefined
+  updTaskUrl: string,
+  closeFn?: () => void,
 }
 
 
@@ -26,20 +28,21 @@ function TaskEdit(props: propsType) {
   const {
     refInfoArray,
     isLoading,
-    updErrMessage,
     backPageButtonObj,
     negativeButtonObj,
-    positiveButtonObj } = useTaskEdit({ ...props });
+    positiveButtonObj,
+    errMessage, } = useTaskEdit({ ...props });
+
 
   //ローディング
-  if (!refInfoArray || refInfoArray.length === 0 || isLoading) {
+  if (isLoading) {
     return <Loading height='50vh' />;
   }
 
   return (
     <TaskEditForm
       refInfoArray={refInfoArray}
-      updErrMessage={updErrMessage}
+      updErrMessage={errMessage}
       isLoading={isLoading}
       backPageButtonObj={backPageButtonObj}
       negativeButtonObj={negativeButtonObj}
