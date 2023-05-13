@@ -4,19 +4,18 @@ import styled from "styled-components";
 import LabelInputComponent from './LabelInputComponent';
 import { refType } from './BaseInputComponent';
 import LabelComponent from './LabelComponent';
-import LabelRadioListComponent, { radioType } from './LabelRadioListComponent';
-import DatePickerComponent from './DatePickerComponent';
+import ComboComponent, { comboType } from './ComboComponent';
 
 //引数の型
 type propsType = {
     title: string,
     titleWidth?: string,
-    value?: string,
+    combo: comboType[],
     onChange?: (e: string) => void,
+    initValue: string,
 }
 
-
-const HorizonLabelDatePickerComponent = forwardRef<refType, propsType>((props, ref) => {
+const HorizonComboComponent = forwardRef<refType, propsType>((props, ref) => {
 
     return (
         <div className="input-main-area">
@@ -24,7 +23,7 @@ const HorizonLabelDatePickerComponent = forwardRef<refType, propsType>((props, r
                 title={props.title}
                 width={props.titleWidth}
             />
-            <DatePickerComponent
+            <ComboComponent
                 {...props}
                 ref={ref}
             />
@@ -32,4 +31,4 @@ const HorizonLabelDatePickerComponent = forwardRef<refType, propsType>((props, r
     );
 })
 
-export default HorizonLabelDatePickerComponent;
+export default HorizonComboComponent;

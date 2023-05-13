@@ -5,12 +5,12 @@ import { generalDetailType } from "./Type/type";
 /**
  * 汎用詳細データを取得
  */
-export function getGeneralDetailData(id: string) {
+export function getGeneralDetailData(id?: string) {
     //汎用詳細ファイルの読み込み
     let generalDetailFileData = readFile(`${MASTERFILEPATH}${GENERALDETAILFILEPATH}${JSONEXTENSION}`);
     let decodeGeneralDetailFileData: generalDetailType[] = JSON.parse(generalDetailFileData);
-    //idで絞り込み
     let taskPriorityList = decodeGeneralDetailFileData.filter((element) => {
+        //idで絞り込み
         if (id) {
             return element.id === id;
         }

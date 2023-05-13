@@ -13,6 +13,7 @@ type propsType = {
     radioList: radioType[],
     selectedValue: string,
     radioLabelWidth?: string,
+    htmlForId?: string,
 }
 
 

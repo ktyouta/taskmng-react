@@ -64,7 +64,7 @@ function MasterTop() {
           onclick={deleteData}
         />
         <span className={"selected-mastername-span"}>選択中のマスタ</span>
-        <ComboComponent combo={masterDataList} onChange={changeCombo} selectedValue={selectedMaster} />
+        <ComboComponent combo={masterDataList} onChange={changeCombo} initValue={selectedMaster} />
       </div>
       <MasterTableComponent
         selectedMasterBody={selectedMasterBody}

@@ -15,6 +15,7 @@ type propsType = {
     radioList: radioType[],
     selectedValue: string,
     radioLabelWidth?: string,
+    htmlForId?: string,
 }
 
 //参照の型
@@ -61,8 +62,8 @@ const LabelRadioListComponent = forwardRef<refType, propsType>((props, ref) => {
                             value={element.value}
                             selectedValue={radioValue}
                             onChange={changeRadio}
-                            htmlForId={element.value}
-                            width = {props.radioLabelWidth}
+                            htmlForId={props.htmlForId ? `${props.htmlForId}${element.value}` : element.value}
+                            width={props.radioLabelWidth}
                         />
                     );
                 })

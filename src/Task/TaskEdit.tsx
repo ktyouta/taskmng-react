@@ -15,7 +15,7 @@ import MessageComponent, { labelType } from '../Common/MessageComponent';
 
 //引数の型
 type propsType = {
-  updTaskUrl: string,
+  updTaskId: string,
   closeFn?: () => void,
 }
 

@@ -2,7 +2,6 @@ import '../App.css';
 import './css/MasterEdit.css';
 import MasterEditFooter from './MasterEditFooter';
 import useMasterEditLogic from './Hook/useMasterEditLogic';
-import MasterInputComponent from './MasterInputComponent';
 import { useAtomValue } from 'jotai';
 import { selectedMasterNmAtom } from './Master';
 import LabelComponent from '../Common/LabelComponent';

@@ -2,7 +2,7 @@ import { useQuery, useQueryClient, UseQueryOptions } from 'react-query';
 import axios from "axios";
 
 
-const useQueryClientWapper = <T,>(
+const useQueryClientWrapper = <T,>(
     key: string
 ) => {
 
@@ -11,4 +11,4 @@ const useQueryClientWapper = <T,>(
     return queryClient.getQueryData<T>(key);
 }
 
-export default useQueryClientWapper;
+export default useQueryClientWrapper;

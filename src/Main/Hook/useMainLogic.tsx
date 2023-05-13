@@ -5,11 +5,10 @@ import useCheckAuth from '../../Common/Hook/useCheckAuth';
 import Top from '../../Top/Top';
 import Master from '../../Master/Master';
 import Setting from '../../Setting/Setting';
-import { masterDataListType, resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
+import { generalDataType, masterDataListType, resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
 import { menuListType } from '../../Common/Hook/useGetViewName';
 import { Route } from "react-router-dom";
 import NotFoundComponent from '../../NotFound/NotFoundComponent';
-import useQueryClientWapper from '../../Common/Hook/useQueryClientWapper';
 import { Provider, atom, useAtom, useAtomValue } from 'jotai';
 import { clientMenuListAtom, userInfoAtom } from '../../Content/Hook/useContentLogic';
 import useQueryAtomValue from '../../Common/Hook/useQueryAtomValue';
@@ -66,6 +65,13 @@ function useMainLogic() {
 
     //useQueryAtomValueを使用した取得法
     //const {clientData:userInfo} = useQueryAtomValue<userInfoType | undefined>(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.AUTH}`);
+
+    //汎用詳細を取得
+    useQueryWrapper<generalDataType[]>(
+        {
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
+        }
+    );
 
 
     //Mainコンポーネントのルーティングリスト

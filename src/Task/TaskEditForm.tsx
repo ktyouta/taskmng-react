@@ -1,13 +1,13 @@
 import '../App.css';
 import MasterEditFooter, { buttonObjType } from '../Master/MasterEditFooter';
 import useMasterEditLogic from '../Master/Hook/useMasterEditLogic';
-import MasterInputComponent from '../Master/MasterInputComponent';
 import LabelComponent from '../Common/LabelComponent';
 import { SnackbarComponent } from '../Common/SnackbarComponent';
 import WaitLoading from '../Common/WaitLoading';
 import HorizonLabelInputComponent from '../Common/HorizonLabelInputComponent';
 import { refInfoType } from '../Common/Type/CommonType';
 import './css/TaskEditForm.css';
+import DynamicFrom from '../Common/DynamicFrom';
 
 
 //引数の型
@@ -36,7 +36,7 @@ function TaskEditForm(props: propsType) {
             <div className="taskedit-main-area">
                 <div className="taskedit-input-main-area">
                     {/* 入力欄 */}
-                    <MasterInputComponent
+                    <DynamicFrom
                         refInfoArray={props.refInfoArray}
                     />
                 </div>

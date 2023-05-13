@@ -1,11 +1,10 @@
 import { createRef, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
 import ENV from '../../env.json';
-import { bodyObj, inputMasterSettingType, inputSettingType, inputTaskSettingType, refInfoType } from "../../Common/Type/CommonType";
+import { bodyObj, comboType, generalDataType, inputMasterSettingType, inputSettingType, inputTaskSettingType, refInfoType } from "../../Common/Type/CommonType";
 import { refType } from "../../Common/BaseInputComponent";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
-import useQueryClientWapper from "../../Common/Hook/useQueryClientWapper";
-import { generalDataType, taskListType } from "../Type/TaskType";
-import { PRIORITY_URL } from "../Task";
+import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
+import { taskListType } from "../Type/TaskType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
@@ -13,7 +12,7 @@ import { buttonObjType } from "../../Master/MasterEditFooter";
 
 //引数の型
 type propsType = {
-    updTaskUrl: string,
+    updTaskId: string,
     closeFn?: () => void,
 }
 
@@ -47,10 +46,15 @@ function useTaskEdit(props: propsType) {
         callback: createInputSettingList
     });
 
+    //汎用詳細リスト
+    const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
+    });
+
     //モーダル展開時に更新用タスクを取得
     const { data: updTask, isLoading: isLoadinGetUpdTask } = useQueryWrapper<taskListType>(
         {
-            url: props.updTaskUrl,
+            url: props.updTaskId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}/${props.updTaskId}` : ``,
             afSuccessFn: (data) => {
                 setErrMessage("");
             }
@@ -64,12 +68,13 @@ function useTaskEdit(props: propsType) {
     //入力欄参照用refの作成
     useEffect(() => {
         let tmpRefInfoArray: refInfoType[] = [];
-        if (!taskSettingList ||
-            taskSettingList.length === 0
-        ) {
+        if (!taskSettingList) {
             return;
         }
         if (!updTask) {
+            return;
+        }
+        if (!generalDataList) {
             return;
         }
         taskSettingList.forEach((element) => {
@@ -82,9 +87,16 @@ function useTaskEdit(props: propsType) {
                 }
             }
             let isVisible = true;
+            let tmpSelectLits: comboType[] = [];
             //項目の表示非表示
             if (element.isHidden) {
                 isVisible = false;
+            }
+            //リストキーが存在する(選択項目)
+            if (element.listKey) {
+                tmpSelectLits = generalDataList.filter((item) => {
+                    return item.id === element.listKey;
+                });
             }
             tmpRefInfoArray.push({
                 id: element.id,
@@ -96,11 +108,12 @@ function useTaskEdit(props: propsType) {
                 //閲覧モードの場合は全項目編集不可
                 editFlg: element.isEditable,
                 visible: isVisible,
+                selectList: tmpSelectLits,
                 ref: createRef(),
             });
         });
         setRefInfoArray(tmpRefInfoArray);
-    }, [taskSettingList, updTask]);
+    }, [taskSettingList, updTask, generalDataList]);
 
     //更新用フック
     const updMutation = useMutationWrapper({
@@ -148,6 +161,9 @@ function useTaskEdit(props: propsType) {
         if (!window.confirm("入力を元に戻しますか？")) {
             return;
         }
+        refInfoArray.forEach((element) => {
+            element.ref.current?.clearValue();
+        });
     }
 
     /**

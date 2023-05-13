@@ -1,12 +1,11 @@
 import '../App.css';
 import '../Master/css/MasterEdit.css';
 import MasterEditFooter, { buttonObjType } from '../Master/MasterEditFooter';
-import useMasterEditLogic from '../Master/Hook/useMasterEditLogic';
-import MasterInputComponent from '../Master/MasterInputComponent';
 import LabelComponent from '../Common/LabelComponent';
 import { SnackbarComponent } from '../Common/SnackbarComponent';
 import WaitLoading from '../Common/WaitLoading';
 import { refInfoType } from './Type/CommonType';
+import DynamicFrom from './DynamicFrom';
 
 
 //引数の型
@@ -36,7 +35,7 @@ function AddMasterForm(props: propsType) {
             <div className="masteredit-main-area">
                 <div className="masteredit-input-main-area">
                     {/* 入力欄 */}
-                    <MasterInputComponent refInfoArray={props.refInfoArray} />
+                    <DynamicFrom refInfoArray={props.refInfoArray} />
                 </div>
                 {/* エラーメッセージ用スナックバー */}
                 <SnackbarComponent

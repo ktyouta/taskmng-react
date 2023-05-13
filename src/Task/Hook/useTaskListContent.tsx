@@ -1,7 +1,7 @@
 import { RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
-import { masterDataListType, selectedMasterDataType } from "../../Common/Type/CommonType";
+import { generalDataType, masterDataListType, selectedMasterDataType } from "../../Common/Type/CommonType";
 import ENV from '../../env.json';
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
@@ -10,7 +10,7 @@ import { masterDataListAtom } from "../../Main/Hook/useMainLogic";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import { displayTaskListType, taskListType } from "../Type/TaskType";
 import { refType } from "../../Common/BaseInputComponent";
-import useQueryClientWapper from "../../Common/Hook/useQueryClientWapper";
+import useQueryClientWapper from "../../Common/Hook/useQueryClientWrapper";
 import useSwitch from "../../Common/Hook/useSwitch";
 import ButtonComponent from "../../Common/ButtonComponent";
 
@@ -37,8 +37,12 @@ function useTaskListContent() {
     const { flag: isModalOpen, onFlag, offFlag } = useSwitch();
     //データの取得に失敗した場合のメッセージ
     const [errMessage, setErrMessage] = useState(``);
-    //更新用タスク取得用URL
-    const [updTaskUrl, setUpdTaskUrl] = useState(``);
+    //更新用タスクID
+    const [updTaskId,setUpdTaskId] = useState(``);
+    //汎用詳細リスト
+    const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
+    });
 
     //タスクリストを取得
     const { data: taskList } = useQueryWrapper<taskListType[]>(
@@ -61,7 +65,38 @@ function useTaskListContent() {
         if (!taskList) {
             return;
         }
+        if (!generalDataList) {
+            return;
+        }
+        let isMatchPriority = false;
+        let isMatchStatus = false;
+        //優先度リスト
+        let taskPriorityList = generalDataList.filter((item) => {
+            return item.id === "2";
+        });
+        //ステータスリスト
+        let taskStatusList = generalDataList.filter((item) => {
+            return item.id === "3";
+        });
         taskList.forEach(element => {
+            taskPriorityList.some((item) => {
+                //優先度が一致
+                if (element.priority === item.value) {
+                    element.priority = item.label;
+                    return isMatchPriority = true;
+                }
+            });
+            taskStatusList.some((item) => {
+                //ステータスが一致
+                if (element.status === item.value) {
+                    element.status = item.label;
+                    return isMatchStatus = true;
+                }
+            });
+            //結合に成功したデータのみを画面に表示する
+            if (!isMatchPriority || !isMatchStatus) {
+                return;
+            }
             tmpDisplayTaskList.push({
                 id: element.id,
                 content: element.content,
@@ -78,18 +113,18 @@ function useTaskListContent() {
             });
         });
         setDisplayTaskList(tmpDisplayTaskList);
-    }, [taskList]);
+    }, [taskList, generalDataList]);
 
     //モーダルオープン
     const openModal = (id: string) => {
         //IDが存在しない
         if (!id) {
-            setUpdTaskUrl(``);
+            setUpdTaskId(``);
             alert(`データの取得に失敗しました。`);
             return;
         }
-        //更新用タスク取得URL
-        setUpdTaskUrl(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}/${id}`);
+        //更新用タスク取得ID
+        setUpdTaskId(id)
         onFlag();
     };
 
@@ -98,7 +133,7 @@ function useTaskListContent() {
         offFlag,
         displayTaskList,
         errMessage,
-        updTaskUrl,
+        updTaskId,
     };
 }
 

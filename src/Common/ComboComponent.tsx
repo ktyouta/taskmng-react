@@ -6,11 +6,12 @@ import styled from "styled-components";
 //引数の型
 type propsType = {
   combo: comboType[],
-  onChange: (e: string) => void,
-  selectedValue: string,
+  onChange?: (e: string) => void,
+  initValue: string,
 }
 
-type comboType = {
+//コンボボックスの型
+export type comboType = {
   value: string,
   label: string
 }
@@ -36,12 +37,12 @@ const BaseSelect = styled.select`
 const ComboComponent = forwardRef<refType, propsType>((props, ref) => {
 
   //コンボボックスの選択値
-  const [selectValue, setSelectValue] = useState<string>(props.selectedValue);
+  const [selectValue, setSelectValue] = useState<string>(props.initValue);
 
   //コンボボックスの選択値を割り当てる
   React.useImperativeHandle(ref, () => ({
     refValue: selectValue,
-    clearValue: () => { }
+    clearValue: clearInput
   }));
 
   //コンボボックスの切り替えイベント
@@ -52,11 +53,17 @@ const ComboComponent = forwardRef<refType, propsType>((props, ref) => {
     setSelectValue(e.target.value);
   }
 
+  //コンボボックスのクリアイベント
+  const clearInput = () => {
+    setSelectValue(props.initValue);
+  };
+
+
   return (
     <React.Fragment>
       {
         props.combo && props.combo.length > 0 &&
-        <BaseSelect onChange={change} value={props.selectedValue}>
+        <BaseSelect onChange={change} value={selectValue}>
           {
             props.combo.map((element) => {
               return (

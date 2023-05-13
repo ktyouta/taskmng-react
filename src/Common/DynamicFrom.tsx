@@ -1,19 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import '../App.css';
-import './css/MasterEdit.css';
-import HorizonLabelInputComponent from '../Common/HorizonLabelInputComponent';
-import { refInfoType } from '../Common/Type/CommonType';
-import HorizonLabelRadioListComponent from '../Common/HorizonLabelRadioListComponent';
-import HorizonLabelDatePickerComponent from '../Common/HorizonLabelDatePickerComponent';
+import HorizonLabelInputComponent from './HorizonLabelInputComponent';
+import HorizonLabelRadioListComponent from './HorizonLabelRadioListComponent';
+import HorizonLabelDatePickerComponent from './HorizonLabelDatePickerComponent';
+import HorizonComboComponent from './HorizonComboComponent';
+import { refInfoType } from './Type/CommonType';
 
 //引数の型
 type propsType = {
     refInfoArray: refInfoType[]
 }
 
-function MasterInputComponent(props: propsType) {
+function DynamicFrom(props: propsType) {
 
-    console.log("MasterInputComponent render");
+    console.log("DynamicFrom render");
 
     return (
         <React.Fragment>
@@ -21,7 +21,7 @@ function MasterInputComponent(props: propsType) {
                 props.refInfoArray.map((element, index) => {
                     return (
                         <div
-                            className="masteredit-input-area"
+                            className="dynamicfrom-input-area"
                             key={`${element.id}-${index}`}
                             style={{ display: element.visible ? "block" : "none" }}
                         >
@@ -46,6 +46,7 @@ function MasterInputComponent(props: propsType) {
                                                     title={element.name}
                                                     radioList={element.selectList}
                                                     selectedValue={element.value}
+                                                    htmlForId="dynamicfrom"
                                                     ref={element.ref}
                                                 />
                                             );
@@ -54,9 +55,20 @@ function MasterInputComponent(props: propsType) {
                                             return (
                                                 <HorizonLabelDatePickerComponent
                                                     title={element.name}
+                                                    value={element.value}
                                                     ref={element.ref}
                                                 />
                                             );
+                                        //コンボボックス
+                                        case "select":
+                                            return (
+                                                element.selectList && <HorizonComboComponent
+                                                    title={element.name}
+                                                    combo={element.selectList}
+                                                    initValue={element.value}
+                                                    ref={element.ref}
+                                                />
+                                            )
                                     }
                                 })()
                             }
@@ -68,4 +80,4 @@ function MasterInputComponent(props: propsType) {
     );
 }
 
-export default MasterInputComponent;
+export default DynamicFrom;

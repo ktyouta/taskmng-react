@@ -10,7 +10,7 @@ import TableComponent from '../../Common/TableComponent';
 import IconComponent from '../../Common/IconComponent';
 import useSwitch from '../../Common/Hook/useSwitch';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
-import useQueryClientWapper from '../../Common/Hook/useQueryClientWapper';
+
 
 //引数の型
 type propsType = {

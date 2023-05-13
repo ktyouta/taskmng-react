@@ -1,9 +1,6 @@
 import '../App.css';
 import './css/Menu.css';
 import { Link } from 'react-router-dom';
-import useGetViewName, { menuListType } from '../Common/Hook/useGetViewName';
-import useQueryClientWapper from '../Common/Hook/useQueryClientWapper';
-import ENV from '../env.json';
 import useMenuLogic from './Hook/useMenuLogic';
 
 

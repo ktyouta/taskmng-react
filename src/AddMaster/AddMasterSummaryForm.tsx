@@ -2,7 +2,6 @@ import '../App.css';
 import './css/AddMasterSummaryForm.css';
 import MasterEditFooter, { buttonObjType } from '../Master/MasterEditFooter';
 import useMasterEditLogic from '../Master/Hook/useMasterEditLogic';
-import MasterInputComponent from '../Master/MasterInputComponent';
 import { useAtomValue } from 'jotai';
 import { selectedMasterNmAtom } from '../Master/Master';
 import LabelComponent from '../Common/LabelComponent';
@@ -12,6 +11,7 @@ import WaitLoading from '../Common/WaitLoading';
 import useAddMasterSummary from './Hook/useAddMasterSummary';
 import AddMasterTopFooter from './AddMasterTopFooter';
 import { inputAddMasterSettingType, refInfoType } from '../Common/Type/CommonType';
+import DynamicFrom from '../Common/DynamicFrom';
 
 
 //引数の型
@@ -39,7 +39,7 @@ function AddMasterSummaryForm(props: propsType) {
       <div className="addmasteredit-main-area">
         <div className="addmasteredit-input-main-area">
           {/* 入力欄 */}
-          <MasterInputComponent refInfoArray={props.refInfoArray} />
+          <DynamicFrom refInfoArray={props.refInfoArray} />
         </div>
         {/* エラーメッセージ用スナックバー */}
         <SnackbarComponent

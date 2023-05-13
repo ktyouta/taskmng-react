@@ -73,6 +73,20 @@ config.get.forEach((element) => {
 /**
  * generaldetailにアクセスした際の動作
  */
+app.get(`${ENV.GENERALDETAIL}`, function (req, res) {
+    //認証チェック
+    let authResult = authenticate(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return authResult;
+    }
+    let generalDetailList = getGeneralDetailData();
+    res.status(200).json(generalDetailList);
+});
+
+
+/**
+ * generaldetailにアクセスした際の動作(パスパラメータあり)
+ */
 app.get(`${ENV.GENERALDETAIL}/:param`, function (req, res) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);

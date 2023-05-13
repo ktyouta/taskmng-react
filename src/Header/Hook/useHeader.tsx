@@ -4,7 +4,6 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import ENV from '../../env.json';
 import { menuType } from '../../Common/Type/CommonType';
-import useQueryClientWapper from '../../Common/Hook/useQueryClientWapper';
 import { useAtomValue } from 'jotai';
 import { clientMenuListAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';

@@ -79,21 +79,23 @@ export type masterDataListType = {
 export type refInfoType = {
     id: string,
     name: string,
-    type: string,
+    type: inputType,
     lenght: number,
     editFlg: boolean,
     visible: boolean,
     value: string,
-    selectList?: { value: string, label: string }[],
+    selectList?: comboType[],
     ref: RefObject<refType>,
 }
 
+//inputのタイプ
+type inputType = "input" | "select" | "radio" | "date";
 
 //マスタ編集画面の入力欄の設定
 export type inputMasterSettingType = {
     id: string,
     name: string,
-    type: string,
+    type: inputType,
     length: number,
     value: string,
     isEditable: boolean,
@@ -105,7 +107,7 @@ export type inputMasterSettingType = {
 export type inputAddMasterSettingType = {
     id: string,
     name: string,
-    type: string,
+    type: inputType,
     length: number,
     value: string,
     isEditable: boolean,
@@ -117,12 +119,13 @@ export type inputAddMasterSettingType = {
 export type inputTaskSettingType = {
     id: string,
     name: string,
-    type: string,
+    type: inputType,
     length: number,
     value: string,
     isEditable: boolean,
     isNewCreateVisible: boolean,
     isHidden: boolean,
+    listKey?: string,
 }
 
 
@@ -132,3 +135,16 @@ export type inputSettingType = {
     addMasterSummarySetting: inputAddMasterSettingType[],
     taskEditSetting: inputTaskSettingType[]
 }
+
+//汎用詳細データの型
+export type generalDataType = {
+    id: string,
+    value: string,
+    label: string,
+}
+
+//コンボボックスの型
+export type comboType = {
+    value: string,
+    label: string
+}  

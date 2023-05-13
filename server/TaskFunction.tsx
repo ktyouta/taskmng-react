@@ -27,18 +27,18 @@ export function getTask(res: any, req: any, id?: string) {
     }
 
     //優先度およびステータスの紐づけを行う
-    let joinTaskData: taskListType[] = joinTask(decodeFileData);
+    //let joinTaskData: taskListType[] = joinTask(decodeFileData);
 
     //パスパラメータの指定あり
     if (id) {
-        let singleTaskData = joinTaskData.find((element) => { return element.id === id });
+        let singleTaskData = decodeFileData.find((element) => { return element.id === id });
         if (!singleTaskData) {
             return res.status(400).json({ errMessage: `該当データがありません。` });
         }
         return res.status(200).json(singleTaskData);
     }
 
-    return res.status(200).json(joinTaskData);
+    return res.status(200).json(decodeFileData);
 }
 
 /**
