@@ -11,6 +11,8 @@ import MasterEditFooter from '../Master/MasterEditFooter';
 import { taskListType } from './Type/TaskType';
 import useTaskEdit from './Hook/useTaskEdit';
 import MessageComponent, { labelType } from '../Common/MessageComponent';
+import DynamicFrom from '../Common/DynamicFrom';
+import './css/TaskEdit.css';
 
 
 //引数の型
@@ -28,6 +30,7 @@ function TaskEdit(props: propsType) {
   const {
     refInfoArray,
     isLoading,
+    isUpDelLoading,
     backPageButtonObj,
     negativeButtonObj,
     positiveButtonObj,
@@ -40,14 +43,40 @@ function TaskEdit(props: propsType) {
   }
 
   return (
-    <TaskEditForm
-      refInfoArray={refInfoArray}
-      updErrMessage={errMessage}
-      isLoading={isLoading}
-      backPageButtonObj={backPageButtonObj}
-      negativeButtonObj={negativeButtonObj}
-      positiveButtonObj={positiveButtonObj}
-    />
+    <div className="taskedit">
+      <div className="taskedit-header-area">
+        <LabelComponent
+          title="タスク編集"
+          width="100%"
+        />
+      </div>
+      <div className="taskedit-main-area">
+        <div className="taskedit-input-main-area">
+          {/* 入力欄 */}
+          <DynamicFrom
+            refInfoArray={refInfoArray}
+          />
+        </div>
+        {/* エラーメッセージ用スナックバー */}
+        <SnackbarComponent
+          open={!!errMessage}
+          message={errMessage}
+          severity='error'
+        />
+      </div>
+      <div className="taskedit-footer-area">
+        {/* 編集画面用フッター */}
+        <MasterEditFooter
+          backPageButtonObj={backPageButtonObj}
+          negativeButtonObj={negativeButtonObj}
+          positiveButtonObj={positiveButtonObj}
+        />
+      </div>
+      {/* ローディング */}
+      <WaitLoading
+        isLoading={isUpDelLoading}
+      />
+    </div>
   );
 }
 

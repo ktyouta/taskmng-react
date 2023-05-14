@@ -68,7 +68,7 @@ function useTaskFooter() {
         let body: { [key: string]: string } = {};
         body[`content`] = taskContentRef.current ? taskContentRef.current.refValue : "";
         body[`priority`] = selectedPriorityRef.current ? selectedPriorityRef.current.refValue : "";
-        body[`limiTtime`] = limitDateRef.current ? limitDateRef.current.refValue : "";
+        body[`limitTime`] = limitDateRef.current ? limitDateRef.current.refValue : "";
         mutation.mutate(body);
     };
 

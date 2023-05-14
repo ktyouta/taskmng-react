@@ -8,6 +8,7 @@ import { taskListType } from "../Type/TaskType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
+import { createRequestBody } from "../../Common/Function/Function";
 
 
 //引数の型
@@ -117,11 +118,12 @@ function useTaskEdit(props: propsType) {
 
     //更新用フック
     const updMutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`,
-        method: "POST",
+        url: props.updTaskId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}/${props.updTaskId}` : ``,
+        method: "PUT",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
             alert(res.errMessage);
+            if (props.closeFn) props.closeFn();
         },
         //失敗後の処理
         afErrorFn: (res: errResType) => {
@@ -132,7 +134,7 @@ function useTaskEdit(props: propsType) {
 
     //削除用フック
     const delMutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`,
+        url: props.updTaskId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}/${props.updTaskId}` : ``,
         method: "DELETE",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
@@ -170,6 +172,9 @@ function useTaskEdit(props: propsType) {
      * 更新ボタン押下処理
      */
     const update = () => {
+        if (!refInfoArray || refInfoArray.length === 0) {
+            return;
+        }
         if (!window.confirm('タスクを更新しますか？')) {
             return
         }
@@ -177,14 +182,15 @@ function useTaskEdit(props: propsType) {
             alert("リクエストの送信に失敗しました。");
             return;
         }
-        let body: bodyObj = {};
+        let body: bodyObj = createRequestBody(refInfoArray);
         //bodyの作成
         updMutation.mutate(body);
     }
 
     return {
         refInfoArray,
-        isLoading: updMutation.isLoading || delMutation.isLoading || isLoadinGetUpdTask,
+        isLoading: isLoadinGetUpdTask,
+        isUpDelLoading: updMutation.isLoading || delMutation.isLoading,
         backPageButtonObj: { title: `閉じる`, type: `BASE`, onclick: backPageButtonFunc } as buttonObjType,
         negativeButtonObj: {
             title: `元に戻す`,

@@ -27,7 +27,7 @@ function TaskContent(props: displayTaskListType) {
                     space='2%'
                 />
                 <div>
-                    期限：{props.limiTtime}
+                    期限：{props.limitTime}
                 </div>
                 <SpaceComponent
                     space='2%'

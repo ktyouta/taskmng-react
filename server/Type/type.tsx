@@ -23,11 +23,12 @@ export type methodType = "POST" | "PUT" | "DELETE"
 
 //タスクリストの型
 export type taskListType = {
+    [key: string]: string,
     id: string,
     registerTime: string,
     content: string,
     updTime: string,
-    limiTtime: string,
+    limitTime: string,
     userId: string,
     priority: string,
     status: string,

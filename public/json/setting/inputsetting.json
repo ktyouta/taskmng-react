@@ -105,7 +105,7 @@
             "isHidden": false
         },
         {
-            "id": "limiTtime",
+            "id": "limitTime",
             "name": "期限",
             "type": "date",
             "length": 500,

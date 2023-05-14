@@ -39,13 +39,13 @@ const parseStrDate = (strDate?: string) => {
     if (!strDate) {
         return null;
     }
-    const year = parseInt(strDate.substring(0, 4));
-    const month = parseInt(strDate.substring(4, 6));
-    const day = parseInt(strDate.substring(6, 8)); 
-    if (isNaN(Date.parse(`${year}${month}${day}`))) {
+    const year = strDate.substring(0, 4);
+    const month = strDate.substring(4, 6);
+    const day = strDate.substring(6, 8);
+    if (isNaN(Date.parse(`${year}/${month}/${day}`))) {
         return null;
     }
-    return new Date(year, month - 1, day);
+    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
 };
 
 

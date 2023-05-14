@@ -102,7 +102,7 @@ function useTaskListContent() {
                 content: element.content,
                 registerTime: element.registerTime,
                 updTime: element.updTime,
-                limiTtime: element.limiTtime,
+                limitTime: element.limitTime,
                 priority: element.priority,
                 status: element.status,
                 editButton: <ButtonComponent
