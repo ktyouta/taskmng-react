@@ -20,6 +20,11 @@ export function getTask(res: any, req: any, id?: string) {
     //タスクファイルの読み込み
     let decodeFileData: taskListType[] = getTaskObj();
 
+    //削除フラグが1(削除済)のデータをフィルターする
+    decodeFileData = decodeFileData.filter((element) => {
+        return element.deleteFlg !== "1";
+    });
+
     //内容でフィルター
     if (req.query.content) {
         let content = req.query.content as string;
@@ -118,6 +123,48 @@ export function runUpdTask(res: any, req: any, pathPrm: string) {
 }
 
 /**
+ * タスクの削除
+ */
+export function runDeleteTask(res: any, req: any, pathPrm: string) {
+    //認証権限チェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //IDの指定がない
+    if (!pathPrm) {
+        return res
+            .status(400)
+            .json({ errMessage: `パラメータが不正です。` });
+    }
+
+    //タスクファイルの読み込み
+    let decodeFileData: taskListType[] = getTaskObj();
+
+    //削除用データの作成
+    let registData = createDeleteTaskData(decodeFileData, req.body, pathPrm);
+
+    //データを登録
+    let errMessage = overWriteData(TASK_FILEPATH, JSON.stringify(registData, null, '\t'));
+
+    //登録更新削除に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
+    //正常終了
+    return res
+        .status(200)
+        .json({ errMessage: `削除が完了しました。` });
+}
+
+
+/**
  * タスクファイルからオブジェクトを取得
  */
 function getTaskObj(): taskListType[] {
@@ -148,7 +195,8 @@ function createAddTaskData(fileDataObj: taskListType[], req: any, authResult: au
         limitTime: "",
         userId: "",
         priority: "",
-        status: ""
+        status: "",
+        deleteFlg: "",
     };
     body = req.body;
     body.registerTime = nowDate;
@@ -156,6 +204,7 @@ function createAddTaskData(fileDataObj: taskListType[], req: any, authResult: au
     body.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
     //未対応
     body.status = "1";
+    body.deleteFlg = "0";
 
     let fileDataObjLen = fileDataObj.length;
     //IDを取得
@@ -181,7 +230,7 @@ function createUpdTaskData(fileDataObj: taskListType[], body: taskListType, updT
         //IDの一致するデータを更新
         if (element.id === updTaskId) {
             Object.keys(element).forEach((item) => {
-                if (item === `id`) return true;
+                if (item === `id` || item === `deleteFlg`) return true;
                 //更新日時
                 if (item === `updTime`) {
                     element[item] = nowDate;
@@ -193,6 +242,40 @@ function createUpdTaskData(fileDataObj: taskListType[], body: taskListType, updT
         }
     });
 
+    return fileDataObj;
+}
+
+
+/**
+ * 削除用データの作成
+ * @param filePath 
+ * @param stream 
+ * @returns 
+ */
+function createDeleteTaskData(fileDataObj: taskListType[], body: taskListType, delTaskId: string)
+    : taskListType[] {
+
+    //現在日付を取得
+    const nowDate = getNowDate();
+
+    fileDataObj.some((element) => {
+        //IDの一致するデータを削除
+        if (element.id === delTaskId) {
+            Object.keys(element).forEach((item) => {
+                //更新日時
+                if (item === `updTime`) {
+                    element[item] = nowDate;
+                    return true;
+                }
+                //削除フラグを立てる
+                if (item === `deleteFlg`) {
+                    element[item] = "1";
+                    return true;
+                }
+            });
+            return true;
+        }
+    });
     return fileDataObj;
 }
 

@@ -6,13 +6,13 @@ import { SnackbarComponent } from '../Common/SnackbarComponent';
 import WaitLoading from '../Common/WaitLoading';
 import AddMasterForm from '../Common/AddMasterForm';
 import React from 'react';
-import TaskEditForm from './TaskEditForm';
 import MasterEditFooter from '../Master/MasterEditFooter';
 import { taskListType } from './Type/TaskType';
 import useTaskEdit from './Hook/useTaskEdit';
 import MessageComponent, { labelType } from '../Common/MessageComponent';
 import DynamicFrom from '../Common/DynamicFrom';
 import './css/TaskEdit.css';
+import TaskEditFooter from './TaskEditFooter';
 
 
 //引数の型
@@ -34,6 +34,7 @@ function TaskEdit(props: propsType) {
     backPageButtonObj,
     negativeButtonObj,
     positiveButtonObj,
+    deleteButtonObj,
     errMessage, } = useTaskEdit({ ...props });
 
 
@@ -66,9 +67,10 @@ function TaskEdit(props: propsType) {
       </div>
       <div className="taskedit-footer-area">
         {/* 編集画面用フッター */}
-        <MasterEditFooter
+        <TaskEditFooter
           backPageButtonObj={backPageButtonObj}
           negativeButtonObj={negativeButtonObj}
+          deleteButtomObj={deleteButtonObj}
           positiveButtonObj={positiveButtonObj}
         />
       </div>

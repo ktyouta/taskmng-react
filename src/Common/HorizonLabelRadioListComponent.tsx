@@ -22,8 +22,7 @@ const HorizonLabelRadioListComponent = forwardRef<refType, propsType>((props, re
     return (
         <div className="input-main-area">
             <LabelComponent
-                title={props.title}
-                width={props.titleWidth}
+                {...props}
             />
             <LabelRadioListComponent
                 {...props}

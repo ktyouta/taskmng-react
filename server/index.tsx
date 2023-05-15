@@ -8,7 +8,7 @@ import { checkUpdAuth, createAddMasterData, createDelMasterData, createUpdMaster
 import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from './Constant';
 import { runAddMaster } from './AddMasterDataFunction';
 import { getGeneralDetailData } from './GeneralFunction';
-import { getTask, runAddTask, runUpdTask } from './TaskFunction';
+import { getTask, runAddTask, runDeleteTask, runUpdTask } from './TaskFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -213,4 +213,11 @@ app.put(`${ENV.TASK}/:param`, function (req, res) {
  */
 app.delete(`${ENV.MASTER}/:param`, function (req, res) {
     runRegister(res, req, createDelMasterData, "DELETE", req.params.param);
+});
+
+/**
+ * taskの削除
+ */
+app.delete(`${ENV.TASK}/:param`, function (req, res) {
+    runDeleteTask(res, req, req.params.param);
 });

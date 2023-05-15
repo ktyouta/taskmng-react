@@ -32,6 +32,7 @@ export type taskListType = {
     userId: string,
     priority: string,
     status: string,
+    deleteFlg: string,
 }
 
 //汎用詳細の型

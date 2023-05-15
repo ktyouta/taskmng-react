@@ -7,7 +7,8 @@
 		"limitTime": "20230505",
 		"userId": "admin",
 		"priority": "1",
-		"status": "1"
+		"status": "1",
+		"deleteFlg": "0"
 	},
 	{
 		"id": "2",
@@ -17,7 +18,8 @@
 		"limitTime": "20230505",
 		"userId": "user",
 		"priority": "3",
-		"status": "2"
+		"status": "2",
+		"deleteFlg": "0"
 	},
 	{
 		"id": "3",
@@ -27,37 +29,41 @@
 		"limitTime": "20230505",
 		"userId": "user",
 		"priority": "2",
-		"status": "3"
+		"status": "3",
+		"deleteFlg": "0"
 	},
 	{
 		"content": "登録テスト",
 		"priority": "2",
-		"limitTime": "Wed May 10 2023 00:00:00 GMT+0900 (日本標準時)",
+		"limitTime": "20230508",
 		"registerTime": "202359",
 		"updTime": "202359",
 		"userId": "",
 		"status": "1",
-		"id": "4"
+		"id": "4",
+		"deleteFlg": "0"
 	},
 	{
 		"content": "登録テスト2",
 		"priority": "3",
-		"limitTime": "Mon May 08 2023 00:00:00 GMT+0900 (日本標準時)",
+		"limitTime": "20230508",
 		"registerTime": "20230509",
 		"updTime": "20230509",
 		"userId": "",
 		"status": "1",
-		"id": "5"
+		"id": "5",
+		"deleteFlg": "0"
 	},
 	{
 		"content": "登録テスト",
 		"priority": "2",
-		"limitTime": "Mon May 08 2023 00:00:00 GMT+0900 (日本標準時)",
+		"limitTime": "20230508",
 		"registerTime": "20230509",
 		"updTime": "20230509",
 		"userId": "",
 		"status": "1",
-		"id": "6"
+		"id": "6",
+		"deleteFlg": "0"
 	},
 	{
 		"content": "test",
@@ -67,7 +73,8 @@
 		"updTime": "20230509",
 		"userId": "",
 		"status": "1",
-		"id": "7"
+		"id": "7",
+		"deleteFlg": "0"
 	},
 	{
 		"content": "nolimit",
@@ -77,7 +84,8 @@
 		"updTime": "20230509",
 		"userId": "",
 		"status": "1",
-		"id": "8"
+		"id": "8",
+		"deleteFlg": "0"
 	},
 	{
 		"content": "testtask",
@@ -87,7 +95,8 @@
 		"updTime": "20230514",
 		"userId": "",
 		"status": "1",
-		"id": "9"
+		"id": "9",
+		"deleteFlg": "0"
 	},
 	{
 		"id": "10",
@@ -97,7 +106,8 @@
 		"limitTime": "",
 		"userId": "",
 		"priority": "1",
-		"status": "1"
+		"status": "1",
+		"deleteFlg": "0"
 	},
 	{
 		"id": "11",
@@ -107,7 +117,8 @@
 		"limitTime": "20230517",
 		"userId": "",
 		"priority": "2",
-		"status": "2"
+		"status": "2",
+		"deleteFlg": "0"
 	},
 	{
 		"content": "updtask1",
@@ -117,7 +128,8 @@
 		"updTime": "20230514",
 		"userId": "",
 		"status": "3",
-		"id": "12"
+		"id": "12",
+		"deleteFlg": "0"
 	},
 	{
 		"content": "test",
@@ -126,7 +138,8 @@
 		"updTime": "20230514",
 		"userId": "",
 		"status": "1",
-		"id": "13"
+		"id": "13",
+		"deleteFlg": "0"
 	},
 	{
 		"content": "test1",
@@ -136,7 +149,8 @@
 		"updTime": "20230514",
 		"userId": "",
 		"status": "1",
-		"id": "14"
+		"id": "14",
+		"deleteFlg": "0"
 	},
 	{
 		"content": "test",
@@ -146,7 +160,8 @@
 		"updTime": "20230514",
 		"userId": "",
 		"status": "1",
-		"id": "15"
+		"id": "15",
+		"deleteFlg": "0"
 	},
 	{
 		"content": "test1",
@@ -156,7 +171,8 @@
 		"updTime": "20230514",
 		"userId": "",
 		"status": "1",
-		"id": "16"
+		"id": "16",
+		"deleteFlg": "0"
 	},
 	{
 		"content": "updtestUpd1",
@@ -166,16 +182,82 @@
 		"updTime": "20230514",
 		"userId": "",
 		"status": "1",
-		"id": "17"
+		"id": "17",
+		"deleteFlg": "0"
 	},
 	{
 		"content": "updtestUpd1",
 		"priority": "3",
 		"limitTime": "20230531",
 		"registerTime": "20230514",
-		"updTime": "20230514",
+		"updTime": "20230515",
 		"userId": "",
 		"status": "3",
-		"id": "18"
+		"id": "18",
+		"deleteFlg": "1"
+	},
+	{
+		"content": "削除テスト",
+		"priority": "3",
+		"limitTime": "20230530",
+		"registerTime": "20230514",
+		"updTime": "20230514",
+		"userId": "",
+		"status": "1",
+		"deleteFlg": "1",
+		"id": "19"
+	},
+	{
+		"content": "削除テストああ",
+		"priority": "1",
+		"limitTime": "20230516",
+		"registerTime": "20230515",
+		"updTime": "20230515",
+		"userId": "",
+		"status": "3",
+		"id": "20"
+	},
+	{
+		"content": "削除テスト",
+		"priority": "3",
+		"limitTime": "20230529",
+		"registerTime": "20230515",
+		"updTime": "20230515",
+		"userId": "",
+		"status": "1",
+		"deleteFlg": "1",
+		"id": "21"
+	},
+	{
+		"content": "削除テスト1",
+		"priority": "1",
+		"limitTime": "20230529",
+		"registerTime": "20230515",
+		"updTime": "20230515",
+		"userId": "",
+		"status": "3",
+		"id": "22"
+	},
+	{
+		"content": "deletetest",
+		"priority": "1",
+		"limitTime": "20230529",
+		"registerTime": "20230515",
+		"updTime": "20230515",
+		"userId": "",
+		"status": "3",
+		"deleteFlg": "1",
+		"id": "23"
+	},
+	{
+		"content": "deletetestupd",
+		"priority": "1",
+		"limitTime": "20230529",
+		"registerTime": "20230515",
+		"updTime": "20230515",
+		"userId": "",
+		"status": "1",
+		"deleteFlg": "1",
+		"id": "24"
 	}
 ]

@@ -139,6 +139,7 @@ function useTaskEdit(props: propsType) {
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
             alert(res.errMessage);
+            if (props.closeFn) props.closeFn();
         },
         //失敗後の処理
         afErrorFn: (res: errResType) => {
@@ -187,6 +188,23 @@ function useTaskEdit(props: propsType) {
         updMutation.mutate(body);
     }
 
+    /**
+     * 削除ボタン押下処理
+     */
+    const deleteTask = () => {
+        if (!refInfoArray || refInfoArray.length === 0) {
+            return;
+        }
+        if (!window.confirm('タスクを削除しますか？')) {
+            return
+        }
+        if (!updMutation) {
+            alert("リクエストの送信に失敗しました。");
+            return;
+        }
+        delMutation.mutate();
+    }
+
     return {
         refInfoArray,
         isLoading: isLoadinGetUpdTask,
@@ -196,6 +214,11 @@ function useTaskEdit(props: propsType) {
             title: `元に戻す`,
             type: `RUN`,
             onclick: refInfoArray && refInfoArray.length > 0 ? clearButtonFunc : undefined
+        } as buttonObjType,
+        deleteButtonObj: {
+            title: `削除`,
+            type: `DANGER`,
+            onclick: refInfoArray && refInfoArray.length > 0 ? deleteTask : undefined
         } as buttonObjType,
         positiveButtonObj: {
             title: `更新`,

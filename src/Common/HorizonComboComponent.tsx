@@ -20,8 +20,7 @@ const HorizonComboComponent = forwardRef<refType, propsType>((props, ref) => {
     return (
         <div className="input-main-area">
             <LabelComponent
-                title={props.title}
-                width={props.titleWidth}
+            {...props}
             />
             <ComboComponent
                 {...props}
