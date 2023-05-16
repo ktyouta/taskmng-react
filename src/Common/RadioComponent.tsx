@@ -9,6 +9,7 @@ type propsType = {
     onChange: (e: string) => void,
     htmlForId: string,
     key?: string,
+    disabled?: boolean,
 }
 
 
@@ -27,6 +28,7 @@ function RadioComponent(props: propsType) {
             onChange={change}
             id={props.htmlForId}
             key={props.key}
+            disabled={props.disabled}
         />
     );
 }

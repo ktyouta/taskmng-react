@@ -8,6 +8,7 @@ type propsType = {
   combo: comboType[],
   onChange?: (e: string) => void,
   initValue: string,
+  disabled?: boolean,
 }
 
 //コンボボックスの型
@@ -63,7 +64,11 @@ const ComboComponent = forwardRef<refType, propsType>((props, ref) => {
     <React.Fragment>
       {
         props.combo && props.combo.length > 0 &&
-        <BaseSelect onChange={change} value={selectValue}>
+        <BaseSelect
+          onChange={change}
+          value={selectValue}
+          disabled={props.disabled}
+        >
           {
             props.combo.map((element) => {
               return (

@@ -14,6 +14,7 @@ type propsType = {
     selectedValue: string,
     radioLabelWidth?: string,
     htmlForId?: string,
+    disabled?: boolean,
 }
 
 

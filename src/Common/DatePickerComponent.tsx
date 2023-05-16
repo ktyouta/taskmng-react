@@ -14,6 +14,7 @@ type propsType = {
     dateFormat?: dateFormatType,
     value?: string,
     onChange?: (e: string) => void,
+    disabled?: boolean,
 }
 
 //参照の型
@@ -97,6 +98,7 @@ const DatePickerComponent = forwardRef<refType, propsType>((props, ref) => {
             onChange={selectedDate => { changeDate(selectedDate || Today) }}
             className='datepicker-input'
             onBlur={selectedDate => { blur(selectedDate) }}
+            disabled={props.disabled}
         />
     );
 })

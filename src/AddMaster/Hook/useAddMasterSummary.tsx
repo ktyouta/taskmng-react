@@ -66,7 +66,7 @@ function useAddMasterTop(props: propsType): retType {
                 //キーに一致するデータが存在する場合はその値を表示
                 value: tmpValue ?? element.value,
                 //閲覧モードの場合は全項目編集不可
-                editFlg: element.isEditable,
+                disabled: element.disabled,
                 visible: isVisible,
                 ref: createRef(),
             });

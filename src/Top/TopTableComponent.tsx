@@ -50,7 +50,7 @@ function TopTableComponent(props: propsType) {
                     title={"ファイル名"}
                     value={""}
                     lenght={100}
-                    editFlg={true}
+                    disabled={false}
                     ref={textRef}
                     titleWidth={"100px"}
                 />
@@ -59,7 +59,7 @@ function TopTableComponent(props: propsType) {
                     title={"備考"}
                     value={""}
                     lenght={100}
-                    editFlg={true}
+                    disabled={false}
                     ref={reamarksRef}
                     titleWidth={"100px"}
                 />

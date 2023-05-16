@@ -21,19 +21,19 @@ function Login() {
                     title={"ユーザーID"}
                     value={""}
                     lenght={100}
-                    editFlg={true}
+                    disabled={false}
                     ref={userIdRef}
                     textWidth={"350px"}
                 />
-                <VerticalSpaceComponent 
-                    space={'15px'}                    
+                <VerticalSpaceComponent
+                    space={'15px'}
                 />
                 <VerticalLabellInputComponent
                     title={"パスワード"}
                     type={"password"}
                     value={""}
                     lenght={100}
-                    editFlg={true}
+                    disabled={false}
                     ref={userPassword}
                     textWidth={"350px"}
                 />

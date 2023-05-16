@@ -13,6 +13,7 @@ type propsType = {
     titleWidth?: string,
     value?: string,
     onChange?: (e: string) => void,
+    disabled?: boolean,
 }
 
 

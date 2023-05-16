@@ -35,7 +35,7 @@ function DynamicFrom(props: propsType) {
                                                     title={element.name}
                                                     value={element.value}
                                                     lenght={element.lenght}
-                                                    editFlg={element.editFlg}
+                                                    disabled={element.disabled}
                                                     ref={element.ref}
                                                 />
                                             );
@@ -47,6 +47,7 @@ function DynamicFrom(props: propsType) {
                                                     radioList={element.selectList}
                                                     selectedValue={element.value}
                                                     htmlForId="dynamicfrom"
+                                                    disabled={element.disabled}
                                                     ref={element.ref}
                                                 />
                                             );
@@ -56,6 +57,7 @@ function DynamicFrom(props: propsType) {
                                                 <HorizonLabelDatePickerComponent
                                                     title={element.name}
                                                     value={element.value}
+                                                    disabled={element.disabled}
                                                     ref={element.ref}
                                                 />
                                             );
@@ -66,6 +68,7 @@ function DynamicFrom(props: propsType) {
                                                     title={element.name}
                                                     combo={element.selectList}
                                                     initValue={element.value}
+                                                    disabled={element.disabled}
                                                     ref={element.ref}
                                                 />
                                             )

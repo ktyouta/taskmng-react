@@ -4,7 +4,7 @@ import BaseInputComponent, { refType } from './BaseInputComponent';
 
 //引数の型
 type propsType = {
-    editFlg: boolean,
+    disabled: boolean,
     type?: string,
     value: string,
     lenght: number,
@@ -17,7 +17,7 @@ const LabelInputComponent = forwardRef<refType, propsType>((props, ref) => {
     return (
         <React.Fragment>
             {
-                props.editFlg ?
+                !props.disabled ?
                     (
                         <BaseInputComponent
                             {...props}

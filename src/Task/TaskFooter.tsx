@@ -32,7 +32,7 @@ function TaskFooter() {
                     title={"タスク内容"}
                     value={""}
                     lenght={100}
-                    editFlg={true}
+                    disabled={false}
                     ref={taskContentRef}
                     textWidth={"350px"}
                     titleWidth={"100px"}

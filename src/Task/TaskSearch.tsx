@@ -28,7 +28,7 @@ function TaskSearch() {
                     title={"内容"}
                     value={""}
                     lenght={100}
-                    editFlg={true}
+                    disabled={false}
                     ref={contentRef}
                     titleWidth={"100px"}
                 />

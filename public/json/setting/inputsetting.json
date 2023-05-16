@@ -6,7 +6,7 @@
             "type": "input",
             "length": 100,
             "value": "",
-            "isEditable": false,
+            "disabled": true,
             "isNewCreateVisible": false,
             "isHidden": false
         },
@@ -16,7 +16,7 @@
             "type": "input",
             "length": 100,
             "value": "",
-            "isEditable": true,
+            "disabled": false,
             "isNewCreateVisible": true,
             "isHidden": false
         },
@@ -26,7 +26,7 @@
             "type": "input",
             "length": 500,
             "value": "",
-            "isEditable": true,
+            "disabled": false,
             "isNewCreateVisible": true,
             "isHidden": false
         }
@@ -38,7 +38,7 @@
             "type": "input",
             "length": 100,
             "value": "",
-            "isEditable": true,
+            "disabled": false,
             "isNewCreateVisible": false,
             "isHidden": false
         },
@@ -48,7 +48,7 @@
             "type": "input",
             "length": 100,
             "value": "",
-            "isEditable": true,
+            "disabled": false,
             "isNewCreateVisible": true,
             "isHidden": false
         },
@@ -58,7 +58,7 @@
             "type": "input",
             "length": 500,
             "value": "",
-            "isEditable": true,
+            "disabled": false,
             "isNewCreateVisible": true,
             "isHidden": false
         }
@@ -70,7 +70,7 @@
             "type": "input",
             "length": 100,
             "value": "",
-            "isEditable": false,
+            "disabled": true,
             "isNewCreateVisible": false,
             "isHidden": true
         },
@@ -80,7 +80,7 @@
             "type": "input",
             "length": 100,
             "value": "",
-            "isEditable": false,
+            "disabled": true,
             "isNewCreateVisible": true,
             "isHidden": false
         },
@@ -90,7 +90,7 @@
             "type": "input",
             "length": 500,
             "value": "",
-            "isEditable": true,
+            "disabled": false,
             "isNewCreateVisible": true,
             "isHidden": false
         },
@@ -100,7 +100,7 @@
             "type": "input",
             "length": 500,
             "value": "",
-            "isEditable": false,
+            "disabled": true,
             "isNewCreateVisible": true,
             "isHidden": false
         },
@@ -110,7 +110,7 @@
             "type": "date",
             "length": 500,
             "value": "",
-            "isEditable": true,
+            "disabled": false,
             "isNewCreateVisible": true,
             "isHidden": false
         },
@@ -120,7 +120,7 @@
             "type": "input",
             "length": 500,
             "value": "",
-            "isEditable": false,
+            "disabled": true,
             "isNewCreateVisible": false,
             "isHidden": true
         },
@@ -130,7 +130,7 @@
             "type": "radio",
             "length": 500,
             "value": "",
-            "isEditable": true,
+            "disabled": false,
             "isNewCreateVisible": true,
             "isHidden": false,
             "listKey": "2"
@@ -141,7 +141,7 @@
             "type": "select",
             "length": 500,
             "value": "",
-            "isEditable": false,
+            "disabled": false,
             "isNewCreateVisible": false,
             "isHidden": false,
             "listKey": "3"

@@ -7,7 +7,7 @@ import LabelComponent from './LabelComponent';
 
 //引数の型
 type propsType = {
-  editFlg: boolean,
+  disabled: boolean,
   title: string,
   type?: string,
   value: string,

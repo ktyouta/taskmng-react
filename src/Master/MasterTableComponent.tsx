@@ -36,7 +36,7 @@ function MasterTableComponent(props: propsType) {
                     title={"名称"}
                     value={""}
                     lenght={100}
-                    editFlg={true}
+                    disabled={false}
                     ref={textRef}
                     titleWidth={"100px"}
                 />
@@ -45,7 +45,7 @@ function MasterTableComponent(props: propsType) {
                     title={"備考"}
                     value={""}
                     lenght={100}
-                    editFlg={true}
+                    disabled={false}
                     ref={reamarksRef}
                     titleWidth={"100px"}
                 />

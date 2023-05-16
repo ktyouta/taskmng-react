@@ -13,6 +13,7 @@ type propsType = {
     combo: comboType[],
     onChange?: (e: string) => void,
     initValue: string,
+    disabled?: boolean,
 }
 
 const HorizonComboComponent = forwardRef<refType, propsType>((props, ref) => {

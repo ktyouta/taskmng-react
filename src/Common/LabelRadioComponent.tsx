@@ -12,7 +12,8 @@ type propsType = {
     htmlForId: string,
     onChange: (e: string) => void,
     key: string,
-    width?:string,
+    width?: string,
+    disabled?: boolean,
 }
 
 
