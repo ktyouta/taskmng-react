@@ -25,8 +25,9 @@ export type methodType = "POST" | "PUT" | "DELETE"
 export type taskListType = {
     [key: string]: string,
     id: string,
-    registerTime: string,
+    title: string,
     content: string,
+    registerTime: string,
     updTime: string,
     limitTime: string,
     userId: string,

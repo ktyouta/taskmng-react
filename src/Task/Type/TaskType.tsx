@@ -2,6 +2,7 @@
 export type taskListType = {
     id: string,
     registerTime: string,
+    title: string,
     content: string,
     updTime: string,
     limitTime: string,
@@ -13,7 +14,7 @@ export type taskListType = {
 //画面表示用タスクリストの型
 export type displayTaskListType = {
     id: string,
-    content: string,
+    title: string,
     registerTime: string,
     updTime: string,
     limitTime: string,

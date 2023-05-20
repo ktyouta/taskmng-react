@@ -99,7 +99,7 @@ function useTaskListContent() {
             }
             tmpDisplayTaskList.push({
                 id: element.id,
-                content: element.content,
+                title: element.title,
                 registerTime: element.registerTime,
                 updTime: element.updTime,
                 limitTime: element.limitTime,

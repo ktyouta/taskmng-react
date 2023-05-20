@@ -192,10 +192,6 @@ export function runRegister(res: any,
  * 登録更新削除前認証チェック
  */
 export function checkUpdAuth(cookie: any): authInfoType {
-    let tmpAuthInfo = {
-        status: 200,
-        errMessage: "",
-    }
     //認証チェック
     let authResult = authenticate(cookie);
     if (authResult.errMessage) {
@@ -204,8 +200,8 @@ export function checkUpdAuth(cookie: any): authInfoType {
 
     //ファイルの更新権限チェック
     if (!authResult || !authResult.userInfo || parseInt(authResult.userInfo.auth) < 2) {
-        return tmpAuthInfo = { status: 400, errMessage: `権限がありません。` };
+        return { status: 400, errMessage: `権限がありません。` };
     }
 
-    return tmpAuthInfo;
+    return authResult;
 }

@@ -189,21 +189,22 @@ function createAddTaskData(fileDataObj: taskListType[], req: any, authResult: au
     //リクエストボディ
     let body: taskListType = {
         id: "",
-        registerTime: "",
         content: "",
+        registerTime: "",
         updTime: "",
         limitTime: "",
         userId: "",
         priority: "",
         status: "",
         deleteFlg: "",
+        title: ""
     };
     body = req.body;
     body.registerTime = nowDate;
     body.updTime = nowDate;
     body.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
     //未対応
-    body.status = "1";
+    //body.status = "1";
     body.deleteFlg = "0";
 
     let fileDataObjLen = fileDataObj.length;

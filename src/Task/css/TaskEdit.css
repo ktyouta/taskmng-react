@@ -3,14 +3,14 @@
 }
 
 .taskedit-header-area {
-    height: 7%;
+    height: 10%;
     font-size: 20px;
     display: flex;
     align-items: center;
 }
 
 .taskedit-main-area {
-    min-height: 78%;
+    min-height: 90%;
     height: auto;
     overflow-y: auto;
 }
@@ -23,4 +23,8 @@
     overflow: auto;
     height: 90%;
     margin-left: 15%;
+}
+
+.taskedit-content-area {
+    height: 85%
 }

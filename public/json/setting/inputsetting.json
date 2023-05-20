@@ -72,7 +72,33 @@
             "value": "",
             "disabled": true,
             "isNewCreateVisible": false,
-            "isHidden": true
+            "isHidden": true,
+            "isEditableSetting": false,
+            "isRequired": false
+        },
+        {
+            "id": "title",
+            "name": "タイトル",
+            "type": "input",
+            "length": 500,
+            "value": "",
+            "disabled": false,
+            "isNewCreateVisible": true,
+            "isHidden": false,
+            "isEditableSetting": true,
+            "isRequired": true
+        },
+        {
+            "id": "content",
+            "name": "タスク内容",
+            "type": "textarea",
+            "length": 500,
+            "value": "",
+            "disabled": false,
+            "isNewCreateVisible": true,
+            "isHidden": false,
+            "isEditableSetting": true,
+            "isRequired": true
         },
         {
             "id": "registerTime",
@@ -81,18 +107,10 @@
             "length": 100,
             "value": "",
             "disabled": true,
-            "isNewCreateVisible": true,
-            "isHidden": false
-        },
-        {
-            "id": "content",
-            "name": "コンテンツ",
-            "type": "input",
-            "length": 500,
-            "value": "",
-            "disabled": false,
-            "isNewCreateVisible": true,
-            "isHidden": false
+            "isNewCreateVisible": false,
+            "isHidden": false,
+            "isEditableSetting": false,
+            "isRequired": false
         },
         {
             "id": "updTime",
@@ -101,8 +119,10 @@
             "length": 500,
             "value": "",
             "disabled": true,
-            "isNewCreateVisible": true,
-            "isHidden": false
+            "isNewCreateVisible": false,
+            "isHidden": false,
+            "isEditableSetting": false,
+            "isRequired": false
         },
         {
             "id": "limitTime",
@@ -112,7 +132,9 @@
             "value": "",
             "disabled": false,
             "isNewCreateVisible": true,
-            "isHidden": false
+            "isHidden": false,
+            "isEditableSetting": true,
+            "isRequired": false
         },
         {
             "id": "userId",
@@ -122,7 +144,9 @@
             "value": "",
             "disabled": true,
             "isNewCreateVisible": false,
-            "isHidden": true
+            "isHidden": true,
+            "isEditableSetting": false,
+            "isRequired": false
         },
         {
             "id": "priority",
@@ -133,7 +157,9 @@
             "disabled": false,
             "isNewCreateVisible": true,
             "isHidden": false,
-            "listKey": "2"
+            "listKey": "2",
+            "isEditableSetting": true,
+            "isRequired": false
         },
         {
             "id": "status",
@@ -142,9 +168,11 @@
             "length": 500,
             "value": "",
             "disabled": false,
-            "isNewCreateVisible": false,
+            "isNewCreateVisible": true,
             "isHidden": false,
-            "listKey": "3"
+            "listKey": "3",
+            "isEditableSetting": true,
+            "isRequired": false
         }
     ]
 }

@@ -5,6 +5,7 @@ import HorizonLabelRadioListComponent from './HorizonLabelRadioListComponent';
 import HorizonLabelDatePickerComponent from './HorizonLabelDatePickerComponent';
 import HorizonComboComponent from './HorizonComboComponent';
 import { refInfoType } from './Type/CommonType';
+import HorizonLabelTextAreaComponent from './HorizonLabelTextAreaComponent';
 
 //引数の型
 type propsType = {
@@ -28,10 +29,21 @@ function DynamicFrom(props: propsType) {
                             {
                                 (() => {
                                     switch (element.type) {
-                                        //テキストエリア
+                                        //テキストボックス
                                         case "input":
                                             return (
                                                 <HorizonLabelInputComponent
+                                                    title={element.name}
+                                                    value={element.value}
+                                                    lenght={element.lenght}
+                                                    disabled={element.disabled}
+                                                    ref={element.ref}
+                                                />
+                                            );
+                                        //テキストエリア
+                                        case "textarea":
+                                            return (
+                                                <HorizonLabelTextAreaComponent
                                                     title={element.name}
                                                     value={element.value}
                                                     lenght={element.lenght}

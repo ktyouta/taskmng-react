@@ -10,6 +10,8 @@ import VerticalLabelRadioListComponent from '../Common/VerticalLabelRadioListCom
 import DatePickerComponent from '../Common/DatePickerComponent';
 import VerticalLabelDatePickerComponent from '../Common/VerticalLabelDatePickerComponent';
 import WaitLoading from '../Common/WaitLoading';
+import ModalComponent from '../Common/ModalComponent';
+import TaskRegister from './TaskRegister';
 
 
 function TaskFooter() {
@@ -17,68 +19,30 @@ function TaskFooter() {
     console.log("TaskFooter render");
 
     const {
-        taskContentRef,
-        selectedPriorityRef,
-        priorityList,
-        limitDateRef,
-        create,
-        clearButtonFunc,
-        isLoading, } = useTaskFooter();
+        isModalOpen,
+        onFlag,
+        offFlag, } = useTaskFooter();
 
     return (
         <React.Fragment>
             <div className="taskfooter">
-                <VerticalLabellInputComponent
-                    title={"タスク内容"}
-                    value={""}
-                    lenght={100}
-                    disabled={false}
-                    ref={taskContentRef}
-                    textWidth={"350px"}
-                    titleWidth={"100px"}
-                />
                 <SpaceComponent
-                    space={"1%"}
-                />
-                {
-                    priorityList && priorityList.length > 0 &&
-                    <VerticalLabelRadioListComponent
-                        title='優先度'
-                        titleWidth="100px"
-                        radioLabelWidth='75px'
-                        radioList={priorityList}
-                        selectedValue={priorityList[0].value}
-                        ref={selectedPriorityRef}
-                    />
-                }
-                <SpaceComponent
-                    space={"3%"}
-                />
-                <VerticalLabelDatePickerComponent
-                    title={'期限'}
-                    titleWidth="50px"
-                    ref={limitDateRef}
-                />
-                <SpaceComponent
-                    space={"7%"}
+                    space={"85%"}
                 />
                 <ButtonComponent
-                    styleTypeNumber="BASE"
-                    title={"クリア"}
-                    onclick={clearButtonFunc}
-                />
-                <SpaceComponent
-                    space={"2%"}
-                />
-                <ButtonComponent
-                    styleTypeNumber="RUN"
-                    title={"登録"}
-                    onclick={create}
+                    styleTypeNumber="PRIMARY"
+                    title={"タスク作成"}
+                    onclick={onFlag}
                 />
             </div>
-            <WaitLoading
-                isLoading={isLoading}
-            />
+            <ModalComponent
+                modalIsOpen={isModalOpen}
+                closeModal={offFlag}
+            >
+                <TaskRegister
+                    closeFn={offFlag}
+                />
+            </ModalComponent>
         </React.Fragment>
     );
 }

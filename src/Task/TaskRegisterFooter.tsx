@@ -14,7 +14,6 @@ export type buttonObjType = {
 //引数の型
 type propsType = {
     backPageButtonObj: buttonObjType,
-    deleteButtomObj: buttonObjType,
     negativeButtonObj: buttonObjType,
     positiveButtonObj: buttonObjType,
     outerHeight: string,
@@ -27,9 +26,9 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
 `;
 
 
-function TaskEditFooter(props: propsType) {
+function TaskRegisterFooter(props: propsType) {
 
-    console.log("mastereditfooter render");
+    console.log("TaskRegisterFooter render");
 
     return (
         <OuterDiv
@@ -49,7 +48,7 @@ function TaskEditFooter(props: propsType) {
                 />
             }
             <SpaceComponent
-                space={"30%"}
+                space={"45%"}
             />
             {
                 props.negativeButtonObj &&
@@ -75,22 +74,8 @@ function TaskEditFooter(props: propsType) {
                     onclick={props.positiveButtonObj.onclick}
                 />
             }
-            <SpaceComponent
-                space={"3%"}
-            />
-            {
-                props.deleteButtomObj &&
-                props.deleteButtomObj.title &&
-                props.deleteButtomObj.onclick &&
-                props.positiveButtonObj.onclick &&
-                <ButtonComponent
-                    styleTypeNumber={props.deleteButtomObj.type}
-                    title={props.deleteButtomObj.title}
-                    onclick={props.deleteButtomObj.onclick}
-                />
-            }
         </OuterDiv>
     );
 }
 
-export default TaskEditFooter;
+export default TaskRegisterFooter;

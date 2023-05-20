@@ -14,7 +14,6 @@ import useGetTaskInputSetting from "./useGetTaskInputSetting";
 
 //引数の型
 type propsType = {
-    updTaskId: string,
     closeFn?: () => void,
 }
 
@@ -39,45 +38,20 @@ function useTaskEdit(props: propsType) {
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
     });
 
-    //モーダル展開時に更新用タスクを取得
-    const { data: updTask, isLoading: isLoadinGetUpdTask } = useQueryWrapper<taskListType>(
-        {
-            url: props.updTaskId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}/${props.updTaskId}` : ``,
-            afSuccessFn: (data) => {
-                setErrMessage("");
-            }
-            , afErrorFn: (res) => {
-                let tmp = res as errResType;
-                setErrMessage(tmp.response.data.errMessage);
-            }
-        }
-    );
-
     //入力欄参照用refの作成
     useEffect(() => {
         let tmpRefInfoArray: refInfoType[] = [];
         if (!taskSettingList) {
             return;
         }
-        if (!updTask) {
-            return;
-        }
         if (!generalDataList) {
             return;
         }
         taskSettingList.forEach((element) => {
-            let tmpValue: string | undefined = undefined;
-            for (const [columnKey, value] of Object.entries(updTask as {})) {
-                //キーの一致する要素を取り出す
-                if (element.id === columnKey) {
-                    tmpValue = value as string;
-                    break;
-                }
-            }
             let isVisible = true;
             let tmpSelectLits: comboType[] = [];
             //項目の表示非表示
-            if (element.isHidden) {
+            if (element.isHidden || !element.isNewCreateVisible) {
                 isVisible = false;
             }
             //リストキーが存在する(選択項目)
@@ -92,8 +66,7 @@ function useTaskEdit(props: propsType) {
                 type: element.type,
                 lenght: element.length,
                 //キーに一致するデータが存在する場合はその値を表示
-                value: tmpValue ?? element.value,
-                //閲覧モードの場合は全項目編集不可
+                value: element.value,
                 disabled: element.disabled,
                 visible: isVisible,
                 selectList: tmpSelectLits,
@@ -101,28 +74,12 @@ function useTaskEdit(props: propsType) {
             });
         });
         setRefInfoArray(tmpRefInfoArray);
-    }, [taskSettingList, updTask, generalDataList]);
+    }, [taskSettingList, generalDataList]);
 
-    //更新用フック
-    const updMutation = useMutationWrapper({
-        url: props.updTaskId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}/${props.updTaskId}` : ``,
-        method: "PUT",
-        //正常終了後の処理
-        afSuccessFn: (res: resType) => {
-            alert(res.errMessage);
-            if (props.closeFn) props.closeFn();
-        },
-        //失敗後の処理
-        afErrorFn: (res: errResType) => {
-            //エラーメッセージを表示
-            setErrMessage(res.response.data.errMessage);
-        },
-    });
-
-    //削除用フック
-    const delMutation = useMutationWrapper({
-        url: props.updTaskId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}/${props.updTaskId}` : ``,
-        method: "DELETE",
+    //登録用フック
+    const registerMutation = useMutationWrapper({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`,
+        method: "POST",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
             alert(res.errMessage);
@@ -148,7 +105,7 @@ function useTaskEdit(props: propsType) {
      * 入力値の初期化
      */
     const clearButtonFunc = () => {
-        if (!window.confirm("入力を元に戻しますか？")) {
+        if (!window.confirm("入力をクリアしますか？")) {
             return;
         }
         refInfoArray.forEach((element) => {
@@ -157,60 +114,41 @@ function useTaskEdit(props: propsType) {
     }
 
     /**
-     * 更新ボタン押下処理
+     * 登録ボタン押下処理
      */
-    const update = () => {
+    const create = () => {
         if (!refInfoArray || refInfoArray.length === 0) {
             return;
         }
-        if (!window.confirm('タスクを更新しますか？')) {
+        if (!window.confirm('タスクを登録しますか？')) {
             return
         }
-        if (!updMutation) {
+        if (!registerMutation) {
             alert("リクエストの送信に失敗しました。");
             return;
         }
         let body: bodyObj = createRequestBody(refInfoArray);
         //bodyの作成
-        updMutation.mutate(body);
-    }
-
-    /**
-     * 削除ボタン押下処理
-     */
-    const deleteTask = () => {
-        if (!refInfoArray || refInfoArray.length === 0) {
-            return;
-        }
-        if (!window.confirm('タスクを削除しますか？')) {
-            return
-        }
-        if (!updMutation) {
-            alert("リクエストの送信に失敗しました。");
-            return;
-        }
-        delMutation.mutate();
+        registerMutation.mutate(body);
     }
 
     return {
         refInfoArray,
-        isLoading: isLoadinGetUpdTask,
-        isUpDelLoading: updMutation.isLoading || delMutation.isLoading,
-        backPageButtonObj: { title: `閉じる`, type: `BASE`, onclick: backPageButtonFunc } as buttonObjType,
+        isUpDelLoading: registerMutation.isLoading,
+        backPageButtonObj: {
+            title: `閉じる`,
+            type: `BASE`,
+            onclick: backPageButtonFunc
+        } as buttonObjType,
         negativeButtonObj: {
             title: `元に戻す`,
             type: `RUN`,
             onclick: refInfoArray && refInfoArray.length > 0 ? clearButtonFunc : undefined
         } as buttonObjType,
-        deleteButtonObj: {
-            title: `削除`,
-            type: `DANGER`,
-            onclick: refInfoArray && refInfoArray.length > 0 ? deleteTask : undefined
-        } as buttonObjType,
         positiveButtonObj: {
-            title: `更新`,
+            title: `登録`,
             type: `RUN`,
-            onclick: refInfoArray && refInfoArray.length > 0 ? update : undefined
+            onclick: refInfoArray && refInfoArray.length > 0 ? create : undefined
         } as buttonObjType,
         errMessage,
     }

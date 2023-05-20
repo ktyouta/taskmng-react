@@ -13,6 +13,7 @@ import MessageComponent, { labelType } from '../Common/MessageComponent';
 import DynamicFrom from '../Common/DynamicFrom';
 import './css/TaskEdit.css';
 import TaskEditFooter from './TaskEditFooter';
+import TaskEditForm from './TaskEditForm';
 
 
 //引数の型
@@ -26,7 +27,6 @@ function TaskEdit(props: propsType) {
 
   console.log("taskedit render");
 
-  //MasterEditコンポーネントのビジネスロジック
   const {
     refInfoArray,
     isLoading,
@@ -45,35 +45,20 @@ function TaskEdit(props: propsType) {
 
   return (
     <div className="taskedit">
-      <div className="taskedit-header-area">
-        <LabelComponent
-          title="タスク編集"
-          width="100%"
-        />
-      </div>
-      <div className="taskedit-main-area">
-        <div className="taskedit-input-main-area">
-          {/* 入力欄 */}
-          <DynamicFrom
-            refInfoArray={refInfoArray}
-          />
-        </div>
-        {/* エラーメッセージ用スナックバー */}
-        <SnackbarComponent
-          open={!!errMessage}
-          message={errMessage}
-          severity='error'
-        />
-      </div>
-      <div className="taskedit-footer-area">
-        {/* 編集画面用フッター */}
-        <TaskEditFooter
-          backPageButtonObj={backPageButtonObj}
-          negativeButtonObj={negativeButtonObj}
-          deleteButtomObj={deleteButtonObj}
-          positiveButtonObj={positiveButtonObj}
-        />
-      </div>
+      <TaskEditForm
+        title={'タスク編集'}
+        refInfoArray={refInfoArray}
+        isUpDelLoading={isUpDelLoading}
+        errMessage={errMessage}
+        outerHeight='85%'
+      />
+      <TaskEditFooter
+        backPageButtonObj={backPageButtonObj}
+        negativeButtonObj={negativeButtonObj}
+        deleteButtomObj={deleteButtonObj}
+        positiveButtonObj={positiveButtonObj}
+        outerHeight='15%'
+      />
       {/* ローディング */}
       <WaitLoading
         isLoading={isUpDelLoading}

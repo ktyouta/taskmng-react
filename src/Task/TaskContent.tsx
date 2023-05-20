@@ -11,7 +11,7 @@ function TaskContent(props: displayTaskListType) {
     return (
         <div className='taskcontent'>
             <div className='taskcontent-content'>
-                {props.content}
+                {props.title}
             </div>
             <div className='taskcontent-info'>
                 <div>
