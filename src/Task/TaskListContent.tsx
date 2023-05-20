@@ -7,6 +7,7 @@ import ModalComponent from '../Common/ModalComponent';
 import MessageComponent, { labelType } from '../Common/MessageComponent';
 import './css/TaskListContent.css';
 import TaskEdit from './TaskEdit';
+import LabelComponent from '../Common/LabelComponent';
 
 
 function TaskListContent() {
@@ -35,6 +36,11 @@ function TaskListContent() {
 
     return (
         <div className="tasklistcontent">
+            <div className='tasklistcontent-num'>
+                <LabelComponent
+                    title={`表示件数：${displayTaskList.length}件`}
+                />
+            </div>
             <TaskList
                 displayTaskList={displayTaskList}
             />

@@ -9,6 +9,7 @@ import TableComponent from '../Common/TableComponent';
 import { refType } from '../Common/BaseInputComponent';
 import useTaskSearch from './Hook/useTaskSearch';
 import './css/TaskSearch.css';
+import ModalComponent from '../Common/ModalComponent';
 
 
 function TaskSearch() {
@@ -19,24 +20,34 @@ function TaskSearch() {
         contentRef,
         clickSearchBtn,
         clickClearBtn,
+        isModalOpen,
+        onFlag,
+        closeModal,
     } = useTaskSearch();
 
     return (
         <div className="tasksearch">
             <div className="tasksearch-area">
                 <HorizonLabelInputComponent
-                    title={"内容"}
+                    title={"キーワード"}
                     value={""}
                     lenght={100}
                     disabled={false}
                     ref={contentRef}
                     titleWidth={"100px"}
+                    textWidth='500px'
                 />
-                <SpaceComponent space={"38%"} />
+                <SpaceComponent space={"9%"} />
                 <ButtonComponent
                     styleTypeNumber="BASE"
                     title={"クリア"}
                     onclick={clickClearBtn}
+                />
+                <SpaceComponent space={"1%"} />
+                <ButtonComponent
+                    styleTypeNumber="BASE"
+                    title={"検索条件"}
+                    onclick={onFlag}
                 />
                 <SpaceComponent space={"1%"} />
                 <ButtonComponent
@@ -45,6 +56,11 @@ function TaskSearch() {
                     onclick={clickSearchBtn}
                 />
             </div>
+            <ModalComponent
+                modalIsOpen={isModalOpen}
+                closeModal={closeModal}
+            >
+            </ModalComponent>
         </div>
     );
 }

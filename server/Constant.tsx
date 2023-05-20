@@ -15,6 +15,8 @@ export const MASTERTABLEFILENM = `samplemastertable`;
 export const GENERALFILEPATH = `general`;
 //汎用詳細ファイルパス
 export const GENERALDETAILFILEPATH = `generaldetail`;
+//検索条件ファイルパス
+export const SEARCHCONDITIONFILEPATH = `searchcondition`;
 
 //タスクファイル名
 export const TASKFILENM = `task`;

@@ -30,6 +30,10 @@ export const config = {
         {
             callUrl:ENV.WORKHISTORY,
             fileUrl:"./public/json/transaction/workhistory.json"
+        },
+        {
+            callUrl:ENV.SEARCHCONDITION,
+            fileUrl:"./public/json/setting/searchcondition.json"
         }
     ]
 };

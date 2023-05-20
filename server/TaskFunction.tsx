@@ -25,11 +25,11 @@ export function getTask(res: any, req: any, id?: string) {
         return element.deleteFlg !== "1";
     });
 
-    //内容でフィルター
-    if (req.query.content) {
-        let content = req.query.content as string;
+    //キーワードでフィルター
+    if (req.query.keyword) {
+        let keyword = req.query.keyword as string;
         decodeFileData = decodeFileData.filter((element) => {
-            return element.content.includes(content);
+            return element.title.includes(keyword) || element.content.includes(keyword);
         });
     }
 

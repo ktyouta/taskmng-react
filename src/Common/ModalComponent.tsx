@@ -15,30 +15,28 @@ type propsType = {
 function ModalComponent(props: propsType) {
 
     return (
-        <div>
-            <Modal
-                isOpen={props.modalIsOpen}
-                //onAfterOpen={props.openModal}
-                onRequestClose={props.closeModal}
-                style={{
-                    content: {
-                        position:'fixed',
-                        top: '5%',
-                        left: '15%',
-                        right: 'auto',
-                        bottom: 'auto',
-                        marginRight: '-50%',
-                        width: '70%',
-                        height: '85%',
-                    }
-                  }}
-                ariaHideApp={false}
-                contentLabel="Example Modal"
-                overlayClassName="Overlay"
-            >
-                {props.children}
-            </Modal>
-        </div>
+        <Modal
+            isOpen={props.modalIsOpen}
+            //onAfterOpen={props.openModal}
+            onRequestClose={props.closeModal}
+            style={{
+                content: {
+                    position: 'fixed',
+                    top: '5%',
+                    left: '15%',
+                    right: 'auto',
+                    bottom: 'auto',
+                    marginRight: '-50%',
+                    width: '70%',
+                    height: '85%',
+                }
+            }}
+            ariaHideApp={false}
+            contentLabel="Example Modal"
+            overlayClassName="Overlay"
+        >
+            {props.children}
+        </Modal>
     );
 }
 

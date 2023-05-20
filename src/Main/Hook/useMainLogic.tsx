@@ -5,7 +5,7 @@ import useCheckAuth from '../../Common/Hook/useCheckAuth';
 import Top from '../../Top/Top';
 import Master from '../../Master/Master';
 import Setting from '../../Setting/Setting';
-import { generalDataType, masterDataListType, resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
+import { generalDataType, masterDataListType, resUserInfoType, searchConditionType, userInfoType } from '../../Common/Type/CommonType';
 import { menuListType } from '../../Common/Hook/useGetViewName';
 import { Route } from "react-router-dom";
 import NotFoundComponent from '../../NotFound/NotFoundComponent';
@@ -73,6 +73,12 @@ function useMainLogic() {
         }
     );
 
+    //検索条件リストを取得
+    useQueryWrapper<searchConditionType[]>(
+        {
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}`,
+        }
+    );
 
     //Mainコンポーネントのルーティングリスト
     const componentList = useMemo(() => {

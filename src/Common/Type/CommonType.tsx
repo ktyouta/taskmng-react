@@ -147,4 +147,28 @@ export type generalDataType = {
 export type comboType = {
     value: string,
     label: string
-}  
+}
+
+//検索条件リストの型
+export type searchConditionType = {
+    task: taskSearchConditionType[]
+}
+
+//検索条件リストの型(タスク)
+export type taskSearchConditionType = {
+    id: string,
+    name: string,
+    type: inputType,
+    listKey?: string,
+    value: string,
+}
+
+//検索条件の参照
+export type refConditionType = {
+    id: string,
+    name: string,
+    type: inputType,
+    value: string,
+    selectList?: comboType[],
+    ref: RefObject<refType>,
+}

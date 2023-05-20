@@ -1,4 +1,4 @@
-.taskcontent{
+.taskcontent {
     border: 1px solid;
     border-radius: 5px;
     border-color: #c0c0c0;
@@ -6,7 +6,7 @@
     height: auto;
 }
 
-.taskcontent-content{
+.taskcontent-content {
     text-align: left;
     height: auto;
     min-height: 30px;
@@ -18,7 +18,7 @@
     background-color: #d3d3d3;
 }
 
-.taskcontent-info{
+.taskcontent-info {
     display: flex;
     align-items: center;
     height: auto;
@@ -27,6 +27,15 @@
     background-color: #dcdcdc;
 }
 
-.taskcontent-editarea{
-    margin:0 0 0 auto;
+.taskcontent-editarea {
+    margin: 0 0 0 auto;
+}
+
+.tasklistcontent-num {
+    width: 93%;
+}
+
+.tasklistcontent-num label {
+    display: block;
+    margin-left: auto;
 }
