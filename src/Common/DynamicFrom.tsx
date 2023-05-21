@@ -6,6 +6,7 @@ import HorizonLabelDatePickerComponent from './HorizonLabelDatePickerComponent';
 import HorizonComboComponent from './HorizonComboComponent';
 import { refInfoType } from './Type/CommonType';
 import HorizonLabelTextAreaComponent from './HorizonLabelTextAreaComponent';
+import HorizonLabelCheckBoxListComponent from './HorizonLabelCheckBoxListComponent';
 
 //引数の型
 type propsType = {
@@ -58,7 +59,7 @@ function DynamicFrom(props: propsType) {
                                                     title={element.name}
                                                     radioList={element.selectList}
                                                     selectedValue={element.value}
-                                                    htmlForId="dynamicfrom"
+                                                    htmlForId={`dynamicfromradio${index}`}
                                                     disabled={element.disabled}
                                                     ref={element.ref}
                                                 />
@@ -80,6 +81,17 @@ function DynamicFrom(props: propsType) {
                                                     title={element.name}
                                                     combo={element.selectList}
                                                     initValue={element.value}
+                                                    disabled={element.disabled}
+                                                    ref={element.ref}
+                                                />
+                                            )
+                                        //チェックボックス
+                                        case "checkbox":
+                                            return (
+                                                element.selectList && <HorizonLabelCheckBoxListComponent
+                                                    title={element.name}
+                                                    checkBox={element.selectList}
+                                                    //initValue={element.value}
                                                     disabled={element.disabled}
                                                     ref={element.ref}
                                                 />

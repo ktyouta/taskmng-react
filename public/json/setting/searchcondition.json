@@ -3,13 +3,13 @@
         {
             "id": "priority",
             "name": "優先度",
-            "type": "radio",
+            "type": "checkbox",
             "listKey": "2"
         },
         {
             "id": "status",
             "name": "状態",
-            "type": "select",
+            "type": "checkbox",
             "listKey": "3"
         }
     ]

@@ -1,7 +1,7 @@
 import { RefObject, createRef, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
-import { comboType, masterDataListType, refConditionType, searchConditionType, selectedMasterDataType, taskSearchConditionType } from "../../Common/Type/CommonType";
+import { comboType, masterDataListType, refConditionType, refInfoType, searchConditionType, selectedMasterDataType, taskSearchConditionType } from "../../Common/Type/CommonType";
 import ENV from '../../env.json';
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
@@ -41,11 +41,11 @@ function useTaskSearch() {
     //検索条件保存用
     const [searchCondition, setSearchCondition] = useState<{ [key: string]: string }>({});
     //検索条件参照用リスト
-    const [refInfoArray, setRefInfoArray] = useState<refConditionType[]>([]);
+    const [refInfoArray, setRefInfoArray] = useState<refInfoType[]>([]);
 
     //検索条件リスト
     const { data: taskSearchConditionList } = useQueryWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.INPUTSETTING}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}`,
         callback: createSearchConditionList
     });
     //汎用詳細リスト
@@ -54,7 +54,7 @@ function useTaskSearch() {
 
     //検索条件参照用refの作成
     useEffect(() => {
-        let tmpRefInfoArray: refConditionType[] = [];
+        let tmpRefInfoArray: refInfoType[] = [];
         if (!taskSearchConditionList) {
             return;
         }
@@ -88,6 +88,9 @@ function useTaskSearch() {
                 value: tmpValue ?? element.value,
                 selectList: tmpSelectLits,
                 ref: createRef(),
+                lenght: 0,
+                disabled: false,
+                visible: true
             });
         });
         setRefInfoArray(tmpRefInfoArray);
@@ -145,6 +148,7 @@ function useTaskSearch() {
         isModalOpen,
         onFlag,
         closeModal,
+        refInfoArray,
     };
 }
 

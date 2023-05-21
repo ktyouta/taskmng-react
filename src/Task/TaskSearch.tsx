@@ -10,6 +10,7 @@ import { refType } from '../Common/BaseInputComponent';
 import useTaskSearch from './Hook/useTaskSearch';
 import './css/TaskSearch.css';
 import ModalComponent from '../Common/ModalComponent';
+import TaskCondition from './TaskCondition';
 
 
 function TaskSearch() {
@@ -23,6 +24,7 @@ function TaskSearch() {
         isModalOpen,
         onFlag,
         closeModal,
+        refInfoArray,
     } = useTaskSearch();
 
     return (
@@ -60,6 +62,10 @@ function TaskSearch() {
                 modalIsOpen={isModalOpen}
                 closeModal={closeModal}
             >
+                <TaskCondition
+                    refInfoArray={refInfoArray}
+                    closeFn={closeModal}
+                />
             </ModalComponent>
         </div>
     );
