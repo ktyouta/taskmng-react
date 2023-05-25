@@ -38,10 +38,10 @@ function useTaskSearch() {
     const setTaskListUrl = useSetAtom(taskListUrlAtom);
     //モーダルの開閉用フラグ
     const { flag: isModalOpen, onFlag, offFlag } = useSwitch();
-    //検索条件保存用
-    const [searchCondition, setSearchCondition] = useState<{ [key: string]: string }>({});
     //検索条件参照用リスト
     const [refInfoArray, setRefInfoArray] = useState<refInfoType[]>([]);
+    //検索条件用オブジェクト
+    const [searchConditionObj, setSearchConditionObj] = useState<{ [key: string]: string }>({});
 
     //検索条件リスト
     const { data: taskSearchConditionList } = useQueryWrapper({
@@ -58,7 +58,7 @@ function useTaskSearch() {
         if (!taskSearchConditionList) {
             return;
         }
-        if (!searchCondition) {
+        if (!searchConditionObj) {
             return;
         }
         if (!generalDataList) {
@@ -66,7 +66,7 @@ function useTaskSearch() {
         }
         taskSearchConditionList.forEach((element) => {
             let tmpValue: string | undefined = undefined;
-            for (const [columnKey, value] of Object.entries(searchCondition as {})) {
+            for (const [columnKey, value] of Object.entries(searchConditionObj as {})) {
                 //キーの一致する要素を取り出す
                 if (element.id === columnKey) {
                     tmpValue = value as string;
@@ -94,7 +94,7 @@ function useTaskSearch() {
             });
         });
         setRefInfoArray(tmpRefInfoArray);
-    }, [taskSearchConditionList, searchCondition, generalDataList]);
+    }, [taskSearchConditionList, searchConditionObj, generalDataList]);
 
 
     /**
@@ -106,6 +106,10 @@ function useTaskSearch() {
         if (contentRef.current && contentRef.current?.refValue) {
             query += `keyword=${contentRef.current?.refValue}`;
         }
+        //モーダル内の検索条件を取得
+        Object.keys(searchConditionObj).forEach((element)=>{
+            query += `${element}=${searchConditionObj[element]}`; 
+        });
         if (query.length > 1) {
             tmpUrl += query;
         }
@@ -137,7 +141,7 @@ function useTaskSearch() {
             }
             tmpCondition[element.id] = element.ref.current.refValue;
         });
-        setSearchCondition(tmpCondition);
+        setSearchConditionObj(tmpCondition);
         offFlag();
     }
 

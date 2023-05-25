@@ -93,6 +93,7 @@ function DynamicFrom(props: propsType) {
                                                     checkBox={element.selectList}
                                                     //initValue={element.value}
                                                     disabled={element.disabled}
+                                                    value={element.value}
                                                     ref={element.ref}
                                                 />
                                             )

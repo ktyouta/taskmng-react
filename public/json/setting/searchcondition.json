@@ -4,13 +4,15 @@
             "id": "priority",
             "name": "優先度",
             "type": "checkbox",
-            "listKey": "2"
+            "listKey": "2",
+            "value": "1,2"
         },
         {
             "id": "status",
             "name": "状態",
             "type": "checkbox",
-            "listKey": "3"
+            "listKey": "3",
+            "value": ""
         }
     ]
 }

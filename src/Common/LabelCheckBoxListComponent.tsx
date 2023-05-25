@@ -18,6 +18,7 @@ type propsType = {
     radioLabelWidth?: string,
     id?: string,
     disabled?: boolean,
+    value: string,
 }
 
 //参照の型
@@ -28,9 +29,9 @@ export type refType = {
 
 //チェックボックスの参照
 type checkBoxRefInfoType = {
-    label:string,
-    value:string,
-    ref:RefObject<checkBoxRefType>
+    label: string,
+    value: string,
+    ref: RefObject<checkBoxRefType>
 }
 
 //チェックボックスリストの基本スタイル
@@ -39,52 +40,69 @@ const OuterDiv = styled.div`
 `;
 
 //チェックボックスの選択値を取得
-function getCheckBoxValues(refList:checkBoxRefInfoType[]){
-    let tmp = refList.map((element)=>{
-        return element.value;
-    });
-    return tmp.join(",");
+function getCheckBoxValues(list: string[]) {
+    return list.join(",");
+}
+
+//
+function getInitValue(value: string, initList: string[]) {
+    return initList.includes(value);
 }
 
 
 const LabelCheckBoxListComponent = forwardRef<refType, propsType>((props, ref) => {
 
     //チェックボックスの参照
-    const [checkBoxRefList, setCheckBoxRefList] = useState<checkBoxRefInfoType[]>([]);
+    const [checkBoxRefList, setCheckBoxRefList] = useState<checkBoxRefInfoType[]>();
+    //チェックボックスの選択値リスト
+    const [checkBoxIdList, setCheckBoxIdList] = useState<string[]>(props.value.split(",").filter(e => e));
 
-    //チェックボックスの参照リストを作成
-    useEffect(()=>{
-        if(!props.checkBox || props.checkBox.length === 0){
-            return;
-        }
-        let tmp:checkBoxRefInfoType[] = [];
-        props.checkBox.forEach((element)=>{
+    //参照の作成
+    useEffect(() => {
+        let tmp: checkBoxRefInfoType[] = [];
+        props.checkBox.forEach((element) => {
             tmp.push({
                 label: element.label,
                 value: element.value,
-                ref: createRef()
+                ref: createRef(),
             });
         });
         setCheckBoxRefList(tmp);
-    },[props.checkBox]);
+    }, []);
 
     //チェックボックスの選択値を割り当てる
     React.useImperativeHandle(ref, () => ({
-        refValue: getCheckBoxValues(checkBoxRefList),
-        clearValue: clearRadio
+        refValue: getCheckBoxValues(checkBoxIdList),
+        clearValue: clearCheckBox
     }));
 
     //チェックボックスの初期化
-    const clearRadio = () => {
-        checkBoxRefList.forEach((element)=>{
+    const clearCheckBox = () => {
+        checkBoxRefList?.forEach((element) => {
             element.ref.current?.clearValue();
         });
+        setCheckBoxIdList(props.value.split(",").filter(e => e));
+    };
+
+    //チェックボックスのクリックイベント
+    const changeCheckBox = (e: string) => {
+        let tmp = [...checkBoxIdList];
+        //IDを含む(チェックボックスにチェックが入っている場合)
+        if (checkBoxIdList.includes(e)) {
+            tmp = tmp.filter((element) => {
+                return element !== e;
+            });
+        }
+        else {
+            tmp.push(e);
+        }
+        setCheckBoxIdList(tmp);
     };
 
     return (
         <OuterDiv>
             {
-                checkBoxRefList.map((element) => {
+                checkBoxRefList && checkBoxRefList.length > 0 && checkBoxRefList.map((element) => {
                     return (
                         <LabelCheckBoxComponent
                             key={element.value}
@@ -93,6 +111,9 @@ const LabelCheckBoxListComponent = forwardRef<refType, propsType>((props, ref) =
                             id={props.id ? `${props.id}${element.value}` : element.value}
                             width={props.radioLabelWidth}
                             disabled={props.disabled}
+                            onChange={changeCheckBox}
+                            initValue={getInitValue(element.value, props.value.split(","))}
+                            ref={element.ref}
                         />
                     );
                 })

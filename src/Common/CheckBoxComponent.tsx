@@ -8,6 +8,7 @@ type propsType = {
     id: string,
     disabled?: boolean,
     onChange?: (e: string) => void,
+    initValue: boolean,
 }
 
 //参照の型
@@ -20,7 +21,7 @@ export type checkBoxRefType = {
 const CheckBoxComponent = forwardRef<checkBoxRefType, propsType>((props, ref) => {
 
     //チェックボックスの入力値
-    const [isChecked, setIsChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState(props.initValue);
 
     //チェックボックスの入力値を割り当てる
     React.useImperativeHandle(ref, () => ({
@@ -30,13 +31,13 @@ const CheckBoxComponent = forwardRef<checkBoxRefType, propsType>((props, ref) =>
 
     //チェックボックスのクリックイベント
     const changeInput: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        //if(props.onChange) props.onChange();
+        if (props.onChange) props.onChange(e.target.value);
         setIsChecked(!isChecked);
     };
 
     //チェックボックスのクリアイベント
     const clearInput = () => {
-        setIsChecked(false);
+        setIsChecked(props.initValue);
     };
 
     return (

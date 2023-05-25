@@ -13,6 +13,7 @@ type propsType = {
     onChange?: (e: string) => void,
     width?: string,
     disabled?: boolean,
+    initValue:boolean,
 }
 
 const LabelCheckBoxComponent = forwardRef<checkBoxRefType, propsType>((props, ref) => {
@@ -24,6 +25,7 @@ const LabelCheckBoxComponent = forwardRef<checkBoxRefType, propsType>((props, re
             />
             <CheckBoxComponent
                 {...props}
+                ref={ref}
             />
         </React.Fragment>
     );
