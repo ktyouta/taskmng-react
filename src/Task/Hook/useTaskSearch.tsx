@@ -90,7 +90,7 @@ function useTaskSearch() {
                 ref: createRef(),
                 lenght: 0,
                 disabled: false,
-                visible: true
+                visible: !element.isHidden,
             });
         });
         setRefInfoArray(tmpRefInfoArray);
@@ -107,8 +107,8 @@ function useTaskSearch() {
             query += `keyword=${contentRef.current?.refValue}`;
         }
         //モーダル内の検索条件を取得
-        Object.keys(searchConditionObj).forEach((element)=>{
-            query += `${element}=${searchConditionObj[element]}`; 
+        Object.keys(searchConditionObj).forEach((element) => {
+            query += `&${element}=${searchConditionObj[element]}`;
         });
         if (query.length > 1) {
             tmpUrl += query;

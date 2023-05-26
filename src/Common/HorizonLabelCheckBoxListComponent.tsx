@@ -13,7 +13,7 @@ type propsType = {
     titleWidth?: string,
     checkBox: radioType[],
     radioLabelWidth?: string,
-    htmlForId?: string,
+    htmlForId: string,
     disabled?: boolean,
     value: string,
 }

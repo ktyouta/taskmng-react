@@ -5,7 +5,7 @@ import './css/HorizonLabelInputComponent.css';
 //引数の型
 type propsType = {
     value: string,
-    id: string,
+    htmlForId: string,
     disabled?: boolean,
     onChange?: (e: string) => void,
     initValue: boolean,
@@ -46,7 +46,7 @@ const CheckBoxComponent = forwardRef<checkBoxRefType, propsType>((props, ref) =>
             onChange={changeInput}
             value={props.value}
             checked={isChecked}
-            id={props.id}
+            id={props.htmlForId}
             disabled={props.disabled}
         />
     );

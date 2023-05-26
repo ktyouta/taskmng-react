@@ -16,7 +16,7 @@ export type checkBoxType = {
 type propsType = {
     checkBox: checkBoxType[],
     radioLabelWidth?: string,
-    id?: string,
+    htmlForId?: string,
     disabled?: boolean,
     value: string,
 }
@@ -68,7 +68,7 @@ const LabelCheckBoxListComponent = forwardRef<refType, propsType>((props, ref) =
             });
         });
         setCheckBoxRefList(tmp);
-    }, []);
+    }, [props.checkBox]);
 
     //チェックボックスの選択値を割り当てる
     React.useImperativeHandle(ref, () => ({
@@ -108,7 +108,7 @@ const LabelCheckBoxListComponent = forwardRef<refType, propsType>((props, ref) =
                             key={element.value}
                             title={element.label}
                             value={element.value}
-                            id={props.id ? `${props.id}${element.value}` : element.value}
+                            htmlForId={props.htmlForId ? `${props.htmlForId}${element.value}` : element.value}
                             width={props.radioLabelWidth}
                             disabled={props.disabled}
                             onChange={changeCheckBox}

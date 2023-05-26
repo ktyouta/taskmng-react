@@ -1,9 +1,9 @@
 import { authenticate } from "./AuthFunction";
-import { JSONEXTENSION, TASKFILENM, TRANSACTION } from "./Constant";
+import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "./Constant";
 import { overWriteData, readFile } from "./FileFunction";
 import { getGeneralDetailData } from "./GeneralFunction";
 import { checkUpdAuth } from "./MasterDataFunction";
-import { authInfoType, taskListType } from "./Type/type";
+import { authInfoType, searchConditionType, taskListType } from "./Type/type";
 
 //タスクファイルのパス
 const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
@@ -26,12 +26,36 @@ export function getTask(res: any, req: any, id?: string) {
     });
 
     //キーワードでフィルター
-    if (req.query.keyword) {
-        let keyword = req.query.keyword as string;
-        decodeFileData = decodeFileData.filter((element) => {
-            return element.title.includes(keyword) || element.content.includes(keyword);
-        });
-    }
+    // if (req.query.keyword) {
+    //     //タスク用の検索条件を取得
+    //     let taskConditionList: searchConditionType[] = getTaskSearchConditionList();
+    //     //検索条件で絞り込み
+    //     taskConditionList.forEach((element) => {
+    //         let value = req.query[element.id] as string;
+    //         //クエリに値が設定されている場合
+    //         if (value) {
+    //             //複数選択項目の場合
+    //             if (element.type === "checkbox") {
+    //                 decodeFileData = decodeFileData.filter((item) => {
+    //                     return value.split(",").includes(item[element.id]);
+    //                 });
+    //             }
+    //             else {
+    //                 decodeFileData = decodeFileData.filter((item) => {
+    //                     return item[element.id].includes(value);
+    //                 });
+    //             }
+    //         }
+    //     });
+    //     //キーワードで絞り込み
+    //     let keyword = req.query.keyword as string;
+    //     decodeFileData = decodeFileData.filter((element) => {
+    //         return element.title.includes(keyword) || element.content.includes(keyword);
+    //     });
+    // }
+
+    //クエリストリングでフィルター
+    decodeFileData = filterTask(decodeFileData, req.query);
 
     //優先度およびステータスの紐づけを行う
     //let joinTaskData: taskListType[] = joinTask(decodeFileData);
@@ -171,6 +195,49 @@ function getTaskObj(): taskListType[] {
     //タスクファイルの読み込み
     let fileData = readFile(TASK_FILEPATH);
     return JSON.parse(fileData);
+}
+
+/**
+ * タスク用の検索条件を取得
+ */
+function getTaskSearchConditionList() {
+    //タスクファイルの読み込み
+    let fileData = readFile(`${SETTINGFILEPATH}${SEARCHCONDITIONFILEPATH}${JSONEXTENSION}`);
+    return JSON.parse(fileData).task;
+}
+
+/**
+ * タスクリストをクエリストリングで絞り込む
+ */
+function filterTask(decodeFileData: taskListType[], query: any) {
+    //タスク用の検索条件を取得
+    let taskConditionList: searchConditionType[] = getTaskSearchConditionList();
+    //検索条件で絞り込み
+    taskConditionList.forEach((element) => {
+        let value = query[element.id] as string;
+        //クエリに値が設定されている場合
+        if (value) {
+            //複数選択項目の場合
+            if (element.type === "checkbox") {
+                decodeFileData = decodeFileData.filter((item) => {
+                    return value.split(",").includes(item[element.id]);
+                });
+            }
+            else {
+                decodeFileData = decodeFileData.filter((item) => {
+                    return item[element.id].includes(value);
+                });
+            }
+        }
+    });
+    //キーワードで絞り込み
+    let keyword = query.keyword as string;
+    if (keyword) {
+        decodeFileData = decodeFileData.filter((element) => {
+            return element.title.includes(keyword) || element.content.includes(keyword);
+        });
+    }
+    return decodeFileData;
 }
 
 

@@ -5,6 +5,7 @@
             "name": "優先度",
             "type": "checkbox",
             "listKey": "2",
+            "isHidden": false,
             "value": "1,2"
         },
         {
@@ -12,6 +13,7 @@
             "name": "状態",
             "type": "checkbox",
             "listKey": "3",
+            "isHidden": false,
             "value": ""
         }
     ]

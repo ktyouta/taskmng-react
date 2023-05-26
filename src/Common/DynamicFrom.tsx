@@ -91,7 +91,7 @@ function DynamicFrom(props: propsType) {
                                                 element.selectList && <HorizonLabelCheckBoxListComponent
                                                     title={element.name}
                                                     checkBox={element.selectList}
-                                                    //initValue={element.value}
+                                                    htmlForId={`dynamicfromcheckbox${index}`}
                                                     disabled={element.disabled}
                                                     value={element.value}
                                                     ref={element.ref}

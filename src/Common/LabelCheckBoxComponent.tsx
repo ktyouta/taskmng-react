@@ -9,7 +9,7 @@ import CheckBoxComponent, { checkBoxRefType } from './CheckBoxComponent';
 type propsType = {
     title: string,
     value: string,
-    id: string,
+    htmlForId: string,
     onChange?: (e: string) => void,
     width?: string,
     disabled?: boolean,

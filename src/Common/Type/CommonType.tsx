@@ -161,6 +161,7 @@ export type taskSearchConditionType = {
     type: inputType,
     listKey?: string,
     value: string,
+    isHidden: boolean,
 }
 
 //検索条件の参照
