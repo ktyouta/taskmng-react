@@ -91,15 +91,17 @@ const DatePickerComponent = forwardRef<refType, propsType>((props, ref) => {
     }
 
     return (
-        <DatePicker
-            dateFormat={props.dateFormat ?? "yyyy/MM/dd"}
-            locale={ja}
-            selected={date}
-            onChange={selectedDate => { changeDate(selectedDate || Today) }}
-            className='datepicker-input'
-            onBlur={selectedDate => { blur(selectedDate) }}
-            disabled={props.disabled}
-        />
+        <div>
+            <DatePicker
+                dateFormat={props.dateFormat ?? "yyyy/MM/dd"}
+                locale={ja}
+                selected={date}
+                onChange={selectedDate => { changeDate(selectedDate || Today) }}
+                className='datepicker-input'
+                onBlur={selectedDate => { blur(selectedDate) }}
+                disabled={props.disabled}
+            />
+        </div>
     );
 })
 

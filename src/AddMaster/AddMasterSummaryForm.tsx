@@ -11,7 +11,7 @@ import WaitLoading from '../Common/WaitLoading';
 import useAddMasterSummary from './Hook/useAddMasterSummary';
 import AddMasterTopFooter from './AddMasterTopFooter';
 import { inputAddMasterSettingType, refInfoType } from '../Common/Type/CommonType';
-import DynamicFrom from '../Common/DynamicFrom';
+import DynamicForm from '../Common/DynamicForm';
 
 
 //引数の型
@@ -39,7 +39,7 @@ function AddMasterSummaryForm(props: propsType) {
       <div className="addmasteredit-main-area">
         <div className="addmasteredit-input-main-area">
           {/* 入力欄 */}
-          <DynamicFrom refInfoArray={props.refInfoArray} />
+          <DynamicForm refInfoArray={props.refInfoArray} />
         </div>
         {/* エラーメッセージ用スナックバー */}
         <SnackbarComponent

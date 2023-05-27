@@ -4,6 +4,7 @@ import './css/TaskEdit.css';
 import TaskEditForm from './TaskEditForm';
 import useTaskRegister from './Hook/useTaskRegister';
 import TaskRegisterFooter from './TaskRegisterFooter';
+import Loading from '../Common/Loading';
 
 
 //引数の型
@@ -24,6 +25,10 @@ function TaskRegister(props: propsType) {
     positiveButtonObj,
     errMessage, } = useTaskRegister({ ...props });
 
+  //ローディング
+  if (!refInfoArray || refInfoArray.length === 0) {
+    return <Loading height='50vh' />;
+  }
 
   return (
     <div className="taskedit">

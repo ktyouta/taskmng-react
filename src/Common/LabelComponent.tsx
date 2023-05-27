@@ -14,7 +14,7 @@ type propsType = {
 
 //ラベルの基本スタイル
 const BaseLabel = styled.label<{ width: string | undefined }>`
-  width: ${({ width }) => (width ? width : "150px")};
+  width: ${({ width }) => (width ? width : "180px")};
 `;
 
 const LabelComponent = (props: propsType) => {

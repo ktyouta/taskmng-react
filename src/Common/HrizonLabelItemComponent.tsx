@@ -4,24 +4,33 @@ import { IconType } from 'react-icons';
 import IconComponent from './IconComponent';
 import './css/ModalComponent.css';
 import LabelComponent from './LabelComponent';
+import styled from 'styled-components';
 
 
 //引数の型
 type propsType = {
     title: string,
-    titleWidth?: string,
+    labelWidth?: string,
     children: ReactNode,
 }
+
+const OuterDiv = styled.div`
+    padding-top: 2%;
+    padding-bottom: 1%;
+    display: flex;
+    align-items: center;
+`;
+
 
 function HrizonLabelItemComponent(props: propsType) {
 
     return (
-        <React.Fragment>
+        <OuterDiv>
             <LabelComponent
                 {...props}
             />
             {props.children}
-        </React.Fragment>
+        </OuterDiv>
     );
 }
 

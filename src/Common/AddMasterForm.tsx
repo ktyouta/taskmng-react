@@ -5,7 +5,7 @@ import LabelComponent from '../Common/LabelComponent';
 import { SnackbarComponent } from '../Common/SnackbarComponent';
 import WaitLoading from '../Common/WaitLoading';
 import { refInfoType } from './Type/CommonType';
-import DynamicFrom from './DynamicFrom';
+import DynamicForm from './DynamicForm';
 
 
 //引数の型
@@ -35,7 +35,7 @@ function AddMasterForm(props: propsType) {
             <div className="masteredit-main-area">
                 <div className="masteredit-input-main-area">
                     {/* 入力欄 */}
-                    <DynamicFrom refInfoArray={props.refInfoArray} />
+                    <DynamicForm refInfoArray={props.refInfoArray} />
                 </div>
                 {/* エラーメッセージ用スナックバー */}
                 <SnackbarComponent

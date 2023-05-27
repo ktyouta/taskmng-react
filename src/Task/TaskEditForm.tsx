@@ -1,7 +1,7 @@
 import '../App.css';
 import LabelComponent from '../Common/LabelComponent';
 import { SnackbarComponent } from '../Common/SnackbarComponent';
-import DynamicFrom from '../Common/DynamicFrom';
+import DynamicForm from '../Common/DynamicForm';
 import { refInfoType } from '../Common/Type/CommonType';
 import styled from 'styled-components';
 
@@ -52,7 +52,7 @@ function TaskEditForm(props: propsType) {
             </HeaderDiv>
             <MainAreaDiv>
                 {/* 入力欄 */}
-                <DynamicFrom
+                <DynamicForm
                     refInfoArray={props.refInfoArray}
                 />
                 {/* エラーメッセージ用スナックバー */}

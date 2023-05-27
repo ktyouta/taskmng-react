@@ -8,6 +8,7 @@ import TaskFooter from './TaskFooter';
 import './css/Task.css';
 import ENV from '../env.json';
 
+
 function Task() {
 
   console.log("Task render");

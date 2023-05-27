@@ -34,7 +34,7 @@ function useTaskEdit(props: propsType) {
     const { taskSettingList } = useGetTaskInputSetting();
 
     //汎用詳細リスト
-    const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
+    const { data: generalDataList, isLoading } = useQueryWrapper<generalDataType[]>({
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
     });
 

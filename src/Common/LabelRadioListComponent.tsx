@@ -2,6 +2,7 @@ import React, { forwardRef, useState } from 'react';
 import './css/HorizonLabelInputComponent.css';
 import styled from "styled-components";
 import LabelRadioComponent from './LabelRadioComponent';
+import SpaceComponent from './SpaceComponent';
 
 
 //ラジオボタンの型
@@ -14,9 +15,9 @@ export type radioType = {
 type propsType = {
     radioList: radioType[],
     selectedValue: string,
-    radioLabelWidth?: string,
     htmlForId?: string,
     disabled?: boolean,
+    width?: string,
 }
 
 //参照の型
@@ -55,18 +56,24 @@ const LabelRadioListComponent = forwardRef<refType, propsType>((props, ref) => {
     return (
         <RadioListDiv>
             {
-                props.radioList.map((element) => {
+                props.radioList.map((element, index) => {
                     return (
-                        <LabelRadioComponent
-                            key={element.value}
-                            title={element.label}
-                            value={element.value}
-                            selectedValue={radioValue}
-                            onChange={changeRadio}
-                            htmlForId={props.htmlForId ? `${props.htmlForId}${element.value}` : element.value}
-                            width={props.radioLabelWidth}
-                            disabled={props.disabled}
-                        />
+                        <React.Fragment>
+                            <LabelRadioComponent
+                                key={`${element.value}-${index}`}
+                                title={element.label}
+                                value={element.value}
+                                selectedValue={radioValue}
+                                onChange={changeRadio}
+                                htmlForId={props.htmlForId ? `${props.htmlForId}${element.value}` : element.value}
+                                width={props.width}
+                                disabled={props.disabled}
+                            />
+                            <SpaceComponent
+                                key={`labelradiospace${element.value}`}
+                                space={'70px'}
+                            />
+                        </React.Fragment>
                     );
                 })
             }

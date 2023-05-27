@@ -4,6 +4,7 @@ import styled from "styled-components";
 import LabelRadioComponent from './LabelRadioComponent';
 import LabelCheckBoxComponent from './LabelCheckBoxComponent';
 import { checkBoxRefType } from './CheckBoxComponent';
+import SpaceComponent from './SpaceComponent';
 
 
 //チェックボックスの型
@@ -15,10 +16,10 @@ export type checkBoxType = {
 //引数の型
 type propsType = {
     checkBox: checkBoxType[],
-    radioLabelWidth?: string,
     htmlForId?: string,
     disabled?: boolean,
     value: string,
+    width?: string,
 }
 
 //参照の型
@@ -44,7 +45,7 @@ function getCheckBoxValues(list: string[]) {
     return list.join(",");
 }
 
-//
+//初期値判定
 function getInitValue(value: string, initList: string[]) {
     return initList.includes(value);
 }
@@ -102,19 +103,25 @@ const LabelCheckBoxListComponent = forwardRef<refType, propsType>((props, ref) =
     return (
         <OuterDiv>
             {
-                checkBoxRefList && checkBoxRefList.length > 0 && checkBoxRefList.map((element) => {
+                checkBoxRefList && checkBoxRefList.length > 0 && checkBoxRefList.map((element, index) => {
                     return (
-                        <LabelCheckBoxComponent
-                            key={element.value}
-                            title={element.label}
-                            value={element.value}
-                            htmlForId={props.htmlForId ? `${props.htmlForId}${element.value}` : element.value}
-                            width={props.radioLabelWidth}
-                            disabled={props.disabled}
-                            onChange={changeCheckBox}
-                            initValue={getInitValue(element.value, props.value.split(","))}
-                            ref={element.ref}
-                        />
+                        <React.Fragment>
+                            <LabelCheckBoxComponent
+                                key={`${element.value}-${index}`}
+                                title={element.label}
+                                value={element.value}
+                                htmlForId={props.htmlForId ? `${props.htmlForId}${element.value}` : element.value}
+                                width={props.width}
+                                disabled={props.disabled}
+                                onChange={changeCheckBox}
+                                initValue={getInitValue(element.value, props.value.split(","))}
+                                ref={element.ref}
+                            />
+                            <SpaceComponent
+                                key={`labelcheckboxspace${element.value}`}
+                                space={'70px'}
+                            />
+                        </React.Fragment>
                     );
                 })
             }
