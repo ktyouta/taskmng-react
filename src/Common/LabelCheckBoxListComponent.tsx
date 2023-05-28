@@ -107,7 +107,7 @@ const LabelCheckBoxListComponent = forwardRef<refType, propsType>((props, ref) =
                     return (
                         <React.Fragment>
                             <LabelCheckBoxComponent
-                                key={`${element.value}-${index}`}
+                                key={props.htmlForId ? `${props.htmlForId}-${element.value}-` : element.value}
                                 title={element.label}
                                 value={element.value}
                                 htmlForId={props.htmlForId ? `${props.htmlForId}${element.value}` : element.value}
@@ -118,7 +118,7 @@ const LabelCheckBoxListComponent = forwardRef<refType, propsType>((props, ref) =
                                 ref={element.ref}
                             />
                             <SpaceComponent
-                                key={`labelcheckboxspace${element.value}`}
+                                key={`labelcheckboxspace-${props.htmlForId ? `${props.htmlForId}-${element.value}` : element.value}`}
                                 space={'70px'}
                             />
                         </React.Fragment>

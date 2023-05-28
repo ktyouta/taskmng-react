@@ -9,6 +9,7 @@ type propsType = {
     disabled?: boolean,
     onChange?: (e: string) => void,
     initValue: boolean,
+    key?: string,
 }
 
 //参照の型
@@ -48,6 +49,7 @@ const CheckBoxComponent = forwardRef<checkBoxRefType, propsType>((props, ref) =>
             checked={isChecked}
             id={props.htmlForId}
             disabled={props.disabled}
+            key={props.key}
         />
     );
 })

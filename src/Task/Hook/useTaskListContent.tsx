@@ -18,7 +18,7 @@ import ButtonComponent from "../../Common/ButtonComponent";
 //画面表示用タスクリスト
 export const displayTaskListAtom = atom<displayTaskListType[]>([]);
 //タスク取得用URL
-export const taskListUrlAtom = atom(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`);
+export const taskListUrlAtom = atom(``);
 //更新用タスク
 export const updTaskAtom = atom([]);
 

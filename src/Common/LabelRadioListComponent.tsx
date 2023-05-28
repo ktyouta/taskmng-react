@@ -60,7 +60,7 @@ const LabelRadioListComponent = forwardRef<refType, propsType>((props, ref) => {
                     return (
                         <React.Fragment>
                             <LabelRadioComponent
-                                key={`${element.value}-${index}`}
+                                key={props.htmlForId ? `${props.htmlForId}-${element.value}` : element.value}
                                 title={element.label}
                                 value={element.value}
                                 selectedValue={radioValue}
@@ -70,7 +70,7 @@ const LabelRadioListComponent = forwardRef<refType, propsType>((props, ref) => {
                                 disabled={props.disabled}
                             />
                             <SpaceComponent
-                                key={`labelradiospace${element.value}`}
+                                key={`labelradiospace-${props.htmlForId ? `${props.htmlForId}-${element.value}` : element.value}`}
                                 space={'70px'}
                             />
                         </React.Fragment>

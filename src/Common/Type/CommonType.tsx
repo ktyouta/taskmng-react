@@ -80,7 +80,7 @@ export type refInfoType = {
     id: string,
     name: string,
     type: inputType,
-    lenght: number,
+    length: number,
     disabled: boolean,
     visible: boolean,
     value: string,
@@ -89,7 +89,7 @@ export type refInfoType = {
 }
 
 //inputのタイプ
-type inputType = "input" | "select" | "radio" | "date" | "textarea" | "checkbox";
+type inputType = "input" | "select" | "radio" | "date" | "textarea" | "checkbox" | "number";
 
 //マスタ編集画面の入力欄の設定
 export type inputMasterSettingType = {
@@ -160,6 +160,7 @@ export type taskSearchConditionType = {
     name: string,
     type: inputType,
     listKey?: string,
+    length: number,
     value: string,
     isHidden: boolean,
 }

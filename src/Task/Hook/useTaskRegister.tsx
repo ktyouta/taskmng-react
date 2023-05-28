@@ -64,7 +64,7 @@ function useTaskEdit(props: propsType) {
                 id: element.id,
                 name: element.name,
                 type: element.type,
-                lenght: element.length,
+                length: element.length,
                 //キーに一致するデータが存在する場合はその値を表示
                 value: element.value,
                 disabled: element.disabled,

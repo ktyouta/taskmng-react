@@ -13,7 +13,8 @@ type propsType = {
     onChange?: (e: string) => void,
     width?: string,
     disabled?: boolean,
-    initValue:boolean,
+    initValue: boolean,
+    key?: string,
 }
 
 const LabelCheckBoxComponent = forwardRef<checkBoxRefType, propsType>((props, ref) => {

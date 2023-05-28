@@ -92,7 +92,7 @@
             "id": "content",
             "name": "タスク内容",
             "type": "textarea",
-            "length": 500,
+            "length": 2000,
             "value": "",
             "disabled": false,
             "isNewCreateVisible": true,

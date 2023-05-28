@@ -88,7 +88,7 @@ function useTaskSearch() {
                 value: tmpValue ?? element.value,
                 selectList: tmpSelectLits,
                 ref: createRef(),
-                lenght: 0,
+                length: element.length,
                 disabled: false,
                 visible: !element.isHidden,
             });
@@ -96,6 +96,29 @@ function useTaskSearch() {
         setRefInfoArray(tmpRefInfoArray);
     }, [taskSearchConditionList, searchConditionObj, generalDataList]);
 
+    //初期表示タスク取得用URLの作成
+    useEffect(() => {
+        if (!taskSearchConditionList) {
+            return;
+        }
+        let tmpUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`;
+        let query = "?";
+        taskSearchConditionList.forEach((element) => {
+            //値が存在するプロパティをクエリストリングに設定
+            if (!element.value) {
+                return;
+            }
+            if(query !== "?"){
+                query += "&";
+            }
+            query += `${element.id}=${element.value}`;
+        });
+        if (query.length > 1) {
+            tmpUrl += query;
+        }
+        //URLを更新
+        setTaskListUrl(tmpUrl);
+    }, [taskSearchConditionList]);
 
     /**
      * 検索ボタン押下
@@ -108,7 +131,14 @@ function useTaskSearch() {
         }
         //モーダル内の検索条件を取得
         Object.keys(searchConditionObj).forEach((element) => {
-            query += `&${element}=${searchConditionObj[element]}`;
+            //値が存在するプロパティをクエリストリングに設定
+            if (!searchConditionObj[element]) {
+                return;
+            }
+            if(query !== "?"){
+                query += "&";
+            }
+            query += `${element}=${searchConditionObj[element]}`;
         });
         if (query.length > 1) {
             tmpUrl += query;

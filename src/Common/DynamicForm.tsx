@@ -8,12 +8,21 @@ import LabelRadioListComponent from './LabelRadioListComponent';
 import DatePickerComponent from './DatePickerComponent';
 import ComboComponent from './ComboComponent';
 import LabelCheckBoxListComponent from './LabelCheckBoxListComponent';
+import NumberPickerComponent from './NumberPickerComponent';
 
 //引数の型
 type propsType = {
     refInfoArray: refInfoType[],
     titleWitdh?: string,
     listTitleWidth?: string,
+}
+
+//数値変換
+function parseNum(value: string) {
+    if (isNaN(Number(value))) {
+        return 0;
+    }
+    return Number(value);
 }
 
 function DynamicForm(props: propsType) {
@@ -33,6 +42,7 @@ function DynamicForm(props: propsType) {
                             <HrizonLabelItemComponent
                                 title={element.name}
                                 labelWidth={props.titleWitdh}
+                                key={`dynamicform-${index}`}
                             >
                                 {
                                     (() => {
@@ -42,7 +52,7 @@ function DynamicForm(props: propsType) {
                                                 return (
                                                     <LabelInputComponent
                                                         value={element.value}
-                                                        lenght={element.lenght}
+                                                        lenght={element.length}
                                                         disabled={element.disabled}
                                                         ref={element.ref}
                                                     />
@@ -52,7 +62,7 @@ function DynamicForm(props: propsType) {
                                                 return (
                                                     <LabelTextAreaComponent
                                                         value={element.value}
-                                                        lenght={element.lenght}
+                                                        lenght={element.length}
                                                         disabled={element.disabled}
                                                         ref={element.ref}
                                                     />
@@ -63,7 +73,7 @@ function DynamicForm(props: propsType) {
                                                     element.selectList && <LabelRadioListComponent
                                                         radioList={element.selectList}
                                                         selectedValue={element.value}
-                                                        htmlForId={`dynamicformradio${index}`}
+                                                        htmlForId={`dynamicformradio-${index}-`}
                                                         disabled={element.disabled}
                                                         width={props.listTitleWidth ?? "50px"}
                                                         ref={element.ref}
@@ -93,10 +103,19 @@ function DynamicForm(props: propsType) {
                                                 return (
                                                     element.selectList && <LabelCheckBoxListComponent
                                                         checkBox={element.selectList}
-                                                        htmlForId={`dynamicformcheckbox${index}`}
+                                                        htmlForId={`dynamicformcheckbox-${index}-`}
                                                         disabled={element.disabled}
                                                         value={element.value}
                                                         width={props.listTitleWidth ?? "50px"}
+                                                        ref={element.ref}
+                                                    />
+                                                )
+                                            //numberpicker
+                                            case "number":
+                                                return (
+                                                    <NumberPickerComponent
+                                                        disabled={element.disabled}
+                                                        value={parseNum(element.value)}
                                                         ref={element.ref}
                                                     />
                                                 )

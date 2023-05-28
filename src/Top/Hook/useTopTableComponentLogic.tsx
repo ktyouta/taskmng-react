@@ -146,7 +146,6 @@ function useTopTableComponentLogic(props: propsType) {
         {
             url: masterGetUrl,
             callback: selectData,
-            init: { master: [] }
         }
     );
 

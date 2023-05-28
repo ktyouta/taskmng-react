@@ -1,6 +1,21 @@
 {
     "task": [
         {
+            "id": "num",
+            "name": "最大取得件数",
+            "type": "number",
+            "isHidden": false,
+            "value": "100"
+        },
+        {
+            "id": "title",
+            "name": "タイトル",
+            "type": "input",
+            "isHidden": false,
+            "length": 500,
+            "value": ""
+        },
+        {
             "id": "priority",
             "name": "優先度",
             "type": "checkbox",

@@ -90,7 +90,7 @@ function useTaskEdit(props: propsType) {
                 id: element.id,
                 name: element.name,
                 type: element.type,
-                lenght: element.length,
+                length: element.length,
                 //キーに一致するデータが存在する場合はその値を表示
                 value: tmpValue ?? element.value,
                 //閲覧モードの場合は全項目編集不可

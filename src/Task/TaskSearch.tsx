@@ -48,7 +48,7 @@ function TaskSearch() {
                 <SpaceComponent space={"1%"} />
                 <ButtonComponent
                     styleTypeNumber="BASE"
-                    title={"検索条件"}
+                    title={"検索条件設定"}
                     onclick={onFlag}
                 />
                 <SpaceComponent space={"1%"} />

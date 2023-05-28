@@ -25,35 +25,6 @@ export function getTask(res: any, req: any, id?: string) {
         return element.deleteFlg !== "1";
     });
 
-    //キーワードでフィルター
-    // if (req.query.keyword) {
-    //     //タスク用の検索条件を取得
-    //     let taskConditionList: searchConditionType[] = getTaskSearchConditionList();
-    //     //検索条件で絞り込み
-    //     taskConditionList.forEach((element) => {
-    //         let value = req.query[element.id] as string;
-    //         //クエリに値が設定されている場合
-    //         if (value) {
-    //             //複数選択項目の場合
-    //             if (element.type === "checkbox") {
-    //                 decodeFileData = decodeFileData.filter((item) => {
-    //                     return value.split(",").includes(item[element.id]);
-    //                 });
-    //             }
-    //             else {
-    //                 decodeFileData = decodeFileData.filter((item) => {
-    //                     return item[element.id].includes(value);
-    //                 });
-    //             }
-    //         }
-    //     });
-    //     //キーワードで絞り込み
-    //     let keyword = req.query.keyword as string;
-    //     decodeFileData = decodeFileData.filter((element) => {
-    //         return element.title.includes(keyword) || element.content.includes(keyword);
-    //     });
-    // }
-
     //クエリストリングでフィルター
     decodeFileData = filterTask(decodeFileData, req.query);
 
@@ -210,32 +181,38 @@ function getTaskSearchConditionList() {
  * タスクリストをクエリストリングで絞り込む
  */
 function filterTask(decodeFileData: taskListType[], query: any) {
-    //タスク用の検索条件を取得
+    //タスク用の検索条件設定リストを取得
     let taskConditionList: searchConditionType[] = getTaskSearchConditionList();
     //検索条件で絞り込み
     taskConditionList.forEach((element) => {
         let value = query[element.id] as string;
-        //クエリに値が設定されている場合
-        if (value) {
+        if (!value) {
+            return;
+        }
+        decodeFileData = decodeFileData.filter((item) => {
+            if (!(element.id in item)) {
+                return true;
+            }
             //複数選択項目の場合
             if (element.type === "checkbox") {
-                decodeFileData = decodeFileData.filter((item) => {
-                    return value.split(",").includes(item[element.id]);
-                });
+                return value.split(",").includes(item[element.id]);
             }
-            else {
-                decodeFileData = decodeFileData.filter((item) => {
-                    return item[element.id].includes(value);
-                });
-            }
-        }
+            return item[element.id].includes(value);
+        });
     });
+
     //キーワードで絞り込み
     let keyword = query.keyword as string;
     if (keyword) {
         decodeFileData = decodeFileData.filter((element) => {
             return element.title.includes(keyword) || element.content.includes(keyword);
         });
+    }
+
+    //取得件数で絞り込み
+    let getNum = query.num as number;
+    if (getNum && !isNaN(Number(getNum))) {
+        decodeFileData = decodeFileData.slice(0, getNum);
     }
     return decodeFileData;
 }
