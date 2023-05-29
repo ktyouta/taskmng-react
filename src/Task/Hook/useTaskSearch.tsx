@@ -96,11 +96,12 @@ function useTaskSearch() {
         setRefInfoArray(tmpRefInfoArray);
     }, [taskSearchConditionList, searchConditionObj, generalDataList]);
 
-    //初期表示タスク取得用URLの作成
+    //初期表示タスク取得用URLと検索条件オブジェクトの作成
     useEffect(() => {
         if (!taskSearchConditionList) {
             return;
         }
+        let tmpCondition: { [key: string]: string } = {};
         let tmpUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`;
         let query = "?";
         taskSearchConditionList.forEach((element) => {
@@ -108,16 +109,19 @@ function useTaskSearch() {
             if (!element.value) {
                 return;
             }
-            if(query !== "?"){
+            if (query !== "?") {
                 query += "&";
             }
             query += `${element.id}=${element.value}`;
+            tmpCondition[element.id] = element.value;
         });
         if (query.length > 1) {
             tmpUrl += query;
         }
-        //URLを更新
+        //初期表示タスク取得用URLの作成
         setTaskListUrl(tmpUrl);
+        //検索条件オブジェクトの作成
+        setSearchConditionObj(tmpCondition);
     }, [taskSearchConditionList]);
 
     /**
@@ -135,7 +139,7 @@ function useTaskSearch() {
             if (!searchConditionObj[element]) {
                 return;
             }
-            if(query !== "?"){
+            if (query !== "?") {
                 query += "&";
             }
             query += `${element}=${searchConditionObj[element]}`;
