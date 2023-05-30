@@ -22,7 +22,7 @@ function TaskSearch() {
         clickSearchBtn,
         clickClearBtn,
         isModalOpen,
-        onFlag,
+        openModal,
         closeModal,
         refInfoArray,
     } = useTaskSearch();
@@ -49,7 +49,7 @@ function TaskSearch() {
                 <ButtonComponent
                     styleTypeNumber="BASE"
                     title={"検索条件設定"}
-                    onclick={onFlag}
+                    onclick={openModal}
                 />
                 <SpaceComponent space={"1%"} />
                 <ButtonComponent

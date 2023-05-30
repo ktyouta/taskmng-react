@@ -52,50 +52,6 @@ function useTaskSearch() {
     const { generalDataList } = useGetGeneralDataList();
 
 
-    //検索条件参照用refの作成
-    useEffect(() => {
-        let tmpRefInfoArray: refInfoType[] = [];
-        if (!taskSearchConditionList) {
-            return;
-        }
-        if (!searchConditionObj) {
-            return;
-        }
-        if (!generalDataList) {
-            return;
-        }
-        taskSearchConditionList.forEach((element) => {
-            let tmpValue: string | undefined = undefined;
-            for (const [columnKey, value] of Object.entries(searchConditionObj as {})) {
-                //キーの一致する要素を取り出す
-                if (element.id === columnKey) {
-                    tmpValue = value as string;
-                    break;
-                }
-            }
-            let tmpSelectLits: comboType[] = [];
-            //リストキーが存在する(選択項目)
-            if (element.listKey) {
-                tmpSelectLits = generalDataList.filter((item) => {
-                    return item.id === element.listKey;
-                });
-            }
-            tmpRefInfoArray.push({
-                id: element.id,
-                name: element.name,
-                type: element.type,
-                //キーに一致するデータが存在する場合はその値を表示
-                value: tmpValue ?? element.value,
-                selectList: tmpSelectLits,
-                ref: createRef(),
-                length: element.length,
-                disabled: false,
-                visible: !element.isHidden,
-            });
-        });
-        setRefInfoArray(tmpRefInfoArray);
-    }, [taskSearchConditionList, searchConditionObj, generalDataList]);
-
     //初期表示タスク取得用URLと検索条件オブジェクトの作成
     useEffect(() => {
         if (!taskSearchConditionList) {
@@ -161,6 +117,54 @@ function useTaskSearch() {
     }
 
     /**
+     * モーダルオープンイベント
+     */
+    function openModal() {
+        let tmpRefInfoArray: refInfoType[] = [];
+        if (!taskSearchConditionList) {
+            return;
+        }
+        if (!searchConditionObj) {
+            return;
+        }
+        if (!generalDataList) {
+            return;
+        }
+        //検索条件の参照を作成
+        taskSearchConditionList.forEach((element) => {
+            let tmpValue: string | undefined = undefined;
+            for (const [columnKey, value] of Object.entries(searchConditionObj as {})) {
+                //キーの一致する要素を取り出す
+                if (element.id === columnKey) {
+                    tmpValue = value as string;
+                    break;
+                }
+            }
+            let tmpSelectLits: comboType[] = [];
+            //リストキーが存在する(選択項目)
+            if (element.listKey) {
+                tmpSelectLits = generalDataList.filter((item) => {
+                    return item.id === element.listKey;
+                });
+            }
+            tmpRefInfoArray.push({
+                id: element.id,
+                name: element.name,
+                type: element.type,
+                //キーに一致するデータが存在する場合はその値を表示
+                value: tmpValue ?? element.value,
+                selectList: tmpSelectLits,
+                ref: createRef(),
+                length: element.length,
+                disabled: false,
+                visible: !element.isHidden,
+            });
+        });
+        setRefInfoArray(tmpRefInfoArray);
+        onFlag();
+    }
+
+    /**
      * モーダルクローズイベント
      */
     function closeModal() {
@@ -184,7 +188,7 @@ function useTaskSearch() {
         clickSearchBtn,
         clickClearBtn,
         isModalOpen,
-        onFlag,
+        openModal,
         closeModal,
         refInfoArray,
     };
