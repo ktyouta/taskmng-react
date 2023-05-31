@@ -1,4 +1,4 @@
-import { RefObject, createRef, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { ReactNode, RefObject, createRef, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
 import { comboType, masterDataListType, refConditionType, refInfoType, searchConditionType, selectedMasterDataType, taskSearchConditionType } from "../../Common/Type/CommonType";
@@ -13,6 +13,7 @@ import { refType } from "../../Common/BaseInputComponent";
 import { taskListUrlAtom } from "./useTaskListContent";
 import useSwitch from "../../Common/Hook/useSwitch";
 import useGetGeneralDataList from "../../Common/Hook/useGetGeneralDataList";
+import SpaceComponent from "../../Common/SpaceComponent";
 
 
 /**
@@ -42,6 +43,8 @@ function useTaskSearch() {
     const [refInfoArray, setRefInfoArray] = useState<refInfoType[]>([]);
     //検索条件用オブジェクト
     const [searchConditionObj, setSearchConditionObj] = useState<{ [key: string]: string }>({});
+    //現在の検索条件
+    const [displaySearchConditionList, setDisplaySearchConditionList] = useState<ReactNode[]>([]);
 
     //検索条件リスト
     const { data: taskSearchConditionList } = useQueryWrapper({
@@ -79,6 +82,56 @@ function useTaskSearch() {
         //検索条件オブジェクトの作成
         setSearchConditionObj(tmpCondition);
     }, [taskSearchConditionList]);
+
+
+    //現在選択中の検索条件を画面に表示
+    useEffect(() => {
+        let tmpDisplayList:ReactNode[] = [];
+        if (!taskSearchConditionList) {
+            return;
+        }
+        if (!searchConditionObj) {
+            return;
+        }
+        if (!generalDataList) {
+            return;
+        }
+        Object.keys(searchConditionObj).forEach((element)=>{
+            taskSearchConditionList.some((item)=>{
+                //値がセットされている検索条件
+                if(element === item.id){
+                    if(!searchConditionObj[element]){
+                        return true;
+                    }
+                    let value = searchConditionObj[element];
+                    //複数選択項目
+                    if(item.listKey){
+                        value = "";
+                        let tmpSelectLits: comboType[] = [];
+                        tmpSelectLits = generalDataList.filter((list) => {
+                            return list.id === item.listKey;
+                        });
+                        let valArray = searchConditionObj[element].split(",");
+                        //選択値に対応したラベルを取得
+                        valArray.forEach((val)=>{
+                            tmpSelectLits.some((list)=>{
+                                if(val === list.value){
+                                    value += `${list.label}/`;
+                                    return true;
+                                }
+                            });
+                        });
+                    }
+                    tmpDisplayList.push(
+                        <div>{`${item.name}：${value}`}<SpaceComponent space={"2%"} /></div>
+                    );
+                    return true;
+                }
+            });
+        });
+        setDisplaySearchConditionList(tmpDisplayList);
+    }, [searchConditionObj, taskSearchConditionList, generalDataList]);
+
 
     /**
      * 検索ボタン押下
