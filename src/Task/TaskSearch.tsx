@@ -25,38 +25,40 @@ function TaskSearch() {
         openModal,
         closeModal,
         refInfoArray,
+        displaySearchConditionList,
     } = useTaskSearch();
 
     return (
         <div className="tasksearch">
             <div className="tasksearch-area">
-                <HorizonLabelInputComponent
-                    title={"キーワード"}
-                    value={""}
-                    lenght={100}
-                    disabled={false}
-                    ref={contentRef}
-                    titleWidth={"100px"}
-                    textWidth='500px'
-                />
-                <SpaceComponent space={"9%"} />
-                <ButtonComponent
-                    styleTypeNumber="BASE"
-                    title={"クリア"}
-                    onclick={clickClearBtn}
-                />
-                <SpaceComponent space={"1%"} />
-                <ButtonComponent
-                    styleTypeNumber="BASE"
-                    title={"検索条件設定"}
-                    onclick={openModal}
-                />
-                <SpaceComponent space={"1%"} />
-                <ButtonComponent
-                    styleTypeNumber="RUN"
-                    title={"検索"}
-                    onclick={clickSearchBtn}
-                />
+                {/* <div className="tasksearch-condition-area">
+                    <dl className="tasksearch-condition-area">
+
+                    </dl>
+                    {displaySearchConditionList}
+                </div> */}
+                <dl className="tasksearch-condition-area">
+                    {displaySearchConditionList}
+                </dl>
+                <div className="tasksearch-button-area">
+                    <ButtonComponent
+                        styleTypeNumber="BASE"
+                        title={"クリア"}
+                        onclick={clickClearBtn}
+                    />
+                    <SpaceComponent space={"1%"} />
+                    <ButtonComponent
+                        styleTypeNumber="BASE"
+                        title={"検索条件設定"}
+                        onclick={openModal}
+                    />
+                    <SpaceComponent space={"1%"} />
+                    <ButtonComponent
+                        styleTypeNumber="RUN"
+                        title={"検索"}
+                        onclick={clickSearchBtn}
+                    />
+                </div>
             </div>
             <ModalComponent
                 modalIsOpen={isModalOpen}

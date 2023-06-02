@@ -1,13 +1,47 @@
-.tasksearch{
+.tasksearch {
     height: 18%;
 }
 
-.tasksearch-area{
+.tasksearch-area {
     height: 100%;
     display: flex;
     /* padding-bottom: 2%; */
     margin-left: auto;
     margin-right: auto;
-    width: 85%;
+    width: 90%;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.tasksearch-area dt{
+    height: 100%;
+    /* padding-bottom: 2%; */
+    width: auto;
+    align-items: center;
+}
+
+.tasksearch-area dd{
+    height: 100%;
+    width: auto;
+    align-items: center;
+}
+
+.tasksearch-condition-area {
+    /* height: 100%; */
+    display: flex;
+    width: 70%;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.tasksearch-button-area {
+    height: 100%;
+    display: flex;
+    width: 30%;
+    align-items: center;
+}
+
+.display-task-condition-item{
+    display: flex;
     align-items: center;
 }

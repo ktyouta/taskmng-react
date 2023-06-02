@@ -14,6 +14,7 @@ import { taskListUrlAtom } from "./useTaskListContent";
 import useSwitch from "../../Common/Hook/useSwitch";
 import useGetGeneralDataList from "../../Common/Hook/useGetGeneralDataList";
 import SpaceComponent from "../../Common/SpaceComponent";
+import React from "react";
 
 
 /**
@@ -43,8 +44,6 @@ function useTaskSearch() {
     const [refInfoArray, setRefInfoArray] = useState<refInfoType[]>([]);
     //検索条件用オブジェクト
     const [searchConditionObj, setSearchConditionObj] = useState<{ [key: string]: string }>({});
-    //現在の検索条件
-    const [displaySearchConditionList, setDisplaySearchConditionList] = useState<ReactNode[]>([]);
 
     //検索条件リスト
     const { data: taskSearchConditionList } = useQueryWrapper({
@@ -84,9 +83,9 @@ function useTaskSearch() {
     }, [taskSearchConditionList]);
 
 
-    //現在選択中の検索条件を画面に表示
-    useEffect(() => {
-        let tmpDisplayList:ReactNode[] = [];
+    //現在の検索条件(画面表示用)
+    const displaySearchConditionList = useMemo(() => {
+        let tmpDisplayList: ReactNode[] = [];
         if (!taskSearchConditionList) {
             return;
         }
@@ -96,16 +95,16 @@ function useTaskSearch() {
         if (!generalDataList) {
             return;
         }
-        Object.keys(searchConditionObj).forEach((element)=>{
-            taskSearchConditionList.some((item)=>{
+        Object.keys(searchConditionObj).forEach((element) => {
+            taskSearchConditionList.some((item) => {
                 //値がセットされている検索条件
-                if(element === item.id){
-                    if(!searchConditionObj[element]){
+                if (element === item.id) {
+                    if (!searchConditionObj[element]) {
                         return true;
                     }
                     let value = searchConditionObj[element];
                     //複数選択項目
-                    if(item.listKey){
+                    if (item.listKey) {
                         value = "";
                         let tmpSelectLits: comboType[] = [];
                         tmpSelectLits = generalDataList.filter((list) => {
@@ -113,23 +112,34 @@ function useTaskSearch() {
                         });
                         let valArray = searchConditionObj[element].split(",");
                         //選択値に対応したラベルを取得
-                        valArray.forEach((val)=>{
-                            tmpSelectLits.some((list)=>{
-                                if(val === list.value){
-                                    value += `${list.label}/`;
+                        valArray.forEach((val) => {
+                            tmpSelectLits.some((list) => {
+                                if (val === list.value) {
+                                    value += ` ${list.label} /`;
                                     return true;
                                 }
                             });
                         });
+                        //末尾の/を削除
+                        if (value.slice(-1) === "/") {
+                            value = value.slice(0, -1);
+                        }
                     }
+                    //画面表示用の検索条件を追加
                     tmpDisplayList.push(
-                        <div>{`${item.name}：${value}`}<SpaceComponent space={"2%"} /></div>
+                        <React.Fragment>
+                            <div className="display-task-condition-item">
+                                <dt>{`${item.name}：`}</dt>
+                                <dt>{`${value}`}</dt>
+                            </div>
+                            <SpaceComponent space={"3%"} />
+                        </React.Fragment>
                     );
                     return true;
                 }
             });
         });
-        setDisplaySearchConditionList(tmpDisplayList);
+        return tmpDisplayList;
     }, [searchConditionObj, taskSearchConditionList, generalDataList]);
 
 
@@ -244,6 +254,7 @@ function useTaskSearch() {
         openModal,
         closeModal,
         refInfoArray,
+        displaySearchConditionList,
     };
 }
 
