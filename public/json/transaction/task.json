@@ -409,11 +409,11 @@
 		"title": "クリアボタン押下イベントの修正",
 		"content": "クリアボタン押下時に検索条件を初期値に戻す。",
 		"registerTime": "20230602",
-		"updTime": "20230602",
+		"updTime": "20230603",
 		"limitTime": "20230603",
 		"userId": "a",
 		"priority": "1",
-		"status": "1",
+		"status": "2",
 		"deleteFlg": "0"
 	}
 ]

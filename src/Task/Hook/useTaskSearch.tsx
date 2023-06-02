@@ -54,8 +54,10 @@ function useTaskSearch() {
     const { generalDataList } = useGetGeneralDataList();
 
 
-    //初期表示タスク取得用URLと検索条件オブジェクトの作成
-    useEffect(() => {
+    /**
+     * 初期表示タスク取得用URLと検索条件オブジェクトの作成
+     */
+    const createDefaultUrlCondition = () => {
         if (!taskSearchConditionList) {
             return;
         }
@@ -80,6 +82,12 @@ function useTaskSearch() {
         setTaskListUrl(tmpUrl);
         //検索条件オブジェクトの作成
         setSearchConditionObj(tmpCondition);
+    }
+
+
+    //初期表示タスク取得用URLと検索条件オブジェクトの作成
+    useEffect(() => {
+        createDefaultUrlCondition();
     }, [taskSearchConditionList]);
 
 
@@ -174,9 +182,7 @@ function useTaskSearch() {
      * クリアボタン押下
      */
     function clickClearBtn() {
-        //入力値を初期化してタスクリストを取得する
-        contentRef.current?.clearValue();
-        setTaskListUrl(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`);
+        createDefaultUrlCondition();
     }
 
     /**
