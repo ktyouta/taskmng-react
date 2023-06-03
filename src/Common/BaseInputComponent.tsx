@@ -14,11 +14,11 @@ type propsType = {
 //参照の型
 export type refType = {
     refValue: string,
-    clearValue:()=>void
+    clearValue: () => void
 }
 
 //テキストボックスの基本スタイル
-const BaseInput = styled.input<{ textWidth: string | undefined }>`
+const BaseInput = styled.input<{ textWidth?: string }>`
   width: ${({ textWidth }) => (textWidth ? textWidth : "300px")};
   height:33px;
   border-radius: 5px;
@@ -33,7 +33,7 @@ const BaseInputComponent = forwardRef<refType, propsType>((props, ref) => {
     //テキストボックスの入力値を割り当てる
     React.useImperativeHandle(ref, () => ({
         refValue: inputValue,
-        clearValue:clearInput
+        clearValue: clearInput
     }));
 
     //テキストボックスの入力イベント
@@ -42,7 +42,7 @@ const BaseInputComponent = forwardRef<refType, propsType>((props, ref) => {
     };
 
     //テキストボックスのクリアイベント
-    const clearInput = ()=>{
+    const clearInput = () => {
         setInputValue(props.value);
     };
 

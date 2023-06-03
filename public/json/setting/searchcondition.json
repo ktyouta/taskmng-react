@@ -37,6 +37,13 @@
             "listKey": "3",
             "isHidden": false,
             "value": ""
+        },
+        {
+            "id": "limitTime",
+            "name": "期限",
+            "type": "date",
+            "isHidden": false,
+            "value": ""
         }
     ]
 }

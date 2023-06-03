@@ -415,5 +415,65 @@
 		"priority": "1",
 		"status": "2",
 		"deleteFlg": "0"
+	},
+	{
+		"id": "36",
+		"title": "閲覧と編集を切り替えられるようにする",
+		"content": "タスクの詳細画面で編集ボタンを押下した際に編集可能になるようにする。",
+		"registerTime": "20230603",
+		"updTime": "20230603",
+		"limitTime": "20230610",
+		"userId": "a",
+		"priority": "2",
+		"status": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "37",
+		"title": "タスクにフラグを立てられるようにする",
+		"content": "",
+		"registerTime": "20230603",
+		"updTime": "20230603",
+		"limitTime": "20230610",
+		"userId": "a",
+		"priority": "3",
+		"status": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "38",
+		"title": "必須の項目が分かるようにする",
+		"content": "",
+		"registerTime": "20230603",
+		"updTime": "20230603",
+		"limitTime": "20230610",
+		"userId": "a",
+		"priority": "2",
+		"status": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "39",
+		"title": "タスクのコンテンツに表示する項目を設定に持たせる",
+		"content": "",
+		"registerTime": "20230603",
+		"updTime": "20230603",
+		"limitTime": "20230603",
+		"userId": "a",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "40",
+		"title": "期限を過ぎたタスクが分かるようにする",
+		"content": "背景色を強調する。",
+		"registerTime": "20230603",
+		"updTime": "20230603",
+		"limitTime": "20230603",
+		"userId": "a",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
 	}
 ]

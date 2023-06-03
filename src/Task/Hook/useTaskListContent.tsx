@@ -23,6 +23,22 @@ export const taskListUrlAtom = atom(``);
 export const updTaskAtom = atom([]);
 
 /**
+ * 日付の文字列変換
+ */
+const getNowDate = (now: Date) => {
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, "0");
+    const date = (now.getDate()).toString().padStart(2, "0");
+    return `${year}${month}${date}`;
+};
+
+//ステータス
+const NOCOMP_STATUS = "未対応";
+const HOLD_STATUS = "保留";
+const COMP_STATUS = "完了";
+
+
+/**
  * MasterTopコンポーネントのビジネスロジック
  * @param selectedMaster 
  * @returns 
@@ -38,11 +54,13 @@ function useTaskListContent() {
     //データの取得に失敗した場合のメッセージ
     const [errMessage, setErrMessage] = useState(``);
     //更新用タスクID
-    const [updTaskId,setUpdTaskId] = useState(``);
+    const [updTaskId, setUpdTaskId] = useState(``);
     //汎用詳細リスト
     const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
     });
+    //現在日時
+    const nowDate = getNowDate(new Date());
 
     //タスクリストを取得
     const { data: taskList } = useQueryWrapper<taskListType[]>(
@@ -97,6 +115,32 @@ function useTaskListContent() {
             if (!isMatchPriority || !isMatchStatus) {
                 return;
             }
+
+            //背景色の設定
+            let bdColor: string | undefined = undefined;
+            let titleBgColor: string | undefined = undefined;
+            let infoBgColor: string | undefined = undefined;
+            let bgButtonColor: string | undefined = undefined;
+            //期限切れのタスク
+            if (element.limitTime < nowDate) {
+                switch (element.status) {
+                    //未対応、保留
+                    case NOCOMP_STATUS || COMP_STATUS:
+                        bdColor = "#CD5C5C";
+                        titleBgColor = "#F08080";
+                        infoBgColor = "#FA8072";
+                        bgButtonColor = "#FA8072";
+                        break;
+                }
+            }
+            //完了したタスク
+            if (element.status === COMP_STATUS) {
+                bdColor = "#808080";
+                titleBgColor = "#808080";
+                infoBgColor = "#808080";
+                bgButtonColor = "#808080";
+            }
+
             tmpDisplayTaskList.push({
                 id: element.id,
                 title: element.title,
@@ -107,9 +151,12 @@ function useTaskListContent() {
                 status: element.status,
                 editButton: <ButtonComponent
                     styleTypeNumber={"BASE"}
+                    bgColor={bgButtonColor}
                     title={"編集"}
-                    onclick={() => { openModal(element.id) }}
-                />
+                    onclick={() => { openModal(element.id); }} />,
+                bdColor,
+                titleBgColor,
+                infoBgColor,
             });
         });
         setDisplayTaskList(tmpDisplayTaskList);

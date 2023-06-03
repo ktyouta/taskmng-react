@@ -5,6 +5,7 @@
 
 .tasklist ul {
     padding-left: 0;
+    height: 100%;
 }
 
 .tasklist li {

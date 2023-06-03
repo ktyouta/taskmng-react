@@ -31,12 +31,6 @@ function TaskSearch() {
     return (
         <div className="tasksearch">
             <div className="tasksearch-area">
-                {/* <div className="tasksearch-condition-area">
-                    <dl className="tasksearch-condition-area">
-
-                    </dl>
-                    {displaySearchConditionList}
-                </div> */}
                 <dl className="tasksearch-condition-area">
                     {displaySearchConditionList}
                 </dl>

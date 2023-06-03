@@ -3,6 +3,7 @@ import styled from "styled-components";
 //引数の型
 type propsType = {
   styleTypeNumber: buttonType,
+  bgColor?: string,
   title: string,
   onclick: () => void,
 }
@@ -11,9 +12,9 @@ type propsType = {
 export type buttonType = "BASE" | "PRIMARY" | "DANGER" | "RUN" | "LOGOUT";
 
 //ボタンの基本スタイル
-const BaseButton = styled.button`
+const BaseButton = styled.button<{ bgColor?: string }>`
   text-align: center;
-  background:#d3d3d3;
+  background:${({ bgColor }) => (bgColor ?? "#d3d3d3")};
   color: black;
   width: 130px;
   min-width: 100px;
@@ -59,7 +60,12 @@ const buttonStyleLists = {
 const ButtonComponent = (props: propsType) => {
   const Component = buttonStyleLists[props.styleTypeNumber] || buttonStyleLists["BASE"];
   // Component変数に格納したコンポーネントでReact要素を作成
-  return <Component onClick={() => { props.onclick() }}>{props.title}</Component>;
+  return <Component
+    bgColor={props.bgColor}
+    onClick={() => { props.onclick() }}
+  >
+    {props.title}
+  </Component>;
 };
 
 export default ButtonComponent;

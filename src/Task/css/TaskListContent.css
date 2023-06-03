@@ -5,3 +5,12 @@
 .tasklistcontent{
     height: 78%;
 }
+
+.tasklistcontent-num {
+    width: 93%;
+}
+
+.tasklistcontent-num label {
+    display: block;
+    margin-left: auto;
+}

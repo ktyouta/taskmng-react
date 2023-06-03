@@ -21,4 +21,7 @@ export type displayTaskListType = {
     priority: string,
     status: string,
     editButton: JSX.Element,
+    bdColor: string | undefined,
+    titleBgColor: string | undefined,
+    infoBgColor: string | undefined,
 }
