@@ -33,10 +33,14 @@ const getNowDate = (now: Date) => {
 };
 
 //ステータス
-const NOCOMP_STATUS = "未対応";
-const HOLD_STATUS = "保留";
-const COMP_STATUS = "完了";
-
+//未完了
+const NOCOMP_STATUS = "1";
+//完了
+const COMP_STATUS = "2";
+//保留
+const HOLD_STATUS = "3";
+//対応中
+const WORKING_STATUS = "4";
 
 /**
  * MasterTopコンポーネントのビジネスロジック
@@ -97,25 +101,6 @@ function useTaskListContent() {
             return item.id === "3";
         });
         taskList.forEach(element => {
-            taskPriorityList.some((item) => {
-                //優先度が一致
-                if (element.priority === item.value) {
-                    element.priority = item.label;
-                    return isMatchPriority = true;
-                }
-            });
-            taskStatusList.some((item) => {
-                //ステータスが一致
-                if (element.status === item.value) {
-                    element.status = item.label;
-                    return isMatchStatus = true;
-                }
-            });
-            //結合に成功したデータのみを画面に表示する
-            if (!isMatchPriority || !isMatchStatus) {
-                return;
-            }
-
             //背景色の設定
             let bdColor: string | undefined = undefined;
             let titleBgColor: string | undefined = undefined;
@@ -138,6 +123,13 @@ function useTaskListContent() {
                         infoBgColor = "#FFFF66";
                         bgButtonColor = "#FFFF66";
                         break;
+                    //対応中
+                    case WORKING_STATUS:
+                        bdColor = "#33FFFF";
+                        titleBgColor = "#66FFFF";
+                        infoBgColor = "#66FFCC";
+                        bgButtonColor = "#66FFCC";
+                        break;
                     default:
                         break;
                 }
@@ -149,6 +141,26 @@ function useTaskListContent() {
                 infoBgColor = "#808080";
                 bgButtonColor = "#808080";
             }
+
+            taskPriorityList.some((item) => {
+                //優先度が一致
+                if (element.priority === item.value) {
+                    element.priority = item.label;
+                    return isMatchPriority = true;
+                }
+            });
+            taskStatusList.some((item) => {
+                //ステータスが一致
+                if (element.status === item.value) {
+                    element.status = item.label;
+                    return isMatchStatus = true;
+                }
+            });
+            //結合に成功したデータのみを画面に表示する
+            if (!isMatchPriority || !isMatchStatus) {
+                return;
+            }
+
 
             tmpDisplayTaskList.push({
                 id: element.id,

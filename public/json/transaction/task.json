@@ -457,11 +457,11 @@
 		"title": "タスクのコンテンツに表示する項目を設定に持たせる",
 		"content": "",
 		"registerTime": "20230603",
-		"updTime": "20230603",
+		"updTime": "20230604",
 		"limitTime": "20230603",
 		"userId": "a",
 		"priority": "1",
-		"status": "1",
+		"status": "4",
 		"deleteFlg": "0"
 	},
 	{
@@ -469,11 +469,11 @@
 		"title": "期限を過ぎたタスクが分かるようにする",
 		"content": "背景色を強調する。",
 		"registerTime": "20230603",
-		"updTime": "20230603",
+		"updTime": "20230604",
 		"limitTime": "20230603",
 		"userId": "a",
 		"priority": "1",
-		"status": "1",
+		"status": "2",
 		"deleteFlg": "0"
 	}
 ]
