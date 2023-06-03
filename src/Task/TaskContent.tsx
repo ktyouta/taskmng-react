@@ -38,22 +38,13 @@ const ContentInfoDiv = styled.div<{ infoBgColor?: string }>`
     background-color: ${({ infoBgColor }) => (infoBgColor ?? "#dcdcdc")};
 `;
 
-//コンテンツのスタイル
+//ボタンエリアのスタイル
 const ButtonAreaDiv = styled.div`
     margin: 0 0 0 auto;
 `;
 
 
-//引数の型
-type propsType = {
-    displayTaskList: displayTaskListType,
-    bdColor?: string,
-    titleBgColor?: string,
-    infoBgColor?: string,
-}
-
-
-function TaskContent(props: propsType) {
+function TaskContent(props: displayTaskListType) {
 
     console.log("TaskContent render");
 
@@ -64,40 +55,40 @@ function TaskContent(props: propsType) {
             <ContentTitleDiv
                 titleBgColor={props.titleBgColor}
             >
-                {props.displayTaskList.title}
+                {props.title}
             </ContentTitleDiv>
             <ContentInfoDiv
                 infoBgColor={props.infoBgColor}
             >
                 <div>
-                    登録日時：{props.displayTaskList.registerTime}
+                    登録日時：{props.registerTime}
                 </div>
                 <SpaceComponent
                     space='2%'
                 />
                 <div>
-                    更新日時：{props.displayTaskList.updTime}
+                    更新日時：{props.updTime}
                 </div>
                 <SpaceComponent
                     space='2%'
                 />
                 <div>
-                    期限：{props.displayTaskList.limitTime}
+                    期限：{props.limitTime}
                 </div>
                 <SpaceComponent
                     space='2%'
                 />
                 <div>
-                    優先度：{props.displayTaskList.priority}
+                    優先度：{props.priority}
                 </div>
                 <SpaceComponent
                     space='2%'
                 />
                 <div>
-                    状態：{props.displayTaskList.status}
+                    状態：{props.status}
                 </div>
                 <ButtonAreaDiv>
-                    {props.displayTaskList.editButton}
+                    {props.editButton}
                 </ButtonAreaDiv>
             </ContentInfoDiv>
         </OuterDiv>

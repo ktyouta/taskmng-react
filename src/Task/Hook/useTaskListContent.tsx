@@ -124,12 +124,21 @@ function useTaskListContent() {
             //期限切れのタスク
             if (element.limitTime < nowDate) {
                 switch (element.status) {
-                    //未対応、保留
-                    case NOCOMP_STATUS || COMP_STATUS:
+                    //未対応
+                    case NOCOMP_STATUS:
                         bdColor = "#CD5C5C";
                         titleBgColor = "#F08080";
                         infoBgColor = "#FA8072";
                         bgButtonColor = "#FA8072";
+                        break;
+                    //保留
+                    case HOLD_STATUS:
+                        bdColor = "#FFFF00";
+                        titleBgColor = "#FFFF66";
+                        infoBgColor = "#FFFF66";
+                        bgButtonColor = "#FFFF66";
+                        break;
+                    default:
                         break;
                 }
             }
