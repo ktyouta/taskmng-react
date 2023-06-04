@@ -1,0 +1,52 @@
+[
+    {
+        "id": "id",
+        "name": "ID",
+        "isHidden": true
+    },
+    {
+        "id": "title",
+        "name": "タイトル",
+        "isHidden": false
+    },
+    {
+        "id": "content",
+        "name": "タスク内容",
+        "isHidden": true
+    },
+    {
+        "id": "registerTime",
+        "name": "登録日付",
+        "type": "date",
+        "isHidden": false
+    },
+    {
+        "id": "updTime",
+        "name": "更新日付",
+        "type": "date",
+        "isHidden": false
+    },
+    {
+        "id": "limitTime",
+        "name": "期限",
+        "type": "date",
+        "isHidden": false
+    },
+    {
+        "id": "userId",
+        "name": "ユーザーID",
+        "isHidden": true
+    },
+    {
+        "id": "priority",
+        "name": "優先度",
+        "isHidden": false,
+        "listKey": "2"
+    },
+    {
+        "id": "status",
+        "name": "状態",
+        "isHidden": false,
+        "listKey": "3"
+    }
+]

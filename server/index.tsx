@@ -3,7 +3,7 @@ import ENV from '../src/env.json';
 import { checkFile, overWriteData, readFile } from './FileFunction';
 import { bodyObj, generalDetailType, taskListType, userInfoType } from './Type/type';
 import { authenticate } from './AuthFunction';
-import { config } from './Config';
+import { config } from './ApiConfig';
 import { checkUpdAuth, createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterDataFunction';
 import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from './Constant';
 import { runAddMaster } from './AddMasterDataFunction';

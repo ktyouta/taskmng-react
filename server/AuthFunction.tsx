@@ -1,7 +1,7 @@
 import express from 'express';
 import { readFile } from './FileFunction';
 import { authInfoType, userInfoType } from './Type/type';
-import {config} from './Config';
+import {config} from './ApiConfig';
 
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');

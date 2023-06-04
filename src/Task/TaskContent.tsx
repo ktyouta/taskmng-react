@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import '../App.css';
 import SpaceComponent from '../Common/SpaceComponent';
-import { displayTaskListType } from './Type/TaskType';
+import { displayTaskListType, taskContentDisplayType } from './Type/TaskType';
+import React from 'react';
 
 
 //外側のスタイル
@@ -44,7 +45,7 @@ const ButtonAreaDiv = styled.div`
 `;
 
 
-function TaskContent(props: displayTaskListType) {
+function TaskContent(props: taskContentDisplayType) {
 
     console.log("TaskContent render");
 
@@ -60,33 +61,20 @@ function TaskContent(props: displayTaskListType) {
             <ContentInfoDiv
                 infoBgColor={props.infoBgColor}
             >
-                <div>
-                    登録日時：{props.registerTime}
-                </div>
-                <SpaceComponent
-                    space='2%'
-                />
-                <div>
-                    更新日時：{props.updTime}
-                </div>
-                <SpaceComponent
-                    space='2%'
-                />
-                <div>
-                    期限：{props.limitTime}
-                </div>
-                <SpaceComponent
-                    space='2%'
-                />
-                <div>
-                    優先度：{props.priority}
-                </div>
-                <SpaceComponent
-                    space='2%'
-                />
-                <div>
-                    状態：{props.status}
-                </div>
+                {
+                    props.content && props.content.map((element) => {
+                        return (
+                            <React.Fragment>
+                                <div>
+                                    {`${element.label}：${element.value}`}
+                                </div>
+                                <SpaceComponent
+                                    space='2%'
+                                />
+                            </React.Fragment>
+                        )
+                    })
+                }
                 <ButtonAreaDiv>
                     {props.editButton}
                 </ButtonAreaDiv>

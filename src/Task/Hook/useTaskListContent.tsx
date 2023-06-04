@@ -8,7 +8,7 @@ import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import { masterDataListAtom } from "../../Main/Hook/useMainLogic";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
-import { displayTaskListType, taskListType } from "../Type/TaskType";
+import { displayTaskListType, taskContentDisplayType, taskContentSettingType, taskListType } from "../Type/TaskType";
 import { refType } from "../../Common/BaseInputComponent";
 import useQueryClientWapper from "../../Common/Hook/useQueryClientWrapper";
 import useSwitch from "../../Common/Hook/useSwitch";
@@ -16,7 +16,7 @@ import ButtonComponent from "../../Common/ButtonComponent";
 
 
 //画面表示用タスクリスト
-export const displayTaskListAtom = atom<displayTaskListType[]>([]);
+export const displayTaskListAtom = atom<taskContentDisplayType[]>([]);
 //タスク取得用URL
 export const taskListUrlAtom = atom(``);
 //更新用タスク
@@ -81,53 +81,74 @@ function useTaskListContent() {
         }
     );
 
+    //タスクの画面表示設定を取得
+    const { data: taskContentSetting } = useQueryWrapper<taskContentSettingType[]>(
+        {
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASKCONTENTSETTING}`,
+        }
+    );
+
     //取得したタスクリストを画面表示用に加工
     useEffect(() => {
-        let tmpDisplayTaskList: displayTaskListType[] = [];
+        let tmpDisplayTaskList: taskContentDisplayType[] = [];
+        //タスクリスト
         if (!taskList) {
             return;
         }
+        //汎用リスト
         if (!generalDataList) {
             return;
         }
-        let isMatchPriority = false;
-        let isMatchStatus = false;
-        //優先度リスト
-        let taskPriorityList = generalDataList.filter((item) => {
-            return item.id === "2";
-        });
-        //ステータスリスト
-        let taskStatusList = generalDataList.filter((item) => {
-            return item.id === "3";
-        });
+        //タスクの画面表示設定リスト
+        if (!taskContentSetting) {
+            return;
+        }
+
+        //設定値から画面に表示する項目を作成
         taskList.forEach(element => {
+            //画面表示用タスク
+            let displayTaskObj: taskContentDisplayType = {
+                title: "",
+                bdColor: undefined,
+                titleBgColor: undefined,
+                infoBgColor: undefined,
+                editButton: <></>,
+                content: []
+            };
+
+            //タスクの状態に応じて背景色を変える
+            //ステータス
+            let status = element["status"];
+            //期限
+            let limitTime = element["limitTime"];
+            //ステータスと期限が存在しない場合は壊れたデータとして画面に表示しない
+            if (!status || !limitTime) {
+                return;
+            }
             //背景色の設定
-            let bdColor: string | undefined = undefined;
-            let titleBgColor: string | undefined = undefined;
-            let infoBgColor: string | undefined = undefined;
             let bgButtonColor: string | undefined = undefined;
             //期限切れのタスク
-            if (element.limitTime < nowDate) {
-                switch (element.status) {
+            if (limitTime < nowDate) {
+                switch (status) {
                     //未対応
                     case NOCOMP_STATUS:
-                        bdColor = "#CD5C5C";
-                        titleBgColor = "#F08080";
-                        infoBgColor = "#FA8072";
+                        displayTaskObj.bdColor = "#CD5C5C";
+                        displayTaskObj.titleBgColor = "#F08080";
+                        displayTaskObj.infoBgColor = "#FA8072";
                         bgButtonColor = "#FA8072";
                         break;
                     //保留
                     case HOLD_STATUS:
-                        bdColor = "#FFFF00";
-                        titleBgColor = "#FFFF66";
-                        infoBgColor = "#FFFF66";
+                        displayTaskObj.bdColor = "#FFFF00";
+                        displayTaskObj.titleBgColor = "#FFFF66";
+                        displayTaskObj.infoBgColor = "#FFFF66";
                         bgButtonColor = "#FFFF66";
                         break;
                     //対応中
                     case WORKING_STATUS:
-                        bdColor = "#33FFFF";
-                        titleBgColor = "#66FFFF";
-                        infoBgColor = "#66FFCC";
+                        displayTaskObj.bdColor = "#33FFFF";
+                        displayTaskObj.titleBgColor = "#66FFFF";
+                        displayTaskObj.infoBgColor = "#66FFCC";
                         bgButtonColor = "#66FFCC";
                         break;
                     default:
@@ -135,53 +156,68 @@ function useTaskListContent() {
                 }
             }
             //完了したタスク
-            if (element.status === COMP_STATUS) {
-                bdColor = "#808080";
-                titleBgColor = "#808080";
-                infoBgColor = "#808080";
+            if (status === COMP_STATUS) {
+                displayTaskObj.bdColor = "#808080";
+                displayTaskObj.titleBgColor = "#808080";
+                displayTaskObj.infoBgColor = "#808080";
                 bgButtonColor = "#808080";
             }
 
-            taskPriorityList.some((item) => {
-                //優先度が一致
-                if (element.priority === item.value) {
-                    element.priority = item.label;
-                    return isMatchPriority = true;
+            //画面に表示するオブジェクトを作成
+            taskContentSetting.forEach((item) => {
+                //タスクリスト内に設定に一致するプロパティが存在しない場合は画面に表示しない
+                if (!element[item.id]) {
+                    return;
                 }
-            });
-            taskStatusList.some((item) => {
-                //ステータスが一致
-                if (element.status === item.value) {
-                    element.status = item.label;
-                    return isMatchStatus = true;
+                //非表示項目
+                if (item.isHidden) {
+                    return;
                 }
-            });
-            //結合に成功したデータのみを画面に表示する
-            if (!isMatchPriority || !isMatchStatus) {
-                return;
-            }
+                //タイトル
+                if (item.id === "title") {
+                    displayTaskObj.title = element[item.id];
+                    return;
+                }
+                //選択項目
+                if (item.listKey) {
+                    //汎用詳細リストからリストキーに一致する要素を抽出する
+                    let selectList = generalDataList.filter((list) => {
+                        return list.id === item.listKey;
+                    });
+                    let isMatchPriority = false;
+                    selectList.some((list) => {
+                        //値の一致する名称を取得
+                        if (list.value === element[item.id]) {
+                            element[item.id] = list.label;
+                            return isMatchPriority = true;
+                        }
+                    });
+                    //結合できなかった要素は画面に表示しない
+                    if (!isMatchPriority) {
+                        return;
+                    }
+                }
 
+                //日付項目
+                if (item.type === "date") {
 
-            tmpDisplayTaskList.push({
-                id: element.id,
-                title: element.title,
-                registerTime: element.registerTime,
-                updTime: element.updTime,
-                limitTime: element.limitTime,
-                priority: element.priority,
-                status: element.status,
-                editButton: <ButtonComponent
-                    styleTypeNumber={"BASE"}
-                    bgColor={bgButtonColor}
-                    title={"編集"}
-                    onclick={() => { openModal(element.id); }} />,
-                bdColor,
-                titleBgColor,
-                infoBgColor,
+                }
+                displayTaskObj.content.push({
+                    label: item.name,
+                    value: element[item.id]
+                });
             });
+
+            displayTaskObj["editButton"] = <ButtonComponent
+                styleTypeNumber={"BASE"}
+                bgColor={bgButtonColor}
+                title={"編集"}
+                onclick={() => { openModal(element.id); }} />;
+
+            tmpDisplayTaskList.push(displayTaskObj);
         });
         setDisplayTaskList(tmpDisplayTaskList);
-    }, [taskList, generalDataList]);
+    }, [taskList, generalDataList, taskContentSetting]);
 
     //モーダルオープン
     const openModal = (id: string) => {

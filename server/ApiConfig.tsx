@@ -34,6 +34,10 @@ export const config = {
         {
             callUrl:ENV.SEARCHCONDITION,
             fileUrl:"./public/json/setting/searchcondition.json"
+        },
+        {
+            callUrl:ENV.TASKCONTENTSETTING,
+            fileUrl:"./public/json/setting/taskcontentsetting.json"
         }
     ]
 };
