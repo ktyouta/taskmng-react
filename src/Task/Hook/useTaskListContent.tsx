@@ -108,6 +108,7 @@ function useTaskListContent() {
         taskList.forEach(element => {
             //画面表示用タスク
             let displayTaskObj: taskContentDisplayType = {
+                id: "",
                 title: "",
                 bdColor: undefined,
                 titleBgColor: undefined,
@@ -169,8 +170,9 @@ function useTaskListContent() {
                 if (!element[item.id]) {
                     return;
                 }
-                //非表示項目
-                if (item.isHidden) {
+                //ID
+                if (item.id === "id") {
+                    displayTaskObj.id = element[item.id];
                     return;
                 }
                 //タイトル
@@ -178,6 +180,11 @@ function useTaskListContent() {
                     displayTaskObj.title = element[item.id];
                     return;
                 }
+                //非表示項目
+                if (item.isHidden) {
+                    return;
+                }
+                
                 //選択項目
                 if (item.listKey) {
                     //汎用詳細リストからリストキーに一致する要素を抽出する

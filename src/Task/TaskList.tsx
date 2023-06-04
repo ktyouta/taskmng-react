@@ -21,15 +21,18 @@ function TaskList(props: propsType) {
         <div className="tasklist">
             <ul>
                 {
-                    props.displayTaskList.map((element) => {
+                    props.displayTaskList && props.displayTaskList.map((element, index) => {
+                        let id = element.id as string;
                         return (
-                            <React.Fragment>
-                                <li key={element.id as string}>
+                            <React.Fragment key={`tasklist-${id}-${index}`}>
+                                <li key={`li-${id}`}>
                                     <TaskContent
+                                        key={`content-${id}`}
                                         {...element}
                                     />
                                 </li>
                                 <VerticalSpaceComponent
+                                    key={`verticalspace-${id}`}
                                     space='2%'
                                 />
                             </React.Fragment>

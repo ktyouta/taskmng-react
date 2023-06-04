@@ -42,11 +42,12 @@ export type taskContentSettingType = {
 
 //画面表示用のタスクの型
 export type taskContentDisplayType = {
-    [key: string]: string | JSX.Element | undefined | {label:string,value:string,}[],
+    [key: string]: string | JSX.Element | undefined | { label: string, value: string, }[],
+    id: string,
     title: string,
     bdColor: string | undefined,
     titleBgColor: string | undefined,
     infoBgColor: string | undefined,
     editButton: JSX.Element,
-    content:{label:string,value:string,}[]
+    content: { label: string, value: string, }[]
 }

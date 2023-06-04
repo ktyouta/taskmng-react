@@ -53,6 +53,7 @@ function TaskContent(props: taskContentDisplayType) {
         <OuterDiv
             bdColor={props.bdColor}
         >
+            {/* タイトル */}
             <ContentTitleDiv
                 titleBgColor={props.titleBgColor}
             >
@@ -61,10 +62,11 @@ function TaskContent(props: taskContentDisplayType) {
             <ContentInfoDiv
                 infoBgColor={props.infoBgColor}
             >
+                {/* 内容 */}
                 {
                     props.content && props.content.map((element) => {
                         return (
-                            <React.Fragment>
+                            <React.Fragment key={`${element.label}-${element.value}-${props.id}`}>
                                 <div>
                                     {`${element.label}：${element.value}`}
                                 </div>
@@ -75,6 +77,7 @@ function TaskContent(props: taskContentDisplayType) {
                         )
                     })
                 }
+                {/* ボタン */}
                 <ButtonAreaDiv>
                     {props.editButton}
                 </ButtonAreaDiv>
