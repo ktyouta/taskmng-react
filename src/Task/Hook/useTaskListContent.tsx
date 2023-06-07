@@ -32,6 +32,19 @@ const getNowDate = (now: Date) => {
     return `${year}${month}${date}`;
 };
 
+/**
+ * 文字列を日付に変換
+ */
+const parseStrDate = (strDate: string) => {
+    const year = strDate.substring(0, 4);
+    const month = strDate.substring(4, 6);
+    const day = strDate.substring(6, 8);
+    if (isNaN(Date.parse(`${year}/${month}/${day}`))) {
+        return "";
+    }
+    return `${year}/${month}/${day}`;
+};
+
 //ステータス
 //未完了
 const NOCOMP_STATUS = "1";
@@ -51,8 +64,6 @@ function useTaskListContent() {
 
     //タスクリスト取得用URL
     const taskListUrl = useAtomValue(taskListUrlAtom);
-    //画面表示用タスクリスト
-    const [displayTaskList, setDisplayTaskList] = useAtom(displayTaskListAtom);
     //モーダルの開閉用フラグ
     const { flag: isModalOpen, onFlag, offFlag } = useSwitch();
     //データの取得に失敗した場合のメッセージ
@@ -89,23 +100,25 @@ function useTaskListContent() {
     );
 
     //取得したタスクリストを画面表示用に加工
-    useEffect(() => {
+    const displayTaskList = useMemo(() => {
         let tmpDisplayTaskList: taskContentDisplayType[] = [];
         //タスクリスト
         if (!taskList) {
-            return;
+            return [];
         }
         //汎用リスト
         if (!generalDataList) {
-            return;
+            return [];
         }
         //タスクの画面表示設定リスト
         if (!taskContentSetting) {
-            return;
+            return [];
         }
 
-        //設定値から画面に表示する項目を作成
-        taskList.forEach(element => {
+        //タスクのディープコピー
+        const tmpTaskList: taskListType[] = JSON.parse(JSON.stringify(taskList));
+        //設定値をもとに画面に表示する項目を作成
+        tmpTaskList.forEach(element => {
             //画面表示用タスク
             let displayTaskObj: taskContentDisplayType = {
                 id: "",
@@ -184,7 +197,7 @@ function useTaskListContent() {
                 if (item.isHidden) {
                     return;
                 }
-                
+
                 //選択項目
                 if (item.listKey) {
                     //汎用詳細リストからリストキーに一致する要素を抽出する
@@ -207,14 +220,16 @@ function useTaskListContent() {
 
                 //日付項目
                 if (item.type === "date") {
-
+                    element[item.id] = parseStrDate(element[item.id]);
                 }
+                //コンテンツにデータを追加
                 displayTaskObj.content.push({
                     label: item.name,
                     value: element[item.id]
                 });
             });
 
+            //編集ボタン
             displayTaskObj["editButton"] = <ButtonComponent
                 styleTypeNumber={"BASE"}
                 bgColor={bgButtonColor}
@@ -223,7 +238,7 @@ function useTaskListContent() {
 
             tmpDisplayTaskList.push(displayTaskObj);
         });
-        setDisplayTaskList(tmpDisplayTaskList);
+        return tmpDisplayTaskList;
     }, [taskList, generalDataList, taskContentSetting]);
 
     //モーダルオープン
