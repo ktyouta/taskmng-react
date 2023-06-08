@@ -97,6 +97,7 @@ function useTaskEdit(props: propsType) {
                 disabled: element.disabled,
                 visible: isVisible,
                 selectList: tmpSelectLits,
+                description: element.description,
                 ref: createRef(),
             });
         });

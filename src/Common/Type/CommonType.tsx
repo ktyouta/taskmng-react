@@ -85,6 +85,7 @@ export type refInfoType = {
     visible: boolean,
     value: string,
     selectList?: comboType[],
+    description?: string,
     ref: RefObject<refType>,
 }
 
@@ -126,6 +127,7 @@ export type inputTaskSettingType = {
     isNewCreateVisible: boolean,
     isHidden: boolean,
     listKey?: string,
+    description?: string,
 }
 
 

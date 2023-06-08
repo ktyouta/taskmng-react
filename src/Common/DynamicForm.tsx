@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 import { refInfoType } from './Type/CommonType';
-import HrizonLabelItemComponent from './HrizonLabelItemComponent';
+import HorizonLabelItemComponent from './HorizonLabelItemComponent';
 import LabelInputComponent from './LabelInputComponent';
 import LabelTextAreaComponent from './LabelTextAreaComponent';
 import LabelRadioListComponent from './LabelRadioListComponent';
@@ -9,6 +9,15 @@ import DatePickerComponent from './DatePickerComponent';
 import ComboComponent from './ComboComponent';
 import LabelCheckBoxListComponent from './LabelCheckBoxListComponent';
 import NumberPickerComponent from './NumberPickerComponent';
+import styled from 'styled-components';
+
+
+//説明文のスタイル
+const BaseSpan = styled.span`
+    font-size:15px;
+    color:#ff8c00;
+`;
+
 
 //引数の型
 type propsType = {
@@ -35,11 +44,10 @@ function DynamicForm(props: propsType) {
                 props.refInfoArray.map((element, index) => {
                     return (
                         <div
-                            className="dynamicform-input-area"
                             key={`${element.id}-${index}`}
                             style={{ display: element.visible ? "block" : "none" }}
                         >
-                            <HrizonLabelItemComponent
+                            <HorizonLabelItemComponent
                                 title={element.name}
                                 labelWidth={props.titleWitdh}
                                 key={`dynamicform-${index}`}
@@ -122,7 +130,17 @@ function DynamicForm(props: propsType) {
                                         }
                                     })()
                                 }
-                            </HrizonLabelItemComponent>
+                            </HorizonLabelItemComponent>
+                            {
+                                element.description &&
+                                <HorizonLabelItemComponent
+                                    title={''}
+                                >
+                                    <BaseSpan>
+                                        {element.description}
+                                    </BaseSpan>
+                                </HorizonLabelItemComponent>
+                            }
                         </div>
                     );
                 })

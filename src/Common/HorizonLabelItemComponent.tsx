@@ -22,7 +22,7 @@ const OuterDiv = styled.div`
 `;
 
 
-function HrizonLabelItemComponent(props: propsType) {
+function HorizonLabelItemComponent(props: propsType) {
 
     return (
         <OuterDiv>
@@ -34,4 +34,4 @@ function HrizonLabelItemComponent(props: propsType) {
     );
 }
 
-export default HrizonLabelItemComponent;
+export default HorizonLabelItemComponent;

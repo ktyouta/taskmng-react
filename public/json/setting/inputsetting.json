@@ -98,7 +98,8 @@
             "isNewCreateVisible": true,
             "isHidden": false,
             "isEditableSetting": true,
-            "isRequired": true
+            "isRequired": true,
+            "description": "タスクの詳細について記入"
         },
         {
             "id": "registerTime",
@@ -134,7 +135,8 @@
             "isNewCreateVisible": true,
             "isHidden": false,
             "isEditableSetting": true,
-            "isRequired": false
+            "isRequired": false,
+            "description": "タスクの処理期限"
         },
         {
             "id": "userId",
@@ -159,7 +161,8 @@
             "isHidden": false,
             "listKey": "2",
             "isEditableSetting": true,
-            "isRequired": false
+            "isRequired": false,
+            "description": "タスクの優先度"
         },
         {
             "id": "status",
@@ -172,7 +175,8 @@
             "isHidden": false,
             "listKey": "3",
             "isEditableSetting": true,
-            "isRequired": false
+            "isRequired": false,
+            "description": "タスクの状態"
         }
     ]
 }
