@@ -8,6 +8,7 @@ type propsType = {
     lenght: number,
     titleWidth?: string,
     textWidth?: string,
+    bgColor?: string,
 }
 
 //参照の型
@@ -17,8 +18,9 @@ export type refType = {
 }
 
 //テキストエリアの基本スタイル
-const BaseInput = styled.textarea<{ textWidth: string | undefined }>`
+const BaseInput = styled.textarea<{ textWidth?: string, bgColor?: string, }>`
   width: ${({ textWidth }) => (textWidth ? textWidth : "300px")};
+  background-color:${({ bgColor }) => (bgColor ?? "")};
   height:70px;
   width: 40%;
   border-radius: 5px;
@@ -52,6 +54,7 @@ const BaseTextAreaComponent = forwardRef<refType, propsType>((props, ref) => {
             onChange={changeInput}
             value={inputValue}
             textWidth={props.textWidth}
+            bgColor={props.bgColor}
         />
     );
 })

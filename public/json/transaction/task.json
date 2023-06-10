@@ -421,11 +421,11 @@
 		"title": "閲覧と編集を切り替えられるようにする",
 		"content": "タスクの詳細画面で編集ボタンを押下した際に編集可能になるようにする。",
 		"registerTime": "20230603",
-		"updTime": "20230603",
+		"updTime": "20230610",
 		"limitTime": "20230610",
 		"userId": "a",
 		"priority": "2",
-		"status": "1",
+		"status": "4",
 		"deleteFlg": "0"
 	},
 	{
@@ -449,7 +449,7 @@
 		"limitTime": "20230610",
 		"userId": "a",
 		"priority": "2",
-		"status": "4",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
@@ -510,6 +510,18 @@
 		"userId": "a",
 		"priority": "3",
 		"status": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "44",
+		"title": "入力エラーになった項目に背景色をつける",
+		"content": "",
+		"registerTime": "20230610",
+		"updTime": "20230611",
+		"limitTime": "20230610",
+		"userId": "a",
+		"priority": "1",
+		"status": "2",
 		"deleteFlg": "0"
 	}
 ]

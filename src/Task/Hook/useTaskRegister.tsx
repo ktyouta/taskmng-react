@@ -122,18 +122,18 @@ function useTaskEdit(props: propsType) {
         if (!refInfoArray || refInfoArray.length === 0) {
             return;
         }
-        if (!window.confirm('タスクを登録しますか？')) {
-            return
-        }
-        if (!registerMutation) {
-            alert("リクエストの送信に失敗しました。");
-            return;
-        }
         //入力チェック
         let inputCheckObj = requestBodyInputCheck(refInfoArray);
         //入力エラー
         if (inputCheckObj.errFlg) {
             setRefInfoArray(inputCheckObj.refInfoArray);
+            return;
+        }
+        if (!window.confirm('タスクを登録しますか？')) {
+            return
+        }
+        if (!registerMutation) {
+            alert("リクエストの送信に失敗しました。");
             return;
         }
         let body: bodyObj = createRequestBody(refInfoArray);

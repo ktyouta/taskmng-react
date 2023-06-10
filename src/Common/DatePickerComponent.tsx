@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ja from 'date-fns/locale/ja';
 import './css/DatePickerComponent.css';
+import styled from 'styled-components';
 
 
 //日付のフォーマット
@@ -15,6 +16,7 @@ type propsType = {
     value?: string,
     onChange?: (e: string) => void,
     disabled?: boolean,
+    bgColor?: string,
 }
 
 //参照の型
@@ -97,7 +99,7 @@ const DatePickerComponent = forwardRef<refType, propsType>((props, ref) => {
                 locale={ja}
                 selected={date}
                 onChange={selectedDate => { changeDate(selectedDate || Today) }}
-                className='datepicker-input'
+                className={`datepicker-input ${props.bgColor ? "datepicker-err" : ""}`}
                 onBlur={selectedDate => { blur(selectedDate) }}
                 disabled={props.disabled}
             />

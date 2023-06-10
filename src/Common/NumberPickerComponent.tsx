@@ -1,6 +1,8 @@
 import React, { forwardRef, useState } from 'react';
 import NumberPicker from "react-widgets/NumberPicker";
 import "react-widgets/styles.css";
+import styled from 'styled-components';
+
 
 //日付のフォーマット
 type dateFormatType = "yyyy/MM/dd" | "yyyy/MM/dd HH:mm";
@@ -11,6 +13,7 @@ type propsType = {
     value: number,
     onChange?: (e: string) => void,
     disabled?: boolean,
+    bgColor?: string,
 }
 
 //参照の型
@@ -45,12 +48,13 @@ const NumberPickerComponent = forwardRef<refType, propsType>((props, ref) => {
     };
 
     return (
-            <NumberPicker
-                value={value}
-                onChange={value => { onChange(value) }}
-                disabled={props.disabled}
-                min={0}
-            />
+        <NumberPicker
+            value={value}
+            onChange={value => { onChange(value) }}
+            disabled={props.disabled}
+            min={0}
+            style={{ backgroundColor: props.bgColor ?? "" }}
+        />
     );
 })
 

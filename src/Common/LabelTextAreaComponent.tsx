@@ -10,6 +10,7 @@ type propsType = {
     lenght: number,
     titleWidth?: string,
     textWidth?: string,
+    bgColor?: string,
 }
 
 const LabelTextAreaComponent = forwardRef<refType, propsType>((props, ref) => {

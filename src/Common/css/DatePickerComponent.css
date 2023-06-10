@@ -1,4 +1,10 @@
 .datepicker-input {
     height: 30px;
     font-size: 15px;
+    border-radius: 5px;
+    border: solid 1px rgb(118, 118, 118);
+}
+
+.datepicker-err {
+    background-color: #FA8072
 }

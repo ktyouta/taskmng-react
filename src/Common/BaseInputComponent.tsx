@@ -9,6 +9,7 @@ type propsType = {
     lenght: number,
     titleWidth?: string,
     textWidth?: string,
+    bgColor?: string,
 }
 
 //参照の型
@@ -18,8 +19,9 @@ export type refType = {
 }
 
 //テキストボックスの基本スタイル
-const BaseInput = styled.input<{ textWidth?: string }>`
-  width: ${({ textWidth }) => (textWidth ? textWidth : "300px")};
+const BaseInput = styled.input<{ textWidth?: string, bgColor?: string, }>`
+  width: ${({ textWidth }) => (textWidth ?? "300px")};
+  background-color:${({ bgColor }) => (bgColor ?? "")};
   height:33px;
   border-radius: 5px;
   border:solid 1px rgb(118, 118, 118);
@@ -53,6 +55,7 @@ const BaseInputComponent = forwardRef<refType, propsType>((props, ref) => {
             onChange={changeInput}
             value={inputValue}
             textWidth={props.textWidth}
+            bgColor={props.bgColor}
         />
     );
 })

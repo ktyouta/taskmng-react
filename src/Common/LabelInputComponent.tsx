@@ -10,6 +10,7 @@ type propsType = {
     lenght: number,
     titleWidth?: string,
     textWidth?: string,
+    bgColor?: string,
 }
 
 const LabelInputComponent = forwardRef<refType, propsType>((props, ref) => {

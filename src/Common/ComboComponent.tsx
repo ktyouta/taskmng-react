@@ -9,6 +9,7 @@ type propsType = {
   onChange?: (e: string) => void,
   initValue: string,
   disabled?: boolean,
+  bgColor?: string,
 }
 
 //コンボボックスの型
@@ -25,7 +26,8 @@ export type refType = {
 
 
 //コンボボックスの基本スタイル
-const BaseSelect = styled.select`
+const BaseSelect = styled.select<{ bgColor?: string, }>`
+  background-color:${({ bgColor }) => (bgColor ?? "")};
   text-align:center;
   width: 300px;
   min-width: 200px;
@@ -68,6 +70,7 @@ const ComboComponent = forwardRef<refType, propsType>((props, ref) => {
           onChange={change}
           value={selectValue}
           disabled={props.disabled}
+          bgColor={props.bgColor}
         >
           {
             props.combo.map((element) => {

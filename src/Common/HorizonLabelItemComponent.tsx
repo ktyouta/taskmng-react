@@ -13,6 +13,7 @@ type propsType = {
     title: string | JSX.Element,
     labelWidth?: string,
     children: ReactNode,
+    color?: string,
 }
 
 const OuterDiv = styled.div`

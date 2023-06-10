@@ -62,6 +62,7 @@ function DynamicForm(props: propsType) {
                             {element.name}
                             {element.isRequired && <RequiredSpan>*</RequiredSpan>}
                         </React.Fragment>;
+                    let bgColor = element.errMessage ? "#FA8072" : "";
                     return (
                         <OuterDiv
                             key={`${element.id}-${index}`}
@@ -70,6 +71,7 @@ function DynamicForm(props: propsType) {
                             <HorizonLabelItemComponent
                                 title={title}
                                 labelWidth={props.titleWitdh}
+                                color={element.errMessage ? "#DC143C" : ""}
                                 key={`dynamicform-${index}`}
                             >
                                 {
@@ -82,6 +84,7 @@ function DynamicForm(props: propsType) {
                                                         value={element.value}
                                                         lenght={element.length}
                                                         disabled={element.disabled}
+                                                        bgColor={bgColor}
                                                         ref={element.ref}
                                                     />
                                                 );
@@ -92,6 +95,7 @@ function DynamicForm(props: propsType) {
                                                         value={element.value}
                                                         lenght={element.length}
                                                         disabled={element.disabled}
+                                                        bgColor={bgColor}
                                                         ref={element.ref}
                                                     />
                                                 );
@@ -113,6 +117,7 @@ function DynamicForm(props: propsType) {
                                                     <DatePickerComponent
                                                         value={element.value}
                                                         disabled={element.disabled}
+                                                        bgColor={bgColor}
                                                         ref={element.ref}
                                                     />
                                                 );
@@ -123,6 +128,7 @@ function DynamicForm(props: propsType) {
                                                         combo={element.selectList}
                                                         initValue={element.value}
                                                         disabled={element.disabled}
+                                                        bgColor={bgColor}
                                                         ref={element.ref}
                                                     />
                                                 )
@@ -144,6 +150,7 @@ function DynamicForm(props: propsType) {
                                                     <NumberPickerComponent
                                                         disabled={element.disabled}
                                                         value={parseNum(element.value)}
+                                                        bgColor={bgColor}
                                                         ref={element.ref}
                                                     />
                                                 )
