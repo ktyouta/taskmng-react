@@ -98,7 +98,7 @@
             "isNewCreateVisible": true,
             "isHidden": false,
             "isEditableSetting": true,
-            "isRequired": true,
+            "isRequired": false,
             "description": "タスクの詳細について記入"
         },
         {

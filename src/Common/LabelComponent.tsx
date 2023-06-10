@@ -6,7 +6,7 @@ import { refType } from './BaseInputComponent';
 
 //引数の型
 type propsType = {
-    title: string,
+    title: string | JSX.Element,
     width?: string,
     htmlForId?: string,
     key?: string,

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiResponseType, bodyObj, refInfoType } from '../Type/CommonType';
+import { apiResponseType, bodyObj, refInfoType, refInputCheckType } from '../Type/CommonType';
 
 //jsonファイルにデータを登録する
 export const createJsonData = (url: string, name: bodyObj) => {
@@ -49,4 +49,23 @@ export function createRequestBody(refInputArray: refInfoType[]) {
         tmpBody[element.id] = postValue;
     });
     return tmpBody;
+}
+
+//リクエストボディの入力チェック
+export function requestBodyInputCheck(refInputArray: refInfoType[]) {
+    let checkObj: refInputCheckType = {
+        refInfoArray: [],
+        errFlg: false
+    };
+    let tmpRefInputArray: refInfoType[] = JSON.parse(JSON.stringify(refInputArray));
+    //bodyの作成
+    tmpRefInputArray.forEach((element) => {
+        //必須チェック
+        if (element.isRequired && !element.ref.current?.refValue) {
+            element.errMessage = `${element.name}は必須項目です。`;
+            checkObj.errFlg = true;
+        }
+    });
+    checkObj.refInfoArray = tmpRefInputArray;
+    return checkObj;
 }

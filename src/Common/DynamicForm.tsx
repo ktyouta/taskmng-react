@@ -12,12 +12,27 @@ import NumberPickerComponent from './NumberPickerComponent';
 import styled from 'styled-components';
 
 
+//外側のスタイル
+const OuterDiv = styled.div<{ visible: boolean }>`
+    display: ${({ visible }) => (visible ? "block" : "none")};
+`;
+
 //説明文のスタイル
-const BaseSpan = styled.span`
+const DescriptionSpan = styled.span`
     font-size:15px;
     color:#ff8c00;
 `;
 
+//エラーメッセージのスタイル
+const ErrMessageSpan = styled.span`
+    font-size:15px;
+    color:#DC143C;
+`;
+
+//必須項目のスタイル
+const RequiredSpan = styled.span`
+    color: red;
+`;
 
 //引数の型
 type propsType = {
@@ -42,13 +57,18 @@ function DynamicForm(props: propsType) {
         <React.Fragment>
             {
                 props.refInfoArray.map((element, index) => {
+                    let title =
+                        <React.Fragment>
+                            {element.name}
+                            {element.isRequired && <RequiredSpan>*</RequiredSpan>}
+                        </React.Fragment>;
                     return (
-                        <div
+                        <OuterDiv
                             key={`${element.id}-${index}`}
-                            style={{ display: element.visible ? "block" : "none" }}
+                            visible={element.visible}
                         >
                             <HorizonLabelItemComponent
-                                title={element.name}
+                                title={title}
                                 labelWidth={props.titleWitdh}
                                 key={`dynamicform-${index}`}
                             >
@@ -131,17 +151,28 @@ function DynamicForm(props: propsType) {
                                     })()
                                 }
                             </HorizonLabelItemComponent>
+                            {/* 項目の説明文 */}
                             {
                                 element.description &&
                                 <HorizonLabelItemComponent
                                     title={''}
                                 >
-                                    <BaseSpan>
+                                    <DescriptionSpan>
                                         {element.description}
-                                    </BaseSpan>
+                                    </DescriptionSpan>
                                 </HorizonLabelItemComponent>
                             }
-                        </div>
+                            {/* エラーメッセージ */}
+                            {
+                                element.errMessage &&
+                                <HorizonLabelItemComponent
+                                    title={''}
+                                >
+                                    <ErrMessageSpan>
+                                        {element.errMessage}
+                                    </ErrMessageSpan>
+                                </HorizonLabelItemComponent>}
+                        </OuterDiv>
                     );
                 })
             }

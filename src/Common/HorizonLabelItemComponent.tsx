@@ -5,11 +5,12 @@ import IconComponent from './IconComponent';
 import './css/ModalComponent.css';
 import LabelComponent from './LabelComponent';
 import styled from 'styled-components';
+import { jsx } from '@emotion/react';
 
 
 //引数の型
 type propsType = {
-    title: string,
+    title: string | JSX.Element,
     labelWidth?: string,
     children: ReactNode,
 }

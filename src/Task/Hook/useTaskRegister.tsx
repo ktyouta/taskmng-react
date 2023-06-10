@@ -8,7 +8,7 @@ import { taskListType } from "../Type/TaskType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
-import { createRequestBody } from "../../Common/Function/Function";
+import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
 
 
@@ -71,6 +71,7 @@ function useTaskEdit(props: propsType) {
                 visible: isVisible,
                 selectList: tmpSelectLits,
                 description: element.description,
+                isRequired: element.isRequired,
                 ref: createRef(),
             });
         });
@@ -126,6 +127,13 @@ function useTaskEdit(props: propsType) {
         }
         if (!registerMutation) {
             alert("リクエストの送信に失敗しました。");
+            return;
+        }
+        //入力チェック
+        let inputCheckObj = requestBodyInputCheck(refInfoArray);
+        //入力エラー
+        if (inputCheckObj.errFlg) {
+            setRefInfoArray(inputCheckObj.refInfoArray);
             return;
         }
         let body: bodyObj = createRequestBody(refInfoArray);

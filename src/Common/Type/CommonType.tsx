@@ -86,6 +86,8 @@ export type refInfoType = {
     value: string,
     selectList?: comboType[],
     description?: string,
+    isRequired?: boolean,
+    errMessage?: string,
     ref: RefObject<refType>,
 }
 
@@ -128,6 +130,7 @@ export type inputTaskSettingType = {
     isHidden: boolean,
     listKey?: string,
     description?: string,
+    isRequired?: boolean,
 }
 
 
@@ -175,4 +178,10 @@ export type refConditionType = {
     value: string,
     selectList?: comboType[],
     ref: RefObject<refType>,
+}
+
+//リクエストボディのチェック結果
+export type refInputCheckType = {
+    refInfoArray: refInfoType[],
+    errFlg: boolean,
 }
