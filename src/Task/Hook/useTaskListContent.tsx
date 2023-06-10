@@ -158,13 +158,6 @@ function useTaskListContent() {
                         displayTaskObj.infoBgColor = "#FFFF66";
                         bgButtonColor = "#FFFF66";
                         break;
-                    //対応中
-                    case WORKING_STATUS:
-                        displayTaskObj.bdColor = "#33FFFF";
-                        displayTaskObj.titleBgColor = "#66FFFF";
-                        displayTaskObj.infoBgColor = "#66FFCC";
-                        bgButtonColor = "#66FFCC";
-                        break;
                     default:
                         break;
                 }
@@ -175,6 +168,13 @@ function useTaskListContent() {
                 displayTaskObj.titleBgColor = "#808080";
                 displayTaskObj.infoBgColor = "#808080";
                 bgButtonColor = "#808080";
+            }
+            //対応中
+            else if (status === WORKING_STATUS) {
+                displayTaskObj.bdColor = "#33FFFF";
+                displayTaskObj.titleBgColor = "#66FFFF";
+                displayTaskObj.infoBgColor = "#66FFCC";
+                bgButtonColor = "#66FFCC";
             }
 
             //画面に表示するオブジェクトを作成
