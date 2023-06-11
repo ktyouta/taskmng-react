@@ -8,6 +8,7 @@ import MessageComponent, { labelType } from '../Common/MessageComponent';
 import './css/TaskListContent.css';
 import TaskEdit from './TaskEdit';
 import LabelComponent from '../Common/LabelComponent';
+import TaskDetail from './TaskDetail';
 
 
 function TaskListContent() {
@@ -48,7 +49,7 @@ function TaskListContent() {
                 modalIsOpen={isModalOpen}
                 closeModal={offFlag}
             >
-                <TaskEdit
+                <TaskDetail
                     updTaskId={updTaskId}
                     closeFn={offFlag}
                 />

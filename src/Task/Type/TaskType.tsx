@@ -51,3 +51,9 @@ export type taskContentDisplayType = {
     editButton: JSX.Element,
     content: { label: string, value: string, }[]
 }
+
+//閲覧用タスクの型
+export type viewTaskType = {
+    title: string,
+    value: string,
+}
