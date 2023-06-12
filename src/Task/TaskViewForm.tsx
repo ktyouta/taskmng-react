@@ -5,13 +5,15 @@ import styled from 'styled-components';
 import { viewTaskType } from './Type/TaskType';
 
 
+//表示欄のスタイル
+const ValueSpan = styled.span`
+    width:80%
+`;
+
 //引数の型
 type propsType = {
     viewTaskList: viewTaskType[],
-    titleWitdh?: string,
-    listTitleWidth?: string,
 }
-
 
 function TaskViewForm(props: propsType) {
 
@@ -24,12 +26,12 @@ function TaskViewForm(props: propsType) {
                     return (
                         <HorizonLabelItemComponent
                             title={element.title}
-                            labelWidth={props.titleWitdh}
+                            labelWidth="20%"
                             key={`dynamicform-${index}`}
                         >
-                            <span>
+                            <ValueSpan>
                                 {element.value}
-                            </span>
+                            </ValueSpan>
                         </HorizonLabelItemComponent>
                     );
                 })

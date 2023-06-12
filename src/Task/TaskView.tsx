@@ -55,6 +55,10 @@ function TaskView(props: propsType) {
     positiveButtonObj,
   } = useTaskView({ ...props });
 
+  //ローディング
+  if (!viewTask || viewTask.length === 0) {
+    return <Loading height='50vh' />;
+  }
 
   return (
     <div className="taskedit">
@@ -78,10 +82,6 @@ function TaskView(props: propsType) {
         positiveButtonObj={positiveButtonObj}
         outerHeight='15%'
       />
-      {/* ローディング */}
-      {/* <WaitLoading
-        isLoading={isUpDelLoading}
-      /> */}
     </div>
   );
 }

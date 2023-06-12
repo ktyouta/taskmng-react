@@ -15,7 +15,11 @@ import useGetTaskInputSetting from "./useGetTaskInputSetting";
 //引数の型
 type propsType = {
     updTaskId: string,
+    backFn?: () => void,
     closeFn?: () => void,
+    taskSettingList: inputTaskSettingType[] | undefined,
+    generalDataList: generalDataType[] | undefined,
+    updTask: taskListType | undefined,
 }
 
 
@@ -31,43 +35,21 @@ function useTaskEdit(props: propsType) {
     //スナックバーに表示する登録更新時のエラーメッセージ
     const [errMessage, setErrMessage] = useState("");
 
-    //入力欄設定リスト
-    const { taskSettingList } = useGetTaskInputSetting();
-
-    //汎用詳細リスト
-    const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
-    });
-
-    //モーダル展開時に更新用タスクを取得
-    const { data: updTask, isLoading: isLoadinGetUpdTask } = useQueryWrapper<taskListType>(
-        {
-            url: props.updTaskId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}/${props.updTaskId}` : ``,
-            afSuccessFn: (data) => {
-                setErrMessage("");
-            }
-            , afErrorFn: (res) => {
-                let tmp = res as errResType;
-                setErrMessage(tmp.response.data.errMessage);
-            }
-        }
-    );
-
     //入力欄参照用refの作成
     useEffect(() => {
         let tmpRefInfoArray: refInfoType[] = [];
-        if (!taskSettingList) {
+        if (!props.taskSettingList) {
             return;
         }
-        if (!updTask) {
+        if (!props.updTask) {
             return;
         }
-        if (!generalDataList) {
+        if (!props.generalDataList) {
             return;
         }
-        taskSettingList.forEach((element) => {
+        props.taskSettingList.forEach((element) => {
             let tmpValue: string | undefined = undefined;
-            for (const [columnKey, value] of Object.entries(updTask as {})) {
+            for (const [columnKey, value] of Object.entries(props.updTask as {})) {
                 //キーの一致する要素を取り出す
                 if (element.id === columnKey) {
                     tmpValue = value as string;
@@ -81,8 +63,8 @@ function useTaskEdit(props: propsType) {
                 isVisible = false;
             }
             //リストキーが存在する(選択項目)
-            if (element.listKey) {
-                tmpSelectLits = generalDataList.filter((item) => {
+            if (element.listKey && props.generalDataList) {
+                tmpSelectLits = props.generalDataList.filter((item) => {
                     return item.id === element.listKey;
                 });
             }
@@ -103,7 +85,7 @@ function useTaskEdit(props: propsType) {
             });
         });
         setRefInfoArray(tmpRefInfoArray);
-    }, [taskSettingList, updTask, generalDataList]);
+    }, [props.taskSettingList, props.updTask, props.generalDataList]);
 
     //更新用フック
     const updMutation = useMutationWrapper({
@@ -138,11 +120,11 @@ function useTaskEdit(props: propsType) {
     });
 
     /**
-     * 閉じるボタン押下処理
+     * 戻るボタン押下処理
      */
     const backPageButtonFunc = () => {
-        if (props.closeFn) {
-            props.closeFn();
+        if (props.backFn) {
+            props.backFn();
         }
     }
 
@@ -203,9 +185,13 @@ function useTaskEdit(props: propsType) {
 
     return {
         refInfoArray,
-        isLoading: isLoadinGetUpdTask,
+        //isLoading: isLoadinGetUpdTask,
         isUpDelLoading: updMutation.isLoading || delMutation.isLoading,
-        backPageButtonObj: { title: `閉じる`, type: `BASE`, onclick: backPageButtonFunc } as buttonObjType,
+        backPageButtonObj: {
+            title: `戻る`,
+            type: `BASE`,
+            onclick: backPageButtonFunc
+        } as buttonObjType,
         negativeButtonObj: {
             title: `元に戻す`,
             type: `RUN`,

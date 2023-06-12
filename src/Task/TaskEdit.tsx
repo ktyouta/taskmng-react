@@ -5,12 +5,18 @@ import useTaskEdit from './Hook/useTaskEdit';
 import './css/TaskEdit.css';
 import TaskEditFooter from './TaskEditFooter';
 import TaskEditForm from './TaskEditForm';
+import { generalDataType, inputTaskSettingType } from '../Common/Type/CommonType';
+import { taskListType } from './Type/TaskType';
 
 
 //引数の型
 type propsType = {
   updTaskId: string,
+  backFn?: () => void,
   closeFn?: () => void,
+  taskSettingList: inputTaskSettingType[] | undefined,
+  generalDataList: generalDataType[] | undefined,
+  updTask: taskListType | undefined,
 }
 
 
@@ -20,7 +26,6 @@ function TaskEdit(props: propsType) {
 
   const {
     refInfoArray,
-    isLoading,
     isUpDelLoading,
     backPageButtonObj,
     negativeButtonObj,
@@ -30,7 +35,7 @@ function TaskEdit(props: propsType) {
 
 
   //ローディング
-  if (isLoading) {
+  if (!refInfoArray || refInfoArray.length === 0) {
     return <Loading height='50vh' />;
   }
 

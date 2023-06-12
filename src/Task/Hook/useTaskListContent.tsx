@@ -233,7 +233,7 @@ function useTaskListContent() {
             displayTaskObj["editButton"] = <ButtonComponent
                 styleTypeNumber={"BASE"}
                 bgColor={bgButtonColor}
-                title={"編集"}
+                title={"詳細"}
                 onclick={() => { openModal(element.id); }} />;
 
             tmpDisplayTaskList.push(displayTaskObj);

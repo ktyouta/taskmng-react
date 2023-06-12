@@ -8,6 +8,7 @@ import TaskEditForm from './TaskEditForm';
 import React from 'react';
 import useTaskDetail from './Hook/useTaskDetail';
 import TaskView from './TaskView';
+import TaskEdit from './TaskEdit';
 
 
 //引数の型
@@ -50,7 +51,14 @@ function TaskDetail(props: propsType) {
                         //編集
                         case 2:
                             return (
-                                <div></div>
+                                <TaskEdit
+                                    updTaskId={props.updTaskId}
+                                    taskSettingList={taskSettingList}
+                                    generalDataList={generalDataList}
+                                    updTask={updTask}
+                                    backFn={openViewPage}
+                                    closeFn={props.closeFn}
+                                />
                             )
                         default:
                             return (
