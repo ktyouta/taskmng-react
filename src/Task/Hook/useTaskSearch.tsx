@@ -15,6 +15,7 @@ import useSwitch from "../../Common/Hook/useSwitch";
 import useGetGeneralDataList from "../../Common/Hook/useGetGeneralDataList";
 import SpaceComponent from "../../Common/SpaceComponent";
 import React from "react";
+import { parseStrDate } from "../../Common/Function/Function";
 
 
 /**
@@ -103,14 +104,14 @@ function useTaskSearch() {
         if (!generalDataList) {
             return;
         }
-        Object.keys(searchConditionObj).forEach((element) => {
+        Object.keys(searchConditionObj).forEach((key) => {
             taskSearchConditionList.some((item) => {
                 //値がセットされている検索条件
-                if (element === item.id) {
-                    if (!searchConditionObj[element]) {
+                if (key === item.id) {
+                    if (!searchConditionObj[key]) {
                         return true;
                     }
-                    let value = searchConditionObj[element];
+                    let value = searchConditionObj[key];
                     //複数選択項目
                     if (item.listKey) {
                         value = "";
@@ -118,7 +119,7 @@ function useTaskSearch() {
                         tmpSelectLits = generalDataList.filter((list) => {
                             return list.id === item.listKey;
                         });
-                        let valArray = searchConditionObj[element].split(",");
+                        let valArray = searchConditionObj[key].split(",");
                         //選択値に対応したラベルを取得
                         valArray.forEach((val) => {
                             tmpSelectLits.some((list) => {
@@ -133,11 +134,15 @@ function useTaskSearch() {
                             value = value.slice(0, -1);
                         }
                     }
+                    //日付の場合は/を入れる
+                    if(item.type === "date"){
+                        value = parseStrDate(value);
+                    }
                     //画面表示用の検索条件を追加
                     tmpDisplayList.push(
                         <React.Fragment>
                             <div className="display-task-condition-item">
-                                <dt>{`${item.name}：`}</dt>
+                                <dt>{`[${item.name}]：`}</dt>
                                 <dt>{`${value}`}</dt>
                             </div>
                             <SpaceComponent space={"3%"} />

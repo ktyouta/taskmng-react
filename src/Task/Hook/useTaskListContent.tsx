@@ -13,6 +13,7 @@ import { refType } from "../../Common/BaseInputComponent";
 import useQueryClientWapper from "../../Common/Hook/useQueryClientWrapper";
 import useSwitch from "../../Common/Hook/useSwitch";
 import ButtonComponent from "../../Common/ButtonComponent";
+import { parseStrDate } from "../../Common/Function/Function";
 
 
 //画面表示用タスクリスト
@@ -32,18 +33,6 @@ const getNowDate = (now: Date) => {
     return `${year}${month}${date}`;
 };
 
-/**
- * 文字列を日付に変換
- */
-const parseStrDate = (strDate: string) => {
-    const year = strDate.substring(0, 4);
-    const month = strDate.substring(4, 6);
-    const day = strDate.substring(6, 8);
-    if (isNaN(Date.parse(`${year}/${month}/${day}`))) {
-        return "";
-    }
-    return `${year}/${month}/${day}`;
-};
 
 //ステータス
 //未完了

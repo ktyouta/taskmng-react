@@ -37,7 +37,7 @@ function TaskSearch() {
                 <div className="tasksearch-button-area">
                     <ButtonComponent
                         styleTypeNumber="BASE"
-                        title={"クリア"}
+                        title={"リセット"}
                         onclick={clickClearBtn}
                     />
                     <SpaceComponent space={"1%"} />

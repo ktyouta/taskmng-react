@@ -598,14 +598,14 @@
 	},
 	{
 		"id": "51",
-		"title": "検索条件のタイトルを[]で囲む",
+		"title": "検索条件の名称部分を[]で囲む",
 		"content": "",
 		"registerTime": "20230612",
-		"updTime": "20230612",
+		"updTime": "20230613",
 		"limitTime": "20230613",
 		"userId": "a",
 		"priority": "1",
-		"status": "1",
+		"status": "2",
 		"deleteFlg": "0"
 	}
 ]

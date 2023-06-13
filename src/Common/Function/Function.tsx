@@ -69,3 +69,16 @@ export function requestBodyInputCheck(refInputArray: refInfoType[]) {
     checkObj.refInfoArray = tmpRefInputArray;
     return checkObj;
 }
+
+/**
+ * 文字列を日付に変換
+ */
+export const parseStrDate = (strDate: string) => {
+    const year = strDate.substring(0, 4);
+    const month = strDate.substring(4, 6);
+    const day = strDate.substring(6, 8);
+    if (isNaN(Date.parse(`${year}/${month}/${day}`))) {
+        return "";
+    }
+    return `${year}/${month}/${day}`;
+};
