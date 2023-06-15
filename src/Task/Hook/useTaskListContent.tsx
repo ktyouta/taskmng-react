@@ -124,46 +124,45 @@ function useTaskListContent() {
             let status = element["status"];
             //期限
             let limitTime = element["limitTime"];
-            //ステータスと期限が存在しない場合は壊れたデータとして画面に表示しない
-            if (!status || !limitTime) {
-                return;
-            }
             //背景色の設定
             let bgButtonColor: string | undefined = undefined;
-            //期限切れのタスク
-            if (limitTime < nowDate) {
-                switch (status) {
-                    //未対応
-                    case NOCOMP_STATUS:
-                        displayTaskObj.bdColor = "#CD5C5C";
-                        displayTaskObj.titleBgColor = "#F08080";
-                        displayTaskObj.infoBgColor = "#FA8072";
-                        bgButtonColor = "#FA8072";
-                        break;
-                    //保留
-                    case HOLD_STATUS:
-                        displayTaskObj.bdColor = "#FFFF00";
-                        displayTaskObj.titleBgColor = "#FFFF66";
-                        displayTaskObj.infoBgColor = "#FFFF66";
-                        bgButtonColor = "#FFFF66";
-                        break;
-                    default:
-                        break;
+            //ステータスとタスクが存在する場合
+            if (status && limitTime) {
+                //期限切れのタスク
+                if (limitTime < nowDate) {
+                    switch (status) {
+                        //未対応
+                        case NOCOMP_STATUS:
+                            displayTaskObj.bdColor = "#CD5C5C";
+                            displayTaskObj.titleBgColor = "#F08080";
+                            displayTaskObj.infoBgColor = "#FA8072";
+                            bgButtonColor = "#FA8072";
+                            break;
+                        //保留
+                        case HOLD_STATUS:
+                            displayTaskObj.bdColor = "#FFFF00";
+                            displayTaskObj.titleBgColor = "#FFFF66";
+                            displayTaskObj.infoBgColor = "#FFFF66";
+                            bgButtonColor = "#FFFF66";
+                            break;
+                        default:
+                            break;
+                    }
                 }
-            }
-            //完了したタスク
-            if (status === COMP_STATUS) {
-                displayTaskObj.bdColor = "#808080";
-                displayTaskObj.titleBgColor = "#808080";
-                displayTaskObj.infoBgColor = "#808080";
-                bgButtonColor = "#808080";
-            }
-            //対応中
-            else if (status === WORKING_STATUS) {
-                displayTaskObj.bdColor = "#33FFFF";
-                displayTaskObj.titleBgColor = "#66FFFF";
-                displayTaskObj.infoBgColor = "#66FFCC";
-                bgButtonColor = "#66FFCC";
+                //完了したタスク
+                if (status === COMP_STATUS) {
+                    displayTaskObj.bdColor = "#808080";
+                    displayTaskObj.titleBgColor = "#808080";
+                    displayTaskObj.infoBgColor = "#808080";
+                    bgButtonColor = "#808080";
+                }
+                //対応中
+                else if (status === WORKING_STATUS) {
+                    displayTaskObj.bdColor = "#33FFFF";
+                    displayTaskObj.titleBgColor = "#66FFFF";
+                    displayTaskObj.infoBgColor = "#66FFCC";
+                    bgButtonColor = "#66FFCC";
+                }
             }
 
             //画面に表示するオブジェクトを作成

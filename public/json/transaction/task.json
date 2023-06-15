@@ -421,11 +421,11 @@
 		"title": "閲覧と編集を切り替えられるようにする",
 		"content": "タスクの詳細画面で編集ボタンを押下した際に編集可能になるようにする。",
 		"registerTime": "20230603",
-		"updTime": "20230610",
+		"updTime": "20230615",
 		"limitTime": "20230610",
 		"userId": "a",
 		"priority": "2",
-		"status": "4",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
@@ -577,11 +577,11 @@
 		"title": "期限を設定していないデータが表示されないバグの修正",
 		"content": "",
 		"registerTime": "20230612",
-		"updTime": "20230612",
+		"updTime": "20230615",
 		"limitTime": "20230613",
 		"userId": "a",
 		"priority": "1",
-		"status": "1",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
