@@ -25,6 +25,7 @@ function Task() {
     <div className="task">
       <Routes>
         <Route path="/" element={<TaskMain />} />
+        {/* 詳細のルーティング */}
         {
           taskList && taskList.length > 0 && taskList.map((element) => {
             return (

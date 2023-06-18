@@ -7,6 +7,8 @@ import { authInfoType, searchConditionType, taskListType } from "./Type/type";
 
 //タスクファイルのパス
 const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
+//タスクIDの接頭辞
+const PRE_TASK_ID = `TASKID-`;
 
 /**
  * タスクの取得
@@ -253,8 +255,9 @@ function createAddTaskData(fileDataObj: taskListType[], req: any, authResult: au
 
     let fileDataObjLen = fileDataObj.length;
     //IDを取得
-    let id = fileDataObjLen === 0 ? "1" : fileDataObj[fileDataObjLen - 1]['id'];
-    body['id'] = `${parseInt(id) + 1}`;
+    let id = fileDataObjLen === 0 ? "1" : fileDataObj[fileDataObjLen - 1]['id'].replace(`${PRE_TASK_ID}`, "");
+    //新しいIDを割り当てる
+    body['id'] = `${PRE_TASK_ID}${parseInt(id) + 1}`;
     fileDataObj.push(body);
     return fileDataObj;
 }

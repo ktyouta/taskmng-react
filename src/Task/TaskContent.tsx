@@ -27,6 +27,10 @@ const ContentTitleDiv = styled.div<{ titleBgColor?: string }>`
     padding-left: 10px;
     background-color: ${({ titleBgColor }) => (titleBgColor ?? "#d3d3d3")};
     cursor:pointer;
+    &:hover {
+        color: blue;
+        text-decoration: underline;
+    }
 `;
 
 //コンテンツのスタイル

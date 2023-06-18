@@ -66,13 +66,13 @@
     "taskEditSetting": [
         {
             "id": "id",
-            "name": "ID",
+            "name": "TASKID",
             "type": "input",
             "length": 100,
             "value": "",
             "disabled": true,
             "isNewCreateVisible": false,
-            "isHidden": true,
+            "isHidden": false,
             "isEditableSetting": false,
             "isRequired": false
         },
