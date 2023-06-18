@@ -93,7 +93,7 @@ function useTaskView(props: propsType) {
 
     return {
         viewTask,
-        backPageButtonObj: { title: `閉じる`, type: `BASE`, onclick: backPageButtonFunc } as buttonObjType,
+        backPageButtonObj: { title: `閉じる`, type: `BASE`, onclick: props.closeFn ? backPageButtonFunc : undefined } as buttonObjType,
         positiveButtonObj: { title: `編集`, type: `RUN`, onclick: props.openEditPage } as buttonObjType,
     }
 }

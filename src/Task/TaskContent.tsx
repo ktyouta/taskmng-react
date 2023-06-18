@@ -26,6 +26,7 @@ const ContentTitleDiv = styled.div<{ titleBgColor?: string }>`
     font-size: 20px;
     padding-left: 10px;
     background-color: ${({ titleBgColor }) => (titleBgColor ?? "#d3d3d3")};
+    cursor:pointer;
 `;
 
 //コンテンツのスタイル
@@ -56,6 +57,7 @@ function TaskContent(props: taskContentDisplayType) {
             {/* タイトル */}
             <ContentTitleDiv
                 titleBgColor={props.titleBgColor}
+                onClick={props.onClickTitle}
             >
                 {props.title}
             </ContentTitleDiv>

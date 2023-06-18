@@ -527,13 +527,13 @@
 	{
 		"id": "45",
 		"title": "動的なフォームの作成処理の見直し",
-		"content": "フォームの非表示項目をリストに詰め込まないように修正する。",
+		"content": "フォームの非表示項目をリストに詰め込まないように修正する。\n2023/6/17　保留に変更",
 		"registerTime": "20230611",
-		"updTime": "20230611",
+		"updTime": "20230617",
 		"limitTime": "20230613",
 		"userId": "a",
 		"priority": "1",
-		"status": "1",
+		"status": "3",
 		"deleteFlg": "0"
 	},
 	{
@@ -565,12 +565,12 @@
 		"title": "削除テスト",
 		"content": "",
 		"registerTime": "20230612",
-		"updTime": "20230612",
+		"updTime": "20230617",
 		"limitTime": "",
 		"userId": "a",
 		"priority": "1",
 		"status": "1",
-		"deleteFlg": "0"
+		"deleteFlg": "1"
 	},
 	{
 		"id": "49",
@@ -606,6 +606,18 @@
 		"userId": "a",
 		"priority": "1",
 		"status": "2",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "52",
+		"title": "タスクのタイトルをクリックした際に詳細画面に遷移させる",
+		"content": "",
+		"registerTime": "20230617",
+		"updTime": "20230617",
+		"limitTime": "20230618",
+		"userId": "a",
+		"priority": "1",
+		"status": "1",
 		"deleteFlg": "0"
 	}
 ]

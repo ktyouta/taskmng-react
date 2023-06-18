@@ -65,6 +65,8 @@ function useTaskListContent() {
     });
     //現在日時
     const nowDate = getNowDate(new Date());
+    //ルーティング用
+    const navigate = useNavigate();
 
     //タスクリストを取得
     const { data: taskList } = useQueryWrapper<taskListType[]>(
@@ -116,7 +118,8 @@ function useTaskListContent() {
                 titleBgColor: undefined,
                 infoBgColor: undefined,
                 editButton: <></>,
-                content: []
+                content: [],
+                onClickTitle: () => { },
             };
 
             //タスクの状態に応じて背景色を変える
@@ -179,6 +182,10 @@ function useTaskListContent() {
                 //タイトル
                 if (item.id === "title") {
                     displayTaskObj.title = element[item.id];
+                    //タイトルクリック時のメソッド
+                    displayTaskObj.onClickTitle = () => {
+                        navigate(`/task/${element.id}`);
+                    };
                     return;
                 }
                 //非表示項目

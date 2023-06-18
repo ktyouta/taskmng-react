@@ -16,6 +16,8 @@ import useGetGeneralDataList from "../../Common/Hook/useGetGeneralDataList";
 import SpaceComponent from "../../Common/SpaceComponent";
 import React from "react";
 import { parseStrDate } from "../../Common/Function/Function";
+import { taskSearchConditionObjAtom } from "./useTask";
+import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
 
 
 /**
@@ -44,7 +46,7 @@ function useTaskSearch() {
     //検索条件参照用リスト
     const [refInfoArray, setRefInfoArray] = useState<refInfoType[]>([]);
     //検索条件用オブジェクト
-    const [searchConditionObj, setSearchConditionObj] = useState<{ [key: string]: string }>({});
+    const [searchConditionObj, setSearchConditionObj] = useAtom(taskSearchConditionObjAtom);
 
     //検索条件リスト
     const { data: taskSearchConditionList } = useQueryWrapper({
@@ -53,44 +55,10 @@ function useTaskSearch() {
     });
     //汎用詳細リスト
     const { generalDataList } = useGetGeneralDataList();
-
-
     /**
      * 初期表示タスク取得用URLと検索条件オブジェクトの作成
      */
-    const createDefaultUrlCondition = () => {
-        if (!taskSearchConditionList) {
-            return;
-        }
-        let tmpCondition: { [key: string]: string } = {};
-        let tmpUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`;
-        let query = "?";
-        taskSearchConditionList.forEach((element) => {
-            //値が存在するプロパティをクエリストリングに設定
-            if (!element.value) {
-                return;
-            }
-            if (query !== "?") {
-                query += "&";
-            }
-            query += `${element.id}=${element.value}`;
-            tmpCondition[element.id] = element.value;
-        });
-        if (query.length > 1) {
-            tmpUrl += query;
-        }
-        //初期表示タスク取得用URLの作成
-        setTaskListUrl(tmpUrl);
-        //検索条件オブジェクトの作成
-        setSearchConditionObj(tmpCondition);
-    }
-
-
-    //初期表示タスク取得用URLと検索条件オブジェクトの作成
-    useEffect(() => {
-        createDefaultUrlCondition();
-    }, [taskSearchConditionList]);
-
+    const { createDefaultUrlCondition } = useCreateDefaultTaskUrlCondition(taskSearchConditionList);
 
     //現在の検索条件(画面表示用)
     const displaySearchConditionList = useMemo(() => {
@@ -135,7 +103,7 @@ function useTaskSearch() {
                         }
                     }
                     //日付の場合は/を入れる
-                    if(item.type === "date"){
+                    if (item.type === "date") {
                         value = parseStrDate(value);
                     }
                     //画面表示用の検索条件を追加
