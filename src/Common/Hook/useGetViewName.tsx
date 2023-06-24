@@ -3,11 +3,12 @@ import { JsxElement } from 'typescript';
 import useChangeUrlFunction from './useChangeUrlFunction';
 
 export type menuListType = {
-    name:string,
-    url:string,
-    component:string,
-    componentPath:string,
-    auth:string,
+    name: string,
+    url: string,
+    component: string,
+    componentPath: string,
+    auth: string,
+    isHidden: boolean,
 }
 
 type propsType = {

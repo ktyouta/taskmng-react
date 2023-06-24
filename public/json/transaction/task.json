@@ -613,11 +613,11 @@
 		"title": "タスクのタイトルをクリックした際に詳細画面に遷移させる",
 		"content": "",
 		"registerTime": "20230617",
-		"updTime": "20230618",
+		"updTime": "20230624",
 		"limitTime": "20230618",
 		"userId": "a",
 		"priority": "1",
-		"status": "4",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
@@ -660,6 +660,18 @@
 		"id": "TASKID-56",
 		"title": "メニューの設定に表示フラグを持たせる",
 		"content": "",
+		"registerTime": "20230624",
+		"updTime": "20230624",
+		"limitTime": "20230625",
+		"userId": "a",
+		"priority": "1",
+		"status": "4",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-57",
+		"title": "タスク詳細画面からログアウトできない",
+		"content": "タスクの詳細画面でログアウトを押下するとトップページに遷移する。\nリロードをするとトップに遷移する。",
 		"registerTime": "20230624",
 		"updTime": "20230624",
 		"limitTime": "20230625",

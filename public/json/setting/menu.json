@@ -4,34 +4,39 @@
         "url": "/",
         "component":"Top",
         "componentPath": "/",
-        "auth":"1"
+        "auth":"1",
+        "isHidden":false
     },
     {
         "name": "マスタ編集",
         "url": "/master",
         "component":"Master",
         "componentPath": "/master/*",
-        "auth":"2"
+        "auth":"2",
+        "isHidden":false
     },
     {
         "name": "新規マスタ追加",
         "url": "/addmaster",
         "component":"AddMaster",
         "componentPath": "/addmaster/*",
-        "auth":"2"
+        "auth":"2",
+        "isHidden":false
     },
     {
         "name": "タスク管理",
         "url": "/task",
         "component":"Task",
         "componentPath": "/task/*",
-        "auth":"2"
+        "auth":"2",
+        "isHidden":false
     },
     {
         "name": "設定",
         "url": "/setting",
         "component":"Setting",
         "componentPath": "/setting/*",
-        "auth":"3"
+        "auth":"3",
+        "isHidden":false
     }
 ]

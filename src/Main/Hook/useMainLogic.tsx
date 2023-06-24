@@ -97,6 +97,9 @@ function useMainLogic() {
             }
             const Component = jsxList[element.component];
             const path = element.componentPath;
+            if (element.isHidden) {
+                return <React.Fragment />;
+            }
             return <Route key={path} path={path} element={<Provider>{Component}</Provider>} />
         });
 
