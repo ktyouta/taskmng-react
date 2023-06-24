@@ -68,7 +68,6 @@ function TaskView(props: propsType) {
         <HeaderDiv>
           <LabelComponent
             title="タスク詳細"
-            width="100%"
           />
         </HeaderDiv>
         <MainAreaDiv>

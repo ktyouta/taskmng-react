@@ -101,7 +101,7 @@ function useMainLogic() {
         });
 
         //notfoundページ
-        tmpComponentList.push(<Route key={"*"} path="*" element={<NotFoundComponent />} />);
+        tmpComponentList.push(<Route key={"*"} path="*" element={<NotFoundComponent backUrl='/' />} />);
         return tmpComponentList;
     }, [menu, userInfo]);
 

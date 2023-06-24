@@ -14,6 +14,7 @@ import useQueryClientWapper from "../../Common/Hook/useQueryClientWrapper";
 import useSwitch from "../../Common/Hook/useSwitch";
 import ButtonComponent from "../../Common/ButtonComponent";
 import { parseStrDate } from "../../Common/Function/Function";
+import { detailRoutingIdAtom } from "./useTask";
 
 
 //画面表示用タスクリスト
@@ -59,6 +60,8 @@ function useTaskListContent() {
     const [errMessage, setErrMessage] = useState(``);
     //更新用タスクID
     const [updTaskId, setUpdTaskId] = useState(``);
+    //詳細画面へのルーティング用ID
+    const setDetailRoutingId = useSetAtom(detailRoutingIdAtom);
     //汎用詳細リスト
     const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
@@ -182,10 +185,6 @@ function useTaskListContent() {
                 //タイトル
                 if (item.id === "title") {
                     displayTaskObj.title = element[item.id];
-                    //タイトルクリック時のメソッド
-                    displayTaskObj.onClickTitle = () => {
-                        navigate(`/task/${element.id}`);
-                    };
                     return;
                 }
                 //非表示項目
@@ -223,6 +222,12 @@ function useTaskListContent() {
                     value: element[item.id]
                 });
             });
+
+            //タイトルクリック時に詳細画面に遷移する
+            displayTaskObj.onClickTitle = () => {
+                setDetailRoutingId(displayTaskObj.id);
+                navigate(`/task/${displayTaskObj.id}`);
+            };
 
             //編集ボタン
             displayTaskObj["editButton"] = <ButtonComponent

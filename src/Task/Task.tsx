@@ -10,6 +10,7 @@ import ENV from '../env.json';
 import TaskMain from './TaskMain';
 import useTask from './Hook/useTask';
 import TaskDetail from './TaskDetail';
+import NotFoundComponent from '../NotFound/NotFoundComponent';
 
 
 function Task() {
@@ -17,8 +18,7 @@ function Task() {
   console.log("Task render");
 
   const {
-    taskList,
-    errMessage,
+    detailRoutingId,
   } = useTask();
 
   return (
@@ -27,12 +27,9 @@ function Task() {
         <Route path="/" element={<TaskMain />} />
         {/* 詳細のルーティング */}
         {
-          taskList && taskList.length > 0 && taskList.map((element) => {
-            return (
-              <Route path={element.id} key={element.id} element={<TaskDetail updTaskId={element.id} />} />
-            )
-          })
+          detailRoutingId && <Route path={detailRoutingId} element={<TaskDetail updTaskId={detailRoutingId} />} />
         }
+        <Route key={"*"} path="*" element={<NotFoundComponent backUrl='/task' />} />
       </Routes>
     </div>
   );
