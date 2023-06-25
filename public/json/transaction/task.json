@@ -637,11 +637,11 @@
 		"title": "動的フォームにラベルを追加",
 		"content": "",
 		"registerTime": "20230618",
-		"updTime": "20230618",
+		"updTime": "20230625",
 		"limitTime": "20230621",
 		"userId": "a",
 		"priority": "2",
-		"status": "4",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
@@ -649,11 +649,11 @@
 		"title": "タスクの詳細画面でリロードした際にメニューが未選択になるバグの修正",
 		"content": "",
 		"registerTime": "20230618",
-		"updTime": "20230618",
+		"updTime": "20230625",
 		"limitTime": "20230621",
 		"userId": "a",
 		"priority": "2",
-		"status": "4",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{

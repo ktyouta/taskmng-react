@@ -28,10 +28,17 @@ function useGetViewName(props: propsType) {
     //メニューの変更
     const changeSelectedMenu = () => {
         if (props.menu && props.menu.length > 0) {
+            let pathArray = window.location.pathname.split("/");
+            if (pathArray.length < 2) {
+                return;
+            }
+            //大機能部分を取得
+            let mainPath = `/${pathArray[1]}`;
             props.menu.forEach((element) => {
                 //urlが一致する場合にヘッダタイトルを変更
-                if (element.url === window.location.pathname) {
+                if (element.url === mainPath) {
                     setSelectedMenu(element.name);
+                    return;
                 }
             })
         }

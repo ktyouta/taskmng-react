@@ -47,7 +47,6 @@ function TaskEditForm(props: propsType) {
             <HeaderDiv>
                 <LabelComponent
                     title={props.title}
-                    width="100%"
                 />
             </HeaderDiv>
             <MainAreaDiv>
