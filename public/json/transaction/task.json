@@ -661,11 +661,11 @@
 		"title": "メニューの設定に表示フラグを持たせる",
 		"content": "",
 		"registerTime": "20230624",
-		"updTime": "20230624",
+		"updTime": "20230625",
 		"limitTime": "20230625",
 		"userId": "a",
 		"priority": "1",
-		"status": "4",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
@@ -677,7 +677,7 @@
 		"limitTime": "20230625",
 		"userId": "a",
 		"priority": "1",
-		"status": "4",
+		"status": "2",
 		"deleteFlg": "0"
 	}
 ]

@@ -92,7 +92,7 @@ export type refInfoType = {
 }
 
 //inputのタイプ
-type inputType = "input" | "select" | "radio" | "date" | "textarea" | "checkbox" | "number";
+type inputType = "input" | "select" | "radio" | "date" | "textarea" | "checkbox" | "number" | "label";
 
 //マスタ編集画面の入力欄の設定
 export type inputMasterSettingType = {

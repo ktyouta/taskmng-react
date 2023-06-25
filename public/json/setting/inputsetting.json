@@ -67,7 +67,7 @@
         {
             "id": "id",
             "name": "TASKID",
-            "type": "input",
+            "type": "label",
             "length": 100,
             "value": "",
             "disabled": true,
@@ -104,7 +104,7 @@
         {
             "id": "registerTime",
             "name": "登録日付",
-            "type": "input",
+            "type": "label",
             "length": 100,
             "value": "",
             "disabled": true,
@@ -116,7 +116,7 @@
         {
             "id": "updTime",
             "name": "更新日付",
-            "type": "input",
+            "type": "label",
             "length": 500,
             "value": "",
             "disabled": true,

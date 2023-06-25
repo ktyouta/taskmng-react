@@ -10,6 +10,8 @@ import ComboComponent from './ComboComponent';
 import LabelCheckBoxListComponent from './LabelCheckBoxListComponent';
 import NumberPickerComponent from './NumberPickerComponent';
 import styled from 'styled-components';
+import BaseInputComponent from './BaseInputComponent';
+import LabelComponent from './LabelComponent';
 
 
 //外側のスタイル
@@ -77,10 +79,18 @@ function DynamicForm(props: propsType) {
                                 {
                                     (() => {
                                         switch (element.type) {
+                                            //ラベル
+                                            case "label":
+                                                return (
+                                                    <LabelComponent
+                                                        title={element.value}
+                                                        width='auto'
+                                                    />
+                                                );
                                             //テキストボックス
                                             case "input":
                                                 return (
-                                                    <LabelInputComponent
+                                                    <BaseInputComponent
                                                         value={element.value}
                                                         lenght={element.length}
                                                         disabled={element.disabled}

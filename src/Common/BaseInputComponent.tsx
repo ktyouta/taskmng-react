@@ -10,6 +10,7 @@ type propsType = {
     titleWidth?: string,
     textWidth?: string,
     bgColor?: string,
+    disabled?: boolean,
 }
 
 //参照の型
@@ -56,6 +57,7 @@ const BaseInputComponent = forwardRef<refType, propsType>((props, ref) => {
             value={inputValue}
             textWidth={props.textWidth}
             bgColor={props.bgColor}
+            disabled={props.disabled}
         />
     );
 })
