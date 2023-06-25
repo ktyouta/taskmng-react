@@ -673,11 +673,11 @@
 		"title": "タスク詳細画面からログアウトできない",
 		"content": "タスクの詳細画面でログアウトを押下するとトップページに遷移する。\nリロードをするとトップに遷移する。",
 		"registerTime": "20230624",
-		"updTime": "20230624",
+		"updTime": "20230625",
 		"limitTime": "20230625",
 		"userId": "a",
 		"priority": "1",
-		"status": "1",
+		"status": "4",
 		"deleteFlg": "0"
 	}
 ]

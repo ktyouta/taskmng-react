@@ -73,7 +73,7 @@ function useCheckAuth() {
     //認証失敗
     if (isError) {
         Object.keys(cookie).forEach((key) => {
-            removeCookie(key);
+            removeCookie(key, { path: '/' });
         });
     }
 

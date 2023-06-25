@@ -52,7 +52,7 @@ function useLoginLogic() {
             return;
         }
         //トークンをクッキーにセット
-        setCookie(ENV.AUTHENTICATION.cookie, data.json?.token);
+        setCookie(ENV.AUTHENTICATION.cookie, data.json?.token, { path: '/' });
         navigate(`/`);
     }
 

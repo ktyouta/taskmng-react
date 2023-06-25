@@ -17,7 +17,7 @@ function useHeader() {
     //ヘッダタイトル
     const [headerTile] = useGetViewName({ menu });
     //認証クッキー
-    const [, , removeCookie] = useCookies();
+    const [cookie, , removeCookie] = useCookies();
     //ルーティング用
     const navigate = useNavigate();
 
@@ -25,7 +25,9 @@ function useHeader() {
      * ログアウト
      */
     function logout() {
-        removeCookie(ENV.AUTHENTICATION.cookie);
+        Object.keys(cookie).forEach((key) => {
+            removeCookie(key, { path: '/' });
+        });
         navigate(`/login`);
     }
 
