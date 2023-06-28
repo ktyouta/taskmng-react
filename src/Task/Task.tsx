@@ -27,9 +27,20 @@ function Task() {
         <Route path="/" element={<TaskMain />} />
         {/* 詳細のルーティング */}
         {
-          detailRoutingId && <Route path={detailRoutingId} element={<TaskDetail updTaskId={detailRoutingId} />} />
+          detailRoutingId &&
+          <React.Fragment>
+            {
+              (() => {
+                switch (detailRoutingId) {
+                  case "ZZZ":
+                    return <Route key={"*"} path="*" element={<NotFoundComponent backUrl='/task' />} />
+                  default:
+                    return <Route path={detailRoutingId} element={<TaskDetail updTaskId={detailRoutingId} />} />
+                }
+              })()
+            }
+          </React.Fragment>
         }
-        <Route key={"*"} path="*" element={<NotFoundComponent backUrl='/task' />} />
       </Routes>
     </div>
   );

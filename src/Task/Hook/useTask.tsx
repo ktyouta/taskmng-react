@@ -57,7 +57,8 @@ function useTask() {
         let taskId = pathArray[2];
         //IDチェック
         if (isNaN(Number(taskId.replace(PRE_TASK_ID, "")))) {
-            return;
+            //ダミーをセット
+            taskId = "ZZZ";
         }
         setDetailRoutingId(taskId);
     }, []);

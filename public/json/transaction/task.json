@@ -4,11 +4,11 @@
 		"registerTime": "20230505",
 		"title": "テストタスク",
 		"content": "",
-		"updTime": "20230610",
+		"updTime": "20230626",
 		"limitTime": "20230505",
 		"userId": "admin",
 		"priority": "1",
-		"status": "1",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
@@ -678,6 +678,18 @@
 		"userId": "a",
 		"priority": "1",
 		"status": "2",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-58",
+		"title": "タスク詳細のURLを直打ちした際に一瞬だけ「NotFound」に遷移する",
+		"content": "",
+		"registerTime": "20230628",
+		"updTime": "20230628",
+		"limitTime": "20230628",
+		"userId": "a",
+		"priority": "1",
+		"status": "1",
 		"deleteFlg": "0"
 	}
 ]
