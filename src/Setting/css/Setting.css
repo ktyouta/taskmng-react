@@ -1,7 +1,4 @@
 .setting{
-    padding-top:1%;
-}
-
-.setting-title{
-    font-size: 20px;
+    height: 100%;
+    display: flex;
 }

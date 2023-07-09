@@ -16,7 +16,7 @@
   border: 1px solid #808080;
 }
 
-ul.menu-ul {
+.menu-ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -28,7 +28,7 @@ ul.menu-ul {
   padding-top: 19%;
 }
 
-ul.menu-ul li a {
+.menu-ul li a {
   display: block;
   color: #000000;
   padding: 8px 16px;
@@ -37,12 +37,12 @@ ul.menu-ul li a {
   /* border-bottom: 1px solid #808080; */
 }
 
-ul.menu-ul li a.active {
+.menu-ul li a.active {
   background-color: #da3c41;
   color: white;
 }
 
-ul.menu-ul li a:hover:not(.active) {
+.menu-ul li a:hover:not(.active) {
   background-color: #1b2538;
   color: white;
 }

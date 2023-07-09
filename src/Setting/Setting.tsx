@@ -3,19 +3,23 @@ import logo from './logo.svg';
 import '../App.css';
 import './css/Setting.css';
 import { useAtomValue } from 'jotai';
+import SettingMenu from './SettingMenu';
+import SettingMain from './SettingMain';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
 function Setting() {
 
-  console.log("top render");
-
-  //全マスタのリスト(マスタメンテ画面のコンボ用)
-  //const masterDataList = useAtomValue(masterDataListAtom);
+  console.log("setting render");
 
   return (
     <div className="setting">
-      <div className="setting-title">設定</div>
+      <SettingMenu
+        width='15%'
+      />
+      <SettingMain
+        width='85%'
+      />
     </div>
   );
 }

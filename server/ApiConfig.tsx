@@ -38,6 +38,14 @@ export const config = {
         {
             callUrl:ENV.TASKCONTENTSETTING,
             fileUrl:"./public/json/setting/taskcontentsetting.json"
+        },
+        {
+            callUrl:ENV.SETTINGMENU,
+            fileUrl:"./public/json/setting/settingmenu.json"
+        },
+        {
+            callUrl:ENV.CUSTOMATTRIBUTE,
+            fileUrl:"./public/json/setting/customattribute.json"
         }
     ]
 };

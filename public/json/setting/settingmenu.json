@@ -1,0 +1,26 @@
+[
+    {
+        "name": "カスタム属性",
+        "url": "/setting/custom",
+        "component": "SettingCustom",
+        "componentPath": "/custom",
+        "auth": "3",
+        "isHidden": false
+    },
+    {
+        "name": "カテゴリー",
+        "url": "/setting/category",
+        "component": "SettingCategory",
+        "componentPath": "/category",
+        "auth": "3",
+        "isHidden": false
+    },
+    {
+        "name": "ユーザー",
+        "url": "/setting/user",
+        "component": "SettingUser",
+        "componentPath": "/user",
+        "auth": "3",
+        "isHidden": false
+    }
+]

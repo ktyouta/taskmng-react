@@ -1,0 +1,37 @@
+import React, { useContext, useEffect } from 'react';
+import logo from './logo.svg';
+import { useAtomValue } from 'jotai';
+import HorizonLabelItemComponent from '../../Common/HorizonLabelItemComponent';
+import BaseInputComponent from '../../Common/BaseInputComponent';
+import styled from 'styled-components';
+import SettingCustomMain from './SettingCustomEditMain';
+import SettingCustomFooter from './SettingCustomEditFooter';
+import SettingCustomEdit from './SettingCustomEdit';
+//import { masterDataListAtom } from '../Main/Hook/useMainLogic';
+import { Routes, Route, Navigate } from "react-router-dom";
+import SettingCustomTop from './SettingCustomTop';
+
+
+//外側のスタイル
+const OuterDiv = styled.div`
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+`;
+
+
+function SettingCustom() {
+
+  console.log("SettingCustom render");
+
+  return (
+    <OuterDiv>
+      <Routes>
+        <Route path="/" element={<SettingCustomTop />} />
+        <Route path="edit" element={<SettingCustomEdit />} />
+      </Routes>
+    </OuterDiv>
+  );
+}
+
+export default SettingCustom;

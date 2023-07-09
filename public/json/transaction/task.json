@@ -685,11 +685,11 @@
 		"title": "タスク詳細のURLを直打ちした際に一瞬だけ「NotFound」に遷移する",
 		"content": "",
 		"registerTime": "20230628",
-		"updTime": "20230628",
+		"updTime": "20230702",
 		"limitTime": "20230628",
 		"userId": "a",
 		"priority": "1",
-		"status": "1",
+		"status": "2",
 		"deleteFlg": "0"
 	}
 ]
