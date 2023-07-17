@@ -25,7 +25,7 @@ function SettingMain(props: propsType) {
 
   console.log("SettingMain render");
 
-  const { settingMenu } = useSettingMain();
+  const { settingRouteList } = useSettingMain();
 
   return (
     <OuterDiv
@@ -33,18 +33,9 @@ function SettingMain(props: propsType) {
     >
       <Routes>
         {
-          settingMenu &&
-          settingMenu.map((element, index) => {
-            let tmpPath = element.url.replace("/setting","");
-            if (index === 0) {
-              return (
-                <React.Fragment>
-                  <Route key={element.url} path={tmpPath} element={<SettingCustom/>} />
-                  <Route path="/" element={<Navigate to={element.url} />} />
-                </React.Fragment>
-              );
-            }
-            return <Route key={element.url} path={tmpPath} element={<></>} />;
+          settingRouteList &&
+          settingRouteList.map((element) => {
+            return element;
           })
         }
       </Routes>

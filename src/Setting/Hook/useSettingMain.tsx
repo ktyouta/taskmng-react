@@ -1,11 +1,24 @@
 import useGetViewName, { menuListType } from '../../Common/Hook/useGetViewName';
 import { clientMenuListAtom, userInfoAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import ENV from '../../env.json';
+import { Routes, Route, Navigate } from "react-router-dom";
+import { JsxElement } from 'typescript';
+import { jsxObjType } from '../../Common/Type/CommonType';
+import SettingCustom from '../SettingCustom/SettingCustom';
+import SettingCategory from '../SettingCategory/SettingCategory';
+import SettingUser from '../SettingUser/SettingUser';
+
+
+const jsxList: jsxObjType = {
+    "SettingCustom": <SettingCustom />,
+    "SettingCategory": <SettingCategory />,
+    "SettingUser": <SettingUser />,
+}
 
 
 function useSettingMain() {
@@ -17,8 +30,30 @@ function useSettingMain() {
         }
     );
 
-    return { settingMenu }
+    //設定のルーティングリスト
+    let settingRouteList = useMemo(() => {
+        if (!settingMenu) {
+            return;
+        }
+        let tmpSettingRouteList = settingMenu.map((element, index) => {
+            let tmpPath = element.url.replace("/setting", "");
+            const Component = jsxList[element.component];
+            if (!Component) {
+                return;
+            }
+            if (index === 0) {
+                return (
+                    <React.Fragment>
+                        <Route key={element.url} path={tmpPath} element={Component} />
+                        <Route path="/" element={<Navigate to={element.url} />} />
+                    </React.Fragment>
+                );
+            }
+            return <Route key={element.url} path={tmpPath} element={Component} />;
+        }).filter(e => e);
+        return tmpSettingRouteList;
+    }, [settingMenu]);
 
+    return { settingRouteList }
 }
-
 export default useSettingMain;

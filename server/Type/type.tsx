@@ -51,3 +51,11 @@ export type searchConditionType = {
     listKey: string,
     value: string,
 }
+
+//カスタム属性の型
+export type customAttributeType = {
+    id: string,
+    name: string,
+    format: string,
+    deleteFlg: string,
+}

@@ -185,3 +185,8 @@ export type refInputCheckType = {
     refInfoArray: refInfoType[],
     errFlg: boolean,
 }
+
+//ルーティング用
+export type jsxObjType = {
+    [key: string]: JSX.Element
+}

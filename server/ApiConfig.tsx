@@ -42,10 +42,6 @@ export const config = {
         {
             callUrl:ENV.SETTINGMENU,
             fileUrl:"./public/json/setting/settingmenu.json"
-        },
-        {
-            callUrl:ENV.CUSTOMATTRIBUTE,
-            fileUrl:"./public/json/setting/customattribute.json"
         }
     ]
 };

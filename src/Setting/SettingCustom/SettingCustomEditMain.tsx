@@ -41,8 +41,6 @@ function SettingCustomEditMain(props: propsType) {
                     <BaseInputComponent
                         value=""
                         lenght={50}
-                    //disabled={element.disabled}
-                    //bgColor={bgColor}
                     />
                 </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
@@ -51,8 +49,6 @@ function SettingCustomEditMain(props: propsType) {
                     <BaseInputComponent
                         value=""
                         lenght={50}
-                    //disabled={element.disabled}
-                    //bgColor={bgColor}
                     />
                 </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent

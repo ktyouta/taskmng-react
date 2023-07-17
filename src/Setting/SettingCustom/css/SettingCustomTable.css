@@ -1,0 +1,96 @@
+.tablecomponent {
+    max-height: 80%;
+    overflow: auto;
+    overflow-x: hidden;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tablecomponent-table-tag {
+    width: 95%;
+    margin-left: 3%;
+    border: 1px solid #696969;
+    /* border-collapse:collapse; */
+    border-collapse: separate;
+    border-spacing: 0;
+    /* border-radius: 20px; */
+}
+
+.tablecomponent-table-tag th {
+    /* border: 2px solid #696969; */
+    /* border: 1px solid #696969; */
+    border-bottom: 1px solid #696969;
+    height: 50px;
+    background-color: #ddd;
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+
+.tablecomponent-table-tag td {
+    /* border: 2px solid #696969; */
+    /* border: 1px solid #696969; */
+    border-bottom: 1px solid #696969;
+    height: 50px;
+}
+
+.tablecomponent-table-tag tr:last-child td {
+    border-bottom: none;
+}
+
+.tablecomponent-thead tr {
+    cursor: pointer;
+}
+
+.tablecomponent-tbody tr:hover {
+    background-color: #66FFFF;
+}
+
+/* .selected {
+	background-color: #00CCCC !important;
+} */
+
+.tablecomponent-tbody .selected {
+    background-color: #00CCCC !important;
+}
+
+/* .tablecomponent-table-tag tr:first-child th:first-child {
+    z-index: 1;
+} */
+
+/* 左上 */
+/* .tablecomponent-table-tag thead th:first-child {
+    border-radius: 20px 0 0 0;
+} */
+
+/* 右上 */
+/* .tablecomponent-table-tag thead th:last-child {
+    border-radius: 0 20px 0 0;
+} */
+
+/* 左下 */
+/* .tablecomponent-table-tag tbody tr:last-child td:first-child {
+    border-radius: 0 0 0 20px;
+} */
+
+/* 右下 */
+/* .tablecomponent-table-tag tbody tr:last-child td:last-child {
+    border-radius: 0 0 20px 0;
+} */
+
+/* .tablecomponent-table-tag tbody td {
+    border-top-width: 0;
+} */
+
+/* 左のborderを取りやめ。設定しているborderを削除でもOK */
+/* .tablecomponent-table-tag th,
+.tablecomponent-table-tag td {
+    border-left-width: 0;
+} */
+
+/* ただし、一番左は必要 */
+/* .tablecomponent-table-tag th:first-child,
+.tablecomponent-table-tag td:first-child {
+    border-left-width: 2px;
+} */

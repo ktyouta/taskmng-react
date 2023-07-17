@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import SettingCustomTable from './SettingCustomTable';
+import ButtonComponent from '../../Common/ButtonComponent';
+import useSettingCustomTop from './Hook/useSettingCustomTop';
+import LabelComponent from '../../Common/LabelComponent';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -10,18 +13,47 @@ const OuterDiv = styled.div`
     min-height: 100%;
 `;
 
+//ボタンのスタイル
+const BtnDiv = styled.div`
+    width: 40%;
+    margin-top:1%;
+    margin-bottom:1%;
+`;
+
+//タイトルのスタイル
+const TitleDiv = styled.div`
+    height: 7%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+`;
+
 
 function SettingCustomTop() {
 
   console.log("SettingCustomTop render");
 
+  const { createNewCustomAttribute } = useSettingCustomTop();
+
   return (
     <OuterDiv>
-      {/* <SettingCustomEdit /> */}
-      <div>
-        カスタム属性一覧
-      </div>
-      <SettingCustomTable />
+      <TitleDiv>
+        <LabelComponent
+          title={`カスタム属性一覧`}
+          width="100%"
+        />
+      </TitleDiv>
+      <BtnDiv>
+        <ButtonComponent
+          styleTypeNumber="RUN"
+          title={"カスタム属性を追加"}
+          onclick={createNewCustomAttribute}
+        />
+      </BtnDiv>
+      <SettingCustomTable
+        height='50%'
+        width='85%'
+      />
     </OuterDiv>
   );
 }

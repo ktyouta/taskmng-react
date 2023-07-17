@@ -16,7 +16,7 @@ const BaseButton = styled.button<{ bgColor?: string }>`
   text-align: center;
   background:${({ bgColor }) => (bgColor ?? "#d3d3d3")};
   color: black;
-  width: 130px;
+  width: auto;
   min-width: 100px;
   height:45px;
   min-height:30px;

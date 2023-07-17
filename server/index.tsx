@@ -9,6 +9,7 @@ import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, 
 import { runAddMaster } from './AddMasterDataFunction';
 import { getGeneralDetailData } from './GeneralFunction';
 import { getTask, runAddTask, runDeleteTask, runUpdTask } from './TaskFunction';
+import { getCustomAttribute } from './SettingFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -112,7 +113,12 @@ app.get(`${ENV.TASK}/:param`, function (req, res) {
     getTask(res, req, req.params.param);
 });
 
-
+/**
+ * customattributeにアクセスした際の動作
+ */
+app.get(ENV.CUSTOMATTRIBUTE, function (req, res) {
+    getCustomAttribute(res, req);
+});
 
 
 /**

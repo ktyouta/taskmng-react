@@ -1,7 +1,8 @@
 [
     {
-        "id":"",
-        "name":"",
-        "format":""
+        "id": "1",
+        "name": "サンプル属性",
+        "format": "",
+        "deleteFlg": "0"
     }
 ]

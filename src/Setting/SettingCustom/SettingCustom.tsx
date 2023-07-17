@@ -10,6 +10,7 @@ import SettingCustomEdit from './SettingCustomEdit';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 import { Routes, Route, Navigate } from "react-router-dom";
 import SettingCustomTop from './SettingCustomTop';
+import useSettingCustom from './Hook/useSettingCustom';
 
 
 //外側のスタイル
@@ -19,10 +20,21 @@ const OuterDiv = styled.div`
     min-height: 100%;
 `;
 
+//編集モードの種類
+export const editModeEnum = {
+  noselect: 0,
+  create: 1,
+  update: 2,
+}
+
 
 function SettingCustom() {
 
   console.log("SettingCustom render");
+
+  const {
+    editMode,
+  } = useSettingCustom();
 
   return (
     <OuterDiv>

@@ -37,9 +37,25 @@ export function readFile(filePath: string) {
  */
 export function overWriteData(filePath: string, stream: string) {
     try {
-        fs.writeFileSync (filePath, stream);
+        fs.writeFileSync(filePath, stream);
         return "";
     } catch (err) {
         return "ファイルの書き込みに失敗しました。";
     }
+}
+
+/**
+ * 文字列をjsonオブジェクトに変換
+ */
+export function decodeStr(str: string) {
+    return JSON.parse(str);
+}
+
+/**
+ * ファイルデータを取得
+ * @param filePath 
+ */
+export function getFileJsonData<T>(filePath: string):T {
+    let content = readFile(filePath);
+    return decodeStr(content);
 }

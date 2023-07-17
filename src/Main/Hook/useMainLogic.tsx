@@ -5,7 +5,7 @@ import useCheckAuth from '../../Common/Hook/useCheckAuth';
 import Top from '../../Top/Top';
 import Master from '../../Master/Master';
 import Setting from '../../Setting/Setting';
-import { generalDataType, masterDataListType, resUserInfoType, searchConditionType, userInfoType } from '../../Common/Type/CommonType';
+import { generalDataType, jsxObjType, masterDataListType, resUserInfoType, searchConditionType, userInfoType } from '../../Common/Type/CommonType';
 import { menuListType } from '../../Common/Hook/useGetViewName';
 import { Route } from "react-router-dom";
 import NotFoundComponent from '../../NotFound/NotFoundComponent';
@@ -17,10 +17,6 @@ import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import AddMaster from '../../AddMaster/AddMaster';
 import Task from '../../Task/Task';
 
-
-type jsxObjType = {
-    [key: string]: JSX.Element
-}
 
 const jsxList: jsxObjType = {
     "Top": <Top />,
