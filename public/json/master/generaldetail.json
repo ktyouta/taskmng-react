@@ -1,52 +1,87 @@
 [
     {
-        "id":"1",
-        "value":"1",
-        "label":"一般"
+        "id": "1",
+        "value": "1",
+        "label": "一般"
     },
     {
-        "id":"1",
-        "value":"2",
-        "label":"専用ユーザー"
+        "id": "1",
+        "value": "2",
+        "label": "専用ユーザー"
     },
     {
-        "id":"1",
-        "value":"3",
-        "label":"管理者"
+        "id": "1",
+        "value": "3",
+        "label": "管理者"
     },
     {
-        "id":"2",
-        "value":"1",
-        "label":"高"
+        "id": "2",
+        "value": "1",
+        "label": "高"
     },
     {
-        "id":"2",
-        "value":"2",
-        "label":"中"
+        "id": "2",
+        "value": "2",
+        "label": "中"
     },
     {
-        "id":"2",
-        "value":"3",
-        "label":"低"
+        "id": "2",
+        "value": "3",
+        "label": "低"
     },
     {
-        "id":"3",
-        "value":"1",
-        "label":"未対応"
+        "id": "3",
+        "value": "1",
+        "label": "未対応"
     },
     {
-        "id":"3",
-        "value":"2",
-        "label":"完了"
+        "id": "3",
+        "value": "2",
+        "label": "完了"
     },
     {
-        "id":"3",
-        "value":"3",
-        "label":"保留"
+        "id": "3",
+        "value": "3",
+        "label": "保留"
     },
     {
-        "id":"3",
-        "value":"4",
-        "label":"対応中"
+        "id": "3",
+        "value": "4",
+        "label": "対応中"
+    },
+    {
+        "id": "4",
+        "value": "input",
+        "label": "文字列"
+    },
+    {
+        "id": "4",
+        "value": "textarea",
+        "label": "文章"
+    },
+    {
+        "id": "4",
+        "value": "number",
+        "label": "数値"
+    },
+    {
+        "id": "4",
+        "value": "select",
+        "label": "選択リスト(コンボボックス)"
+    },
+    {
+        "id": "4",
+        "value": "radio",
+        "label": "選択リスト(ラジオボタン)"
+    },
+    {
+        "id": "4",
+        "value": "checkbox",
+        "label": "選択リスト(チェックボックス)"
+    },
+    {
+        "id": "4",
+        "value": "date",
+        "label": "日付"
     }
 ]

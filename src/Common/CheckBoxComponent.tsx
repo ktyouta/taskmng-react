@@ -10,6 +10,7 @@ type propsType = {
     onChange?: (e: string) => void,
     initValue: boolean,
     key?: string,
+    onChangeBl?: (e: boolean) => void,
 }
 
 //参照の型
@@ -33,6 +34,7 @@ const CheckBoxComponent = forwardRef<checkBoxRefType, propsType>((props, ref) =>
     //チェックボックスのクリックイベント
     const changeInput: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         if (props.onChange) props.onChange(e.target.value);
+        if (props.onChangeBl) props.onChangeBl(!isChecked);
         setIsChecked(!isChecked);
     };
 

@@ -11,6 +11,7 @@ type propsType = {
     textWidth?: string,
     bgColor?: string,
     disabled?: boolean,
+    onChange?: (e: string) => void,
 }
 
 //参照の型
@@ -42,6 +43,9 @@ const BaseInputComponent = forwardRef<refType, propsType>((props, ref) => {
     //テキストボックスの入力イベント
     const changeInput: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         setInputValue(e.target.value);
+        if (props.onChange) {
+            props.onChange(e.target.value);
+        }
     };
 
     //テキストボックスのクリアイベント

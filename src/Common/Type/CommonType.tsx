@@ -1,5 +1,4 @@
 import { RefObject } from "react"
-import { refType } from "../BaseInputComponent"
 
 //画面に表示するテーブル
 export type selectedMasterDataType = {
@@ -92,7 +91,7 @@ export type refInfoType = {
 }
 
 //inputのタイプ
-type inputType = "input" | "select" | "radio" | "date" | "textarea" | "checkbox" | "number" | "label";
+export type inputType = "input" | "select" | "radio" | "date" | "textarea" | "checkbox" | "number" | "label";
 
 //マスタ編集画面の入力欄の設定
 export type inputMasterSettingType = {
@@ -189,4 +188,10 @@ export type refInputCheckType = {
 //ルーティング用
 export type jsxObjType = {
     [key: string]: JSX.Element
+}
+
+//参照の型
+export type refType = {
+    refValue: string,
+    clearValue: () => void
 }

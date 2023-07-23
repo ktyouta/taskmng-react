@@ -120,6 +120,14 @@ app.get(ENV.CUSTOMATTRIBUTE, function (req, res) {
     getCustomAttribute(res, req);
 });
 
+/**
+ * task/idにアクセスした際の動作
+ */
+app.get(`${ENV.CUSTOMATTRIBUTE}/:param`, function (req, res) {
+    getCustomAttribute(res, req, req.params.param);
+});
+
+
 
 /**
  * POST

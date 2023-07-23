@@ -4,6 +4,11 @@ import { useAtomValue } from 'jotai';
 import HorizonLabelItemComponent from '../../Common/HorizonLabelItemComponent';
 import BaseInputComponent from '../../Common/BaseInputComponent';
 import styled from 'styled-components';
+import useSettingCustomEditMain from './Hook/useSettingCustomEditMain';
+import ButtonComponent from '../../Common/ButtonComponent';
+import LabelCheckBoxComponent from '../../Common/LabelCheckBoxComponent';
+import HorizonLabelRadioListComponent from '../../Common/HorizonLabelRadioListComponent';
+import LabelRadioListComponent from '../../Common/LabelRadioListComponent';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -30,6 +35,21 @@ function SettingCustomEditMain(props: propsType) {
 
     console.log("SettingCustomMain render");
 
+    const {
+        isLoadinGetCustomAttribute,
+        errMessage,
+        caNm,
+        setCaNm,
+        caDescription,
+        setCaDescription,
+        caType,
+        setCaType,
+        caRequired,
+        setCaRequired,
+        addSelectElement,
+        selectElementList,
+        caSelectList, } = useSettingCustomEditMain();
+
     return (
         <OuterDiv
             height={props.outerHeight}
@@ -39,28 +59,63 @@ function SettingCustomEditMain(props: propsType) {
                     title={'カスタム属性の名称'}
                 >
                     <BaseInputComponent
-                        value=""
+                        value={caNm}
                         lenght={50}
+                        onChange={setCaNm}
                     />
                 </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
                     title={'カスタム属性の説明'}
                 >
                     <BaseInputComponent
-                        value=""
+                        value={caDescription}
                         lenght={50}
+                        onChange={setCaDescription}
                     />
                 </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
                     title={'カスタム属性の形式'}
                 >
-                    
+                    {
+                        caSelectList &&
+                        <LabelRadioListComponent
+                            radioList={caSelectList}
+                            selectedValue={caType}
+                            onChange={setCaType}
+                        />
+                    }
                 </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
                     title={'属性の設定'}
                 >
-                    
+                    <LabelCheckBoxComponent
+                        title={'必須項目とする'}
+                        value={''}
+                        htmlForId={''}
+                        initValue={caRequired}
+                        onChangeBl={setCaRequired}
+                    />
+                    {
+                        (() => {
+                            switch (caType) {
+                                //選択形式
+                                case "":
+                                    return (
+                                        <></>
+                                    )
+                                default:
+                                    return (
+                                        <React.Fragment></React.Fragment>
+                                    )
+                            }
+                        })()
+                    }
                 </HorizonLabelItemComponent>
+                <ButtonComponent
+                    styleTypeNumber="RUN"
+                    title={"要素を追加"}
+                    onclick={addSelectElement}
+                />
             </MainDiv>
         </OuterDiv>
     );

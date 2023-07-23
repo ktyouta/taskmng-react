@@ -7,7 +7,7 @@ import { authInfoType, customAttributeType, searchConditionType, taskListType } 
 
 
 //カスタム属性ファイルのパス
-const CUSTOM_ATTRIBUTE_FILEPATH = `${SETTINGFILEPATH}${CUSTOMATTRIBUTE}${JSONEXTENSION}`;
+const CUSTOM_ATTRIBUTE_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTE}${JSONEXTENSION}`;
 
 /**
  * カスタム属性の取得
@@ -28,11 +28,11 @@ export function getCustomAttribute(res: any, req: any, id?: string) {
 
     //パスパラメータの指定あり
     if (id) {
-        let singleTaskData = decodeFileData.find((element) => { return element.id === id });
-        if (!singleTaskData) {
+        let singleCustomAttributeData = decodeFileData.find((element) => { return element.id === id });
+        if (!singleCustomAttributeData) {
             return res.status(400).json({ errMessage: `該当データがありません。` });
         }
-        return res.status(200).json(singleTaskData);
+        return res.status(200).json(singleCustomAttributeData);
     }
 
     //データなし

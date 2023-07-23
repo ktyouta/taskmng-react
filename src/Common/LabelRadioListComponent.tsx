@@ -18,6 +18,7 @@ type propsType = {
     htmlForId?: string,
     disabled?: boolean,
     width?: string,
+    onChange?: (e: string) => void,
 }
 
 //参照の型
@@ -46,6 +47,7 @@ const LabelRadioListComponent = forwardRef<refType, propsType>((props, ref) => {
     //ラジオボタンのクリックイベント
     const changeRadio = (e: string) => {
         setRadioValue(e);
+        if (props.onChange) props.onChange(e);
     };
 
     //ラジオボタンの初期化

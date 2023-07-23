@@ -6,6 +6,7 @@ import BaseInputComponent from '../../Common/BaseInputComponent';
 import styled from 'styled-components';
 import SettingCustomEditMain from './SettingCustomEditMain';
 import SettingCustomEditFooter from './SettingCustomEditFooter';
+import useSettingCustomEdit from './Hook/useSettingCustomEdit';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -20,6 +21,8 @@ const OuterDiv = styled.div`
 function SettingCustomEdit() {
 
   console.log("SettingCustom render");
+
+  useSettingCustomEdit();
 
   return (
     <OuterDiv>
