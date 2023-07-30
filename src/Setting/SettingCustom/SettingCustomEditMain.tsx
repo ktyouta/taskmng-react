@@ -57,24 +57,27 @@ function SettingCustomEditMain(props: propsType) {
             <MainDiv>
                 <HorizonLabelItemComponent
                     title={'カスタム属性の名称'}
+                    labelWidth='30%'
                 >
                     <BaseInputComponent
                         value={caNm}
-                        lenght={50}
+                        length={50}
                         onChange={setCaNm}
                     />
                 </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
                     title={'カスタム属性の説明'}
+                    labelWidth='30%'
                 >
                     <BaseInputComponent
                         value={caDescription}
-                        lenght={50}
+                        length={50}
                         onChange={setCaDescription}
                     />
                 </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
                     title={'カスタム属性の形式'}
+                    labelWidth='30%'
                 >
                     {
                         caSelectList &&
@@ -99,9 +102,28 @@ function SettingCustomEditMain(props: propsType) {
                         (() => {
                             switch (caType) {
                                 //選択形式
-                                case "":
+                                case "select":
+                                case "radio":
+                                case "checkbox":
                                     return (
-                                        <></>
+                                        <React.Fragment>
+                                            <div>
+                                                項目
+                                            </div>
+                                            <div>
+                                                {
+                                                    selectElementList && selectElementList.map((element) => {
+                                                        return (
+                                                            <BaseInputComponent
+                                                                value={element.value}
+                                                                ref={element.ref}
+                                                                length={10}
+                                                            />
+                                                        );
+                                                    })
+                                                }
+                                            </div>
+                                        </React.Fragment>
                                     )
                                 default:
                                     return (

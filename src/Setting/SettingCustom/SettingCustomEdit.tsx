@@ -20,7 +20,7 @@ const OuterDiv = styled.div`
 
 function SettingCustomEdit() {
 
-  console.log("SettingCustom render");
+  console.log("SettingCustomEdit render");
 
   useSettingCustomEdit();
 

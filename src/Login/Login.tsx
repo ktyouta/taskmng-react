@@ -20,7 +20,7 @@ function Login() {
                 <VerticalLabellInputComponent
                     title={"ユーザーID"}
                     value={""}
-                    lenght={100}
+                    length={100}
                     disabled={false}
                     ref={userIdRef}
                     textWidth={"350px"}
@@ -32,7 +32,7 @@ function Login() {
                     title={"パスワード"}
                     type={"password"}
                     value={""}
-                    lenght={100}
+                    length={100}
                     disabled={false}
                     ref={userPassword}
                     textWidth={"350px"}

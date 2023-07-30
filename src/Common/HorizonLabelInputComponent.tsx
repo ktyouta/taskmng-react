@@ -11,7 +11,7 @@ type propsType = {
   title: string,
   type?: string,
   value: string,
-  lenght: number,
+  length: number,
   titleWidth?: string,
   textWidth?: string,
 }

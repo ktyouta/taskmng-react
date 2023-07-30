@@ -92,7 +92,7 @@ function DynamicForm(props: propsType) {
                                                 return (
                                                     <BaseInputComponent
                                                         value={element.value}
-                                                        lenght={element.length}
+                                                        length={element.length}
                                                         disabled={element.disabled}
                                                         bgColor={bgColor}
                                                         ref={element.ref}

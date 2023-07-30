@@ -7,7 +7,7 @@ type propsType = {
     disabled: boolean,
     type?: string,
     value: string,
-    lenght: number,
+    length: number,
     titleWidth?: string,
     textWidth?: string,
     bgColor?: string,

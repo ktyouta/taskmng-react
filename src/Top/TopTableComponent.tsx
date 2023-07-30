@@ -49,7 +49,7 @@ function TopTableComponent(props: propsType) {
                 <HorizonLabelInputComponent
                     title={"ファイル名"}
                     value={""}
-                    lenght={100}
+                    length={100}
                     disabled={false}
                     ref={textRef}
                     titleWidth={"100px"}
@@ -58,7 +58,7 @@ function TopTableComponent(props: propsType) {
                 <HorizonLabelInputComponent
                     title={"備考"}
                     value={""}
-                    lenght={100}
+                    length={100}
                     disabled={false}
                     ref={reamarksRef}
                     titleWidth={"100px"}

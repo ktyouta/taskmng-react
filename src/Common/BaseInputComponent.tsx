@@ -6,7 +6,7 @@ import styled from "styled-components";
 type propsType = {
     type?: string,
     value: string,
-    lenght: number,
+    length: number,
     titleWidth?: string,
     textWidth?: string,
     bgColor?: string,
@@ -56,7 +56,7 @@ const BaseInputComponent = forwardRef<refType, propsType>((props, ref) => {
     return (
         <BaseInput
             type={props.type ? props.type : "text"}
-            maxLength={props.lenght}
+            maxLength={props.length}
             onChange={changeInput}
             value={inputValue}
             textWidth={props.textWidth}

@@ -32,7 +32,10 @@ function useSettingCustomEditMain() {
     //必須
     const [caRequired, setCaRequired] = useState(false);
     //可変選択リスト
-    const [selectElementList, setSelectElementList] = useState<inputRefType[]>([]);
+    const [selectElementList, setSelectElementList] = useState<inputRefType[]>([{
+        value: "",
+        ref: createRef(),
+    }]);
 
 
     //モーダル展開時に更新用タスクを取得

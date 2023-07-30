@@ -12,6 +12,7 @@ import { jsxObjType } from '../../Common/Type/CommonType';
 import SettingCustom from '../SettingCustom/SettingCustom';
 import SettingCategory from '../SettingCategory/SettingCategory';
 import SettingUser from '../SettingUser/SettingUser';
+import { Provider } from 'jotai';
 
 
 const jsxList: jsxObjType = {
@@ -36,7 +37,6 @@ function useSettingMain() {
             return;
         }
         let tmpSettingRouteList = settingMenu.map((element, index) => {
-            let tmpPath = element.url.replace("/setting", "");
             const Component = jsxList[element.component];
             if (!Component) {
                 return;
@@ -44,12 +44,12 @@ function useSettingMain() {
             if (index === 0) {
                 return (
                     <React.Fragment>
-                        <Route key={element.url} path={tmpPath} element={Component} />
+                        <Route key={element.url} path={element.componentPath} element={<Provider>{Component}</Provider>} />
                         <Route path="/" element={<Navigate to={element.url} />} />
                     </React.Fragment>
                 );
             }
-            return <Route key={element.url} path={tmpPath} element={Component} />;
+            return <Route key={element.url} path={element.componentPath} element={<Provider>{Component}</Provider>} />;
         }).filter(e => e);
         return tmpSettingRouteList;
     }, [settingMenu]);

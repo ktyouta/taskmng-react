@@ -35,7 +35,7 @@ function MasterTableComponent(props: propsType) {
                 <HorizonLabelInputComponent
                     title={"名称"}
                     value={""}
-                    lenght={100}
+                    length={100}
                     disabled={false}
                     ref={textRef}
                     titleWidth={"100px"}
@@ -44,7 +44,7 @@ function MasterTableComponent(props: propsType) {
                 <HorizonLabelInputComponent
                     title={"備考"}
                     value={""}
-                    lenght={100}
+                    length={100}
                     disabled={false}
                     ref={reamarksRef}
                     titleWidth={"100px"}
