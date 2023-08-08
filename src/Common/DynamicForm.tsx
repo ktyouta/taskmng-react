@@ -72,7 +72,7 @@ function DynamicForm(props: propsType) {
                         >
                             <HorizonLabelItemComponent
                                 title={title}
-                                labelWidth={props.titleWitdh}
+                                width={props.titleWitdh}
                                 color={element.errMessage ? "#DC143C" : ""}
                                 key={`dynamicform-${index}`}
                             >

@@ -11,7 +11,7 @@ import { jsx } from '@emotion/react';
 //引数の型
 type propsType = {
     title: string | JSX.Element,
-    labelWidth?: string,
+    width?: string,
     children: ReactNode,
     color?: string,
 }
@@ -23,6 +23,34 @@ const OuterDiv = styled.div`
     align-items: center;
 `;
 
+const ElementDiv = styled.div<{ width?: string, color?: string, }>`
+    width:${({ width }) => (width)};
+`;
+
+/**
+ * 横幅の数字のみを取得する
+ */
+const sliceWidthStr = (str?: string) => {
+    if (!str) {
+        return undefined;
+    }
+    let end = "";
+    //末尾の文字を削除する
+    while (str.length !== 0 && Number.isNaN(str)) {
+        str = str.slice(0, -1);
+        end += str.slice(-1);
+    }
+    //不正値
+    if (str.length === 0) {
+        return undefined;
+    }
+    //末尾を反転する
+    let endArr = end.split("");
+    let revEndArr = endArr.reverse();
+    end = revEndArr.join();
+    return `${100 - Number(str)}${end}`;
+}
+
 
 function HorizonLabelItemComponent(props: propsType) {
 
@@ -31,8 +59,12 @@ function HorizonLabelItemComponent(props: propsType) {
             <LabelComponent
                 {...props}
             />
-            {props.children}
-        </OuterDiv>
+            <ElementDiv
+                width={sliceWidthStr(props.width)}
+            >
+                {props.children}
+            </ElementDiv>
+        </OuterDiv >
     );
 }
 

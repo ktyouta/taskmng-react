@@ -26,7 +26,7 @@ function TaskViewForm(props: propsType) {
                     return (
                         <HorizonLabelItemComponent
                             title={element.title}
-                            labelWidth="20%"
+                            width="20%"
                             key={`dynamicform-${index}`}
                         >
                             <ValueSpan>
