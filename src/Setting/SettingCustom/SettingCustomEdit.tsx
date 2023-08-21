@@ -22,7 +22,7 @@ function SettingCustomEdit() {
 
   console.log("SettingCustomEdit render");
 
-  useSettingCustomEdit();
+  const { backPage } = useSettingCustomEdit();
 
   return (
     <OuterDiv>
@@ -31,9 +31,9 @@ function SettingCustomEdit() {
       />
       <SettingCustomEditFooter
         positiveButtonObj={{
-          title: '',
-          type: 'BASE',
-          onclick: undefined
+          title: '戻る',
+          type: "BASE",
+          onclick: backPage
         }}
         outerHeight={'15%'}
       />

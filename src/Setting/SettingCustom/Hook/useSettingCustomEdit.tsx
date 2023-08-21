@@ -12,18 +12,26 @@ function useSettingCustomEdit() {
 
     //編集モード
     const editMode = useAtomValue(editModeAtom);
-    //カスタム属性のID
-    const customAttributeId = useAtomValue(customAttributeIdAtom);
     //ルーティング用
     const navigate = useNavigate();
 
     useEffect(() => {
-        //更新モードでIDが存在しない
-        if (editMode === editModeEnum.update && !customAttributeId) {
+        //モード未選択状態
+        if (editMode === editModeEnum.noselect) {
             navigate(`/setting/custom`);
         }
     }, []);
 
+    /**
+     * 戻るイベント
+     */
+    const backPage = () => {
+        navigate(`/setting/custom`);
+    };
+
+    return {
+        backPage
+    }
 }
 
 export default useSettingCustomEdit;

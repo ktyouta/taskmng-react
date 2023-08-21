@@ -16,6 +16,8 @@ function useSettingCustomEditMain() {
     const customAttributeId = useAtomValue(customAttributeIdAtom);
     //エラーメッセージ
     const [errMessage, setErrMessage] = useState("");
+    //編集モード
+    const editMode = useAtomValue(editModeAtom);
 
     //汎用詳細リスト(形式選択)
     const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
@@ -24,11 +26,11 @@ function useSettingCustomEditMain() {
 
     //カスタム属性のパラメータ
     //名称
-    const [caNm, setCaNm] = useState("");
+    const [caNm, setCaNm] = useState<string | undefined>();
     //説明
-    const [caDescription, setCaDescription] = useState("");
+    const [caDescription, setCaDescription] = useState<string | undefined>();
     //カスタム属性の形式
-    const [caType, setCaType] = useState("");
+    const [caType, setCaType] = useState<string | undefined>();
     //必須
     const [caRequired, setCaRequired] = useState(false);
     //可変選択リスト
@@ -78,13 +80,20 @@ function useSettingCustomEditMain() {
 
     //初期値セット
     useEffect(() => {
-        //新規登録の場合はセットしない
+        //新規登録
+        if (editMode === editModeEnum.create) {
+            setCaNm("");
+            setCaDescription("");
+            setCaType("");
+            setCaRequired(false);
+            return;
+        }
         if (!updCustomAttribute) {
             return;
         }
         setCaNm(updCustomAttribute.name);
         setCaDescription(updCustomAttribute.description);
-        setCaType(updCustomAttribute.type);
+        setCaType(updCustomAttribute.format);
         setCaRequired(updCustomAttribute.required);
     }, [updCustomAttribute]);
 

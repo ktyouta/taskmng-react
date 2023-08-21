@@ -25,7 +25,7 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
 
 function SettingCustomEditFooter(props: propsType) {
 
-    console.log("mastereditfooter render");
+    console.log("SettingCustomEditFooter render");
 
     return (
         <OuterDiv
@@ -33,9 +33,6 @@ function SettingCustomEditFooter(props: propsType) {
         >
             <SpaceComponent
                 space={"10%"}
-            />
-            <SpaceComponent
-                space={"55%"}
             />
             {
                 props.positiveButtonObj &&

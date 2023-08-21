@@ -59,28 +59,36 @@ function SettingCustomEditMain(props: propsType) {
                     title={'カスタム属性の名称'}
                     width='30%'
                 >
-                    <BaseInputComponent
-                        value={caNm}
-                        length={50}
-                        onChange={setCaNm}
-                    />
+                    {
+                        caNm !== undefined &&
+                        <BaseInputComponent
+                            value={caNm}
+                            length={50}
+                            onChange={setCaNm}
+                        />
+                    }
+
                 </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
                     title={'カスタム属性の説明'}
                     width='30%'
                 >
-                    <BaseInputComponent
-                        value={caDescription}
-                        length={50}
-                        onChange={setCaDescription}
-                    />
+                    {
+                        caDescription !== undefined &&
+                        <BaseInputComponent
+                            value={caDescription}
+                            length={50}
+                            onChange={setCaDescription}
+                        />
+                    }
+
                 </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
                     title={'カスタム属性の形式'}
                     width='30%'
                 >
                     {
-                        caSelectList &&
+                        caSelectList && caType !== undefined &&
                         <LabelRadioListComponent
                             radioList={caSelectList}
                             selectedValue={caType}
@@ -90,6 +98,7 @@ function SettingCustomEditMain(props: propsType) {
                 </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
                     title={'属性の設定'}
+                    width='30%'
                 >
                     <LabelCheckBoxComponent
                         title={'必須項目とする'}

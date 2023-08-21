@@ -30,6 +30,7 @@ export type refType = {
 //ラジオボタンリストの基本スタイル
 const RadioListDiv = styled.div`
   display:flex;
+  flex-wrap: wrap;
 `;
 
 

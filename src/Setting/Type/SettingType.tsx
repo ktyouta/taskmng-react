@@ -6,7 +6,7 @@ export type customAttributeType = {
     id: string,
     name: string,
     description: string,
-    type: string,
+    format: string,
     required: boolean,
 }
 

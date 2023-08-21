@@ -36,12 +36,16 @@ const sliceWidthStr = (str?: string) => {
     }
     let end = "";
     //末尾の文字を削除する
-    while (str.length !== 0 && Number.isNaN(str)) {
-        str = str.slice(0, -1);
+    while (str.length !== 0 && isNaN(Number(str))) {
         end += str.slice(-1);
+        str = str.slice(0, -1);
     }
     //不正値
     if (str.length === 0) {
+        return undefined;
+    }
+    //末尾が%,vh以外
+    if (end !== "%" && end !== "vh") {
         return undefined;
     }
     //末尾を反転する

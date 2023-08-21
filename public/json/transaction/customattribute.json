@@ -2,6 +2,7 @@
     {
         "id": "1",
         "name": "サンプル属性",
+        "description": "サンプル属性の説明",
         "format": "",
         "deleteFlg": "0"
     }
