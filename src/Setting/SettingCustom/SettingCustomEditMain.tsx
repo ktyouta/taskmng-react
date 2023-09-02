@@ -103,10 +103,37 @@ function SettingCustomEditMain(props: propsType) {
                     <LabelCheckBoxComponent
                         title={'必須項目とする'}
                         value={''}
-                        htmlForId={''}
+                        htmlForId={'requiredItem'}
                         initValue={caRequired}
                         onChangeBl={setCaRequired}
                     />
+                    {
+                        (() => {
+                            switch (caType) {
+                                //選択形式
+                                case "select":
+                                case "radio":
+                                case "checkbox":
+                                    return (
+                                        <React.Fragment>
+                                            <div>
+                                                {
+                                                    <ButtonComponent
+                                                        styleTypeNumber="RUN"
+                                                        title={"要素を追加"}
+                                                        onclick={addSelectElement}
+                                                    />
+                                                }
+                                            </div>
+                                        </React.Fragment>
+                                    )
+                                default:
+                                    return (
+                                        <React.Fragment></React.Fragment>
+                                    )
+                            }
+                        })()
+                    }
                     {
                         (() => {
                             switch (caType) {
@@ -142,34 +169,6 @@ function SettingCustomEditMain(props: propsType) {
                         })()
                     }
                 </HorizonLabelItemComponent>
-                {
-                    (() => {
-                        switch (caType) {
-                            //選択形式
-                            case "select":
-                            case "radio":
-                            case "checkbox":
-                                return (
-                                    <React.Fragment>
-                                        <div>
-                                            {
-                                                <ButtonComponent
-                                                    styleTypeNumber="RUN"
-                                                    title={"要素を追加"}
-                                                    onclick={addSelectElement}
-                                                />
-                                            }
-                                        </div>
-                                    </React.Fragment>
-                                )
-                            default:
-                                return (
-                                    <React.Fragment></React.Fragment>
-                                )
-                        }
-                    })()
-                }
-
             </MainDiv>
         </OuterDiv>
     );

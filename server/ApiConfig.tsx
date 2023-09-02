@@ -6,7 +6,7 @@ export const config = {
         secret: 'my_secret',
         options: {
             algorithm: 'HS256',
-            expiresIn: '10m'
+            expiresIn: '30m'
         }
     },
     //GETメソッド用

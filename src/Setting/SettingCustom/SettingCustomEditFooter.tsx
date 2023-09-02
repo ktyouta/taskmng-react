@@ -13,6 +13,7 @@ export type buttonObjType = {
 //引数の型
 type propsType = {
     positiveButtonObj: buttonObjType,
+    runButtonObj: buttonObjType,
     outerHeight: string,
 }
 
@@ -42,6 +43,19 @@ function SettingCustomEditFooter(props: propsType) {
                     styleTypeNumber={props.positiveButtonObj.type}
                     title={props.positiveButtonObj.title}
                     onclick={props.positiveButtonObj.onclick}
+                />
+            }
+            <SpaceComponent
+                space={"60%"}
+            />
+            {
+                props.runButtonObj &&
+                props.runButtonObj.title &&
+                props.runButtonObj.onclick &&
+                <ButtonComponent
+                    styleTypeNumber={props.runButtonObj.type}
+                    title={props.runButtonObj.title}
+                    onclick={props.runButtonObj.onclick}
                 />
             }
         </OuterDiv>

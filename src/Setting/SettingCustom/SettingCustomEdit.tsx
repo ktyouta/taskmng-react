@@ -22,7 +22,10 @@ function SettingCustomEdit() {
 
   console.log("SettingCustomEdit render");
 
-  const { backPage } = useSettingCustomEdit();
+  const { backPage,
+    register,
+    buttonTitle
+  } = useSettingCustomEdit();
 
   return (
     <OuterDiv>
@@ -34,6 +37,11 @@ function SettingCustomEdit() {
           title: '戻る',
           type: "BASE",
           onclick: backPage
+        }}
+        runButtonObj={{
+          title: buttonTitle,
+          type: "RUN",
+          onclick: register
         }}
         outerHeight={'15%'}
       />
