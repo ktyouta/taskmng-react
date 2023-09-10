@@ -7,7 +7,7 @@ import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrappe
 import { customAttributeType, inputRefType } from "../../Type/SettingType";
 import ENV from '../../../env.json';
 import useMutationWrapper, { resType } from "../../../Common/Hook/useMutationWrapper";
-import { generalDataType } from "../../../Common/Type/CommonType";
+import { generalDataType, refInfoType } from "../../../Common/Type/CommonType";
 import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
 import { buttonObjType } from "../SettingCustomEditFooter";
@@ -23,13 +23,11 @@ function useSettingCustomEdit() {
     const [errMessage, setErrMessage] = useState("");
     //カスタム属性のID
     const customAttributeId = useAtomValue(customAttributeIdAtom);
-
     //汎用詳細リスト(形式選択)
     const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
     });
 
-    //入力項目
     //カスタム属性のパラメータ
     //名称
     const [caNm, setCaNm] = useState<string | undefined>();
@@ -45,6 +43,9 @@ function useSettingCustomEdit() {
         ref: createRef(),
     }]);
 
+    //入力参照用リスト
+    const [refInfoArray, setRefInfoArray] = useState<refInfoType[]>([]);
+    
 
     //モーダル展開時に更新用タスクを取得
     const { data: updCustomAttribute, isLoading: isLoadinGetCustomAttribute } = useQueryWrapper<customAttributeType>(
@@ -111,30 +112,45 @@ function useSettingCustomEdit() {
         }
     }, []);
 
-    //登録更新メソッド
-    let methodNm: "POST" | "PUT" | undefined = undefined;
-    switch (editMode) {
-        case editModeEnum.noselect:
-            break;
-        case editModeEnum.create:
-            methodNm = "POST";
-            break;
-        case editModeEnum.update:
-            methodNm = "PUT";
-            break;
-    };
-
-    //登録更新用フック
-    const mutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTING}${ENV.CUSTOM}`,
-        method: methodNm,
-        queryKey: [`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTING}${ENV.CUSTOM}
-                    ${editMode === editModeEnum.update && customAttributeId ? "/" + customAttributeId : ""}`],
+    //登録用フック
+    const registMutation = useMutationWrapper({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTING}${ENV.CUSTOM}/${customAttributeId}`,
+        method: "POST",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
             alert(res.errMessage);
             //メッセージを表示してマスタトップ画面に遷移する
             navigate(`/setting/custom`);
+        },
+        //失敗後の処理
+        afErrorFn: (res: errResType) => {
+            //エラーメッセージを表示
+            setErrMessage(res.response.data.errMessage);
+        },
+    });
+
+    //更新用フック
+    const updMutation = useMutationWrapper({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTING}${ENV.CUSTOM}/${customAttributeId}`,
+        method: "PUT",
+        //正常終了後の処理
+        afSuccessFn: (res: resType) => {
+            alert(res.errMessage);
+        },
+        //失敗後の処理
+        afErrorFn: (res: errResType) => {
+            //エラーメッセージを表示
+            setErrMessage(res.response.data.errMessage);
+        },
+    });
+
+    //削除用フック
+    const delMutation = useMutationWrapper({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTING}${ENV.CUSTOM}/${customAttributeId}`,
+        method: "DELETE",
+        //正常終了後の処理
+        afSuccessFn: (res: resType) => {
+            alert(res.errMessage);
         },
         //失敗後の処理
         afErrorFn: (res: errResType) => {
@@ -174,22 +190,21 @@ function useSettingCustomEdit() {
      * 登録イベント
      */
     const registeAttribute = () => {
-
-        //mutation.mutate();
+        //registMutation.mutate();
     }
 
     /**
      * 更新イベント
      */
     const updateAttribute = () => {
-        //mutation.mutate();
+        //updMutation.mutate();
     }
 
     /**
      * 削除イベント
      */
     const deleteAttribute = () => {
-
+        delMutation.mutate();
     }
 
     return {
