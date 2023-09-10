@@ -8,7 +8,8 @@ import useSettingCustomEditMain from './Hook/useSettingCustomEditMain';
 import ButtonComponent from '../../Common/ButtonComponent';
 import LabelCheckBoxComponent from '../../Common/LabelCheckBoxComponent';
 import HorizonLabelRadioListComponent from '../../Common/HorizonLabelRadioListComponent';
-import LabelRadioListComponent from '../../Common/LabelRadioListComponent';
+import LabelRadioListComponent, { radioType } from '../../Common/LabelRadioListComponent';
+import { inputRefType } from '../Type/SettingType';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -27,28 +28,24 @@ const MainDiv = styled.div`
 
 //引数の型
 type propsType = {
-    outerHeight: string,
+    outerHeight: string | undefined,
+    caNm: string | undefined,
+    caDescription: string | undefined,
+    caType: string | undefined,
+    caRequired: boolean,
+    selectElementList: inputRefType[],
+    setCaNm: React.Dispatch<React.SetStateAction<string | undefined>>,
+    setCaDescription: React.Dispatch<React.SetStateAction<string | undefined>>,
+    setCaType: React.Dispatch<React.SetStateAction<string | undefined>>,
+    setCaRequired: React.Dispatch<React.SetStateAction<boolean>>,
+    caSelectList: radioType[] | undefined,
+    addSelectElement: () => void,
 }
 
 
 function SettingCustomEditMain(props: propsType) {
 
     console.log("SettingCustomMain render");
-
-    const {
-        isLoadinGetCustomAttribute,
-        errMessage,
-        caNm,
-        setCaNm,
-        caDescription,
-        setCaDescription,
-        caType,
-        setCaType,
-        caRequired,
-        setCaRequired,
-        addSelectElement,
-        selectElementList,
-        caSelectList, } = useSettingCustomEditMain();
 
     return (
         <OuterDiv
@@ -60,25 +57,24 @@ function SettingCustomEditMain(props: propsType) {
                     width='30%'
                 >
                     {
-                        caNm !== undefined &&
+                        props.caNm !== undefined &&
                         <BaseInputComponent
-                            value={caNm}
+                            value={props.caNm}
                             length={50}
-                            onChange={setCaNm}
+                            onChange={props.setCaNm}
                         />
                     }
-
                 </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
                     title={'カスタム属性の説明'}
                     width='30%'
                 >
                     {
-                        caDescription !== undefined &&
+                        props.caDescription !== undefined &&
                         <BaseInputComponent
-                            value={caDescription}
+                            value={props.caDescription}
                             length={50}
-                            onChange={setCaDescription}
+                            onChange={props.setCaDescription}
                         />
                     }
 
@@ -88,11 +84,12 @@ function SettingCustomEditMain(props: propsType) {
                     width='30%'
                 >
                     {
-                        caSelectList && caType !== undefined &&
+                        //カスタム属性の形式リスト
+                        props.caSelectList && props.caType !== undefined &&
                         <LabelRadioListComponent
-                            radioList={caSelectList}
-                            selectedValue={caType}
-                            onChange={setCaType}
+                            radioList={props.caSelectList}
+                            selectedValue={props.caType}
+                            onChange={props.setCaType}
                         />
                     }
                 </HorizonLabelItemComponent>
@@ -104,12 +101,12 @@ function SettingCustomEditMain(props: propsType) {
                         title={'必須項目とする'}
                         value={''}
                         htmlForId={'requiredItem'}
-                        initValue={caRequired}
-                        onChangeBl={setCaRequired}
+                        initValue={props.caRequired}
+                        onChangeBl={props.setCaRequired}
                     />
                     {
                         (() => {
-                            switch (caType) {
+                            switch (props.caType) {
                                 //選択形式
                                 case "select":
                                 case "radio":
@@ -121,7 +118,7 @@ function SettingCustomEditMain(props: propsType) {
                                                     <ButtonComponent
                                                         styleTypeNumber="RUN"
                                                         title={"要素を追加"}
-                                                        onclick={addSelectElement}
+                                                        onclick={props.addSelectElement}
                                                     />
                                                 }
                                             </div>
@@ -135,8 +132,9 @@ function SettingCustomEditMain(props: propsType) {
                         })()
                     }
                     {
+                        //カスタム属性の選択リスト
                         (() => {
-                            switch (caType) {
+                            switch (props.caType) {
                                 //選択形式
                                 case "select":
                                 case "radio":
@@ -148,7 +146,7 @@ function SettingCustomEditMain(props: propsType) {
                                             </div>
                                             <div>
                                                 {
-                                                    selectElementList && selectElementList.map((element) => {
+                                                    props.selectElementList && props.selectElementList.map((element) => {
                                                         return (
                                                             <BaseInputComponent
                                                                 value={element.value}

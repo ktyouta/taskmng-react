@@ -22,27 +22,43 @@ function SettingCustomEdit() {
 
   console.log("SettingCustomEdit render");
 
-  const { backPage,
-    register,
-    buttonTitle
+  const {
+    caNm,
+    caDescription,
+    caType,
+    caRequired,
+    caSelectList,
+    selectElementList,
+    setCaNm,
+    setCaDescription,
+    setCaType,
+    setCaRequired,
+    addSelectElement,
+    positiveButtonObj,
+    deleteButtonObj,
+    runButtonObj,
   } = useSettingCustomEdit();
 
   return (
     <OuterDiv>
       <SettingCustomEditMain
         outerHeight={'85%'}
+        caNm={caNm}
+        caDescription={caDescription}
+        caType={caType}
+        caRequired={caRequired}
+        setCaNm={setCaNm}
+        setCaDescription={setCaDescription}
+        setCaType={setCaType}
+        setCaRequired={setCaRequired}
+        addSelectElement={addSelectElement}
+        caSelectList={caSelectList}
+        selectElementList={selectElementList}
       />
       <SettingCustomEditFooter
-        positiveButtonObj={{
-          title: '戻る',
-          type: "BASE",
-          onclick: backPage
-        }}
-        runButtonObj={{
-          title: buttonTitle,
-          type: "RUN",
-          onclick: register
-        }}
+        positiveButtonObj={positiveButtonObj}
+        deleteButtonObj={deleteButtonObj}
+        runButtonObj={runButtonObj}
         outerHeight={'15%'}
       />
     </OuterDiv>

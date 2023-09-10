@@ -19,98 +19,9 @@ function useSettingCustomEditMain() {
     //編集モード
     const editMode = useAtomValue(editModeAtom);
 
-    //汎用詳細リスト(形式選択)
-    const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
-    });
-
-    //カスタム属性のパラメータ
-    //名称
-    const [caNm, setCaNm] = useState<string | undefined>();
-    //説明
-    const [caDescription, setCaDescription] = useState<string | undefined>();
-    //カスタム属性の形式
-    const [caType, setCaType] = useState<string | undefined>();
-    //必須
-    const [caRequired, setCaRequired] = useState(false);
-    //可変選択リスト
-    const [selectElementList, setSelectElementList] = useState<inputRefType[]>([{
-        value: "",
-        ref: createRef(),
-    }]);
-
-
-    //モーダル展開時に更新用タスクを取得
-    const { data: updCustomAttribute, isLoading: isLoadinGetCustomAttribute } = useQueryWrapper<customAttributeType>(
-        {
-            url: customAttributeId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CUSTOMATTRIBUTE}/${customAttributeId}` : ``,
-            afSuccessFn: (data) => {
-                setErrMessage("");
-            }
-            , afErrorFn: (res) => {
-                let tmp = res as errResType;
-                setErrMessage(tmp.response.data.errMessage);
-            }
-        }
-    );
-
-    //要素の追加ボタン押下
-    const addSelectElement = () => {
-        let tmpSelectElementList = [...selectElementList];
-        //要素を一つ追加
-        tmpSelectElementList.push({
-            value: "",
-            ref: createRef(),
-        });
-        setSelectElementList(tmpSelectElementList);
-    };
-
-    //カスタム属性の形式リスト
-    const caSelectList = useMemo(() => {
-        if (!generalDataList) {
-            return;
-        }
-        let tmp: radioType[] = generalDataList.filter((element) => {
-            return element.id === "4";
-        }).map((element) => {
-            return { label: element.label, value: element.value }
-        });
-        return tmp;
-    }, [generalDataList]);
-
-    //初期値セット
-    useEffect(() => {
-        //新規登録
-        if (editMode === editModeEnum.create) {
-            setCaNm("");
-            setCaDescription("");
-            setCaType("");
-            setCaRequired(false);
-            return;
-        }
-        if (!updCustomAttribute) {
-            return;
-        }
-        setCaNm(updCustomAttribute.name);
-        setCaDescription(updCustomAttribute.description);
-        setCaType(updCustomAttribute.format);
-        setCaRequired(updCustomAttribute.required);
-    }, [updCustomAttribute]);
 
     return {
-        isLoadinGetCustomAttribute,
         errMessage,
-        caNm,
-        setCaNm,
-        caDescription,
-        setCaDescription,
-        caType,
-        setCaType,
-        caRequired,
-        setCaRequired,
-        addSelectElement,
-        selectElementList,
-        caSelectList,
     }
 }
 

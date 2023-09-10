@@ -2,11 +2,15 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { customAttributeIdAtom, editModeAtom } from "./useSettingCustom";
 import { editModeEnum } from "../SettingCustom";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { createRef, useEffect, useMemo, useState } from "react";
 import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrapper";
-import { customAttributeType } from "../../Type/SettingType";
+import { customAttributeType, inputRefType } from "../../Type/SettingType";
 import ENV from '../../../env.json';
 import useMutationWrapper, { resType } from "../../../Common/Hook/useMutationWrapper";
+import { generalDataType } from "../../../Common/Type/CommonType";
+import { radioType } from "../../../Common/LabelRadioListComponent";
+import { buttonType } from "../../../Common/ButtonComponent";
+import { buttonObjType } from "../SettingCustomEditFooter";
 
 
 function useSettingCustomEdit() {
@@ -19,6 +23,85 @@ function useSettingCustomEdit() {
     const [errMessage, setErrMessage] = useState("");
     //カスタム属性のID
     const customAttributeId = useAtomValue(customAttributeIdAtom);
+
+    //汎用詳細リスト(形式選択)
+    const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
+    });
+
+    //入力項目
+    //カスタム属性のパラメータ
+    //名称
+    const [caNm, setCaNm] = useState<string | undefined>();
+    //説明
+    const [caDescription, setCaDescription] = useState<string | undefined>();
+    //カスタム属性の形式
+    const [caType, setCaType] = useState<string | undefined>();
+    //必須
+    const [caRequired, setCaRequired] = useState(false);
+    //可変選択リスト
+    const [selectElementList, setSelectElementList] = useState<inputRefType[]>([{
+        value: "",
+        ref: createRef(),
+    }]);
+
+
+    //モーダル展開時に更新用タスクを取得
+    const { data: updCustomAttribute, isLoading: isLoadinGetCustomAttribute } = useQueryWrapper<customAttributeType>(
+        {
+            url: customAttributeId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CUSTOMATTRIBUTE}/${customAttributeId}` : ``,
+            afSuccessFn: (data) => {
+                setErrMessage("");
+                if (!data) {
+                    return;
+                }
+                setCaNm(data.name);
+                setCaDescription(data.description);
+                setCaType(data.format);
+                setCaRequired(data.required);
+            }
+            , afErrorFn: (res) => {
+                let tmp = res as errResType;
+                setErrMessage(tmp.response.data.errMessage);
+            }
+        }
+    );
+
+    //要素の追加ボタン押下
+    const addSelectElement = () => {
+        let tmpSelectElementList = [...selectElementList];
+        //要素を一つ追加
+        tmpSelectElementList.push({
+            value: "",
+            ref: createRef(),
+        });
+        setSelectElementList(tmpSelectElementList);
+    };
+
+    //カスタム属性の形式リスト
+    const caSelectList = useMemo(() => {
+        if (!generalDataList) {
+            return;
+        }
+        let tmp: radioType[] = generalDataList.filter((element) => {
+            return element.id === "4";
+        }).map((element) => {
+            return { label: element.label, value: element.value }
+        });
+        return tmp;
+    }, [generalDataList]);
+
+    //初期値セット
+    useEffect(() => {
+        //新規登録
+        if (editMode === editModeEnum.create) {
+            setCaNm("");
+            setCaDescription("");
+            setCaType("");
+            setCaRequired(false);
+            return;
+        }
+    }, []);
 
     //URLを直打ちした際にカスタム画面トップに遷移させる
     useEffect(() => {
@@ -90,14 +173,57 @@ function useSettingCustomEdit() {
     /**
      * 登録イベント
      */
-    const register = () => {
+    const registeAttribute = () => {
+
+        //mutation.mutate();
+    }
+
+    /**
+     * 更新イベント
+     */
+    const updateAttribute = () => {
+        //mutation.mutate();
+    }
+
+    /**
+     * 削除イベント
+     */
+    const deleteAttribute = () => {
 
     }
 
     return {
+        caNm,
+        caDescription,
+        caType,
+        caRequired,
+        caSelectList,
+        selectElementList,
+        setCaNm,
+        setCaDescription,
+        setCaType,
+        setCaRequired,
+        addSelectElement,
         backPage,
-        register,
-        buttonTitle
+        registeAttribute,
+        updateAttribute,
+        deleteAttribute,
+        buttonTitle,
+        positiveButtonObj: {
+            title: '戻る',
+            type: "BASE",
+            onclick: backPage
+        } as buttonObjType,
+        deleteButtonObj: {
+            title: "削除",
+            type: "DANGER",
+            onclick: editMode === editModeEnum.update ? deleteAttribute : undefined
+        } as buttonObjType,
+        runButtonObj: {
+            title: buttonTitle,
+            type: "RUN",
+            onclick: registeAttribute
+        } as buttonObjType,
     }
 }
 
