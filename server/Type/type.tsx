@@ -57,5 +57,10 @@ export type customAttributeType = {
     id: string,
     name: string,
     format: string,
+    required: boolean,
+    elementListId: string,
+    registerTime: string,
+    updTime: string,
+    userId: string,
     deleteFlg: string,
 }

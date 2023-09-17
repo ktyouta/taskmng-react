@@ -9,7 +9,7 @@ import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, 
 import { runAddMaster } from './AddMasterDataFunction';
 import { getGeneralDetailData } from './GeneralFunction';
 import { getTask, runAddTask, runDeleteTask, runUpdTask } from './TaskFunction';
-import { getCustomAttribute } from './SettingFunction';
+import { getCustomAttribute, runAddCustomAttribute } from './SettingFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -152,6 +152,14 @@ app.post(ENV.MASTERTABLE, function (req, res) {
 app.post(ENV.TASK, function (req, res) {
     runAddTask(res, req);
 });
+
+/**
+ * カスタム属性の登録
+ */
+app.post(ENV.CUSTOMATTRIBUTE, function (req, res) {
+    runAddCustomAttribute(res, req);
+});
+
 
 
 

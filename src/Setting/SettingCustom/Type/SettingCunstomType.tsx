@@ -1,4 +1,8 @@
-//入力項目
-export type settingCustomType = {
-    
+//カスタム属性の型
+export type customAttributeType = {
+    id: string,
+    name: string,
+    format: string,
+    required: boolean,
+    selectElementList: string[],
 }

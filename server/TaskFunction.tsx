@@ -4,6 +4,7 @@ import { overWriteData, readFile } from "./FileFunction";
 import { getGeneralDetailData } from "./GeneralFunction";
 import { checkUpdAuth } from "./MasterDataFunction";
 import { authInfoType, searchConditionType, taskListType } from "./Type/type";
+import { getNowDate } from "./CommonFunction";
 
 //タスクファイルのパス
 const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
@@ -364,15 +365,4 @@ function joinTask(decodeFileData: taskListType[]) {
         }
     });
     return joinTaskData;
-}
-
-/**
- * 現在日時を取得
- */
-function getNowDate() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = (now.getMonth() + 1).toString().padStart(2, "0");
-    const date = (now.getDate()).toString().padStart(2, "0");
-    return `${year}${month}${date}`;
 }

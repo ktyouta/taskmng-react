@@ -45,9 +45,9 @@ function useSettingCustomEdit() {
 
     //入力参照用リスト
     const [refInfoArray, setRefInfoArray] = useState<refInfoType[]>([]);
-    
 
-    //モーダル展開時に更新用タスクを取得
+
+    //編集画面遷移時に更新用タスクを取得
     const { data: updCustomAttribute, isLoading: isLoadinGetCustomAttribute } = useQueryWrapper<customAttributeType>(
         {
             url: customAttributeId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CUSTOMATTRIBUTE}/${customAttributeId}` : ``,
@@ -190,7 +190,37 @@ function useSettingCustomEdit() {
      * 登録イベント
      */
     const registeAttribute = () => {
-        //registMutation.mutate();
+        let body: customAttributeType = {
+            id: "",
+            name: "",
+            description: "",
+            format: "",
+            required: caRequired
+        };
+
+        //名称
+        if (!caNm) {
+            alert("名称を入力してください");
+            return;
+        }
+        //説明
+        if (caDescription) {
+            body.description = caDescription;
+        }
+        //カスタム属性の形式
+        if (caType) {
+            body.format = caType;
+        }
+
+        let selectList: string[] = [];
+        //カスタム属性の形式が選択形式の場合はリストをセット
+        if (caType === "select" || caType === "radio" || caType === "checkbox") {
+            selectList = selectElementList.flatMap((element) => {
+                return element.ref.current ? element.ref.current.refValue : [];
+            });
+        }
+
+        registMutation.mutate(body);
     }
 
     /**
@@ -237,7 +267,7 @@ function useSettingCustomEdit() {
         runButtonObj: {
             title: buttonTitle,
             type: "RUN",
-            onclick: registeAttribute
+            onclick: editMode === editModeEnum.update ? updateAttribute : registeAttribute
         } as buttonObjType,
     }
 }
