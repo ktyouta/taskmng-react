@@ -1,11 +1,11 @@
 import { useState } from "react";
 import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrapper";
 import ENV from '../../../env.json';
-import { customAttributeType } from "../../Type/SettingType";
 import { useNavigate } from "react-router-dom";
 import { useSetAtom } from "jotai";
 import { customAttributeIdAtom, editModeAtom } from "./useSettingCustom";
 import { editModeEnum } from "../SettingCustom";
+import { customAttributeType } from "../Type/SettingCunstomType";
 
 
 function SettingCustomTable() {

@@ -4,7 +4,6 @@ import { editModeEnum } from "../SettingCustom";
 import { useNavigate } from "react-router-dom";
 import { createRef, useEffect, useMemo, useState } from "react";
 import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrapper";
-import { customAttributeType, inputRefType } from "../../Type/SettingType";
 import ENV from '../../../env.json';
 import { generalDataType, refInfoType } from "../../../Common/Type/CommonType";
 import { radioType } from "../../../Common/LabelRadioListComponent";

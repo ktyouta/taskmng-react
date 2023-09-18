@@ -4,13 +4,14 @@ import { editModeEnum } from "../SettingCustom";
 import { useNavigate } from "react-router-dom";
 import { createRef, useEffect, useMemo, useState } from "react";
 import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrapper";
-import { customAttributeType, inputRefType } from "../../Type/SettingType";
+import { inputRefType } from "../../Type/SettingType";
 import ENV from '../../../env.json';
 import useMutationWrapper, { resType } from "../../../Common/Hook/useMutationWrapper";
 import { generalDataType, refInfoType } from "../../../Common/Type/CommonType";
 import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
 import { buttonObjType } from "../SettingCustomEditFooter";
+import { customAttributeType } from "../Type/SettingCunstomType";
 
 
 function useSettingCustomEdit() {
@@ -195,7 +196,8 @@ function useSettingCustomEdit() {
             name: "",
             description: "",
             format: "",
-            required: caRequired
+            required: caRequired,
+            selectElementList: []
         };
 
         //名称
@@ -203,14 +205,18 @@ function useSettingCustomEdit() {
             alert("名称を入力してください");
             return;
         }
+        body.name = caNm;
+
         //説明
         if (caDescription) {
             body.description = caDescription;
         }
         //カスタム属性の形式
-        if (caType) {
-            body.format = caType;
+        if (!caType) {
+            alert("属性の形式を選択してください");
+            return;
         }
+        body.format = caType;
 
         let selectList: string[] = [];
         //カスタム属性の形式が選択形式の場合はリストをセット
@@ -219,8 +225,17 @@ function useSettingCustomEdit() {
                 return element.ref.current ? element.ref.current.refValue : [];
             });
         }
+        body.selectElementList = selectList;
 
-        registMutation.mutate(body);
+        if (!window.confirm('タスクを登録しますか？')) {
+            return
+        }
+        if (!registMutation) {
+            alert("リクエストの送信に失敗しました。");
+            return;
+        }
+        console.log("body"+body);
+        //registMutation.mutate(body);
     }
 
     /**

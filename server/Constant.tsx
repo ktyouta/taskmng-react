@@ -21,4 +21,6 @@ export const SEARCHCONDITIONFILEPATH = `searchcondition`;
 //タスクファイル名
 export const TASKFILENM = `task`;
 //カスタム属性
-export const CUSTOMATTRIBUTE = `customattribute`
+export const CUSTOMATTRIBUTE = `customattribute`;
+//カスタム属性リスト
+export const CUSTOMATTRIBUTELIST = `customattributeselectlist`;
