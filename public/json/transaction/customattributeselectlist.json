@@ -1,10 +1,47 @@
 [
-    {
-        "id":"ATTRIBUTELISTID-1",
-        "list":[
-            "テスト要素1",
-            "テスト要素2",
-            "テスト要素3"
-        ]
-    }
+	{
+		"id": "ATTRIBUTELISTID-1",
+		"no": "1",
+		"content": "テスト要素1",
+		"registerTime": "20230923",
+		"updTime": "20230923",
+		"userId": "a",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-1",
+		"no": "2",
+		"content": "テスト要素2",
+		"registerTime": "20230923",
+		"updTime": "20230923",
+		"userId": "a",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-1",
+		"no": "3",
+		"content": "テスト要素3",
+		"registerTime": "20230923",
+		"updTime": "20230923",
+		"userId": "a",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-1",
+		"no": "4",
+		"content": "テスト要素4",
+		"registerTime": "20230923",
+		"updTime": "20230923",
+		"userId": "a",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-1",
+		"no": "5",
+		"content": "テスト要素5",
+		"registerTime": "20230923",
+		"updTime": "20230923",
+		"userId": "a",
+		"deleteFlg": "0"
+	}
 ]

@@ -58,6 +58,7 @@ export type customAttributeType = {
     name: string,
     format: string,
     required: boolean,
+    selectElementList?: string[],
     selectElementListId: string,
     registerTime: string,
     updTime: string,
@@ -68,7 +69,8 @@ export type customAttributeType = {
 //カスタム属性リストの型
 export type customAttributeListType = {
     id: string,
-    list:string[],
+    no: string,
+    content: string,
     registerTime: string,
     updTime: string,
     userId: string,

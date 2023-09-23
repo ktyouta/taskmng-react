@@ -1,12 +1,13 @@
 [
-    {
-        "id": "ATTRIBUTEID-1",
-        "name": "サンプル属性",
-        "description": "サンプル属性の説明",
-        "format": "",
-        "registerTime": "20230505",
+	{
+		"id": "ATTRIBUTEID-1",
+		"name": "サンプル属性",
+		"description": "サンプル属性の説明",
+		"format": "input",
+		"required": true,
+		"registerTime": "20230505",
 		"updTime": "20230626",
 		"userId": "admin",
-        "deleteFlg": "0"
-    }
+		"deleteFlg": "0"
+	}
 ]

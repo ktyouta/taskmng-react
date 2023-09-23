@@ -51,7 +51,7 @@ function SettingCustomTop() {
         />
       </BtnDiv>
       <SettingCustomTable
-        height='50%'
+        height='70%'
         width='85%'
       />
     </OuterDiv>

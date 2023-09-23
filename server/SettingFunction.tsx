@@ -72,23 +72,42 @@ export function runAddCustomAttribute(res: any, req: any) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    Object.keys(req.body).forEach((element) => {
+        console.log("element:" + element);
+        console.log("content:" + req.body[element]);
+    });
+
+    console.log("req.body.selectElementList:" + req.body.selectElementList);
+
     //カスタム属性ファイルの読み込み
     let caDecodeFileData: customAttributeType[] = getFileJsonData(CUSTOM_ATTRIBUTE_FILEPATH);
-
-    //カスタム属性リストファイルの読み込み
-    let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
 
     //カスタム属性の登録用データの作成
     let caRegistData = createAddCustomAttribute(caDecodeFileData, req, authResult);
 
-    //カスタム属性リストの登録用データの作成
-    let calregistData = createAddCustomAttributeList(calDecodeFileData, req, caRegistData, authResult);
+    let calRegistData: {
+        errMsg: string;
+        registData: customAttributeListType[];
+    } = {
+        errMsg: "",
+        registData: []
+    };
 
-    //IDの整合性エラー
-    if (calregistData.errMsg) {
-        return res
-            .status(500)
-            .json({ errMsg: calregistData.errMsg });
+    //カスタム属性リストのIDが存在する場合はリストを登録する
+    let registListFlg: boolean = req.body.selectElementList && req.body.selectElementList.length > 0;
+    if (registListFlg) {
+        //カスタム属性リストファイルの読み込み
+        let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
+
+        //カスタム属性リストの登録用データの作成
+        calRegistData = createAddCustomAttributeList(calDecodeFileData, req, caRegistData, authResult);
+
+        //IDの整合性エラー
+        if (calRegistData.errMsg) {
+            return res
+                .status(500)
+                .json({ errMsg: calRegistData.errMsg });
+        }
     }
 
     //データを登録
@@ -101,14 +120,17 @@ export function runAddCustomAttribute(res: any, req: any) {
             .json({ errMessage });
     }
 
-    //データを登録
-    errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(calregistData.registData, null, '\t'));
+    //カスタム属性リストを登録
+    if (registListFlg) {
+        //データを登録
+        errMessage = overWriteData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, JSON.stringify(calRegistData.registData, null, '\t'));
 
-    //登録に失敗
-    if (errMessage) {
-        return res
-            .status(500)
-            .json({ errMessage });
+        //登録に失敗
+        if (errMessage) {
+            return res
+                .status(500)
+                .json({ errMessage });
+        }
     }
 
     //正常終了
@@ -120,8 +142,9 @@ export function runAddCustomAttribute(res: any, req: any) {
 
 /**
  * カスタム属性の登録用データの作成
- * @param filePath 
- * @param stream 
+ * @param fileDataObj 読み込んだデータ
+ * @param req リクエスト
+ * @param authResult ユーザー情報
  * @returns 
  */
 function createAddCustomAttribute(fileDataObj: customAttributeType[], req: any, authResult: authInfoType)
@@ -140,11 +163,14 @@ function createAddCustomAttribute(fileDataObj: customAttributeType[], req: any, 
         name: "",
         format: "",
         required: false,
-        selectElementListId: ""
+        selectElementListId: "",
+        selectElementList: [],
     };
 
     //登録データをセット
-    body = req.body;
+    body = { ...req.body };
+    delete body.selectElementList;
+    body.selectElementListId = "";
     body.registerTime = nowDate;
     body.updTime = nowDate;
     body.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
@@ -162,7 +188,7 @@ function createAddCustomAttribute(fileDataObj: customAttributeType[], req: any, 
         let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
         let len = calDecodeFileData.length;
         //IDを取得
-        let calId = len === 0 ? "1" : fileDataObj[len - 1]['id'].replace(`${PRE_CUSTOMATTRIBUTELIST_ID}`, "");
+        let calId = len === 0 ? "1" : calDecodeFileData[len - 1]['id'].replace(`${PRE_CUSTOMATTRIBUTELIST_ID}`, "");
         //選択リストIDをセット
         body.selectElementListId = calId;
     }
@@ -201,7 +227,7 @@ function createAddCustomAttributeList(
 
     //IDの整合性チェック
     if (caData.length === 0 || id !== caData[caData.length - 1].selectElementListId) {
-        ret.errMsg = "選択リストの登録に失敗しました"
+        ret.errMsg = "選択リストの登録に失敗しました";
         return ret;
     }
 
@@ -211,15 +237,16 @@ function createAddCustomAttributeList(
     //登録データ
     let body: customAttributeListType = {
         id: "",
-        list: [],
         registerTime: "",
         updTime: "",
         userId: "",
-        deleteFlg: ""
+        deleteFlg: "",
+        no: "",
+        content: ""
     };
 
     //登録データをセット
-    body.list = selectList;
+    body.content = selectList;
     body.registerTime = nowDate;
     body.updTime = nowDate;
     body.userId = authResult.userInfo ? authResult.userInfo?.userId : "";

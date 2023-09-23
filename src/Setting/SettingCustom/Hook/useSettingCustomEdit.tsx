@@ -115,7 +115,7 @@ function useSettingCustomEdit() {
 
     //登録用フック
     const registMutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTING}${ENV.CUSTOM}/${customAttributeId}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTING}${ENV.CUSTOM}`,
         method: "POST",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
@@ -235,7 +235,7 @@ function useSettingCustomEdit() {
             return;
         }
         console.log("body"+body);
-        //registMutation.mutate(body);
+        registMutation.mutate(body);
     }
 
     /**
