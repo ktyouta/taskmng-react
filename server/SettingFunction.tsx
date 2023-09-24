@@ -2,14 +2,10 @@ import { authenticate } from "./AuthFunction";
 import {
     CUSTOMATTRIBUTE,
     JSONEXTENSION,
-    SEARCHCONDITIONFILEPATH,
-    SETTINGFILEPATH,
-    TASKFILENM,
     TRANSACTION,
     CUSTOMATTRIBUTELIST
 } from "./Constant";
 import { getFileJsonData, overWriteData, readFile } from "./FileFunction";
-import { getGeneralDetailData } from "./GeneralFunction";
 import { checkUpdAuth } from "./MasterDataFunction";
 import { authInfoType, customAttributeListType, customAttributeType, searchConditionType, taskListType } from "./Type/type";
 import { getNowDate } from "./CommonFunction";
@@ -71,13 +67,6 @@ export function runAddCustomAttribute(res: any, req: any) {
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
     }
-
-    Object.keys(req.body).forEach((element) => {
-        console.log("element:" + element);
-        console.log("content:" + req.body[element]);
-    });
-
-    console.log("req.body.selectElementList:" + req.body.selectElementList);
 
     //カスタム属性ファイルの読み込み
     let caDecodeFileData: customAttributeType[] = getFileJsonData(CUSTOM_ATTRIBUTE_FILEPATH);
@@ -188,9 +177,10 @@ function createAddCustomAttribute(fileDataObj: customAttributeType[], req: any, 
         let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
         let len = calDecodeFileData.length;
         //IDを取得
-        let calId = len === 0 ? "1" : calDecodeFileData[len - 1]['id'].replace(`${PRE_CUSTOMATTRIBUTELIST_ID}`, "");
+        let tmp = len === 0 ? "0" : calDecodeFileData[len - 1]['id'].replace(`${PRE_CUSTOMATTRIBUTELIST_ID}`, "");
+        let newId = `${PRE_CUSTOMATTRIBUTELIST_ID}${parseInt(tmp) + 1}`;
         //選択リストIDをセット
-        body.selectElementListId = calId;
+        body.selectElementListId = newId;
     }
 
     fileDataObj.push(body);
@@ -200,8 +190,10 @@ function createAddCustomAttribute(fileDataObj: customAttributeType[], req: any, 
 
 /**
  * カスタム属性リストの登録用データの作成
- * @param filePath 
- * @param stream 
+ * @param fileDataObj 読み込んだカスタム属性リスト
+ * @param req リクエスト
+ * @param caData カスタム属性の登録用データ
+ * @param authResult ユーザー情報
  * @returns 
  */
 function createAddCustomAttributeList(
@@ -223,10 +215,11 @@ function createAddCustomAttributeList(
 
     let fileDataObjLen = fileDataObj.length;
     //IDを取得
-    let id = fileDataObjLen === 0 ? "1" : fileDataObj[fileDataObjLen - 1]['id'].replace(`${PRE_CUSTOMATTRIBUTELIST_ID}`, "");
+    let id = fileDataObjLen === 0 ? "0" : fileDataObj[fileDataObjLen - 1]['id'].replace(`${PRE_CUSTOMATTRIBUTELIST_ID}`, "");
+    let newId = `${PRE_CUSTOMATTRIBUTELIST_ID}${parseInt(id) + 1}`;
 
     //IDの整合性チェック
-    if (caData.length === 0 || id !== caData[caData.length - 1].selectElementListId) {
+    if (caData.length === 0 || newId !== caData[caData.length - 1].selectElementListId) {
         ret.errMsg = "選択リストの登録に失敗しました";
         return ret;
     }
@@ -234,28 +227,22 @@ function createAddCustomAttributeList(
     //現在日付を取得
     const nowDate = getNowDate();
 
-    //登録データ
-    let body: customAttributeListType = {
-        id: "",
-        registerTime: "",
-        updTime: "",
-        userId: "",
-        deleteFlg: "",
-        no: "",
-        content: ""
-    };
+    //データを登録用リストにセット
+    for (let i = 0; i < selectList.length; i++) {
+        //登録データ
+        let body: customAttributeListType = {
+            id: newId,
+            no: (i + 1).toString(),
+            content: selectList[i],
+            registerTime: nowDate,
+            updTime: nowDate,
+            userId: authResult.userInfo ? authResult.userInfo?.userId : "",
+            deleteFlg: "0",
+        };
 
-    //登録データをセット
-    body.content = selectList;
-    body.registerTime = nowDate;
-    body.updTime = nowDate;
-    body.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
-    body.deleteFlg = "0";
+        fileDataObj.push(body);
+    }
 
-    //新しいIDを割り当てる
-    body['id'] = `${PRE_CUSTOMATTRIBUTELIST_ID}${parseInt(id) + 1}`;
-    fileDataObj.push(body);
     ret.registData = fileDataObj;
-
     return ret;
 }

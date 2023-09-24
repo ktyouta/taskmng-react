@@ -43,5 +43,23 @@
 		"updTime": "20230923",
 		"userId": "a",
 		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-2",
+		"registerTime": "20230924",
+		"updTime": "20230924",
+		"userId": "a",
+		"deleteFlg": "0",
+		"no": "1",
+		"content": "a"
+	},
+	{
+		"id": "ATTRIBUTELISTID-2",
+		"registerTime": "20230924",
+		"updTime": "20230924",
+		"userId": "a",
+		"deleteFlg": "0",
+		"no": "2",
+		"content": "b"
 	}
 ]

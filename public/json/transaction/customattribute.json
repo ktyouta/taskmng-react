@@ -5,9 +5,22 @@
 		"description": "サンプル属性の説明",
 		"format": "input",
 		"required": true,
+		"selectElementListId": "",
 		"registerTime": "20230505",
 		"updTime": "20230626",
 		"userId": "admin",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTEID-2",
+		"name": "test2",
+		"description": "test2des",
+		"format": "select",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-2",
+		"registerTime": "20230924",
+		"updTime": "20230924",
+		"userId": "a",
 		"deleteFlg": "0"
 	}
 ]
