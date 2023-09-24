@@ -37,7 +37,7 @@ function useSettingCustomEdit() {
     //カスタム属性の形式
     const [caType, setCaType] = useState<string | undefined>();
     //必須
-    const [caRequired, setCaRequired] = useState(false);
+    const [caRequired, setCaRequired] = useState<boolean | undefined>();
     //可変選択リスト
     const [selectElementList, setSelectElementList] = useState<inputRefType[]>([{
         value: "",
@@ -52,6 +52,7 @@ function useSettingCustomEdit() {
     const { data: updCustomAttribute, isLoading: isLoadinGetCustomAttribute } = useQueryWrapper<customAttributeType>(
         {
             url: customAttributeId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CUSTOMATTRIBUTE}/${customAttributeId}` : ``,
+            //取得したデータをセット
             afSuccessFn: (data) => {
                 setErrMessage("");
                 if (!data) {
@@ -61,6 +62,17 @@ function useSettingCustomEdit() {
                 setCaDescription(data.description);
                 setCaType(data.format);
                 setCaRequired(data.required);
+                //選択リストを所持している場合
+                if (data.selectElementList && data.selectElementList.length > 0) {
+                    let tmpRefArray: inputRefType[] = [];
+                    for (let i = 0; i < data.selectElementList.length; i++) {
+                        tmpRefArray.push({
+                            value: data.selectElementList[i],
+                            ref: createRef()
+                        });
+                    }
+                    setSelectElementList(tmpRefArray);
+                }
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -196,7 +208,7 @@ function useSettingCustomEdit() {
             name: "",
             description: "",
             format: "",
-            required: caRequired,
+            required: false,
             selectElementList: []
         };
 
@@ -218,6 +230,11 @@ function useSettingCustomEdit() {
         }
         body.format = caType;
 
+        //必須
+        if (caRequired) {
+            body.required = caRequired;
+        }
+
         let selectList: string[] = [];
         //カスタム属性の形式が選択形式の場合はリストをセット
         if (caType === "select" || caType === "radio" || caType === "checkbox") {
@@ -234,7 +251,7 @@ function useSettingCustomEdit() {
             alert("リクエストの送信に失敗しました。");
             return;
         }
-        console.log("body"+body);
+        console.log("body" + body);
         registMutation.mutate(body);
     }
 

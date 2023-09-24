@@ -33,7 +33,7 @@ export function getCustomAttribute(res: any, req: any, id?: string) {
     //カスタム属性の読み込み
     let decodeFileData: customAttributeType[] = getFileJsonData(CUSTOM_ATTRIBUTE_FILEPATH);
 
-    //削除フラグが1(削除済)のデータをフィルターする
+    //削除済のデータをフィルターする
     decodeFileData = decodeFileData.filter((element) => {
         return element.deleteFlg !== "1";
     });
@@ -44,6 +44,19 @@ export function getCustomAttribute(res: any, req: any, id?: string) {
         if (!singleCustomAttributeData) {
             return res.status(400).json({ errMessage: `該当データがありません。` });
         }
+
+        //選択リストを所持している場合は結合する
+        if (singleCustomAttributeData.selectElementListId) {
+            //カスタム属性リストファイルの読み込み
+            let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
+            //選択リストのIDで絞り込み
+            let filterdCalDate = calDecodeFileData
+                .filter((element) => { return element.id === singleCustomAttributeData?.selectElementListId })
+                .map((element) => { return element.content });
+
+            singleCustomAttributeData.selectElementList = filterdCalDate
+        }
+
         return res.status(200).json(singleCustomAttributeData);
     }
 

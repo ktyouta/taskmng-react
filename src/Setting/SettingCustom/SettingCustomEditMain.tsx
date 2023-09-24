@@ -32,12 +32,12 @@ type propsType = {
     caNm: string | undefined,
     caDescription: string | undefined,
     caType: string | undefined,
-    caRequired: boolean,
+    caRequired: boolean | undefined,
     selectElementList: inputRefType[],
     setCaNm: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaDescription: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaType: React.Dispatch<React.SetStateAction<string | undefined>>,
-    setCaRequired: React.Dispatch<React.SetStateAction<boolean>>,
+    setCaRequired: React.Dispatch<React.SetStateAction<boolean | undefined>>,
     caSelectList: radioType[] | undefined,
     addSelectElement: () => void,
 }
@@ -97,13 +97,16 @@ function SettingCustomEditMain(props: propsType) {
                     title={'属性の設定'}
                     width='30%'
                 >
-                    <LabelCheckBoxComponent
-                        title={'必須項目とする'}
-                        value={''}
-                        htmlForId={'requiredItem'}
-                        initValue={props.caRequired}
-                        onChangeBl={props.setCaRequired}
-                    />
+                    {
+                        props.caRequired !== undefined &&
+                        <LabelCheckBoxComponent
+                            title={'必須項目とする'}
+                            value={''}
+                            htmlForId={'requiredItem'}
+                            initValue={props.caRequired}
+                            onChangeBl={props.setCaRequired}
+                        />
+                    }
                     {
                         (() => {
                             switch (props.caType) {
