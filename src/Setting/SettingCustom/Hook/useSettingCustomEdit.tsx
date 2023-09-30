@@ -244,7 +244,7 @@ function useSettingCustomEdit() {
         }
         body.selectElementList = selectList;
 
-        if (!window.confirm('タスクを登録しますか？')) {
+        if (!window.confirm('カスタム属性を登録しますか？')) {
             return
         }
         if (!registMutation) {
@@ -266,6 +266,9 @@ function useSettingCustomEdit() {
      * 削除イベント
      */
     const deleteAttribute = () => {
+        if (!window.confirm('カスタム属性を削除しますか？')) {
+            return
+        }
         delMutation.mutate();
     }
 

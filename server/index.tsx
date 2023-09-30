@@ -9,7 +9,7 @@ import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, 
 import { runAddMaster } from './AddMasterDataFunction';
 import { getGeneralDetailData } from './GeneralFunction';
 import { getTask, runAddTask, runDeleteTask, runUpdTask } from './TaskFunction';
-import { getCustomAttribute, runAddCustomAttribute } from './SettingFunction';
+import { getCustomAttribute, runAddCustomAttribute, runDeleteCustomAttribute } from './SettingFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -242,4 +242,11 @@ app.delete(`${ENV.MASTER}/:param`, function (req, res) {
  */
 app.delete(`${ENV.TASK}/:param`, function (req, res) {
     runDeleteTask(res, req, req.params.param);
+});
+
+/**
+ * カスタム属性の削除
+ */
+app.delete(`${ENV.CUSTOMATTRIBUTE}/:param`, function (req, res) {
+    runDeleteCustomAttribute(res, req, req.params.param);
 });

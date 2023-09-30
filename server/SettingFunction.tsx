@@ -259,3 +259,141 @@ function createAddCustomAttributeList(
     ret.registData = fileDataObj;
     return ret;
 }
+
+/**
+ * カスタム属性の削除
+ */
+export function runDeleteCustomAttribute(res: any, req: any, caId: string) {
+    //認証権限チェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //IDの指定がない
+    if (!caId) {
+        return res
+            .status(400)
+            .json({ errMessage: `パラメータが不正です。` });
+    }
+
+    let errMessage = "";
+
+    //カスタム属性ファイルの読み込み
+    let caDecodeFileData: customAttributeType[] = getFileJsonData(CUSTOM_ATTRIBUTE_FILEPATH);
+
+    //存在チェック
+    let filterdCaData = caDecodeFileData.find((element) => {
+        return element.id === caId;
+    });
+
+    if (!filterdCaData) {
+        return res
+            .status(400)
+            .json({ errMessage: `削除データが存在しません。` });
+    }
+
+    //カスタム属性リストのIDが存在する場合はリストを削除する
+    let selectListId = filterdCaData.selectElementListId
+    if (selectListId) {
+        //カスタム属性リストファイルの読み込み
+        let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
+
+        //削除データの作成
+        let delCaLists = createDeleteCustomAttributeList(calDecodeFileData, selectListId);
+        //データを削除
+        errMessage = overWriteData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, JSON.stringify(delCaLists, null, '\t'));
+
+        //削除に失敗
+        if (errMessage) {
+            return res
+                .status(500)
+                .json({ errMessage });
+        }
+    }
+
+    //削除データの作成
+    let delCaData = createDeleteCustomAttribute(caDecodeFileData, caId);
+
+    //データを削除
+    errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(delCaData, null, '\t'));
+
+    //削除に失敗
+    if (errMessage) {
+        return res
+            .status(500)
+            .json({ errMessage });
+    }
+
+    //正常終了
+    return res
+        .status(200)
+        .json({ errMessage: `削除が完了しました。` });
+}
+
+/**
+ * カスタム属性の削除用データの作成
+ * @param filePath 
+ * @param stream 
+ * @returns 
+ */
+function createDeleteCustomAttribute(fileDataObj: customAttributeType[], delCaId: string)
+    : customAttributeType[] {
+
+    //現在日付を取得
+    const nowDate = getNowDate();
+
+    fileDataObj.some((element) => {
+        //IDの一致するデータを削除
+        if (element.id === delCaId) {
+            Object.keys(element).forEach((item) => {
+                //更新日時
+                if (item === `updTime`) {
+                    element[item] = nowDate;
+                    return true;
+                }
+                //削除フラグを立てる
+                if (item === `deleteFlg`) {
+                    element[item] = "1";
+                    return true;
+                }
+            });
+            return true;
+        }
+    });
+    return fileDataObj;
+}
+
+/**
+ * カスタム属性選択リストの削除用データの作成
+ * @param filePath 
+ * @param stream 
+ * @returns 
+ */
+function createDeleteCustomAttributeList(fileDataObj: customAttributeListType[], delCaListId: string)
+    : customAttributeListType[] {
+
+    //現在日付を取得
+    const nowDate = getNowDate();
+
+    fileDataObj.forEach((element) => {
+        //IDの一致するデータを削除
+        if (element.id === delCaListId) {
+            Object.keys(element).forEach((item) => {
+                //更新日時
+                if (item === `updTime`) {
+                    element[item] = nowDate;
+                    return true;
+                }
+                //削除フラグを立てる
+                if (item === `deleteFlg`) {
+                    element[item] = "1";
+                    return true;
+                }
+            });
+        }
+    });
+    return fileDataObj;
+}

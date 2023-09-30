@@ -22,5 +22,29 @@
 		"updTime": "20230924",
 		"userId": "a",
 		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTEID-3",
+		"name": "test3",
+		"description": "test3des",
+		"format": "select",
+		"required": true,
+		"selectElementListId": "ATTRIBUTELISTID-3",
+		"registerTime": "20230925",
+		"updTime": "20230930",
+		"userId": "a",
+		"deleteFlg": "1"
+	},
+	{
+		"id": "ATTRIBUTEID-4",
+		"name": "test3",
+		"description": "test3des1",
+		"format": "radio",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-4",
+		"registerTime": "20230930",
+		"updTime": "20230930",
+		"userId": "a",
+		"deleteFlg": "1"
 	}
 ]
