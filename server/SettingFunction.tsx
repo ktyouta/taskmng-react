@@ -20,6 +20,12 @@ const PRE_CUSTOMATTRIBUTE_ID = `ATTRIBUTEID-`;
 //カスタム属性リストIDの接頭辞
 const PRE_CUSTOMATTRIBUTELIST_ID = `ATTRIBUTELISTID-`;
 
+//カスタム属性の選択リストの登録メソッドの戻り値
+type registSelectListRetType = {
+    errMsg: string,
+    registSelectList: customAttributeListType[]
+}
+
 
 /**
  * カスタム属性の取得
@@ -87,12 +93,9 @@ export function runAddCustomAttribute(res: any, req: any) {
     //カスタム属性の登録用データの作成
     let caRegistData = createAddCustomAttribute(caDecodeFileData, req, authResult);
 
-    let calRegistData: {
-        errMsg: string;
-        registData: customAttributeListType[];
-    } = {
+    let calRegistData: registSelectListRetType = {
         errMsg: "",
-        registData: []
+        registSelectList: []
     };
 
     //カスタム属性リストのIDが存在する場合はリストを登録する
@@ -100,9 +103,11 @@ export function runAddCustomAttribute(res: any, req: any) {
     if (registListFlg) {
         //カスタム属性リストファイルの読み込み
         let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
+        //登録データ
+        let tmp: customAttributeType = caRegistData[caRegistData.length - 1];
 
         //カスタム属性リストの登録用データの作成
-        calRegistData = createAddCustomAttributeList(calDecodeFileData, req, caRegistData, authResult);
+        calRegistData = createAddCustomAttributeList(calDecodeFileData, req, tmp, authResult);
 
         //IDの整合性エラー
         if (calRegistData.errMsg) {
@@ -125,7 +130,7 @@ export function runAddCustomAttribute(res: any, req: any) {
     //カスタム属性リストを登録
     if (registListFlg) {
         //データを登録
-        errMessage = overWriteData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, JSON.stringify(calRegistData.registData, null, '\t'));
+        errMessage = overWriteData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, JSON.stringify(calRegistData.registSelectList, null, '\t'));
 
         //登録に失敗
         if (errMessage) {
@@ -141,7 +146,6 @@ export function runAddCustomAttribute(res: any, req: any) {
         .json({ errMessage: `登録が完了しました。` });
 }
 
-
 /**
  * カスタム属性の登録用データの作成
  * @param fileDataObj 読み込んだデータ
@@ -156,7 +160,7 @@ function createAddCustomAttribute(fileDataObj: customAttributeType[], req: any, 
     const nowDate = getNowDate();
 
     //登録データ
-    let body: customAttributeType = {
+    let registData: customAttributeType = {
         id: "",
         registerTime: "",
         updTime: "",
@@ -170,19 +174,19 @@ function createAddCustomAttribute(fileDataObj: customAttributeType[], req: any, 
     };
 
     //登録データをセット
-    body = { ...req.body };
-    delete body.selectElementList;
-    body.selectElementListId = "";
-    body.registerTime = nowDate;
-    body.updTime = nowDate;
-    body.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
-    body.deleteFlg = "0";
+    registData = { ...req.body };
+    delete registData.selectElementList;
+    registData.selectElementListId = "";
+    registData.registerTime = nowDate;
+    registData.updTime = nowDate;
+    registData.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
+    registData.deleteFlg = "0";
 
     let fileDataObjLen = fileDataObj.length;
     //IDを取得
     let id = fileDataObjLen === 0 ? "1" : fileDataObj[fileDataObjLen - 1]['id'].replace(`${PRE_CUSTOMATTRIBUTE_ID}`, "");
     //新しいIDを割り当てる
-    body.id = `${PRE_CUSTOMATTRIBUTE_ID}${parseInt(id) + 1}`;
+    registData.id = `${PRE_CUSTOMATTRIBUTE_ID}${parseInt(id) + 1}`;
 
     //選択リストが存在する場合IDを取得
     if (req.body.selectElementList && req.body.selectElementList.length > 0) {
@@ -193,10 +197,10 @@ function createAddCustomAttribute(fileDataObj: customAttributeType[], req: any, 
         let tmp = len === 0 ? "0" : calDecodeFileData[len - 1]['id'].replace(`${PRE_CUSTOMATTRIBUTELIST_ID}`, "");
         let newId = `${PRE_CUSTOMATTRIBUTELIST_ID}${parseInt(tmp) + 1}`;
         //選択リストIDをセット
-        body.selectElementListId = newId;
+        registData.selectElementListId = newId;
     }
 
-    fileDataObj.push(body);
+    fileDataObj.push(registData);
 
     return fileDataObj;
 }
@@ -210,12 +214,12 @@ function createAddCustomAttribute(fileDataObj: customAttributeType[], req: any, 
  * @returns 
  */
 function createAddCustomAttributeList(
-    fileDataObj: customAttributeListType[], req: any, caData: customAttributeType[], authResult: authInfoType)
-    : { errMsg: string, registData: customAttributeListType[] } {
+    fileDataObj: customAttributeListType[], req: any, caData: customAttributeType, authResult: authInfoType)
+    : registSelectListRetType {
 
-    let ret: { errMsg: string, registData: customAttributeListType[] } = {
+    let ret: registSelectListRetType = {
         errMsg: "",
-        registData: fileDataObj
+        registSelectList: fileDataObj
     };
 
     //選択リスト
@@ -232,7 +236,7 @@ function createAddCustomAttributeList(
     let newId = `${PRE_CUSTOMATTRIBUTELIST_ID}${parseInt(id) + 1}`;
 
     //IDの整合性チェック
-    if (caData.length === 0 || newId !== caData[caData.length - 1].selectElementListId) {
+    if (newId !== caData.selectElementListId) {
         ret.errMsg = "選択リストの登録に失敗しました";
         return ret;
     }
@@ -256,9 +260,10 @@ function createAddCustomAttributeList(
         fileDataObj.push(body);
     }
 
-    ret.registData = fileDataObj;
+    ret.registSelectList = fileDataObj;
     return ret;
 }
+
 
 /**
  * カスタム属性の削除
@@ -395,5 +400,186 @@ function createDeleteCustomAttributeList(fileDataObj: customAttributeListType[],
             });
         }
     });
+    return fileDataObj;
+}
+
+
+/**
+ * カスタム属性の更新
+ */
+export function runUpdCustomAttribute(res: any, req: any, caId: string) {
+    //認証権限チェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //IDの指定がない
+    if (!caId) {
+        return res
+            .status(400)
+            .json({ errMessage: `パラメータが不正です。` });
+    }
+
+    let errMessage = "";
+
+    //カスタム属性ファイルの読み込み
+    let caDecodeFileData: customAttributeType[] = getFileJsonData(CUSTOM_ATTRIBUTE_FILEPATH);
+
+    //存在チェック
+    let filterdCaData = caDecodeFileData.find((element) => {
+        return element.id === caId;
+    });
+
+    if (!filterdCaData) {
+        return res
+            .status(400)
+            .json({ errMessage: `更新データが存在しません。` });
+    }
+
+    //更新データの作成
+    let updCaData = createUpdCustomAttribute(caDecodeFileData, req, caId);
+
+    //選択形式の場合はリストの追加更新をする
+    let format = req.body.format;
+    if (format === "select" || format === "radio" || format === "checkbox") {
+
+        //カスタム属性リストファイルの読み込み
+        let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
+        let updCaLists: customAttributeListType[] = [];
+
+        let selectListId = filterdCaData.selectElementListId;
+        //カスタム属性リストのIDが存在する場合はリストを更新する
+        if (selectListId) {
+
+            //更新データの作成
+            updCaLists = createUpdCustomAttributeList(calDecodeFileData, req, selectListId, authResult);
+        }
+        //リストの新規登録
+        else {
+            let calRegistData: registSelectListRetType = {
+                errMsg: "",
+                registSelectList: []
+            };
+            let tmp = updCaData.find((element) => { return element.id === caId });
+
+            if (!tmp) {
+                return res
+                    .status(500)
+                    .json({ errMsg: "更新対象のデータが存在しません。" });
+            }
+
+            //カスタム属性リストの登録用データの作成
+            calRegistData = createAddCustomAttributeList(calDecodeFileData, req, tmp, authResult);
+
+            //IDの整合性エラー
+            if (calRegistData.errMsg) {
+                return res
+                    .status(500)
+                    .json({ errMsg: calRegistData.errMsg });
+            }
+            updCaLists = calRegistData.registSelectList;
+        }
+
+        //データを更新
+        errMessage = overWriteData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, JSON.stringify(updCaLists, null, '\t'));
+
+        //更新に失敗
+        if (errMessage) {
+            return res
+                .status(500)
+                .json({ errMessage });
+        }
+    }
+
+    //データを更新
+    errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(updCaData, null, '\t'));
+
+    //更新に失敗
+    if (errMessage) {
+        return res
+            .status(500)
+            .json({ errMessage });
+    }
+
+    //正常終了
+    return res
+        .status(200)
+        .json({ errMessage: `更新が完了しました。` });
+}
+
+/**
+ * カスタム属性の更新用データの作成
+ * @param filePath 
+ * @param stream 
+ * @returns 
+ */
+function createUpdCustomAttribute(fileDataObj: customAttributeType[], body: customAttributeType, updTaskId: string)
+    : customAttributeType[] {
+
+    //現在日付を取得
+    const nowDate = getNowDate();
+
+    fileDataObj.some((element) => {
+        //IDの一致するデータを更新
+        if (element.id === updTaskId) {
+            Object.keys(element).forEach((item) => {
+                if (item === `id` || item === `deleteFlg`) return true;
+                //更新日時
+                if (item === `updTime`) {
+                    element[item] = nowDate;
+                    return true;
+                }
+                element[item] = body[item];
+            });
+            return true;
+        }
+    });
+
+    return fileDataObj;
+}
+
+/**
+ * カスタム属性選択リストの更新用データの作成
+ * @param filePath 
+ * @param stream 
+ * @returns 
+ */
+function createUpdCustomAttributeList(fileDataObj: customAttributeListType[],
+    req: any, id: string, authResult: authInfoType)
+    : customAttributeListType[] {
+
+    //現在日付を取得
+    const nowDate = getNowDate();
+    let selectList = req.body.selectElementList;
+
+    selectList.forEach((element, i) => {
+        let tmp = fileDataObj.find((element1) => {
+            return element1.id === id && element1.no === i.toString();
+        });
+        //更新
+        if (tmp) {
+            tmp.content = element;
+            tmp.updTime = nowDate;
+            tmp.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
+        }
+        //登録
+        else {
+            let body: customAttributeListType = {
+                id: id,
+                no: (i + 1).toString(),
+                content: selectList[i],
+                registerTime: nowDate,
+                updTime: nowDate,
+                userId: authResult.userInfo ? authResult.userInfo?.userId : "",
+                deleteFlg: "0",
+            };
+
+            fileDataObj.push(body);
+        }
+    });
+
     return fileDataObj;
 }

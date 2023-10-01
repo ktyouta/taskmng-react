@@ -239,8 +239,14 @@ function useSettingCustomEdit() {
         //カスタム属性の形式が選択形式の場合はリストをセット
         if (caType === "select" || caType === "radio" || caType === "checkbox") {
             selectList = selectElementList.flatMap((element) => {
-                return element.ref.current ? element.ref.current.refValue : [];
+                //空欄をスキップ
+                return element.ref.current && element.ref.current.refValue !== "" ? element.ref.current.refValue : [];
             });
+            //選択形式の場合は最低1つ以上の項目を持たせる
+            if (selectList.length === 0) {
+                alert("1つ以上の項目が必要です。");
+                return;
+            }
         }
         body.selectElementList = selectList;
 
