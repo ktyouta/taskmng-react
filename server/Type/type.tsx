@@ -54,6 +54,7 @@ export type searchConditionType = {
 
 //カスタム属性の型
 export type customAttributeType = {
+    [key: string]: string | string[] | boolean | undefined,
     id: string,
     name: string,
     format: string,

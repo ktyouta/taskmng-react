@@ -691,5 +691,17 @@
 		"priority": "1",
 		"status": "2",
 		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-59",
+		"title": "カスタム属性の新規登録画面に選択リストのデータが表示される",
+		"content": "選択リストを持っているカスタム属性の詳細を表示した後に、登録画面を表示すると詳細画面に表示されていた選択リストが表示される。",
+		"registerTime": "20231001",
+		"updTime": "20231001",
+		"limitTime": "20231007",
+		"userId": "a",
+		"priority": "2",
+		"status": "1",
+		"deleteFlg": "0"
 	}
 ]

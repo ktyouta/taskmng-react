@@ -46,5 +46,17 @@
 		"updTime": "20230930",
 		"userId": "a",
 		"deleteFlg": "1"
+	},
+	{
+		"id": "ATTRIBUTEID-5",
+		"name": "test3",
+		"description": "test3",
+		"format": "select",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-5",
+		"registerTime": "20231001",
+		"updTime": "20231001",
+		"userId": "a",
+		"deleteFlg": "0"
 	}
 ]

@@ -1,24 +1,24 @@
-import { authenticate } from "./AuthFunction";
+import { authenticate } from "../../AuthFunction";
 import {
     CUSTOMATTRIBUTE,
     JSONEXTENSION,
     TRANSACTION,
     CUSTOMATTRIBUTELIST
-} from "./Constant";
-import { getFileJsonData, overWriteData, readFile } from "./FileFunction";
-import { checkUpdAuth } from "./MasterDataFunction";
-import { authInfoType, customAttributeListType, customAttributeType, searchConditionType, taskListType } from "./Type/type";
-import { getNowDate } from "./CommonFunction";
+} from "../../Constant";
+import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
+import { checkUpdAuth } from "../../MasterDataFunction";
+import { authInfoType, customAttributeListType, customAttributeType, searchConditionType, taskListType } from "../../Type/type";
+import { getNowDate } from "../../CommonFunction";
+import { createAddCustomAttribute, createAddCustomAttributeList } from "./CustomAttributeRegistFunction";
+import { createDeleteCustomAttribute, createDeleteCustomAttributeList } from "./CustomAttributeDeleteFunction";
+import { createUpdCustomAttribute, createUpdCustomAttributeList } from "./CustomAttributeUpdateFunction";
+import { getCustomAttributeDetail } from "./CustomAttributeSelectFunction";
 
 
 //カスタム属性ファイルのパス
 const CUSTOM_ATTRIBUTE_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTE}${JSONEXTENSION}`;
 //カスタム属性リストファイルのパス
 const CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTELIST}${JSONEXTENSION}`;
-//カスタム属性IDの接頭辞
-const PRE_CUSTOMATTRIBUTE_ID = `ATTRIBUTEID-`;
-//カスタム属性リストIDの接頭辞
-const PRE_CUSTOMATTRIBUTELIST_ID = `ATTRIBUTELISTID-`;
 
 //カスタム属性の選択リストの登録メソッドの戻り値
 type registSelectListRetType = {
@@ -46,24 +46,7 @@ export function getCustomAttribute(res: any, req: any, id?: string) {
 
     //パスパラメータの指定あり
     if (id) {
-        let singleCustomAttributeData = decodeFileData.find((element) => { return element.id === id });
-        if (!singleCustomAttributeData) {
-            return res.status(400).json({ errMessage: `該当データがありません。` });
-        }
-
-        //選択リストを所持している場合は結合する
-        if (singleCustomAttributeData.selectElementListId) {
-            //カスタム属性リストファイルの読み込み
-            let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
-            //選択リストのIDで絞り込み
-            let filterdCalDate = calDecodeFileData
-                .filter((element) => { return element.id === singleCustomAttributeData?.selectElementListId })
-                .map((element) => { return element.content });
-
-            singleCustomAttributeData.selectElementList = filterdCalDate
-        }
-
-        return res.status(200).json(singleCustomAttributeData);
+        return getCustomAttributeDetail(decodeFileData, id, res);
     }
 
     //データなし
@@ -146,124 +129,6 @@ export function runAddCustomAttribute(res: any, req: any) {
         .json({ errMessage: `登録が完了しました。` });
 }
 
-/**
- * カスタム属性の登録用データの作成
- * @param fileDataObj 読み込んだデータ
- * @param req リクエスト
- * @param authResult ユーザー情報
- * @returns 
- */
-function createAddCustomAttribute(fileDataObj: customAttributeType[], req: any, authResult: authInfoType)
-    : customAttributeType[] {
-
-    //現在日付を取得
-    const nowDate = getNowDate();
-
-    //登録データ
-    let registData: customAttributeType = {
-        id: "",
-        registerTime: "",
-        updTime: "",
-        userId: "",
-        deleteFlg: "",
-        name: "",
-        format: "",
-        required: false,
-        selectElementListId: "",
-        selectElementList: [],
-    };
-
-    //登録データをセット
-    registData = { ...req.body };
-    delete registData.selectElementList;
-    registData.selectElementListId = "";
-    registData.registerTime = nowDate;
-    registData.updTime = nowDate;
-    registData.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
-    registData.deleteFlg = "0";
-
-    let fileDataObjLen = fileDataObj.length;
-    //IDを取得
-    let id = fileDataObjLen === 0 ? "1" : fileDataObj[fileDataObjLen - 1]['id'].replace(`${PRE_CUSTOMATTRIBUTE_ID}`, "");
-    //新しいIDを割り当てる
-    registData.id = `${PRE_CUSTOMATTRIBUTE_ID}${parseInt(id) + 1}`;
-
-    //選択リストが存在する場合IDを取得
-    if (req.body.selectElementList && req.body.selectElementList.length > 0) {
-        //カスタム属性リストの読み込み
-        let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
-        let len = calDecodeFileData.length;
-        //IDを取得
-        let tmp = len === 0 ? "0" : calDecodeFileData[len - 1]['id'].replace(`${PRE_CUSTOMATTRIBUTELIST_ID}`, "");
-        let newId = `${PRE_CUSTOMATTRIBUTELIST_ID}${parseInt(tmp) + 1}`;
-        //選択リストIDをセット
-        registData.selectElementListId = newId;
-    }
-
-    fileDataObj.push(registData);
-
-    return fileDataObj;
-}
-
-/**
- * カスタム属性リストの登録用データの作成
- * @param fileDataObj 読み込んだカスタム属性リスト
- * @param req リクエスト
- * @param caData カスタム属性の登録用データ
- * @param authResult ユーザー情報
- * @returns 
- */
-function createAddCustomAttributeList(
-    fileDataObj: customAttributeListType[], req: any, caData: customAttributeType, authResult: authInfoType)
-    : registSelectListRetType {
-
-    let ret: registSelectListRetType = {
-        errMsg: "",
-        registSelectList: fileDataObj
-    };
-
-    //選択リスト
-    let selectList = req.body.selectElementList;
-
-    //選択リストが存在しない
-    if (!selectList || selectList.length === 0) {
-        return ret;
-    }
-
-    let fileDataObjLen = fileDataObj.length;
-    //IDを取得
-    let id = fileDataObjLen === 0 ? "0" : fileDataObj[fileDataObjLen - 1]['id'].replace(`${PRE_CUSTOMATTRIBUTELIST_ID}`, "");
-    let newId = `${PRE_CUSTOMATTRIBUTELIST_ID}${parseInt(id) + 1}`;
-
-    //IDの整合性チェック
-    if (newId !== caData.selectElementListId) {
-        ret.errMsg = "選択リストの登録に失敗しました";
-        return ret;
-    }
-
-    //現在日付を取得
-    const nowDate = getNowDate();
-
-    //データを登録用リストにセット
-    for (let i = 0; i < selectList.length; i++) {
-        //登録データ
-        let body: customAttributeListType = {
-            id: newId,
-            no: (i + 1).toString(),
-            content: selectList[i],
-            registerTime: nowDate,
-            updTime: nowDate,
-            userId: authResult.userInfo ? authResult.userInfo?.userId : "",
-            deleteFlg: "0",
-        };
-
-        fileDataObj.push(body);
-    }
-
-    ret.registSelectList = fileDataObj;
-    return ret;
-}
-
 
 /**
  * カスタム属性の削除
@@ -336,71 +201,6 @@ export function runDeleteCustomAttribute(res: any, req: any, caId: string) {
     return res
         .status(200)
         .json({ errMessage: `削除が完了しました。` });
-}
-
-/**
- * カスタム属性の削除用データの作成
- * @param filePath 
- * @param stream 
- * @returns 
- */
-function createDeleteCustomAttribute(fileDataObj: customAttributeType[], delCaId: string)
-    : customAttributeType[] {
-
-    //現在日付を取得
-    const nowDate = getNowDate();
-
-    fileDataObj.some((element) => {
-        //IDの一致するデータを削除
-        if (element.id === delCaId) {
-            Object.keys(element).forEach((item) => {
-                //更新日時
-                if (item === `updTime`) {
-                    element[item] = nowDate;
-                    return true;
-                }
-                //削除フラグを立てる
-                if (item === `deleteFlg`) {
-                    element[item] = "1";
-                    return true;
-                }
-            });
-            return true;
-        }
-    });
-    return fileDataObj;
-}
-
-/**
- * カスタム属性選択リストの削除用データの作成
- * @param filePath 
- * @param stream 
- * @returns 
- */
-function createDeleteCustomAttributeList(fileDataObj: customAttributeListType[], delCaListId: string)
-    : customAttributeListType[] {
-
-    //現在日付を取得
-    const nowDate = getNowDate();
-
-    fileDataObj.forEach((element) => {
-        //IDの一致するデータを削除
-        if (element.id === delCaListId) {
-            Object.keys(element).forEach((item) => {
-                //更新日時
-                if (item === `updTime`) {
-                    element[item] = nowDate;
-                    return true;
-                }
-                //削除フラグを立てる
-                if (item === `deleteFlg`) {
-                    element[item] = "1";
-                    return true;
-                }
-            });
-        }
-    });
-    return fileDataObj;
 }
 
 
@@ -508,78 +308,4 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
     return res
         .status(200)
         .json({ errMessage: `更新が完了しました。` });
-}
-
-/**
- * カスタム属性の更新用データの作成
- * @param filePath 
- * @param stream 
- * @returns 
- */
-function createUpdCustomAttribute(fileDataObj: customAttributeType[], body: customAttributeType, updTaskId: string)
-    : customAttributeType[] {
-
-    //現在日付を取得
-    const nowDate = getNowDate();
-
-    fileDataObj.some((element) => {
-        //IDの一致するデータを更新
-        if (element.id === updTaskId) {
-            Object.keys(element).forEach((item) => {
-                if (item === `id` || item === `deleteFlg`) return true;
-                //更新日時
-                if (item === `updTime`) {
-                    element[item] = nowDate;
-                    return true;
-                }
-                element[item] = body[item];
-            });
-            return true;
-        }
-    });
-
-    return fileDataObj;
-}
-
-/**
- * カスタム属性選択リストの更新用データの作成
- * @param filePath 
- * @param stream 
- * @returns 
- */
-function createUpdCustomAttributeList(fileDataObj: customAttributeListType[],
-    req: any, id: string, authResult: authInfoType)
-    : customAttributeListType[] {
-
-    //現在日付を取得
-    const nowDate = getNowDate();
-    let selectList = req.body.selectElementList;
-
-    selectList.forEach((element, i) => {
-        let tmp = fileDataObj.find((element1) => {
-            return element1.id === id && element1.no === i.toString();
-        });
-        //更新
-        if (tmp) {
-            tmp.content = element;
-            tmp.updTime = nowDate;
-            tmp.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
-        }
-        //登録
-        else {
-            let body: customAttributeListType = {
-                id: id,
-                no: (i + 1).toString(),
-                content: selectList[i],
-                registerTime: nowDate,
-                updTime: nowDate,
-                userId: authResult.userInfo ? authResult.userInfo?.userId : "",
-                deleteFlg: "0",
-            };
-
-            fileDataObj.push(body);
-        }
-    });
-
-    return fileDataObj;
 }

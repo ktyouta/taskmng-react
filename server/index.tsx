@@ -9,7 +9,12 @@ import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, 
 import { runAddMaster } from './AddMasterDataFunction';
 import { getGeneralDetailData } from './GeneralFunction';
 import { getTask, runAddTask, runDeleteTask, runUpdTask } from './TaskFunction';
-import { getCustomAttribute, runAddCustomAttribute, runDeleteCustomAttribute } from './SettingFunction';
+import {
+    getCustomAttribute,
+    runAddCustomAttribute,
+    runDeleteCustomAttribute,
+    runUpdCustomAttribute
+} from './SettingFunction/CustomAttribute/CustomAttributeFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -228,6 +233,12 @@ app.put(`${ENV.TASK}/:param`, function (req, res) {
     runUpdTask(res, req, req.params.param);
 });
 
+/**
+ * カスタム属性の更新
+ */
+app.put(`${ENV.CUSTOMATTRIBUTE}/:param`, function (req, res) {
+    runUpdCustomAttribute(res, req, req.params.param);
+});
 
 
 /**
