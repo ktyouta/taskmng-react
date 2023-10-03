@@ -11,17 +11,21 @@ import { authInfoType, customAttributeListType, customAttributeType, searchCondi
 import { getNowDate } from "../../CommonFunction";
 import { createAddCustomAttribute, createAddCustomAttributeList } from "./CustomAttributeRegistFunction";
 import { createDeleteCustomAttribute, createDeleteCustomAttributeList } from "./CustomAttributeDeleteFunction";
-import { createUpdCustomAttribute, createUpdCustomAttributeList } from "./CustomAttributeUpdateFunction";
+import { createUpdCustomAttribute, createUpdCustomAttributeList, updCustomAttributeList } from "./CustomAttributeUpdateFunction";
 import { getCustomAttributeDetail } from "./CustomAttributeSelectFunction";
 
 
 //カスタム属性ファイルのパス
-const CUSTOM_ATTRIBUTE_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTE}${JSONEXTENSION}`;
+export const CUSTOM_ATTRIBUTE_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTE}${JSONEXTENSION}`;
 //カスタム属性リストファイルのパス
-const CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTELIST}${JSONEXTENSION}`;
+export const CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTELIST}${JSONEXTENSION}`;
+//カスタム属性IDの接頭辞
+export const PRE_CUSTOMATTRIBUTE_ID = `ATTRIBUTEID-`;
+//カスタム属性リストIDの接頭辞
+export const PRE_CUSTOMATTRIBUTELIST_ID = `ATTRIBUTELISTID-`;
 
 //カスタム属性の選択リストの登録メソッドの戻り値
-type registSelectListRetType = {
+export type registSelectListRetType = {
     errMsg: string,
     registSelectList: customAttributeListType[]
 }
@@ -233,6 +237,7 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
         return element.id === caId;
     });
 
+    //更新対象が存在しない
     if (!filterdCaData) {
         return res
             .status(400)
@@ -246,47 +251,10 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
     let format = req.body.format;
     if (format === "select" || format === "radio" || format === "checkbox") {
 
-        //カスタム属性リストファイルの読み込み
-        let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
-        let updCaLists: customAttributeListType[] = [];
+        //選択リストの追加および更新
+        errMessage = updCustomAttributeList(updCaData, filterdCaData, req, caId, authResult);
 
-        let selectListId = filterdCaData.selectElementListId;
-        //カスタム属性リストのIDが存在する場合はリストを更新する
-        if (selectListId) {
-
-            //更新データの作成
-            updCaLists = createUpdCustomAttributeList(calDecodeFileData, req, selectListId, authResult);
-        }
-        //リストの新規登録
-        else {
-            let calRegistData: registSelectListRetType = {
-                errMsg: "",
-                registSelectList: []
-            };
-            let tmp = updCaData.find((element) => { return element.id === caId });
-
-            if (!tmp) {
-                return res
-                    .status(500)
-                    .json({ errMsg: "更新対象のデータが存在しません。" });
-            }
-
-            //カスタム属性リストの登録用データの作成
-            calRegistData = createAddCustomAttributeList(calDecodeFileData, req, tmp, authResult);
-
-            //IDの整合性エラー
-            if (calRegistData.errMsg) {
-                return res
-                    .status(500)
-                    .json({ errMsg: calRegistData.errMsg });
-            }
-            updCaLists = calRegistData.registSelectList;
-        }
-
-        //データを更新
-        errMessage = overWriteData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, JSON.stringify(updCaLists, null, '\t'));
-
-        //更新に失敗
+        //リストの更新に失敗
         if (errMessage) {
             return res
                 .status(500)

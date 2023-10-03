@@ -9,20 +9,9 @@ import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, customAttributeListType, customAttributeType, searchConditionType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
+import { CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, PRE_CUSTOMATTRIBUTELIST_ID, PRE_CUSTOMATTRIBUTE_ID, registSelectListRetType } from "./CustomAttributeFunction";
 
 
-//カスタム属性リストファイルのパス
-const CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTELIST}${JSONEXTENSION}`;
-//カスタム属性IDの接頭辞
-const PRE_CUSTOMATTRIBUTE_ID = `ATTRIBUTEID-`;
-//カスタム属性リストIDの接頭辞
-const PRE_CUSTOMATTRIBUTELIST_ID = `ATTRIBUTELISTID-`;
-
-//カスタム属性の選択リストの登録メソッドの戻り値
-type registSelectListRetType = {
-    errMsg: string,
-    registSelectList: customAttributeListType[]
-}
 
 
 /**
