@@ -49,14 +49,13 @@
 	},
 	{
 		"id": "ATTRIBUTEID-5",
-		"name": "test3",
-		"description": "test3",
-		"format": "select",
-		"required": false,
+		"name": "test5upd1",
+		"description": "test5text1",
+		"format": "radio",
+		"required": true,
 		"selectElementListId": "ATTRIBUTELISTID-5",
-		"registerTime": "20231001",
-		"updTime": "20231001",
-		"userId": "a",
+		"registerTime": "20231007",
+		"updTime": "20231007",
 		"deleteFlg": "0"
 	}
 ]

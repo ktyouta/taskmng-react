@@ -35,7 +35,9 @@ export function getCustomAttributeDetail(decodeFileData: customAttributeType[], 
         let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
         //選択リストのIDで絞り込み
         let filterdCalDate = calDecodeFileData
-            .filter((element) => { return element.id === singleCustomAttributeData?.selectElementListId })
+            .filter((element) => {
+                return element.id === singleCustomAttributeData?.selectElementListId && element.deleteFlg !== "1"
+            })
             .map((element) => { return element.content });
 
         singleCustomAttributeData.selectElementList = filterdCalDate

@@ -86,7 +86,13 @@ export function runAddCustomAttribute(res: any, req: any) {
     };
 
     //カスタム属性リストのIDが存在する場合はリストを登録する
-    let registListFlg: boolean = req.body.selectElementList && req.body.selectElementList.length > 0;
+    let selectList: string[] = req.body.selectElementList;
+    selectList = selectList.flatMap((element) => {
+        //空欄は登録しない
+        return element ? element : [];
+    });
+    let registListFlg: boolean = selectList && selectList.length > 0;
+
     if (registListFlg) {
         //カスタム属性リストファイルの読み込み
         let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
@@ -94,7 +100,7 @@ export function runAddCustomAttribute(res: any, req: any) {
         let tmp: customAttributeType = caRegistData[caRegistData.length - 1];
 
         //カスタム属性リストの登録用データの作成
-        calRegistData = createAddCustomAttributeList(calDecodeFileData, req, tmp, authResult);
+        calRegistData = createAddCustomAttributeList(calDecodeFileData, selectList, tmp, authResult);
 
         //IDの整合性エラー
         if (calRegistData.errMsg) {
@@ -245,12 +251,13 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
     }
 
     //更新データの作成
-    let updCaData = createUpdCustomAttribute(caDecodeFileData, req, caId);
+    let updCaData = createUpdCustomAttribute(caDecodeFileData, req.body, caId);
 
+    console.log("aaaaaaaaaaaaa");
     //選択形式の場合はリストの追加更新をする
     let format = req.body.format;
     if (format === "select" || format === "radio" || format === "checkbox") {
-
+        console.log("bbbbbbbbbbbbbbbb");
         //選択リストの追加および更新
         errMessage = updCustomAttributeList(updCaData, filterdCaData, req, caId, authResult);
 
@@ -264,7 +271,7 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
 
     //データを更新
     errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(updCaData, null, '\t'));
-
+    console.log("ccccccccccccc");
     //更新に失敗
     if (errMessage) {
         return res

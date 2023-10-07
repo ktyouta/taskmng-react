@@ -1,16 +1,16 @@
-import { authenticate } from "../../AuthFunction";
-import {
-    CUSTOMATTRIBUTE,
-    JSONEXTENSION,
-    TRANSACTION,
-    CUSTOMATTRIBUTELIST
-} from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { checkUpdAuth } from "../../MasterDataFunction";
-import { authInfoType, customAttributeListType, customAttributeType, searchConditionType, taskListType } from "../../Type/type";
+import {
+    authInfoType,
+    customAttributeListType,
+    customAttributeType,
+} from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
-import { CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, PRE_CUSTOMATTRIBUTELIST_ID, PRE_CUSTOMATTRIBUTE_ID, registSelectListRetType } from "./CustomAttributeFunction";
-
+import {
+    CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH,
+    PRE_CUSTOMATTRIBUTELIST_ID,
+    PRE_CUSTOMATTRIBUTE_ID,
+    registSelectListRetType
+} from "./CustomAttributeFunction";
 
 
 
@@ -74,24 +74,21 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], req
 }
 
 /**
- * カスタム属性リストの登録用データの作成
+ * カスタム属性選択リストの登録用データの作成
  * @param fileDataObj 読み込んだカスタム属性リスト
- * @param req リクエスト
+ * @param selectList 選択リスト
  * @param caData カスタム属性の登録用データ
  * @param authResult ユーザー情報
  * @returns 
  */
 export function createAddCustomAttributeList(
-    fileDataObj: customAttributeListType[], req: any, caData: customAttributeType, authResult: authInfoType)
+    fileDataObj: customAttributeListType[], selectList: string[], caData: customAttributeType, authResult: authInfoType)
     : registSelectListRetType {
 
     let ret: registSelectListRetType = {
         errMsg: "",
         registSelectList: fileDataObj
     };
-
-    //選択リスト
-    let selectList = req.body.selectElementList;
 
     //選択リストが存在しない
     if (!selectList || selectList.length === 0) {

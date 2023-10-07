@@ -138,7 +138,8 @@ function useSettingCustomEdit() {
         //失敗後の処理
         afErrorFn: (res: errResType) => {
             //エラーメッセージを表示
-            setErrMessage(res.response.data.errMessage);
+            //setErrMessage(res.response.data.errMessage);
+            alert(res.response.data.errMessage);
         },
     });
 
@@ -153,7 +154,8 @@ function useSettingCustomEdit() {
         //失敗後の処理
         afErrorFn: (res: errResType) => {
             //エラーメッセージを表示
-            setErrMessage(res.response.data.errMessage);
+            //setErrMessage(res.response.data.errMessage);
+            alert(res.response.data.errMessage);
         },
     });
 
@@ -203,6 +205,52 @@ function useSettingCustomEdit() {
      * 登録イベント
      */
     const registeAttribute = () => {
+        let body = createRequestBody();
+        if (!body) {
+            return;
+        }
+        if (!window.confirm('カスタム属性を登録しますか？')) {
+            return
+        }
+        if (!registMutation) {
+            alert("リクエストの送信に失敗しました。");
+            return;
+        }
+        registMutation.mutate(body);
+    }
+
+    /**
+     * 更新イベント
+     */
+    const updateAttribute = () => {
+        let body = createRequestBody();
+        if (!body) {
+            return;
+        }
+        if (!window.confirm('カスタム属性を更新しますか？')) {
+            return
+        }
+        if (!registMutation) {
+            alert("リクエストの送信に失敗しました。");
+            return;
+        }
+        updMutation.mutate(body);
+    }
+
+    /**
+     * 削除イベント
+     */
+    const deleteAttribute = () => {
+        if (!window.confirm('カスタム属性を削除しますか？')) {
+            return
+        }
+        delMutation.mutate();
+    }
+
+    /**
+     * リクエストボディの作成
+     */
+    const createRequestBody = () => {
         let body: customAttributeType = {
             id: "",
             name: "",
@@ -238,45 +286,24 @@ function useSettingCustomEdit() {
         let selectList: string[] = [];
         //カスタム属性の形式が選択形式の場合はリストをセット
         if (caType === "select" || caType === "radio" || caType === "checkbox") {
+            let cnt = 0;
             selectList = selectElementList.flatMap((element) => {
                 //空欄をスキップ
-                return element.ref.current && element.ref.current.refValue !== "" ? element.ref.current.refValue : [];
+                if (!element.ref.current || element.ref.current.refValue === "") {
+                    cnt++;
+                    return "";
+                }
+                return element.ref.current?.refValue;
             });
             //選択形式の場合は最低1つ以上の項目を持たせる
-            if (selectList.length === 0) {
+            if (selectList.length === cnt) {
                 alert("1つ以上の項目が必要です。");
                 return;
             }
         }
         body.selectElementList = selectList;
-
-        if (!window.confirm('カスタム属性を登録しますか？')) {
-            return
-        }
-        if (!registMutation) {
-            alert("リクエストの送信に失敗しました。");
-            return;
-        }
-        console.log("body" + body);
-        registMutation.mutate(body);
-    }
-
-    /**
-     * 更新イベント
-     */
-    const updateAttribute = () => {
-        //updMutation.mutate();
-    }
-
-    /**
-     * 削除イベント
-     */
-    const deleteAttribute = () => {
-        if (!window.confirm('カスタム属性を削除しますか？')) {
-            return
-        }
-        delMutation.mutate();
-    }
+        return body;
+    };
 
     return {
         caNm,
