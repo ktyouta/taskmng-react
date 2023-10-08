@@ -1,10 +1,3 @@
-import { authenticate } from "../../AuthFunction";
-import {
-    CUSTOMATTRIBUTE,
-    JSONEXTENSION,
-    TRANSACTION,
-    CUSTOMATTRIBUTELIST
-} from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, customAttributeListType, customAttributeType, searchConditionType, taskListType } from "../../Type/type";
@@ -54,7 +47,7 @@ export function createUpdCustomAttribute(fileDataObj: customAttributeType[], bod
  * @param authResult 
  * @returns 
  */
-export function updCustomAttributeList(updCaData: customAttributeType[], filterdCaData: customAttributeType,
+export function runUpdSelectList(updCaData: customAttributeType[], filterdCaData: customAttributeType,
     req: any, caId: string, authResult: authInfoType)
     : string {
 

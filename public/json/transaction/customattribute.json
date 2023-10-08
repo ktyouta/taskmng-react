@@ -57,5 +57,17 @@
 		"registerTime": "20231007",
 		"updTime": "20231008",
 		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTEID-6",
+		"name": "test6",
+		"description": "test6",
+		"format": "select",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-6",
+		"registerTime": "20231008",
+		"updTime": "20231008",
+		"userId": "a",
+		"deleteFlg": "1"
 	}
 ]

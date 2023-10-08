@@ -74,6 +74,38 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], req
 }
 
 /**
+ * カスタム属性リストの作成
+ * @param caRegistData 
+ * @param selectList 
+ * @param authResult 
+ * @returns 
+ */
+export function runCreateSelectList(
+    caRegistData: customAttributeType[], selectList: string[], authResult: authInfoType) {
+
+    let calRegistData: registSelectListRetType = {
+        errMsg: "",
+        registSelectList: []
+    };
+
+    //カスタム属性リストファイルの読み込み
+    let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
+    //登録データ
+    let tmp: customAttributeType = caRegistData[caRegistData.length - 1];
+
+    //カスタム属性リストの登録用データの作成
+    calRegistData = createAddCustomAttributeList(calDecodeFileData, selectList, tmp, authResult);
+
+    //IDの整合性エラー
+    if (calRegistData.errMsg) {
+        return calRegistData.errMsg;
+    }
+
+    //データを登録
+    return overWriteData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, JSON.stringify(calRegistData.registSelectList, null, '\t'));
+}
+
+/**
  * カスタム属性選択リストの登録用データの作成
  * @param fileDataObj 読み込んだカスタム属性リスト
  * @param selectList 選択リスト

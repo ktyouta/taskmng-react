@@ -9,6 +9,7 @@ import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, customAttributeListType, customAttributeType, searchConditionType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
+import { CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH } from "./CustomAttributeFunction";
 
 
 /**
@@ -42,6 +43,22 @@ export function createDeleteCustomAttribute(fileDataObj: customAttributeType[], 
         }
     });
     return fileDataObj;
+}
+
+/**
+ * カスタム属性リストの削除
+ * @param fileDataObj 
+ * @param selectListId 
+ * @returns 
+ */
+export function runDeleteSelectList(selectListId: string) {
+    //カスタム属性リストファイルの読み込み
+    let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
+
+    //削除データの作成
+    let delCaLists = createDeleteCustomAttributeList(calDecodeFileData, selectListId);
+    //データを削除
+    return overWriteData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, JSON.stringify(delCaLists, null, '\t'));
 }
 
 /**

@@ -110,8 +110,8 @@
 	{
 		"id": "ATTRIBUTELISTID-5",
 		"no": "1",
-		"content": "aaa",
-		"registerTime": "20231007",
+		"content": "ccc2",
+		"registerTime": "20231008",
 		"updTime": "20231008",
 		"userId": "a",
 		"deleteFlg": "0"
@@ -119,19 +119,28 @@
 	{
 		"id": "ATTRIBUTELISTID-5",
 		"no": "2",
-		"content": "ccc1",
+		"content": "bbb",
 		"registerTime": "20231008",
 		"updTime": "20231008",
 		"userId": "a",
 		"deleteFlg": "0"
 	},
 	{
-		"id": "ATTRIBUTELISTID-5",
-		"no": "3",
-		"content": "bbb",
+		"id": "ATTRIBUTELISTID-6",
+		"no": "1",
+		"content": "a",
 		"registerTime": "20231008",
 		"updTime": "20231008",
 		"userId": "a",
-		"deleteFlg": "0"
+		"deleteFlg": "1"
+	},
+	{
+		"id": "ATTRIBUTELISTID-6",
+		"no": "2",
+		"content": "b",
+		"registerTime": "20231008",
+		"updTime": "20231008",
+		"userId": "a",
+		"deleteFlg": "1"
 	}
 ]

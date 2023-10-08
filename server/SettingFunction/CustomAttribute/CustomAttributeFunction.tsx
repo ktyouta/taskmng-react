@@ -9,10 +9,10 @@ import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, customAttributeListType, customAttributeType, searchConditionType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
-import { createAddCustomAttribute, createAddCustomAttributeList } from "./CustomAttributeRegistFunction";
-import { createDeleteCustomAttribute, createDeleteCustomAttributeList } from "./CustomAttributeDeleteFunction";
-import { createUpdCustomAttribute, createUpdCustomAttributeList, updCustomAttributeList } from "./CustomAttributeUpdateFunction";
-import { getCustomAttributeDetail } from "./CustomAttributeSelectFunction";
+import { createAddCustomAttribute, createAddCustomAttributeList, runCreateSelectList } from "./CustomAttributeRegistFunction";
+import { createDeleteCustomAttribute, createDeleteCustomAttributeList, runDeleteSelectList } from "./CustomAttributeDeleteFunction";
+import { createUpdCustomAttribute, createUpdCustomAttributeList, runUpdSelectList } from "./CustomAttributeUpdateFunction";
+import { getCustomAttributeDetail, getCustomAttributeList } from "./CustomAttributeSelectFunction";
 
 
 //カスタム属性ファイルのパス
@@ -40,22 +40,18 @@ export function getCustomAttribute(res: any, req: any, id?: string) {
     if (authResult.errMessage) {
         return authResult;
     }
+
     //カスタム属性の読み込み
-    let decodeFileData: customAttributeType[] = getFileJsonData(CUSTOM_ATTRIBUTE_FILEPATH);
-
-    //削除済のデータをフィルターする
-    decodeFileData = decodeFileData.filter((element) => {
-        return element.deleteFlg !== "1";
-    });
-
-    //パスパラメータの指定あり
-    if (id) {
-        return getCustomAttributeDetail(decodeFileData, id, res);
-    }
+    let decodeFileData: customAttributeType[] = getCustomAttributeList();
 
     //データなし
     if (!decodeFileData || decodeFileData.length === 0) {
         return res.status(400).json({ errMessage: `カスタム属性が登録されていません。` });
+    }
+
+    //パスパラメータの指定あり
+    if (id) {
+        return getCustomAttributeDetail(decodeFileData, id, res);
     }
 
     return res.status(200).json(decodeFileData);
@@ -63,7 +59,7 @@ export function getCustomAttribute(res: any, req: any, id?: string) {
 
 
 /**
- * カスタム属性の追加
+ * カスタム属性の登録
  */
 export function runAddCustomAttribute(res: any, req: any) {
     //認証権限チェック
@@ -80,36 +76,6 @@ export function runAddCustomAttribute(res: any, req: any) {
     //カスタム属性の登録用データの作成
     let caRegistData = createAddCustomAttribute(caDecodeFileData, req, authResult);
 
-    let calRegistData: registSelectListRetType = {
-        errMsg: "",
-        registSelectList: []
-    };
-
-    //カスタム属性リストのIDが存在する場合はリストを登録する
-    let selectList: string[] = req.body.selectElementList;
-    selectList = selectList.flatMap((element) => {
-        //空欄は登録しない
-        return element ? element : [];
-    });
-    let registListFlg: boolean = selectList && selectList.length > 0;
-
-    if (registListFlg) {
-        //カスタム属性リストファイルの読み込み
-        let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
-        //登録データ
-        let tmp: customAttributeType = caRegistData[caRegistData.length - 1];
-
-        //カスタム属性リストの登録用データの作成
-        calRegistData = createAddCustomAttributeList(calDecodeFileData, selectList, tmp, authResult);
-
-        //IDの整合性エラー
-        if (calRegistData.errMsg) {
-            return res
-                .status(500)
-                .json({ errMsg: calRegistData.errMsg });
-        }
-    }
-
     //データを登録
     let errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(caRegistData, null, '\t'));
 
@@ -120,12 +86,20 @@ export function runAddCustomAttribute(res: any, req: any) {
             .json({ errMessage });
     }
 
+    //カスタム属性リストのIDが存在する場合はリストを登録する
+    let selectList: string[] = req.body.selectElementList;
+    selectList = selectList.flatMap((element) => {
+        //空欄は登録しない
+        return element ? element : [];
+    });
+
+    let registListFlg: boolean = selectList && selectList.length > 0;
+
     //カスタム属性リストを登録
     if (registListFlg) {
-        //データを登録
-        errMessage = overWriteData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, JSON.stringify(calRegistData.registSelectList, null, '\t'));
+        errMessage = runCreateSelectList(caRegistData, selectList, authResult);
 
-        //登録に失敗
+        //IDの整合性エラー
         if (errMessage) {
             return res
                 .status(500)
@@ -176,15 +150,9 @@ export function runDeleteCustomAttribute(res: any, req: any, caId: string) {
     }
 
     //カスタム属性リストのIDが存在する場合はリストを削除する
-    let selectListId = filterdCaData.selectElementListId
+    let selectListId = filterdCaData.selectElementListId;
     if (selectListId) {
-        //カスタム属性リストファイルの読み込み
-        let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
-
-        //削除データの作成
-        let delCaLists = createDeleteCustomAttributeList(calDecodeFileData, selectListId);
-        //データを削除
-        errMessage = overWriteData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, JSON.stringify(delCaLists, null, '\t'));
+        errMessage = runDeleteSelectList(selectListId);
 
         //削除に失敗
         if (errMessage) {
@@ -253,20 +221,6 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
     //更新データの作成
     let updCaData = createUpdCustomAttribute(caDecodeFileData, req.body, caId);
 
-    //選択形式の場合はリストの追加更新をする
-    let format = req.body.format;
-    if (format === "select" || format === "radio" || format === "checkbox") {
-        //選択リストの追加および更新
-        errMessage = updCustomAttributeList(updCaData, filterdCaData, req, caId, authResult);
-
-        //リストの更新に失敗
-        if (errMessage) {
-            return res
-                .status(500)
-                .json({ errMessage });
-        }
-    }
-
     //データを更新
     errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(updCaData, null, '\t'));
     //更新に失敗
@@ -274,6 +228,20 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
         return res
             .status(500)
             .json({ errMessage });
+    }
+
+    //選択形式の場合はリストの追加更新をする
+    let format = req.body.format;
+    if (format === "select" || format === "radio" || format === "checkbox") {
+        //選択リストの追加および更新
+        errMessage = runUpdSelectList(updCaData, filterdCaData, req, caId, authResult);
+
+        //リストの更新に失敗
+        if (errMessage) {
+            return res
+                .status(500)
+                .json({ errMessage });
+        }
     }
 
     //正常終了

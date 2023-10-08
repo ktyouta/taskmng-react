@@ -9,11 +9,28 @@ import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, customAttributeListType, customAttributeType, searchConditionType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
+import { CUSTOM_ATTRIBUTE_FILEPATH } from "./CustomAttributeFunction";
 
 
 //カスタム属性リストファイルのパス
 const CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTELIST}${JSONEXTENSION}`;
 
+
+/**
+ * カスタム属性リストを取得
+ */
+export function getCustomAttributeList() {
+
+    //カスタム属性の読み込み
+    let decodeFileData: customAttributeType[] = getFileJsonData(CUSTOM_ATTRIBUTE_FILEPATH);
+
+    //削除済のデータをフィルターする
+    decodeFileData = decodeFileData.filter((element) => {
+        return element.deleteFlg !== "1";
+    });
+
+    return decodeFileData;
+}
 
 /**
  * カスタム属性のリストをIDで絞り込む
