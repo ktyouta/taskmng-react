@@ -10,12 +10,15 @@ function useSettingCustomTop() {
     const setEditMode = useSetAtom(editModeAtom);
     //ルーティング用
     const navigate = useNavigate();
+    //カスタム属性のID
+    const setCustomAttributeId = useSetAtom(customAttributeIdAtom);
 
     /**
      * 新規作成ボタン押下
      */
     const createNewCustomAttribute = () => {
         setEditMode(editModeEnum.create);
+        setCustomAttributeId("");
         navigate(`/setting/custom/edit`);
     };
 
