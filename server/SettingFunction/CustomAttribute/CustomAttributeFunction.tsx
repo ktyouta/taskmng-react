@@ -253,11 +253,9 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
     //更新データの作成
     let updCaData = createUpdCustomAttribute(caDecodeFileData, req.body, caId);
 
-    console.log("aaaaaaaaaaaaa");
     //選択形式の場合はリストの追加更新をする
     let format = req.body.format;
     if (format === "select" || format === "radio" || format === "checkbox") {
-        console.log("bbbbbbbbbbbbbbbb");
         //選択リストの追加および更新
         errMessage = updCustomAttributeList(updCaData, filterdCaData, req, caId, authResult);
 
@@ -271,7 +269,6 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
 
     //データを更新
     errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(updCaData, null, '\t'));
-    console.log("ccccccccccccc");
     //更新に失敗
     if (errMessage) {
         return res

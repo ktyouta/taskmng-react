@@ -49,13 +49,13 @@
 	},
 	{
 		"id": "ATTRIBUTEID-5",
-		"name": "test5upd1",
-		"description": "test5text1",
-		"format": "radio",
-		"required": true,
+		"name": "test5upd2",
+		"description": "test5text2",
+		"format": "checkbox",
+		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-5",
 		"registerTime": "20231007",
-		"updTime": "20231007",
+		"updTime": "20231008",
 		"deleteFlg": "0"
 	}
 ]

@@ -65,7 +65,6 @@ export function updCustomAttributeList(updCaData: customAttributeType[], filterd
 
     //カスタム属性リストのIDが存在する場合はリストを更新する
     if (selectListId) {
-        console.log("dddddddddddddddd");
         //更新データの作成
         updCaLists = createUpdCustomAttributeList(calDecodeFileData, req.body.selectElementList, selectListId, authResult);
     }
@@ -114,16 +113,21 @@ export function createUpdCustomAttributeList(fileDataObj: customAttributeListTyp
         //リストの存在チェック
         let no = (i + 1).toString();
         let tmp = fileDataObj.find((element1) => {
-            return element1.id === id && element1.no === no && element1.deleteFlg === "0";
+            return element1.id === id && element1.no === no;
         });
-        console.log("element:" + element);
         //更新
         if (tmp) {
+            //空文字の場合は項目を削除する
+            if (!element) {
+                fileDataObj = fileDataObj.filter((element2) => {
+                    return !(element2.id === id && element2.no === no);
+                });
+                return;
+            }
             tmp.content = element;
             tmp.updTime = nowDate;
             tmp.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
-            //空の項目が送信された場合は削除する
-            tmp.deleteFlg = element ? "0" : "1";
+            tmp.deleteFlg = "0";
         }
         //登録
         else {
@@ -139,6 +143,13 @@ export function createUpdCustomAttributeList(fileDataObj: customAttributeListTyp
 
             fileDataObj.push(body);
         }
+    });
+
+    //行番号を振りなおす
+    fileDataObj.filter((element) => {
+        return element.id === id;
+    }).forEach((element1, i) => {
+        element1.no = (i + 1).toString();
     });
 
     return fileDataObj;
