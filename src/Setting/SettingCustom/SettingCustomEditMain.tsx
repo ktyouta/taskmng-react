@@ -10,6 +10,9 @@ import LabelCheckBoxComponent from '../../Common/LabelCheckBoxComponent';
 import HorizonLabelRadioListComponent from '../../Common/HorizonLabelRadioListComponent';
 import LabelRadioListComponent, { radioType } from '../../Common/LabelRadioListComponent';
 import { inputRefType } from '../Type/SettingType';
+import VerticalSpaceComponent from '../../Common/VerticalSpaceComponent';
+import LabelTextAreaComponent from '../../Common/LabelTextAreaComponent';
+import BaseTextAreaComponent from '../../Common/BaseTextAreaComponent';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -20,7 +23,7 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
 `;
 
 const MainDiv = styled.div`
-    height: 100%;
+    height: 85%;
     overflow-y: auto;
     padding-top:2%;
     padding-left: 2%;
@@ -55,6 +58,7 @@ function SettingCustomEditMain(props: propsType) {
                 <HorizonLabelItemComponent
                     title={'カスタム属性の名称'}
                     width='30%'
+                    position='left'
                 >
                     {
                         props.caNm !== undefined &&
@@ -62,26 +66,31 @@ function SettingCustomEditMain(props: propsType) {
                             value={props.caNm}
                             length={50}
                             onChange={props.setCaNm}
+                            textWidth='80%'
                         />
                     }
                 </HorizonLabelItemComponent>
+
                 <HorizonLabelItemComponent
                     title={'カスタム属性の説明'}
                     width='30%'
+                    position='left'
                 >
                     {
                         props.caDescription !== undefined &&
-                        <BaseInputComponent
+                        <BaseTextAreaComponent
                             value={props.caDescription}
                             length={50}
                             onChange={props.setCaDescription}
+                            textWidth='80%'
                         />
                     }
-
                 </HorizonLabelItemComponent>
+
                 <HorizonLabelItemComponent
                     title={'カスタム属性の形式'}
                     width='30%'
+                    position='left'
                 >
                     {
                         //カスタム属性の形式リスト
@@ -90,12 +99,16 @@ function SettingCustomEditMain(props: propsType) {
                             radioList={props.caSelectList}
                             selectedValue={props.caType}
                             onChange={props.setCaType}
+                            width='auto'
+                            radioGap='5%'
                         />
                     }
                 </HorizonLabelItemComponent>
+
                 <HorizonLabelItemComponent
                     title={'属性の設定'}
                     width='30%'
+                    position='left'
                 >
                     {
                         props.caRequired !== undefined &&
@@ -107,69 +120,61 @@ function SettingCustomEditMain(props: propsType) {
                             onChangeBl={props.setCaRequired}
                         />
                     }
-                    {
-                        (() => {
-                            switch (props.caType) {
-                                //選択形式
-                                case "select":
-                                case "radio":
-                                case "checkbox":
-                                    return (
-                                        <React.Fragment>
-                                            <div>
-                                                {
-                                                    <ButtonComponent
-                                                        styleTypeNumber="RUN"
-                                                        title={"要素を追加"}
-                                                        onclick={props.addSelectElement}
-                                                    />
-                                                }
-                                            </div>
-                                        </React.Fragment>
-                                    )
-                                default:
-                                    return (
-                                        <React.Fragment></React.Fragment>
-                                    )
-                            }
-                        })()
-                    }
-                    {
-                        //カスタム属性の選択リスト
-                        (() => {
-                            switch (props.caType) {
-                                //選択形式
-                                case "select":
-                                case "radio":
-                                case "checkbox":
-                                    return (
-                                        <React.Fragment>
-                                            <div>
-                                                項目
-                                            </div>
-                                            <div>
-                                                {
-                                                    props.selectElementList && props.selectElementList.map((element) => {
-                                                        return (
+                </HorizonLabelItemComponent>
+
+                {
+                    (() => {
+                        switch (props.caType) {
+                            //選択形式
+                            case "select":
+                            case "radio":
+                            case "checkbox":
+                                return (
+                                    <React.Fragment>
+                                        <HorizonLabelItemComponent
+                                            title={''}
+                                            width='30%'
+                                            position='left'
+                                        >
+                                            <ButtonComponent
+                                                styleTypeNumber="RUN"
+                                                title={"選択項目を追加"}
+                                                onclick={props.addSelectElement}
+                                            />
+                                        </HorizonLabelItemComponent>
+
+                                        <HorizonLabelItemComponent
+                                            title={'選択項目'}
+                                            width='30%'
+                                            position='left'
+                                        >
+                                            {
+                                                props.selectElementList && props.selectElementList.map((element) => {
+                                                    return (
+                                                        <React.Fragment>
                                                             <BaseInputComponent
                                                                 value={element.value}
                                                                 ref={element.ref}
                                                                 length={10}
+                                                                textWidth='80%'
                                                             />
-                                                        );
-                                                    })
-                                                }
-                                            </div>
-                                        </React.Fragment>
-                                    )
-                                default:
-                                    return (
-                                        <React.Fragment></React.Fragment>
-                                    )
-                            }
-                        })()
-                    }
-                </HorizonLabelItemComponent>
+                                                            <VerticalSpaceComponent
+                                                                space={'5px'}
+                                                            />
+                                                        </React.Fragment>
+                                                    );
+                                                })
+                                            }
+                                        </HorizonLabelItemComponent>
+                                    </React.Fragment>
+                                )
+                            default:
+                                return (
+                                    <React.Fragment></React.Fragment>
+                                )
+                        }
+                    })()
+                }
             </MainDiv>
         </OuterDiv>
     );

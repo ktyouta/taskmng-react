@@ -11,7 +11,7 @@ type propsType = {
     disabled: boolean,
     title: string,
     value: string,
-    lenght: number,
+    length: number,
     titleWidth?: string,
     textWidth?: string,
 }

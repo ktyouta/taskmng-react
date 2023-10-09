@@ -103,7 +103,7 @@ function DynamicForm(props: propsType) {
                                                 return (
                                                     <LabelTextAreaComponent
                                                         value={element.value}
-                                                        lenght={element.length}
+                                                        length={element.length}
                                                         disabled={element.disabled}
                                                         bgColor={bgColor}
                                                         ref={element.ref}

@@ -5,10 +5,11 @@ import styled from "styled-components";
 //引数の型
 type propsType = {
     value: string,
-    lenght: number,
+    length: number,
     titleWidth?: string,
     textWidth?: string,
     bgColor?: string,
+    onChange?: (e: string) => void,
 }
 
 //参照の型
@@ -19,10 +20,9 @@ export type refType = {
 
 //テキストエリアの基本スタイル
 const BaseInput = styled.textarea<{ textWidth?: string, bgColor?: string, }>`
-  width: ${({ textWidth }) => (textWidth ? textWidth : "300px")};
+  width: ${({ textWidth }) => (textWidth ? textWidth : "40%")};
   background-color:${({ bgColor }) => (bgColor ?? "")};
   height:70px;
-  width: 40%;
   border-radius: 5px;
   border:solid 1px rgb(118, 118, 118);
 `;
@@ -41,6 +41,9 @@ const BaseTextAreaComponent = forwardRef<refType, propsType>((props, ref) => {
     //テキストエリアの入力イベント
     const changeInput: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
         setInputValue(e.target.value);
+        if (props.onChange) {
+            props.onChange(e.target.value);
+        }
     };
 
     //テキストエリアのクリアイベント
@@ -50,7 +53,7 @@ const BaseTextAreaComponent = forwardRef<refType, propsType>((props, ref) => {
 
     return (
         <BaseInput
-            maxLength={props.lenght}
+            maxLength={props.length}
             onChange={changeInput}
             value={inputValue}
             textWidth={props.textWidth}

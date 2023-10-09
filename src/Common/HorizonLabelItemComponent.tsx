@@ -14,7 +14,11 @@ type propsType = {
     width?: string,
     children: ReactNode,
     color?: string,
+    position?: positionType
 }
+
+//内部要素の位置の型
+type positionType = "left" | "center" | "right";
 
 const OuterDiv = styled.div`
     padding-top: 2%;
@@ -23,8 +27,9 @@ const OuterDiv = styled.div`
     align-items: center;
 `;
 
-const ElementDiv = styled.div<{ width?: string, color?: string, }>`
+const ElementDiv = styled.div<{ width?: string, color?: string, position?: positionType }>`
     width:${({ width }) => (width)};
+    text-align:${({ position }) => (position)};
 `;
 
 /**
@@ -65,6 +70,7 @@ function HorizonLabelItemComponent(props: propsType) {
             />
             <ElementDiv
                 width={sliceWidthStr(props.width)}
+                position={props.position}
             >
                 {props.children}
             </ElementDiv>

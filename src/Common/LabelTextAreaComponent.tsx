@@ -7,7 +7,7 @@ import BaseTextAreaComponent from './BaseTextAreaComponent';
 type propsType = {
     disabled: boolean,
     value: string,
-    lenght: number,
+    length: number,
     titleWidth?: string,
     textWidth?: string,
     bgColor?: string,

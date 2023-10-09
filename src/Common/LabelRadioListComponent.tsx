@@ -19,6 +19,7 @@ type propsType = {
     disabled?: boolean,
     width?: string,
     onChange?: (e: string) => void,
+    radioGap?: string
 }
 
 //参照の型
@@ -74,7 +75,7 @@ const LabelRadioListComponent = forwardRef<refType, propsType>((props, ref) => {
                             />
                             <SpaceComponent
                                 key={`labelradiospace-${props.htmlForId ? `${props.htmlForId}-${element.value}` : element.value}`}
-                                space={'70px'}
+                                space={props.radioGap ? props.radioGap : '70px'}
                             />
                         </React.Fragment>
                     );
