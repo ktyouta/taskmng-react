@@ -4,7 +4,6 @@ import { useAtomValue } from 'jotai';
 import HorizonLabelItemComponent from '../../Common/HorizonLabelItemComponent';
 import BaseInputComponent from '../../Common/BaseInputComponent';
 import styled from 'styled-components';
-import useSettingCustomEditMain from './Hook/useSettingCustomEditMain';
 import ButtonComponent from '../../Common/ButtonComponent';
 import LabelCheckBoxComponent from '../../Common/LabelCheckBoxComponent';
 import HorizonLabelRadioListComponent from '../../Common/HorizonLabelRadioListComponent';
@@ -13,7 +12,8 @@ import { inputRefType } from '../Type/SettingType';
 import VerticalSpaceComponent from '../../Common/VerticalSpaceComponent';
 import LabelTextAreaComponent from '../../Common/LabelTextAreaComponent';
 import BaseTextAreaComponent from '../../Common/BaseTextAreaComponent';
-//import { masterDataListAtom } from '../Main/Hook/useMainLogic';
+import SpaceComponent from '../../Common/SpaceComponent';
+import HorizontalComponent from '../../Common/HorizontalComponent';
 
 
 //外側のスタイル
@@ -43,6 +43,7 @@ type propsType = {
     setCaRequired: React.Dispatch<React.SetStateAction<boolean | undefined>>,
     caSelectList: radioType[] | undefined,
     addSelectElement: () => void,
+    deleteSelectElement: () => void,
 }
 
 
@@ -136,11 +137,21 @@ function SettingCustomEditMain(props: propsType) {
                                             width='30%'
                                             position='left'
                                         >
-                                            <ButtonComponent
-                                                styleTypeNumber="RUN"
-                                                title={"選択項目を追加"}
-                                                onclick={props.addSelectElement}
-                                            />
+                                            <HorizontalComponent>
+                                                <ButtonComponent
+                                                    styleTypeNumber="RUN"
+                                                    title={"選択項目を追加"}
+                                                    onclick={props.addSelectElement}
+                                                />
+                                                <SpaceComponent
+                                                    space={"1%"}
+                                                />
+                                                <ButtonComponent
+                                                    styleTypeNumber="DANGER"
+                                                    title={"選択項目を削除"}
+                                                    onclick={props.deleteSelectElement}
+                                                />
+                                            </HorizontalComponent>
                                         </HorizonLabelItemComponent>
 
                                         <HorizonLabelItemComponent

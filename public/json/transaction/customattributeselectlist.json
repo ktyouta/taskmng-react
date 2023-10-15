@@ -142,5 +142,41 @@
 		"updTime": "20231008",
 		"userId": "a",
 		"deleteFlg": "1"
+	},
+	{
+		"id": "ATTRIBUTELISTID-7",
+		"no": "1",
+		"content": "aa",
+		"registerTime": "20231014",
+		"updTime": "20231014",
+		"userId": "a",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-7",
+		"no": "2",
+		"content": "bb",
+		"registerTime": "20231014",
+		"updTime": "20231014",
+		"userId": "a",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-7",
+		"no": "3",
+		"content": "c",
+		"registerTime": "20231014",
+		"updTime": "20231014",
+		"userId": "a",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-8",
+		"no": "1",
+		"content": "aa",
+		"registerTime": "20231014",
+		"updTime": "20231015",
+		"userId": "a",
+		"deleteFlg": "0"
 	}
 ]

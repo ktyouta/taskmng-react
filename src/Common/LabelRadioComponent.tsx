@@ -21,12 +21,14 @@ function LabelRadioComponent(props: propsType) {
 
     return (
         <React.Fragment>
-            <LabelComponent
-                {...props}
-            />
-            <RadioComponent
-                {...props}
-            />
+            <div>
+                <LabelComponent
+                    {...props}
+                />
+                <RadioComponent
+                    {...props}
+                />
+            </div>
         </React.Fragment>
     );
 }

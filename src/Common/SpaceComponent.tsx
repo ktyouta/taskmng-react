@@ -5,13 +5,13 @@ import styled from "styled-components";
 
 //引数の型
 type propsType = {
-  space:string
+  space: string
 }
 
 function SpaceComponent(props: propsType) {
 
   return (
-    <div style={{width:props.space}}></div>
+    <div style={{ width: props.space }}></div>
   );
 }
 

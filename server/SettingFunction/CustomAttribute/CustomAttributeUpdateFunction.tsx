@@ -95,15 +95,15 @@ export function runUpdSelectList(updCaData: customAttributeType[], filterdCaData
  * @returns 
  */
 export function createUpdCustomAttributeList(fileDataObj: customAttributeListType[],
-    selectList: string[], id: string, authResult: authInfoType)
+    newSelectList: string[], id: string, authResult: authInfoType)
     : customAttributeListType[] {
 
     //現在日付を取得
     const nowDate = getNowDate();
 
     //選択リストの登録および更新
-    selectList.forEach((element, i) => {
-        //リストの存在チェック
+    newSelectList.forEach((element, i) => {
+        //選択項目の存在チェック
         let no = (i + 1).toString();
         let tmp = fileDataObj.find((element1) => {
             return element1.id === id && element1.no === no;
@@ -127,7 +127,7 @@ export function createUpdCustomAttributeList(fileDataObj: customAttributeListTyp
             let body: customAttributeListType = {
                 id: id,
                 no: (i + 1).toString(),
-                content: selectList[i],
+                content: newSelectList[i],
                 registerTime: nowDate,
                 updTime: nowDate,
                 userId: authResult.userInfo ? authResult.userInfo?.userId : "",
@@ -137,6 +137,24 @@ export function createUpdCustomAttributeList(fileDataObj: customAttributeListTyp
             fileDataObj.push(body);
         }
     });
+
+    let filterdFileDataObj = fileDataObj.filter((element) => {
+        return element.id === id;
+    });
+
+    //余分な選択リストを削除
+    let newSelectListLen = newSelectList.filter((element) => element).length;
+    let diff = filterdFileDataObj.length - newSelectListLen;
+    if (diff > 0) {
+        let delBaseIndex = newSelectListLen;
+        fileDataObj.some((element) => {
+            if (element.id === id) {
+                return true;
+            }
+            delBaseIndex++;
+        });
+        fileDataObj.splice(delBaseIndex, diff);
+    }
 
     //行番号を振りなおす
     fileDataObj.filter((element) => {

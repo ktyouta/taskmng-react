@@ -92,6 +92,23 @@ function useSettingCustomEdit() {
         setSelectElementList(tmpSelectElementList);
     };
 
+    //要素の削除ボタン押下
+    const deleteSelectElement = () => {
+        let tmpSelectElementList = [...selectElementList];
+        if (tmpSelectElementList.length === 1) {
+            alert("選択項目は最低一つは必要です。");
+            return;
+        }
+        //入力値が存在する場合は削除確認をする
+        if (tmpSelectElementList[tmpSelectElementList.length - 1].ref.current?.refValue) {
+            if (!window.confirm("項目が入力されていますが、削除しますか？")) {
+                return;
+            }
+        }
+        tmpSelectElementList.pop();
+        setSelectElementList(tmpSelectElementList);
+    };
+
     //カスタム属性の形式リスト
     const caSelectList = useMemo(() => {
         if (!generalDataList) {
@@ -138,7 +155,6 @@ function useSettingCustomEdit() {
         //失敗後の処理
         afErrorFn: (res: errResType) => {
             //エラーメッセージを表示
-            //setErrMessage(res.response.data.errMessage);
             alert(res.response.data.errMessage);
         },
     });
@@ -154,7 +170,6 @@ function useSettingCustomEdit() {
         //失敗後の処理
         afErrorFn: (res: errResType) => {
             //エラーメッセージを表示
-            //setErrMessage(res.response.data.errMessage);
             alert(res.response.data.errMessage);
         },
     });
@@ -317,6 +332,7 @@ function useSettingCustomEdit() {
         setCaType,
         setCaRequired,
         addSelectElement,
+        deleteSelectElement,
         backPage,
         registeAttribute,
         updateAttribute,

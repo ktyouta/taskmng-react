@@ -69,5 +69,27 @@
 		"updTime": "20231008",
 		"userId": "a",
 		"deleteFlg": "1"
+	},
+	{
+		"id": "ATTRIBUTEID-7",
+		"name": "test",
+		"description": "test",
+		"format": "checkbox",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-7",
+		"registerTime": "20231014",
+		"updTime": "20231014",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTEID-8",
+		"name": "test",
+		"description": "test",
+		"format": "checkbox",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-8",
+		"registerTime": "20231014",
+		"updTime": "20231015",
+		"deleteFlg": "0"
 	}
 ]

@@ -34,6 +34,7 @@ function SettingCustomEdit() {
     setCaType,
     setCaRequired,
     addSelectElement,
+    deleteSelectElement,
     positiveButtonObj,
     deleteButtonObj,
     runButtonObj,
@@ -52,6 +53,7 @@ function SettingCustomEdit() {
         setCaType={setCaType}
         setCaRequired={setCaRequired}
         addSelectElement={addSelectElement}
+        deleteSelectElement={deleteSelectElement}
         caSelectList={caSelectList}
         selectElementList={selectElementList}
       />
