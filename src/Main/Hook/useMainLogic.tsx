@@ -18,14 +18,6 @@ import AddMaster from '../../AddMaster/AddMaster';
 import Task from '../../Task/Task';
 
 
-const jsxList: jsxObjType = {
-    "Top": <Top />,
-    "Master": <Master />,
-    "AddMaster": <AddMaster />,
-    "Task": <Task />,
-    "Setting": <Setting />
-}
-
 //マスタのリスト(マスタメンテ画面のコンボ用)
 export const masterDataListAtom = atom<masterDataListType[]>([]);
 
@@ -91,10 +83,31 @@ function useMainLogic() {
             if (parseInt(element.auth) > userAuth) {
                 return <React.Fragment />;
             }
-            const Component = jsxList[element.component];
+            let Component;
             const path = element.componentPath;
             if (element.isHidden) {
                 return <React.Fragment />;
+            }
+
+            //ルーティングの設定
+            switch (element.component) {
+                case "Top":
+                    Component = <Top />;
+                    break;
+                case "Master":
+                    Component = <Master />;
+                    break;
+                case "AddMaster":
+                    Component = <AddMaster />;
+                    break;
+                case "Task":
+                    Component = <Task
+                        url={element.url}
+                    />;
+                    break;
+                case "Setting":
+                    Component = <Setting />;
+                    break;
             }
             return <Route key={path} path={path} element={<Provider>{Component}</Provider>} />
         });

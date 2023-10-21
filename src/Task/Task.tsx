@@ -12,14 +12,18 @@ import useTask from './Hook/useTask';
 import TaskDetail from './TaskDetail';
 import NotFoundComponent from '../NotFound/NotFoundComponent';
 
+type propsType = {
+  url: string,
+}
 
-function Task() {
+function Task(props: propsType) {
 
   console.log("Task render");
 
   const {
     detailRoutingId,
-  } = useTask();
+    backPageFunc,
+  } = useTask({ ...props });
 
   return (
     <div className="task">
@@ -33,9 +37,25 @@ function Task() {
               (() => {
                 switch (detailRoutingId) {
                   case "ZZZ":
-                    return <Route key={"*"} path="*" element={<NotFoundComponent backUrl='/task' />} />
+                    return <Route
+                      key={"*"}
+                      path="*"
+                      element={
+                        <NotFoundComponent
+                          backUrl='/task'
+                        />
+                      }
+                    />
                   default:
-                    return <Route path={detailRoutingId} element={<TaskDetail updTaskId={detailRoutingId} />} />
+                    return <Route
+                      path={detailRoutingId}
+                      element={
+                        <TaskDetail
+                          updTaskId={detailRoutingId}
+                          closeFn={backPageFunc}
+                        />
+                      }
+                    />
                 }
               })()
             }

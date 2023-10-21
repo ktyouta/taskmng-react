@@ -29,7 +29,7 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
 
 function TaskEditFooter(props: propsType) {
 
-    console.log("mastereditfooter render");
+    console.log("TaskEditFooter render");
 
     return (
         <OuterDiv
@@ -49,7 +49,7 @@ function TaskEditFooter(props: propsType) {
                 />
             }
             <SpaceComponent
-                space={"30%"}
+                space={"45%"}
             />
             {
                 props.negativeButtonObj &&

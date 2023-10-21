@@ -4,7 +4,12 @@ import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { searchConditionType, taskSearchConditionType } from "../../Common/Type/CommonType";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
+import { useNavigate } from "react-router-dom";
 
+
+type propsType = {
+    url: string
+}
 
 /**
  * タスクの検索条件リストを取得
@@ -26,11 +31,12 @@ const PRE_TASK_ID = `TASKID-`;
  * useTaskコンポーネントのビジネスロジック
  * @returns 
  */
-function useTask() {
+function useTask(props: propsType) {
 
     //詳細画面へのルーティング用ID
     const [detailRoutingId, setDetailRoutingId] = useAtom(detailRoutingIdAtom);
-
+    //ルーティング用
+    const navigate = useNavigate();
     //検索条件リスト
     const { data: taskSearchConditionList } = useQueryWrapper({
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}`,
@@ -63,8 +69,16 @@ function useTask() {
         setDetailRoutingId(taskId);
     }, []);
 
+    /**
+     * 戻るボタン押下処理(閲覧モードに切り替え)
+     */
+    const backPageFunc = () => {
+        navigate(props.url);
+    }
+
     return {
         detailRoutingId,
+        backPageFunc,
     };
 }
 
