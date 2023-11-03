@@ -1,4 +1,5 @@
 import { RefObject } from "react"
+import { inputTaskSettingType } from "../../Task/Type/TaskType"
 
 //画面に表示するテーブル
 export type selectedMasterDataType = {
@@ -117,29 +118,6 @@ export type inputAddMasterSettingType = {
     isHidden: boolean,
 }
 
-//タスク編集画面の入力欄の設定
-export type inputTaskSettingType = {
-    id: string,
-    name: string,
-    type: inputType,
-    length: number,
-    value: string,
-    disabled: boolean,
-    isNewCreateVisible: boolean,
-    isHidden: boolean,
-    listKey?: string,
-    description?: string,
-    isRequired?: boolean,
-}
-
-
-//入力欄設定
-export type inputSettingType = {
-    inputMasterSetting: inputMasterSettingType[],
-    addMasterSummarySetting: inputAddMasterSettingType[],
-    taskEditSetting: inputTaskSettingType[]
-}
-
 //汎用詳細データの型
 export type generalDataType = {
     id: string,
@@ -151,22 +129,6 @@ export type generalDataType = {
 export type comboType = {
     value: string,
     label: string
-}
-
-//検索条件リストの型
-export type searchConditionType = {
-    task: taskSearchConditionType[]
-}
-
-//検索条件リストの型(タスク)
-export type taskSearchConditionType = {
-    id: string,
-    name: string,
-    type: inputType,
-    listKey?: string,
-    length: number,
-    value: string,
-    isHidden: boolean,
 }
 
 //検索条件の参照
@@ -194,4 +156,11 @@ export type jsxObjType = {
 export type refType = {
     refValue: string,
     clearValue: () => void
+}
+
+//入力欄設定
+export type inputSettingType = {
+    inputMasterSetting: inputMasterSettingType[],
+    addMasterSummarySetting: inputAddMasterSettingType[],
+    taskEditSetting: inputTaskSettingType[]
 }

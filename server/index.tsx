@@ -8,7 +8,7 @@ import { checkUpdAuth, createAddMasterData, createDelMasterData, createUpdMaster
 import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from './Constant';
 import { runAddMaster } from './AddMasterDataFunction';
 import { getGeneralDetailData } from './GeneralFunction';
-import { getTask, runAddTask, runDeleteTask, runUpdTask } from './TaskFunction';
+import { getTask, runAddTask, runDeleteTask, runUpdTask } from './Task/TaskFunction';
 import {
     getCustomAttribute,
     runAddCustomAttribute,

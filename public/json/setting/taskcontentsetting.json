@@ -48,5 +48,10 @@
         "name": "状態",
         "isHidden": false,
         "listKey": "3"
+    },
+    {
+        "id": "customAttribute",
+        "name": "カスタム属性",
+        "isHidden": false
     }
 ]

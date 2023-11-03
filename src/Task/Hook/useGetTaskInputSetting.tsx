@@ -1,9 +1,9 @@
 import ENV from '../../env.json';
 import {
     inputSettingType,
-    inputTaskSettingType,
 } from "../../Common/Type/CommonType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
+import { inputTaskSettingType } from '../Type/TaskType';
 
 
 /**

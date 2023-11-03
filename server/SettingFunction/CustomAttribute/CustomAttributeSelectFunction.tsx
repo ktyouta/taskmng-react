@@ -34,8 +34,9 @@ export function getCustomAttributeList() {
 
 /**
  * カスタム属性のリストをIDで絞り込む
- * @param filePath 
- * @param stream 
+ * @param decodeFileData カスタム属性リスト
+ * @param id カスタム属性ID
+ * @param res 
  * @returns 
  */
 export function getCustomAttributeDetail(decodeFileData: customAttributeType[], id: string, res: any)

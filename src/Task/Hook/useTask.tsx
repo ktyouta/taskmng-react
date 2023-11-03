@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import ENV from '../../env.json';
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
-import { searchConditionType, taskSearchConditionType } from "../../Common/Type/CommonType";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
 import { useNavigate } from "react-router-dom";
+import { searchConditionType, taskSearchConditionType } from "../Type/TaskType";
 
 
 type propsType = {

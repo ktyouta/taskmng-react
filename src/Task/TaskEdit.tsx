@@ -5,8 +5,8 @@ import useTaskEdit from './Hook/useTaskEdit';
 import './css/TaskEdit.css';
 import TaskEditFooter from './TaskEditFooter';
 import TaskEditForm from './TaskEditForm';
-import { generalDataType, inputTaskSettingType } from '../Common/Type/CommonType';
-import { taskListType } from './Type/TaskType';
+import { generalDataType } from '../Common/Type/CommonType';
+import { inputTaskSettingType, taskListType } from './Type/TaskType';
 
 
 //引数の型

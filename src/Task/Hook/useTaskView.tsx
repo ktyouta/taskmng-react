@@ -1,15 +1,8 @@
 import { createRef, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
 import ENV from '../../env.json';
-import { bodyObj, comboType, generalDataType, inputMasterSettingType, inputSettingType, inputTaskSettingType, refInfoType } from "../../Common/Type/CommonType";
-import { refType } from "../../Common/BaseInputComponent";
-import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
-import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
-import { taskListType, viewTaskType } from "../Type/TaskType";
-import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
-import { buttonType } from "../../Common/ButtonComponent";
+import { bodyObj, comboType, generalDataType, inputMasterSettingType, refInfoType } from "../../Common/Type/CommonType";
+import { customAttributeListType, inputTaskSettingType, taskListType, viewTaskType } from "../Type/TaskType";
 import { buttonObjType } from "../../Master/MasterEditFooter";
-import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
-import useGetTaskInputSetting from "./useGetTaskInputSetting";
 
 
 //引数の型
@@ -35,6 +28,8 @@ function useTaskView(props: propsType) {
     //入力欄参照用refの作成
     useEffect(() => {
         let tmpViewTaskList: viewTaskType[] = [];
+        let tmpViewCustomAttributeList: viewTaskType[] = [];
+
         if (!props.taskSettingList) {
             return;
         }
@@ -46,6 +41,39 @@ function useTaskView(props: propsType) {
         }
         props.taskSettingList.forEach((element) => {
             let tmpValue: string = "";
+
+            //項目の表示非表示
+            if (element.isHidden) {
+                return;
+            }
+            //カスタム属性
+            if (element.id === "customAttribute") {
+                if (!props.updTask?.customAttribute) {
+                    return;
+                }
+                let tmpValue = props.updTask.customAttribute as customAttributeListType[];
+                tmpValue.forEach((element) => {
+                    let tmp = element.value;
+                    let list = element.list;
+
+                    //選択形式の場合は名称を取得する
+                    if (list && list.length > 0) {
+                        let selected = list.find((element) => element.value === tmp);
+                        //選択値に該当するデータがない場合
+                        if (!selected) {
+                            return;
+                        }
+                        tmp = selected.label;
+                    }
+
+                    tmpViewCustomAttributeList.push({
+                        title: element.name,
+                        value: tmp,
+                    });
+                });
+                return;
+            }
+
             for (const [columnKey, value] of Object.entries(props.updTask as {})) {
                 //キーの一致する要素を取り出す
                 if (element.id === columnKey) {
@@ -53,11 +81,8 @@ function useTaskView(props: propsType) {
                     break;
                 }
             }
+
             let tmpSelectLits: comboType[] = [];
-            //項目の表示非表示
-            if (element.isHidden) {
-                return;
-            }
             //リストキーが存在する(選択項目)
             if (element.listKey && props.generalDataList) {
                 //汎用詳細から対応するリストを抽出

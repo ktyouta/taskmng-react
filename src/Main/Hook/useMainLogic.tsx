@@ -5,7 +5,7 @@ import useCheckAuth from '../../Common/Hook/useCheckAuth';
 import Top from '../../Top/Top';
 import Master from '../../Master/Master';
 import Setting from '../../Setting/Setting';
-import { generalDataType, jsxObjType, masterDataListType, resUserInfoType, searchConditionType, userInfoType } from '../../Common/Type/CommonType';
+import { generalDataType, jsxObjType, masterDataListType, resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
 import { menuListType } from '../../Common/Hook/useGetViewName';
 import { Route } from "react-router-dom";
 import NotFoundComponent from '../../NotFound/NotFoundComponent';
@@ -16,6 +16,7 @@ import { useGlobalAtom, useGlobalAtomValue } from '../../Common/Hook/useGlobalAt
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import AddMaster from '../../AddMaster/AddMaster';
 import Task from '../../Task/Task';
+import { searchConditionType } from '../../Task/Type/TaskType';
 
 
 //マスタのリスト(マスタメンテ画面のコンボ用)

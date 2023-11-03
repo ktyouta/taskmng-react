@@ -1,15 +1,17 @@
-import { authenticate } from "./AuthFunction";
-import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "./Constant";
-import { overWriteData, readFile } from "./FileFunction";
-import { getGeneralDetailData } from "./GeneralFunction";
-import { checkUpdAuth } from "./MasterDataFunction";
-import { authInfoType, searchConditionType, taskListType } from "./Type/type";
-import { getNowDate } from "./CommonFunction";
+import { authenticate } from "../AuthFunction";
+import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "../Constant";
+import { overWriteData, readFile } from "../FileFunction";
+import { getGeneralDetailData } from "../GeneralFunction";
+import { checkUpdAuth } from "../MasterDataFunction";
+import { authInfoType, searchConditionType, taskListType } from "../Type/type";
+import { getNowDate } from "../CommonFunction";
+import { createDeleteTaskData } from "./TaskDeleteFunction";
+import { createUpdTaskData } from "./TaskUpdateFunction";
+import { createAddTaskData } from "./TaskRegistFunction";
+import { filterTask } from "./TaskSelectFunction";
 
 //タスクファイルのパス
 const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
-//タスクIDの接頭辞
-const PRE_TASK_ID = `TASKID-`;
 
 /**
  * タスクの取得
@@ -33,6 +35,9 @@ export function getTask(res: any, req: any, id?: string) {
 
     //優先度およびステータスの紐づけを行う
     //let joinTaskData: taskListType[] = joinTask(decodeFileData);
+
+    //カスタム属性と結合
+
 
     //パスパラメータの指定あり
     if (id) {
@@ -169,163 +174,6 @@ function getTaskObj(): taskListType[] {
     //タスクファイルの読み込み
     let fileData = readFile(TASK_FILEPATH);
     return JSON.parse(fileData);
-}
-
-/**
- * タスク用の検索条件を取得
- */
-function getTaskSearchConditionList() {
-    //タスクファイルの読み込み
-    let fileData = readFile(`${SETTINGFILEPATH}${SEARCHCONDITIONFILEPATH}${JSONEXTENSION}`);
-    return JSON.parse(fileData).task;
-}
-
-/**
- * タスクリストをクエリストリングで絞り込む
- */
-function filterTask(decodeFileData: taskListType[], query: any) {
-    //タスク用の検索条件設定リストを取得
-    let taskConditionList: searchConditionType[] = getTaskSearchConditionList();
-    //検索条件で絞り込み
-    taskConditionList.forEach((element) => {
-        let value = query[element.id] as string;
-        if (!value) {
-            return;
-        }
-        decodeFileData = decodeFileData.filter((item) => {
-            if (!(element.id in item)) {
-                return true;
-            }
-            //複数選択項目の場合
-            if (element.type === "checkbox") {
-                return value.split(",").includes(item[element.id]);
-            }
-            return item[element.id].includes(value);
-        });
-    });
-
-    //キーワードで絞り込み
-    let keyword = query.keyword as string;
-    if (keyword) {
-        decodeFileData = decodeFileData.filter((element) => {
-            return element.title.includes(keyword) || element.content.includes(keyword);
-        });
-    }
-
-    //取得件数で絞り込み
-    let getNum = query.num as number;
-    if (getNum && !isNaN(Number(getNum))) {
-        decodeFileData = decodeFileData.slice(0, getNum);
-    }
-    return decodeFileData;
-}
-
-
-/**
- * 登録用データの作成
- * @param filePath 
- * @param stream 
- * @returns 
- */
-function createAddTaskData(fileDataObj: taskListType[], req: any, authResult: authInfoType)
-    : taskListType[] {
-
-    //現在日付を取得
-    const nowDate = getNowDate();
-
-    //リクエストボディ
-    let body: taskListType = {
-        id: "",
-        content: "",
-        registerTime: "",
-        updTime: "",
-        limitTime: "",
-        userId: "",
-        priority: "",
-        status: "",
-        deleteFlg: "",
-        title: ""
-    };
-    body = req.body;
-    body.registerTime = nowDate;
-    body.updTime = nowDate;
-    body.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
-    //未対応
-    //body.status = "1";
-    body.deleteFlg = "0";
-
-    let fileDataObjLen = fileDataObj.length;
-    //IDを取得
-    let id = fileDataObjLen === 0 ? "1" : fileDataObj[fileDataObjLen - 1]['id'].replace(`${PRE_TASK_ID}`, "");
-    //新しいIDを割り当てる
-    body['id'] = `${PRE_TASK_ID}${parseInt(id) + 1}`;
-    fileDataObj.push(body);
-    return fileDataObj;
-}
-
-/**
- * 更新用データの作成
- * @param filePath 
- * @param stream 
- * @returns 
- */
-function createUpdTaskData(fileDataObj: taskListType[], body: taskListType, updTaskId: string)
-    : taskListType[] {
-
-    //現在日付を取得
-    const nowDate = getNowDate();
-
-    fileDataObj.some((element) => {
-        //IDの一致するデータを更新
-        if (element.id === updTaskId) {
-            Object.keys(element).forEach((item) => {
-                if (item === `id` || item === `deleteFlg`) return true;
-                //更新日時
-                if (item === `updTime`) {
-                    element[item] = nowDate;
-                    return true;
-                }
-                element[item] = body[item];
-            });
-            return true;
-        }
-    });
-
-    return fileDataObj;
-}
-
-
-/**
- * 削除用データの作成
- * @param filePath 
- * @param stream 
- * @returns 
- */
-function createDeleteTaskData(fileDataObj: taskListType[], body: taskListType, delTaskId: string)
-    : taskListType[] {
-
-    //現在日付を取得
-    const nowDate = getNowDate();
-
-    fileDataObj.some((element) => {
-        //IDの一致するデータを削除
-        if (element.id === delTaskId) {
-            Object.keys(element).forEach((item) => {
-                //更新日時
-                if (item === `updTime`) {
-                    element[item] = nowDate;
-                    return true;
-                }
-                //削除フラグを立てる
-                if (item === `deleteFlg`) {
-                    element[item] = "1";
-                    return true;
-                }
-            });
-            return true;
-        }
-    });
-    return fileDataObj;
 }
 
 

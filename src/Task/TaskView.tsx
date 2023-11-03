@@ -8,8 +8,8 @@ import TaskEditForm from './TaskEditForm';
 import styled from 'styled-components';
 import LabelComponent from '../Common/LabelComponent';
 import useTaskView from './Hook/useTaskView';
-import { generalDataType, inputTaskSettingType } from '../Common/Type/CommonType';
-import { taskListType } from './Type/TaskType';
+import { generalDataType } from '../Common/Type/CommonType';
+import { inputTaskSettingType, taskListType } from './Type/TaskType';
 import TaskViewFooter from './TaskViewFooter';
 import TaskViewForm from './TaskViewForm';
 

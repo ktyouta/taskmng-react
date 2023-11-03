@@ -1,6 +1,8 @@
+import { comboType, inputAddMasterSettingType, inputMasterSettingType, inputType } from "../../Common/Type/CommonType";
+
 //タスクリストの型
 export type taskListType = {
-    [key: string]: string,
+    [key: string]: string | customAttributeListType[] | undefined,
     id: string,
     registerTime: string,
     title: string,
@@ -10,6 +12,7 @@ export type taskListType = {
     userId: string,
     priority: string,
     status: string,
+    customAttribute?: customAttributeListType[]
 }
 
 //画面表示用タスクリストの型
@@ -57,4 +60,42 @@ export type taskContentDisplayType = {
 export type viewTaskType = {
     title: string,
     value: string,
+}
+
+//検索条件リストの型
+export type searchConditionType = {
+    task: taskSearchConditionType[]
+}
+
+//検索条件リストの型(タスク)
+export type taskSearchConditionType = {
+    id: string,
+    name: string,
+    type: inputType,
+    listKey?: string,
+    length: number,
+    value: string,
+    isHidden: boolean,
+}
+
+//カスタム属性リストの型
+export type customAttributeListType = {
+    name: string,
+    value: string,
+    list?: comboType[],
+}
+
+//タスク編集画面の入力欄の設定
+export type inputTaskSettingType = {
+    id: string,
+    name: string,
+    type: inputType,
+    length: number,
+    value: string,
+    disabled: boolean,
+    isNewCreateVisible: boolean,
+    isHidden: boolean,
+    listKey?: string,
+    description?: string,
+    isRequired?: boolean,
 }

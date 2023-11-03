@@ -1,14 +1,14 @@
 import { ReactNode, RefObject, createRef, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
-import { comboType, masterDataListType, refConditionType, refInfoType, searchConditionType, selectedMasterDataType, taskSearchConditionType } from "../../Common/Type/CommonType";
+import { comboType, masterDataListType, refConditionType, refInfoType, } from "../../Common/Type/CommonType";
 import ENV from '../../env.json';
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import { masterDataListAtom } from "../../Main/Hook/useMainLogic";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
-import { taskListType } from "../Type/TaskType";
+import { searchConditionType, taskListType, taskSearchConditionType } from "../Type/TaskType";
 import { refType } from "../../Common/BaseInputComponent";
 import { taskListUrlAtom } from "./useTaskListContent";
 import useSwitch from "../../Common/Hook/useSwitch";

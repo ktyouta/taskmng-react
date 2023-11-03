@@ -1,10 +1,10 @@
 import { createRef, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
 import ENV from '../../env.json';
-import { bodyObj, comboType, generalDataType, inputMasterSettingType, inputSettingType, inputTaskSettingType, refInfoType } from "../../Common/Type/CommonType";
+import { bodyObj, comboType, generalDataType, refInfoType } from "../../Common/Type/CommonType";
 import { refType } from "../../Common/BaseInputComponent";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
-import { taskListType } from "../Type/TaskType";
+import { inputTaskSettingType, taskListType } from "../Type/TaskType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";

@@ -93,7 +93,7 @@ function useTaskListContent() {
         }
     );
 
-    //取得したタスクリストを画面表示用に加工
+    //取得したタスクリストを画面表示用に変換
     const displayTaskList = useMemo(() => {
         let tmpDisplayTaskList: taskContentDisplayType[] = [];
         //タスクリスト
@@ -212,14 +212,19 @@ function useTaskListContent() {
                     }
                 }
 
+                if ((typeof element[item.id]) !== "string") {
+                    return;
+                }
+
+                let tmp = element[item.id] as string;
                 //日付項目
                 if (item.type === "date") {
-                    element[item.id] = parseStrDate(element[item.id]);
+                    tmp = parseStrDate(tmp);
                 }
                 //コンテンツにデータを追加
                 displayTaskObj.content.push({
                     label: item.name,
-                    value: element[item.id]
+                    value: tmp
                 });
             });
 
