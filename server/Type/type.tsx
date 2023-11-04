@@ -77,3 +77,34 @@ export type customAttributeListType = {
     userId: string,
     deleteFlg: string,
 }
+
+//タスクに紐づくカスタム属性の選択値の型
+export type taskCustomAttributeSelectedType = {
+    taskId: string,
+    customAttributeId: string,
+    selectedValue: string,
+    registerTime: string,
+    updTime: string,
+    userId: string,
+    deleteFlg: string
+}
+
+//ラベルと値の型
+export type comboType = {
+    label: string,
+    value: string,
+}
+
+//画面に返すタスクに紐づくカスタム属性の型
+export type taskCustomAttributeDispType = {
+    name: string,
+    value: string;
+    list: comboType[] | undefined;
+    type: string
+}
+
+//画面返却用のタスク詳細の型
+export type taskDetailType = {
+    default: taskListType,
+    customAttribute: taskCustomAttributeDispType[]
+}

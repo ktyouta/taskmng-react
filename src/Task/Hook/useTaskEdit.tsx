@@ -4,7 +4,7 @@ import { bodyObj, comboType, generalDataType, refInfoType } from "../../Common/T
 import { refType } from "../../Common/BaseInputComponent";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
-import { inputTaskSettingType, taskListType } from "../Type/TaskType";
+import { apiTaskDetailType, inputTaskSettingType, taskListType } from "../Type/TaskType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
@@ -19,7 +19,7 @@ type propsType = {
     closeFn?: () => void,
     taskSettingList: inputTaskSettingType[] | undefined,
     generalDataList: generalDataType[] | undefined,
-    updTask: taskListType | undefined,
+    updTask: apiTaskDetailType | undefined,
 }
 
 

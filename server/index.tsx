@@ -8,7 +8,7 @@ import { checkUpdAuth, createAddMasterData, createDelMasterData, createUpdMaster
 import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from './Constant';
 import { runAddMaster } from './AddMasterDataFunction';
 import { getGeneralDetailData } from './GeneralFunction';
-import { getTask, runAddTask, runDeleteTask, runUpdTask } from './Task/TaskFunction';
+import { getTaskDetail, getTaskList, runAddTask, runDeleteTask, runUpdTask } from './Task/TaskFunction';
 import {
     getCustomAttribute,
     runAddCustomAttribute,
@@ -108,14 +108,14 @@ app.get(`${ENV.GENERALDETAIL}/:param`, function (req, res) {
  * taskにアクセスした際の動作
  */
 app.get(ENV.TASK, function (req, res) {
-    getTask(res, req);
+    getTaskList(res, req);
 });
 
 /**
  * task/idにアクセスした際の動作
  */
 app.get(`${ENV.TASK}/:param`, function (req, res) {
-    getTask(res, req, req.params.param);
+    getTaskDetail(res, req, req.params.param);
 });
 
 /**

@@ -82,7 +82,8 @@ export type taskSearchConditionType = {
 export type customAttributeListType = {
     name: string,
     value: string,
-    list?: comboType[],
+    list: comboType[],
+    type: string,
 }
 
 //タスク編集画面の入力欄の設定
@@ -98,4 +99,16 @@ export type inputTaskSettingType = {
     listKey?: string,
     description?: string,
     isRequired?: boolean,
+}
+
+//画面表示用タスクの型
+export type displayTaskType = {
+    default: viewTaskType[],
+    customAttribute: viewTaskType[],
+}
+
+//APIから取得するタスク詳細の型
+export type apiTaskDetailType = {
+    default: viewTaskType[],
+    customAttribute: customAttributeListType[],
 }

@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import LabelComponent from '../Common/LabelComponent';
 import useTaskView from './Hook/useTaskView';
 import { generalDataType } from '../Common/Type/CommonType';
-import { inputTaskSettingType, taskListType } from './Type/TaskType';
+import { apiTaskDetailType, inputTaskSettingType, taskListType } from './Type/TaskType';
 import TaskViewFooter from './TaskViewFooter';
 import TaskViewForm from './TaskViewForm';
 
@@ -39,7 +39,7 @@ const MainAreaDiv = styled.div`
 type propsType = {
   taskSettingList: inputTaskSettingType[] | undefined,
   generalDataList: generalDataType[] | undefined,
-  updTask: taskListType | undefined,
+  updTask: apiTaskDetailType | undefined,
   openEditPage: () => void,
   closeFn?: () => void,
 }
@@ -56,7 +56,7 @@ function TaskView(props: propsType) {
   } = useTaskView({ ...props });
 
   //ローディング
-  if (!viewTask || viewTask.length === 0) {
+  if (!viewTask || !viewTask.default || viewTask.default.length === 0) {
     return <Loading height='50vh' />;
   }
 

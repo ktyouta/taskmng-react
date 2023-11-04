@@ -4,7 +4,7 @@ import { bodyObj, comboType, generalDataType } from "../../Common/Type/CommonTyp
 import { refType } from "../../Common/BaseInputComponent";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
-import { taskListType } from "../Type/TaskType";
+import { apiTaskDetailType, taskListType } from "../Type/TaskType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
@@ -39,7 +39,7 @@ function useTaskDetail(props: propsType) {
     });
 
     //モーダル展開時に更新用タスクを取得
-    const { data: updTask, isLoading: isLoadinGetUpdTask } = useQueryWrapper<taskListType>(
+    const { data: updTask, isLoading: isLoadinGetUpdTask } = useQueryWrapper<apiTaskDetailType>(
         {
             url: props.updTaskId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}/${props.updTaskId}` : ``,
             afSuccessFn: (data) => {

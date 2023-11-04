@@ -3,52 +3,74 @@ import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TR
 import { overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
 import { checkUpdAuth } from "../MasterDataFunction";
-import { authInfoType, searchConditionType, taskListType } from "../Type/type";
+import { authInfoType, searchConditionType, taskCustomAttributeDispType, taskDetailType, taskListType } from "../Type/type";
 import { getNowDate } from "../CommonFunction";
 import { createDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdTaskData } from "./TaskUpdateFunction";
 import { createAddTaskData } from "./TaskRegistFunction";
-import { filterTask } from "./TaskSelectFunction";
+import { filterTask, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
 
 //タスクファイルのパス
 const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
 
 /**
- * タスクの取得
+ * タスクリストの取得
  */
-export function getTask(res: any, req: any, id?: string) {
+export function getTaskList(res: any, req: any) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
         return authResult;
     }
     //タスクファイルの読み込み
-    let decodeFileData: taskListType[] = getTaskObj();
-
-    //削除フラグが1(削除済)のデータをフィルターする
-    decodeFileData = decodeFileData.filter((element) => {
-        return element.deleteFlg !== "1";
-    });
+    let decodeFileData: taskListType[] = getFilterdTask();
 
     //クエリストリングでフィルター
     decodeFileData = filterTask(decodeFileData, req.query);
 
+    //該当データなし
+    if (decodeFileData.length === 0) {
+        return res.status(400).json({ errMessage: `該当データがありません。` });
+    }
+
     //優先度およびステータスの紐づけを行う
     //let joinTaskData: taskListType[] = joinTask(decodeFileData);
 
-    //カスタム属性と結合
+    return res.status(200).json(decodeFileData);
+}
 
+/**
+ * タスク詳細の取得
+ */
+export function getTaskDetail(res: any, req: any, id: string) {
+    //認証チェック
+    let authResult = authenticate(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return authResult;
+    }
+    //タスクファイルの読み込み
+    let decodeFileData: taskListType[] = getFilterdTask();
 
-    //パスパラメータの指定あり
-    if (id) {
-        let singleTaskData = decodeFileData.find((element) => { return element.id === id });
-        if (!singleTaskData) {
-            return res.status(400).json({ errMessage: `該当データがありません。` });
-        }
-        return res.status(200).json(singleTaskData);
+    //該当データなし
+    if (decodeFileData.length === 0) {
+        return res.status(400).json({ errMessage: `該当データがありません。` });
     }
 
-    return res.status(200).json(decodeFileData);
+    //詳細を取得
+    let singleTaskData = decodeFileData.find((element) => { return element.id === id });
+    if (!singleTaskData) {
+        return res.status(400).json({ errMessage: `該当データがありません。` });
+    }
+
+    //カスタム属性の選択値を取得
+    let selectedCustomAttributeList: taskCustomAttributeDispType[] = joinCustomAttribute(singleTaskData);
+
+    let retTaskDetail: taskDetailType = {
+        default: singleTaskData,
+        customAttribute: selectedCustomAttributeList
+    };
+
+    return res.status(200).json(retTaskDetail);
 }
 
 /**
@@ -165,17 +187,6 @@ export function runDeleteTask(res: any, req: any, pathPrm: string) {
         .status(200)
         .json({ errMessage: `削除が完了しました。` });
 }
-
-
-/**
- * タスクファイルからオブジェクトを取得
- */
-function getTaskObj(): taskListType[] {
-    //タスクファイルの読み込み
-    let fileData = readFile(TASK_FILEPATH);
-    return JSON.parse(fileData);
-}
-
 
 /**
  * タスクのjoinを行う

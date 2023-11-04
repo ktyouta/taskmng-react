@@ -24,3 +24,5 @@ export const TASKFILENM = `task`;
 export const CUSTOMATTRIBUTE = `customattribute`;
 //カスタム属性リスト
 export const CUSTOMATTRIBUTELIST = `customattributeselectlist`;
+//カスタム属性の選択値
+export const CUSTOMATTRIBUTESELECT = "customattributeselectedvalue";

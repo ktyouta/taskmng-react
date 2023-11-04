@@ -2,7 +2,7 @@ import React from 'react';
 import '../App.css';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import styled from 'styled-components';
-import { viewTaskType } from './Type/TaskType';
+import { displayTaskType, viewTaskType } from './Type/TaskType';
 
 
 //表示欄のスタイル
@@ -12,7 +12,7 @@ const ValueSpan = styled.span`
 
 //引数の型
 type propsType = {
-    viewTaskList: viewTaskType[],
+    viewTaskList: displayTaskType,
 }
 
 function TaskViewForm(props: propsType) {
@@ -22,7 +22,9 @@ function TaskViewForm(props: propsType) {
     return (
         <React.Fragment>
             {
-                props.viewTaskList.map((element, index) => {
+                props.viewTaskList && props.viewTaskList.default &&
+                props.viewTaskList.default.length > 0 &&
+                props.viewTaskList.default.map((element, index) => {
                     return (
                         <HorizonLabelItemComponent
                             title={element.title}
@@ -35,6 +37,32 @@ function TaskViewForm(props: propsType) {
                         </HorizonLabelItemComponent>
                     );
                 })
+            }
+            {
+                props.viewTaskList && props.viewTaskList.customAttribute &&
+                props.viewTaskList.customAttribute.length > 0 &&
+                <React.Fragment>
+                    <HorizonLabelItemComponent
+                        title={"カスタム属性"}
+                        width="20%"
+                    >
+                    </HorizonLabelItemComponent>
+                    {
+                        props.viewTaskList.customAttribute.map((element, index) => {
+                            return (
+                                <HorizonLabelItemComponent
+                                    title={element.title}
+                                    width="20%"
+                                    key={`dynamicform-${index}`}
+                                >
+                                    <ValueSpan>
+                                        {element.value}
+                                    </ValueSpan>
+                                </HorizonLabelItemComponent>
+                            );
+                        })
+                    }
+                </React.Fragment>
             }
         </React.Fragment>
     );

@@ -12,7 +12,7 @@ import { getNowDate } from "../../CommonFunction";
 import { createAddCustomAttribute, createAddCustomAttributeList, runCreateSelectList } from "./CustomAttributeRegistFunction";
 import { createDeleteCustomAttribute, createDeleteCustomAttributeList, runDeleteSelectList } from "./CustomAttributeDeleteFunction";
 import { createUpdCustomAttribute, createUpdCustomAttributeList, runUpdSelectList } from "./CustomAttributeUpdateFunction";
-import { getCustomAttributeDetail, getCustomAttributeList } from "./CustomAttributeSelectFunction";
+import { getCustomAttributeDetail, getCustomAttributeData } from "./CustomAttributeSelectFunction";
 
 
 //カスタム属性ファイルのパス
@@ -42,7 +42,7 @@ export function getCustomAttribute(res: any, req: any, id?: string) {
     }
 
     //カスタム属性の読み込み
-    let decodeFileData: customAttributeType[] = getCustomAttributeList();
+    let decodeFileData: customAttributeType[] = getCustomAttributeData();
 
     //データなし
     if (!decodeFileData || decodeFileData.length === 0) {

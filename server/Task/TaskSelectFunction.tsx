@@ -1,16 +1,41 @@
 import { authenticate } from "../AuthFunction";
-import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "../Constant";
-import { overWriteData, readFile } from "../FileFunction";
+import { CUSTOMATTRIBUTESELECT, JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "../Constant";
+import { getFileJsonData, overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
 import { checkUpdAuth } from "../MasterDataFunction";
-import { authInfoType, customAttributeType, searchConditionType, taskListType } from "../Type/type";
+import { authInfoType, comboType, customAttributeListType, customAttributeType, searchConditionType, taskCustomAttributeDispType, taskCustomAttributeSelectedType, taskListType } from "../Type/type";
 import { getNowDate } from "../CommonFunction";
-import { getCustomAttributeList } from "../SettingFunction/CustomAttribute/CustomAttributeSelectFunction";
+import { getCustomAttributeData, getCustomAttributeListData } from "../SettingFunction/CustomAttribute/CustomAttributeSelectFunction";
 
 //タスクファイルのパス
 const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
-//タスクIDの接頭辞
-const PRE_TASK_ID = `TASKID-`;
+//カスタム属性リストファイルのパス
+export const TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTESELECT}${JSONEXTENSION}`;
+
+
+/**
+ * タスクファイルからオブジェクトを取得
+ */
+export function getTaskObj(): taskListType[] {
+    //タスクファイルの読み込み
+    let fileData = readFile(TASK_FILEPATH);
+    return JSON.parse(fileData);
+}
+
+/**
+ * タスクリストをクエリストリングで絞り込む
+ */
+export function getFilterdTask() {
+    //タスクファイルの読み込み
+    let decodeFileData: taskListType[] = getTaskObj();
+
+    //削除フラグが1(削除済)のデータをフィルターする
+    decodeFileData = decodeFileData.filter((element) => {
+        return element.deleteFlg !== "1";
+    });
+
+    return decodeFileData;
+}
 
 /**
  * タスクリストをクエリストリングで絞り込む
@@ -62,17 +87,88 @@ function getTaskSearchConditionList() {
 }
 
 /**
- * タスクをカスタム属性と結合
+ * カスタム属性の選択値リストを取得
  */
-export function joinCustomAttribute() {
+function getTaskCustomAttributeSelectedData() {
+    //カスタム属性の選択値リストの読み込み
+    let customAttributeSelectedList: taskCustomAttributeSelectedType[] = getFileJsonData(TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
+
+    //削除済のデータをフィルターする
+    customAttributeSelectedList = customAttributeSelectedList.filter((element) => {
+        return element.deleteFlg !== "1";
+    });
+
+    return customAttributeSelectedList;
+}
+
+/**
+ * 対象タスクのカスタム属性の選択値を返却
+ * @param singleTaskData タスクの詳細データ
+ * @returns 
+ */
+export function joinCustomAttribute(singleTaskData: taskListType) {
+
+    //画面に返すカスタム属性の値
+    let customAttributeList: taskCustomAttributeDispType[] = [];
 
     //カスタム属性の読み込み
-    let decodeFileData: customAttributeType[] = getCustomAttributeList();
+    let customAttributeData: customAttributeType[] = getCustomAttributeData();
 
     //データなし
-    if (!decodeFileData || decodeFileData.length === 0 ||
-        decodeFileData.filter((element) => element.deleteFlg === "0").length === 0) {
-        return;
+    if (!customAttributeData || customAttributeData.length === 0) {
+        return customAttributeList;
     }
 
+    //カスタム属性の選択リストの読み込み
+    let customAttributeListData: customAttributeListType[] = getCustomAttributeListData();
+
+    //データなし
+    if (!customAttributeListData || customAttributeListData.length === 0) {
+        return customAttributeList;
+    }
+
+    //カスタム属性の選択値リストの読み込み
+    let customAttributeSelectedList: taskCustomAttributeSelectedType[] = getTaskCustomAttributeSelectedData();
+
+    //データなし
+    if (!customAttributeSelectedList || customAttributeSelectedList.length === 0) {
+        return customAttributeList;
+    }
+
+    //タスクID
+    let taskId = singleTaskData.id;
+
+    //選択値のリストをタスクIDで絞り込む
+    customAttributeSelectedList = customAttributeSelectedList.filter((element) => {
+        return element.taskId === taskId;
+    });
+
+    //データなし
+    if (!customAttributeSelectedList || customAttributeSelectedList.length === 0) {
+        return customAttributeList;
+    }
+
+    //選択値をセットする
+    customAttributeSelectedList.forEach((element) => {
+        //名称
+        let tmpCList = customAttributeData.find((element1) => element1.id === element.customAttributeId);
+        //選択リスト
+        let tmpCAList = customAttributeListData.filter((element1) => element1.id === element.customAttributeId);
+        let tmpList: comboType[] = [];
+        tmpCAList.map((element1) => {
+            tmpList.push({
+                label: element1.content,
+                value: element1.no,
+            });
+        })
+
+        customAttributeList.push({
+            name: tmpCList?.name ?? "",
+            value: element.selectedValue,
+            list: tmpList,
+            type: tmpCList?.format ?? ""
+        });
+    });
+
+    return customAttributeList;
 }

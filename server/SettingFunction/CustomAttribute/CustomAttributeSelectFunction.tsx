@@ -19,7 +19,7 @@ const CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTELIS
 /**
  * カスタム属性リストを取得
  */
-export function getCustomAttributeList() {
+export function getCustomAttributeData() {
 
     //カスタム属性の読み込み
     let decodeFileData: customAttributeType[] = getFileJsonData(CUSTOM_ATTRIBUTE_FILEPATH);
@@ -30,6 +30,22 @@ export function getCustomAttributeList() {
     });
 
     return decodeFileData;
+}
+
+/**
+ * カスタム属性選択リストを取得
+ */
+export function getCustomAttributeListData() {
+
+    //カスタム属性リストファイルの読み込み
+    let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
+
+    //削除済のデータをフィルターする
+    calDecodeFileData = calDecodeFileData.filter((element) => {
+        return element.deleteFlg !== "1";
+    });
+
+    return calDecodeFileData;
 }
 
 /**

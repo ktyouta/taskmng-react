@@ -1,7 +1,7 @@
 import { createRef, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
 import ENV from '../../env.json';
 import { bodyObj, comboType, generalDataType, inputMasterSettingType, refInfoType } from "../../Common/Type/CommonType";
-import { customAttributeListType, inputTaskSettingType, taskListType, viewTaskType } from "../Type/TaskType";
+import { apiTaskDetailType, customAttributeListType, displayTaskType, inputTaskSettingType, taskListType, viewTaskType } from "../Type/TaskType";
 import { buttonObjType } from "../../Master/MasterEditFooter";
 
 
@@ -9,7 +9,7 @@ import { buttonObjType } from "../../Master/MasterEditFooter";
 type propsType = {
     taskSettingList: inputTaskSettingType[] | undefined,
     generalDataList: generalDataType[] | undefined,
-    updTask: taskListType | undefined,
+    updTask: apiTaskDetailType | undefined,
     openEditPage: () => void,
     closeFn?: () => void,
 }
@@ -23,7 +23,7 @@ type propsType = {
 function useTaskView(props: propsType) {
 
     //閲覧用タスク
-    const [viewTask, setViewTask] = useState<viewTaskType[]>([]);
+    const [viewTask, setViewTask] = useState<displayTaskType>();
 
     //入力欄参照用refの作成
     useEffect(() => {
@@ -46,7 +46,7 @@ function useTaskView(props: propsType) {
             if (element.isHidden) {
                 return;
             }
-            //カスタム属性
+            //カスタム属性をセット
             if (element.id === "customAttribute") {
                 if (!props.updTask?.customAttribute) {
                     return;
@@ -59,11 +59,13 @@ function useTaskView(props: propsType) {
                     //選択形式の場合は名称を取得する
                     if (list && list.length > 0) {
                         let selected = list.find((element) => element.value === tmp);
-                        //選択値に該当するデータがない場合
-                        if (!selected) {
-                            return;
+                        //選択値に該当するデータが存在する場合
+                        if (selected) {
+                            tmp = selected.label;
                         }
-                        tmp = selected.label;
+                        else {
+                            tmp = "";
+                        }
                     }
 
                     tmpViewCustomAttributeList.push({
@@ -74,7 +76,7 @@ function useTaskView(props: propsType) {
                 return;
             }
 
-            for (const [columnKey, value] of Object.entries(props.updTask as {})) {
+            for (const [columnKey, value] of Object.entries(props.updTask?.default as {})) {
                 //キーの一致する要素を取り出す
                 if (element.id === columnKey) {
                     tmpValue = value as string;
@@ -103,7 +105,10 @@ function useTaskView(props: propsType) {
                 value: tmpValue,
             });
         });
-        setViewTask(tmpViewTaskList);
+        setViewTask({
+            default: tmpViewTaskList,
+            customAttribute: tmpViewCustomAttributeList,
+        });
     }, [props.taskSettingList, props.updTask, props.generalDataList]);
 
 
