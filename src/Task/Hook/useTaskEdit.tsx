@@ -49,7 +49,7 @@ function useTaskEdit(props: propsType) {
         }
         props.taskSettingList.forEach((element) => {
             let tmpValue: string | undefined = undefined;
-            for (const [columnKey, value] of Object.entries(props.updTask as {})) {
+            for (const [columnKey, value] of Object.entries(props.updTask?.default as {})) {
                 //キーの一致する要素を取り出す
                 if (element.id === columnKey) {
                     tmpValue = value as string;

@@ -10,6 +10,11 @@ const ValueSpan = styled.span`
     width:80%
 `;
 
+//太文字のスタイル
+const BoldSpan = styled.span`
+    font-weight: bold;
+`;
+
 //引数の型
 type propsType = {
     viewTaskList: displayTaskType,
@@ -43,7 +48,7 @@ function TaskViewForm(props: propsType) {
                 props.viewTaskList.customAttribute.length > 0 &&
                 <React.Fragment>
                     <HorizonLabelItemComponent
-                        title={"カスタム属性"}
+                        title={<BoldSpan>カスタム属性</BoldSpan>}
                         width="20%"
                     >
                     </HorizonLabelItemComponent>

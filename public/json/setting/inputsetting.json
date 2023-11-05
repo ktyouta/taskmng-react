@@ -177,6 +177,20 @@
             "isEditableSetting": true,
             "isRequired": false,
             "description": "タスクの状態"
+        },
+        {
+            "id": "customAttribute",
+            "name": "カスタム属性",
+            "type": "",
+            "length": 0,
+            "value": "",
+            "disabled": false,
+            "isNewCreateVisible": true,
+            "isHidden": false,
+            "listKey": "",
+            "isEditableSetting": true,
+            "isRequired": false,
+            "description": ""
         }
     ]
 }
