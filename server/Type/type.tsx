@@ -57,7 +57,7 @@ export type customAttributeType = {
     [key: string]: string | string[] | boolean | undefined,
     id: string,
     name: string,
-    format: string,
+    format: inputType,
     required: boolean,
     selectElementList?: string[],
     selectElementListId: string,
@@ -95,16 +95,26 @@ export type comboType = {
     value: string,
 }
 
-//画面に返すタスクに紐づくカスタム属性の型
-export type taskCustomAttributeDispType = {
-    name: string,
-    value: string;
-    list: comboType[] | undefined;
-    type: string
-}
-
 //画面返却用のタスク詳細の型
 export type taskDetailType = {
     default: taskListType,
     customAttribute: taskCustomAttributeDispType[]
 }
+
+//入力欄参照用の型
+export type taskCustomAttributeDispType = {
+    id: string,
+    name: string,
+    type: inputType,
+    length: number,
+    disabled: boolean,
+    visible: boolean,
+    value: string,
+    selectList?: comboType[],
+    description?: string,
+    isRequired?: boolean,
+    errMessage?: string,
+}
+
+//inputのタイプ
+export type inputType = "input" | "select" | "radio" | "date" | "textarea" | "checkbox" | "number" | "label" | "";

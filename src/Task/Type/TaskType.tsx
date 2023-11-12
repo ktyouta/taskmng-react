@@ -1,4 +1,4 @@
-import { comboType, inputAddMasterSettingType, inputMasterSettingType, inputType } from "../../Common/Type/CommonType";
+import { comboType, inputAddMasterSettingType, inputMasterSettingType, inputType, refInfoType } from "../../Common/Type/CommonType";
 
 //タスクリストの型
 export type taskListType = {
@@ -80,10 +80,17 @@ export type taskSearchConditionType = {
 
 //カスタム属性リストの型
 export type customAttributeListType = {
+    id: string,
     name: string,
+    type: inputType,
+    length: number,
+    disabled: boolean,
+    visible: boolean,
     value: string,
-    list: comboType[],
-    type: string,
+    selectList: comboType[],
+    description?: string,
+    isRequired?: boolean,
+    errMessage?: string,
 }
 
 //タスク編集画面の入力欄の設定
@@ -111,4 +118,10 @@ export type displayTaskType = {
 export type apiTaskDetailType = {
     default: viewTaskType[],
     customAttribute: customAttributeListType[],
+}
+
+//編集画面表示用タスクの型
+export type editDisplayTaskType = {
+    default: refInfoType[],
+    customAttribute: refInfoType[],
 }

@@ -109,14 +109,14 @@ function getTaskCustomAttributeSelectedData() {
 export function joinCustomAttribute(singleTaskData: taskListType) {
 
     //画面に返すカスタム属性の値
-    let customAttributeList: taskCustomAttributeDispType[] = [];
+    let retCustomAttributeList: taskCustomAttributeDispType[] = [];
 
     //カスタム属性の読み込み
     let customAttributeData: customAttributeType[] = getCustomAttributeData();
 
     //データなし
     if (!customAttributeData || customAttributeData.length === 0) {
-        return customAttributeList;
+        return retCustomAttributeList;
     }
 
     //カスタム属性の選択リストの読み込み
@@ -124,34 +124,39 @@ export function joinCustomAttribute(singleTaskData: taskListType) {
 
     //データなし
     if (!customAttributeListData || customAttributeListData.length === 0) {
-        return customAttributeList;
+        return retCustomAttributeList;
     }
 
-    //カスタム属性の選択値リストの読み込み
-    let customAttributeSelectedList: taskCustomAttributeSelectedType[] = getTaskCustomAttributeSelectedData();
+    //カスタム属性の入力値リストの読み込み
+    let customAttributeInputList: taskCustomAttributeSelectedType[] = getTaskCustomAttributeSelectedData();
 
     //データなし
-    if (!customAttributeSelectedList || customAttributeSelectedList.length === 0) {
-        return customAttributeList;
+    if (!customAttributeInputList || customAttributeInputList.length === 0) {
+        return retCustomAttributeList;
     }
 
     //タスクID
     let taskId = singleTaskData.id;
 
-    //選択値のリストをタスクIDで絞り込む
-    customAttributeSelectedList = customAttributeSelectedList.filter((element) => {
+    //入力値のリストをタスクIDで絞り込む
+    customAttributeInputList = customAttributeInputList.filter((element) => {
         return element.taskId === taskId;
     });
 
     //データなし
-    if (!customAttributeSelectedList || customAttributeSelectedList.length === 0) {
-        return customAttributeList;
+    if (!customAttributeInputList || customAttributeInputList.length === 0) {
+        return retCustomAttributeList;
     }
 
     //選択値をセットする
-    customAttributeSelectedList.forEach((element) => {
-        //名称
-        let tmpCList = customAttributeData.find((element1) => element1.id === element.customAttributeId);
+    customAttributeInputList.forEach((element) => {
+        //IDから取得
+        let tmpCa = customAttributeData.find((element1) => element1.id === element.customAttributeId);
+
+        if (!tmpCa) {
+            return;
+        }
+
         //選択リスト
         let tmpCAList = customAttributeListData.filter((element1) => element1.id === element.customAttributeId);
         let tmpList: comboType[] = [];
@@ -162,13 +167,17 @@ export function joinCustomAttribute(singleTaskData: taskListType) {
             });
         })
 
-        customAttributeList.push({
-            name: tmpCList?.name ?? "",
-            value: element.selectedValue,
-            list: tmpList,
-            type: tmpCList?.format ?? ""
+        retCustomAttributeList.push({
+            id: tmpCa.id,
+            name: tmpCa.name,
+            type: tmpCa.format,
+            selectList: tmpList,
+            length: 0,
+            disabled: false,
+            visible: true,
+            value: element.selectedValue
         });
     });
 
-    return customAttributeList;
+    return retCustomAttributeList;
 }

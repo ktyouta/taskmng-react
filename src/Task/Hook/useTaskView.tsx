@@ -3,6 +3,7 @@ import ENV from '../../env.json';
 import { bodyObj, comboType, generalDataType, inputMasterSettingType, refInfoType } from "../../Common/Type/CommonType";
 import { apiTaskDetailType, customAttributeListType, displayTaskType, inputTaskSettingType, taskListType, viewTaskType } from "../Type/TaskType";
 import { buttonObjType } from "../../Master/MasterEditFooter";
+import { createCunstomAttributeViewList } from "../Function/TaskFunction";
 
 
 //引数の型
@@ -51,43 +52,7 @@ function useTaskView(props: propsType) {
                 if (!props.updTask?.customAttribute) {
                     return;
                 }
-                let tmpValue: customAttributeListType[] = props.updTask.customAttribute;
-                tmpValue.forEach((element) => {
-                    let tmp = element.value;
-                    let list = element.list;
-
-                    //選択形式の場合は名称を取得する
-                    if (list && list.length > 0) {
-
-                        //複数選択可能形式(チェックボックス)の場合
-                        if (tmp.includes(",")) {
-                            let tmpArr = tmp.split(",");
-                            let valArr: string[] = [];
-                            tmpArr.forEach((element1) => {
-                                let selected = list.find((element2) => element2.value === element1);
-                                if (selected) {
-                                    valArr.push(selected.label);
-                                }
-                            });
-                            tmp = valArr.join(",");
-                        }
-                        else {
-                            let selected = list.find((element1) => element1.value === tmp);
-                            //選択値に該当するデータが存在する場合
-                            if (selected) {
-                                tmp = selected.label;
-                            }
-                            else {
-                                tmp = "";
-                            }
-                        }
-                    }
-
-                    tmpViewCustomAttributeList.push({
-                        title: element.name,
-                        value: tmp,
-                    });
-                });
+                tmpViewCustomAttributeList = createCunstomAttributeViewList(props.updTask.customAttribute);
                 return;
             }
 

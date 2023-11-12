@@ -10,14 +10,9 @@ const ValueSpan = styled.span`
     width:80%
 `;
 
-//太文字のスタイル
-const BoldSpan = styled.span`
-    font-weight: bold;
-`;
-
 //引数の型
 type propsType = {
-    viewTaskList: displayTaskType,
+    viewTaskList: viewTaskType[],
 }
 
 function TaskViewForm(props: propsType) {
@@ -27,9 +22,9 @@ function TaskViewForm(props: propsType) {
     return (
         <React.Fragment>
             {
-                props.viewTaskList && props.viewTaskList.default &&
-                props.viewTaskList.default.length > 0 &&
-                props.viewTaskList.default.map((element, index) => {
+                props.viewTaskList &&
+                props.viewTaskList.length > 0 &&
+                props.viewTaskList.map((element, index) => {
                     return (
                         <HorizonLabelItemComponent
                             title={element.title}
@@ -42,32 +37,6 @@ function TaskViewForm(props: propsType) {
                         </HorizonLabelItemComponent>
                     );
                 })
-            }
-            {
-                props.viewTaskList && props.viewTaskList.customAttribute &&
-                props.viewTaskList.customAttribute.length > 0 &&
-                <React.Fragment>
-                    <HorizonLabelItemComponent
-                        title={<BoldSpan>カスタム属性</BoldSpan>}
-                        width="20%"
-                    >
-                    </HorizonLabelItemComponent>
-                    {
-                        props.viewTaskList.customAttribute.map((element, index) => {
-                            return (
-                                <HorizonLabelItemComponent
-                                    title={element.title}
-                                    width="20%"
-                                    key={`dynamicform-${index}`}
-                                >
-                                    <ValueSpan>
-                                        {element.value}
-                                    </ValueSpan>
-                                </HorizonLabelItemComponent>
-                            );
-                        })
-                    }
-                </React.Fragment>
             }
         </React.Fragment>
     );

@@ -4,6 +4,9 @@ import { SnackbarComponent } from '../Common/SnackbarComponent';
 import DynamicForm from '../Common/DynamicForm';
 import { refInfoType } from '../Common/Type/CommonType';
 import styled from 'styled-components';
+import { editDisplayTaskType } from './Type/TaskType';
+import React from 'react';
+import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 
 
 //引数の型
@@ -35,6 +38,16 @@ const MainAreaDiv = styled.div`
     margin-left: 15%;
 `;
 
+//太文字のスタイル
+const BoldSpan = styled.span`
+    font-weight: bold;
+`;
+
+//表示欄のスタイル
+const ValueSpan = styled.span`
+    width:80%
+`;
+
 
 function TaskEditForm(props: propsType) {
 
@@ -53,12 +66,6 @@ function TaskEditForm(props: propsType) {
                 {/* 入力欄 */}
                 <DynamicForm
                     refInfoArray={props.refInfoArray}
-                />
-                {/* エラーメッセージ用スナックバー */}
-                <SnackbarComponent
-                    open={!!props.errMessage}
-                    message={props.errMessage}
-                    severity='error'
                 />
             </MainAreaDiv>
         </OuterDiv>

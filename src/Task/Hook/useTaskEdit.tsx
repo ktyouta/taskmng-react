@@ -4,12 +4,13 @@ import { bodyObj, comboType, generalDataType, refInfoType } from "../../Common/T
 import { refType } from "../../Common/BaseInputComponent";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
-import { apiTaskDetailType, inputTaskSettingType, taskListType } from "../Type/TaskType";
+import { apiTaskDetailType, editDisplayTaskType, inputTaskSettingType, taskListType, viewTaskType } from "../Type/TaskType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
+import { createCunstomAttributeEditList, createCunstomAttributeViewList } from "../Function/TaskFunction";
 
 
 //引数の型
@@ -31,13 +32,15 @@ type propsType = {
 function useTaskEdit(props: propsType) {
 
     //入力参照用リスト
-    const [refInfoArray, setRefInfoArray] = useState<refInfoType[]>([]);
+    const [refInfoArray, setRefInfoArray] = useState<editDisplayTaskType>();
     //スナックバーに表示する登録更新時のエラーメッセージ
     const [errMessage, setErrMessage] = useState("");
 
     //入力欄参照用refの作成
     useEffect(() => {
         let tmpRefInfoArray: refInfoType[] = [];
+        let tmpEditCustomAttributeList: refInfoType[] = [];
+
         if (!props.taskSettingList) {
             return;
         }
@@ -47,8 +50,18 @@ function useTaskEdit(props: propsType) {
         if (!props.generalDataList) {
             return;
         }
+
         props.taskSettingList.forEach((element) => {
             let tmpValue: string | undefined = undefined;
+
+            //カスタム属性をセット
+            if (element.id === "customAttribute") {
+                if (!props.updTask?.customAttribute) {
+                    return;
+                }
+                tmpEditCustomAttributeList = createCunstomAttributeEditList(props.updTask.customAttribute);
+            }
+
             for (const [columnKey, value] of Object.entries(props.updTask?.default as {})) {
                 //キーの一致する要素を取り出す
                 if (element.id === columnKey) {
@@ -84,7 +97,11 @@ function useTaskEdit(props: propsType) {
                 ref: createRef(),
             });
         });
-        setRefInfoArray(tmpRefInfoArray);
+
+        setRefInfoArray({
+            default: tmpRefInfoArray,
+            customAttribute: tmpEditCustomAttributeList,
+        });
     }, [props.taskSettingList, props.updTask, props.generalDataList]);
 
     //更新用フック
@@ -135,7 +152,13 @@ function useTaskEdit(props: propsType) {
         if (!window.confirm("入力を元に戻しますか？")) {
             return;
         }
-        refInfoArray.forEach((element) => {
+        if (!refInfoArray || !refInfoArray.default || !refInfoArray.customAttribute) {
+            return;
+        }
+        refInfoArray.default.forEach((element) => {
+            element.ref.current?.clearValue();
+        });
+        refInfoArray.customAttribute.forEach((element) => {
             element.ref.current?.clearValue();
         });
     }
@@ -144,43 +167,43 @@ function useTaskEdit(props: propsType) {
      * 更新ボタン押下処理
      */
     const update = () => {
-        if (!refInfoArray || refInfoArray.length === 0) {
+        if (!refInfoArray || !refInfoArray.default || !refInfoArray.customAttribute || refInfoArray.default.length === 0) {
             return;
         }
         //入力チェック
-        let inputCheckObj = requestBodyInputCheck(refInfoArray);
-        //入力エラー
-        if (inputCheckObj.errFlg) {
-            setRefInfoArray(inputCheckObj.refInfoArray);
-            return;
-        }
-        if (!window.confirm('タスクを更新しますか？')) {
-            return
-        }
-        if (!updMutation) {
-            alert("リクエストの送信に失敗しました。");
-            return;
-        }
-        let body: bodyObj = createRequestBody(refInfoArray);
-        //bodyの作成
-        updMutation.mutate(body);
+        // let inputCheckObj = requestBodyInputCheck(refInfoArray);
+        // //入力エラー
+        // if (inputCheckObj.errFlg) {
+        //     setRefInfoArray(inputCheckObj.refInfoArray);
+        //     return;
+        // }
+        // if (!window.confirm('タスクを更新しますか？')) {
+        //     return
+        // }
+        // if (!updMutation) {
+        //     alert("リクエストの送信に失敗しました。");
+        //     return;
+        // }
+        // let body: bodyObj = createRequestBody(refInfoArray);
+        // //bodyの作成
+        // updMutation.mutate(body);
     }
 
     /**
      * 削除ボタン押下処理
      */
     const deleteTask = () => {
-        if (!refInfoArray || refInfoArray.length === 0) {
-            return;
-        }
-        if (!window.confirm('タスクを削除しますか？')) {
-            return
-        }
-        if (!updMutation) {
-            alert("リクエストの送信に失敗しました。");
-            return;
-        }
-        delMutation.mutate();
+        // if (!refInfoArray || refInfoArray.length === 0) {
+        //     return;
+        // }
+        // if (!window.confirm('タスクを削除しますか？')) {
+        //     return
+        // }
+        // if (!updMutation) {
+        //     alert("リクエストの送信に失敗しました。");
+        //     return;
+        // }
+        // delMutation.mutate();
     }
 
     return {
@@ -195,17 +218,17 @@ function useTaskEdit(props: propsType) {
         negativeButtonObj: {
             title: `元に戻す`,
             type: `RUN`,
-            onclick: refInfoArray && refInfoArray.length > 0 ? clearButtonFunc : undefined
+            onclick: refInfoArray && refInfoArray.default.length > 0 ? clearButtonFunc : undefined
         } as buttonObjType,
         deleteButtonObj: {
             title: `削除`,
             type: `DANGER`,
-            onclick: refInfoArray && refInfoArray.length > 0 ? deleteTask : undefined
+            onclick: refInfoArray && refInfoArray.default.length > 0 ? deleteTask : undefined
         } as buttonObjType,
         positiveButtonObj: {
             title: `更新`,
             type: `RUN`,
-            onclick: refInfoArray && refInfoArray.length > 0 ? update : undefined
+            onclick: refInfoArray && refInfoArray.default.length > 0 ? update : undefined
         } as buttonObjType,
         errMessage,
     }
