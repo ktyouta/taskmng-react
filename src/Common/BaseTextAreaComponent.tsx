@@ -20,7 +20,7 @@ export type refType = {
 
 //テキストエリアの基本スタイル
 const BaseInput = styled.textarea<{ textWidth?: string, bgColor?: string, }>`
-  width: ${({ textWidth }) => (textWidth ? textWidth : "40%")};
+  width: ${({ textWidth }) => (textWidth ? textWidth : "400px")};
   background-color:${({ bgColor }) => (bgColor ?? "")};
   height:70px;
   border-radius: 5px;

@@ -60,6 +60,7 @@ function useTaskEdit(props: propsType) {
                     return;
                 }
                 tmpEditCustomAttributeList = createCunstomAttributeEditList(props.updTask.customAttribute);
+                return;
             }
 
             for (const [columnKey, value] of Object.entries(props.updTask?.default as {})) {

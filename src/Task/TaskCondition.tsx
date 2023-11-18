@@ -5,6 +5,8 @@ import { refInfoType } from '../Common/Type/CommonType';
 import useTaskCondition from './Hook/useTaskCondition';
 import TaskConditionFooter from './TaskConditionFooter';
 import Loading from '../Common/Loading';
+import LabelComponent from '../Common/LabelComponent';
+import styled from 'styled-components';
 
 
 //引数の型
@@ -12,6 +14,14 @@ type propsType = {
     refInfoArray: refInfoType[],
     closeFn: () => void,
 }
+
+//ヘッダー
+const HeaderDiv = styled.div`
+    height: 10%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+`;
 
 
 function TaskCondition(props: propsType) {
@@ -30,8 +40,12 @@ function TaskCondition(props: propsType) {
 
     return (
         <div className="taskedit">
+            <HeaderDiv>
+                <LabelComponent
+                    title="検索条件"
+                />
+            </HeaderDiv>
             <TaskEditForm
-                title={'検索条件'}
                 refInfoArray={props.refInfoArray}
                 isUpDelLoading={false}
                 errMessage={""}

@@ -8,6 +8,7 @@ import Loading from '../Common/Loading';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import styled from 'styled-components';
+import LabelComponent from '../Common/LabelComponent';
 
 
 //引数の型
@@ -20,6 +21,13 @@ const BoldSpan = styled.span`
     font-weight: bold;
 `;
 
+//ヘッダー
+const HeaderDiv = styled.div`
+    height: 10%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+`;
 
 function TaskRegister(props: propsType) {
 
@@ -40,12 +48,16 @@ function TaskRegister(props: propsType) {
 
   return (
     <div className="taskedit">
+      <HeaderDiv>
+        <LabelComponent
+          title="タスク作成"
+        />
+      </HeaderDiv>
       {
         refInfoArray &&
         refInfoArray.default &&
         refInfoArray.default.length > 0 &&
         <TaskEditForm
-          title={'タスク作成'}
           refInfoArray={refInfoArray.default}
           isUpDelLoading={isUpDelLoading}
           errMessage={errMessage}
@@ -63,7 +75,6 @@ function TaskRegister(props: propsType) {
           >
           </HorizonLabelItemComponent>
           <TaskEditForm
-            title={''}
             refInfoArray={refInfoArray.customAttribute}
             isUpDelLoading={isUpDelLoading}
             errMessage={errMessage}

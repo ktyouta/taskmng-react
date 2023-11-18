@@ -11,6 +11,8 @@ import { SnackbarComponent } from '../Common/SnackbarComponent';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import styled from 'styled-components';
+import { BoldSpan, HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import LabelComponent from '../Common/LabelComponent';
 
 
 //引数の型
@@ -23,9 +25,12 @@ type propsType = {
   updTask: apiTaskDetailType | undefined,
 }
 
-//太文字のスタイル
-const BoldSpan = styled.span`
-    font-weight: bold;
+//ヘッダー
+const HeaderDiv = styled.div`
+    height: 10%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
 `;
 
 
@@ -49,58 +54,77 @@ function TaskEdit(props: propsType) {
   }
 
   return (
-    <div className="taskedit">
-      {/* デフォルト属性 */}
-      {
-        refInfoArray &&
-        refInfoArray.default &&
-        refInfoArray.default.length > 0 &&
-        <TaskEditForm
-          title={'タスク編集'}
-          refInfoArray={refInfoArray.default}
-          isUpDelLoading={isUpDelLoading}
-          errMessage={errMessage}
-          outerHeight='85%'
-        />
-      }
-      {/* カスタム属性 */}
-      {
-        refInfoArray &&
-        refInfoArray.customAttribute &&
-        refInfoArray.customAttribute.length > 0 &&
-        <React.Fragment>
-          <HorizonLabelItemComponent
-            title={<BoldSpan>カスタム属性</BoldSpan>}
-            width="20%"
-          >
-          </HorizonLabelItemComponent>
-          <TaskEditForm
-            title={''}
-            refInfoArray={refInfoArray.customAttribute}
-            isUpDelLoading={isUpDelLoading}
-            errMessage={errMessage}
-            outerHeight='85%'
+    <HeightDiv
+      height='100%'
+    >
+      <HeightDiv
+        height='85%'
+      >
+        <HeaderDiv>
+          <LabelComponent
+            title="タスク編集"
           />
-        </React.Fragment>
-      }
-      {/* エラーメッセージ用スナックバー */}
-      <SnackbarComponent
-        open={!!errMessage}
-        message={errMessage}
-        severity='error'
-      />
-      <TaskEditFooter
-        backPageButtonObj={backPageButtonObj}
-        negativeButtonObj={negativeButtonObj}
-        deleteButtomObj={deleteButtonObj}
-        positiveButtonObj={positiveButtonObj}
-        outerHeight='15%'
-      />
+        </HeaderDiv>
+        <VerticalFlowDiv
+          height='85%'
+        >
+          {/* デフォルト属性 */}
+          {
+            refInfoArray &&
+            refInfoArray.default &&
+            refInfoArray.default.length > 0 &&
+            <TaskEditForm
+              refInfoArray={refInfoArray.default}
+              isUpDelLoading={isUpDelLoading}
+              errMessage={errMessage}
+              outerHeight='auto'
+            />
+          }
+          {/* カスタム属性 */}
+          {
+            refInfoArray &&
+            refInfoArray.customAttribute &&
+            refInfoArray.customAttribute.length > 0 &&
+            <React.Fragment>
+              <HorizonLabelItemComponent
+                title={<BoldSpan>カスタム属性</BoldSpan>}
+                marginLt='15%'
+                width="20%"
+              >
+              </HorizonLabelItemComponent>
+              <TaskEditForm
+                refInfoArray={refInfoArray.customAttribute}
+                isUpDelLoading={isUpDelLoading}
+                errMessage={errMessage}
+                outerHeight='auto'
+              />
+            </React.Fragment>
+          }
+          {/* エラーメッセージ用スナックバー */}
+          <SnackbarComponent
+            open={!!errMessage}
+            message={errMessage}
+            severity='error'
+          />
+        </VerticalFlowDiv>
+      </HeightDiv>
+      <HeightDiv
+        height='15%'
+      >
+        <TaskEditFooter
+          backPageButtonObj={backPageButtonObj}
+          negativeButtonObj={negativeButtonObj}
+          deleteButtomObj={deleteButtonObj}
+          positiveButtonObj={positiveButtonObj}
+          outerHeight='15%'
+        />
+      </HeightDiv>
+
       {/* ローディング */}
       <WaitLoading
         isLoading={isUpDelLoading}
       />
-    </div>
+    </HeightDiv>
   );
 }
 

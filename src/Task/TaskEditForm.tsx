@@ -11,7 +11,6 @@ import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 
 //引数の型
 type propsType = {
-    title: string,
     refInfoArray: refInfoType[],
     isUpDelLoading: boolean,
     errMessage: string,
@@ -23,31 +22,11 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
     height:${({ height }) => (height)};
 `;
 
-//ヘッダー
-const HeaderDiv = styled.div`
-    height: 10%;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-`;
-
 //入力欄
 const MainAreaDiv = styled.div`
     height: 85%;
-    overflow-y: auto;
     margin-left: 15%;
 `;
-
-//太文字のスタイル
-const BoldSpan = styled.span`
-    font-weight: bold;
-`;
-
-//表示欄のスタイル
-const ValueSpan = styled.span`
-    width:80%
-`;
-
 
 function TaskEditForm(props: propsType) {
 
@@ -57,11 +36,6 @@ function TaskEditForm(props: propsType) {
         <OuterDiv
             height={props.outerHeight}
         >
-            <HeaderDiv>
-                <LabelComponent
-                    title={props.title}
-                />
-            </HeaderDiv>
             <MainAreaDiv>
                 {/* 入力欄 */}
                 <DynamicForm

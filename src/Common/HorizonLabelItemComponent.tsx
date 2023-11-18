@@ -14,13 +14,21 @@ type propsType = {
     width?: string,
     children: ReactNode,
     color?: string,
-    position?: positionType
+    position?: positionType,
+    marginLt?: string,
+    marginRt?: string,
+    marginTp?: string,
+    marginBt?: string,
 }
 
 //内部要素の位置の型
 type positionType = "left" | "center" | "right";
 
-const OuterDiv = styled.div`
+const OuterDiv = styled.div<{ marginLt?: string, marginRt?: string, marginTp?: string, marginBt?: string }>`
+    margin-left:${({ marginLt }) => (marginLt)};
+    margin-right:${({ marginRt }) => (marginRt)};
+    margin-top:${({ marginTp }) => (marginTp)};
+    margin-bottom:${({ marginBt }) => (marginBt)};
     padding-top: 2%;
     padding-bottom: 1%;
     display: flex;
@@ -64,7 +72,12 @@ const sliceWidthStr = (str?: string) => {
 function HorizonLabelItemComponent(props: propsType) {
 
     return (
-        <OuterDiv>
+        <OuterDiv
+            marginLt={props.marginLt}
+            marginRt={props.marginRt}
+            marginTp={props.marginTp}
+            marginBt={props.marginBt}
+        >
             <LabelComponent
                 {...props}
             />

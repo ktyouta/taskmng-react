@@ -22,7 +22,7 @@ export type refType = {
 
 //テキストボックスの基本スタイル
 const BaseInput = styled.input<{ textWidth?: string, bgColor?: string, }>`
-  width: ${({ textWidth }) => (textWidth ?? "300px")};
+  width: ${({ textWidth }) => (textWidth ?? "400px")};
   background-color:${({ bgColor }) => (bgColor ?? "")};
   height:33px;
   border-radius: 5px;
