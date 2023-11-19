@@ -7,7 +7,7 @@ import {
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
-import { authInfoType, customAttributeListType, customAttributeType, searchConditionType, taskListType } from "../../Type/type";
+import { authInfoType, comboType, customAttributeListType, customAttributeType, inputSettingType, searchConditionType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
 import { CUSTOM_ATTRIBUTE_FILEPATH } from "./CustomAttributeFunction";
 
@@ -55,7 +55,7 @@ export function getCustomAttributeListData() {
  * @param res 
  * @returns 
  */
-export function getCustomAttributeDetail(decodeFileData: customAttributeType[], id: string, res: any)
+export function filterCustomAttributeDetail(decodeFileData: customAttributeType[], id: string, res: any)
     : any {
 
     let singleCustomAttributeData = decodeFileData.find((element) => { return element.id === id });
@@ -74,8 +74,51 @@ export function getCustomAttributeDetail(decodeFileData: customAttributeType[], 
             })
             .map((element) => { return element.content });
 
-        singleCustomAttributeData.selectElementList = filterdCalDate
+        singleCustomAttributeData.selectElementList = filterdCalDate;
     }
 
     return res.status(200).json(singleCustomAttributeData);
+}
+
+/**
+ * カスタム属性のリストをIDで絞り込む
+ * @param decodeFileData カスタム属性リスト
+ * @param id カスタム属性ID
+ * @param res 
+ * @returns 
+ */
+export function joinCustomAttributeList(customAttributeList: customAttributeType[], customAttributeSelectList: customAttributeListType[])
+    : any {
+
+    let retCustomAttributeList: inputSettingType[] = [];
+
+    customAttributeList.forEach((element) => {
+
+        //カスタム属性のIDからリストを取得
+        let tmpSelectList: comboType[] = [];
+
+        customAttributeSelectList.filter((element1) => {
+            return element1.id === element.id;
+        }).forEach((element2) => {
+            tmpSelectList.push({
+                label: element2.content,
+                value: element2.no,
+            });
+        });
+
+        retCustomAttributeList.push({
+            id: element.id,
+            name: element.name,
+            type: element.type,
+            length: 0,
+            disabled: false,
+            visible: true,
+            value: "",
+            selectList: tmpSelectList,
+            description: element.description,
+            isRequired: element.required,
+        });
+    });
+
+    return retCustomAttributeList;
 }

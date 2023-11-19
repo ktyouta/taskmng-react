@@ -11,6 +11,8 @@ import { getGeneralDetailData } from './GeneralFunction';
 import { getTaskDetail, getTaskList, runAddTask, runDeleteTask, runUpdTask } from './Task/TaskFunction';
 import {
     getCustomAttribute,
+    getCustomAttributeDetail,
+    getCustomAttributeInputSetting,
     runAddCustomAttribute,
     runDeleteCustomAttribute,
     runUpdCustomAttribute
@@ -126,10 +128,17 @@ app.get(ENV.CUSTOMATTRIBUTE, function (req, res) {
 });
 
 /**
- * task/idにアクセスした際の動作
+ * customattribute/idにアクセスした際の動作
  */
 app.get(`${ENV.CUSTOMATTRIBUTE}/:param`, function (req, res) {
-    getCustomAttribute(res, req, req.params.param);
+    getCustomAttributeDetail(res, req, req.params.param);
+});
+
+/**
+ * customattributeinputsetting/idにアクセスした際の動作
+ */
+app.get(`${ENV.CUSTOMATTRIBUTEINPUTSETTING}/:param`, function (req, res) {
+    getCustomAttributeInputSetting(res, req);
 });
 
 

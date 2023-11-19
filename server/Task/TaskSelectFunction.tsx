@@ -3,7 +3,7 @@ import { CUSTOMATTRIBUTESELECT, JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGF
 import { getFileJsonData, overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
 import { checkUpdAuth } from "../MasterDataFunction";
-import { authInfoType, comboType, customAttributeListType, customAttributeType, searchConditionType, taskCustomAttributeDispType, taskCustomAttributeSelectedType, taskListType } from "../Type/type";
+import { authInfoType, comboType, customAttributeListType, customAttributeType, searchConditionType, inputSettingType, taskCustomAttributeSelectedType, taskListType } from "../Type/type";
 import { getNowDate } from "../CommonFunction";
 import { getCustomAttributeData, getCustomAttributeListData } from "../SettingFunction/CustomAttribute/CustomAttributeSelectFunction";
 
@@ -109,7 +109,7 @@ function getTaskCustomAttributeSelectedData() {
 export function joinCustomAttribute(singleTaskData: taskListType) {
 
     //画面に返すカスタム属性の値
-    let retCustomAttributeList: taskCustomAttributeDispType[] = [];
+    let retCustomAttributeList: inputSettingType[] = [];
 
     //カスタム属性の読み込み
     let customAttributeData: customAttributeType[] = getCustomAttributeData();
@@ -170,7 +170,7 @@ export function joinCustomAttribute(singleTaskData: taskListType) {
         retCustomAttributeList.push({
             id: tmpCa.id,
             name: tmpCa.name,
-            type: tmpCa.format,
+            type: tmpCa.type,
             selectList: tmpList,
             length: 0,
             disabled: false,

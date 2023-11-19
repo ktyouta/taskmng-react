@@ -12,7 +12,7 @@ import { getNowDate } from "../../CommonFunction";
 import { createAddCustomAttribute, createAddCustomAttributeList, runCreateSelectList } from "./CustomAttributeRegistFunction";
 import { createDeleteCustomAttribute, createDeleteCustomAttributeList, runDeleteSelectList } from "./CustomAttributeDeleteFunction";
 import { createUpdCustomAttribute, createUpdCustomAttributeList, runUpdSelectList } from "./CustomAttributeUpdateFunction";
-import { getCustomAttributeDetail, getCustomAttributeData } from "./CustomAttributeSelectFunction";
+import { filterCustomAttributeDetail, getCustomAttributeData, getCustomAttributeListData, joinCustomAttributeList } from "./CustomAttributeSelectFunction";
 
 
 //カスタム属性ファイルのパス
@@ -34,7 +34,7 @@ export type registSelectListRetType = {
 /**
  * カスタム属性の取得
  */
-export function getCustomAttribute(res: any, req: any, id?: string) {
+export function getCustomAttribute(res: any, req: any) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
@@ -49,12 +49,55 @@ export function getCustomAttribute(res: any, req: any, id?: string) {
         return res.status(400).json({ errMessage: `カスタム属性が登録されていません。` });
     }
 
-    //パスパラメータの指定あり
-    if (id) {
-        return getCustomAttributeDetail(decodeFileData, id, res);
+    return res.status(200).json(decodeFileData);
+}
+
+/**
+ * カスタム属性詳細の取得
+ */
+export function getCustomAttributeDetail(res: any, req: any, id: string) {
+    //認証チェック
+    let authResult = authenticate(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return authResult;
     }
 
-    return res.status(200).json(decodeFileData);
+    //カスタム属性の読み込み
+    let decodeFileData: customAttributeType[] = getCustomAttributeData();
+
+    //データなし
+    if (!decodeFileData || decodeFileData.length === 0) {
+        return res.status(400).json({ errMessage: `カスタム属性が登録されていません。` });
+    }
+
+    return filterCustomAttributeDetail(decodeFileData, id, res);
+}
+
+/**
+ * カスタム属性入力値設定の取得
+ */
+export function getCustomAttributeInputSetting(res: any, req: any) {
+    //認証チェック
+    let authResult = authenticate(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return authResult;
+    }
+
+    //カスタム属性の読み込み
+    let customAttributeList: customAttributeType[] = getCustomAttributeData();
+
+    //データなし
+    if (!customAttributeList || customAttributeList.length === 0) {
+        return res.status(400).json({ errMessage: `カスタム属性が登録されていません。` });
+    }
+
+    //カスタム属性選択リストの読み込み
+    let customAttributeSelectList = getCustomAttributeListData();
+
+    //選択リストと結合する
+    let retCustomAttributeList = joinCustomAttributeList(customAttributeList, customAttributeSelectList);
+
+    return res.status(200).json(retCustomAttributeList);
 }
 
 

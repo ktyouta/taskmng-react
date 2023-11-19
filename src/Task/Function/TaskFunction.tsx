@@ -1,4 +1,4 @@
-import { refInfoType } from "../../Common/Type/CommonType";
+import { comboType, refInfoType } from "../../Common/Type/CommonType";
 import { customAttributeListType, viewTaskType } from "../Type/TaskType";
 import { createRef } from "react";
 
@@ -97,6 +97,32 @@ export function createCunstomAttributeEditList(customAttribute: customAttributeL
             visible: true,
             value: element.value,
             ref: createRef()
+        });
+    });
+    return tmpEditCustomAttributeList;
+}
+
+/**
+ * 編集画面表示用のカスタム属性リストを作成
+ * @param customAttribute APIから取得したカスタム属性リスト
+ * @returns 
+ */
+export function createCunstomAttributeRegistList(customAttribute: refInfoType[]): refInfoType[] {
+    let tmpEditCustomAttributeList: refInfoType[] = [];
+
+    customAttribute.forEach((element) => {
+        tmpEditCustomAttributeList.push({
+            id: element.id,
+            name: element.name,
+            type: element.type,
+            length: element.length,
+            disabled: false,
+            visible: true,
+            value: element.value,
+            selectList: element.selectList,
+            description: element.description,
+            isRequired: element.isRequired,
+            ref: createRef(),
         });
     });
     return tmpEditCustomAttributeList;

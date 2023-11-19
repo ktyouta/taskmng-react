@@ -35,10 +35,11 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], req
         userId: "",
         deleteFlg: "",
         name: "",
-        format: "",
+        type: "",
         required: false,
         selectElementListId: "",
         selectElementList: [],
+        description: "",
     };
 
     //登録データをセット

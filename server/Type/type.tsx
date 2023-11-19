@@ -57,7 +57,7 @@ export type customAttributeType = {
     [key: string]: string | string[] | boolean | undefined,
     id: string,
     name: string,
-    format: inputType,
+    type: inputType,
     required: boolean,
     selectElementList?: string[],
     selectElementListId: string,
@@ -65,6 +65,7 @@ export type customAttributeType = {
     updTime: string,
     userId: string,
     deleteFlg: string,
+    description: string
 }
 
 //カスタム属性リストの型
@@ -98,11 +99,11 @@ export type comboType = {
 //画面返却用のタスク詳細の型
 export type taskDetailType = {
     default: taskListType,
-    customAttribute: taskCustomAttributeDispType[]
+    customAttribute: inputSettingType[]
 }
 
 //入力欄参照用の型
-export type taskCustomAttributeDispType = {
+export type inputSettingType = {
     id: string,
     name: string,
     type: inputType,

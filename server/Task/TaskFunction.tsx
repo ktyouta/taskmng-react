@@ -3,7 +3,7 @@ import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TR
 import { overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
 import { checkUpdAuth } from "../MasterDataFunction";
-import { authInfoType, searchConditionType, taskCustomAttributeDispType, taskDetailType, taskListType } from "../Type/type";
+import { authInfoType, searchConditionType, inputSettingType, taskDetailType, taskListType } from "../Type/type";
 import { getNowDate } from "../CommonFunction";
 import { createDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdTaskData } from "./TaskUpdateFunction";
@@ -63,7 +63,7 @@ export function getTaskDetail(res: any, req: any, id: string) {
     }
 
     //カスタム属性の選択値を取得
-    let selectedCustomAttributeList: taskCustomAttributeDispType[] = joinCustomAttribute(singleTaskData);
+    let selectedCustomAttributeList: inputSettingType[] = joinCustomAttribute(singleTaskData);
 
     let retTaskDetail: taskDetailType = {
         default: singleTaskData,

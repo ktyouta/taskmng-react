@@ -10,6 +10,7 @@ import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
+import { createCunstomAttributeEditList, createCunstomAttributeRegistList } from "../Function/TaskFunction";
 
 
 //引数の型
@@ -38,6 +39,11 @@ function useTaskEdit(props: propsType) {
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
     });
 
+    //カスタム属性入力設定リスト
+    const { data: customAttributeInputSetting } = useQueryWrapper<refInfoType[]>({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CUSTOMATTRIBUTEINPUTSETTING}`,
+    });
+
     //入力欄参照用refの作成
     useEffect(() => {
         let tmpRefInfoArray: refInfoType[] = [];
@@ -49,9 +55,20 @@ function useTaskEdit(props: propsType) {
         if (!generalDataList) {
             return;
         }
+        if (!customAttributeInputSetting) {
+            return;
+        }
+
         taskSettingList.forEach((element) => {
             let isVisible = true;
             let tmpSelectLits: comboType[] = [];
+
+            //カスタム属性をセット
+            if (element.id === "customAttribute") {
+                tmpEditCustomAttributeList = createCunstomAttributeRegistList(customAttributeInputSetting);
+                return;
+            }
+
             //項目の表示非表示
             if (element.isHidden || !element.isNewCreateVisible) {
                 isVisible = false;
@@ -81,7 +98,7 @@ function useTaskEdit(props: propsType) {
             default: tmpRefInfoArray,
             customAttribute: tmpEditCustomAttributeList,
         });
-    }, [taskSettingList, generalDataList]);
+    }, [taskSettingList, generalDataList, customAttributeInputSetting]);
 
     //登録用フック
     const registerMutation = useMutationWrapper({
