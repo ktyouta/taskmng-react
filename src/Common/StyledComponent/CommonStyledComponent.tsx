@@ -15,3 +15,11 @@ export const VerticalFlowDiv = styled.div<{ height: string | undefined }>`
     height:${({ height }) => (height)};
     overflow-y: auto;
 `;
+
+//ヘッダー
+export const HeaderDiv = styled.div`
+    height: 10%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+`;

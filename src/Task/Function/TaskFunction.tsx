@@ -111,6 +111,15 @@ export function createCunstomAttributeRegistList(customAttribute: refInfoType[])
     let tmpEditCustomAttributeList: refInfoType[] = [];
 
     customAttribute.forEach((element) => {
+
+        //コンボボックスの場合は先頭に空文字を追加
+        if (element.type === "select") {
+            element.selectList?.unshift({
+                value: "",
+                label: ""
+            });
+        }
+
         tmpEditCustomAttributeList.push({
             id: element.id,
             name: element.name,

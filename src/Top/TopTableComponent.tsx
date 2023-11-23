@@ -53,6 +53,7 @@ function TopTableComponent(props: propsType) {
                     disabled={false}
                     ref={textRef}
                     titleWidth={"100px"}
+                    textWidth={"280px"}
                 />
                 <SpaceComponent space={"3%"} />
                 <HorizonLabelInputComponent
@@ -62,6 +63,7 @@ function TopTableComponent(props: propsType) {
                     disabled={false}
                     ref={reamarksRef}
                     titleWidth={"100px"}
+                    textWidth={"280px"}
                 />
                 <SpaceComponent space={"7%"} />
                 <ButtonComponent

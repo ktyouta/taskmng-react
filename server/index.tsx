@@ -135,9 +135,9 @@ app.get(`${ENV.CUSTOMATTRIBUTE}/:param`, function (req, res) {
 });
 
 /**
- * customattributeinputsetting/idにアクセスした際の動作
+ * customattributeinputsettingにアクセスした際の動作
  */
-app.get(`${ENV.CUSTOMATTRIBUTEINPUTSETTING}/:param`, function (req, res) {
+app.get(`${ENV.CUSTOMATTRIBUTEINPUTSETTING}`, function (req, res) {
     getCustomAttributeInputSetting(res, req);
 });
 

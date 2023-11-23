@@ -24,7 +24,6 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
 
 //入力欄
 const MainAreaDiv = styled.div`
-    height: 85%;
     margin-left: 15%;
 `;
 

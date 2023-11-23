@@ -24,7 +24,7 @@ type propsType = {
  * @param selectedMaster 
  * @returns 
  */
-function useTaskEdit(props: propsType) {
+function useTaskRegister(props: propsType) {
 
     //入力参照用リスト
     const [refInfoArray, setRefInfoArray] = useState<editDisplayTaskType>();
@@ -191,4 +191,4 @@ function useTaskEdit(props: propsType) {
     }
 }
 
-export default useTaskEdit;
+export default useTaskRegister;

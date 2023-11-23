@@ -98,7 +98,7 @@ export function joinCustomAttributeList(customAttributeList: customAttributeType
         let tmpSelectList: comboType[] = [];
 
         customAttributeSelectList.filter((element1) => {
-            return element1.id === element.id;
+            return element1.id === element.selectElementListId;
         }).forEach((element2) => {
             tmpSelectList.push({
                 label: element2.content,

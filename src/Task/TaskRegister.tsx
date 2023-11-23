@@ -9,6 +9,7 @@ import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import styled from 'styled-components';
 import LabelComponent from '../Common/LabelComponent';
+import { BoldSpan, HeaderDiv, HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
 
 
 //引数の型
@@ -16,18 +17,6 @@ type propsType = {
   closeFn?: () => void,
 }
 
-//太文字のスタイル
-const BoldSpan = styled.span`
-    font-weight: bold;
-`;
-
-//ヘッダー
-const HeaderDiv = styled.div`
-    height: 10%;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-`;
 
 function TaskRegister(props: propsType) {
 
@@ -42,57 +31,74 @@ function TaskRegister(props: propsType) {
     errMessage, } = useTaskRegister({ ...props });
 
   //ローディング
-  if (!refInfoArray || !refInfoArray.default && !refInfoArray.customAttribute) {
+  if (!refInfoArray || !refInfoArray.default || !refInfoArray.customAttribute) {
     return <Loading height='50vh' />;
   }
 
   return (
-    <div className="taskedit">
-      <HeaderDiv>
-        <LabelComponent
-          title="タスク作成"
-        />
-      </HeaderDiv>
-      {
-        refInfoArray &&
-        refInfoArray.default &&
-        refInfoArray.default.length > 0 &&
-        <TaskEditForm
-          refInfoArray={refInfoArray.default}
-          isUpDelLoading={isUpDelLoading}
-          errMessage={errMessage}
-          outerHeight='85%'
-        />
-      }
-      {
-        refInfoArray &&
-        refInfoArray.customAttribute &&
-        refInfoArray.customAttribute.length > 0 &&
-        <React.Fragment>
-          <HorizonLabelItemComponent
-            title={<BoldSpan>カスタム属性</BoldSpan>}
-            width="20%"
-          >
-          </HorizonLabelItemComponent>
-          <TaskEditForm
-            refInfoArray={refInfoArray.customAttribute}
-            isUpDelLoading={isUpDelLoading}
-            errMessage={errMessage}
-            outerHeight='85%'
+    <HeightDiv
+      height='100%'
+    >
+      <HeightDiv
+        height='85%'
+      >
+        <HeaderDiv>
+          <LabelComponent
+            title="タスク作成"
           />
-        </React.Fragment>
-      }
-      <TaskRegisterFooter
-        backPageButtonObj={backPageButtonObj}
-        negativeButtonObj={negativeButtonObj}
-        positiveButtonObj={positiveButtonObj}
-        outerHeight='15%'
-      />
+        </HeaderDiv>
+        <VerticalFlowDiv
+          height='85%'
+        >
+          {/* デフォルト属性 */}
+          {
+            refInfoArray &&
+            refInfoArray.default &&
+            refInfoArray.default.length > 0 &&
+            <TaskEditForm
+              refInfoArray={refInfoArray.default}
+              isUpDelLoading={isUpDelLoading}
+              errMessage={errMessage}
+              outerHeight='auto'
+            />
+          }
+          {/* カスタム属性 */}
+          {
+            refInfoArray &&
+            refInfoArray.customAttribute &&
+            refInfoArray.customAttribute.length > 0 &&
+            <React.Fragment>
+              <HorizonLabelItemComponent
+                title={<BoldSpan>カスタム属性</BoldSpan>}
+                marginLt='15%'
+                width="20%"
+              >
+              </HorizonLabelItemComponent>
+              <TaskEditForm
+                refInfoArray={refInfoArray.customAttribute}
+                isUpDelLoading={isUpDelLoading}
+                errMessage={errMessage}
+                outerHeight='auto'
+              />
+            </React.Fragment>
+          }
+        </VerticalFlowDiv>
+      </HeightDiv>
+      <HeightDiv
+        height='15%'
+      >
+        <TaskRegisterFooter
+          backPageButtonObj={backPageButtonObj}
+          negativeButtonObj={negativeButtonObj}
+          positiveButtonObj={positiveButtonObj}
+          outerHeight='15%'
+        />
+      </HeightDiv>
       {/* ローディング */}
       <WaitLoading
         isLoading={isUpDelLoading}
       />
-    </div >
+    </HeightDiv>
   );
 }
 

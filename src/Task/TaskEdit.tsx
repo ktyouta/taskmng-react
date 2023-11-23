@@ -11,7 +11,7 @@ import { SnackbarComponent } from '../Common/SnackbarComponent';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import styled from 'styled-components';
-import { BoldSpan, HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import { BoldSpan, HeaderDiv, HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import LabelComponent from '../Common/LabelComponent';
 
 
@@ -24,14 +24,6 @@ type propsType = {
   generalDataList: generalDataType[] | undefined,
   updTask: apiTaskDetailType | undefined,
 }
-
-//ヘッダー
-const HeaderDiv = styled.div`
-    height: 10%;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-`;
 
 
 function TaskEdit(props: propsType) {
