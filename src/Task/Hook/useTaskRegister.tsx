@@ -4,13 +4,13 @@ import { bodyObj, comboType, generalDataType, refInfoType } from "../../Common/T
 import { refType } from "../../Common/BaseInputComponent";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
-import { editDisplayTaskType, taskListType } from "../Type/TaskType";
+import { customAttributeRequestBodyType, editDisplayTaskType, taskListType } from "../Type/TaskType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
-import { createCunstomAttributeEditList, createCunstomAttributeRegistList } from "../Function/TaskFunction";
+import { createCunstomAttributeEditList, createCunstomAttributeRegistList, createTaskCustomAttributeRequestBody } from "../Function/TaskFunction";
 
 
 //引数の型
@@ -147,26 +147,37 @@ function useTaskRegister(props: propsType) {
      * 登録ボタン押下処理
      */
     const create = () => {
-        // if (!refInfoArray || refInfoArray.length === 0) {
-        //     return;
-        // }
-        // //入力チェック
-        // let inputCheckObj = requestBodyInputCheck(refInfoArray);
-        // //入力エラー
-        // if (inputCheckObj.errFlg) {
-        //     setRefInfoArray(inputCheckObj.refInfoArray);
-        //     return;
-        // }
-        // if (!window.confirm('タスクを登録しますか？')) {
-        //     return
-        // }
-        // if (!registerMutation) {
-        //     alert("リクエストの送信に失敗しました。");
-        //     return;
-        // }
-        // let body: bodyObj = createRequestBody(refInfoArray);
-        // //bodyの作成
-        // registerMutation.mutate(body);
+        if (!refInfoArray || refInfoArray.default.length === 0) {
+            return;
+        }
+        //入力チェック(デフォルト)
+        let inputCheckObj = requestBodyInputCheck(refInfoArray.default);
+        //入力チェック(カスタム属性)
+        let customInputCheckObj = requestBodyInputCheck(refInfoArray.customAttribute);
+        //入力エラー
+        if (inputCheckObj.errFlg || customInputCheckObj.errFlg) {
+            setRefInfoArray({
+                default: inputCheckObj.refInfoArray,
+                customAttribute: customInputCheckObj.refInfoArray,
+            });
+            return;
+        }
+        if (!window.confirm('タスクを登録しますか？')) {
+            return
+        }
+        if (!registerMutation) {
+            alert("リクエストの送信に失敗しました。");
+            return;
+        }
+        //デフォルト
+        let defBody: bodyObj = createRequestBody(refInfoArray.default);
+        //カスタム属性
+        let customBody: customAttributeRequestBodyType[] = createTaskCustomAttributeRequestBody(refInfoArray.customAttribute);
+        //bodyの作成
+        registerMutation.mutate({
+            defoult: defBody,
+            customAttribute: customBody
+        });
     }
 
     return {

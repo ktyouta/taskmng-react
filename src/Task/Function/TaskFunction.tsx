@@ -1,5 +1,5 @@
 import { comboType, refInfoType } from "../../Common/Type/CommonType";
-import { customAttributeListType, viewTaskType } from "../Type/TaskType";
+import { customAttributeListType, customAttributeRequestBodyType, viewTaskType } from "../Type/TaskType";
 import { createRef } from "react";
 
 /**
@@ -135,4 +135,21 @@ export function createCunstomAttributeRegistList(customAttribute: refInfoType[])
         });
     });
     return tmpEditCustomAttributeList;
+}
+
+//カスタム属性のリクエストボディの作成
+export function createTaskCustomAttributeRequestBody(refInputArray: refInfoType[]): customAttributeRequestBodyType[] {
+    let tmpBody: customAttributeRequestBodyType[] = [];
+    //bodyの作成
+    refInputArray.forEach((element) => {
+        let postValue: string | undefined = element.value;
+        if (element.ref && element.ref.current) {
+            postValue = element.ref?.current?.refValue;
+        }
+        tmpBody.push({
+            customAttribute: element.id,
+            selectedValue: postValue,
+        });
+    });
+    return tmpBody;
 }

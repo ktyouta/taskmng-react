@@ -125,3 +125,9 @@ export type editDisplayTaskType = {
     default: refInfoType[],
     customAttribute: refInfoType[],
 }
+
+//カスタム属性のリクエストボディの型
+export type customAttributeRequestBodyType = {
+    customAttribute: string,
+    selectedValue: string,
+}

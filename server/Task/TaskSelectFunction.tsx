@@ -3,7 +3,7 @@ import { CUSTOMATTRIBUTESELECT, JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGF
 import { getFileJsonData, overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
 import { checkUpdAuth } from "../MasterDataFunction";
-import { authInfoType, comboType, customAttributeListType, customAttributeType, searchConditionType, inputSettingType, taskCustomAttributeSelectedType, taskListType } from "../Type/type";
+import { authInfoType, comboType, customAttributeListType, customAttributeType, searchConditionType, inputSettingType, taskCustomAttributeSelectedType, taskListType, taskCustomAttributeSelectType } from "../Type/type";
 import { getNowDate } from "../CommonFunction";
 import { getCustomAttributeData, getCustomAttributeListData } from "../SettingFunction/CustomAttribute/CustomAttributeSelectFunction";
 
@@ -11,6 +11,8 @@ import { getCustomAttributeData, getCustomAttributeListData } from "../SettingFu
 const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
 //カスタム属性リストファイルのパス
 export const TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTESELECT}${JSONEXTENSION}`;
+//カスタム属性登録用ファイルのパス
+const CUSTOMATTRIBUTESELECTVALUE_FILE_PATH = `${TRANSACTION}${CUSTOMATTRIBUTESELECT}${JSONEXTENSION}`;
 
 
 /**
@@ -180,4 +182,13 @@ export function joinCustomAttribute(singleTaskData: taskListType) {
     });
 
     return retCustomAttributeList;
+}
+
+/**
+ * カスタム属性の選択値ファイルからオブジェクトを取得
+ */
+export function getCustomAttributeTaskObj(): taskCustomAttributeSelectType[] {
+    //タスクファイルの読み込み
+    let fileData = readFile(CUSTOMATTRIBUTESELECTVALUE_FILE_PATH);
+    return JSON.parse(fileData);
 }

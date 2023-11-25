@@ -119,3 +119,14 @@ export type inputSettingType = {
 
 //inputのタイプ
 export type inputType = "input" | "select" | "radio" | "date" | "textarea" | "checkbox" | "number" | "label" | "";
+
+//タスクのカスタム属性の選択値の型
+export type taskCustomAttributeSelectType = {
+    taskId: string,
+    customAttributeId: string,
+    selectedValue: string,
+    registerTime: string,
+    updTime: string,
+    deleteFlg: string,
+    userId: string
+}

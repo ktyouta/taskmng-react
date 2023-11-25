@@ -5,7 +5,8 @@
         "selectedValue":"",
 		"registerTime": "20231007",
 		"updTime": "20231008",
-		"deleteFlg": "0"
+		"deleteFlg": "0",
+		"userId":""
 	},
 	{
 		"taskId": "TASKID-59",
@@ -13,6 +14,7 @@
         "selectedValue":"test",
 		"registerTime": "20231007",
 		"updTime": "20231008",
-		"deleteFlg": "0"
+		"deleteFlg": "0",
+		"userId":""
 	}
 ]

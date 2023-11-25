@@ -1,5 +1,5 @@
 import { authenticate } from "../AuthFunction";
-import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "../Constant";
+import { CUSTOMATTRIBUTESELECT, JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "../Constant";
 import { overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
 import { checkUpdAuth } from "../MasterDataFunction";
@@ -7,11 +7,13 @@ import { authInfoType, searchConditionType, inputSettingType, taskDetailType, ta
 import { getNowDate } from "../CommonFunction";
 import { createDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdTaskData } from "./TaskUpdateFunction";
-import { createAddTaskData } from "./TaskRegistFunction";
-import { filterTask, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
+import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
+import { filterTask, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
 
 //タスクファイルのパス
 const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
+//カスタム属性登録用ファイルのパス
+const CUSTOMATTRIBUTESELECTVALUE_FILE_PATH = `${TRANSACTION}${CUSTOMATTRIBUTESELECT}${JSONEXTENSION}`;
 
 /**
  * タスクリストの取得
@@ -95,6 +97,22 @@ export function runAddTask(res: any, req: any) {
 
     //登録更新削除に失敗
     if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
+    //カスタム属性ファイルの読み込み
+    let customDecodeFileData = getCustomAttributeTaskObj();
+
+    //カスタム属性の登録用データを作成
+    let registCustomData = createAddCustomAttributeData(customDecodeFileData, req, authResult, registData);
+
+    //カスタム属性のデータを登録
+    let customErrMessage = overWriteData(CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, JSON.stringify(registCustomData, null, '\t'));
+
+    //登録更新削除に失敗
+    if (customErrMessage) {
         return res
             .status(400)
             .json({ errMessage });

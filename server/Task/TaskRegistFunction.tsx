@@ -1,13 +1,11 @@
 import { authenticate } from "../AuthFunction";
-import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "../Constant";
+import { CUSTOMATTRIBUTESELECT, JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "../Constant";
 import { overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
 import { checkUpdAuth } from "../MasterDataFunction";
-import { authInfoType, searchConditionType, taskListType } from "../Type/type";
+import { authInfoType, searchConditionType, taskCustomAttributeSelectType, taskListType } from "../Type/type";
 import { getNowDate } from "../CommonFunction";
 
-//タスクファイルのパス
-const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
 //タスクIDの接頭辞
 const PRE_TASK_ID = `TASKID-`;
 
@@ -33,16 +31,15 @@ export function createAddTaskData(fileDataObj: taskListType[], req: any, authRes
         userId: "",
         priority: "",
         status: "",
-        deleteFlg: "",
+        deleteFlg: "0",
         title: ""
     };
-    body = req.body;
+    body = req.body.default;
     body.registerTime = nowDate;
     body.updTime = nowDate;
     body.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
     //未対応
     //body.status = "1";
-    body.deleteFlg = "0";
 
     let fileDataObjLen = fileDataObj.length;
     //IDを取得
@@ -51,4 +48,49 @@ export function createAddTaskData(fileDataObj: taskListType[], req: any, authRes
     body['id'] = `${PRE_TASK_ID}${parseInt(id) + 1}`;
     fileDataObj.push(body);
     return fileDataObj;
+}
+
+
+/**
+ * カスタム属性の登録用データの作成
+ * @param fileDataObj 
+ * @param req 
+ * @param authResult 
+ * @returns 
+ */
+export function createAddCustomAttributeData(fileDataObj: taskCustomAttributeSelectType[], req: any
+    , authResult: authInfoType, registDatas: taskListType[])
+    : taskCustomAttributeSelectType[] {
+
+    let tmpBody: taskCustomAttributeSelectType[] = [];
+    //現在日付を取得
+    const nowDate = getNowDate();
+
+    //カスタム属性が存在しない
+    if (!req.body || !req.body.customAttribute || req.body.customAttribute.length === 0) {
+        return fileDataObj;
+    }
+
+    //タスクが登録されていない
+    if (!registDatas || !Array.isArray(registDatas) || registDatas.length === 0) {
+        return fileDataObj;
+    }
+
+    //新規登録するタスクのID
+    let registTaskId = registDatas[registDatas.length - 1].id;
+    let tmpCustomAttribute: taskCustomAttributeSelectType[] = req.body.customAttribute;
+
+    tmpCustomAttribute.forEach((element) => {
+        tmpBody.push({
+            taskId: registTaskId,
+            customAttributeId: element.customAttributeId,
+            selectedValue: element.selectedValue,
+            registerTime: nowDate,
+            updTime: nowDate,
+            deleteFlg: "0",
+            userId: authResult.userInfo ? authResult.userInfo?.userId : ""
+        });
+    });
+
+    return [...fileDataObj, ...tmpBody];
 }
