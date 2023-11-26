@@ -60,7 +60,7 @@ function useSettingCustomEdit() {
                 }
                 setCaNm(data.name);
                 setCaDescription(data.description);
-                setCaType(data.format);
+                setCaType(data.type);
                 setCaRequired(data.required);
                 //選択リストを所持している場合
                 if (data.selectElementList && data.selectElementList.length > 0) {
@@ -270,7 +270,7 @@ function useSettingCustomEdit() {
             id: "",
             name: "",
             description: "",
-            format: "",
+            type: "",
             required: false,
             selectElementList: []
         };
@@ -291,7 +291,7 @@ function useSettingCustomEdit() {
             alert("属性の形式を選択してください");
             return;
         }
-        body.format = caType;
+        body.type = caType;
 
         //必須
         if (caRequired) {
