@@ -12,6 +12,10 @@ import {
     registSelectListRetType
 } from "./CustomAttributeFunction";
 
+//inputのmaxlength
+const INPUT_LENGTH = "200";
+//inputのmaxlength
+const TEXTAREA_LENGTH = "2000";
 
 
 /**
@@ -33,13 +37,14 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], req
         registerTime: "",
         updTime: "",
         userId: "",
-        deleteFlg: "",
+        deleteFlg: "0",
         name: "",
         type: "",
         required: false,
         selectElementListId: "",
         selectElementList: [],
         description: "",
+        length: "0",
     };
 
     //登録データをセット
@@ -49,7 +54,14 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], req
     registData.registerTime = nowDate;
     registData.updTime = nowDate;
     registData.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
-    registData.deleteFlg = "0";
+
+    //フォーマットがinputまたはtextareaの場合は、maxlengthをセット
+    if (req.body.type === "input") {
+        registData.length = INPUT_LENGTH;
+    }
+    else if (req.body.type === "textarea") {
+        registData.length = TEXTAREA_LENGTH;
+    }
 
     let fileDataObjLen = fileDataObj.length;
     //IDを取得

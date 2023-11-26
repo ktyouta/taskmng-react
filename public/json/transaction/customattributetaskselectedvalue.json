@@ -1,20 +1,110 @@
 [
-    {
+	{
 		"taskId": "ATTRIBUTEID-5",
-        "customAttributeId":"",
-        "selectedValue":"",
+		"customAttributeId": "",
+		"selectedValue": "",
 		"registerTime": "20231007",
 		"updTime": "20231008",
 		"deleteFlg": "0",
-		"userId":""
+		"userId": ""
 	},
 	{
 		"taskId": "TASKID-59",
-        "customAttributeId":"ATTRIBUTEID-1",
-        "selectedValue":"test",
+		"customAttributeId": "ATTRIBUTEID-1",
+		"selectedValue": "test",
 		"registerTime": "20231007",
 		"updTime": "20231008",
 		"deleteFlg": "0",
-		"userId":""
+		"userId": ""
+	},
+	{
+		"taskId": "TASKID-60",
+		"customAttributeId": "ATTRIBUTEID-1",
+		"selectedValue": "サンプル属性テスト",
+		"registerTime": "20231126",
+		"updTime": "20231126",
+		"deleteFlg": "0",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-60",
+		"customAttributeId": "ATTRIBUTEID-2",
+		"selectedValue": "1",
+		"registerTime": "20231126",
+		"updTime": "20231126",
+		"deleteFlg": "0",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-60",
+		"customAttributeId": "ATTRIBUTEID-5",
+		"selectedValue": "2",
+		"registerTime": "20231126",
+		"updTime": "20231126",
+		"deleteFlg": "0",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-60",
+		"customAttributeId": "ATTRIBUTEID-7",
+		"selectedValue": "1,2",
+		"registerTime": "20231126",
+		"updTime": "20231126",
+		"deleteFlg": "0",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-60",
+		"customAttributeId": "ATTRIBUTEID-8",
+		"selectedValue": "1",
+		"registerTime": "20231126",
+		"updTime": "20231126",
+		"deleteFlg": "0",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-61",
+		"customAttributeId": "ATTRIBUTEID-1",
+		"selectedValue": "サンプル属性",
+		"registerTime": "20231126",
+		"updTime": "20231126",
+		"deleteFlg": "0",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-61",
+		"customAttributeId": "ATTRIBUTEID-2",
+		"selectedValue": "1",
+		"registerTime": "20231126",
+		"updTime": "20231126",
+		"deleteFlg": "0",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-61",
+		"customAttributeId": "ATTRIBUTEID-5",
+		"selectedValue": "",
+		"registerTime": "20231126",
+		"updTime": "20231126",
+		"deleteFlg": "0",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-61",
+		"customAttributeId": "ATTRIBUTEID-7",
+		"selectedValue": "",
+		"registerTime": "20231126",
+		"updTime": "20231126",
+		"deleteFlg": "0",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-61",
+		"customAttributeId": "ATTRIBUTEID-8",
+		"selectedValue": "",
+		"registerTime": "20231126",
+		"updTime": "20231126",
+		"deleteFlg": "0",
+		"userId": "a"
 	}
 ]

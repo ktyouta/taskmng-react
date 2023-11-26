@@ -128,6 +128,6 @@ export type editDisplayTaskType = {
 
 //カスタム属性のリクエストボディの型
 export type customAttributeRequestBodyType = {
-    customAttribute: string,
+    customAttributeId: string,
     selectedValue: string,
 }

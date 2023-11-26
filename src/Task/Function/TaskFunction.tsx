@@ -147,7 +147,7 @@ export function createTaskCustomAttributeRequestBody(refInputArray: refInfoType[
             postValue = element.ref?.current?.refValue;
         }
         tmpBody.push({
-            customAttribute: element.id,
+            customAttributeId: element.id,
             selectedValue: postValue,
         });
     });

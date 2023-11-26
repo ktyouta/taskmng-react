@@ -174,7 +174,7 @@ export function joinCustomAttribute(singleTaskData: taskListType) {
             name: tmpCa.name,
             type: tmpCa.type,
             selectList: tmpList,
-            length: 0,
+            length: tmpCa.length,
             disabled: false,
             visible: true,
             value: element.selectedValue

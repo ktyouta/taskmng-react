@@ -175,7 +175,7 @@ function useTaskRegister(props: propsType) {
         let customBody: customAttributeRequestBodyType[] = createTaskCustomAttributeRequestBody(refInfoArray.customAttribute);
         //bodyの作成
         registerMutation.mutate({
-            defoult: defBody,
+            default: defBody,
             customAttribute: customBody
         });
     }

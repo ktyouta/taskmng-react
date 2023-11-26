@@ -65,7 +65,8 @@ export type customAttributeType = {
     updTime: string,
     userId: string,
     deleteFlg: string,
-    description: string
+    description: string,
+    length: string,
 }
 
 //カスタム属性リストの型
@@ -107,7 +108,7 @@ export type inputSettingType = {
     id: string,
     name: string,
     type: inputType,
-    length: number,
+    length: string,
     disabled: boolean,
     visible: boolean,
     value: string,

@@ -110,7 +110,7 @@ export function joinCustomAttributeList(customAttributeList: customAttributeType
             id: element.id,
             name: element.name,
             type: element.type,
-            length: 0,
+            length: element.length,
             disabled: false,
             visible: true,
             value: "",
