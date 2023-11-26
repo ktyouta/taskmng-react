@@ -71,7 +71,7 @@ export function createCunstomAttributeEditList(customAttribute: customAttributeL
                 tmpArr.forEach((element1) => {
                     let selected = list.find((element2) => element2.value === element1);
                     if (selected) {
-                        valArr.push(selected.label);
+                        valArr.push(selected.value);
                     }
                 });
                 tmp = valArr.join(",");
@@ -80,7 +80,7 @@ export function createCunstomAttributeEditList(customAttribute: customAttributeL
                 let selected = list.find((element1) => element1.value === tmp);
                 //選択値に該当するデータが存在する場合
                 if (selected) {
-                    tmp = selected.label;
+                    tmp = selected.value;
                 }
                 else {
                     tmp = "";
@@ -95,7 +95,8 @@ export function createCunstomAttributeEditList(customAttribute: customAttributeL
             length: element.length,
             disabled: false,
             visible: true,
-            value: element.value,
+            value: tmp,
+            selectList: list,
             ref: createRef()
         });
     });

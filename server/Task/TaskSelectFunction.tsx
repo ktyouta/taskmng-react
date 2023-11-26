@@ -129,7 +129,7 @@ export function joinCustomAttribute(singleTaskData: taskListType) {
         return retCustomAttributeList;
     }
 
-    //カスタム属性の入力値リストの読み込み
+    //タスクのカスタム属性の入力値リストの読み込み
     let customAttributeInputList: taskCustomAttributeSelectedType[] = getTaskCustomAttributeSelectedData();
 
     //データなし
@@ -160,14 +160,14 @@ export function joinCustomAttribute(singleTaskData: taskListType) {
         }
 
         //選択リスト
-        let tmpCAList = customAttributeListData.filter((element1) => element1.id === element.customAttributeId);
+        let tmpCAList = customAttributeListData.filter((element1) => element1.id === tmpCa?.selectElementListId);
         let tmpList: comboType[] = [];
         tmpCAList.map((element1) => {
             tmpList.push({
                 label: element1.content,
                 value: element1.no,
             });
-        })
+        });
 
         retCustomAttributeList.push({
             id: tmpCa.id,
