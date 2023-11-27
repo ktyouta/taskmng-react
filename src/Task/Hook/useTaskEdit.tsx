@@ -10,7 +10,7 @@ import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
-import { createCunstomAttributeEditList, createCunstomAttributeViewList } from "../Function/TaskFunction";
+import { createCunstomAttributeEditList, createCunstomAttributeViewList, createUpdRefArray } from "../Function/TaskFunction";
 
 
 //引数の型
@@ -38,9 +38,6 @@ function useTaskEdit(props: propsType) {
 
     //入力欄参照用refの作成
     useEffect(() => {
-        let tmpRefInfoArray: refInfoType[] = [];
-        let tmpEditCustomAttributeList: refInfoType[] = [];
-
         if (!props.taskSettingList) {
             return;
         }
@@ -51,58 +48,7 @@ function useTaskEdit(props: propsType) {
             return;
         }
 
-        props.taskSettingList.forEach((element) => {
-            let tmpValue: string | undefined = undefined;
-
-            //カスタム属性をセット
-            if (element.id === "customAttribute") {
-                if (!props.updTask?.customAttribute) {
-                    return;
-                }
-                tmpEditCustomAttributeList = createCunstomAttributeEditList(props.updTask.customAttribute);
-                return;
-            }
-
-            for (const [columnKey, value] of Object.entries(props.updTask?.default as {})) {
-                //キーの一致する要素を取り出す
-                if (element.id === columnKey) {
-                    tmpValue = value as string;
-                    break;
-                }
-            }
-            let isVisible = true;
-            let tmpSelectLits: comboType[] = [];
-            //項目の表示非表示
-            if (element.isHidden) {
-                isVisible = false;
-            }
-            //リストキーが存在する(選択項目)
-            if (element.listKey && props.generalDataList) {
-                tmpSelectLits = props.generalDataList.filter((item) => {
-                    return item.id === element.listKey;
-                });
-            }
-            tmpRefInfoArray.push({
-                id: element.id,
-                name: element.name,
-                type: element.type,
-                length: element.length,
-                //キーに一致するデータが存在する場合はその値を表示
-                value: tmpValue ?? element.value,
-                //閲覧モードの場合は全項目編集不可
-                disabled: element.disabled,
-                visible: isVisible,
-                selectList: tmpSelectLits,
-                description: element.description,
-                isRequired: element.isRequired,
-                ref: createRef(),
-            });
-        });
-
-        setRefInfoArray({
-            default: tmpRefInfoArray,
-            customAttribute: tmpEditCustomAttributeList,
-        });
+        setRefInfoArray(createUpdRefArray(props.taskSettingList, props.updTask, props.generalDataList));
     }, [props.taskSettingList, props.updTask, props.generalDataList]);
 
     //更新用フック
