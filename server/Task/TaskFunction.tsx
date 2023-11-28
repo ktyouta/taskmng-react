@@ -6,7 +6,7 @@ import { checkUpdAuth } from "../MasterDataFunction";
 import { authInfoType, searchConditionType, inputSettingType, taskDetailType, taskListType } from "../Type/type";
 import { getNowDate } from "../CommonFunction";
 import { createDeleteTaskData } from "./TaskDeleteFunction";
-import { createUpdTaskData } from "./TaskUpdateFunction";
+import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
 import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
 import { filterTask, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
 
@@ -102,11 +102,8 @@ export function runAddTask(res: any, req: any) {
             .json({ errMessage });
     }
 
-    //カスタム属性ファイルの読み込み
-    let customDecodeFileData = getCustomAttributeTaskObj();
-
     //カスタム属性の登録用データを作成
-    let registCustomData = createAddCustomAttributeData(customDecodeFileData, req, authResult, registData);
+    let registCustomData = createAddCustomAttributeData(req, authResult, registData);
 
     //カスタム属性のデータを登録
     let customErrMessage = overWriteData(CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, JSON.stringify(registCustomData, null, '\t'));
@@ -127,7 +124,7 @@ export function runAddTask(res: any, req: any) {
 /**
  * タスクの更新
  */
-export function runUpdTask(res: any, req: any, pathPrm: string) {
+export function runUpdTask(res: any, req: any, updTaskId: string) {
     //認証権限チェック
     let authResult = checkUpdAuth(req.cookies.cookie);
     if (authResult.errMessage) {
@@ -137,7 +134,7 @@ export function runUpdTask(res: any, req: any, pathPrm: string) {
     }
 
     //IDの指定がない
-    if (!pathPrm) {
+    if (!updTaskId) {
         return res
             .status(400)
             .json({ errMessage: `パラメータが不正です。` });
@@ -147,13 +144,26 @@ export function runUpdTask(res: any, req: any, pathPrm: string) {
     let decodeFileData: taskListType[] = getTaskObj();
 
     //更新用データの作成
-    let registData = createUpdTaskData(decodeFileData, req.body, pathPrm);
+    let updData = createUpdTaskData(decodeFileData, req.body.default, updTaskId);
 
     //データを登録
-    let errMessage = overWriteData(TASK_FILEPATH, JSON.stringify(registData, null, '\t'));
+    let errMessage = overWriteData(TASK_FILEPATH, JSON.stringify(updData, null, '\t'));
 
     //登録更新削除に失敗
     if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
+    //カスタム属性の更新用データの作成
+    let updCustomData = createUpdCustomAttributeData(req, authResult, updTaskId);
+
+    //カスタム属性のデータを登録
+    let customErrMessage = overWriteData(CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, JSON.stringify(updCustomData, null, '\t'));
+
+    //登録更新削除に失敗
+    if (customErrMessage) {
         return res
             .status(400)
             .json({ errMessage });

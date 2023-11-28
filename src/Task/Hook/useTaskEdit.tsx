@@ -4,13 +4,13 @@ import { bodyObj, comboType, generalDataType, refInfoType } from "../../Common/T
 import { refType } from "../../Common/BaseInputComponent";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
-import { apiTaskDetailType, editDisplayTaskType, inputTaskSettingType, taskListType, viewTaskType } from "../Type/TaskType";
+import { apiTaskDetailType, customAttributeRequestBodyType, editDisplayTaskType, inputTaskSettingType, taskListType, viewTaskType } from "../Type/TaskType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
-import { createCunstomAttributeEditList, createCunstomAttributeViewList, createUpdRefArray } from "../Function/TaskFunction";
+import { createCunstomAttributeEditList, createCunstomAttributeViewList, createTaskCustomAttributeRequestBody, createUpdRefArray } from "../Function/TaskFunction";
 
 
 //引数の型
@@ -118,22 +118,35 @@ function useTaskEdit(props: propsType) {
             return;
         }
         //入力チェック
-        // let inputCheckObj = requestBodyInputCheck(refInfoArray);
-        // //入力エラー
-        // if (inputCheckObj.errFlg) {
-        //     setRefInfoArray(inputCheckObj.refInfoArray);
-        //     return;
-        // }
-        // if (!window.confirm('タスクを更新しますか？')) {
-        //     return
-        // }
-        // if (!updMutation) {
-        //     alert("リクエストの送信に失敗しました。");
-        //     return;
-        // }
-        // let body: bodyObj = createRequestBody(refInfoArray);
-        // //bodyの作成
-        // updMutation.mutate(body);
+        let inputCheckObj = requestBodyInputCheck(refInfoArray.default);
+        //入力チェック(カスタム属性)
+        let customInputCheckObj = requestBodyInputCheck(refInfoArray.customAttribute);
+
+        //入力エラー
+        if (inputCheckObj.errFlg || customInputCheckObj.errFlg) {
+            setRefInfoArray({
+                default: inputCheckObj.refInfoArray,
+                customAttribute: customInputCheckObj.refInfoArray,
+            });
+            return;
+        }
+        if (!window.confirm('タスクを更新しますか？')) {
+            return
+        }
+        if (!updMutation) {
+            alert("リクエストの送信に失敗しました。");
+            return;
+        }
+
+        //デフォルト
+        let defBody: bodyObj = createRequestBody(refInfoArray.default);
+        //カスタム属性
+        let customBody: customAttributeRequestBodyType[] = createTaskCustomAttributeRequestBody(refInfoArray.customAttribute);
+        //bodyの作成
+        updMutation.mutate({
+            default: defBody,
+            customAttribute: customBody
+        });
     }
 
     /**

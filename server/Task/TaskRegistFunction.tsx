@@ -5,6 +5,7 @@ import { getGeneralDetailData } from "../GeneralFunction";
 import { checkUpdAuth } from "../MasterDataFunction";
 import { authInfoType, searchConditionType, taskCustomAttributeSelectType, taskListType } from "../Type/type";
 import { getNowDate } from "../CommonFunction";
+import { getCustomAttributeTaskObj } from "./TaskSelectFunction";
 
 //タスクIDの接頭辞
 const PRE_TASK_ID = `TASKID-`;
@@ -58,22 +59,26 @@ export function createAddTaskData(fileDataObj: taskListType[], req: any, authRes
  * @param authResult 
  * @returns 
  */
-export function createAddCustomAttributeData(fileDataObj: taskCustomAttributeSelectType[], req: any
-    , authResult: authInfoType, registDatas: taskListType[])
+export function createAddCustomAttributeData(req: any, authResult: authInfoType,
+    registDatas: taskListType[])
     : taskCustomAttributeSelectType[] {
 
     let tmpBody: taskCustomAttributeSelectType[] = [];
+
     //現在日付を取得
     const nowDate = getNowDate();
 
+    //カスタム属性ファイルの読み込み
+    let customDecodeFileData = getCustomAttributeTaskObj();
+
     //カスタム属性が存在しない
     if (!req.body || !req.body.customAttribute || req.body.customAttribute.length === 0) {
-        return fileDataObj;
+        return customDecodeFileData;
     }
 
     //タスクが登録されていない
     if (!registDatas || !Array.isArray(registDatas) || registDatas.length === 0) {
-        return fileDataObj;
+        return customDecodeFileData;
     }
 
     //新規登録するタスクのID
@@ -92,5 +97,5 @@ export function createAddCustomAttributeData(fileDataObj: taskCustomAttributeSel
         });
     });
 
-    return [...fileDataObj, ...tmpBody];
+    return [...customDecodeFileData, ...tmpBody];
 }
