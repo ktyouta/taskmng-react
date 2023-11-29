@@ -178,5 +178,50 @@
 		"updTime": "20231015",
 		"userId": "a",
 		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-9",
+		"no": "1",
+		"content": "test1",
+		"registerTime": "20231129",
+		"updTime": "20231129",
+		"userId": "a",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-9",
+		"no": "2",
+		"content": "test2",
+		"registerTime": "20231129",
+		"updTime": "20231129",
+		"userId": "a",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-10",
+		"no": "1",
+		"content": "test1",
+		"registerTime": "20231129",
+		"updTime": "20231129",
+		"userId": "a",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-10",
+		"no": "2",
+		"content": "test2",
+		"registerTime": "20231129",
+		"updTime": "20231129",
+		"userId": "a",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-10",
+		"no": "3",
+		"content": "test3",
+		"registerTime": "20231129",
+		"updTime": "20231129",
+		"userId": "a",
+		"deleteFlg": "0"
 	}
 ]

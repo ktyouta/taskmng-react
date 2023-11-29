@@ -54,12 +54,23 @@ export function createCunstomAttributeViewList(customAttribute: customAttributeL
  * @param customAttribute APIから取得したカスタム属性リスト
  * @returns 
  */
-export function createCunstomAttributeEditList(customAttribute: customAttributeListType[]): refInfoType[] {
+export function createCunstomAttributeEditList(customAttribute: customAttributeListType[],
+    customAttributeInputSetting: refInfoType[]): refInfoType[] {
     let tmpEditCustomAttributeList: refInfoType[] = [];
 
-    customAttribute.forEach((element) => {
+    customAttributeInputSetting.forEach((element) => {
+
         let tmp = element.value;
-        let list = [...element.selectList];
+        let list = element.selectList ? [...element.selectList] : [];
+
+        let tmpCustomAttribute = customAttribute.find((element1) => {
+            return element1.id === element.id;
+        });
+
+        //既存のカスタム属性が取得できた場合は、その選択値をセット
+        if (tmpCustomAttribute) {
+            tmp = tmpCustomAttribute.value;
+        }
 
         //選択形式の場合は名称を取得する
         if (list && list.length > 0) {
@@ -108,6 +119,7 @@ export function createCunstomAttributeEditList(customAttribute: customAttributeL
             ref: createRef()
         });
     });
+
     return tmpEditCustomAttributeList;
 }
 
@@ -171,7 +183,7 @@ export function createTaskCustomAttributeRequestBody(refInputArray: refInfoType[
  * @returns 
  */
 export function createUpdRefArray(taskSettingList: inputTaskSettingType[], updTask: apiTaskDetailType,
-    generalDataList: generalDataType[]
+    generalDataList: generalDataType[], customAttributeInputSetting: refInfoType[]
 ): editDisplayTaskType {
 
     let tmpRefInfoArray: refInfoType[] = [];
@@ -185,7 +197,7 @@ export function createUpdRefArray(taskSettingList: inputTaskSettingType[], updTa
             if (!updTask?.customAttribute) {
                 return;
             }
-            tmpEditCustomAttributeList = createCunstomAttributeEditList(updTask.customAttribute);
+            tmpEditCustomAttributeList = createCunstomAttributeEditList(updTask.customAttribute, customAttributeInputSetting);
             return;
         }
 

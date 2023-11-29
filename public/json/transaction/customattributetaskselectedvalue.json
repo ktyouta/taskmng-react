@@ -20,9 +20,9 @@
 	{
 		"taskId": "TASKID-60",
 		"customAttributeId": "ATTRIBUTEID-1",
-		"selectedValue": "サンプル属性テスト",
+		"selectedValue": "サンプル属性テスト1",
 		"registerTime": "20231126",
-		"updTime": "20231126",
+		"updTime": "20231129",
 		"deleteFlg": "0",
 		"userId": "a"
 	},
@@ -31,25 +31,25 @@
 		"customAttributeId": "ATTRIBUTEID-2",
 		"selectedValue": "1",
 		"registerTime": "20231126",
-		"updTime": "20231126",
+		"updTime": "20231129",
 		"deleteFlg": "0",
 		"userId": "a"
 	},
 	{
 		"taskId": "TASKID-60",
 		"customAttributeId": "ATTRIBUTEID-5",
-		"selectedValue": "2",
-		"registerTime": "20231126",
-		"updTime": "20231126",
-		"deleteFlg": "0",
-		"userId": "a"
-	},
-	{
-		"taskId": "TASKID-60",
-		"customAttributeId": "ATTRIBUTEID-7",
 		"selectedValue": "1,2",
 		"registerTime": "20231126",
-		"updTime": "20231126",
+		"updTime": "20231129",
+		"deleteFlg": "0",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-60",
+		"customAttributeId": "ATTRIBUTEID-7",
+		"selectedValue": "1,2,3",
+		"registerTime": "20231126",
+		"updTime": "20231129",
 		"deleteFlg": "0",
 		"userId": "a"
 	},
@@ -58,52 +58,25 @@
 		"customAttributeId": "ATTRIBUTEID-8",
 		"selectedValue": "1",
 		"registerTime": "20231126",
-		"updTime": "20231126",
+		"updTime": "20231129",
 		"deleteFlg": "0",
 		"userId": "a"
 	},
 	{
-		"taskId": "TASKID-61",
-		"customAttributeId": "ATTRIBUTEID-1",
-		"selectedValue": "サンプル属性",
-		"registerTime": "20231126",
-		"updTime": "20231126",
-		"deleteFlg": "0",
-		"userId": "a"
-	},
-	{
-		"taskId": "TASKID-61",
-		"customAttributeId": "ATTRIBUTEID-2",
+		"taskId": "TASKID-60",
+		"customAttributeId": "ATTRIBUTEID-9",
 		"selectedValue": "1",
-		"registerTime": "20231126",
-		"updTime": "20231126",
+		"registerTime": "20231129",
+		"updTime": "20231129",
 		"deleteFlg": "0",
 		"userId": "a"
 	},
 	{
-		"taskId": "TASKID-61",
-		"customAttributeId": "ATTRIBUTEID-5",
-		"selectedValue": "",
-		"registerTime": "20231126",
-		"updTime": "20231126",
-		"deleteFlg": "0",
-		"userId": "a"
-	},
-	{
-		"taskId": "TASKID-61",
-		"customAttributeId": "ATTRIBUTEID-7",
-		"selectedValue": "",
-		"registerTime": "20231126",
-		"updTime": "20231126",
-		"deleteFlg": "0",
-		"userId": "a"
-	},
-	{
-		"taskId": "TASKID-61",
-		"customAttributeId": "ATTRIBUTEID-8",
-		"selectedValue": "",
-		"registerTime": "20231126",
-		"updTime": "20231126",
+		"taskId": "TASKID-60",
+		"customAttributeId": "ATTRIBUTEID-10",
+		"selectedValue": "3",
+		"registerTime": "20231129",
+		"updTime": "20231129",
 		"deleteFlg": "0",
 		"userId": "a"
 	}

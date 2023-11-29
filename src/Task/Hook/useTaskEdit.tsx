@@ -36,6 +36,11 @@ function useTaskEdit(props: propsType) {
     //スナックバーに表示する登録更新時のエラーメッセージ
     const [errMessage, setErrMessage] = useState("");
 
+    //カスタム属性入力設定リスト
+    const { data: customAttributeInputSetting } = useQueryWrapper<refInfoType[]>({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CUSTOMATTRIBUTEINPUTSETTING}`,
+    });
+
     //入力欄参照用refの作成
     useEffect(() => {
         if (!props.taskSettingList) {
@@ -47,9 +52,12 @@ function useTaskEdit(props: propsType) {
         if (!props.generalDataList) {
             return;
         }
+        if (!customAttributeInputSetting) {
+            return;
+        }
 
-        setRefInfoArray(createUpdRefArray(props.taskSettingList, props.updTask, props.generalDataList));
-    }, [props.taskSettingList, props.updTask, props.generalDataList]);
+        setRefInfoArray(createUpdRefArray(props.taskSettingList, props.updTask, props.generalDataList, customAttributeInputSetting));
+    }, [props.taskSettingList, props.updTask, props.generalDataList, customAttributeInputSetting]);
 
     //更新用フック
     const updMutation = useMutationWrapper({

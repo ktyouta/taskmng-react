@@ -75,7 +75,7 @@ export function createUpdCustomAttributeData(req: any, authResult: authInfoType,
 
         //taskIdとcustomAttributeIdでデータが取得できる場合は更新する
         let customDecodeFileData = customDecodeFileDatas.find((element1) => {
-            element1.taskId === updTaskId && element1.customAttributeId === element.customAttributeId;
+            return element1.taskId === updTaskId && element1.customAttributeId === element.customAttributeId;
         });
 
         //更新

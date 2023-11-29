@@ -87,8 +87,9 @@ export function filterCustomAttributeDetail(decodeFileData: customAttributeType[
  * @param res 
  * @returns 
  */
-export function joinCustomAttributeList(customAttributeList: customAttributeType[], customAttributeSelectList: customAttributeListType[])
-    : any {
+export function joinCustomAttributeList(customAttributeList: customAttributeType[],
+    customAttributeSelectList: customAttributeListType[])
+    : inputSettingType[] {
 
     let retCustomAttributeList: inputSettingType[] = [];
 
