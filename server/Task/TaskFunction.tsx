@@ -5,7 +5,7 @@ import { getGeneralDetailData } from "../GeneralFunction";
 import { checkUpdAuth } from "../MasterDataFunction";
 import { authInfoType, searchConditionType, inputSettingType, taskDetailType, taskListType } from "../Type/type";
 import { getNowDate } from "../CommonFunction";
-import { createDeleteTaskData } from "./TaskDeleteFunction";
+import { createDeleteCustomAttributeData, createDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
 import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
 import { filterTask, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
@@ -178,7 +178,7 @@ export function runUpdTask(res: any, req: any, updTaskId: string) {
 /**
  * タスクの削除
  */
-export function runDeleteTask(res: any, req: any, pathPrm: string) {
+export function runDeleteTask(res: any, req: any, delTaskId: string) {
     //認証権限チェック
     let authResult = checkUpdAuth(req.cookies.cookie);
     if (authResult.errMessage) {
@@ -188,7 +188,7 @@ export function runDeleteTask(res: any, req: any, pathPrm: string) {
     }
 
     //IDの指定がない
-    if (!pathPrm) {
+    if (!delTaskId) {
         return res
             .status(400)
             .json({ errMessage: `パラメータが不正です。` });
@@ -198,7 +198,7 @@ export function runDeleteTask(res: any, req: any, pathPrm: string) {
     let decodeFileData: taskListType[] = getTaskObj();
 
     //削除用データの作成
-    let registData = createDeleteTaskData(decodeFileData, req.body, pathPrm);
+    let registData = createDeleteTaskData(decodeFileData, req.body, delTaskId);
 
     //データを登録
     let errMessage = overWriteData(TASK_FILEPATH, JSON.stringify(registData, null, '\t'));
@@ -208,6 +208,19 @@ export function runDeleteTask(res: any, req: any, pathPrm: string) {
         return res
             .status(400)
             .json({ errMessage });
+    }
+
+    //カスタム属性の削除用データを作成
+    let delCustomData = createDeleteCustomAttributeData(delTaskId);
+
+    //データを登録
+    let customErrMessage = overWriteData(CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, JSON.stringify(delCustomData, null, '\t'));
+
+    //登録更新削除に失敗
+    if (customErrMessage) {
+        return res
+            .status(400)
+            .json({ customErrMessage });
     }
 
     //正常終了

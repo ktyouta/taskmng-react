@@ -147,7 +147,7 @@ function useTaskRegister(props: propsType) {
      * 登録ボタン押下処理
      */
     const create = () => {
-        if (!refInfoArray || refInfoArray.default.length === 0) {
+        if (!refInfoArray || !refInfoArray.default || refInfoArray.default.length === 0 || !refInfoArray.customAttribute) {
             return;
         }
         //入力チェック(デフォルト)

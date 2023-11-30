@@ -122,7 +122,7 @@ function useTaskEdit(props: propsType) {
      * 更新ボタン押下処理
      */
     const update = () => {
-        if (!refInfoArray || !refInfoArray.default || !refInfoArray.customAttribute || refInfoArray.default.length === 0) {
+        if (!refInfoArray || !refInfoArray.default || !refInfoArray.customAttribute) {
             return;
         }
         //入力チェック
@@ -161,22 +161,21 @@ function useTaskEdit(props: propsType) {
      * 削除ボタン押下処理
      */
     const deleteTask = () => {
-        // if (!refInfoArray || refInfoArray.length === 0) {
-        //     return;
-        // }
-        // if (!window.confirm('タスクを削除しますか？')) {
-        //     return
-        // }
-        // if (!updMutation) {
-        //     alert("リクエストの送信に失敗しました。");
-        //     return;
-        // }
-        // delMutation.mutate();
+        if (!refInfoArray || !refInfoArray.default || refInfoArray.default.length === 0 || !refInfoArray.customAttribute) {
+            return;
+        }
+        if (!window.confirm('タスクを削除しますか？')) {
+            return
+        }
+        if (!updMutation) {
+            alert("リクエストの送信に失敗しました。");
+            return;
+        }
+        delMutation.mutate();
     }
 
     return {
         refInfoArray,
-        //isLoading: isLoadinGetUpdTask,
         isUpDelLoading: updMutation.isLoading || delMutation.isLoading,
         backPageButtonObj: {
             title: `戻る`,

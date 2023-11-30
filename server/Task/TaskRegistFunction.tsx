@@ -32,13 +32,14 @@ export function createAddTaskData(fileDataObj: taskListType[], req: any, authRes
         userId: "",
         priority: "",
         status: "",
-        deleteFlg: "0",
-        title: ""
+        title: "",
+        deleteFlg: ""
     };
     body = req.body.default;
     body.registerTime = nowDate;
     body.updTime = nowDate;
     body.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
+    body.deleteFlg = "0";
     //未対応
     //body.status = "1";
 

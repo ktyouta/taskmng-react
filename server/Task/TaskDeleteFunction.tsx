@@ -3,8 +3,9 @@ import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TR
 import { overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
 import { checkUpdAuth } from "../MasterDataFunction";
-import { authInfoType, searchConditionType, taskListType } from "../Type/type";
+import { authInfoType, searchConditionType, taskCustomAttributeSelectType, taskListType } from "../Type/type";
 import { getNowDate } from "../CommonFunction";
+import { getCustomAttributeTaskObj } from "./TaskSelectFunction";
 
 //タスクファイルのパス
 const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
@@ -42,4 +43,29 @@ export function createDeleteTaskData(fileDataObj: taskListType[], body: taskList
         }
     });
     return fileDataObj;
+}
+
+/**
+ * カスタム属性の削除用データの作成
+ * @param filePath 
+ * @param stream 
+ * @returns 
+ */
+export function createDeleteCustomAttributeData(delTaskId: string)
+    : taskCustomAttributeSelectType[] {
+
+    //現在日付を取得
+    const nowDate = getNowDate();
+
+    //タスクのカスタム属性の選択値ファイルの読み込み
+    let customDecodeFileDatas: taskCustomAttributeSelectType[] = getCustomAttributeTaskObj();
+
+    customDecodeFileDatas.forEach((element) => {
+        //IDの一致するデータを削除
+        if (element.taskId === delTaskId) {
+            element.deleteFlg = "1";
+            element.updTime = nowDate;
+        }
+    });
+    return customDecodeFileDatas;
 }

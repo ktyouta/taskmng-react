@@ -79,5 +79,194 @@
 		"updTime": "20231129",
 		"deleteFlg": "0",
 		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-62",
+		"customAttributeId": "ATTRIBUTEID-1",
+		"selectedValue": "sample1",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-62",
+		"customAttributeId": "ATTRIBUTEID-2",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-62",
+		"customAttributeId": "ATTRIBUTEID-5",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-62",
+		"customAttributeId": "ATTRIBUTEID-7",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-62",
+		"customAttributeId": "ATTRIBUTEID-8",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-62",
+		"customAttributeId": "ATTRIBUTEID-9",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-62",
+		"customAttributeId": "ATTRIBUTEID-10",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-62",
+		"customAttributeId": "ATTRIBUTEID-1",
+		"selectedValue": "sample1",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-62",
+		"customAttributeId": "ATTRIBUTEID-2",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-62",
+		"customAttributeId": "ATTRIBUTEID-5",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-62",
+		"customAttributeId": "ATTRIBUTEID-7",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-62",
+		"customAttributeId": "ATTRIBUTEID-8",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-62",
+		"customAttributeId": "ATTRIBUTEID-9",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-62",
+		"customAttributeId": "ATTRIBUTEID-10",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-63",
+		"customAttributeId": "ATTRIBUTEID-1",
+		"selectedValue": "sample2",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-63",
+		"customAttributeId": "ATTRIBUTEID-2",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-63",
+		"customAttributeId": "ATTRIBUTEID-5",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-63",
+		"customAttributeId": "ATTRIBUTEID-7",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-63",
+		"customAttributeId": "ATTRIBUTEID-8",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-63",
+		"customAttributeId": "ATTRIBUTEID-9",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-63",
+		"customAttributeId": "ATTRIBUTEID-10",
+		"selectedValue": "",
+		"registerTime": "20231130",
+		"updTime": "20231130",
+		"deleteFlg": "1",
+		"userId": "a"
 	}
 ]
