@@ -7,6 +7,7 @@ import TaskConditionFooter from './TaskConditionFooter';
 import Loading from '../Common/Loading';
 import LabelComponent from '../Common/LabelComponent';
 import styled from 'styled-components';
+import { HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
 
 
 //引数の型
@@ -39,24 +40,38 @@ function TaskCondition(props: propsType) {
     }
 
     return (
-        <div className="taskedit">
-            <HeaderDiv>
-                <LabelComponent
-                    title="検索条件"
+        <HeightDiv
+            height='100%'
+        >
+            <HeightDiv
+                height='85%'
+            >
+                <HeaderDiv>
+                    <LabelComponent
+                        title="検索条件"
+                    />
+                </HeaderDiv>
+                <VerticalFlowDiv
+                    height='85%'
+                >
+                    <TaskEditForm
+                        refInfoArray={props.refInfoArray}
+                        isUpDelLoading={false}
+                        errMessage={""}
+                        outerHeight='85%'
+                    />
+                </VerticalFlowDiv>
+            </HeightDiv>
+            <HeightDiv
+                height='15%'
+            >
+                <TaskConditionFooter
+                    backPageButtonObj={backPageButtonObj}
+                    negativeButtonObj={negativeButtonObj}
+                    outerHeight='15%'
                 />
-            </HeaderDiv>
-            <TaskEditForm
-                refInfoArray={props.refInfoArray}
-                isUpDelLoading={false}
-                errMessage={""}
-                outerHeight='85%'
-            />
-            <TaskConditionFooter
-                backPageButtonObj={backPageButtonObj}
-                negativeButtonObj={negativeButtonObj}
-                outerHeight='15%'
-            />
-        </div>
+            </HeightDiv>
+        </HeightDiv>
     );
 }
 

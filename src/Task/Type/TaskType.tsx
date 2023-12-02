@@ -1,4 +1,4 @@
-import { comboType, inputAddMasterSettingType, inputMasterSettingType, inputType, refInfoType } from "../../Common/Type/CommonType";
+import { bodyObj, comboType, inputAddMasterSettingType, inputMasterSettingType, inputType, refInfoType } from "../../Common/Type/CommonType";
 
 //タスクリストの型
 export type taskListType = {
@@ -130,4 +130,10 @@ export type editDisplayTaskType = {
 export type customAttributeRequestBodyType = {
     customAttributeId: string,
     selectedValue: string,
+}
+
+//タスクのリクエストボディの型
+export type taskRequestBodyType = {
+    default: bodyObj,
+    customAttribute: customAttributeRequestBodyType[],
 }

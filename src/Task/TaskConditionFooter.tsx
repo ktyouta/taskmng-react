@@ -27,7 +27,7 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
 
 function TaskConditionFooter(props: propsType) {
 
-    console.log("mastereditfooter render");
+    console.log("TaskConditionFooter render");
 
     return (
         <OuterDiv

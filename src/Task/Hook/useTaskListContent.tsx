@@ -15,6 +15,7 @@ import useSwitch from "../../Common/Hook/useSwitch";
 import ButtonComponent from "../../Common/ButtonComponent";
 import { parseStrDate } from "../../Common/Function/Function";
 import { detailRoutingIdAtom } from "./useTask";
+import { createTaskContentList } from "../Function/TaskFunction";
 
 
 //画面表示用タスクリスト
@@ -93,9 +94,27 @@ function useTaskListContent() {
         }
     );
 
+    //モーダルオープン
+    const openModal = (id: string) => {
+        //IDが存在しない
+        if (!id) {
+            setUpdTaskId(``);
+            alert(`データの取得に失敗しました。`);
+            return;
+        }
+        //更新用タスク取得ID
+        setUpdTaskId(id)
+        onFlag();
+    };
+
+    //タスクの詳細画面に遷移する
+    const moveTaskDetail = (taskId: string,) => {
+        setDetailRoutingId(taskId);
+        navigate(`/task/${taskId}`);
+    };
+
     //取得したタスクリストを画面表示用に変換
     const displayTaskList = useMemo(() => {
-        let tmpDisplayTaskList: taskContentDisplayType[] = [];
         //タスクリスト
         if (!taskList) {
             return [];
@@ -109,155 +128,9 @@ function useTaskListContent() {
             return [];
         }
 
-        //タスクのディープコピー
-        const tmpTaskList: taskListType[] = JSON.parse(JSON.stringify(taskList));
-        //設定値をもとに画面に表示する項目を作成
-        tmpTaskList.forEach(element => {
-            //画面表示用タスク
-            let displayTaskObj: taskContentDisplayType = {
-                id: "",
-                title: "",
-                bdColor: undefined,
-                titleBgColor: undefined,
-                infoBgColor: undefined,
-                editButton: <></>,
-                content: [],
-                onClickTitle: () => { },
-            };
-
-            //タスクの状態に応じて背景色を変える
-            //ステータス
-            let status = element["status"];
-            //期限
-            let limitTime = element["limitTime"];
-            //背景色の設定
-            let bgButtonColor: string | undefined = undefined;
-            //ステータスとタスクが存在する場合
-            if (status && limitTime) {
-                //期限切れのタスク
-                if (limitTime < nowDate) {
-                    switch (status) {
-                        //未対応
-                        case NOCOMP_STATUS:
-                            displayTaskObj.bdColor = "#CD5C5C";
-                            displayTaskObj.titleBgColor = "#F08080";
-                            displayTaskObj.infoBgColor = "#FA8072";
-                            bgButtonColor = "#FA8072";
-                            break;
-                        //保留
-                        case HOLD_STATUS:
-                            displayTaskObj.bdColor = "#FFFF00";
-                            displayTaskObj.titleBgColor = "#FFFF66";
-                            displayTaskObj.infoBgColor = "#FFFF66";
-                            bgButtonColor = "#FFFF66";
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                //完了したタスク
-                if (status === COMP_STATUS) {
-                    displayTaskObj.bdColor = "#808080";
-                    displayTaskObj.titleBgColor = "#808080";
-                    displayTaskObj.infoBgColor = "#808080";
-                    bgButtonColor = "#808080";
-                }
-                //対応中
-                else if (status === WORKING_STATUS) {
-                    displayTaskObj.bdColor = "#33FFFF";
-                    displayTaskObj.titleBgColor = "#66FFFF";
-                    displayTaskObj.infoBgColor = "#66FFCC";
-                    bgButtonColor = "#66FFCC";
-                }
-            }
-
-            //画面に表示するオブジェクトを作成
-            taskContentSetting.forEach((item) => {
-                //タスクリスト内に設定に一致するプロパティが存在しない場合は画面に表示しない
-                if (!element[item.id]) {
-                    return;
-                }
-                //ID
-                if (item.id === "id") {
-                    displayTaskObj.id = element[item.id];
-                    return;
-                }
-                //タイトル
-                if (item.id === "title") {
-                    displayTaskObj.title = element[item.id];
-                    return;
-                }
-                //非表示項目
-                if (item.isHidden) {
-                    return;
-                }
-
-                //選択項目
-                if (item.listKey) {
-                    //汎用詳細リストからリストキーに一致する要素を抽出する
-                    let selectList = generalDataList.filter((list) => {
-                        return list.id === item.listKey;
-                    });
-                    let isMatchPriority = false;
-                    selectList.some((list) => {
-                        //値の一致する名称を取得
-                        if (list.value === element[item.id]) {
-                            element[item.id] = list.label;
-                            return isMatchPriority = true;
-                        }
-                    });
-                    //結合できなかった要素は画面に表示しない
-                    if (!isMatchPriority) {
-                        return;
-                    }
-                }
-
-                if ((typeof element[item.id]) !== "string") {
-                    return;
-                }
-
-                let tmp = element[item.id] as string;
-                //日付項目
-                if (item.type === "date") {
-                    tmp = parseStrDate(tmp);
-                }
-                //コンテンツにデータを追加
-                displayTaskObj.content.push({
-                    label: item.name,
-                    value: tmp
-                });
-            });
-
-            //タイトルクリック時に詳細画面に遷移する
-            displayTaskObj.onClickTitle = () => {
-                setDetailRoutingId(displayTaskObj.id);
-                navigate(`/task/${displayTaskObj.id}`);
-            };
-
-            //編集ボタン
-            displayTaskObj["editButton"] = <ButtonComponent
-                styleTypeNumber={"BASE"}
-                bgColor={bgButtonColor}
-                title={"詳細"}
-                onclick={() => { openModal(element.id); }} />;
-
-            tmpDisplayTaskList.push(displayTaskObj);
-        });
-        return tmpDisplayTaskList;
+        //コンテンツリストを作成
+        return createTaskContentList(taskList, generalDataList, taskContentSetting, openModal, moveTaskDetail);
     }, [taskList, generalDataList, taskContentSetting]);
-
-    //モーダルオープン
-    const openModal = (id: string) => {
-        //IDが存在しない
-        if (!id) {
-            setUpdTaskId(``);
-            alert(`データの取得に失敗しました。`);
-            return;
-        }
-        //更新用タスク取得ID
-        setUpdTaskId(id)
-        onFlag();
-    };
 
     return {
         isModalOpen,

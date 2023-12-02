@@ -717,10 +717,10 @@
 	},
 	{
 		"id": "TASKID-61",
-		"title": "テスト",
+		"title": "テスト更新",
 		"content": "",
 		"registerTime": "20231126",
-		"updTime": "20231130",
+		"updTime": "20231202",
 		"limitTime": "",
 		"userId": "a",
 		"priority": "1",
@@ -749,5 +749,17 @@
 		"priority": "1",
 		"status": "1",
 		"deleteFlg": "1"
+	},
+	{
+		"id": "TASKID-64",
+		"title": "タスクの更新画面でカスタム属性の必須項目の目印がついていない",
+		"content": "",
+		"registerTime": "20231202",
+		"updTime": "20231202",
+		"limitTime": "",
+		"userId": "a",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
 	}
 ]

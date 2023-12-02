@@ -10,7 +10,7 @@ import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
-import { createCunstomAttributeEditList, createCunstomAttributeViewList, createTaskCustomAttributeRequestBody, createUpdRefArray } from "../Function/TaskFunction";
+import { checkTaskRequest, createCunstomAttributeEditList, createCunstomAttributeViewList, createTaskCustomAttributeRequestBody, createTaskRequestBody, createUpdRefArray } from "../Function/TaskFunction";
 
 
 //引数の型
@@ -56,6 +56,7 @@ function useTaskEdit(props: propsType) {
             return;
         }
 
+        //入力欄の参照を作成
         setRefInfoArray(createUpdRefArray(props.taskSettingList, props.updTask, props.generalDataList, customAttributeInputSetting));
     }, [props.taskSettingList, props.updTask, props.generalDataList, customAttributeInputSetting]);
 
@@ -125,19 +126,14 @@ function useTaskEdit(props: propsType) {
         if (!refInfoArray || !refInfoArray.default || !refInfoArray.customAttribute) {
             return;
         }
-        //入力チェック
-        let inputCheckObj = requestBodyInputCheck(refInfoArray.default);
-        //入力チェック(カスタム属性)
-        let customInputCheckObj = requestBodyInputCheck(refInfoArray.customAttribute);
 
-        //入力エラー
-        if (inputCheckObj.errFlg || customInputCheckObj.errFlg) {
-            setRefInfoArray({
-                default: inputCheckObj.refInfoArray,
-                customAttribute: customInputCheckObj.refInfoArray,
-            });
+        //入力チェック
+        let errObj = checkTaskRequest(refInfoArray);
+        if (errObj.errFlg) {
+            setRefInfoArray(errObj.refInfoArray);
             return;
         }
+
         if (!window.confirm('タスクを更新しますか？')) {
             return
         }
@@ -146,15 +142,8 @@ function useTaskEdit(props: propsType) {
             return;
         }
 
-        //デフォルト
-        let defBody: bodyObj = createRequestBody(refInfoArray.default);
-        //カスタム属性
-        let customBody: customAttributeRequestBodyType[] = createTaskCustomAttributeRequestBody(refInfoArray.customAttribute);
-        //bodyの作成
-        updMutation.mutate({
-            default: defBody,
-            customAttribute: customBody
-        });
+        //リクエストボディを作成
+        updMutation.mutate(createTaskRequestBody(refInfoArray));
     }
 
     /**

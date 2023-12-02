@@ -3,7 +3,7 @@ import ENV from '../../env.json';
 import { bodyObj, comboType, generalDataType, inputMasterSettingType, refInfoType } from "../../Common/Type/CommonType";
 import { apiTaskDetailType, customAttributeListType, displayTaskType, inputTaskSettingType, taskListType, viewTaskType } from "../Type/TaskType";
 import { buttonObjType } from "../../Master/MasterEditFooter";
-import { createCunstomAttributeViewList } from "../Function/TaskFunction";
+import { createCunstomAttributeViewList, createTaskViewList } from "../Function/TaskFunction";
 
 
 //引数の型
@@ -28,9 +28,6 @@ function useTaskView(props: propsType) {
 
     //入力欄参照用refの作成
     useEffect(() => {
-        let tmpViewTaskList: viewTaskType[] = [];
-        let tmpViewCustomAttributeList: viewTaskType[] = [];
-
         if (!props.taskSettingList) {
             return;
         }
@@ -40,55 +37,9 @@ function useTaskView(props: propsType) {
         if (!props.generalDataList) {
             return;
         }
-        props.taskSettingList.forEach((element) => {
-            let tmpValue: string = "";
 
-            //項目の表示非表示
-            if (element.isHidden) {
-                return;
-            }
-            //カスタム属性をセット
-            if (element.id === "customAttribute") {
-                if (!props.updTask?.customAttribute) {
-                    return;
-                }
-                tmpViewCustomAttributeList = createCunstomAttributeViewList(props.updTask.customAttribute);
-                return;
-            }
-
-            for (const [columnKey, value] of Object.entries(props.updTask?.default as {})) {
-                //キーの一致する要素を取り出す
-                if (element.id === columnKey) {
-                    tmpValue = value as string;
-                    break;
-                }
-            }
-
-            let tmpSelectLits: comboType[] = [];
-            //リストキーが存在する(選択項目)
-            if (element.listKey && props.generalDataList) {
-                //汎用詳細から対応するリストを抽出
-                tmpSelectLits = props.generalDataList.filter((item) => {
-                    return item.id === element.listKey;
-                });
-                //valueに一致する要素を抽出
-                let matchList = tmpSelectLits.filter((item) => {
-                    return item.value === tmpValue;
-                });
-                //labelを「/」区切りで結合
-                tmpValue = matchList.map((item) => {
-                    return item.label;
-                }).join("/");
-            }
-            tmpViewTaskList.push({
-                title: element.name,
-                value: tmpValue,
-            });
-        });
-        setViewTask({
-            default: tmpViewTaskList,
-            customAttribute: tmpViewCustomAttributeList,
-        });
+        //タスクの詳細リストを作成
+        setViewTask(createTaskViewList(props.taskSettingList, props.updTask, props.generalDataList));
     }, [props.taskSettingList, props.updTask, props.generalDataList]);
 
 

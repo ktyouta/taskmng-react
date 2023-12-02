@@ -18,6 +18,7 @@ import React from "react";
 import { parseStrDate } from "../../Common/Function/Function";
 import { taskSearchConditionObjAtom } from "./useTask";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
+import { createSearchDispCondition, createSearchRefArray } from "../Function/TaskFunction";
 
 
 /**
@@ -55,6 +56,7 @@ function useTaskSearch() {
     });
     //汎用詳細リスト
     const { generalDataList } = useGetGeneralDataList();
+
     /**
      * 初期表示タスク取得用URLと検索条件オブジェクトの作成
      */
@@ -62,7 +64,6 @@ function useTaskSearch() {
 
     //現在の検索条件(画面表示用)
     const displaySearchConditionList = useMemo(() => {
-        let tmpDisplayList: ReactNode[] = [];
         if (!taskSearchConditionList) {
             return;
         }
@@ -72,55 +73,9 @@ function useTaskSearch() {
         if (!generalDataList) {
             return;
         }
-        Object.keys(searchConditionObj).forEach((key) => {
-            taskSearchConditionList.some((item) => {
-                //値がセットされている検索条件
-                if (key === item.id) {
-                    if (!searchConditionObj[key]) {
-                        return true;
-                    }
-                    let value = searchConditionObj[key];
-                    //複数選択項目
-                    if (item.listKey) {
-                        value = "";
-                        let tmpSelectLits: comboType[] = [];
-                        tmpSelectLits = generalDataList.filter((list) => {
-                            return list.id === item.listKey;
-                        });
-                        let valArray = searchConditionObj[key].split(",");
-                        //選択値に対応したラベルを取得
-                        valArray.forEach((val) => {
-                            tmpSelectLits.some((list) => {
-                                if (val === list.value) {
-                                    value += ` ${list.label} /`;
-                                    return true;
-                                }
-                            });
-                        });
-                        //末尾の/を削除
-                        if (value.slice(-1) === "/") {
-                            value = value.slice(0, -1);
-                        }
-                    }
-                    //日付の場合は/を入れる
-                    if (item.type === "date") {
-                        value = parseStrDate(value);
-                    }
-                    //画面表示用の検索条件を追加
-                    tmpDisplayList.push(
-                        <React.Fragment>
-                            <div className="display-task-condition-item">
-                                <dt>{`[${item.name}]：`}</dt>
-                                <dt>{`${value}`}</dt>
-                            </div>
-                            <SpaceComponent space={"3%"} />
-                        </React.Fragment>
-                    );
-                    return true;
-                }
-            });
-        });
-        return tmpDisplayList;
+
+        //検索条件のdomを作成
+        return createSearchDispCondition(taskSearchConditionList, searchConditionObj, generalDataList);
     }, [searchConditionObj, taskSearchConditionList, generalDataList]);
 
 
@@ -162,7 +117,6 @@ function useTaskSearch() {
      * モーダルオープンイベント
      */
     function openModal() {
-        let tmpRefInfoArray: refInfoType[] = [];
         if (!taskSearchConditionList) {
             return;
         }
@@ -172,37 +126,9 @@ function useTaskSearch() {
         if (!generalDataList) {
             return;
         }
+
         //検索条件の参照を作成
-        taskSearchConditionList.forEach((element) => {
-            let tmpValue: string | undefined = undefined;
-            for (const [columnKey, value] of Object.entries(searchConditionObj as {})) {
-                //キーの一致する要素を取り出す
-                if (element.id === columnKey) {
-                    tmpValue = value as string;
-                    break;
-                }
-            }
-            let tmpSelectLits: comboType[] = [];
-            //リストキーが存在する(選択項目)
-            if (element.listKey) {
-                tmpSelectLits = generalDataList.filter((item) => {
-                    return item.id === element.listKey;
-                });
-            }
-            tmpRefInfoArray.push({
-                id: element.id,
-                name: element.name,
-                type: element.type,
-                //キーに一致するデータが存在する場合はその値を表示
-                value: tmpValue ?? element.value,
-                selectList: tmpSelectLits,
-                ref: createRef(),
-                length: element.length,
-                disabled: false,
-                visible: !element.isHidden,
-            });
-        });
-        setRefInfoArray(tmpRefInfoArray);
+        setRefInfoArray(createSearchRefArray(taskSearchConditionList, searchConditionObj, generalDataList,));
         onFlag();
     }
 

@@ -82,3 +82,13 @@ export const parseStrDate = (strDate: string) => {
     }
     return `${year}/${month}/${day}`;
 };
+
+/**
+ * 日付の文字列変換
+ */
+export const getNowDate = (now: Date) => {
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, "0");
+    const date = (now.getDate()).toString().padStart(2, "0");
+    return `${year}${month}${date}`;
+};

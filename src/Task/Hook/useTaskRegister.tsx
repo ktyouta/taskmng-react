@@ -10,7 +10,7 @@ import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
-import { createCunstomAttributeEditList, createCunstomAttributeRegistList, createTaskCustomAttributeRequestBody } from "../Function/TaskFunction";
+import { checkTaskRequest, createCunstomAttributeEditList, createCunstomAttributeRegistList, createRegistRefArray, createTaskCustomAttributeRequestBody, createTaskRequestBody } from "../Function/TaskFunction";
 
 
 //引数の型
@@ -46,9 +46,6 @@ function useTaskRegister(props: propsType) {
 
     //入力欄参照用refの作成
     useEffect(() => {
-        let tmpRefInfoArray: refInfoType[] = [];
-        let tmpEditCustomAttributeList: refInfoType[] = [];
-
         if (!taskSettingList) {
             return;
         }
@@ -59,45 +56,8 @@ function useTaskRegister(props: propsType) {
             return;
         }
 
-        taskSettingList.forEach((element) => {
-            let isVisible = true;
-            let tmpSelectLits: comboType[] = [];
-
-            //カスタム属性をセット
-            if (element.id === "customAttribute") {
-                tmpEditCustomAttributeList = createCunstomAttributeRegistList(customAttributeInputSetting);
-                return;
-            }
-
-            //項目の表示非表示
-            if (element.isHidden || !element.isNewCreateVisible) {
-                isVisible = false;
-            }
-            //リストキーが存在する(選択項目)
-            if (element.listKey) {
-                tmpSelectLits = generalDataList.filter((item) => {
-                    return item.id === element.listKey;
-                });
-            }
-            tmpRefInfoArray.push({
-                id: element.id,
-                name: element.name,
-                type: element.type,
-                length: element.length,
-                //キーに一致するデータが存在する場合はその値を表示
-                value: element.value,
-                disabled: element.disabled,
-                visible: isVisible,
-                selectList: tmpSelectLits,
-                description: element.description,
-                isRequired: element.isRequired,
-                ref: createRef(),
-            });
-        });
-        setRefInfoArray({
-            default: tmpRefInfoArray,
-            customAttribute: tmpEditCustomAttributeList,
-        });
+        //入力欄の参照を作成
+        setRefInfoArray(createRegistRefArray(taskSettingList, generalDataList, customAttributeInputSetting));
     }, [taskSettingList, generalDataList, customAttributeInputSetting]);
 
     //登録用フック
@@ -150,18 +110,14 @@ function useTaskRegister(props: propsType) {
         if (!refInfoArray || !refInfoArray.default || refInfoArray.default.length === 0 || !refInfoArray.customAttribute) {
             return;
         }
-        //入力チェック(デフォルト)
-        let inputCheckObj = requestBodyInputCheck(refInfoArray.default);
-        //入力チェック(カスタム属性)
-        let customInputCheckObj = requestBodyInputCheck(refInfoArray.customAttribute);
-        //入力エラー
-        if (inputCheckObj.errFlg || customInputCheckObj.errFlg) {
-            setRefInfoArray({
-                default: inputCheckObj.refInfoArray,
-                customAttribute: customInputCheckObj.refInfoArray,
-            });
+
+        //入力チェック
+        let errObj = checkTaskRequest(refInfoArray);
+        if (errObj.errFlg) {
+            setRefInfoArray(errObj.refInfoArray);
             return;
         }
+
         if (!window.confirm('タスクを登録しますか？')) {
             return
         }
@@ -169,15 +125,9 @@ function useTaskRegister(props: propsType) {
             alert("リクエストの送信に失敗しました。");
             return;
         }
-        //デフォルト
-        let defBody: bodyObj = createRequestBody(refInfoArray.default);
-        //カスタム属性
-        let customBody: customAttributeRequestBodyType[] = createTaskCustomAttributeRequestBody(refInfoArray.customAttribute);
+
         //bodyの作成
-        registerMutation.mutate({
-            default: defBody,
-            customAttribute: customBody
-        });
+        registerMutation.mutate(createTaskRequestBody(refInfoArray));
     }
 
     return {
