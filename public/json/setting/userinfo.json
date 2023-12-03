@@ -1,28 +1,26 @@
-{
-    "user":[
-        {
-            "userId":"admin",
-            "userName":"管理者",
-            "password":"admin",
-            "auth":"3"
-        },
-        {
-            "userId":"user",
-            "userName":"ユーザー",
-            "password":"user",
-            "auth":"2"
-        },
-        {
-            "userId":"public",
-            "userName":"一般ユーザー",
-            "password":"public",
-            "auth":"1"
-        },
-        {
-            "userId":"a",
-            "userName":"テスト管理者",
-            "password":"a",
-            "auth":"3"
-        }
-    ]
-}
+[
+    {
+        "userId":"admin",
+        "userName":"管理者",
+        "password":"admin",
+        "auth":"3"
+    },
+    {
+        "userId":"user",
+        "userName":"ユーザー",
+        "password":"user",
+        "auth":"2"
+    },
+    {
+        "userId":"public",
+        "userName":"一般ユーザー",
+        "password":"public",
+        "auth":"1"
+    },
+    {
+        "userId":"a",
+        "userName":"テスト管理者",
+        "password":"a",
+        "auth":"3"
+    }
+]

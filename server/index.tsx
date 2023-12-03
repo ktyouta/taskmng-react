@@ -5,7 +5,7 @@ import { bodyObj, generalDetailType, taskListType, userInfoType } from './Type/t
 import { authenticate } from './AuthFunction';
 import { config } from './ApiConfig';
 import { checkUpdAuth, createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterDataFunction';
-import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from './Constant';
+import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION, USERINFOFILEPATH } from './Constant';
 import { runAddMaster } from './AddMasterDataFunction';
 import { getGeneralDetailData } from './GeneralFunction';
 import { getTaskDetail, getTaskList, runAddTask, runDeleteTask, runUpdTask } from './Task/TaskFunction';
@@ -17,6 +17,7 @@ import {
     runDeleteCustomAttribute,
     runUpdCustomAttribute
 } from './SettingFunction/CustomAttribute/CustomAttributeFunction';
+import { getTaskHistory } from './History/HistoryFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -141,6 +142,13 @@ app.get(`${ENV.CUSTOMATTRIBUTEINPUTSETTING}`, function (req, res) {
     getCustomAttributeInputSetting(res, req);
 });
 
+/**
+ * taskhistoryにアクセスした際の動作
+ */
+app.get(`${ENV.TASKHISTORY}`, function (req, res) {
+    getTaskHistory(res, req);
+});
+
 
 
 /**
@@ -186,7 +194,7 @@ app.post(ENV.LOGIN, function (req, res) {
     var password = req.body.password;
 
     //認証
-    let fileData = readFile(`${SETTINGFILEPATH}userinfo${JSONEXTENSION}`);
+    let fileData = readFile(`${SETTINGFILEPATH}${USERINFOFILEPATH}${JSONEXTENSION}`);
     //ファイルの読み込みに失敗
     if (!fileData) {
         return res
@@ -195,7 +203,7 @@ app.post(ENV.LOGIN, function (req, res) {
     }
 
     //ユーザー情報の配列
-    let userJson: userInfoType[] = JSON.parse(fileData).user;
+    let userJson: userInfoType[] = JSON.parse(fileData);
     let isExist: boolean = false;
     for (let i = 0; i < userJson.length; i++) {
         if (isExist = (userId === userJson[i].userId && password === userJson[i].password)) {

@@ -17,6 +17,7 @@ import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import AddMaster from '../../AddMaster/AddMaster';
 import Task from '../../Task/Task';
 import { searchConditionType } from '../../Task/Type/TaskType';
+import Home from '../../Home/Home';
 
 
 //マスタのリスト(マスタメンテ画面のコンボ用)
@@ -92,6 +93,9 @@ function useMainLogic() {
 
             //ルーティングの設定
             switch (element.component) {
+                case "Home":
+                    Component = <Home />;
+                    break;
                 case "Top":
                     Component = <Top />;
                     break;

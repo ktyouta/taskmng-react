@@ -2,10 +2,18 @@
     {
         "name": "ホーム",
         "url": "/",
-        "component":"Top",
+        "component":"Home",
         "componentPath": "/",
         "auth":"1",
         "isHidden":false
+    },
+    {
+        "name": "ホーム",
+        "url": "/",
+        "component":"Top",
+        "componentPath": "/",
+        "auth":"1",
+        "isHidden":true
     },
     {
         "name": "マスタ編集",

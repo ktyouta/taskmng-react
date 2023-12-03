@@ -1,7 +1,11 @@
 import express from 'express';
 import { readFile } from './FileFunction';
 import { authInfoType, userInfoType } from './Type/type';
-import {config} from './ApiConfig';
+import { config } from './ApiConfig';
+import { JSONEXTENSION, SETTINGFILEPATH, USERINFOFILEPATH } from './Constant';
+
+//ユーザー情報ファイルのパス
+const USER_INFO_FILEPATH = `${SETTINGFILEPATH}${USERINFOFILEPATH}${JSONEXTENSION}`;
 
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
@@ -9,7 +13,7 @@ const app: express.Express = express();
 
 app.use(cookieParser());
 
-export function authenticate(cookie:string): authInfoType {
+export function authenticate(cookie: string): authInfoType {
     let tmpAuthInfo: authInfoType = { status: 200, errMessage: "", userInfo: { userId: "", userName: "", auth: "" } };
     try {
         //クッキーが存在しない
@@ -26,7 +30,7 @@ export function authenticate(cookie:string): authInfoType {
         let password = userArray[1];
 
         //認証
-        let fileData = readFile(`./public/json/setting/userinfo.json`);
+        let fileData = readFile(USER_INFO_FILEPATH);
         //ファイルの読み込みに失敗
         if (!fileData) {
             tmpAuthInfo.status = 500;
@@ -35,7 +39,7 @@ export function authenticate(cookie:string): authInfoType {
         }
 
         //ユーザー情報の配列
-        let userJson: userInfoType[] = JSON.parse(fileData).user;
+        let userJson: userInfoType[] = JSON.parse(fileData);
         let isExist: boolean = false;
         for (let i = 0; i < userJson.length; i++) {
             if (isExist = (userId === userJson[i].userId && password === userJson[i].password)) {

@@ -26,3 +26,9 @@ export const CUSTOMATTRIBUTE = `customattribute`;
 export const CUSTOMATTRIBUTELIST = `customattributeselectlist`;
 //カスタム属性の選択値
 export const CUSTOMATTRIBUTESELECT = "customattributetaskselectedvalue";
+
+//タスクの作業履歴のファイルパス
+export const TASKHISTORYPATH = "taskhistory";
+
+//ユーザー情報ファイルパス
+export const USERINFOFILEPATH = "userinfo";
