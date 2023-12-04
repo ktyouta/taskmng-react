@@ -1,11 +1,11 @@
 import { GENERALDETAILFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKHISTORYPATH, TRANSACTION, USERINFOFILEPATH } from "../Constant";
 import { readFile } from "../FileFunction";
-import { generalDetailType, userInfoType } from "../Type/type";
-import { taskHistoryType } from "./Type/HistoryType";
+import { TASK_FILEPATH } from "../Task/TaskSelectFunction";
+import { generalDetailType, taskListType, userInfoType } from "../Type/type";
+import { TASK_HISTORY_PATH } from "./HistoryFunction";
+import { addTaskHistoryType, taskHistoryType } from "./Type/HistoryType";
 
 
-//タスクの作業履歴ファイルのパス
-const TASK_HISTORY_PATH = `${TRANSACTION}${TASKHISTORYPATH}${JSONEXTENSION}`;
 //汎用詳細ファイルのパス
 const GENERAL_DETAIL_FILEPATH = `${MASTERFILEPATH}${GENERALDETAILFILEPATH}${JSONEXTENSION}`;
 //ユーザー情報ファイルのパス
@@ -51,6 +51,10 @@ export function joinGeneralSetting(decodeFileData: taskHistoryType[]) {
     let userFileData = readFile(USER_INFO_FILEPATH);
     let decodeUserFileData: userInfoType[] = JSON.parse(userFileData);
 
+    //タスクファイルの読み込み
+    let taskFileData = readFile(TASK_FILEPATH);
+    let decodeTaskFileData: taskListType[] = JSON.parse(taskFileData);
+
     decodeFileData.forEach((element) => {
 
         //CRUDの紐づけ
@@ -71,7 +75,24 @@ export function joinGeneralSetting(decodeFileData: taskHistoryType[]) {
             element.userName = tmpUser.userName;
         }
 
+        //タスクの紐づけ
+        let tmpTask = decodeTaskFileData.find((element1) => {
+            return element1.id === element.taskId;
+        });
+
+        if (tmpTask) {
+            element.taskTitle = tmpTask.title;
+        }
     });
 
     return decodeFileData;
+}
+
+/**
+ * タスクの作業履歴を取得
+ */
+export function getAddTaskHistoryObj(): addTaskHistoryType[] {
+    //タスクファイルの読み込み
+    let fileData = readFile(TASK_HISTORY_PATH);
+    return JSON.parse(fileData);
 }

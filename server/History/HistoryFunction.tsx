@@ -1,6 +1,12 @@
 import { authenticate } from "../AuthFunction";
-import { getFilterdTaskHistory, joinGeneralSetting } from "./HistorySelectFunction";
-import { taskHistoryType } from "./Type/HistoryType";
+import { JSONEXTENSION, TASKHISTORYPATH, TRANSACTION } from "../Constant";
+import { overWriteData } from "../FileFunction";
+import { createAddTaskHistory } from "./HistoryRegistFunction";
+import { getAddTaskHistoryObj, getFilterdTaskHistory, joinGeneralSetting } from "./HistorySelectFunction";
+import { addTaskHistoryType, taskHistoryType } from "./Type/HistoryType";
+
+//タスクの作業履歴ファイルのパス
+export const TASK_HISTORY_PATH = `${TRANSACTION}${TASKHISTORYPATH}${JSONEXTENSION}`;
 
 
 /**
@@ -25,4 +31,26 @@ export function getTaskHistory(res: any, req: any) {
     decodeFileData = joinGeneralSetting(decodeFileData);
 
     return res.status(200).json(decodeFileData);
+}
+
+/**
+ * タスクの作業履歴の登録
+ */
+export function runAddTaskHistory(req: any, taskId: string, editType: string) {
+    //認証チェック
+    let authResult = authenticate(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return authResult;
+    }
+
+    //タスクの作業履歴オブジェクトの取得
+    let decodeFileData: addTaskHistoryType[] = getAddTaskHistoryObj();
+
+    //登録用データの作成
+    let registData = createAddTaskHistory(decodeFileData, taskId, editType, authResult);
+
+    //データを登録
+    let errMessage = overWriteData(TASK_HISTORY_PATH, JSON.stringify(registData, null, '\t'));
+
+
 }

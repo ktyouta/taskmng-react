@@ -10,3 +10,12 @@ export type taskHistoryType = {
     editValue: string,
     deleteFlg: string,
 }
+
+//登録時のタスクの作業履歴の型
+export type addTaskHistoryType = {
+    time: string,
+    userId: string,
+    taskId: string,
+    editValue: string,
+    deleteFlg: string,
+}
