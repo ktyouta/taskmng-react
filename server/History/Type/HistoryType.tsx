@@ -9,6 +9,7 @@ export type taskHistoryType = {
     editType: string,
     editValue: string,
     deleteFlg: string,
+    historyMessage: string,
 }
 
 //登録時のタスクの作業履歴の型

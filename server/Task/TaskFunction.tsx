@@ -9,11 +9,19 @@ import { createDeleteCustomAttributeData, createDeleteTaskData } from "./TaskDel
 import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
 import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
 import { filterTask, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
+import { runAddTaskHistory } from "../History/HistoryFunction";
 
 //タスクファイルのパス
 const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
 //カスタム属性登録用ファイルのパス
 const CUSTOMATTRIBUTESELECTVALUE_FILE_PATH = `${TRANSACTION}${CUSTOMATTRIBUTESELECT}${JSONEXTENSION}`;
+//CRUDモード(登録)
+const CREATE = "1";
+//CRUDモード(更新)
+const UPDATE = "2";
+//CRUDモード(削除)
+const DELETE = "3";
+
 
 /**
  * タスクリストの取得
@@ -92,6 +100,16 @@ export function runAddTask(res: any, req: any) {
     //登録用データの作成
     let registData = createAddTaskData(decodeFileData, req, authResult);
 
+    //タスクが登録されていない
+    if (!registData || !Array.isArray(registData) || registData.length === 0) {
+        return res
+            .status(400)
+            .json({ errMessage: "タスクが登録されていません。" });
+    }
+
+    //新規登録するタスクのID
+    let registTaskId = registData[registData.length - 1].id;
+
     //データを登録
     let errMessage = overWriteData(TASK_FILEPATH, JSON.stringify(registData, null, '\t'));
 
@@ -113,6 +131,16 @@ export function runAddTask(res: any, req: any) {
         return res
             .status(400)
             .json({ errMessage });
+    }
+
+    //作業履歴の登録
+    let historyErrMessage = runAddTaskHistory(authResult, registTaskId, CREATE);
+
+    //作業履歴の登録に失敗
+    if (historyErrMessage) {
+        return res
+            .status(400)
+            .json({ historyErrMessage });
     }
 
     //正常終了
@@ -167,6 +195,16 @@ export function runUpdTask(res: any, req: any, updTaskId: string) {
         return res
             .status(400)
             .json({ errMessage });
+    }
+
+    //作業履歴の登録
+    let historyErrMessage = runAddTaskHistory(authResult, updTaskId, UPDATE);
+
+    //作業履歴の登録に失敗
+    if (historyErrMessage) {
+        return res
+            .status(400)
+            .json({ historyErrMessage });
     }
 
     //正常終了

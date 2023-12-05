@@ -6,6 +6,7 @@ import { checkUpdAuth } from "../MasterDataFunction";
 import { authInfoType, searchConditionType, taskCustomAttributeSelectType, taskListType } from "../Type/type";
 import { getNowDate } from "../CommonFunction";
 import { getCustomAttributeTaskObj } from "./TaskSelectFunction";
+import { runAddTaskHistory } from "../History/HistoryFunction";
 
 //タスクIDの接頭辞
 const PRE_TASK_ID = `TASKID-`;

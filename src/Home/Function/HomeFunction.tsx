@@ -7,22 +7,17 @@ import { taskHistoryType } from "../Type/HomeType";
  * @param userInfo 
  * @param workHistoryList 
  */
-export function createTaskHistory(userInfo: userInfoType, workHistoryList: taskHistoryType[])
+export function createTaskHistory(workHistoryList: taskHistoryType[])
     : JSX.Element[] {
 
-    let tmpWorkDisplayList: JSX.Element[] = [];
+    return workHistoryList.map((element: taskHistoryType) => {
 
-    tmpWorkDisplayList = workHistoryList.map((element: taskHistoryType) => {
-
-        let history = `${element.time}　${element.taskTitle}　${element.editType}　　作業ユーザー：${element.userName}`;
         let key = `${Object.values(element).join("-")}`;
 
         return (
             <li key={key}>
-                {history}
+                {element.historyMessage}
             </li>
         );
     });
-
-    return tmpWorkDisplayList;
 }

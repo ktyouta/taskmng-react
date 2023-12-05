@@ -96,3 +96,16 @@ export function getAddTaskHistoryObj(): addTaskHistoryType[] {
     let fileData = readFile(TASK_HISTORY_PATH);
     return JSON.parse(fileData);
 }
+
+/**
+ * 履歴のメッセージを作成
+ */
+export function createHistoryMessage(decodeFileData: taskHistoryType[]) {
+
+    decodeFileData.forEach((element) => {
+
+        element.historyMessage = `${element.time}　${element.taskTitle}　${element.editType}　　作業ユーザー：${element.userName}`;
+    });
+
+    return decodeFileData;
+}

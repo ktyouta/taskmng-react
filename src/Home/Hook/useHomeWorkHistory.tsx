@@ -39,7 +39,7 @@ function useHomeWorkHistory() {
             return <div>作業履歴がありません。</div>
         }
 
-        return createTaskHistory(userInfo, workHistoryList);
+        return createTaskHistory(workHistoryList);
     }, [workHistoryList, userInfo]);
 
     return {

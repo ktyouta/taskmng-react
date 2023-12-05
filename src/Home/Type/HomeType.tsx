@@ -7,4 +7,5 @@ export type taskHistoryType = {
     taskTitle: string,
     editType: string,
     deleteFlg: string,
+    historyMessage: string,
 }
