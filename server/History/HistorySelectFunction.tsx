@@ -1,5 +1,6 @@
 import { GENERALDETAILFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKHISTORYPATH, TRANSACTION, USERINFOFILEPATH } from "../Constant";
 import { readFile } from "../FileFunction";
+import { getGeneralDetailData } from "../GeneralFunction";
 import { TASK_FILEPATH } from "../Task/TaskSelectFunction";
 import { generalDetailType, taskListType, userInfoType } from "../Type/type";
 import { TASK_HISTORY_PATH } from "./HistoryFunction";
@@ -102,9 +103,13 @@ export function getAddTaskHistoryObj(): addTaskHistoryType[] {
  */
 export function createHistoryMessage(decodeFileData: taskHistoryType[]) {
 
+    //タスクステータスリスト
+    let crudList = getGeneralDetailData(CRUD_ID);
+
     decodeFileData.forEach((element) => {
 
-        element.historyMessage = `${element.time}　${element.taskTitle}　${element.editType}　　作業ユーザー：${element.userName}`;
+        element.historyMessage = `${element.editType}日時：${element.time}　ID：${element.taskId}　タイトル：${element.taskTitle}　
+        作業内容：${element.editType}　　作業ユーザー：${element.userName}`;
     });
 
     return decodeFileData;

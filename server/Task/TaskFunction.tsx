@@ -261,6 +261,16 @@ export function runDeleteTask(res: any, req: any, delTaskId: string) {
             .json({ customErrMessage });
     }
 
+    //作業履歴の登録
+    let historyErrMessage = runAddTaskHistory(authResult, delTaskId, DELETE);
+
+    //作業履歴の登録に失敗
+    if (historyErrMessage) {
+        return res
+            .status(400)
+            .json({ historyErrMessage });
+    }
+
     //正常終了
     return res
         .status(200)

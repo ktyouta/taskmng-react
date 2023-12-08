@@ -13,6 +13,12 @@ import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 const WorkHistoryListUl = styled.ul`
     text-align: left;
     margin-left: 5%;
+    margin-right: 10%;
+`;
+
+const OunterDiv = styled.div`
+    height: 85%;
+    overflow-y: auto;
 `;
 
 function HomeWorkHistory() {
@@ -37,13 +43,11 @@ function HomeWorkHistory() {
     }
 
     return (
-        <HeightDiv
-            height='85%'
-        >
+        <OunterDiv>
             <WorkHistoryListUl>
                 {workDisplayList}
             </WorkHistoryListUl>
-        </HeightDiv>
+        </OunterDiv>
     );
 }
 

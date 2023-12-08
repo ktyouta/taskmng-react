@@ -1,26 +1,5 @@
 [
 	{
-		"time": "2023/1/1",
-		"userId": "admin",
-		"taskId": "TASKID-1",
-		"editValue": "1",
-		"deleteFlg": "0"
-	},
-	{
-		"time": "2023/1/1",
-		"userId": "admin",
-		"taskId": "TASKID-2",
-		"editValue": "1",
-		"deleteFlg": "0"
-	},
-	{
-		"time": "20231205",
-		"userId": "a",
-		"taskId": "TASKID-65",
-		"editValue": "1",
-		"deleteFlg": "0"
-	},
-	{
 		"time": "2023/12/05",
 		"userId": "a",
 		"taskId": "TASKID-66",
@@ -60,6 +39,20 @@
 		"userId": "a",
 		"taskId": "TASKID-70",
 		"editValue": "2",
+		"deleteFlg": "0"
+	},
+	{
+		"time": "2023/12/06",
+		"userId": "a",
+		"taskId": "TASKID-71",
+		"editValue": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"time": "2023/12/06",
+		"userId": "a",
+		"taskId": "TASKID-71",
+		"editValue": "3",
 		"deleteFlg": "0"
 	}
 ]

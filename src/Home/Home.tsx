@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import '../App.css';
 import LabelComponent from '../Common/LabelComponent';
 import HomeWorkHistory from './HomeWorkHistory';
-import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import { BoldSpan, HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import styled from 'styled-components';
 
 
@@ -12,6 +12,7 @@ const MainDiv = styled.div`
     text-align: left;
     margin-left: 5%;
     padding-top: 3%;
+    height: 90%;
 `;
 
 function Home() {
@@ -24,7 +25,7 @@ function Home() {
         >
             <MainDiv>
                 <LabelComponent
-                    title={"作業履歴"}
+                    title={<BoldSpan>作業履歴</BoldSpan>}
                 />
                 <HomeWorkHistory />
             </MainDiv>
