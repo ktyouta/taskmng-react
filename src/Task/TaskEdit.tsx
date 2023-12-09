@@ -61,17 +61,12 @@ function TaskEdit(props: propsType) {
           height='85%'
         >
           {/* デフォルト属性 */}
-          {
-            refInfoArray &&
-            refInfoArray.default &&
-            refInfoArray.default.length > 0 &&
-            <TaskEditForm
-              refInfoArray={refInfoArray.default}
-              isUpDelLoading={isUpDelLoading}
-              errMessage={errMessage}
-              outerHeight='auto'
-            />
-          }
+          <TaskEditForm
+            refInfoArray={refInfoArray.default}
+            isUpDelLoading={isUpDelLoading}
+            errMessage={errMessage}
+            outerHeight='auto'
+          />
           {/* カスタム属性 */}
           {
             refInfoArray &&

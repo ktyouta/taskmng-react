@@ -11,14 +11,40 @@ import useTaskSearch from './Hook/useTaskSearch';
 import './css/TaskSearch.css';
 import ModalComponent from '../Common/ModalComponent';
 import TaskCondition from './TaskCondition';
+import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import styled from 'styled-components';
 
+
+const TaskSearchAreaDiv = styled.div`
+    height: 100%;
+    display: flex;
+    /* padding-bottom: 2%; */
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    align-items: center;
+    flex-wrap: wrap;
+`;
+
+const TaskSearchConditionAreaDiv = styled.dl`
+    display: flex;
+    width: 70%;
+    align-items: center;
+    flex-wrap: wrap;
+`;
+
+const TaskSearchButtonAreaDiv = styled.div`
+    height: 100%;
+    display: flex;
+    width: 30%;
+    align-items: center;
+`;
 
 function TaskSearch() {
 
     console.log("TaskSearch render");
 
     const {
-        contentRef,
         clickSearchBtn,
         clickClearBtn,
         isModalOpen,
@@ -29,12 +55,14 @@ function TaskSearch() {
     } = useTaskSearch();
 
     return (
-        <div className="tasksearch">
-            <div className="tasksearch-area">
-                <dl className="tasksearch-condition-area">
+        <HeightDiv
+            height='18%'
+        >
+            <TaskSearchAreaDiv>
+                <TaskSearchConditionAreaDiv>
                     {displaySearchConditionList}
-                </dl>
-                <div className="tasksearch-button-area">
+                </TaskSearchConditionAreaDiv>
+                <TaskSearchButtonAreaDiv>
                     <ButtonComponent
                         styleTypeNumber="BASE"
                         title={"リセット"}
@@ -52,8 +80,8 @@ function TaskSearch() {
                         title={"検索"}
                         onclick={clickSearchBtn}
                     />
-                </div>
-            </div>
+                </TaskSearchButtonAreaDiv>
+            </TaskSearchAreaDiv>
             <ModalComponent
                 modalIsOpen={isModalOpen}
                 closeModal={closeModal}
@@ -63,7 +91,7 @@ function TaskSearch() {
                     closeFn={closeModal}
                 />
             </ModalComponent>
-        </div>
+        </HeightDiv>
     );
 }
 

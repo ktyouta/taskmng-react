@@ -3,12 +3,8 @@ import '../App.css';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import styled from 'styled-components';
 import { displayTaskType, viewTaskType } from './Type/TaskType';
+import useTaskViewForm from './Hook/useTaskViewForm';
 
-
-//表示欄のスタイル
-const ValueSpan = styled.span`
-    width:80%
-`;
 
 //引数の型
 type propsType = {
@@ -19,25 +15,13 @@ function TaskViewForm(props: propsType) {
 
     console.log("TaskViewForm render");
 
+    let {
+        viewList
+    } = useTaskViewForm({ ...props });
+
     return (
         <React.Fragment>
-            {
-                props.viewTaskList &&
-                props.viewTaskList.length > 0 &&
-                props.viewTaskList.map((element, index) => {
-                    return (
-                        <HorizonLabelItemComponent
-                            title={element.title}
-                            width="20%"
-                            key={`dynamicform-${index}`}
-                        >
-                            <ValueSpan>
-                                {element.value}
-                            </ValueSpan>
-                        </HorizonLabelItemComponent>
-                    );
-                })
-            }
+            {viewList}
         </React.Fragment>
     );
 }

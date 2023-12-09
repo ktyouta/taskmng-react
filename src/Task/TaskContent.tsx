@@ -3,6 +3,7 @@ import '../App.css';
 import SpaceComponent from '../Common/SpaceComponent';
 import { displayTaskListType, taskContentDisplayType } from './Type/TaskType';
 import React from 'react';
+import useTaskContent from './Hook/useTaskContent';
 
 
 //外側のスタイル
@@ -49,43 +50,39 @@ const ButtonAreaDiv = styled.div`
     margin: 0 0 0 auto;
 `;
 
+//引数の型
+type propsType = {
+    contentObj: taskContentDisplayType
+}
 
-function TaskContent(props: taskContentDisplayType) {
+
+function TaskContent(props: propsType) {
 
     console.log("TaskContent render");
 
+    let {
+        contentList
+    } = useTaskContent({ ...props });
+
     return (
         <OuterDiv
-            bdColor={props.bdColor}
+            bdColor={props.contentObj.bdColor}
         >
             {/* タイトル */}
             <ContentTitleDiv
-                titleBgColor={props.titleBgColor}
-                onClick={props.onClickTitle}
+                titleBgColor={props.contentObj.titleBgColor}
+                onClick={props.contentObj.onClickTitle}
             >
-                {props.title}
+                {props.contentObj.title}
             </ContentTitleDiv>
             <ContentInfoDiv
-                infoBgColor={props.infoBgColor}
+                infoBgColor={props.contentObj.infoBgColor}
             >
                 {/* 内容 */}
-                {
-                    props.content && props.content.map((element) => {
-                        return (
-                            <React.Fragment key={`${element.label}-${element.value}-${props.id}`}>
-                                <div>
-                                    {`${element.label}：${element.value}`}
-                                </div>
-                                <SpaceComponent
-                                    space='2%'
-                                />
-                            </React.Fragment>
-                        )
-                    })
-                }
+                {contentList}
                 {/* ボタン */}
                 <ButtonAreaDiv>
-                    {props.editButton}
+                    {props.contentObj.editButton}
                 </ButtonAreaDiv>
             </ContentInfoDiv>
         </OuterDiv>

@@ -10,6 +10,7 @@ import TaskSearch from './TaskSearch';
 import TaskList from './TaskList';
 import TaskListContent from './TaskListContent';
 import './css/TaskTop.css';
+import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 
 
 function TaskTop() {
@@ -17,10 +18,12 @@ function TaskTop() {
   console.log("TaskTop render");
 
   return (
-    <div className="tasktop">
+    <HeightDiv
+      height='85%'
+    >
       <TaskSearch />
       <TaskListContent />
-    </div>
+    </HeightDiv>
   );
 }
 

@@ -11,6 +11,7 @@ import TaskMain from './TaskMain';
 import useTask from './Hook/useTask';
 import TaskDetail from './TaskDetail';
 import NotFoundComponent from '../NotFound/NotFoundComponent';
+import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 
 type propsType = {
   url: string,
@@ -26,10 +27,12 @@ function Task(props: propsType) {
   } = useTask({ ...props });
 
   return (
-    <div className="task">
+    <HeightDiv
+      height='100%'
+    >
       <Routes>
         <Route path="/" element={<TaskMain />} />
-        {/* 詳細のルーティング */}
+        {/* タスク詳細画面のルーティング */}
         {
           detailRoutingId &&
           <React.Fragment>
@@ -42,7 +45,7 @@ function Task(props: propsType) {
                       path="*"
                       element={
                         <NotFoundComponent
-                          backUrl='/task'
+                          backUrl={props.url}
                         />
                       }
                     />
@@ -62,7 +65,7 @@ function Task(props: propsType) {
           </React.Fragment>
         }
       </Routes>
-    </div>
+    </HeightDiv>
   );
 }
 

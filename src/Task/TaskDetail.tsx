@@ -15,6 +15,7 @@ import TaskEdit from './TaskEdit';
 type propsType = {
     updTaskId: string,
     closeFn?: () => void,
+    backBtnTitle?: string,
 }
 
 
@@ -46,6 +47,7 @@ function TaskDetail(props: propsType) {
                                     updTask={updTask}
                                     openEditPage={openEditPage}
                                     closeFn={props.closeFn}
+                                    backBtnTitle={props.backBtnTitle}
                                 />
                             )
                         //編集

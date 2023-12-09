@@ -5,6 +5,7 @@ import { ReactNode, createRef } from "react";
 import SpaceComponent from "../../Common/SpaceComponent";
 import { createRequestBody, getNowDate, parseStrDate, requestBodyInputCheck } from "../../Common/Function/Function";
 import ButtonComponent from "../../Common/ButtonComponent";
+import styled from "styled-components";
 
 //ステータス
 //未完了
@@ -15,6 +16,18 @@ const COMP_STATUS = "2";
 const HOLD_STATUS = "3";
 //対応中
 const WORKING_STATUS = "4";
+
+//フッターのスタイル
+const TaskConditionItemDiv = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+const TaskSearchAreaDt = styled.dt`
+    height: 100%;
+    width: auto;
+    align-items: center;
+`;
 
 
 /**
@@ -415,10 +428,10 @@ export function createSearchDispCondition(taskSearchConditionList: taskSearchCon
                 //画面表示用の検索条件を追加
                 tmpDisplayList.push(
                     <React.Fragment>
-                        <div className="display-task-condition-item">
-                            <dt>{`[${item.name}]：`}</dt>
-                            <dt>{`${value}`}</dt>
-                        </div>
+                        <TaskConditionItemDiv>
+                            <TaskSearchAreaDt>{`[${item.name}]：`}</TaskSearchAreaDt>
+                            <TaskSearchAreaDt>{`${value}`}</TaskSearchAreaDt>
+                        </TaskConditionItemDiv>
                         <SpaceComponent space={"3%"} />
                     </React.Fragment>
                 );

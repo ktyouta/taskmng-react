@@ -12,6 +12,16 @@ import VerticalLabelDatePickerComponent from '../Common/VerticalLabelDatePickerC
 import WaitLoading from '../Common/WaitLoading';
 import ModalComponent from '../Common/ModalComponent';
 import TaskRegister from './TaskRegister';
+import styled from 'styled-components';
+
+
+//フッターのスタイル
+const TaskFooterDiv = styled.div`
+    display: flex;
+    align-items: center;
+    height: 15%;
+    padding: 0% 0% 0% 2%;
+`;
 
 
 function TaskFooter() {
@@ -25,7 +35,7 @@ function TaskFooter() {
 
     return (
         <React.Fragment>
-            <div className="taskfooter">
+            <TaskFooterDiv>
                 <SpaceComponent
                     space={"85%"}
                 />
@@ -34,7 +44,7 @@ function TaskFooter() {
                     title={"タスク作成"}
                     onclick={onFlag}
                 />
-            </div>
+            </TaskFooterDiv>
             <ModalComponent
                 modalIsOpen={isModalOpen}
                 closeModal={offFlag}

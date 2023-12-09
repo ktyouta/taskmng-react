@@ -10,6 +10,11 @@ export const HeightDiv = styled.div<{ height: string | undefined }>`
     height:${({ height }) => (height)};
 `;
 
+//横幅のスタイル
+export const WidthDiv = styled.div<{ width: string | undefined }>`
+width:${({ width }) => (width)};
+`;
+
 //オーバーフロー(縦方向)
 export const VerticalFlowDiv = styled.div<{ height: string | undefined }>`
     height:${({ height }) => (height)};

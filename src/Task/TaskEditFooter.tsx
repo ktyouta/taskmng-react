@@ -55,7 +55,6 @@ function TaskEditFooter(props: propsType) {
                 props.negativeButtonObj &&
                 props.negativeButtonObj.title &&
                 props.negativeButtonObj.onclick &&
-                props.positiveButtonObj.onclick &&
                 <ButtonComponent
                     styleTypeNumber={props.negativeButtonObj.type}
                     title={props.negativeButtonObj.title}

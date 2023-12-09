@@ -14,6 +14,7 @@ import TaskViewFooter from './TaskViewFooter';
 import TaskViewForm from './TaskViewForm';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
+import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 
 
 //外側のスタイル
@@ -49,6 +50,7 @@ type propsType = {
   updTask: apiTaskDetailType | undefined,
   openEditPage: () => void,
   closeFn?: () => void,
+  backBtnTitle?: string,
 }
 
 
@@ -68,7 +70,9 @@ function TaskView(props: propsType) {
   }
 
   return (
-    <div className="taskedit">
+    <HeightDiv
+      height='100%'
+    >
       <OuterDiv
         height='85%'
       >
@@ -79,14 +83,9 @@ function TaskView(props: propsType) {
         </HeaderDiv>
         <MainAreaDiv>
           {/* デフォルト属性 */}
-          {
-            viewTask &&
-            viewTask.default &&
-            viewTask.default.length > 0 &&
-            <TaskViewForm
-              viewTaskList={viewTask.default}
-            />
-          }
+          <TaskViewForm
+            viewTaskList={viewTask.default}
+          />
           {/* カスタム属性 */}
           {
             viewTask &&
@@ -110,7 +109,7 @@ function TaskView(props: propsType) {
         positiveButtonObj={positiveButtonObj}
         outerHeight='15%'
       />
-    </div>
+    </HeightDiv>
   );
 }
 

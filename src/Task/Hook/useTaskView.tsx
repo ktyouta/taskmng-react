@@ -13,6 +13,7 @@ type propsType = {
     updTask: apiTaskDetailType | undefined,
     openEditPage: () => void,
     closeFn?: () => void,
+    backBtnTitle?: string,
 }
 
 
@@ -55,7 +56,7 @@ function useTaskView(props: propsType) {
     return {
         viewTask,
         backPageButtonObj: {
-            title: `閉じる`,
+            title: props.backBtnTitle ?? `戻る`,
             type: `BASE`,
             onclick: props.closeFn ? backPageButtonFunc : undefined
         } as buttonObjType,

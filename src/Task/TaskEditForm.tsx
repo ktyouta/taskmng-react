@@ -11,7 +11,7 @@ import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 
 //引数の型
 type propsType = {
-    refInfoArray: refInfoType[],
+    refInfoArray: refInfoType[] | undefined,
     isUpDelLoading: boolean,
     errMessage: string,
     outerHeight: string,
@@ -37,9 +37,13 @@ function TaskEditForm(props: propsType) {
         >
             <MainAreaDiv>
                 {/* 入力欄 */}
-                <DynamicForm
-                    refInfoArray={props.refInfoArray}
-                />
+                {
+                    props.refInfoArray &&
+                    props.refInfoArray.length > 0 &&
+                    <DynamicForm
+                        refInfoArray={props.refInfoArray}
+                    />
+                }
             </MainAreaDiv>
         </OuterDiv>
     );

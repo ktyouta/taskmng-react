@@ -12,7 +12,7 @@ import { jsx } from '@emotion/react';
 type propsType = {
     title: string | JSX.Element,
     width?: string,
-    children: ReactNode,
+    children?: ReactNode,
     color?: string,
     position?: positionType,
     marginLt?: string,

@@ -9,7 +9,19 @@ import './css/TaskListContent.css';
 import TaskEdit from './TaskEdit';
 import LabelComponent from '../Common/LabelComponent';
 import TaskDetail from './TaskDetail';
+import { HeightDiv, WidthDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import styled from 'styled-components';
 
+
+//エラーメッセージエリア
+const ErrAreaDiv = styled.div`
+    padding: 0 1 %;
+`;
+
+//表示件数
+const DispLabel = styled(WidthDiv)`
+    text-align: right;
+`;
 
 function TaskListContent() {
 
@@ -26,22 +38,26 @@ function TaskListContent() {
     //該当データが存在しない
     if (errMessage) {
         return (
-            <div className='tasklistcontent-errarea'>
+            <ErrAreaDiv>
                 <MessageComponent
                     message={errMessage}
                     styleTypeNumber={labelType.danger}
                 />
-            </div>
+            </ErrAreaDiv>
         );
     }
 
     return (
-        <div className="tasklistcontent">
-            <div className='tasklistcontent-num'>
+        <HeightDiv
+            height='78%'
+        >
+            <DispLabel
+                width='93%'
+            >
                 <LabelComponent
                     title={`表示件数：${displayTaskList.length}件`}
                 />
-            </div>
+            </DispLabel>
             <TaskList
                 displayTaskList={displayTaskList}
             />
@@ -52,9 +68,10 @@ function TaskListContent() {
                 <TaskDetail
                     updTaskId={updTaskId}
                     closeFn={offFlag}
+                    backBtnTitle="閉じる"
                 />
             </ModalComponent>
-        </div>
+        </HeightDiv>
     );
 }
 
