@@ -16,6 +16,7 @@ export type userInfoType = {
     userName: string,
     password?: string,
     auth: string,
+    deleteFlg?: string,
 }
 
 //メソッドタイプ

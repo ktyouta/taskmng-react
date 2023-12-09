@@ -1,7 +1,16 @@
+import React, { useContext, useEffect } from 'react';
+import logo from './logo.svg';
+import { useAtomValue } from 'jotai';
+import HorizonLabelItemComponent from '../../Common/HorizonLabelItemComponent';
+import BaseInputComponent from '../../Common/BaseInputComponent';
 import styled from 'styled-components';
-import ButtonComponent from '../../Common/ButtonComponent';
-import LabelComponent from '../../Common/LabelComponent';
+import SettingUserMain from './SettingUserEditMain';
+import SettingUserFooter from './SettingUserEditFooter';
+import SettingUserEdit from './SettingUserEdit';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
+import { Routes, Route, Navigate } from "react-router-dom";
+import SettingUserTop from './SettingUserTop';
+import useSettingUser from './Hook/useSettingUser';
 
 
 //外側のスタイル
@@ -11,20 +20,12 @@ const OuterDiv = styled.div`
     min-height: 100%;
 `;
 
-//ボタンのスタイル
-const BtnDiv = styled.div`
-    width: 40%;
-    margin-top:1%;
-    margin-bottom:1%;
-`;
-
-//タイトルのスタイル
-const TitleDiv = styled.div`
-    height: 7%;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-`;
+//編集モードの種類
+export const editModeEnum = {
+    noselect: 0,
+    create: 1,
+    update: 2,
+}
 
 
 function SettingUser() {
@@ -33,13 +34,10 @@ function SettingUser() {
 
     return (
         <OuterDiv>
-            <TitleDiv>
-                <LabelComponent
-                    title={`ユーザー一覧`}
-                    width="100%"
-                />
-            </TitleDiv>
-            少々お待ちください。
+            <Routes>
+                <Route path="/" element={<SettingUserTop />} />
+                <Route path="edit" element={<SettingUserEdit />} />
+            </Routes>
         </OuterDiv>
     );
 }

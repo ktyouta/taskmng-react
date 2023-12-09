@@ -18,6 +18,7 @@ import {
     runUpdCustomAttribute
 } from './SettingFunction/CustomAttribute/CustomAttributeFunction';
 import { getTaskHistory } from './History/HistoryFunction';
+import { getUserInfo } from './SettingFunction/User/UserFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -149,6 +150,12 @@ app.get(`${ENV.TASKHISTORY}`, function (req, res) {
     getTaskHistory(res, req);
 });
 
+/**
+ * userにアクセスした際の動作
+ */
+app.get(`${ENV.SETTINGUSER}`, function (req, res) {
+    getUserInfo(res, req);
+});
 
 
 /**

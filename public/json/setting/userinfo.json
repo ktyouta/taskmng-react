@@ -3,24 +3,28 @@
         "userId":"admin",
         "userName":"管理者",
         "password":"admin",
-        "auth":"3"
+        "auth":"3",
+        "deleteFlg":"0"
     },
     {
         "userId":"user",
         "userName":"ユーザー",
         "password":"user",
-        "auth":"2"
+        "auth":"2",
+        "deleteFlg":"0"
     },
     {
         "userId":"public",
         "userName":"一般ユーザー",
         "password":"public",
-        "auth":"1"
+        "auth":"1",
+        "deleteFlg":"0"
     },
     {
         "userId":"a",
         "userName":"テスト管理者",
         "password":"a",
-        "auth":"3"
+        "auth":"3",
+        "deleteFlg":"0"
     }
 ]
