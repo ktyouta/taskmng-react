@@ -6,7 +6,7 @@ import {
     CUSTOMATTRIBUTELIST
 } from "../../Constant";
 import { userInfoType } from "../../Type/type";
-import { getUserInfoData } from "./UserSelectFunction";
+import { filterUserInfoDetail, getUserInfoData } from "./UserSelectFunction";
 
 
 //カスタム属性ファイルのパス
@@ -38,4 +38,25 @@ export function getUserInfo(res: any, req: any) {
     }
 
     return res.status(200).json(decodeFileData);
+}
+
+/**
+ * ユーザー詳細の取得
+ */
+export function getUserInfoDetail(res: any, req: any, id: string) {
+    //認証チェック
+    let authResult = authenticate(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return authResult;
+    }
+
+    //カスタム属性の読み込み
+    let decodeFileData: userInfoType[] = getUserInfoData();
+
+    //データなし
+    if (!decodeFileData || decodeFileData.length === 0) {
+        return res.status(400).json({ errMessage: `ユーザー情報が登録されていません。` });
+    }
+
+    return filterUserInfoDetail(decodeFileData, id, res);
 }

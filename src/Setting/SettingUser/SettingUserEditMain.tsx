@@ -14,6 +14,7 @@ import LabelTextAreaComponent from '../../Common/LabelTextAreaComponent';
 import BaseTextAreaComponent from '../../Common/BaseTextAreaComponent';
 import SpaceComponent from '../../Common/SpaceComponent';
 import HorizontalComponent from '../../Common/HorizontalComponent';
+import ComboComponent from '../../Common/ComboComponent';
 
 
 //外側のスタイル
@@ -32,10 +33,14 @@ const MainDiv = styled.div`
 //引数の型
 type propsType = {
     outerHeight: string | undefined,
+    userId: string | undefined,
+    id: string | undefined,
+    setId: React.Dispatch<React.SetStateAction<string | undefined>>,
     userName: string | undefined,
     setUserName: React.Dispatch<React.SetStateAction<string | undefined>>,
     password: string | undefined,
     setPassword: React.Dispatch<React.SetStateAction<string | undefined>>,
+    authList: radioType[] | undefined
 }
 
 
@@ -48,6 +53,21 @@ function SettingUserEditMain(props: propsType) {
             height={props.outerHeight}
         >
             <MainDiv>
+                <HorizonLabelItemComponent
+                    title={'ユーザーID'}
+                    width='30%'
+                    position='left'
+                >
+                    {
+                        props.id !== undefined &&
+                        <BaseInputComponent
+                            value={props.id}
+                            length={50}
+                            onChange={props.setId}
+                            textWidth='80%'
+                        />
+                    }
+                </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
                     title={'ユーザー名'}
                     width='30%'
@@ -63,7 +83,6 @@ function SettingUserEditMain(props: propsType) {
                         />
                     }
                 </HorizonLabelItemComponent>
-
                 <HorizonLabelItemComponent
                     title={'パスワード'}
                     width='30%'
@@ -71,11 +90,24 @@ function SettingUserEditMain(props: propsType) {
                 >
                     {
                         props.password !== undefined &&
-                        <BaseTextAreaComponent
+                        <BaseInputComponent
                             value={props.password}
                             length={50}
                             onChange={props.setPassword}
                             textWidth='80%'
+                        />
+                    }
+                </HorizonLabelItemComponent>
+                <HorizonLabelItemComponent
+                    title={'権限'}
+                    width='30%'
+                    position='left'
+                >
+                    {
+                        props.authList && <ComboComponent
+                            combo={props.authList}
+                            initValue={""}
+                            disabled={false}
                         />
                     }
                 </HorizonLabelItemComponent>

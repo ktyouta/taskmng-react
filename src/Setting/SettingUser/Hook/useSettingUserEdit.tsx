@@ -13,6 +13,8 @@ import { buttonType } from "../../../Common/ButtonComponent";
 import { buttonObjType } from "../SettingUserEditFooter";
 import { userType } from "../Type/SettingUserType";
 
+//権限ID
+const AUTH_ID = "1";
 
 //引数の型
 type propsType = {
@@ -35,6 +37,8 @@ function useSettingUserEdit(props: propsType) {
     });
 
     //カスタム属性のパラメータ
+    //ID
+    const [id, setId] = useState<string | undefined>();
     //名称
     const [userName, setUserName] = useState<string | undefined>();
     //パスワード
@@ -45,11 +49,7 @@ function useSettingUserEdit(props: propsType) {
         ref: createRef(),
     }]);
 
-    //入力参照用リスト
-    const [refInfoArray, setRefInfoArray] = useState<refInfoType[]>([]);
-
-
-    //編集画面遷移時に更新用タスクを取得
+    //編集画面遷移時に更新用データを取得
     const { data: upduser, isLoading: isLoadinGetuser } = useQueryWrapper<userType>(
         {
             url: userId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGUSER}/${userId}` : ``,
@@ -59,7 +59,9 @@ function useSettingUserEdit(props: propsType) {
                 if (!data) {
                     return;
                 }
+                setId(data.userId);
                 setUserName(data.userName);
+                setPassword(data.password);
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -68,13 +70,13 @@ function useSettingUserEdit(props: propsType) {
         }
     );
 
-    //カスタム属性の形式リスト
-    const caSelectList = useMemo(() => {
+    //権限リスト
+    const authList = useMemo(() => {
         if (!generalDataList) {
             return;
         }
         let tmp: radioType[] = generalDataList.filter((element) => {
-            return element.id === "4";
+            return element.id === AUTH_ID;
         }).map((element) => {
             return { label: element.label, value: element.value }
         });
@@ -246,10 +248,14 @@ function useSettingUserEdit(props: propsType) {
     };
 
     return {
+        userId,
+        id,
+        setId,
         userName,
         setUserName,
         password,
         setPassword,
+        authList,
         backPage,
         registeAttribute,
         updateAttribute,

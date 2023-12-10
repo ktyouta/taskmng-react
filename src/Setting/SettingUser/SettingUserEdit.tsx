@@ -28,10 +28,14 @@ function SettingUserEdit(props: propsType) {
   console.log("SettingUserEdit render");
 
   const {
+    userId,
+    id,
+    setId,
     userName,
     setUserName,
     password,
     setPassword,
+    authList,
     positiveButtonObj,
     deleteButtonObj,
     runButtonObj,
@@ -41,10 +45,14 @@ function SettingUserEdit(props: propsType) {
     <OuterDiv>
       <SettingUserEditMain
         outerHeight={'85%'}
+        userId={userId}
+        id={id}
+        setId={setId}
         userName={userName}
         setUserName={setUserName}
         password={password}
         setPassword={setPassword}
+        authList={authList}
       />
       <SettingUserEditFooter
         positiveButtonObj={positiveButtonObj}

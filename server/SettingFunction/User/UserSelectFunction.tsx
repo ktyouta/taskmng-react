@@ -21,3 +21,21 @@ export function getUserInfoData() {
 
     return decodeFileData;
 }
+
+
+/**
+ * ユーザー情報のリストをIDで絞り込む
+ * @param decodeFileData 
+ * @param id 
+ * @param res 
+ * @returns 
+ */
+export function filterUserInfoDetail(decodeFileData: userInfoType[], id: string, res: any)
+    : any {
+
+    let singleCustomAttributeData = decodeFileData.find((element) => { return element.userId === id });
+    if (!singleCustomAttributeData) {
+        return res.status(400).json({ errMessage: `該当データがありません。` });
+    }
+    return res.status(200).json(singleCustomAttributeData);
+}
