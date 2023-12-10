@@ -102,14 +102,13 @@
 	},
 	{
 		"id": "ATTRIBUTEID-9",
-		"name": "updtasktest",
+		"name": "updtasktest更新",
 		"description": "updtasktestdes",
 		"type": "select",
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-9",
 		"registerTime": "20231129",
-		"updTime": "20231129",
-		"userId": "a"
+		"updTime": "2023/12/10"
 	},
 	{
 		"id": "ATTRIBUTEID-10",
@@ -119,7 +118,6 @@
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-10",
 		"registerTime": "20231129",
-		"updTime": "20231129",
-		"userId": "a"
+		"updTime": "2023/12/10"
 	}
 ]

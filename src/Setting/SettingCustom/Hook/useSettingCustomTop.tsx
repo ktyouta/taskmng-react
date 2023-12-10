@@ -3,8 +3,12 @@ import { customAttributeIdAtom, editModeAtom } from "./useSettingCustom";
 import { editModeEnum } from "../SettingCustom";
 import { useNavigate } from "react-router-dom";
 
+//引数の型
+type propsType = {
+    url: string,
+}
 
-function useSettingCustomTop() {
+function useSettingCustomTop(props: propsType) {
 
     //編集モード
     const setEditMode = useSetAtom(editModeAtom);
@@ -19,7 +23,7 @@ function useSettingCustomTop() {
     const createNewCustomAttribute = () => {
         setEditMode(editModeEnum.create);
         setCustomAttributeId("");
-        navigate(`/setting/custom/edit`);
+        navigate(`${props.url}/edit`);
     };
 
     return { createNewCustomAttribute }

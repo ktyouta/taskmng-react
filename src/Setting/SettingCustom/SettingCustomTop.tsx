@@ -28,12 +28,16 @@ const TitleDiv = styled.div`
     align-items: center;
 `;
 
+//引数の型
+type propsType = {
+  url: string,
+}
 
-function SettingCustomTop() {
+function SettingCustomTop(props: propsType) {
 
   console.log("SettingCustomTop render");
 
-  const { createNewCustomAttribute } = useSettingCustomTop();
+  const { createNewCustomAttribute } = useSettingCustomTop({ ...props });
 
   return (
     <OuterDiv>
@@ -53,6 +57,7 @@ function SettingCustomTop() {
       <SettingCustomTable
         height='70%'
         width='85%'
+        url={props.url}
       />
     </OuterDiv>
   );

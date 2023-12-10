@@ -14,7 +14,12 @@ import { buttonObjType } from "../SettingUserEditFooter";
 import { userType } from "../Type/SettingUserType";
 
 
-function useSettingUserEdit() {
+//引数の型
+type propsType = {
+    url: string,
+}
+
+function useSettingUserEdit(props: propsType) {
 
     //編集モード
     const editMode = useAtomValue(editModeAtom);
@@ -90,7 +95,7 @@ function useSettingUserEdit() {
     useEffect(() => {
         //モード未選択状態
         if (editMode === editModeEnum.noselect) {
-            navigate(`/setting/custom`);
+            navigate(`${props.url}`);
         }
     }, []);
 
@@ -102,7 +107,7 @@ function useSettingUserEdit() {
         afSuccessFn: (res: resType) => {
             alert(res.errMessage);
             //メッセージを表示してマスタトップ画面に遷移する
-            navigate(`/setting/custom`);
+            navigate(`${props.url}`);
         },
         //失敗後の処理
         afErrorFn: (res: errResType) => {
@@ -165,7 +170,7 @@ function useSettingUserEdit() {
      * 戻るイベント
      */
     const backPage = () => {
-        navigate(`/setting/custom`);
+        navigate(`${props.url}`);
     };
 
     /**
@@ -176,7 +181,7 @@ function useSettingUserEdit() {
         if (!body) {
             return;
         }
-        if (!window.confirm('カスタム属性を登録しますか？')) {
+        if (!window.confirm('ユーザーを登録しますか？')) {
             return
         }
         if (!registMutation) {
@@ -194,7 +199,7 @@ function useSettingUserEdit() {
         if (!body) {
             return;
         }
-        if (!window.confirm('カスタム属性を更新しますか？')) {
+        if (!window.confirm('ユーザーを更新しますか？')) {
             return
         }
         if (!registMutation) {

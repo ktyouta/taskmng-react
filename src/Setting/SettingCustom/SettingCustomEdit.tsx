@@ -17,8 +17,12 @@ const OuterDiv = styled.div`
     min-height: 100%;
 `;
 
+//引数の型
+type propsType = {
+  url: string,
+}
 
-function SettingCustomEdit() {
+function SettingCustomEdit(props: propsType) {
 
   console.log("SettingCustomEdit render");
 
@@ -38,7 +42,7 @@ function SettingCustomEdit() {
     positiveButtonObj,
     deleteButtonObj,
     runButtonObj,
-  } = useSettingCustomEdit();
+  } = useSettingCustomEdit({ ...props });
 
   return (
     <OuterDiv>

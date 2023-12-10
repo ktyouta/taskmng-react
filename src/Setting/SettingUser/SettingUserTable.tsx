@@ -28,7 +28,8 @@ const IdTd = styled.td<{ titleBgColor?: string }>`
 //引数の型
 type propsType = {
   height: string,
-  width: string
+  width: string,
+  url: string,
 }
 
 function SettingUserTable(props: propsType) {
@@ -40,7 +41,7 @@ function SettingUserTable(props: propsType) {
     isLoading,
     errMessage,
     clickId,
-  } = useSettingUserTable();
+  } = useSettingUserTable({ ...props });
 
   //ローディング
   if (isLoading) {

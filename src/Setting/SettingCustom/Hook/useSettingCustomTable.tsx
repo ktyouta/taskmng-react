@@ -8,7 +8,12 @@ import { editModeEnum } from "../SettingCustom";
 import { customAttributeType } from "../Type/SettingCunstomType";
 
 
-function SettingCustomTable() {
+//引数の型
+type propsType = {
+    url: string,
+}
+
+function SettingCustomTable(props: propsType) {
 
     //エラーメッセージ
     const [errMessage, setErrMessage] = useState("");
@@ -36,7 +41,7 @@ function SettingCustomTable() {
     const clickId = (id: string) => {
         setCustomAttributeId(id);
         setEditMode(editModeEnum.update);
-        navigate(`/setting/custom/edit`);
+        navigate(`${props.url}/edit`);
     };
 
     return { customAttributeList, isLoading, errMessage, clickId }

@@ -15,11 +15,33 @@ import SettingUser from '../SettingUser/SettingUser';
 import { Provider } from 'jotai';
 
 
-const jsxList: jsxObjType = {
-    "SettingCustom": <SettingCustom />,
-    "SettingCategory": <SettingCategory />,
-    "SettingUser": <SettingUser />,
-}
+/**
+ * 設定から該当のコンポーネントを返す
+ * @param componentName 
+ * @param url 
+ * @returns 
+ */
+const retSettingComponent = (componentName: string, url: string) => {
+    let component = <React.Fragment></React.Fragment>;
+    switch (componentName) {
+        case "SettingCustom":
+            component = <SettingCustom
+                url={url}
+            />;
+            break;
+        case "SettingCategory":
+            component = <SettingCategory
+                url={url}
+            />;
+            break;
+        case "SettingUser":
+            component = <SettingUser
+                url={url}
+            />;
+            break;
+    }
+    return component;
+};
 
 
 function useSettingMain() {
@@ -37,10 +59,13 @@ function useSettingMain() {
             return;
         }
         let tmpSettingRouteList = settingMenu.map((element, index) => {
-            const Component = jsxList[element.component];
+            //コンポーネントを取得
+            const Component = retSettingComponent(element.component, element.url);
             if (!Component) {
                 return;
             }
+
+            //設定画面（/）にアクセスした際に、メニューの先頭の画面に遷移させる
             if (index === 0) {
                 return (
                     <React.Fragment>

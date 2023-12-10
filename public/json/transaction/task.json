@@ -857,5 +857,17 @@
 		"priority": "1",
 		"status": "1",
 		"deleteFlg": "1"
+	},
+	{
+		"id": "TASKID-73",
+		"title": "カスタム属性の選択リストが更新されない",
+		"content": "",
+		"registerTime": "2023/12/10",
+		"updTime": "2023/12/10",
+		"limitTime": "",
+		"userId": "a",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
 	}
 ]

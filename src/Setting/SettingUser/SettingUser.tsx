@@ -27,16 +27,32 @@ export const editModeEnum = {
     update: 2,
 }
 
+//引数の型
+type propsType = {
+    url: string,
+}
 
-function SettingUser() {
+
+function SettingUser(props: propsType) {
 
     console.log("SettingUser render");
 
     return (
         <OuterDiv>
             <Routes>
-                <Route path="/" element={<SettingUserTop />} />
-                <Route path="edit" element={<SettingUserEdit />} />
+                <Route
+                    path="/"
+                    element={
+                        <SettingUserTop
+                            url={props.url}
+                        />}
+                />
+                <Route
+                    path="edit"
+                    element={<SettingUserEdit
+                        url={props.url}
+                    />}
+                />
             </Routes>
         </OuterDiv>
     );

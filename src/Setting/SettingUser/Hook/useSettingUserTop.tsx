@@ -4,7 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { editModeEnum } from "../SettingUser";
 
 
-function useSettingUserTop() {
+//引数の型
+type propsType = {
+    url: string,
+}
+
+function useSettingUserTop(props: propsType) {
 
     //編集モード
     const setEditMode = useSetAtom(editModeAtom);
@@ -19,7 +24,7 @@ function useSettingUserTop() {
     const createNewUser = () => {
         setEditMode(editModeEnum.create);
         setUserId("");
-        navigate(`/setting/custom/edit`);
+        navigate(`${props.url}/edit`);
     };
 
     return { createNewUser }

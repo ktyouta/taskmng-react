@@ -27,8 +27,12 @@ export const editModeEnum = {
   update: 2,
 }
 
+//引数の型
+type propsType = {
+  url: string,
+}
 
-function SettingCustom() {
+function SettingCustom(props: propsType) {
 
   console.log("SettingCustom render");
 
@@ -39,8 +43,22 @@ function SettingCustom() {
   return (
     <OuterDiv>
       <Routes>
-        <Route path="/" element={<SettingCustomTop />} />
-        <Route path="edit" element={<SettingCustomEdit />} />
+        <Route
+          path="/"
+          element={
+            <SettingCustomTop
+              url={props.url}
+            />
+          }
+        />
+        <Route
+          path="edit"
+          element={
+            <SettingCustomEdit
+              url={props.url}
+            />
+          }
+        />
       </Routes>
     </OuterDiv>
   );

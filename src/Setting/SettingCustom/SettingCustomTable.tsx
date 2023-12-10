@@ -30,7 +30,8 @@ const IdTd = styled.td<{ titleBgColor?: string }>`
 //引数の型
 type propsType = {
   height: string,
-  width: string
+  width: string,
+  url: string
 }
 
 function SettingCustomTable(props: propsType) {
@@ -42,7 +43,7 @@ function SettingCustomTable(props: propsType) {
     isLoading,
     errMessage,
     clickId,
-  } = useSettingCustomTable();
+  } = useSettingCustomTable({ ...props });
 
   //ローディング
   if (isLoading) {

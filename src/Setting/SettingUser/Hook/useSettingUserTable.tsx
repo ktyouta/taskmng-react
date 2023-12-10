@@ -8,7 +8,12 @@ import { editModeEnum } from "../SettingUser";
 import { userType } from "../Type/SettingUserType";
 
 
-function useSettingUserTable() {
+//引数の型
+type propsType = {
+    url: string,
+}
+
+function useSettingUserTable(props: propsType) {
 
     //エラーメッセージ
     const [errMessage, setErrMessage] = useState("");
@@ -36,7 +41,7 @@ function useSettingUserTable() {
     const clickId = (id: string) => {
         setUserId(id);
         setEditMode(editModeEnum.update);
-        navigate(`/setting/user/edit`);
+        navigate(`${props.url}/edit`);
     };
 
     return { userInfoList, isLoading, errMessage, clickId }

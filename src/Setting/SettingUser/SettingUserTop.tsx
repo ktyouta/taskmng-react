@@ -28,12 +28,16 @@ const TitleDiv = styled.div`
     align-items: center;
 `;
 
+//引数の型
+type prospType = {
+  url: string,
+}
 
-function SettingUserTop() {
+function SettingUserTop(props: prospType) {
 
   console.log("SettingUserTop render");
 
-  const { createNewUser } = useSettingUserTop();
+  const { createNewUser } = useSettingUserTop({ ...props });
 
   return (
     <OuterDiv>
@@ -53,6 +57,7 @@ function SettingUserTop() {
       <SettingUserTable
         height='70%'
         width='85%'
+        url={props.url}
       />
     </OuterDiv>
   );

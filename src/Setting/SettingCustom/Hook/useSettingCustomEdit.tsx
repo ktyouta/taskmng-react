@@ -14,7 +14,12 @@ import { buttonObjType } from "../SettingCustomEditFooter";
 import { customAttributeType } from "../Type/SettingCunstomType";
 
 
-function useSettingCustomEdit() {
+//引数の型
+type propsType = {
+    url: string,
+}
+
+function useSettingCustomEdit(props: propsType) {
 
     //編集モード
     const editMode = useAtomValue(editModeAtom);
@@ -138,7 +143,7 @@ function useSettingCustomEdit() {
     useEffect(() => {
         //モード未選択状態
         if (editMode === editModeEnum.noselect) {
-            navigate(`/setting/custom`);
+            navigate(`${props.url}`);
         }
     }, []);
 
@@ -150,7 +155,7 @@ function useSettingCustomEdit() {
         afSuccessFn: (res: resType) => {
             alert(res.errMessage);
             //メッセージを表示してマスタトップ画面に遷移する
-            navigate(`/setting/custom`);
+            navigate(`${props.url}`);
         },
         //失敗後の処理
         afErrorFn: (res: errResType) => {
@@ -213,7 +218,7 @@ function useSettingCustomEdit() {
      * 戻るイベント
      */
     const backPage = () => {
-        navigate(`/setting/custom`);
+        navigate(`${props.url}`);
     };
 
     /**

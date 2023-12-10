@@ -18,7 +18,12 @@ const OuterDiv = styled.div`
 `;
 
 
-function SettingUserEdit() {
+//引数の型
+type propsType = {
+  url: string,
+}
+
+function SettingUserEdit(props: propsType) {
 
   console.log("SettingUserEdit render");
 
@@ -30,7 +35,7 @@ function SettingUserEdit() {
     positiveButtonObj,
     deleteButtonObj,
     runButtonObj,
-  } = useSettingUserEdit();
+  } = useSettingUserEdit({ ...props });
 
   return (
     <OuterDiv>

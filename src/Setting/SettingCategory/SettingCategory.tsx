@@ -26,8 +26,12 @@ const TitleDiv = styled.div`
     align-items: center;
 `;
 
+//引数の型
+type propsType = {
+    url: string,
+}
 
-function SettingCategory() {
+function SettingCategory(props: propsType) {
 
     console.log("SettingCategory render");
 
