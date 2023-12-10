@@ -835,5 +835,68 @@
 		"updTime": "2023/12/06",
 		"deleteFlg": "1",
 		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-72",
+		"customAttributeId": "ATTRIBUTEID-1",
+		"selectedValue": "api用設定ファイル修正後テスト更新",
+		"registerTime": "2023/12/10",
+		"updTime": "2023/12/10",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-72",
+		"customAttributeId": "ATTRIBUTEID-2",
+		"selectedValue": "",
+		"registerTime": "2023/12/10",
+		"updTime": "2023/12/10",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-72",
+		"customAttributeId": "ATTRIBUTEID-5",
+		"selectedValue": "",
+		"registerTime": "2023/12/10",
+		"updTime": "2023/12/10",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-72",
+		"customAttributeId": "ATTRIBUTEID-7",
+		"selectedValue": "",
+		"registerTime": "2023/12/10",
+		"updTime": "2023/12/10",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-72",
+		"customAttributeId": "ATTRIBUTEID-8",
+		"selectedValue": "",
+		"registerTime": "2023/12/10",
+		"updTime": "2023/12/10",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-72",
+		"customAttributeId": "ATTRIBUTEID-9",
+		"selectedValue": "",
+		"registerTime": "2023/12/10",
+		"updTime": "2023/12/10",
+		"deleteFlg": "1",
+		"userId": "a"
+	},
+	{
+		"taskId": "TASKID-72",
+		"customAttributeId": "ATTRIBUTEID-10",
+		"selectedValue": "",
+		"registerTime": "2023/12/10",
+		"updTime": "2023/12/10",
+		"deleteFlg": "1",
+		"userId": "a"
 	}
 ]

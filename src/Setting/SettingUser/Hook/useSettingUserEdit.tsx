@@ -96,7 +96,7 @@ function useSettingUserEdit() {
 
     //登録用フック
     const registMutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTING}${ENV.CUSTOM}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGUSER}`,
         method: "POST",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
@@ -113,7 +113,7 @@ function useSettingUserEdit() {
 
     //更新用フック
     const updMutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTING}${ENV.CUSTOM}/${userId}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGUSER}/${userId}`,
         method: "PUT",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
@@ -128,7 +128,7 @@ function useSettingUserEdit() {
 
     //削除用フック
     const delMutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTING}${ENV.CUSTOM}/${userId}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGUSER}/${userId}`,
         method: "DELETE",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
