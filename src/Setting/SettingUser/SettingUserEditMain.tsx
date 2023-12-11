@@ -40,7 +40,9 @@ type propsType = {
     setUserName: React.Dispatch<React.SetStateAction<string | undefined>>,
     password: string | undefined,
     setPassword: React.Dispatch<React.SetStateAction<string | undefined>>,
-    authList: radioType[] | undefined
+    authList: radioType[] | undefined,
+    auth: string | undefined,
+    setAuth: React.Dispatch<React.SetStateAction<string | undefined>>,
 }
 
 
@@ -104,10 +106,13 @@ function SettingUserEditMain(props: propsType) {
                     position='left'
                 >
                     {
-                        props.authList && <ComboComponent
+                        props.authList &&
+                        props.auth !== undefined &&
+                        <ComboComponent
                             combo={props.authList}
-                            initValue={""}
+                            initValue={props.auth}
                             disabled={false}
+                            onChange={props.setAuth}
                         />
                     }
                 </HorizonLabelItemComponent>

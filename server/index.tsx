@@ -18,7 +18,7 @@ import {
     runUpdCustomAttribute
 } from './SettingFunction/CustomAttribute/CustomAttributeFunction';
 import { getTaskHistory } from './History/HistoryFunction';
-import { getUserInfo, getUserInfoDetail } from './SettingFunction/User/UserFunction';
+import { getUserInfo, getUserInfoDetail, runAddUser } from './SettingFunction/User/UserFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -196,6 +196,12 @@ app.post(ENV.CUSTOMATTRIBUTE, function (req, res) {
     runAddCustomAttribute(res, req);
 });
 
+/**
+ * ユーザーの登録
+ */
+app.post(ENV.SETTINGUSER, function (req, res) {
+    runAddUser(res, req);
+});
 
 
 

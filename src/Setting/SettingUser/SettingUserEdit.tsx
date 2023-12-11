@@ -35,6 +35,8 @@ function SettingUserEdit(props: propsType) {
     setUserName,
     password,
     setPassword,
+    auth,
+    setAuth,
     authList,
     positiveButtonObj,
     deleteButtonObj,
@@ -53,6 +55,8 @@ function SettingUserEdit(props: propsType) {
         password={password}
         setPassword={setPassword}
         authList={authList}
+        auth={auth}
+        setAuth={setAuth}
       />
       <SettingUserEditFooter
         positiveButtonObj={positiveButtonObj}

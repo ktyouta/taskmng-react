@@ -17,6 +17,8 @@ export type userInfoType = {
     password?: string,
     auth: string,
     deleteFlg?: string,
+    registerTime: string,
+    updTime: string,
 }
 
 //メソッドタイプ

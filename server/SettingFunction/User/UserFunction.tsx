@@ -3,20 +3,18 @@ import {
     CUSTOMATTRIBUTE,
     JSONEXTENSION,
     TRANSACTION,
-    CUSTOMATTRIBUTELIST
+    CUSTOMATTRIBUTELIST,
+    USERINFOFILEPATH
 } from "../../Constant";
+import { overWriteData } from "../../FileFunction";
+import { checkUpdAuth } from "../../MasterDataFunction";
 import { userInfoType } from "../../Type/type";
+import { createAddUserData, dubUserCheck } from "./UserRegistFunction";
 import { filterUserInfoDetail, getUserInfoData } from "./UserSelectFunction";
 
 
-//カスタム属性ファイルのパス
-export const CUSTOM_ATTRIBUTE_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTE}${JSONEXTENSION}`;
-//カスタム属性リストファイルのパス
-export const CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTELIST}${JSONEXTENSION}`;
-//カスタム属性IDの接頭辞
-export const PRE_CUSTOMATTRIBUTE_ID = `ATTRIBUTEID-`;
-//カスタム属性リストIDの接頭辞
-export const PRE_CUSTOMATTRIBUTELIST_ID = `ATTRIBUTELISTID-`;
+//ユーザー情報ファイルのパス
+export const USER_INFO_FILEPATH = `${TRANSACTION}${USERINFOFILEPATH}${JSONEXTENSION}`;
 
 
 /**
@@ -29,7 +27,7 @@ export function getUserInfo(res: any, req: any) {
         return authResult;
     }
 
-    //カスタム属性の読み込み
+    //ユーザー情報の読み込み
     let decodeFileData: userInfoType[] = getUserInfoData();
 
     //データなし
@@ -59,4 +57,55 @@ export function getUserInfoDetail(res: any, req: any, id: string) {
     }
 
     return filterUserInfoDetail(decodeFileData, id, res);
+}
+
+/**
+ * ユーザーの追加
+ */
+export function runAddUser(res: any, req: any) {
+    //認証権限チェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //ユーザー情報の読み込み
+    let decodeFileData: userInfoType[] = getUserInfoData();
+
+    //重複チェック
+    let dubErrMessage = dubUserCheck(decodeFileData, req);
+
+    //重複エラー
+    if (dubErrMessage) {
+        return res
+            .status(400)
+            .json({ errMessage: dubErrMessage });
+    }
+
+    //登録用データの作成
+    let registData = createAddUserData(decodeFileData, req, authResult);
+
+    //ユーザーが登録されていない
+    if (!registData || !Array.isArray(registData) || registData.length === 0) {
+        return res
+            .status(400)
+            .json({ errMessage: "ユーザーが登録されませんでした。" });
+    }
+
+    //データを登録
+    let errMessage = overWriteData(USER_INFO_FILEPATH, JSON.stringify(registData, null, '\t'));
+
+    //登録更新削除に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
+    //正常終了
+    return res
+        .status(200)
+        .json({ errMessage: `登録が完了しました。` });
 }

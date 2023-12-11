@@ -43,11 +43,8 @@ function useSettingUserEdit(props: propsType) {
     const [userName, setUserName] = useState<string | undefined>();
     //パスワード
     const [password, setPassword] = useState<string | undefined>();
-    //可変選択リスト
-    const [selectElementList, setSelectElementList] = useState<inputRefType[]>([{
-        value: "",
-        ref: createRef(),
-    }]);
+    //権限
+    const [auth, setAuth] = useState<string | undefined>();
 
     //編集画面遷移時に更新用データを取得
     const { data: upduser, isLoading: isLoadinGetuser } = useQueryWrapper<userType>(
@@ -62,6 +59,7 @@ function useSettingUserEdit(props: propsType) {
                 setId(data.userId);
                 setUserName(data.userName);
                 setPassword(data.password);
+                setAuth(data.auth);
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -89,6 +87,8 @@ function useSettingUserEdit(props: propsType) {
         if (editMode === editModeEnum.create) {
             setUserName("");
             setPassword("");
+            setId("");
+            setAuth("");
             return;
         }
     }, []);
@@ -232,18 +232,30 @@ function useSettingUserEdit(props: propsType) {
             auth: ""
         };
 
+        //ID
+        if (!id) {
+            alert("IDを入力してください");
+            return;
+        }
+        body.userId = id;
         //名称
         if (!userName) {
             alert("名称を入力してください");
             return;
         }
         body.userName = userName;
-
         //パスワード
-        if (password) {
-            body.password = password;
+        if (!password) {
+            alert("パスワードを入力してください");
+            return;
         }
-
+        body.password = password;
+        //権限
+        if (!auth) {
+            alert("権限を入力してください");
+            return;
+        }
+        body.auth = auth;
         return body;
     };
 
@@ -256,6 +268,8 @@ function useSettingUserEdit(props: propsType) {
         password,
         setPassword,
         authList,
+        auth,
+        setAuth,
         backPage,
         registeAttribute,
         updateAttribute,

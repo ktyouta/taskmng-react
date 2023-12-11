@@ -14,7 +14,17 @@ const app: express.Express = express();
 app.use(cookieParser());
 
 export function authenticate(cookie: string): authInfoType {
-    let tmpAuthInfo: authInfoType = { status: 200, errMessage: "", userInfo: { userId: "", userName: "", auth: "" } };
+    let tmpAuthInfo: authInfoType = {
+        status: 200,
+        errMessage: "",
+        userInfo: {
+            userId: "",
+            userName: "",
+            auth: "",
+            registerTime: "",
+            updTime: "",
+        }
+    };
     try {
         //クッキーが存在しない
         if (!cookie) {
