@@ -78,6 +78,11 @@ function useSettingUserEdit(props: propsType) {
         }).map((element) => {
             return { label: element.label, value: element.value }
         });
+
+        //新規登録の場合は先頭の値をセット
+        if (editMode === editModeEnum.create && tmp.length > 0) {
+            setAuth(tmp[0].value);
+        }
         return tmp;
     }, [generalDataList]);
 
@@ -88,7 +93,7 @@ function useSettingUserEdit(props: propsType) {
             setUserName("");
             setPassword("");
             setId("");
-            setAuth("");
+            //setAuth("");
             return;
         }
     }, []);

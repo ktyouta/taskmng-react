@@ -36,12 +36,21 @@
 		"updTime": ""
 	},
 	{
-		"userId": "test",
-		"userName": "test",
-		"password": "test",
+		"userId": "testupd",
+		"userName": "testupd",
+		"password": "testupd",
 		"auth": "2",
 		"registerTime": "2023/12/13",
 		"updTime": "2023/12/13",
-		"deleteFlg": "1"
+		"deleteFlg": "0"
+	},
+	{
+		"userId": "test",
+		"userName": "test",
+		"password": "test",
+		"auth": "1",
+		"registerTime": "2023/12/13",
+		"updTime": "2023/12/13",
+		"deleteFlg": "0"
 	}
 ]

@@ -18,7 +18,7 @@ import {
     runUpdCustomAttribute
 } from './SettingFunction/CustomAttribute/CustomAttributeFunction';
 import { getTaskHistory } from './History/HistoryFunction';
-import { getUserInfo, getUserInfoDetail, runAddUser, runDeleteUser } from './SettingFunction/User/UserFunction';
+import { getUserInfo, getUserInfoDetail, runAddUser, runDeleteUser, runUpdUser } from './SettingFunction/User/UserFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -275,6 +275,13 @@ app.put(`${ENV.TASK}/:param`, function (req, res) {
  */
 app.put(`${ENV.CUSTOMATTRIBUTE}/:param`, function (req, res) {
     runUpdCustomAttribute(res, req, req.params.param);
+});
+
+/**
+ * ユーザー情報の更新
+ */
+app.put(`${ENV.SETTINGUSER}/:param`, function (req, res) {
+    runUpdUser(res, req, req.params.param);
 });
 
 
