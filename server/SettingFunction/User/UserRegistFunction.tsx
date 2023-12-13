@@ -33,7 +33,7 @@ export function createAddUserData(fileDataObj: userInfoType[], req: any, authRes
 }
 
 /**
- * 登録用データの作成
+ * IDの重複チェック
  * @param filePath 
  * @param stream 
  * @returns 

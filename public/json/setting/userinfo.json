@@ -1,38 +1,47 @@
 [
-    {
-        "userId":"admin",
-        "userName":"管理者",
-        "password":"admin",
-        "auth":"3",
-        "deleteFlg":"0",
-        "registerTime":"",
-        "updTime":""
-    },
-    {
-        "userId":"user",
-        "userName":"ユーザー",
-        "password":"user",
-        "auth":"2",
-        "deleteFlg":"0",
-        "registerTime":"",
-        "updTime":""
-    },
-    {
-        "userId":"public",
-        "userName":"一般ユーザー",
-        "password":"public",
-        "auth":"1",
-        "deleteFlg":"0",
-        "registerTime":"",
-        "updTime":""
-    },
-    {
-        "userId":"a",
-        "userName":"テスト管理者",
-        "password":"a",
-        "auth":"3",
-        "deleteFlg":"0",
-        "registerTime":"",
-        "updTime":""
-    }
+	{
+		"userId": "admin",
+		"userName": "管理者",
+		"password": "admin",
+		"auth": "3",
+		"deleteFlg": "0",
+		"registerTime": "",
+		"updTime": ""
+	},
+	{
+		"userId": "user",
+		"userName": "ユーザー",
+		"password": "user",
+		"auth": "2",
+		"deleteFlg": "0",
+		"registerTime": "",
+		"updTime": ""
+	},
+	{
+		"userId": "public",
+		"userName": "一般ユーザー",
+		"password": "public",
+		"auth": "1",
+		"deleteFlg": "0",
+		"registerTime": "",
+		"updTime": ""
+	},
+	{
+		"userId": "a",
+		"userName": "テスト管理者",
+		"password": "a",
+		"auth": "3",
+		"deleteFlg": "0",
+		"registerTime": "",
+		"updTime": ""
+	},
+	{
+		"userId": "test",
+		"userName": "test",
+		"password": "test",
+		"auth": "2",
+		"registerTime": "2023/12/13",
+		"updTime": "2023/12/13",
+		"deleteFlg": "1"
+	}
 ]

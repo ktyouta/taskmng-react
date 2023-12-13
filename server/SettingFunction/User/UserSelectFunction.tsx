@@ -1,9 +1,7 @@
 import { JSONEXTENSION, SETTINGFILEPATH, USERINFOFILEPATH } from "../../Constant";
 import { getFileJsonData } from "../../FileFunction";
 import { userInfoType } from "../../Type/type";
-
-//ユーザー情報ファイルのパス
-export const CUSTOM_ATTRIBUTE_FILEPATH = `${SETTINGFILEPATH}${USERINFOFILEPATH}${JSONEXTENSION}`;
+import { USERINFO_FILEPATH } from "./UserFunction";
 
 
 /**
@@ -12,7 +10,7 @@ export const CUSTOM_ATTRIBUTE_FILEPATH = `${SETTINGFILEPATH}${USERINFOFILEPATH}$
 export function getUserInfoData() {
 
     //カスタム属性の読み込み
-    let decodeFileData: userInfoType[] = getFileJsonData(CUSTOM_ATTRIBUTE_FILEPATH);
+    let decodeFileData: userInfoType[] = getFileJsonData(USERINFO_FILEPATH);
 
     //削除済のデータをフィルターする
     decodeFileData = decodeFileData.filter((element) => {

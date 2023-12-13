@@ -4,17 +4,19 @@ import {
     JSONEXTENSION,
     TRANSACTION,
     CUSTOMATTRIBUTELIST,
-    USERINFOFILEPATH
+    USERINFOFILEPATH,
+    SETTINGFILEPATH
 } from "../../Constant";
 import { overWriteData } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
 import { userInfoType } from "../../Type/type";
+import { createDeleteUserData } from "./UserDeleteFunction";
 import { createAddUserData, dubUserCheck } from "./UserRegistFunction";
 import { filterUserInfoDetail, getUserInfoData } from "./UserSelectFunction";
 
 
 //ユーザー情報ファイルのパス
-export const USER_INFO_FILEPATH = `${TRANSACTION}${USERINFOFILEPATH}${JSONEXTENSION}`;
+export const USERINFO_FILEPATH = `${SETTINGFILEPATH}${USERINFOFILEPATH}${JSONEXTENSION}`;
 
 
 /**
@@ -74,7 +76,7 @@ export function runAddUser(res: any, req: any) {
     //ユーザー情報の読み込み
     let decodeFileData: userInfoType[] = getUserInfoData();
 
-    //重複チェック
+    //IDの重複チェック
     let dubErrMessage = dubUserCheck(decodeFileData, req);
 
     //重複エラー
@@ -95,7 +97,7 @@ export function runAddUser(res: any, req: any) {
     }
 
     //データを登録
-    let errMessage = overWriteData(USER_INFO_FILEPATH, JSON.stringify(registData, null, '\t'));
+    let errMessage = overWriteData(USERINFO_FILEPATH, JSON.stringify(registData, null, '\t'));
 
     //登録更新削除に失敗
     if (errMessage) {
@@ -108,4 +110,53 @@ export function runAddUser(res: any, req: any) {
     return res
         .status(200)
         .json({ errMessage: `登録が完了しました。` });
+}
+
+/**
+ * ユーザーの削除
+ */
+export function runDeleteUser(res: any, req: any, userId: string) {
+    //認証権限チェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //IDの指定がない
+    if (!userId) {
+        return res
+            .status(400)
+            .json({ errMessage: `パラメータが不正です。` });
+    }
+
+    let errMessage = "";
+
+    //ユーザー情報の読み込み
+    let decodeFileData: userInfoType[] = getUserInfoData();
+
+    if (!decodeFileData) {
+        return res
+            .status(400)
+            .json({ errMessage: `ユーザー情報が存在しません。` });
+    }
+
+    //削除データの作成
+    let delCaData = createDeleteUserData(decodeFileData, userId);
+
+    //データを削除
+    errMessage = overWriteData(USERINFO_FILEPATH, JSON.stringify(delCaData, null, '\t'));
+
+    //削除に失敗
+    if (errMessage) {
+        return res
+            .status(500)
+            .json({ errMessage });
+    }
+
+    //正常終了
+    return res
+        .status(200)
+        .json({ errMessage: `削除が完了しました。` });
 }

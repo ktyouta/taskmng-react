@@ -18,7 +18,7 @@ import {
     runUpdCustomAttribute
 } from './SettingFunction/CustomAttribute/CustomAttributeFunction';
 import { getTaskHistory } from './History/HistoryFunction';
-import { getUserInfo, getUserInfoDetail, runAddUser } from './SettingFunction/User/UserFunction';
+import { getUserInfo, getUserInfoDetail, runAddUser, runDeleteUser } from './SettingFunction/User/UserFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -297,4 +297,11 @@ app.delete(`${ENV.TASK}/:param`, function (req, res) {
  */
 app.delete(`${ENV.CUSTOMATTRIBUTE}/:param`, function (req, res) {
     runDeleteCustomAttribute(res, req, req.params.param);
+});
+
+/**
+ * ユーザー情報の削除
+ */
+app.delete(`${ENV.SETTINGUSER}/:param`, function (req, res) {
+    runDeleteUser(res, req, req.params.param);
 });
