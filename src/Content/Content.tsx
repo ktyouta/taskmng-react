@@ -6,6 +6,7 @@ import useContentLogic from './Hook/useContentLogic';
 import { resUserInfoType } from '../Common/Type/CommonType';
 import React from 'react';
 import Loading from '../Common/Loading';
+import CenterLoading from '../Common/CenterLoading';
 
 
 function Content() {
@@ -15,7 +16,7 @@ function Content() {
 
     //データが取得できるまでローディングを表示
     if (!userInfo || !clientMenuList || clientMenuList.length < 1) {
-        return <Loading height="80vh"/>;
+        return <CenterLoading />;
     }
 
     return (

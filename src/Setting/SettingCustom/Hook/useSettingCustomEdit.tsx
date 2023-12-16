@@ -336,6 +336,7 @@ function useSettingCustomEdit(props: propsType) {
         setCaDescription,
         setCaType,
         setCaRequired,
+        isLoadinGetCustomAttribute,
         addSelectElement,
         deleteSelectElement,
         backPage,

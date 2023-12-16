@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import SettingCustomEditMain from './SettingCustomEditMain';
 import SettingCustomEditFooter from './SettingCustomEditFooter';
 import useSettingCustomEdit from './Hook/useSettingCustomEdit';
+import CenterLoading from '../../Common/CenterLoading';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -37,6 +38,7 @@ function SettingCustomEdit(props: propsType) {
     setCaDescription,
     setCaType,
     setCaRequired,
+    isLoadinGetCustomAttribute,
     addSelectElement,
     deleteSelectElement,
     positiveButtonObj,
@@ -67,6 +69,10 @@ function SettingCustomEdit(props: propsType) {
         runButtonObj={runButtonObj}
         outerHeight={'15%'}
       />
+      {
+        isLoadinGetCustomAttribute &&
+        <CenterLoading />
+      }
     </OuterDiv>
   );
 }

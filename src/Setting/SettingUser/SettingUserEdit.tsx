@@ -8,6 +8,7 @@ import useSettingUserEdit from './Hook/useSettingUserEdit';
 import SettingUserEditMain from '../SettingUser/SettingUserEditMain';
 import SettingUserEditFooter from '../SettingUser/SettingUserEditFooter';
 import Loading from '../../Common/Loading';
+import CenterLoading from '../../Common/CenterLoading';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -70,7 +71,11 @@ function SettingUserEdit(props: propsType) {
         runButtonObj={runButtonObj}
         outerHeight={'15%'}
       />
+      {
+        isLoadinGetuser && <CenterLoading />
+      }
     </OuterDiv>
+
   );
 }
 

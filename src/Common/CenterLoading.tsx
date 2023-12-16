@@ -5,30 +5,23 @@ import LoadingBase from "./LoadingBase";
 
 
 //ローディング領域のスタイル
-const LoadingDiv = styled.div<{ height: string | undefined }>`
-  height: ${({ height }) => (height ? height : "100vh")};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align:center;
+const LoadingDiv = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 `;
 
-//引数の型
-type propsType = {
-    height?: string,
-}
 
-
-function Loading(props: propsType) {
+function CenterLoading() {
 
     return (
         <LoadingDiv
             className="sweet-loading"
-            height={props.height}
         >
             <LoadingBase />
         </LoadingDiv>
     );
 }
 
-export default Loading;
+export default CenterLoading;
