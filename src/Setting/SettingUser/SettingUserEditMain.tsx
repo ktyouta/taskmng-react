@@ -43,6 +43,8 @@ type propsType = {
     authList: radioType[] | undefined,
     auth: string | undefined,
     setAuth: React.Dispatch<React.SetStateAction<string | undefined>>,
+    registerTime: string,
+    updTime: string,
 }
 
 
@@ -115,6 +117,20 @@ function SettingUserEditMain(props: propsType) {
                             onChange={props.setAuth}
                         />
                     }
+                </HorizonLabelItemComponent>
+                <HorizonLabelItemComponent
+                    title={'登録日'}
+                    width='30%'
+                    position='left'
+                >
+                    {props.registerTime}
+                </HorizonLabelItemComponent>
+                <HorizonLabelItemComponent
+                    title={'更新日'}
+                    width='30%'
+                    position='left'
+                >
+                    {props.updTime}
                 </HorizonLabelItemComponent>
             </MainDiv>
         </OuterDiv>

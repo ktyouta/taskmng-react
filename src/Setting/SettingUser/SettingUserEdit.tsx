@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import useSettingUserEdit from './Hook/useSettingUserEdit';
 import SettingUserEditMain from '../SettingUser/SettingUserEditMain';
 import SettingUserEditFooter from '../SettingUser/SettingUserEditFooter';
+import Loading from '../../Common/Loading';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -37,6 +38,9 @@ function SettingUserEdit(props: propsType) {
     setPassword,
     auth,
     setAuth,
+    registerTime,
+    updTime,
+    isLoadinGetuser,
     authList,
     positiveButtonObj,
     deleteButtonObj,
@@ -57,6 +61,8 @@ function SettingUserEdit(props: propsType) {
         authList={authList}
         auth={auth}
         setAuth={setAuth}
+        registerTime={registerTime}
+        updTime={updTime}
       />
       <SettingUserEditFooter
         positiveButtonObj={positiveButtonObj}

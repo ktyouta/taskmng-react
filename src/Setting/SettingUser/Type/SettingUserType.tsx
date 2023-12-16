@@ -4,4 +4,6 @@ export type userType = {
     userName: string,
     password: string,
     auth: string,
+    registerTime?: string,
+    updTime?: string,
 }

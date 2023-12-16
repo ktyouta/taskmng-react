@@ -47,7 +47,7 @@ function useSettingUserEdit(props: propsType) {
     const [auth, setAuth] = useState<string | undefined>();
 
     //編集画面遷移時に更新用データを取得
-    const { data: upduser, isLoading: isLoadinGetuser } = useQueryWrapper<userType>(
+    const { data: updUser, isLoading: isLoadinGetuser } = useQueryWrapper<userType>(
         {
             url: userId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGUSER}/${userId}` : ``,
             //取得したデータをセット
@@ -67,6 +67,16 @@ function useSettingUserEdit(props: propsType) {
             }
         }
     );
+
+    //登録日
+    let registerTime = useMemo(() => {
+        return updUser && updUser.registerTime ? updUser.registerTime : "";
+    }, [updUser]);
+
+    //更新日
+    let updTime = useMemo(() => {
+        return updUser && updUser.updTime ? updUser.updTime : "";
+    }, [updUser]);
 
     //権限リスト
     const authList = useMemo(() => {
@@ -93,7 +103,7 @@ function useSettingUserEdit(props: propsType) {
             setUserName("");
             setPassword("");
             setId("");
-            //setAuth("");
+            setAuth("");
             return;
         }
     }, []);
@@ -234,7 +244,9 @@ function useSettingUserEdit(props: propsType) {
             userId: "",
             userName: "",
             password: "",
-            auth: ""
+            auth: "",
+            registerTime: "",
+            updTime: ""
         };
 
         //ID
@@ -275,6 +287,9 @@ function useSettingUserEdit(props: propsType) {
         authList,
         auth,
         setAuth,
+        registerTime,
+        updTime,
+        isLoadinGetuser,
         backPage,
         registeAttribute,
         updateAttribute,
