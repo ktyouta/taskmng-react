@@ -861,13 +861,13 @@
 	{
 		"id": "TASKID-73",
 		"title": "カスタム属性の選択リストが更新されない",
-		"content": "",
+		"content": "原因\nformat→typeの置換漏れ",
 		"registerTime": "2023/12/10",
-		"updTime": "2023/12/10",
+		"updTime": "2023/12/17",
 		"limitTime": "",
 		"userId": "a",
 		"priority": "1",
-		"status": "1",
+		"status": "2",
 		"deleteFlg": "0"
 	}
 ]

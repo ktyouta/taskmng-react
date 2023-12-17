@@ -274,8 +274,8 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
     }
 
     //選択形式の場合はリストの追加更新をする
-    let format = req.body.format;
-    if (format === "select" || format === "radio" || format === "checkbox") {
+    let type = req.body.type;
+    if (type === "select" || type === "radio" || type === "checkbox") {
         //選択リストの追加および更新
         errMessage = runUpdSelectList(updCaData, filterdCaData, req, caId, authResult);
 
