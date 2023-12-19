@@ -1,7 +1,16 @@
+import React, { useContext, useEffect } from 'react';
+import logo from './logo.svg';
+import { useAtomValue } from 'jotai';
+import HorizonLabelItemComponent from '../../Common/HorizonLabelItemComponent';
+import BaseInputComponent from '../../Common/BaseInputComponent';
 import styled from 'styled-components';
-import ButtonComponent from '../../Common/ButtonComponent';
-import LabelComponent from '../../Common/LabelComponent';
+import SettingCategoryMain from './SettingCategoryEditMain';
+import SettingCategoryFooter from './SettingCategoryEditFooter';
+import SettingCategoryEdit from './SettingCategoryEdit';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
+import { Routes, Route, Navigate } from "react-router-dom";
+import SettingCategoryTop from './SettingCategoryTop';
+import useSettingCategory from './Hook/useSettingCategory';
 
 
 //外側のスタイル
@@ -11,25 +20,18 @@ const OuterDiv = styled.div`
     min-height: 100%;
 `;
 
-//ボタンのスタイル
-const BtnDiv = styled.div`
-    width: 40%;
-    margin-top:1%;
-    margin-bottom:1%;
-`;
-
-//タイトルのスタイル
-const TitleDiv = styled.div`
-    height: 7%;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-`;
+//編集モードの種類
+export const editModeEnum = {
+    noselect: 0,
+    create: 1,
+    update: 2,
+}
 
 //引数の型
 type propsType = {
     url: string,
 }
+
 
 function SettingCategory(props: propsType) {
 
@@ -37,13 +39,21 @@ function SettingCategory(props: propsType) {
 
     return (
         <OuterDiv>
-            <TitleDiv>
-                <LabelComponent
-                    title={`カテゴリ一覧`}
-                    width="100%"
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <SettingCategoryTop
+                            url={props.url}
+                        />}
                 />
-            </TitleDiv>
-            少々お待ちください。
+                <Route
+                    path="edit"
+                    element={<SettingCategoryEdit
+                        url={props.url}
+                    />}
+                />
+            </Routes>
         </OuterDiv>
     );
 }
