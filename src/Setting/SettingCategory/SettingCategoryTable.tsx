@@ -65,7 +65,7 @@ function SettingCategoryTable(props: propsType) {
           <thead className="tablecomponent-thead">
             <tr>
               <th>
-                ID
+                パス
               </th>
               <th>
                 名称
@@ -83,13 +83,13 @@ function SettingCategoryTable(props: propsType) {
                     <IdTd
                     //onClick={() => { clickId(element.categoryId) }}
                     >
-                      { }
+                      {element.url}
                     </IdTd>
                     <td>
-                      { }
+                      {element.name}
                     </td>
                     <td>
-                      { }
+                      {element.order}
                     </td>
                   </tr>
                 );

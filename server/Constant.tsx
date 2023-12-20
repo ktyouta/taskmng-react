@@ -32,3 +32,6 @@ export const TASKHISTORYPATH = "taskhistory";
 
 //ユーザー情報ファイルパス
 export const USERINFOFILEPATH = "userinfo";
+
+//カテゴリデータファイルパス
+export const CATEGORYFILEPATH = "menu";

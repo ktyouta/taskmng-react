@@ -6,5 +6,5 @@ export type categoryType = {
     componentPath: string,
     auth: string,
     isHidden: boolean,
-    order: string,
+    deleteFlg: string
 }

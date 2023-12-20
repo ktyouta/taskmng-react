@@ -21,13 +21,13 @@ function useSettingCategoryTable(props: propsType) {
     const navigate = useNavigate();
     //編集モード
     const setEditMode = useSetAtom(editModeAtom);
-    //カスタム属性のID
+    //カテゴリのID
     const setCategoryId = useSetAtom(categoryIdAtom);
 
-    //カスタム属性のリストを取得する
+    //カテゴリのリストを取得する
     const { data: categoryInfoList, isLoading } = useQueryWrapper<categoryType[]>(
         {
-            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGUSER}`,
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CATEGORY}`,
             //失敗後の処理
             afErrorFn: (res: unknown) => {
                 let tmp = res as errResType;
@@ -44,7 +44,12 @@ function useSettingCategoryTable(props: propsType) {
         navigate(`${props.url}/edit`);
     };
 
-    return { categoryInfoList, isLoading, errMessage, clickId }
+    return {
+        categoryInfoList,
+        isLoading,
+        errMessage,
+        clickId
+    }
 
 }
 

@@ -58,7 +58,7 @@ function useSettingCategoryEdit(props: propsType) {
                 }
                 //setId(data.categoryId);
                 //setCategoryName(data.categoryName);
-                setPassword(data.password);
+                //setPassword(data.password);
                 setAuth(data.auth);
             }
             , afErrorFn: (res) => {
@@ -70,12 +70,14 @@ function useSettingCategoryEdit(props: propsType) {
 
     //登録日
     let registerTime = useMemo(() => {
-        return updCategory && updCategory.registerTime ? updCategory.registerTime : "";
+        //return updCategory && updCategory.registerTime ? updCategory.registerTime : "";
+        return "";
     }, [updCategory]);
 
     //更新日
     let updTime = useMemo(() => {
-        return updCategory && updCategory.updTime ? updCategory.updTime : "";
+        //return updCategory && updCategory.updTime ? updCategory.updTime : "";
+        return "";
     }, [updCategory]);
 
     //権限リスト
