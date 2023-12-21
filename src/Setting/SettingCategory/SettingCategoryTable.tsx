@@ -40,7 +40,7 @@ function SettingCategoryTable(props: propsType) {
     categoryInfoList,
     isLoading,
     errMessage,
-    clickId,
+    clickPath,
   } = useSettingCategoryTable({ ...props });
 
   //ローディング
@@ -81,9 +81,9 @@ function SettingCategoryTable(props: propsType) {
                 return (
                   <tr>
                     <IdTd
-                    //onClick={() => { clickId(element.categoryId) }}
+                      onClick={() => { clickPath(element.path) }}
                     >
-                      {element.url}
+                      {element.path}
                     </IdTd>
                     <td>
                       {element.name}

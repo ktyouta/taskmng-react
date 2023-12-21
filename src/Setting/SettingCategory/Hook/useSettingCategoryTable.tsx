@@ -21,8 +21,8 @@ function useSettingCategoryTable(props: propsType) {
     const navigate = useNavigate();
     //編集モード
     const setEditMode = useSetAtom(editModeAtom);
-    //カテゴリのID
-    const setCategoryId = useSetAtom(categoryIdAtom);
+    //カテゴリのpath
+    const setCategoryPath = useSetAtom(categoryIdAtom);
 
     //カテゴリのリストを取得する
     const { data: categoryInfoList, isLoading } = useQueryWrapper<categoryType[]>(
@@ -37,9 +37,9 @@ function useSettingCategoryTable(props: propsType) {
         }
     );
 
-    //IDのクリックイベント
-    const clickId = (id: string) => {
-        setCategoryId(id);
+    //PATHのクリックイベント
+    const clickPath = (path: string) => {
+        setCategoryPath(path);
         setEditMode(editModeEnum.update);
         navigate(`${props.url}/edit`);
     };
@@ -48,7 +48,7 @@ function useSettingCategoryTable(props: propsType) {
         categoryInfoList,
         isLoading,
         errMessage,
-        clickId
+        clickPath
     }
 
 }

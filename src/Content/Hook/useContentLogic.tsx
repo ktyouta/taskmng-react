@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import ENV from '../../env.json';
 import useCheckAuth from '../../Common/Hook/useCheckAuth';
-import { menuListType } from '../../Common/Hook/useGetViewName';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import { atom, useAtom } from 'jotai';
-import { resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
+import { menuListType, resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
 import { useGlobalAtom } from '../../Common/Hook/useGlobalAtom';
 
 

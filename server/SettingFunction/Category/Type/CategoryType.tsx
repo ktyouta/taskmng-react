@@ -1,7 +1,7 @@
 //カテゴリの型
 export type categoryType = {
     name: string,
-    url: string,
+    path: string,
     component: string,
     componentPath: string,
     auth: string,

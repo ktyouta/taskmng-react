@@ -2,7 +2,6 @@ import '../App.css';
 import './css/Header.css';
 import ButtonComponent from '../Common/ButtonComponent';
 import useHeader from './Hook/useHeader';
-import { menuListType } from '../Common/Hook/useGetViewName';
 
 type propsType = {
   userName: string | undefined,

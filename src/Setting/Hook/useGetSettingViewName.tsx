@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { JsxElement } from 'typescript';
 import useChangeUrlFunction from '../../Common/Hook/useChangeUrlFunction';
+import { menuListType } from '../../Common/Type/CommonType';
 
-export type menuListType = {
-    name: string,
-    url: string,
-    component: string,
-    componentPath: string,
-    auth: string,
-    isHidden: boolean,
-}
 
 type propsType = {
     menu: menuListType[] | undefined,
@@ -36,7 +29,7 @@ function useGetSettingViewName(props: propsType) {
             let mainPath = `/${pathArray[1]}/${pathArray[2]}`;
             props.menu.forEach((element) => {
                 //urlが一致する場合にヘッダタイトルを変更
-                if (element.url === mainPath) {
+                if (element.path === mainPath) {
                     setSelectedMenu(element.name);
                     return;
                 }

@@ -22,10 +22,13 @@ export type masterColumnListType = {
 }
 
 //メニューのタイプ
-export type menuType = {
-    url: string,
+export type menuListType = {
     name: string,
+    path: string,
+    component: string,
+    componentPath: string,
     auth: string,
+    isHidden: boolean,
 }
 
 //リクエストボディのタイプ

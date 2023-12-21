@@ -6,7 +6,6 @@ import Top from '../../Top/Top';
 import Master from '../../Master/Master';
 import Setting from '../../Setting/Setting';
 import { generalDataType, jsxObjType, masterDataListType, resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
-import { menuListType } from '../../Common/Hook/useGetViewName';
 import { Route } from "react-router-dom";
 import NotFoundComponent from '../../NotFound/NotFoundComponent';
 import { Provider, atom, useAtom, useAtomValue } from 'jotai';
@@ -107,7 +106,7 @@ function useMainLogic() {
                     break;
                 case "Task":
                     Component = <Task
-                        url={element.url}
+                        url={element.path}
                     />;
                     break;
                 case "Setting":

@@ -5,7 +5,6 @@ import './css/Main.css';
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { masterColumnListType, resUserInfoType } from '../Common/Type/CommonType';
 import useMainLogic from './Hook/useMainLogic';
-import { menuListType } from '../Common/Hook/useGetViewName';
 
 
 function Main() {

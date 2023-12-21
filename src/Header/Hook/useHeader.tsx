@@ -1,9 +1,8 @@
-import useGetViewName, { menuListType } from '../../Common/Hook/useGetViewName';
+import useGetViewName from '../../Common/Hook/useGetViewName';
 import ButtonComponent from '../../Common/ButtonComponent';
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import ENV from '../../env.json';
-import { menuType } from '../../Common/Type/CommonType';
 import { useAtomValue } from 'jotai';
 import { clientMenuListAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';

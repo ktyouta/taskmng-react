@@ -9,7 +9,7 @@ import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, customAttributeListType, customAttributeType, searchConditionType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
-import { getFilterdCategory } from "./CategorySelectFunction";
+import { filterCategoryDetail, getFilterdCategory } from "./CategorySelectFunction";
 import { categoryType } from "./Type/CategoryType";
 
 
@@ -48,4 +48,25 @@ export function getCategory(res: any, req: any) {
     }
 
     return res.status(200).json(decodeFileData);
+}
+
+/**
+ * カテゴリ詳細の取得
+ */
+export function getCategoryDetail(res: any, req: any, path: string) {
+    //認証チェック
+    let authResult = authenticate(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return authResult;
+    }
+
+    //カテゴリの読み込み
+    let decodeFileData: categoryType[] = getFilterdCategory();
+
+    //データなし
+    if (!decodeFileData || decodeFileData.length === 0) {
+        return res.status(400).json({ errMessage: `カテゴリが登録されていません。` });
+    }
+
+    return filterCategoryDetail(decodeFileData, path, res);
 }

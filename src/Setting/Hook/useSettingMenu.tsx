@@ -1,4 +1,3 @@
-import useGetViewName, { menuListType } from '../../Common/Hook/useGetViewName';
 import { clientMenuListAtom, userInfoAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import { useMemo } from 'react';
@@ -7,6 +6,7 @@ import React from 'react';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import ENV from '../../env.json';
 import useGetSettingViewName from './useGetSettingViewName';
+import { menuListType } from '../../Common/Type/CommonType';
 
 
 function useSettingMenu() {
@@ -55,8 +55,8 @@ function useSettingMenu() {
                 cssName += "selected";
             }
             return (
-                <li key={`${element.url}-${index}`} className={cssName}>
-                    <Link to={element.url} className="menu-link">{element.name}</Link>
+                <li key={`${element.path}-${index}`} className={cssName}>
+                    <Link to={element.path} className="menu-link">{element.name}</Link>
                 </li>
             )
         });

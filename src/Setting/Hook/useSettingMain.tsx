@@ -1,4 +1,4 @@
-import useGetViewName, { menuListType } from '../../Common/Hook/useGetViewName';
+import useGetViewName from '../../Common/Hook/useGetViewName';
 import { clientMenuListAtom, userInfoAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import { useEffect, useMemo } from 'react';
@@ -8,7 +8,7 @@ import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import ENV from '../../env.json';
 import { Routes, Route, Navigate } from "react-router-dom";
 import { JsxElement } from 'typescript';
-import { jsxObjType } from '../../Common/Type/CommonType';
+import { jsxObjType, menuListType } from '../../Common/Type/CommonType';
 import SettingCustom from '../SettingCustom/SettingCustom';
 import SettingCategory from '../SettingCategory/SettingCategory';
 import SettingUser from '../SettingUser/SettingUser';
@@ -60,7 +60,7 @@ function useSettingMain() {
         }
         let tmpSettingRouteList = settingMenu.map((element, index) => {
             //コンポーネントを取得
-            const Component = retSettingComponent(element.component, element.url);
+            const Component = retSettingComponent(element.component, element.path);
             if (!Component) {
                 return;
             }
@@ -69,12 +69,12 @@ function useSettingMain() {
             if (index === 0) {
                 return (
                     <React.Fragment>
-                        <Route key={element.url} path={element.componentPath} element={<Provider>{Component}</Provider>} />
-                        <Route path="/" element={<Navigate to={element.url} />} />
+                        <Route key={element.path} path={element.componentPath} element={<Provider>{Component}</Provider>} />
+                        <Route path="/" element={<Navigate to={element.path} />} />
                     </React.Fragment>
                 );
             }
-            return <Route key={element.url} path={element.componentPath} element={<Provider>{Component}</Provider>} />;
+            return <Route key={element.path} path={element.componentPath} element={<Provider>{Component}</Provider>} />;
         }).filter(e => e);
         return tmpSettingRouteList;
     }, [settingMenu]);

@@ -19,3 +19,21 @@ export function getFilterdCategory() {
 
     return decodeFileData;
 }
+
+/**
+ * カテゴリを絞り込む
+ * @param decodeFileData 
+ * @param path 
+ * @param res 
+ * @returns 
+ */
+export function filterCategoryDetail(decodeFileData: categoryType[], path: string, res: any)
+    : any {
+
+    let singleCustomAttributeData = decodeFileData.find((element) => { return element.path === path });
+    if (!singleCustomAttributeData) {
+        return res.status(400).json({ errMessage: `該当データがありません。` });
+    }
+
+    return res.status(200).json(singleCustomAttributeData);
+}
