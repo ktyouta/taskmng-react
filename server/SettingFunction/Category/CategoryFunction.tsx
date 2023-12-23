@@ -53,7 +53,7 @@ export function getCategory(res: any, req: any) {
 /**
  * カテゴリ詳細の取得
  */
-export function getCategoryDetail(res: any, req: any, path: string) {
+export function getCategoryDetail(res: any, req: any, id: string) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
@@ -68,5 +68,5 @@ export function getCategoryDetail(res: any, req: any, path: string) {
         return res.status(400).json({ errMessage: `カテゴリが登録されていません。` });
     }
 
-    return filterCategoryDetail(decodeFileData, path, res);
+    return filterCategoryDetail(decodeFileData, id, res);
 }

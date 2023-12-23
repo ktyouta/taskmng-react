@@ -34,12 +34,12 @@ const MainDiv = styled.div`
 type propsType = {
     outerHeight: string | undefined,
     categoryId: string | undefined,
-    id: string | undefined,
-    setId: React.Dispatch<React.SetStateAction<string | undefined>>,
-    categoryName: string | undefined,
-    setCategoryName: React.Dispatch<React.SetStateAction<string | undefined>>,
-    password: string | undefined,
-    setPassword: React.Dispatch<React.SetStateAction<string | undefined>>,
+    path: string | undefined,
+    setPath: React.Dispatch<React.SetStateAction<string | undefined>>,
+    name: string | undefined,
+    setName: React.Dispatch<React.SetStateAction<string | undefined>>,
+    componentNm: string | undefined,
+    setComponentNm: React.Dispatch<React.SetStateAction<string | undefined>>,
     authList: radioType[] | undefined,
     auth: string | undefined,
     setAuth: React.Dispatch<React.SetStateAction<string | undefined>>,
@@ -58,46 +58,46 @@ function SettingCategoryEditMain(props: propsType) {
         >
             <MainDiv>
                 <HorizonLabelItemComponent
-                    title={'ユーザーID'}
+                    title={'パス'}
                     width='30%'
                     position='left'
                 >
                     {
-                        props.id !== undefined &&
+                        props.path !== undefined &&
                         <BaseInputComponent
-                            value={props.id}
+                            value={props.path}
                             length={50}
-                            onChange={props.setId}
+                            onChange={props.setPath}
                             textWidth='80%'
                         />
                     }
                 </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
-                    title={'ユーザー名'}
+                    title={'名称'}
                     width='30%'
                     position='left'
                 >
                     {
-                        props.categoryName !== undefined &&
+                        props.name !== undefined &&
                         <BaseInputComponent
-                            value={props.categoryName}
+                            value={props.name}
                             length={50}
-                            onChange={props.setCategoryName}
+                            onChange={props.setName}
                             textWidth='80%'
                         />
                     }
                 </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
-                    title={'パスワード'}
+                    title={'コンポーネント名称'}
                     width='30%'
                     position='left'
                 >
                     {
-                        props.password !== undefined &&
+                        props.componentNm !== undefined &&
                         <BaseInputComponent
-                            value={props.password}
+                            value={props.componentNm}
                             length={50}
-                            onChange={props.setPassword}
+                            onChange={props.setComponentNm}
                             textWidth='80%'
                         />
                     }

@@ -31,12 +31,12 @@ function SettingCategoryEdit(props: propsType) {
 
   const {
     categoryId,
-    id,
-    setId,
-    categoryName,
-    setCategoryName,
-    password,
-    setPassword,
+    path,
+    setPath,
+    name,
+    setName,
+    componentNm,
+    setComponentNm,
     auth,
     setAuth,
     registerTime,
@@ -53,12 +53,12 @@ function SettingCategoryEdit(props: propsType) {
       <SettingCategoryEditMain
         outerHeight={'85%'}
         categoryId={categoryId}
-        id={id}
-        setId={setId}
-        categoryName={categoryName}
-        setCategoryName={setCategoryName}
-        password={password}
-        setPassword={setPassword}
+        path={path}
+        setPath={setPath}
+        name={name}
+        setName={setName}
+        componentNm={componentNm}
+        setComponentNm={setComponentNm}
         authList={authList}
         auth={auth}
         setAuth={setAuth}

@@ -19,7 +19,7 @@ import {
 } from './SettingFunction/CustomAttribute/CustomAttributeFunction';
 import { getTaskHistory } from './History/HistoryFunction';
 import { getUserInfo, getUserInfoDetail, runAddUser, runDeleteUser, runUpdUser } from './SettingFunction/User/UserFunction';
-import { getCategory } from './SettingFunction/Category/CategoryFunction';
+import { getCategory, getCategoryDetail } from './SettingFunction/Category/CategoryFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -171,6 +171,14 @@ app.get(`${ENV.SETTINGUSER}/:param`, function (req, res) {
 app.get(`${ENV.CATEGORY}`, function (req, res) {
     getCategory(res, req);
 });
+
+/**
+ * category/idにアクセスした際の動作
+ */
+app.get(`${ENV.CATEGORY}/:param`, function (req, res) {
+    getCategoryDetail(res, req, req.params.param);
+});
+
 
 
 /**

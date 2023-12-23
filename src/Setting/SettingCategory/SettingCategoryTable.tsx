@@ -81,7 +81,7 @@ function SettingCategoryTable(props: propsType) {
                 return (
                   <tr>
                     <IdTd
-                      onClick={() => { clickPath(element.path) }}
+                      onClick={() => { clickPath(element.id) }}
                     >
                       {element.path}
                     </IdTd>

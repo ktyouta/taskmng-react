@@ -36,29 +36,28 @@ function useSettingCategoryEdit(props: propsType) {
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
     });
 
-    //カスタム属性のパラメータ
-    //ID
-    const [id, setId] = useState<string | undefined>();
+    //パス
+    const [path, setPath] = useState<string | undefined>();
     //名称
-    const [categoryName, setCategoryName] = useState<string | undefined>();
-    //パスワード
-    const [password, setPassword] = useState<string | undefined>();
+    const [name, setName] = useState<string | undefined>();
+    //コンポーネント名称
+    const [componentNm, setComponentNm] = useState<string | undefined>();
     //権限
     const [auth, setAuth] = useState<string | undefined>();
 
     //編集画面遷移時に更新用データを取得
     const { data: updCategory, isLoading: isLoadinGetcategory } = useQueryWrapper<categoryType>(
         {
-            url: categoryId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGUSER}/${categoryId}` : ``,
+            url: categoryId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CATEGORY}/${categoryId}` : ``,
             //取得したデータをセット
             afSuccessFn: (data) => {
                 setErrMessage("");
                 if (!data) {
                     return;
                 }
-                //setId(data.categoryId);
-                //setCategoryName(data.categoryName);
-                //setPassword(data.password);
+                setPath(data.path);
+                setName(data.name);
+                setComponentNm(data.componentName);
                 setAuth(data.auth);
             }
             , afErrorFn: (res) => {
@@ -70,14 +69,12 @@ function useSettingCategoryEdit(props: propsType) {
 
     //登録日
     let registerTime = useMemo(() => {
-        //return updCategory && updCategory.registerTime ? updCategory.registerTime : "";
-        return "";
+        return updCategory && updCategory.registerTime ? updCategory.registerTime : "";
     }, [updCategory]);
 
     //更新日
     let updTime = useMemo(() => {
-        //return updCategory && updCategory.updTime ? updCategory.updTime : "";
-        return "";
+        return updCategory && updCategory.updTime ? updCategory.updTime : "";
     }, [updCategory]);
 
     //権限リスト
@@ -102,9 +99,9 @@ function useSettingCategoryEdit(props: propsType) {
     useEffect(() => {
         //新規登録
         if (editMode === editModeEnum.create) {
-            setCategoryName("");
-            setPassword("");
-            setId("");
+            setPath("");
+            setName("");
+            setComponentNm("");
             setAuth("");
             return;
         }
@@ -280,15 +277,15 @@ function useSettingCategoryEdit(props: propsType) {
 
     return {
         categoryId,
-        id,
-        setId,
-        categoryName,
-        setCategoryName,
-        password,
-        setPassword,
-        authList,
+        path,
+        setPath,
+        name,
+        setName,
+        componentNm,
+        setComponentNm,
         auth,
         setAuth,
+        authList,
         registerTime,
         updTime,
         isLoadinGetcategory,

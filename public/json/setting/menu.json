@@ -1,56 +1,74 @@
 [
     {
+        "id":"CATEGORY-1",
         "name": "ホーム",
         "path": "/",
         "componentName":"Home",
         "auth":"1",
         "isHidden":false,
         "deleteFlg": "0",
-        "order":"1"
+        "order":"1",
+        "registerTime": "",
+		"updTime": ""
     },
     {
+        "id":"CATEGORY-2",
         "name": "ホーム",
         "path": "/",
         "componentName":"Top",
         "auth":"1",
         "isHidden":true,
         "deleteFlg": "1",
-        "order":""
+        "order":"",
+        "registerTime": "",
+		"updTime": ""
     },
     {
+        "id":"CATEGORY-3",
         "name": "マスタ編集",
         "path": "/master",
         "componentName":"Master",
         "auth":"2",
         "isHidden":false,
         "deleteFlg": "0",
-        "order":"2"
+        "order":"2",
+        "registerTime": "",
+		"updTime": ""
     },
     {
+        "id":"CATEGORY-4",
         "name": "新規マスタ追加",
         "path": "/addmaster",
         "componentName":"AddMaster",
         "auth":"2",
         "isHidden":false,
         "deleteFlg": "0",
-        "order":"3"
+        "order":"3",
+        "registerTime": "",
+		"updTime": ""
     },
     {
+        "id":"CATEGORY-5",
         "name": "タスク管理",
         "path": "/task",
         "componentName":"Task",
         "auth":"2",
         "isHidden":false,
         "deleteFlg": "0",
-        "order":"4"
+        "order":"4",
+        "registerTime": "",
+		"updTime": ""
     },
     {
+        "id":"CATEGORY-6",
         "name": "設定",
         "path": "/setting",
         "componentName":"Setting",
         "auth":"3",
         "isHidden":false,
         "deleteFlg": "0",
-        "order":"5"
+        "order":"5",
+        "registerTime": "",
+		"updTime": ""
     }
 ]

@@ -27,10 +27,10 @@ export function getFilterdCategory() {
  * @param res 
  * @returns 
  */
-export function filterCategoryDetail(decodeFileData: categoryType[], path: string, res: any)
+export function filterCategoryDetail(decodeFileData: categoryType[], id: string, res: any)
     : any {
 
-    let singleCustomAttributeData = decodeFileData.find((element) => { return element.path === path });
+    let singleCustomAttributeData = decodeFileData.find((element) => { return element.id === id });
     if (!singleCustomAttributeData) {
         return res.status(400).json({ errMessage: `該当データがありません。` });
     }

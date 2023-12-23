@@ -23,6 +23,7 @@ export type masterColumnListType = {
 
 //メニューのタイプ
 export type menuListType = {
+    id: string,
     name: string,
     path: string,
     componentName: string,
