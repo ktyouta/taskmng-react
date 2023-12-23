@@ -9,7 +9,12 @@ import useGetSettingViewName from './useGetSettingViewName';
 import { menuListType } from '../../Common/Type/CommonType';
 
 
-function useSettingMenu() {
+//引数の型
+type propsType = {
+    path: string,
+}
+
+function useSettingMenu(props: propsType) {
 
     //メニューのリスト
     const { data: settingMenu } = useQueryWrapper<menuListType[]>(
@@ -17,10 +22,13 @@ function useSettingMenu() {
             url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGMENU}`,
         }
     );
+
     //メニュー名
     const [selectedMenu] = useGetSettingViewName({
-        menu: settingMenu
+        menu: settingMenu,
+        path: props.path
     });
+
     //ユーザー情報
     const userInfo = useGlobalAtomValue(userInfoAtom);
 
@@ -46,6 +54,7 @@ function useSettingMenu() {
             }
             cnt++;
             let cssName = "";
+            let path = `${props.path}${element.path}`
             //先頭のli
             if (cnt === 1) {
                 cssName = "top-menu-li ";
@@ -55,8 +64,8 @@ function useSettingMenu() {
                 cssName += "selected";
             }
             return (
-                <li key={`${element.path}-${index}`} className={cssName}>
-                    <Link to={element.path} className="menu-link">{element.name}</Link>
+                <li key={`${path}-${index}`} className={cssName}>
+                    <Link to={path} className="menu-link">{element.name}</Link>
                 </li>
             )
         });
@@ -64,7 +73,11 @@ function useSettingMenu() {
         return tmpMenuList;
     }, [settingMenu, selectedMenu, userInfo]);
 
-    return { settingMenu, selectedMenu, menuList };
+    return {
+        settingMenu,
+        selectedMenu,
+        menuList
+    };
 }
 
 export default useSettingMenu;

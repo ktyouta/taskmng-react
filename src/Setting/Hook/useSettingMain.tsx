@@ -21,30 +21,34 @@ import { Provider } from 'jotai';
  * @param url 
  * @returns 
  */
-const retSettingComponent = (componentName: string, url: string) => {
-    let component = <React.Fragment></React.Fragment>;
+const retSettingComponent = (componentName: string, path: string) => {
+    let component = <React.Fragment />;
     switch (componentName) {
         case "SettingCustom":
             component = <SettingCustom
-                url={url}
+                url={path}
             />;
             break;
         case "SettingCategory":
             component = <SettingCategory
-                url={url}
+                url={path}
             />;
             break;
         case "SettingUser":
             component = <SettingUser
-                url={url}
+                url={path}
             />;
             break;
     }
     return component;
 };
 
+//引数の型
+type propsType = {
+    path: string,
+}
 
-function useSettingMain() {
+function useSettingMain(props: propsType) {
 
     //メニューのリスト
     const { data: settingMenu } = useQueryWrapper<menuListType[]>(
@@ -60,7 +64,9 @@ function useSettingMain() {
         }
         let tmpSettingRouteList = settingMenu.map((element, index) => {
             //コンポーネントを取得
-            const Component = retSettingComponent(element.component, element.path);
+            let path = `${props.path}${element.path}`
+            let Component = retSettingComponent(element.componentName, path);
+            let componentPath = `${element.path}/*`
             if (!Component) {
                 return;
             }
@@ -69,12 +75,12 @@ function useSettingMain() {
             if (index === 0) {
                 return (
                     <React.Fragment>
-                        <Route key={element.path} path={element.componentPath} element={<Provider>{Component}</Provider>} />
-                        <Route path="/" element={<Navigate to={element.path} />} />
+                        <Route key={path} path={componentPath} element={<Provider>{Component}</Provider>} />
+                        <Route path="/" element={<Navigate to={path} />} />
                     </React.Fragment>
                 );
             }
-            return <Route key={element.path} path={element.componentPath} element={<Provider>{Component}</Provider>} />;
+            return <Route key={path} path={componentPath} element={<Provider>{Component}</Provider>} />;
         }).filter(e => e);
         return tmpSettingRouteList;
     }, [settingMenu]);

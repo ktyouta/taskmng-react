@@ -2,8 +2,7 @@
     {
         "name": "ホーム",
         "path": "/",
-        "component":"Home",
-        "componentPath": "/",
+        "componentName":"Home",
         "auth":"1",
         "isHidden":false,
         "deleteFlg": "0",
@@ -12,8 +11,7 @@
     {
         "name": "ホーム",
         "path": "/",
-        "component":"Top",
-        "componentPath": "/",
+        "componentName":"Top",
         "auth":"1",
         "isHidden":true,
         "deleteFlg": "1",
@@ -22,8 +20,7 @@
     {
         "name": "マスタ編集",
         "path": "/master",
-        "component":"Master",
-        "componentPath": "/master/*",
+        "componentName":"Master",
         "auth":"2",
         "isHidden":false,
         "deleteFlg": "0",
@@ -32,8 +29,7 @@
     {
         "name": "新規マスタ追加",
         "path": "/addmaster",
-        "component":"AddMaster",
-        "componentPath": "/addmaster/*",
+        "componentName":"AddMaster",
         "auth":"2",
         "isHidden":false,
         "deleteFlg": "0",
@@ -42,8 +38,7 @@
     {
         "name": "タスク管理",
         "path": "/task",
-        "component":"Task",
-        "componentPath": "/task/*",
+        "componentName":"Task",
         "auth":"2",
         "isHidden":false,
         "deleteFlg": "0",
@@ -52,8 +47,7 @@
     {
         "name": "設定",
         "path": "/setting",
-        "component":"Setting",
-        "componentPath": "/setting/*",
+        "componentName":"Setting",
         "auth":"3",
         "isHidden":false,
         "deleteFlg": "0",

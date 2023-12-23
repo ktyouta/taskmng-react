@@ -31,6 +31,40 @@ function createMasterDataListInfo(data: { mastertable: masterDataListType[] }): 
     return data.mastertable;
 }
 
+/**
+ * 設定から該当のコンポーネントを返す
+ * @param componentName 
+ * @param url 
+ * @returns 
+ */
+const retComponent = (componentName: string, path: string) => {
+    let component = <React.Fragment />;
+    switch (componentName) {
+        case "Home":
+            component = <Home />;
+            break;
+        // case "Top":
+        //     Component = <Top />;
+        //     break;
+        case "Master":
+            component = <Master />;
+            break;
+        case "AddMaster":
+            component = <AddMaster />;
+            break;
+        case "Task":
+            component = <Task
+                path={path}
+            />;
+            break;
+        case "Setting":
+            component = <Setting
+                path={path} />;
+            break;
+    }
+    return component;
+};
+
 
 function useMainLogic() {
 
@@ -78,42 +112,20 @@ function useMainLogic() {
         if (!userInfo) {
             return;
         }
-        const userAuth = parseInt(userInfo.auth);
+        let userAuth = parseInt(userInfo.auth);
         tmpComponentList = menu.map((element) => {
             //ログインユーザーの権限でルーティングを切り替える
             if (parseInt(element.auth) > userAuth) {
                 return <React.Fragment />;
             }
-            let Component;
-            const path = element.componentPath;
+            let componentPath = `${element.path}/*`;
             if (element.isHidden) {
                 return <React.Fragment />;
             }
 
             //ルーティングの設定
-            switch (element.component) {
-                case "Home":
-                    Component = <Home />;
-                    break;
-                case "Top":
-                    Component = <Top />;
-                    break;
-                case "Master":
-                    Component = <Master />;
-                    break;
-                case "AddMaster":
-                    Component = <AddMaster />;
-                    break;
-                case "Task":
-                    Component = <Task
-                        url={element.path}
-                    />;
-                    break;
-                case "Setting":
-                    Component = <Setting />;
-                    break;
-            }
-            return <Route key={path} path={path} element={<Provider>{Component}</Provider>} />
+            let component = retComponent(element.componentName, element.path);
+            return <Route key={componentPath} path={componentPath} element={<Provider>{component}</Provider>} />
         });
 
         //notfoundページ

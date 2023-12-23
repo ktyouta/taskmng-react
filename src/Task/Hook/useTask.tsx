@@ -8,7 +8,7 @@ import { searchConditionType, taskSearchConditionType } from "../Type/TaskType";
 
 
 type propsType = {
-    url: string
+    path: string
 }
 
 /**
@@ -73,7 +73,7 @@ function useTask(props: propsType) {
      * 戻るボタン押下処理(閲覧モードに切り替え)
      */
     const backPageFunc = () => {
-        navigate(props.url);
+        navigate(props.path);
     }
 
     return {

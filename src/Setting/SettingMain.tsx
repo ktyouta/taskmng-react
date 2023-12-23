@@ -19,13 +19,14 @@ const OuterDiv = styled.div<{ width: string }>`
 
 type propsType = {
   width: string,
+  path: string,
 }
 
 function SettingMain(props: propsType) {
 
   console.log("SettingMain render");
 
-  const { settingRouteList } = useSettingMain();
+  const { settingRouteList } = useSettingMain({ ...props });
 
   return (
     <OuterDiv

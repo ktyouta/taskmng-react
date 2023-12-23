@@ -6,6 +6,7 @@ import { menuListType } from '../../Common/Type/CommonType';
 
 type propsType = {
     menu: menuListType[] | undefined,
+    path: string
 }
 
 /**
@@ -29,7 +30,8 @@ function useGetSettingViewName(props: propsType) {
             let mainPath = `/${pathArray[1]}/${pathArray[2]}`;
             props.menu.forEach((element) => {
                 //urlが一致する場合にヘッダタイトルを変更
-                if (element.path === mainPath) {
+                let tmpPath = `${props.path}${element.path}`
+                if (tmpPath === mainPath) {
                     setSelectedMenu(element.name);
                     return;
                 }

@@ -25,8 +25,7 @@ export type masterColumnListType = {
 export type menuListType = {
     name: string,
     path: string,
-    component: string,
-    componentPath: string,
+    componentName: string,
     auth: string,
     isHidden: boolean,
 }

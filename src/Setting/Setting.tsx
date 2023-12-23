@@ -8,7 +8,12 @@ import SettingMain from './SettingMain';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
-function Setting() {
+//引数の型
+type propsType = {
+  path: string,
+}
+
+function Setting(props: propsType) {
 
   console.log("setting render");
 
@@ -16,9 +21,11 @@ function Setting() {
     <div className="setting">
       <SettingMenu
         width='15%'
+        path={props.path}
       />
       <SettingMain
         width='85%'
+        path={props.path}
       />
     </div>
   );

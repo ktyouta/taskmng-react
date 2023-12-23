@@ -14,7 +14,7 @@ import NotFoundComponent from '../NotFound/NotFoundComponent';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 
 type propsType = {
-  url: string,
+  path: string,
 }
 
 function Task(props: propsType) {
@@ -45,7 +45,7 @@ function Task(props: propsType) {
                       path="*"
                       element={
                         <NotFoundComponent
-                          backUrl={props.url}
+                          backUrl={props.path}
                         />
                       }
                     />

@@ -18,6 +18,7 @@ const OuterDiv = styled.div<{ width: string }>`
 
 type propsType = {
   width: string,
+  path:string,
 }
 
 
@@ -28,7 +29,7 @@ function SettingMenu(props: propsType) {
   //メニューのビジネスロジック
   const {
     menuList,
-  } = useSettingMenu();
+  } = useSettingMenu({...props});
 
   return (
     <OuterDiv
