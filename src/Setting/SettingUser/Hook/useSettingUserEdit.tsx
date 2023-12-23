@@ -18,7 +18,7 @@ const AUTH_ID = "1";
 
 //引数の型
 type propsType = {
-    url: string,
+    path: string,
 }
 
 function useSettingUserEdit(props: propsType) {
@@ -112,7 +112,7 @@ function useSettingUserEdit(props: propsType) {
     useEffect(() => {
         //モード未選択状態
         if (editMode === editModeEnum.noselect) {
-            navigate(`${props.url}`);
+            navigate(`${props.path}`);
         }
     }, []);
 
@@ -124,7 +124,7 @@ function useSettingUserEdit(props: propsType) {
         afSuccessFn: (res: resType) => {
             alert(res.errMessage);
             //メッセージを表示してマスタトップ画面に遷移する
-            navigate(`${props.url}`);
+            navigate(`${props.path}`);
         },
         //失敗後の処理
         afErrorFn: (res: errResType) => {
@@ -187,7 +187,7 @@ function useSettingUserEdit(props: propsType) {
      * 戻るイベント
      */
     const backPage = () => {
-        navigate(`${props.url}`);
+        navigate(`${props.path}`);
     };
 
     /**

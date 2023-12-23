@@ -29,7 +29,7 @@ const IdTd = styled.td<{ titleBgColor?: string }>`
 type propsType = {
   height: string,
   width: string,
-  url: string,
+  path: string,
 }
 
 function SettingUserTable(props: propsType) {

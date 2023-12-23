@@ -30,7 +30,7 @@ const TitleDiv = styled.div`
 
 //引数の型
 type prospType = {
-  url: string,
+  path: string,
 }
 
 function SettingUserTop(props: prospType) {
@@ -57,7 +57,7 @@ function SettingUserTop(props: prospType) {
       <SettingUserTable
         height='70%'
         width='85%'
-        url={props.url}
+        path={props.path}
       />
     </OuterDiv>
   );

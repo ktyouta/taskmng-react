@@ -30,7 +30,7 @@ const TitleDiv = styled.div`
 
 //引数の型
 type propsType = {
-  url: string,
+  path: string,
 }
 
 function SettingCustomTop(props: propsType) {
@@ -57,7 +57,7 @@ function SettingCustomTop(props: propsType) {
       <SettingCustomTable
         height='70%'
         width='85%'
-        url={props.url}
+        path={props.path}
       />
     </OuterDiv>
   );

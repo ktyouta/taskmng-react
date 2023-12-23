@@ -26,17 +26,17 @@ const retSettingComponent = (componentName: string, path: string) => {
     switch (componentName) {
         case "SettingCustom":
             component = <SettingCustom
-                url={path}
+                path={path}
             />;
             break;
         case "SettingCategory":
             component = <SettingCategory
-                url={path}
+                path={path}
             />;
             break;
         case "SettingUser":
             component = <SettingUser
-                url={path}
+                path={path}
             />;
             break;
     }

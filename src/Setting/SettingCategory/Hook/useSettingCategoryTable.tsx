@@ -10,7 +10,7 @@ import { categoryType } from "../Type/SettingCategoryType";
 
 //引数の型
 type propsType = {
-    url: string,
+    path: string,
 }
 
 function useSettingCategoryTable(props: propsType) {
@@ -41,7 +41,7 @@ function useSettingCategoryTable(props: propsType) {
     const clickPath = (path: string) => {
         setCategoryPath(path);
         setEditMode(editModeEnum.update);
-        navigate(`${props.url}/edit`);
+        navigate(`${props.path}/edit`);
     };
 
     return {

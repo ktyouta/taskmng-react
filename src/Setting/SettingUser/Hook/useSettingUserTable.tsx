@@ -10,7 +10,7 @@ import { userType } from "../Type/SettingUserType";
 
 //引数の型
 type propsType = {
-    url: string,
+    path: string,
 }
 
 function useSettingUserTable(props: propsType) {
@@ -41,7 +41,7 @@ function useSettingUserTable(props: propsType) {
     const clickId = (id: string) => {
         setUserId(id);
         setEditMode(editModeEnum.update);
-        navigate(`${props.url}/edit`);
+        navigate(`${props.path}/edit`);
     };
 
     return { userInfoList, isLoading, errMessage, clickId }

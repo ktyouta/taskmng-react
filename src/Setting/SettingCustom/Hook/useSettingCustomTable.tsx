@@ -10,7 +10,7 @@ import { customAttributeType } from "../Type/SettingCunstomType";
 
 //引数の型
 type propsType = {
-    url: string,
+    path: string,
 }
 
 function SettingCustomTable(props: propsType) {
@@ -41,7 +41,7 @@ function SettingCustomTable(props: propsType) {
     const clickId = (id: string) => {
         setCustomAttributeId(id);
         setEditMode(editModeEnum.update);
-        navigate(`${props.url}/edit`);
+        navigate(`${props.path}/edit`);
     };
 
     return { customAttributeList, isLoading, errMessage, clickId }

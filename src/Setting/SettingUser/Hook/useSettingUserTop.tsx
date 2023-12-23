@@ -6,7 +6,7 @@ import { editModeEnum } from "../SettingUser";
 
 //引数の型
 type propsType = {
-    url: string,
+    path: string,
 }
 
 function useSettingUserTop(props: propsType) {
@@ -24,7 +24,7 @@ function useSettingUserTop(props: propsType) {
     const createNewUser = () => {
         setEditMode(editModeEnum.create);
         setUserId("");
-        navigate(`${props.url}/edit`);
+        navigate(`${props.path}/edit`);
     };
 
     return { createNewUser }

@@ -6,7 +6,7 @@ import { editModeEnum } from "../SettingCategory";
 
 //引数の型
 type propsType = {
-    url: string,
+    path: string,
 }
 
 function useSettingCategoryTop(props: propsType) {
@@ -24,7 +24,7 @@ function useSettingCategoryTop(props: propsType) {
     const createNewCategory = () => {
         setEditMode(editModeEnum.create);
         setCategoryId("");
-        navigate(`${props.url}/edit`);
+        navigate(`${props.path}/edit`);
     };
 
     return { createNewCategory }

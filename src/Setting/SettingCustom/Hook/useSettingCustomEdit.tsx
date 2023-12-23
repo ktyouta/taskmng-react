@@ -16,7 +16,7 @@ import { customAttributeType } from "../Type/SettingCunstomType";
 
 //引数の型
 type propsType = {
-    url: string,
+    path: string,
 }
 
 function useSettingCustomEdit(props: propsType) {
@@ -143,7 +143,7 @@ function useSettingCustomEdit(props: propsType) {
     useEffect(() => {
         //モード未選択状態
         if (editMode === editModeEnum.noselect) {
-            navigate(`${props.url}`);
+            navigate(`${props.path}`);
         }
     }, []);
 
@@ -155,7 +155,7 @@ function useSettingCustomEdit(props: propsType) {
         afSuccessFn: (res: resType) => {
             alert(res.errMessage);
             //メッセージを表示してマスタトップ画面に遷移する
-            navigate(`${props.url}`);
+            navigate(`${props.path}`);
         },
         //失敗後の処理
         afErrorFn: (res: errResType) => {
@@ -218,7 +218,7 @@ function useSettingCustomEdit(props: propsType) {
      * 戻るイベント
      */
     const backPage = () => {
-        navigate(`${props.url}`);
+        navigate(`${props.path}`);
     };
 
     /**

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 //引数の型
 type propsType = {
-    url: string,
+    path: string,
 }
 
 function useSettingCustomTop(props: propsType) {
@@ -23,7 +23,7 @@ function useSettingCustomTop(props: propsType) {
     const createNewCustomAttribute = () => {
         setEditMode(editModeEnum.create);
         setCustomAttributeId("");
-        navigate(`${props.url}/edit`);
+        navigate(`${props.path}/edit`);
     };
 
     return { createNewCustomAttribute }

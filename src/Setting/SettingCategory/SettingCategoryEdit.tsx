@@ -22,7 +22,7 @@ const OuterDiv = styled.div`
 
 //引数の型
 type propsType = {
-  url: string,
+  path: string,
 }
 
 function SettingCategoryEdit(props: propsType) {

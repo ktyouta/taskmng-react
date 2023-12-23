@@ -29,7 +29,7 @@ export const editModeEnum = {
 
 //引数の型
 type propsType = {
-  url: string,
+  path: string,
 }
 
 function SettingCustom(props: propsType) {
@@ -47,7 +47,7 @@ function SettingCustom(props: propsType) {
           path="/"
           element={
             <SettingCustomTop
-              url={props.url}
+              path={props.path}
             />
           }
         />
@@ -55,7 +55,7 @@ function SettingCustom(props: propsType) {
           path="edit"
           element={
             <SettingCustomEdit
-              url={props.url}
+              path={props.path}
             />
           }
         />

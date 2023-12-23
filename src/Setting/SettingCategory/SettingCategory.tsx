@@ -29,7 +29,7 @@ export const editModeEnum = {
 
 //引数の型
 type propsType = {
-    url: string,
+    path: string,
 }
 
 
@@ -44,13 +44,13 @@ function SettingCategory(props: propsType) {
                     path="/"
                     element={
                         <SettingCategoryTop
-                            url={props.url}
+                            path={props.path}
                         />}
                 />
                 <Route
                     path="edit"
                     element={<SettingCategoryEdit
-                        url={props.url}
+                        path={props.path}
                     />}
                 />
             </Routes>
