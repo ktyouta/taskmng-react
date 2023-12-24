@@ -35,8 +35,8 @@ function SettingCategoryEdit(props: propsType) {
     setPath,
     name,
     setName,
-    componentNm,
-    setComponentNm,
+    componentName,
+    setComponentName,
     auth,
     setAuth,
     registerTime,
@@ -46,6 +46,7 @@ function SettingCategoryEdit(props: propsType) {
     positiveButtonObj,
     deleteButtonObj,
     runButtonObj,
+    editMode,
   } = useSettingCategoryEdit({ ...props });
 
   return (
@@ -57,13 +58,14 @@ function SettingCategoryEdit(props: propsType) {
         setPath={setPath}
         name={name}
         setName={setName}
-        componentNm={componentNm}
-        setComponentNm={setComponentNm}
+        componentName={componentName}
+        setComponentName={setComponentName}
         authList={authList}
         auth={auth}
         setAuth={setAuth}
         registerTime={registerTime}
         updTime={updTime}
+        editMode={editMode}
       />
       <SettingCategoryEditFooter
         positiveButtonObj={positiveButtonObj}

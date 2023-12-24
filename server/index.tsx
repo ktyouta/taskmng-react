@@ -19,7 +19,9 @@ import {
 } from './SettingFunction/CustomAttribute/CustomAttributeFunction';
 import { getTaskHistory } from './History/HistoryFunction';
 import { getUserInfo, getUserInfoDetail, runAddUser, runDeleteUser, runUpdUser } from './SettingFunction/User/UserFunction';
-import { getCategory, getCategoryDetail } from './SettingFunction/Category/CategoryFunction';
+import { getCategory, getCategoryDetail, runAddCategory } from './SettingFunction/Category/CategoryFunction';
+import { Response, Request, ParamsDictionary } from 'express-serve-static-core';
+import { ParsedQs } from 'qs';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -219,6 +221,13 @@ app.post(ENV.SETTINGUSER, function (req, res) {
     runAddUser(res, req);
 });
 
+/**
+ * カテゴリの登録
+ */
+app.post(ENV.CATEGORY, function (req, res) {
+    runAddCategory(res, req);
+});
+
 
 
 /**
@@ -328,3 +337,7 @@ app.delete(`${ENV.CUSTOMATTRIBUTE}/:param`, function (req, res) {
 app.delete(`${ENV.SETTINGUSER}/:param`, function (req, res) {
     runDeleteUser(res, req, req.params.param);
 });
+function runAddCateogry(res: Response<any, Record<string, any>, number>, req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>) {
+    throw new Error('Function not implemented.');
+}
+

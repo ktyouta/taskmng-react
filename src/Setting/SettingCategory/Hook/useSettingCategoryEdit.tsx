@@ -11,7 +11,7 @@ import { generalDataType, refInfoType } from "../../../Common/Type/CommonType";
 import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
 import { buttonObjType } from "../SettingCategoryEditFooter";
-import { categoryType } from "../Type/SettingCategoryType";
+import { categoryType, registCategoryType } from "../Type/SettingCategoryType";
 
 //権限ID
 const AUTH_ID = "1";
@@ -41,7 +41,7 @@ function useSettingCategoryEdit(props: propsType) {
     //名称
     const [name, setName] = useState<string | undefined>();
     //コンポーネント名称
-    const [componentNm, setComponentNm] = useState<string | undefined>();
+    const [componentName, setComponentName] = useState<string | undefined>();
     //権限
     const [auth, setAuth] = useState<string | undefined>();
 
@@ -57,7 +57,7 @@ function useSettingCategoryEdit(props: propsType) {
                 }
                 setPath(data.path);
                 setName(data.name);
-                setComponentNm(data.componentName);
+                setComponentName(data.componentName);
                 setAuth(data.auth);
             }
             , afErrorFn: (res) => {
@@ -101,7 +101,7 @@ function useSettingCategoryEdit(props: propsType) {
         if (editMode === editModeEnum.create) {
             setPath("");
             setName("");
-            setComponentNm("");
+            setComponentName("");
             setAuth("");
             return;
         }
@@ -117,7 +117,7 @@ function useSettingCategoryEdit(props: propsType) {
 
     //登録用フック
     const registMutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGUSER}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CATEGORY}`,
         method: "POST",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
@@ -134,7 +134,7 @@ function useSettingCategoryEdit(props: propsType) {
 
     //更新用フック
     const updMutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGUSER}/${categoryId}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CATEGORY}/${categoryId}`,
         method: "PUT",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
@@ -149,7 +149,7 @@ function useSettingCategoryEdit(props: propsType) {
 
     //削除用フック
     const delMutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGUSER}/${categoryId}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CATEGORY}/${categoryId}`,
         method: "DELETE",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
@@ -194,17 +194,17 @@ function useSettingCategoryEdit(props: propsType) {
      */
     const registeAttribute = () => {
         let body = createRequestBody();
-        // if (!body) {
-        //     return;
-        // }
-        // if (!window.confirm('ユーザーを登録しますか？')) {
-        //     return
-        // }
-        // if (!registMutation) {
-        //     alert("リクエストの送信に失敗しました。");
-        //     return;
-        // }
-        // registMutation.mutate(body);
+        if (!body) {
+            return;
+        }
+        if (!window.confirm('カテゴリを登録しますか？')) {
+            return
+        }
+        if (!registMutation) {
+            alert("リクエストの送信に失敗しました。");
+            return;
+        }
+        registMutation.mutate(body);
     }
 
     /**
@@ -239,40 +239,39 @@ function useSettingCategoryEdit(props: propsType) {
      * リクエストボディの作成
      */
     const createRequestBody = () => {
-        // let body: categoryType = {
-        //     categoryId: "",
-        //     categoryName: "",
-        //     password: "",
-        //     auth: "",
-        //     registerTime: "",
-        //     updTime: ""
-        // };
+        let body: registCategoryType = {
+            name: "",
+            path: "",
+            componentName: "",
+            auth: "",
+            isHidden: false,
+        };
 
-        // //ID
-        // if (!id) {
-        //     alert("IDを入力してください");
-        //     return;
-        // }
-        // body.categoryId = id;
-        // //名称
-        // if (!categoryName) {
-        //     alert("名称を入力してください");
-        //     return;
-        // }
-        // body.categoryName = categoryName;
-        // //パスワード
-        // if (!password) {
-        //     alert("パスワードを入力してください");
-        //     return;
-        // }
-        // body.password = password;
-        // //権限
-        // if (!auth) {
-        //     alert("権限を入力してください");
-        //     return;
-        // }
-        // body.auth = auth;
-        // return body;
+        //パス
+        if (!path) {
+            alert("パスを入力してください。");
+            return;
+        }
+        body.path = path;
+        //名称
+        if (!name) {
+            alert("名称を入力してください");
+            return;
+        }
+        body.name = name;
+        //コンポーネント名称
+        if (!componentName) {
+            alert("コンポーネント名称を入力してください");
+            return;
+        }
+        body.componentName = componentName;
+        //権限
+        if (!auth) {
+            alert("権限を入力してください");
+            return;
+        }
+        body.auth = auth;
+        return body;
     };
 
     return {
@@ -281,8 +280,8 @@ function useSettingCategoryEdit(props: propsType) {
         setPath,
         name,
         setName,
-        componentNm,
-        setComponentNm,
+        componentName,
+        setComponentName,
         auth,
         setAuth,
         authList,
@@ -309,6 +308,7 @@ function useSettingCategoryEdit(props: propsType) {
             type: "RUN",
             onclick: editMode === editModeEnum.update ? updateAttribute : registeAttribute
         } as buttonObjType,
+        editMode,
     }
 }
 

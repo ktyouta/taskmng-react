@@ -9,7 +9,7 @@ export const CATEGORY_FILEPATH = `${SETTINGFILEPATH}${CATEGORYFILEPATH}${JSONEXT
  * カテゴリの絞り込み
  */
 export function getFilterdCategory() {
-    //タスクファイルの読み込み
+    //カテゴリファイルの読み込み
     let decodeFileData: categoryType[] = getFileJsonData(CATEGORY_FILEPATH);
 
     //削除フラグが1(削除済)のデータをフィルターする

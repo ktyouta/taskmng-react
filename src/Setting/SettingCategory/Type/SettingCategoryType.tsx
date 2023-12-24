@@ -10,3 +10,12 @@ export type categoryType = {
     registerTime: string,
     updTime: string,
 }
+
+//カテゴリの型(登録更新用)
+export type registCategoryType = {
+    name: string,
+    path: string,
+    componentName: string,
+    auth: string,
+    isHidden: boolean,
+}

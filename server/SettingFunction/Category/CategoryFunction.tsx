@@ -9,8 +9,9 @@ import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, customAttributeListType, customAttributeType, searchConditionType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
-import { filterCategoryDetail, getFilterdCategory } from "./CategorySelectFunction";
+import { CATEGORY_FILEPATH, filterCategoryDetail, getFilterdCategory } from "./CategorySelectFunction";
 import { categoryType } from "./Type/CategoryType";
+import { createAddCategoryData } from "./CategoryRegistFunction";
 
 
 //カスタム属性ファイルのパス
@@ -69,4 +70,59 @@ export function getCategoryDetail(res: any, req: any, id: string) {
     }
 
     return filterCategoryDetail(decodeFileData, id, res);
+}
+
+/**
+ * カテゴリの追加
+ */
+export function runAddCategory(res: any, req: any) {
+    //認証権限チェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //カテゴリの読み込み
+    let decodeFileData: categoryType[] = getFilterdCategory();
+
+    //登録用データの作成
+    let registData = createAddCategoryData(decodeFileData, req, authResult);
+
+    //カテゴリが登録されていない
+    if (!registData || !Array.isArray(registData) || registData.length === 0) {
+        return res
+            .status(400)
+            .json({ errMessage: "カテゴリが登録されませんでした。" });
+    }
+
+    //表示順を割り当てる
+    registData = createOrder(registData)
+
+    //データを登録
+    let errMessage = overWriteData(CATEGORY_FILEPATH, JSON.stringify(registData, null, '\t'));
+
+    //登録更新削除に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
+    //正常終了
+    return res
+        .status(200)
+        .json({ errMessage: `登録が完了しました。` });
+}
+
+/**
+ * 表示順の設定
+ * @param decodeFileData 
+ */
+export function createOrder(decodeFileData: categoryType[]) {
+    decodeFileData.forEach((element, index) => {
+        element.order = `${index + 1}`;
+    });
+    return decodeFileData;
 }

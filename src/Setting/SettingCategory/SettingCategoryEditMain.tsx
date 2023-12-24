@@ -15,6 +15,7 @@ import BaseTextAreaComponent from '../../Common/BaseTextAreaComponent';
 import SpaceComponent from '../../Common/SpaceComponent';
 import HorizontalComponent from '../../Common/HorizontalComponent';
 import ComboComponent from '../../Common/ComboComponent';
+import { editModeEnum } from './SettingCategory';
 
 
 //外側のスタイル
@@ -38,13 +39,14 @@ type propsType = {
     setPath: React.Dispatch<React.SetStateAction<string | undefined>>,
     name: string | undefined,
     setName: React.Dispatch<React.SetStateAction<string | undefined>>,
-    componentNm: string | undefined,
-    setComponentNm: React.Dispatch<React.SetStateAction<string | undefined>>,
+    componentName: string | undefined,
+    setComponentName: React.Dispatch<React.SetStateAction<string | undefined>>,
     authList: radioType[] | undefined,
     auth: string | undefined,
     setAuth: React.Dispatch<React.SetStateAction<string | undefined>>,
     registerTime: string,
     updTime: string,
+    editMode: number,
 }
 
 
@@ -93,11 +95,11 @@ function SettingCategoryEditMain(props: propsType) {
                     position='left'
                 >
                     {
-                        props.componentNm !== undefined &&
+                        props.componentName !== undefined &&
                         <BaseInputComponent
-                            value={props.componentNm}
+                            value={props.componentName}
                             length={50}
-                            onChange={props.setComponentNm}
+                            onChange={props.setComponentName}
                             textWidth='80%'
                         />
                     }
@@ -118,20 +120,26 @@ function SettingCategoryEditMain(props: propsType) {
                         />
                     }
                 </HorizonLabelItemComponent>
-                <HorizonLabelItemComponent
-                    title={'登録日'}
-                    width='30%'
-                    position='left'
-                >
-                    {props.registerTime}
-                </HorizonLabelItemComponent>
-                <HorizonLabelItemComponent
-                    title={'更新日'}
-                    width='30%'
-                    position='left'
-                >
-                    {props.updTime}
-                </HorizonLabelItemComponent>
+                {
+                    props.editMode === editModeEnum.update &&
+                    <HorizonLabelItemComponent
+                        title={'登録日'}
+                        width='30%'
+                        position='left'
+                    >
+                        {props.registerTime}
+                    </HorizonLabelItemComponent>
+                }
+                {
+                    props.editMode === editModeEnum.update &&
+                    <HorizonLabelItemComponent
+                        title={'更新日'}
+                        width='30%'
+                        position='left'
+                    >
+                        {props.updTime}
+                    </HorizonLabelItemComponent>
+                }
             </MainDiv>
         </OuterDiv>
     );
