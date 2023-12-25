@@ -12,6 +12,7 @@ import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
 import { buttonObjType } from "../SettingCategoryEditFooter";
 import { categoryType, registCategoryType } from "../Type/SettingCategoryType";
+import useSwitch from "../../../Common/Hook/useSwitch";
 
 //権限ID
 const AUTH_ID = "1";
@@ -44,6 +45,8 @@ function useSettingCategoryEdit(props: propsType) {
     const [componentName, setComponentName] = useState<string | undefined>();
     //権限
     const [auth, setAuth] = useState<string | undefined>();
+    //コンポーネント名称の初期値
+    const [initComponentName, setInitComponentName] = useState<string>();
 
     //編集画面遷移時に更新用データを取得
     const { data: updCategory, isLoading: isLoadinGetcategory } = useQueryWrapper<categoryType>(
@@ -59,6 +62,7 @@ function useSettingCategoryEdit(props: propsType) {
                 setName(data.name);
                 setComponentName(data.componentName);
                 setAuth(data.auth);
+                setInitComponentName(data.componentName);
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -102,7 +106,6 @@ function useSettingCategoryEdit(props: propsType) {
             setPath("");
             setName("");
             setComponentName("");
-            setAuth("");
             return;
         }
     }, []);
@@ -212,16 +215,25 @@ function useSettingCategoryEdit(props: propsType) {
      */
     const updateAttribute = () => {
         let body = createRequestBody();
-        // if (!body) {
-        //     return;
-        // }
-        // if (!window.confirm('ユーザーを更新しますか？')) {
-        //     return
-        // }
-        // if (!registMutation) {
-        //     alert("リクエストの送信に失敗しました。");
-        //     return;
-        // }
+        if (!body) {
+            return;
+        }
+        //コンポーネント名称が変更された場合
+        if (initComponentName != body.componentName) {
+            if (!window.confirm("コンポーネント名称が変更されたため、画面が表示されなくなる可能性があります。カテゴリを更新しますか？")) {
+                return;
+            }
+        }
+        else {
+            if (!window.confirm('カテゴリを更新しますか？')) {
+                return
+            }
+        }
+
+        if (!registMutation) {
+            alert("リクエストの送信に失敗しました。");
+            return;
+        }
         // updMutation.mutate(body);
     }
 
