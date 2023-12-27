@@ -12,6 +12,7 @@ import { getNowDate } from "../../CommonFunction";
 import { CATEGORY_FILEPATH, filterCategoryDetail, getFilterdCategory } from "./CategorySelectFunction";
 import { categoryType } from "./Type/CategoryType";
 import { createAddCategoryData } from "./CategoryRegistFunction";
+import { createUpdCategoryData } from "./CategoryUpdateFunction";
 
 
 //カスタム属性ファイルのパス
@@ -115,6 +116,51 @@ export function runAddCategory(res: any, req: any) {
         .status(200)
         .json({ errMessage: `登録が完了しました。` });
 }
+
+/**
+ * カテゴリの更新
+ */
+export function runUpdCategory(res: any, req: any, id: string) {
+    //認証権限チェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //カテゴリの読み込み
+    let decodeFileData: categoryType[] = getFilterdCategory();
+
+    //更新用データの作成
+    let registData = createUpdCategoryData(decodeFileData, req, authResult, id);
+
+    //カテゴリが登録されていない
+    if (!registData || !Array.isArray(registData) || registData.length === 0) {
+        return res
+            .status(400)
+            .json({ errMessage: "カテゴリが登録されませんでした。" });
+    }
+
+    //表示順を割り当てる
+    registData = createOrder(registData)
+
+    //データを登録
+    let errMessage = overWriteData(CATEGORY_FILEPATH, JSON.stringify(registData, null, '\t'));
+
+    //登録更新削除に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
+    //正常終了
+    return res
+        .status(200)
+        .json({ errMessage: `更新が完了しました。` });
+}
+
 
 /**
  * 表示順の設定

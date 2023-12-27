@@ -234,7 +234,7 @@ function useSettingCategoryEdit(props: propsType) {
             alert("リクエストの送信に失敗しました。");
             return;
         }
-        // updMutation.mutate(body);
+        updMutation.mutate(body);
     }
 
     /**

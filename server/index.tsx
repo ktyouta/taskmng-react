@@ -19,7 +19,7 @@ import {
 } from './SettingFunction/CustomAttribute/CustomAttributeFunction';
 import { getTaskHistory } from './History/HistoryFunction';
 import { getUserInfo, getUserInfoDetail, runAddUser, runDeleteUser, runUpdUser } from './SettingFunction/User/UserFunction';
-import { getCategory, getCategoryDetail, runAddCategory } from './SettingFunction/Category/CategoryFunction';
+import { getCategory, getCategoryDetail, runAddCategory, runUpdCategory } from './SettingFunction/Category/CategoryFunction';
 import { Response, Request, ParamsDictionary } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 
@@ -308,6 +308,14 @@ app.put(`${ENV.CUSTOMATTRIBUTE}/:param`, function (req, res) {
 app.put(`${ENV.SETTINGUSER}/:param`, function (req, res) {
     runUpdUser(res, req, req.params.param);
 });
+
+/**
+ * カテゴリの更新
+ */
+app.put(`${ENV.CATEGORY}/:param`, function (req, res) {
+    runUpdCategory(res, req, req.params.param);
+});
+
 
 
 /**

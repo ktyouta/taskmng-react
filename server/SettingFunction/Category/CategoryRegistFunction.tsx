@@ -41,9 +41,9 @@ export function createAddCategoryData(fileDataObj: categoryType[], req: any, aut
 
     let fileDataObjLen = fileDataObj.length;
     //IDを取得
-    let id = fileDataObjLen === 0 ? "1" : fileDataObj[fileDataObjLen - 1]['id'].replace(`${PRE_CATEGORY_ID}`, "");
+    let id = fileDataObjLen === 0 ? "1" : fileDataObj[fileDataObjLen - 1].id.replace(`${PRE_CATEGORY_ID}`, "");
     //新しいIDを割り当てる
-    body['id'] = `${PRE_CATEGORY_ID}${parseInt(id) + 1}`;
+    body.id = `${PRE_CATEGORY_ID}${parseInt(id) + 1}`;
 
     fileDataObj.push(body);
     return fileDataObj;
