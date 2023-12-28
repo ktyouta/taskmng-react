@@ -5,7 +5,7 @@ export type categoryType = {
     path: string,
     componentName: string,
     auth: string,
-    isHidden: boolean,
+    isHidden: string,
     order: string,
     registerTime: string,
     updTime: string,
@@ -17,5 +17,5 @@ export type registCategoryType = {
     path: string,
     componentName: string,
     auth: string,
-    isHidden: boolean,
+    isHidden: string,
 }

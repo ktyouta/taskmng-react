@@ -39,6 +39,8 @@ function SettingCategoryEdit(props: propsType) {
     setComponentName,
     auth,
     setAuth,
+    isHidden,
+    setIsHidden,
     registerTime,
     updTime,
     isLoadinGetcategory,
@@ -60,6 +62,8 @@ function SettingCategoryEdit(props: propsType) {
         setName={setName}
         componentName={componentName}
         setComponentName={setComponentName}
+        isHidden={isHidden}
+        setIsHidden={setIsHidden}
         authList={authList}
         auth={auth}
         setAuth={setAuth}

@@ -16,6 +16,7 @@ import SpaceComponent from '../../Common/SpaceComponent';
 import HorizontalComponent from '../../Common/HorizontalComponent';
 import ComboComponent from '../../Common/ComboComponent';
 import { editModeEnum } from './SettingCategory';
+import CheckBoxComponent from '../../Common/CheckBoxComponent';
 
 
 //外側のスタイル
@@ -41,6 +42,8 @@ type propsType = {
     setName: React.Dispatch<React.SetStateAction<string | undefined>>,
     componentName: string | undefined,
     setComponentName: React.Dispatch<React.SetStateAction<string | undefined>>,
+    isHidden: string,
+    setIsHidden: React.Dispatch<React.SetStateAction<string>>,
     authList: radioType[] | undefined,
     auth: string | undefined,
     setAuth: React.Dispatch<React.SetStateAction<string | undefined>>,
@@ -119,6 +122,20 @@ function SettingCategoryEditMain(props: propsType) {
                             onChange={props.setAuth}
                         />
                     }
+                </HorizonLabelItemComponent>
+                <HorizonLabelItemComponent
+                    title={'カテゴリを表示しない'}
+                    width='30%'
+                    position='left'
+                >
+                    <CheckBoxComponent
+                        value={props.isHidden}
+                        htmlForId={'categoryValue'}
+                        initValue={props.isHidden === "1"}
+                        onChange={(e) => {
+                            props.setIsHidden(e === "0" ? "1" : "0");
+                        }}
+                    />
                 </HorizonLabelItemComponent>
                 {
                     props.editMode === editModeEnum.update &&

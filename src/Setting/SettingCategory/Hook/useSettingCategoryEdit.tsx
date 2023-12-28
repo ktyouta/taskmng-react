@@ -47,6 +47,8 @@ function useSettingCategoryEdit(props: propsType) {
     const [auth, setAuth] = useState<string | undefined>();
     //コンポーネント名称の初期値
     const [initComponentName, setInitComponentName] = useState<string>();
+    //表示非表示フラグ
+    const [isHidden, setIsHidden] = useState("0");
 
     //編集画面遷移時に更新用データを取得
     const { data: updCategory, isLoading: isLoadinGetcategory } = useQueryWrapper<categoryType>(
@@ -63,6 +65,7 @@ function useSettingCategoryEdit(props: propsType) {
                 setComponentName(data.componentName);
                 setAuth(data.auth);
                 setInitComponentName(data.componentName);
+                setIsHidden(data.isHidden);
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -256,7 +259,7 @@ function useSettingCategoryEdit(props: propsType) {
             path: "",
             componentName: "",
             auth: "",
-            isHidden: false,
+            isHidden: "0",
         };
 
         //パス
@@ -283,6 +286,8 @@ function useSettingCategoryEdit(props: propsType) {
             return;
         }
         body.auth = auth;
+        //表示非表示
+        body.isHidden = isHidden;
         return body;
     };
 
@@ -296,6 +301,8 @@ function useSettingCategoryEdit(props: propsType) {
         setComponentName,
         auth,
         setAuth,
+        isHidden,
+        setIsHidden,
         authList,
         registerTime,
         updTime,
