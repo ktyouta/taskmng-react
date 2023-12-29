@@ -28,6 +28,7 @@ export function createUpdCategoryData(fileDataObj: categoryType[], req: any, aut
             element.componentName = req.body.componentName;
             element.name = req.body.name;
             element.path = req.body.path;
+            element.isHidden = req.body.isHidden;
             return true
         }
     });

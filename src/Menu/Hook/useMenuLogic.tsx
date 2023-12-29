@@ -32,7 +32,7 @@ function useMenuLogic() {
                 return <React.Fragment />;
             }
             //非表示メニュー
-            if (element.isHidden) {
+            if (element.isHidden === "1") {
                 return <React.Fragment />;
             }
             cnt++;

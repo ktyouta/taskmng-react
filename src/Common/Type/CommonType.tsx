@@ -28,7 +28,7 @@ export type menuListType = {
     path: string,
     componentName: string,
     auth: string,
-    isHidden: boolean,
+    isHidden: string,
 }
 
 //リクエストボディのタイプ

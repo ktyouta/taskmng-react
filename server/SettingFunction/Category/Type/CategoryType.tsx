@@ -5,7 +5,7 @@ export type categoryType = {
     path: string,
     componentName: string,
     auth: string,
-    isHidden: boolean,
+    isHidden: string,
     order: string,
     deleteFlg: string,
     registerTime: string,

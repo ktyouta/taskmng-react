@@ -42,8 +42,8 @@ type propsType = {
     setName: React.Dispatch<React.SetStateAction<string | undefined>>,
     componentName: string | undefined,
     setComponentName: React.Dispatch<React.SetStateAction<string | undefined>>,
-    isHidden: string,
-    setIsHidden: React.Dispatch<React.SetStateAction<string>>,
+    isHidden: string | undefined,
+    setIsHidden: React.Dispatch<React.SetStateAction<string | undefined>>,
     authList: radioType[] | undefined,
     auth: string | undefined,
     setAuth: React.Dispatch<React.SetStateAction<string | undefined>>,
@@ -128,14 +128,17 @@ function SettingCategoryEditMain(props: propsType) {
                     width='30%'
                     position='left'
                 >
-                    <CheckBoxComponent
-                        value={props.isHidden}
-                        htmlForId={'categoryValue'}
-                        initValue={props.isHidden === "1"}
-                        onChange={(e) => {
-                            props.setIsHidden(e === "0" ? "1" : "0");
-                        }}
-                    />
+                    {
+                        props.isHidden !== undefined &&
+                        <CheckBoxComponent
+                            value={props.isHidden}
+                            htmlForId={'categoryValue'}
+                            initValue={props.isHidden === "1"}
+                            onChange={(e) => {
+                                props.setIsHidden(e === "0" ? "1" : "0");
+                            }}
+                        />
+                    }
                 </HorizonLabelItemComponent>
                 {
                     props.editMode === editModeEnum.update &&

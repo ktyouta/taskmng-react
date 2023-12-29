@@ -119,7 +119,7 @@ function useMainLogic() {
                 return <React.Fragment />;
             }
             let componentPath = `${element.path}/*`;
-            if (element.isHidden) {
+            if (element.isHidden === "1") {
                 return <React.Fragment />;
             }
 
