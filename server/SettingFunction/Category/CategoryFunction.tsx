@@ -13,6 +13,7 @@ import { CATEGORY_FILEPATH, filterCategoryDetail, getFilterdCategory } from "./C
 import { categoryType } from "./Type/CategoryType";
 import { createAddCategoryData } from "./CategoryRegistFunction";
 import { createUpdCategoryData } from "./CategoryUpdateFunction";
+import { createDelCategoryData } from "./CategoryDeleteFunction";
 
 
 //カスタム属性ファイルのパス
@@ -129,6 +130,13 @@ export function runUpdCategory(res: any, req: any, id: string) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    //IDの指定がない
+    if (!id) {
+        return res
+            .status(400)
+            .json({ errMessage: `パラメータが不正です。` });
+    }
+
     //カテゴリの読み込み
     let decodeFileData: categoryType[] = getFilterdCategory();
 
@@ -161,14 +169,68 @@ export function runUpdCategory(res: any, req: any, id: string) {
         .json({ errMessage: `更新が完了しました。` });
 }
 
+/**
+ * カテゴリの削除
+ */
+export function runDeleteCategory(res: any, req: any, id: string) {
+    //認証権限チェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //IDの指定がない
+    if (!id) {
+        return res
+            .status(400)
+            .json({ errMessage: `パラメータが不正です。` });
+    }
+
+    //カテゴリの読み込み
+    let decodeFileData: categoryType[] = getFilterdCategory();
+
+    //削除用データの作成
+    let delData = createDelCategoryData(decodeFileData, req, authResult, id);
+
+    //カテゴリが登録されていない
+    if (!delData || !Array.isArray(delData) || delData.length === 0) {
+        return res
+            .status(400)
+            .json({ errMessage: "カテゴリが登録されませんでした。" });
+    }
+
+    //表示順を割り当てる
+    delData = createOrder(delData)
+
+    //データを登録
+    let errMessage = overWriteData(CATEGORY_FILEPATH, JSON.stringify(delData, null, '\t'));
+
+    //登録更新削除に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
+    //正常終了
+    return res
+        .status(200)
+        .json({ errMessage: `削除が完了しました。` });
+}
+
 
 /**
  * 表示順の設定
  * @param decodeFileData 
  */
 export function createOrder(decodeFileData: categoryType[]) {
+
     decodeFileData.forEach((element, index) => {
-        element.order = `${index + 1}`;
+        if (element.deleteFlg === "0") {
+            element.order = `${index + 1}`;
+        }
     });
     return decodeFileData;
 }

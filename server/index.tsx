@@ -19,7 +19,7 @@ import {
 } from './SettingFunction/CustomAttribute/CustomAttributeFunction';
 import { getTaskHistory } from './History/HistoryFunction';
 import { getUserInfo, getUserInfoDetail, runAddUser, runDeleteUser, runUpdUser } from './SettingFunction/User/UserFunction';
-import { getCategory, getCategoryDetail, runAddCategory, runUpdCategory } from './SettingFunction/Category/CategoryFunction';
+import { getCategory, getCategoryDetail, runAddCategory, runDeleteCategory, runUpdCategory } from './SettingFunction/Category/CategoryFunction';
 import { Response, Request, ParamsDictionary } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 
@@ -345,7 +345,10 @@ app.delete(`${ENV.CUSTOMATTRIBUTE}/:param`, function (req, res) {
 app.delete(`${ENV.SETTINGUSER}/:param`, function (req, res) {
     runDeleteUser(res, req, req.params.param);
 });
-function runAddCateogry(res: Response<any, Record<string, any>, number>, req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>) {
-    throw new Error('Function not implemented.');
-}
 
+/**
+ * カテゴリの削除
+ */
+app.delete(`${ENV.CATEGORY}/:param`, function (req, res) {
+    runDeleteCategory(res, req, req.params.param);
+});

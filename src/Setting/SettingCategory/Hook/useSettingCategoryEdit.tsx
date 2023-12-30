@@ -109,6 +109,7 @@ function useSettingCategoryEdit(props: propsType) {
             setPath("");
             setName("");
             setComponentName("");
+            setIsHidden("0");
             return;
         }
     }, []);
@@ -198,7 +199,7 @@ function useSettingCategoryEdit(props: propsType) {
     /**
      * 登録イベント
      */
-    const registeAttribute = () => {
+    const registeCategory = () => {
         let body = createRequestBody();
         if (!body) {
             return;
@@ -216,7 +217,7 @@ function useSettingCategoryEdit(props: propsType) {
     /**
      * 更新イベント
      */
-    const updateAttribute = () => {
+    const updateCategory = () => {
         let body = createRequestBody();
         if (!body) {
             return;
@@ -243,8 +244,8 @@ function useSettingCategoryEdit(props: propsType) {
     /**
      * 削除イベント
      */
-    const deleteAttribute = () => {
-        if (!window.confirm('ユーザーを削除しますか？')) {
+    const deleteCategory = () => {
+        if (!window.confirm('カテゴリを削除しますか？')) {
             return
         }
         delMutation.mutate();
@@ -310,9 +311,9 @@ function useSettingCategoryEdit(props: propsType) {
         updTime,
         isLoadinGetcategory,
         backPage,
-        registeAttribute,
-        updateAttribute,
-        deleteAttribute,
+        registeCategory,
+        updateCategory,
+        deleteCategory,
         buttonTitle,
         positiveButtonObj: {
             title: '戻る',
@@ -322,12 +323,12 @@ function useSettingCategoryEdit(props: propsType) {
         deleteButtonObj: {
             title: "削除",
             type: "DANGER",
-            onclick: editMode === editModeEnum.update ? deleteAttribute : undefined
+            onclick: editMode === editModeEnum.update ? deleteCategory : undefined
         } as buttonObjType,
         runButtonObj: {
             title: buttonTitle,
             type: "RUN",
-            onclick: editMode === editModeEnum.update ? updateAttribute : registeAttribute
+            onclick: editMode === editModeEnum.update ? updateCategory : registeCategory
         } as buttonObjType,
         editMode,
     }

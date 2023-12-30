@@ -69,11 +69,11 @@
 		"path": "/test",
 		"componentName": "test",
 		"auth": "1",
-		"isHidden": "1",
+		"isHidden": "0",
 		"userId": "a",
-		"registerTime": "2023/12/29",
-		"updTime": "2023/12/29",
-		"deleteFlg": "0",
+		"registerTime": "2023/12/30",
+		"updTime": "2023/12/30",
+		"deleteFlg": "1",
 		"id": "CATEGORY-7",
 		"order": "6"
 	}

@@ -19,7 +19,7 @@ function useContentLogic() {
     //メニューのリスト
     const { data: menuList } = useQueryWrapper<menuListType[]>(
         {
-            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MENU}`,
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CATEGORY}`,
         }
     );
 
