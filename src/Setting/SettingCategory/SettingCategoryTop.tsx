@@ -3,6 +3,7 @@ import ButtonComponent from '../../Common/ButtonComponent';
 import LabelComponent from '../../Common/LabelComponent';
 import useSettingCategoryTop from '../SettingCategory/Hook/useSettingCategoryTop';
 import SettingCategoryTable from '../SettingCategory/SettingCategoryTable';
+import SpaceComponent from '../../Common/SpaceComponent';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -15,9 +16,11 @@ const OuterDiv = styled.div`
 
 //ボタンのスタイル
 const BtnDiv = styled.div`
-    width: 40%;
+    margin-left: 14%;
+    width: 47%;
     margin-top:1%;
     margin-bottom:1%;
+    display:flex;
 `;
 
 //タイトルのスタイル
@@ -37,7 +40,12 @@ function SettingCategoryTop(props: prospType) {
 
   console.log("SettingCategoryTop render");
 
-  const { createNewCategory } = useSettingCategoryTop({ ...props });
+  const {
+    createNewCategory,
+    changeCategoryOrder,
+    refInfoArray,
+    isLoading,
+  } = useSettingCategoryTop({ ...props });
 
   return (
     <OuterDiv>
@@ -53,11 +61,21 @@ function SettingCategoryTop(props: prospType) {
           title={"カテゴリを追加"}
           onclick={createNewCategory}
         />
+        <SpaceComponent
+          space={'2%'}
+        />
+        <ButtonComponent
+          styleTypeNumber="RUN"
+          title={"表示順を更新"}
+          onclick={changeCategoryOrder}
+        />
       </BtnDiv>
       <SettingCategoryTable
         height='70%'
         width='85%'
         path={props.path}
+        refInfoArray={refInfoArray}
+        isLoading={isLoading}
       />
     </OuterDiv>
   );

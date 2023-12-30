@@ -24,19 +24,6 @@ function useSettingCategoryTable(props: propsType) {
     //カテゴリのpath
     const setCategoryId = useSetAtom(categoryIdAtom);
 
-    //カテゴリのリストを取得する
-    const { data: categoryInfoList, isLoading } = useQueryWrapper<categoryType[]>(
-        {
-            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CATEGORY}`,
-            //失敗後の処理
-            afErrorFn: (res: unknown) => {
-                let tmp = res as errResType;
-                //エラーメッセージを表示
-                setErrMessage(tmp.response.data.errMessage);
-            },
-        }
-    );
-
     //PATHのクリックイベント
     const clickPath = (id: string) => {
         setCategoryId(id);
@@ -45,8 +32,6 @@ function useSettingCategoryTable(props: propsType) {
     };
 
     return {
-        categoryInfoList,
-        isLoading,
         errMessage,
         clickPath
     }

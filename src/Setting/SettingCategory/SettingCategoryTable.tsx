@@ -7,6 +7,8 @@ import styled from 'styled-components';
 import Loading from '../../Common/Loading';
 import MessageComponent, { labelType } from '../../Common/MessageComponent';
 import useSettingCategoryTable from '../SettingCategory/Hook/useSettingCategoryTable';
+import NumberPickerComponent from '../../Common/NumberPickerComponent';
+import { refCategoryInfoType } from './Type/SettingCategoryType';
 
 //外側のスタイル
 const OuterDiv = styled.div<{ height: string, width: string }>`
@@ -25,11 +27,19 @@ const IdTd = styled.td<{ titleBgColor?: string }>`
     text-decoration: underline;
 `;
 
+//td(numberpicker部分)のスタイル
+const NmTd = styled.td`
+    width:20%;
+`;
+
+
 //引数の型
 type propsType = {
   height: string,
   width: string,
   path: string,
+  refInfoArray: refCategoryInfoType[] | undefined,
+  isLoading: boolean,
 }
 
 function SettingCategoryTable(props: propsType) {
@@ -37,14 +47,12 @@ function SettingCategoryTable(props: propsType) {
   console.log("SettingCategoryTable render");
 
   const {
-    categoryInfoList,
-    isLoading,
     errMessage,
     clickPath,
   } = useSettingCategoryTable({ ...props });
 
   //ローディング
-  if (isLoading) {
+  if (props.isLoading) {
     return <Loading height='50vh' />;
   }
 
@@ -73,11 +81,14 @@ function SettingCategoryTable(props: propsType) {
               <th>
                 表示順
               </th>
+              <th>
+                表示/非表示
+              </th>
             </tr>
           </thead>
           <tbody className="tablecomponent-tbody">
             {
-              categoryInfoList && categoryInfoList.map((element) => {
+              props.refInfoArray && props.refInfoArray.map((element) => {
                 return (
                   <tr>
                     <IdTd
@@ -88,8 +99,24 @@ function SettingCategoryTable(props: propsType) {
                     <td>
                       {element.name}
                     </td>
+                    <NmTd>
+                      {
+                        <NumberPickerComponent
+                          value={parseInt(element.order)}
+                        />
+                      }
+                    </NmTd>
                     <td>
-                      {element.order}
+                      {
+                        (() => {
+                          switch (element.isHidden) {
+                            case "0":
+                              return "表示"
+                            case "1":
+                              return "非表示"
+                          }
+                        })()
+                      }
                     </td>
                   </tr>
                 );
