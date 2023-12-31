@@ -13,7 +13,7 @@ const PRE_CATEGORY_ID = `CATEGORY-`;
  * @param stream 
  * @returns 
  */
-export function createDelCategoryData(fileDataObj: categoryType[], req: any, authResult: authInfoType, id: string)
+export function createDelCategoryData(fileDataObj: categoryType[], authResult: authInfoType, id: string)
     : categoryType[] {
 
     //現在日付を取得

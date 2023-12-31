@@ -6,6 +6,7 @@ import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrappe
 import { categoryType, refCategoryInfoType } from "../Type/SettingCategoryType";
 import ENV from '../../../env.json';
 import { createRef, useEffect, useState } from "react";
+import useMutationWrapper, { resType } from "../../../Common/Hook/useMutationWrapper";
 
 
 //引数の型
@@ -32,6 +33,21 @@ function useSettingCategoryTop(props: propsType) {
             afErrorFn: (res: unknown) => { },
         }
     );
+
+    //更新用フック
+    const updMutation = useMutationWrapper({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CATEGORYORDER}`,
+        method: "PUT",
+        //正常終了後の処理
+        afSuccessFn: (res: resType) => {
+            alert(res.errMessage);
+        },
+        //失敗後の処理
+        afErrorFn: (res: errResType) => {
+            //エラーメッセージを表示
+            alert(res.response.data.errMessage);
+        },
+    });
 
     //参照用のリストを作成
     useEffect(() => {
@@ -65,7 +81,31 @@ function useSettingCategoryTop(props: propsType) {
      * カテゴリの表示順を変更する
      */
     const changeCategoryOrder = () => {
+        let body: { id: string, order: string }[] = [];
+        if (!refInfoArray) {
+            return;
+        }
+        if (!(window.confirm("表示順を更新しますか？"))) {
+            return;
+        }
+        //表示順の重複チェック
+        let tmp = refInfoArray.map((element) => {
+            return element.ref.current?.refValue ?? "";
+        }).filter((x, i, self) => {
+            return self.indexOf(x) !== self.lastIndexOf(x);
+        });
+        if (tmp.length > 0) {
+            alert("表示順が重複しています。");
+            return;
+        }
 
+        refInfoArray.forEach((element) => {
+            body.push({
+                id: element.id,
+                order: element.ref.current?.refValue ?? "",
+            });
+        });
+        updMutation.mutate(body);
     }
 
     return {

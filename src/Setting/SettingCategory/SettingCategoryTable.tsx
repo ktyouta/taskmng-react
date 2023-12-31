@@ -103,6 +103,7 @@ function SettingCategoryTable(props: propsType) {
                       {
                         <NumberPickerComponent
                           value={parseInt(element.order)}
+                          ref={element.ref}
                         />
                       }
                     </NmTd>

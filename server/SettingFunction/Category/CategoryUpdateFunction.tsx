@@ -1,6 +1,6 @@
 import { getNowDate } from "../../CommonFunction";
 import { authInfoType } from "../../Type/type";
-import { categoryType } from "./Type/CategoryType";
+import { categoryType, checkOrderType } from "./Type/CategoryType";
 
 
 //カテゴリIDの接頭辞
@@ -30,6 +30,33 @@ export function createUpdCategoryData(fileDataObj: categoryType[], req: any, aut
             element.path = req.body.path;
             element.isHidden = req.body.isHidden;
             return true
+        }
+    });
+
+    return fileDataObj;
+}
+
+/**
+ * 表示順更新用データの作成
+ * @param filePath 
+ * @param stream 
+ * @returns 
+ */
+export function createUpdCategoryOrderData(fileDataObj: categoryType[], authResult: authInfoType, body: checkOrderType[])
+    : categoryType[] {
+
+    //現在日付を取得
+    const nowDate = getNowDate();
+
+    body.forEach((element) => {
+        //IDの一致するデータを更新
+        let tmp = fileDataObj.find((element1) => {
+            return element1.id === element.id;
+        });
+        if (tmp) {
+            tmp.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
+            tmp.updTime = nowDate;
+            tmp.order = element.order;
         }
     });
 

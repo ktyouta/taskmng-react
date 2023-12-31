@@ -12,3 +12,9 @@ export type categoryType = {
     updTime: string,
     userId: string,
 }
+
+//表示順変更時の型
+export type checkOrderType = {
+    id: string,
+    order: string,
+}
