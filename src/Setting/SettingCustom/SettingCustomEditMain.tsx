@@ -14,6 +14,7 @@ import LabelTextAreaComponent from '../../Common/LabelTextAreaComponent';
 import BaseTextAreaComponent from '../../Common/BaseTextAreaComponent';
 import SpaceComponent from '../../Common/SpaceComponent';
 import HorizontalComponent from '../../Common/HorizontalComponent';
+import { editModeEnum } from './SettingCustom';
 
 
 //外側のスタイル
@@ -44,6 +45,9 @@ type propsType = {
     caSelectList: radioType[] | undefined,
     addSelectElement: () => void,
     deleteSelectElement: () => void,
+    registerTime: string,
+    updTime: string,
+    editMode: number,
 }
 
 
@@ -185,6 +189,27 @@ function SettingCustomEditMain(props: propsType) {
                                 )
                         }
                     })()
+
+                }
+                {
+                    props.editMode === editModeEnum.update &&
+                    <HorizonLabelItemComponent
+                        title={'登録日'}
+                        width='30%'
+                        position='left'
+                    >
+                        {props.registerTime}
+                    </HorizonLabelItemComponent>
+                }
+                {
+                    props.editMode === editModeEnum.update &&
+                    <HorizonLabelItemComponent
+                        title={'更新日'}
+                        width='30%'
+                        position='left'
+                    >
+                        {props.updTime}
+                    </HorizonLabelItemComponent>
                 }
             </MainDiv>
         </OuterDiv>

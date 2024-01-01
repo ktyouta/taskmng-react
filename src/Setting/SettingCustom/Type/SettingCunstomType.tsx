@@ -6,4 +6,6 @@ export type customAttributeType = {
     type: string,
     required: boolean,
     selectElementList: string[],
+    registerTime?: string,
+    updTime?: string,
 }

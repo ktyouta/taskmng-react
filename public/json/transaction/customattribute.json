@@ -6,8 +6,8 @@
 		"type": "input",
 		"required": true,
 		"selectElementListId": "",
-		"registerTime": "20230505",
-		"updTime": "20230626",
+		"registerTime": "2023/05/05",
+		"updTime": "2023/06/26",
 		"userId": "admin",
 		"deleteFlg": "0",
 		"length": "200"
@@ -19,8 +19,8 @@
 		"type": "select",
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-2",
-		"registerTime": "20230924",
-		"updTime": "20230924",
+		"registerTime": "2023/09/24",
+		"updTime": "2023/09/24",
 		"userId": "a",
 		"deleteFlg": "0",
 		"length": "0"
@@ -32,8 +32,8 @@
 		"type": "select",
 		"required": true,
 		"selectElementListId": "ATTRIBUTELISTID-3",
-		"registerTime": "20230925",
-		"updTime": "20230930",
+		"registerTime": "2023/09/25",
+		"updTime": "2023/09/30",
 		"userId": "a",
 		"deleteFlg": "1",
 		"length": "0"
@@ -45,8 +45,8 @@
 		"type": "radio",
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-4",
-		"registerTime": "20230930",
-		"updTime": "20230930",
+		"registerTime": "2023/09/30",
+		"updTime": "2023/09/30",
 		"userId": "a",
 		"deleteFlg": "1",
 		"length": "0"
@@ -58,8 +58,8 @@
 		"type": "checkbox",
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-5",
-		"registerTime": "20231007",
-		"updTime": "20231008",
+		"registerTime": "2023/10/07",
+		"updTime": "2023/10/08",
 		"deleteFlg": "0",
 		"length": "0"
 	},
@@ -70,8 +70,8 @@
 		"type": "select",
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-6",
-		"registerTime": "20231008",
-		"updTime": "20231008",
+		"registerTime": "2023/10/08",
+		"updTime": "2023/10/08",
 		"userId": "a",
 		"deleteFlg": "1",
 		"length": "0"
@@ -83,8 +83,8 @@
 		"type": "checkbox",
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-7",
-		"registerTime": "20231014",
-		"updTime": "20231014",
+		"registerTime": "2023/10/14",
+		"updTime": "2023/10/14",
 		"deleteFlg": "0",
 		"length": "0"
 	},
@@ -95,8 +95,8 @@
 		"type": "checkbox",
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-8",
-		"registerTime": "20231014",
-		"updTime": "20231015",
+		"registerTime": "2023/10/14",
+		"updTime": "2023/10/15",
 		"deleteFlg": "0",
 		"length": "0"
 	},
@@ -107,7 +107,7 @@
 		"type": "select",
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-9",
-		"registerTime": "20231129",
+		"registerTime": "2023/11/29",
 		"updTime": "2023/12/10"
 	},
 	{
@@ -117,7 +117,7 @@
 		"type": "select",
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-10",
-		"registerTime": "20231129",
+		"registerTime": "2023/11/29",
 		"updTime": "2023/12/17"
 	}
 ]

@@ -49,10 +49,6 @@ function useSettingCustomEdit(props: propsType) {
         ref: createRef(),
     }]);
 
-    //入力参照用リスト
-    const [refInfoArray, setRefInfoArray] = useState<refInfoType[]>([]);
-
-
     //編集画面遷移時に更新用タスクを取得
     const { data: updCustomAttribute, isLoading: isLoadinGetCustomAttribute } = useQueryWrapper<customAttributeType>(
         {
@@ -85,6 +81,16 @@ function useSettingCustomEdit(props: propsType) {
             }
         }
     );
+
+    //登録日
+    let registerTime = useMemo(() => {
+        return updCustomAttribute && updCustomAttribute.registerTime ? updCustomAttribute.registerTime : "";
+    }, [updCustomAttribute]);
+
+    //更新日
+    let updTime = useMemo(() => {
+        return updCustomAttribute && updCustomAttribute.updTime ? updCustomAttribute.updTime : "";
+    }, [updCustomAttribute]);
 
     //要素の追加ボタン押下
     const addSelectElement = () => {
@@ -359,6 +365,9 @@ function useSettingCustomEdit(props: propsType) {
             type: "RUN",
             onclick: editMode === editModeEnum.update ? updateAttribute : registeAttribute
         } as buttonObjType,
+        registerTime,
+        updTime,
+        editMode,
     }
 }
 

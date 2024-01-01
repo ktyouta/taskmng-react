@@ -44,6 +44,9 @@ function SettingCustomEdit(props: propsType) {
     positiveButtonObj,
     deleteButtonObj,
     runButtonObj,
+    registerTime,
+    updTime,
+    editMode
   } = useSettingCustomEdit({ ...props });
 
   return (
@@ -62,6 +65,9 @@ function SettingCustomEdit(props: propsType) {
         deleteSelectElement={deleteSelectElement}
         caSelectList={caSelectList}
         selectElementList={selectElementList}
+        registerTime={registerTime}
+        updTime={updTime}
+        editMode={editMode}
       />
       <SettingCustomEditFooter
         positiveButtonObj={positiveButtonObj}
