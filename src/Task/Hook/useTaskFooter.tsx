@@ -1,6 +1,5 @@
 import React, { RefObject, createRef, useContext, useEffect, useRef, useState } from 'react';
 import { Link } from "react-router-dom";
-import { postJsonData } from '../../Common/Function/Function';
 import ENV from '../../env.json';
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";

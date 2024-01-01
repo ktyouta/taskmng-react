@@ -52,5 +52,14 @@
 		"registerTime": "2023/12/13",
 		"updTime": "2023/12/13",
 		"deleteFlg": "0"
+	},
+	{
+		"userId": "f",
+		"userName": "テスト管理者",
+		"password": "f",
+		"auth": "3",
+		"registerTime": "2024/01/01",
+		"updTime": "2024/01/01",
+		"deleteFlg": "0"
 	}
 ]

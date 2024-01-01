@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 export type resType = {
     status: number,
     errMessage: string,
+    token: string,
 }
 
 //エラーレスポンスの型

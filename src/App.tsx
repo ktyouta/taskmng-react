@@ -26,16 +26,16 @@ function App() {
   const [cookies] = useCookies();
 
   return (
-      <QueryClientProvider client={queryClient}>
-        <Routes>
-          {/* クッキーが存在する場合：ホーム画面に遷移
+    <QueryClientProvider client={queryClient}>
+      <Routes>
+        {/* クッキーが存在する場合：ホーム画面に遷移
           クッキーが存在しない場合：ログイン画面に遷移 */}
-          <Route path="/login" element={Object.keys(cookies).length ? <Navigate to="/" /> : <Login />} />
-          <Route path="/*" element={Object.keys(cookies).length ? <Content /> : <Navigate to="/login" />} />
-        </Routes>
-        {/* React-query devtool */}
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+        <Route path="/login" element={Object.keys(cookies).length ? <Navigate to="/" /> : <Login />} />
+        <Route path="/*" element={Object.keys(cookies).length ? <Content /> : <Navigate to="/login" />} />
+      </Routes>
+      {/* React-query devtool */}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 

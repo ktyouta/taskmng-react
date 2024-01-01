@@ -9,33 +9,29 @@ export const createJsonData = (url: string, name: bodyObj) => {
 }
 
 //post通信を行う
-export const postJsonData = (url: string, cookie: string, body: bodyObj, callback?: (data: any) => void) => {
-    let apiResponse: apiResponseType = {};
-    // POST送信
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': cookie,
-        },
-        body: JSON.stringify(body),
-        mode: 'cors',
-        credentials: 'include'
-    }).then((res) => {
-        apiResponse.status = res.status;
-        return res.json()
-    }).then((data: any) => {
-        if (callback) {
-            apiResponse.json = data;
-            callback(apiResponse);
-        }
-    })
-}
+// export const postJsonData = (url: string, cookie: string, body: bodyObj, callback?: (data: any) => void) => {
+//     let apiResponse: apiResponseType = {};
+//     // POST送信
+//     fetch(url, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': cookie,
+//         },
+//         body: JSON.stringify(body),
+//         mode: 'cors',
+//         credentials: 'include'
+//     }).then((res) => {
+//         apiResponse.status = res.status;
+//         return res.json()
+//     }).then((data: any) => {
+//         if (callback) {
+//             apiResponse.json = data;
+//             callback(apiResponse);
+//         }
+//     })
+// }
 
-//パスパラメータの作成
-export function createPathPrm() {
-
-}
 
 //リクエストボディの作成
 export function createRequestBody(refInputArray: refInfoType[]) {

@@ -3,7 +3,6 @@ import logo from './logo.svg';
 import { Location, useLocation } from 'react-router-dom'
 import { useCookies } from 'react-cookie';
 import { apiResponseType, reqUserInfoType, resUserInfoType } from '../Type/CommonType';
-import { postJsonData } from '../Function/Function';
 import ENV from '../../env.json';
 import useQueryWrapper from './useQueryWrapper';
 import useQueryAtom from './useQueryAtom';

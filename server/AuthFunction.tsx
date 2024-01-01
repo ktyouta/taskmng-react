@@ -71,3 +71,41 @@ export function authenticate(cookie: string): authInfoType {
     }
     return tmpAuthInfo;
 }
+
+/**
+ * 認証トークンの作成
+ */
+export function createToken(res: any, req: any) {
+    //ID,PW取得
+    var userId = req.body.userId;
+    var password = req.body.password;
+
+    //認証
+    let fileData = readFile(`${SETTINGFILEPATH}${USERINFOFILEPATH}${JSONEXTENSION}`);
+    //ファイルの読み込みに失敗
+    if (!fileData) {
+        return res
+            .status(500)
+            .json({ errMessage: '予期しないエラーが発生しました。' });
+    }
+
+    //ユーザー情報の配列
+    let userJson: userInfoType[] = JSON.parse(fileData);
+    let isExist: boolean = false;
+    for (let i = 0; i < userJson.length; i++) {
+        if (isExist = (userId === userJson[i].userId && password === userJson[i].password)) {
+            break;
+        }
+    }
+
+    //ユーザー情報が存在しない
+    if (!isExist) {
+        return res
+            .status(400)
+            .json({ errMessage: 'ユーザーIDまたはパスワードが違います。' });
+    }
+    //token生成
+    let jwtStr = `${userId},${password}`
+    const token = jwt.sign({ ID: jwtStr }, config.jwt.secret, { expiresIn: '1h' });
+    res.status(200).json({ errMessage: '', token: token, userInfo: { userId: userId } });
+}

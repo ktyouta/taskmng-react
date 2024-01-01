@@ -1,7 +1,7 @@
 import { createRef, RefObject, useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
-import { createJsonData, createRequestBody, postJsonData } from "../../Common/Function/Function";
+import { createJsonData, createRequestBody } from "../../Common/Function/Function";
 import ENV from '../../env.json';
 import { bodyObj, inputAddMasterSettingType, refInfoType } from "../../Common/Type/CommonType";
 import { useCookies } from "react-cookie";
@@ -55,7 +55,7 @@ function useAddMasterTop(props: propsType): retType {
                 isVisible = false;
             }
             //入力値と一致するキーが存在する
-            if(element.id in summaryInputBody){
+            if (element.id in summaryInputBody) {
                 tmpValue = summaryInputBody[element.id]
             }
             tmpRefInfoArray.push({

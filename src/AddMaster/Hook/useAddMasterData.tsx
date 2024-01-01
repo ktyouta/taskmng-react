@@ -1,7 +1,7 @@
 import { createRef, RefObject, useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
-import { createJsonData, createRequestBody, postJsonData } from "../../Common/Function/Function";
+import { createJsonData, createRequestBody } from "../../Common/Function/Function";
 import ENV from '../../env.json';
 import { bodyObj, inputMasterSettingType, inputSettingType, refInfoType } from "../../Common/Type/CommonType";
 import { useCookies } from "react-cookie";
