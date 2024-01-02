@@ -15,6 +15,7 @@ import BaseTextAreaComponent from '../../Common/BaseTextAreaComponent';
 import SpaceComponent from '../../Common/SpaceComponent';
 import HorizontalComponent from '../../Common/HorizontalComponent';
 import ComboComponent from '../../Common/ComboComponent';
+import { editModeEnum } from './SettingUser';
 
 
 //外側のスタイル
@@ -45,6 +46,7 @@ type propsType = {
     setAuth: React.Dispatch<React.SetStateAction<string | undefined>>,
     registerTime: string,
     updTime: string,
+    editMode: number,
 }
 
 
@@ -118,20 +120,26 @@ function SettingUserEditMain(props: propsType) {
                         />
                     }
                 </HorizonLabelItemComponent>
-                <HorizonLabelItemComponent
-                    title={'登録日'}
-                    width='30%'
-                    position='left'
-                >
-                    {props.registerTime}
-                </HorizonLabelItemComponent>
-                <HorizonLabelItemComponent
-                    title={'更新日'}
-                    width='30%'
-                    position='left'
-                >
-                    {props.updTime}
-                </HorizonLabelItemComponent>
+                {
+                    props.editMode === editModeEnum.update &&
+                    <HorizonLabelItemComponent
+                        title={'登録日'}
+                        width='30%'
+                        position='left'
+                    >
+                        {props.registerTime}
+                    </HorizonLabelItemComponent>
+                }
+                {
+                    props.editMode === editModeEnum.update &&
+                    <HorizonLabelItemComponent
+                        title={'更新日'}
+                        width='30%'
+                        position='left'
+                    >
+                        {props.updTime}
+                    </HorizonLabelItemComponent>
+                }
             </MainDiv>
         </OuterDiv>
     );

@@ -310,6 +310,7 @@ function useSettingUserEdit(props: propsType) {
             type: "RUN",
             onclick: editMode === editModeEnum.update ? updateAttribute : registeAttribute
         } as buttonObjType,
+        editMode,
     }
 }
 

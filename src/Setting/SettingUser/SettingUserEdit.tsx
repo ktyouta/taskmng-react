@@ -46,6 +46,7 @@ function SettingUserEdit(props: propsType) {
     positiveButtonObj,
     deleteButtonObj,
     runButtonObj,
+    editMode,
   } = useSettingUserEdit({ ...props });
 
   return (
@@ -64,6 +65,7 @@ function SettingUserEdit(props: propsType) {
         setAuth={setAuth}
         registerTime={registerTime}
         updTime={updTime}
+        editMode={editMode}
       />
       <SettingUserEditFooter
         positiveButtonObj={positiveButtonObj}
