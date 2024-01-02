@@ -11,7 +11,7 @@ import { generalDataType, refInfoType } from "../../../Common/Type/CommonType";
 import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
 import { buttonObjType } from "../SettingCustomEditFooter";
-import { customAttributeType } from "../Type/SettingCunstomType";
+import { customAttributeType } from "../Type/SettingCustomType";
 
 
 //引数の型
