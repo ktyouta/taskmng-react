@@ -9,8 +9,8 @@
 		"deleteFlg": "0",
 		"order": "1",
 		"registerTime": "",
-		"updTime": "2023/12/31",
-		"userId": "a"
+		"updTime": "2024/01/03",
+		"userId": "f"
 	},
 	{
 		"id": "CATEGORY-3",
@@ -22,8 +22,8 @@
 		"deleteFlg": "0",
 		"order": "2",
 		"registerTime": "",
-		"updTime": "2023/12/31",
-		"userId": "a"
+		"updTime": "2024/01/03",
+		"userId": "f"
 	},
 	{
 		"id": "CATEGORY-4",
@@ -35,8 +35,8 @@
 		"deleteFlg": "0",
 		"order": "3",
 		"registerTime": "",
-		"updTime": "2023/12/31",
-		"userId": "a"
+		"updTime": "2024/01/03",
+		"userId": "f"
 	},
 	{
 		"id": "CATEGORY-5",
@@ -48,8 +48,8 @@
 		"deleteFlg": "0",
 		"order": "4",
 		"registerTime": "",
-		"updTime": "2023/12/31",
-		"userId": "a"
+		"updTime": "2024/01/03",
+		"userId": "f"
 	},
 	{
 		"id": "CATEGORY-6",
@@ -61,8 +61,8 @@
 		"deleteFlg": "0",
 		"order": "5",
 		"registerTime": "",
-		"updTime": "2023/12/31",
-		"userId": "a"
+		"updTime": "2024/01/03",
+		"userId": "f"
 	},
 	{
 		"name": "test",
@@ -70,9 +70,9 @@
 		"componentName": "test",
 		"auth": "1",
 		"isHidden": "1",
-		"userId": "a",
+		"userId": "f",
 		"registerTime": "2023/12/30",
-		"updTime": "2023/12/31",
+		"updTime": "2024/01/03",
 		"deleteFlg": "0",
 		"id": "CATEGORY-7",
 		"order": "6"
