@@ -22,6 +22,7 @@ import { getUserInfo, getUserInfoDetail, runAddUser, runDeleteUser, runUpdUser }
 import { getCategory, getCategoryDetail, runAddCategory, runDeleteCategory, runUpdCategory, runUpdCategoryOrder } from './SettingFunction/Category/CategoryFunction';
 import { Response, Request, ParamsDictionary } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
+import { getDefaultAttribute } from './SettingFunction/DefaultAttribute/DefaultAttributeFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -179,6 +180,13 @@ app.get(`${ENV.CATEGORY}`, function (req, res) {
  */
 app.get(`${ENV.CATEGORY}/:param`, function (req, res) {
     getCategoryDetail(res, req, req.params.param);
+});
+
+/**
+ * taskinputsettingにアクセスした際の動作
+ */
+app.get(`${ENV.TASKINPUTSETTING}`, function (req, res) {
+    getDefaultAttribute(res, req);
 });
 
 

@@ -24,13 +24,14 @@ function createInputSettingList(data: inputSettingType): inputTaskSettingType[] 
 function useGetTaskInputSetting() {
 
     //入力欄設定リスト
-    const { data: taskSettingList } = useQueryWrapper({
+    const { data: taskSettingList, isLoading } = useQueryWrapper({
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.INPUTSETTING}`,
         callback: createInputSettingList
     });
 
     return {
-        taskSettingList
+        taskSettingList,
+        isLoading
     }
 }
 

@@ -13,6 +13,7 @@ import SettingCustom from '../SettingCustom/SettingCustom';
 import SettingCategory from '../SettingCategory/SettingCategory';
 import SettingUser from '../SettingUser/SettingUser';
 import { Provider } from 'jotai';
+import SettingDefault from '../SettingDefault/SettingDefault';
 
 
 /**
@@ -36,6 +37,11 @@ const retSettingComponent = (componentName: string, path: string) => {
             break;
         case "SettingUser":
             component = <SettingUser
+                path={path}
+            />;
+            break;
+        case "SettingDefault":
+            component = <SettingDefault
                 path={path}
             />;
             break;

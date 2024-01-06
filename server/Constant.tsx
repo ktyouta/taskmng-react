@@ -35,3 +35,6 @@ export const USERINFOFILEPATH = "userinfo";
 
 //カテゴリデータファイルパス
 export const CATEGORYFILEPATH = "menu";
+
+//タスクの入力設定値用ファイルパス
+export const TASKINPUTSETTING = "taskinputsetting";
