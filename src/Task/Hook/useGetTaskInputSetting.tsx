@@ -6,15 +6,6 @@ import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { inputTaskSettingType } from '../Type/TaskType';
 
 
-/**
- * 入力欄設定リストを作成
- * @param data 
- * @returns 
- */
-function createInputSettingList(data: inputSettingType): inputTaskSettingType[] {
-    return data.taskEditSetting;
-}
-
 
 /**
  * 入力欄設定リストを取得
@@ -24,9 +15,8 @@ function createInputSettingList(data: inputSettingType): inputTaskSettingType[] 
 function useGetTaskInputSetting() {
 
     //入力欄設定リスト
-    const { data: taskSettingList, isLoading } = useQueryWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.INPUTSETTING}`,
-        callback: createInputSettingList
+    const { data: taskSettingList, isLoading } = useQueryWrapper<inputTaskSettingType[]>({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASKINPUTSETTING}`,
     });
 
     return {

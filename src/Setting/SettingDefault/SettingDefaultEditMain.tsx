@@ -61,22 +61,13 @@ function SettingDefaultEditMain(props: propsType) {
         >
             <MainDiv>
                 <HorizonLabelItemComponent
-                    title={'デフォルト属性の名称'}
+                    title={'ID'}
                     width='30%'
                     position='left'
                 >
-                    {
-                        props.caNm !== undefined &&
-                        <BaseInputComponent
-                            value={props.caNm}
-                            length={50}
-                            onChange={props.setCaNm}
-                            textWidth='80%'
-                        />
-                    }
+                    {props.caNm}
                 </HorizonLabelItemComponent>
-
-                <HorizonLabelItemComponent
+                {/* <HorizonLabelItemComponent
                     title={'デフォルト属性の説明'}
                     width='30%'
                     position='left'
@@ -90,10 +81,9 @@ function SettingDefaultEditMain(props: propsType) {
                             textWidth='80%'
                         />
                     }
-                </HorizonLabelItemComponent>
-
+                </HorizonLabelItemComponent> */}
                 <HorizonLabelItemComponent
-                    title={'デフォルト属性の形式'}
+                    title={'属性の形式'}
                     width='30%'
                     position='left'
                 >
