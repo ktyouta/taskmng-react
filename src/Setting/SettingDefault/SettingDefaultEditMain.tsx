@@ -15,6 +15,7 @@ import BaseTextAreaComponent from '../../Common/BaseTextAreaComponent';
 import SpaceComponent from '../../Common/SpaceComponent';
 import HorizontalComponent from '../../Common/HorizontalComponent';
 import { editModeEnum } from './SettingDefault';
+import NumberPickerComponent from '../../Common/NumberPickerComponent';
 
 
 //外側のスタイル
@@ -33,18 +34,21 @@ const MainDiv = styled.div`
 //引数の型
 type propsType = {
     outerHeight: string | undefined,
+    id: string | undefined,
     caNm: string | undefined,
     caDescription: string | undefined,
     caType: string | undefined,
     caRequired: boolean | undefined,
-    selectElementList: inputRefType[],
+    isHidden: boolean | undefined,
+    isNewCreateVisible: boolean | undefined,
+    typeValue: string,
+    setId: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaNm: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaDescription: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaType: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaRequired: React.Dispatch<React.SetStateAction<boolean | undefined>>,
-    caSelectList: radioType[] | undefined,
-    addSelectElement: () => void,
-    deleteSelectElement: () => void,
+    setIsHidden: React.Dispatch<React.SetStateAction<boolean | undefined>>,
+    setIsNewCreateVisible: React.Dispatch<React.SetStateAction<boolean | undefined>>,
     registerTime: string,
     updTime: string,
     editMode: number,
@@ -65,132 +69,92 @@ function SettingDefaultEditMain(props: propsType) {
                     width='30%'
                     position='left'
                 >
-                    {props.caNm}
+                    {props.id}
                 </HorizonLabelItemComponent>
-                {/* <HorizonLabelItemComponent
-                    title={'デフォルト属性の説明'}
+                <HorizonLabelItemComponent
+                    title={'名称'}
                     width='30%'
                     position='left'
                 >
                     {
-                        props.caDescription !== undefined &&
-                        <BaseTextAreaComponent
-                            value={props.caDescription}
+                        props.caNm !== undefined &&
+                        <BaseInputComponent
+                            value={props.caNm}
                             length={50}
-                            onChange={props.setCaDescription}
+                            onChange={props.setCaNm}
                             textWidth='80%'
                         />
                     }
-                </HorizonLabelItemComponent> */}
+                </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
                     title={'属性の形式'}
                     width='30%'
                     position='left'
                 >
-                    {
-                        //デフォルト属性の形式リスト
-                        props.caSelectList && props.caType !== undefined &&
-                        <LabelRadioListComponent
-                            radioList={props.caSelectList}
-                            selectedValue={props.caType}
-                            onChange={props.setCaType}
-                            width='auto'
-                            radioGap='5%'
-                        />
-                    }
+                    {props.typeValue}
                 </HorizonLabelItemComponent>
-
                 <HorizonLabelItemComponent
-                    title={'属性の設定'}
+                    title={'入力可能文字数'}
+                    width='30%'
+                    position='left'
+                >
+                    <NumberPickerComponent
+                        value={100}
+                    />
+                </HorizonLabelItemComponent>
+                {
+                    !props.isHidden &&
+                    props.isNewCreateVisible &&
+                    <HorizonLabelItemComponent
+                        title={'属性の設定'}
+                        width='30%'
+                        position='left'
+                    >
+                        {
+                            props.caRequired !== undefined &&
+
+                            <LabelCheckBoxComponent
+                                title={'必須項目とする'}
+                                value={''}
+                                htmlForId={'requiredItem'}
+                                initValue={props.caRequired}
+                                onChangeBl={props.setCaRequired}
+                            />
+                        }
+                    </HorizonLabelItemComponent>
+                }
+                <HorizonLabelItemComponent
+                    title={'表示非表示設定①'}
                     width='30%'
                     position='left'
                 >
                     {
-                        props.caRequired !== undefined &&
+                        props.isHidden !== undefined &&
                         <LabelCheckBoxComponent
-                            title={'必須項目とする'}
+                            title={'非表示項目とする'}
                             value={''}
-                            htmlForId={'requiredItem'}
-                            initValue={props.caRequired}
-                            onChangeBl={props.setCaRequired}
+                            htmlForId={'isHiddenItem'}
+                            initValue={props.isHidden}
+                            onChangeBl={props.setIsHidden}
                         />
                     }
                 </HorizonLabelItemComponent>
-
-                {
-                    (() => {
-                        switch (props.caType) {
-                            //選択形式
-                            case "select":
-                            case "radio":
-                            case "checkbox":
-                                return (
-                                    <React.Fragment>
-                                        <HorizonLabelItemComponent
-                                            title={''}
-                                            width='30%'
-                                            position='left'
-                                        >
-                                            <HorizontalComponent>
-                                                <ButtonComponent
-                                                    styleTypeNumber="RUN"
-                                                    title={"選択項目を追加"}
-                                                    onclick={props.addSelectElement}
-                                                />
-                                                <SpaceComponent
-                                                    space={"1%"}
-                                                />
-                                                <ButtonComponent
-                                                    styleTypeNumber="DANGER"
-                                                    title={"選択項目を削除"}
-                                                    onclick={props.deleteSelectElement}
-                                                />
-                                            </HorizontalComponent>
-                                        </HorizonLabelItemComponent>
-
-                                        <HorizonLabelItemComponent
-                                            title={'選択項目'}
-                                            width='30%'
-                                            position='left'
-                                        >
-                                            {
-                                                props.selectElementList && props.selectElementList.map((element) => {
-                                                    return (
-                                                        <React.Fragment>
-                                                            <BaseInputComponent
-                                                                value={element.value}
-                                                                ref={element.ref}
-                                                                length={10}
-                                                                textWidth='80%'
-                                                            />
-                                                            <VerticalSpaceComponent
-                                                                space={'5px'}
-                                                            />
-                                                        </React.Fragment>
-                                                    );
-                                                })
-                                            }
-                                        </HorizonLabelItemComponent>
-                                    </React.Fragment>
-                                )
-                            default:
-                                return (
-                                    <React.Fragment></React.Fragment>
-                                )
-                        }
-                    })()
-
-                }
-                {
-                    props.editMode === editModeEnum.update &&
-                    <HorizonLabelItemComponent
-                        title={'登録日'}
-                        width='30%'
-                        position='left'
-                    >
-                        {props.registerTime}
-                    </HorizonLabelItemComponent>
-                }
+                <HorizonLabelItemComponent
+                    title={'表示非表示設定②'}
+                    width='30%'
+                    position='left'
+                >
+                    {
+                        props.isNewCreateVisible !== undefined &&
+                        <LabelCheckBoxComponent
+                            title={'新規作成時に非表示項目とする'}
+                            value={''}
+                            htmlForId={'isNewCreateVisibleItem'}
+                            initValue={!props.isNewCreateVisible}
+                            onChangeBl={props.setIsNewCreateVisible}
+                        />
+                    }
+                </HorizonLabelItemComponent>
                 {
                     props.editMode === editModeEnum.update &&
                     <HorizonLabelItemComponent

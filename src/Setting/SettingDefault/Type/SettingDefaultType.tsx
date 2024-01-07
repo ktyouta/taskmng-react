@@ -4,8 +4,11 @@ export type defaultAttributeType = {
     name: string,
     description: string,
     type: string,
-    required: boolean,
+    isRequired: boolean,
     selectElementList: string[],
     registerTime?: string,
     updTime?: string,
+    isNewCreateVisible: boolean,
+    isHidden: boolean,
+    length: number,
 }

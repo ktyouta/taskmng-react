@@ -28,19 +28,22 @@ function SettingDefaultEdit(props: propsType) {
   console.log("SettingDefaultEdit render");
 
   const {
+    id,
+    setId,
     caNm,
     caDescription,
     caType,
     caRequired,
-    caSelectList,
-    selectElementList,
+    isHidden,
+    isNewCreateVisible,
     setCaNm,
     setCaDescription,
     setCaType,
     setCaRequired,
+    setIsHidden,
+    setIsNewCreateVisible,
     isLoadinGetDefaultAttribute,
-    addSelectElement,
-    deleteSelectElement,
+    typeValue,
     positiveButtonObj,
     deleteButtonObj,
     runButtonObj,
@@ -52,22 +55,25 @@ function SettingDefaultEdit(props: propsType) {
   return (
     <OuterDiv>
       <SettingDefaultEditMain
+        id={id}
+        setId={setId}
         outerHeight={'85%'}
         caNm={caNm}
         caDescription={caDescription}
         caType={caType}
         caRequired={caRequired}
+        typeValue={typeValue}
         setCaNm={setCaNm}
         setCaDescription={setCaDescription}
         setCaType={setCaType}
         setCaRequired={setCaRequired}
-        addSelectElement={addSelectElement}
-        deleteSelectElement={deleteSelectElement}
-        caSelectList={caSelectList}
-        selectElementList={selectElementList}
         registerTime={registerTime}
         updTime={updTime}
         editMode={editMode}
+        isHidden={isHidden}
+        isNewCreateVisible={isNewCreateVisible}
+        setIsHidden={setIsHidden}
+        setIsNewCreateVisible={setIsNewCreateVisible}
       />
       <SettingDefaultEditFooter
         positiveButtonObj={positiveButtonObj}

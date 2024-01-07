@@ -35,6 +35,8 @@ function useSettingDefaultEdit(props: propsType) {
     });
 
     //デフォルト属性のパラメータ
+    //ID
+    const [id, setId] = useState<string | undefined>();
     //名称
     const [caNm, setCaNm] = useState<string | undefined>();
     //説明
@@ -43,11 +45,12 @@ function useSettingDefaultEdit(props: propsType) {
     const [caType, setCaType] = useState<string | undefined>();
     //必須
     const [caRequired, setCaRequired] = useState<boolean | undefined>();
-    //可変選択リスト
-    const [selectElementList, setSelectElementList] = useState<inputRefType[]>([{
-        value: "",
-        ref: createRef(),
-    }]);
+    //表示フラグ
+    const [isHidden, setIsHidden] = useState<boolean | undefined>();
+    //初期作成時表示フラグ
+    const [isNewCreateVisible, setIsNewCreateVisible] = useState<boolean | undefined>();
+    //入力可能数
+    const [length, setLength] = useState<number | undefined>();
 
     //編集画面遷移時に更新用デフォルト属性を取得
     const { data: updDefaultAttribute, isLoading: isLoadinGetDefaultAttribute } = useQueryWrapper<defaultAttributeType>(
@@ -59,10 +62,14 @@ function useSettingDefaultEdit(props: propsType) {
                 if (!data) {
                     return;
                 }
+                setId(data.id);
                 setCaNm(data.name);
                 setCaDescription(data.description);
                 setCaType(data.type);
-                setCaRequired(data.required);
+                setCaRequired(data.isRequired);
+                setIsHidden(data.isHidden);
+                setIsNewCreateVisible(data.isNewCreateVisible);
+                setLength(data.length);
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -81,46 +88,16 @@ function useSettingDefaultEdit(props: propsType) {
         return updDefaultAttribute && updDefaultAttribute.updTime ? updDefaultAttribute.updTime : "";
     }, [updDefaultAttribute]);
 
-    //要素の追加ボタン押下
-    const addSelectElement = () => {
-        let tmpSelectElementList = [...selectElementList];
-        //要素を一つ追加
-        tmpSelectElementList.push({
-            value: "",
-            ref: createRef(),
+    //デフォルト属性の形式
+    const typeValue = useMemo(() => {
+        if (!generalDataList || !caType) {
+            return "";
+        }
+        let tmp = generalDataList.filter((element) => {
+            return element.id === "4" && element.value === caType;
         });
-        setSelectElementList(tmpSelectElementList);
-    };
-
-    //要素の削除ボタン押下
-    const deleteSelectElement = () => {
-        let tmpSelectElementList = [...selectElementList];
-        if (tmpSelectElementList.length === 1) {
-            alert("選択項目は最低一つは必要です。");
-            return;
-        }
-        //入力値が存在する場合は削除確認をする
-        if (tmpSelectElementList[tmpSelectElementList.length - 1].ref.current?.refValue) {
-            if (!window.confirm("項目が入力されていますが、削除しますか？")) {
-                return;
-            }
-        }
-        tmpSelectElementList.pop();
-        setSelectElementList(tmpSelectElementList);
-    };
-
-    //デフォルト属性の形式リスト
-    const caSelectList = useMemo(() => {
-        if (!generalDataList) {
-            return;
-        }
-        let tmp: radioType[] = generalDataList.filter((element) => {
-            return element.id === "4";
-        }).map((element) => {
-            return { label: element.label, value: element.value }
-        });
-        return tmp;
-    }, [generalDataList]);
+        return tmp && tmp.length > 0 ? tmp[0].label : "";
+    }, [generalDataList, caType]);
 
     //初期値セット
     useEffect(() => {
@@ -141,23 +118,6 @@ function useSettingDefaultEdit(props: propsType) {
             navigate(`${props.path}`);
         }
     }, []);
-
-    //登録用フック
-    const registMutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CUSTOMATTRIBUTE}`,
-        method: "POST",
-        //正常終了後の処理
-        afSuccessFn: (res: resType) => {
-            alert(res.errMessage);
-            //メッセージを表示してマスタトップ画面に遷移する
-            navigate(`${props.path}`);
-        },
-        //失敗後の処理
-        afErrorFn: (res: errResType) => {
-            //エラーメッセージを表示
-            alert(res.response.data.errMessage);
-        },
-    });
 
     //更新用フック
     const updMutation = useMutationWrapper({
@@ -190,49 +150,11 @@ function useSettingDefaultEdit(props: propsType) {
     });
 
     /**
-     * 実行ボタンタイトル
-     */
-    let buttonTitle = "";
-    switch (editMode) {
-        //閲覧
-        case editModeEnum.noselect:
-            break;
-        //登録
-        case editModeEnum.create:
-            buttonTitle = "登録";
-            break;
-        //更新
-        case editModeEnum.update:
-            buttonTitle = "更新";
-            break;
-        default:
-            break;
-    }
-
-    /**
      * 戻るイベント
      */
     const backPage = () => {
         navigate(`${props.path}`);
     };
-
-    /**
-     * 登録イベント
-     */
-    const registeAttribute = () => {
-        let body = createRequestBody();
-        if (!body) {
-            return;
-        }
-        if (!window.confirm('デフォルト属性を登録しますか？')) {
-            return
-        }
-        if (!registMutation) {
-            alert("リクエストの送信に失敗しました。");
-            return;
-        }
-        registMutation.mutate(body);
-    }
 
     /**
      * 更新イベント
@@ -245,7 +167,7 @@ function useSettingDefaultEdit(props: propsType) {
         if (!window.confirm('デフォルト属性を更新しますか？')) {
             return
         }
-        if (!registMutation) {
+        if (!updMutation) {
             alert("リクエストの送信に失敗しました。");
             return;
         }
@@ -271,8 +193,11 @@ function useSettingDefaultEdit(props: propsType) {
             name: "",
             description: "",
             type: "",
-            required: false,
-            selectElementList: []
+            isRequired: false,
+            selectElementList: [],
+            isNewCreateVisible: false,
+            isHidden: false,
+            length: 0
         };
 
         //名称
@@ -295,50 +220,32 @@ function useSettingDefaultEdit(props: propsType) {
 
         //必須
         if (caRequired) {
-            body.required = caRequired;
+            body.isRequired = caRequired;
         }
 
-        let selectList: string[] = [];
-        //デフォルト属性の形式が選択形式の場合はリストをセット
-        if (caType === "select" || caType === "radio" || caType === "checkbox") {
-            let cnt = 0;
-            selectList = selectElementList.flatMap((element) => {
-                //空欄をスキップ
-                if (!element.ref.current || element.ref.current.refValue === "") {
-                    cnt++;
-                    return "";
-                }
-                return element.ref.current?.refValue;
-            });
-            //選択形式の場合は最低1つ以上の項目を持たせる
-            if (selectList.length === cnt) {
-                alert("1つ以上の項目が必要です。");
-                return;
-            }
-        }
-        body.selectElementList = selectList;
         return body;
     };
 
     return {
+        id,
         caNm,
         caDescription,
         caType,
         caRequired,
-        caSelectList,
-        selectElementList,
+        isHidden,
+        isNewCreateVisible,
+        setId,
         setCaNm,
         setCaDescription,
         setCaType,
         setCaRequired,
+        setIsHidden,
+        setIsNewCreateVisible,
         isLoadinGetDefaultAttribute,
-        addSelectElement,
-        deleteSelectElement,
         backPage,
-        registeAttribute,
         updateAttribute,
         deleteAttribute,
-        buttonTitle,
+        typeValue,
         positiveButtonObj: {
             title: '戻る',
             type: "BASE",
@@ -350,9 +257,9 @@ function useSettingDefaultEdit(props: propsType) {
             onclick: editMode === editModeEnum.update ? deleteAttribute : undefined
         } as buttonObjType,
         runButtonObj: {
-            title: buttonTitle,
+            title: "更新",
             type: "RUN",
-            onclick: editMode === editModeEnum.update ? updateAttribute : registeAttribute
+            onclick: updateAttribute
         } as buttonObjType,
         registerTime,
         updTime,
