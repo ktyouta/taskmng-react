@@ -11,7 +11,7 @@ import { generalDataType, refInfoType } from "../../../Common/Type/CommonType";
 import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
 import { buttonObjType } from "../SettingDefaultEditFooter";
-import { defaultAttributeType } from "../Type/SettingDefaultType";
+import { defaultAttributeType, defaultAttributeUpdType } from "../Type/SettingDefaultType";
 
 
 //引数の型
@@ -188,13 +188,10 @@ function useSettingDefaultEdit(props: propsType) {
      * リクエストボディの作成
      */
     const createRequestBody = () => {
-        let body: defaultAttributeType = {
-            id: "",
+        let body: defaultAttributeUpdType = {
             name: "",
             description: "",
-            type: "",
             isRequired: false,
-            selectElementList: [],
             isNewCreateVisible: false,
             isHidden: false,
             length: 0
@@ -211,16 +208,20 @@ function useSettingDefaultEdit(props: propsType) {
         if (caDescription) {
             body.description = caDescription;
         }
-        //デフォルト属性の形式
-        if (!caType) {
-            alert("属性の形式を選択してください");
-            return;
-        }
-        body.type = caType;
 
         //必須
-        if (caRequired) {
+        if (caRequired && !isHidden && !isNewCreateVisible) {
             body.isRequired = caRequired;
+        }
+
+        //表示非表示
+        if (isHidden) {
+            body.isHidden = isHidden;
+        }
+
+        //初期作成時表示非表示フラグ
+        if (isNewCreateVisible) {
+            body.isNewCreateVisible = isNewCreateVisible;
         }
 
         return body;
@@ -234,6 +235,7 @@ function useSettingDefaultEdit(props: propsType) {
         caRequired,
         isHidden,
         isNewCreateVisible,
+        length,
         setId,
         setCaNm,
         setCaDescription,
@@ -241,6 +243,7 @@ function useSettingDefaultEdit(props: propsType) {
         setCaRequired,
         setIsHidden,
         setIsNewCreateVisible,
+        setLength,
         isLoadinGetDefaultAttribute,
         backPage,
         updateAttribute,

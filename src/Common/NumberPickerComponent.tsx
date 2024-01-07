@@ -11,7 +11,7 @@ type dateFormatType = "yyyy/MM/dd" | "yyyy/MM/dd HH:mm";
 type propsType = {
     dateFormat?: dateFormatType,
     value: number,
-    onChange?: (e: string) => void,
+    onChange?: (e: number) => void,
     disabled?: boolean,
     bgColor?: string,
 }
@@ -41,9 +41,11 @@ const NumberPickerComponent = forwardRef<refType, propsType>((props, ref) => {
     const onChange = (value: number | null) => {
         if (!value || isNaN(Number(value))) {
             setValue(0);
+            return;
         }
-        else {
-            setValue(value);
+        setValue(value);
+        if (props.onChange) {
+            props.onChange(value);
         }
     };
 

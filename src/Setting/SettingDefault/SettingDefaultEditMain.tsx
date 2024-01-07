@@ -42,6 +42,7 @@ type propsType = {
     isHidden: boolean | undefined,
     isNewCreateVisible: boolean | undefined,
     typeValue: string,
+    length: number | undefined,
     setId: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaNm: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaDescription: React.Dispatch<React.SetStateAction<string | undefined>>,
@@ -49,6 +50,7 @@ type propsType = {
     setCaRequired: React.Dispatch<React.SetStateAction<boolean | undefined>>,
     setIsHidden: React.Dispatch<React.SetStateAction<boolean | undefined>>,
     setIsNewCreateVisible: React.Dispatch<React.SetStateAction<boolean | undefined>>,
+    setLength: React.Dispatch<React.SetStateAction<number | undefined>>,
     registerTime: string,
     updTime: string,
     editMode: number,
@@ -86,21 +88,28 @@ function SettingDefaultEditMain(props: propsType) {
                         />
                     }
                 </HorizonLabelItemComponent>
-                <HorizonLabelItemComponent
-                    title={'属性の形式'}
-                    width='30%'
-                    position='left'
-                >
-                    {props.typeValue}
-                </HorizonLabelItemComponent>
+                {
+                    props.typeValue &&
+                    <HorizonLabelItemComponent
+                        title={'属性の形式'}
+                        width='30%'
+                        position='left'
+                    >
+                        {props.typeValue}
+                    </HorizonLabelItemComponent>
+                }
                 <HorizonLabelItemComponent
                     title={'入力可能文字数'}
                     width='30%'
                     position='left'
                 >
-                    <NumberPickerComponent
-                        value={100}
-                    />
+                    {
+                        props.length !== undefined &&
+                        <NumberPickerComponent
+                            value={props.length}
+                            onChange={props.setLength}
+                        />
+                    }
                 </HorizonLabelItemComponent>
                 {
                     !props.isHidden &&

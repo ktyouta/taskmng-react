@@ -36,12 +36,14 @@ function SettingDefaultEdit(props: propsType) {
     caRequired,
     isHidden,
     isNewCreateVisible,
+    length,
     setCaNm,
     setCaDescription,
     setCaType,
     setCaRequired,
     setIsHidden,
     setIsNewCreateVisible,
+    setLength,
     isLoadinGetDefaultAttribute,
     typeValue,
     positiveButtonObj,
@@ -74,6 +76,8 @@ function SettingDefaultEdit(props: propsType) {
         isNewCreateVisible={isNewCreateVisible}
         setIsHidden={setIsHidden}
         setIsNewCreateVisible={setIsNewCreateVisible}
+        length={length}
+        setLength={setLength}
       />
       <SettingDefaultEditFooter
         positiveButtonObj={positiveButtonObj}

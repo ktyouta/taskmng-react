@@ -5,9 +5,18 @@ export type defaultAttributeType = {
     description: string,
     type: string,
     isRequired: boolean,
-    selectElementList: string[],
     registerTime?: string,
     updTime?: string,
+    isNewCreateVisible: boolean,
+    isHidden: boolean,
+    length: number,
+}
+
+//デフォルト属性の更新時の型
+export type defaultAttributeUpdType = {
+    name: string,
+    description: string,
+    isRequired: boolean,
     isNewCreateVisible: boolean,
     isHidden: boolean,
     length: number,
