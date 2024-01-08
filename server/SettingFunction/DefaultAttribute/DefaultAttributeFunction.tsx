@@ -11,7 +11,7 @@ import { authInfoType, searchConditionType, taskListType } from "../../Type/type
 import { getNowDate } from "../../CommonFunction";
 import { createUpdDefaultAttribute, } from "./DefaultAttributeUpdateFunction";
 import { filterDefaultAttributeDetail, getDefaultAttributeData, } from "./DefaultAttributeSelectFunction";
-import { defaultAttributeType } from "./Type/DefaultAttributeType";
+import { defaultAttributeType, defaultAttributeUpdType } from "./Type/DefaultAttributeType";
 
 
 //デフォルト属性ファイルのパス
@@ -118,8 +118,10 @@ export function runUpdDefaultAttribute(res: any, req: any, caId: string) {
             .json({ errMessage: `更新データが存在しません。` });
     }
 
+    let updDefaultAttribute: defaultAttributeUpdType = req.body;
+
     //更新データの作成
-    let updCaData = createUpdDefaultAttribute(caDecodeFileData, req.body, caId);
+    let updCaData = createUpdDefaultAttribute(caDecodeFileData, updDefaultAttribute, caId);
 
     //データを更新
     errMessage = overWriteData(DEFAULT_ATTRIBUTE_FILEPATH, JSON.stringify(updCaData, null, '\t'));

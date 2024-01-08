@@ -133,7 +133,7 @@ function SettingDefaultEditMain(props: propsType) {
                 }
                 {
                     !props.isHidden &&
-                    !props.isNewCreateVisible &&
+                    props.isNewCreateVisible &&
                     <HorizonLabelItemComponent
                         title={'属性の設定'}
                         width='30%'

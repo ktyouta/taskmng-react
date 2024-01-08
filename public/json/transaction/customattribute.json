@@ -4,13 +4,11 @@
 		"name": "サンプル属性",
 		"description": "サンプル属性の説明",
 		"type": "input",
-		"required": true,
+		"required": false,
 		"selectElementListId": "",
 		"registerTime": "2023/05/05",
-		"updTime": "2023/06/26",
-		"userId": "admin",
-		"deleteFlg": "0",
-		"length": "200"
+		"updTime": "2024/01/08",
+		"deleteFlg": "0"
 	},
 	{
 		"id": "ATTRIBUTEID-2",

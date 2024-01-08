@@ -2,7 +2,7 @@ import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, searchConditionType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
-import { defaultAttributeType } from "./Type/DefaultAttributeType";
+import { defaultAttributeType, defaultAttributeUpdType } from "./Type/DefaultAttributeType";
 
 
 /**
@@ -11,7 +11,7 @@ import { defaultAttributeType } from "./Type/DefaultAttributeType";
  * @param stream 
  * @returns 
  */
-export function createUpdDefaultAttribute(fileDataObj: defaultAttributeType[], body: defaultAttributeType, updTaskId: string)
+export function createUpdDefaultAttribute(fileDataObj: defaultAttributeType[], body: defaultAttributeUpdType, updDAId: string)
     : defaultAttributeType[] {
 
     //現在日付を取得
@@ -19,14 +19,15 @@ export function createUpdDefaultAttribute(fileDataObj: defaultAttributeType[], b
 
     fileDataObj.some((element) => {
         //IDの一致するデータを更新
-        if (element.id === updTaskId) {
+        if (element.id === updDAId) {
             Object.keys(element).forEach((item) => {
-                if (item === `id` || item === `deleteFlg` || item === 'selectElementListId' || item === 'registerTime') return true;
                 //更新日時
                 if (item === `updTime`) {
                     element[item] = nowDate;
                     return true;
                 }
+                if (!body.hasOwnProperty(item)) return true;
+                if (item === `id` || item === `deleteFlg` || item === 'registerTime') return true;
                 element[item] = body[item];
             });
             return true;

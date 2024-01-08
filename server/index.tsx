@@ -22,7 +22,7 @@ import { getUserInfo, getUserInfoDetail, runAddUser, runDeleteUser, runUpdUser }
 import { getCategory, getCategoryDetail, runAddCategory, runDeleteCategory, runUpdCategory, runUpdCategoryOrder } from './SettingFunction/Category/CategoryFunction';
 import { Response, Request, ParamsDictionary } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
-import { getDefaultAttribute, getDefaultAttributeDetail } from './SettingFunction/DefaultAttribute/DefaultAttributeFunction';
+import { getDefaultAttribute, getDefaultAttributeDetail, runUpdDefaultAttribute } from './SettingFunction/DefaultAttribute/DefaultAttributeFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -303,6 +303,14 @@ app.put(`${ENV.CATEGORY}/:param`, function (req, res) {
 app.put(`${ENV.CATEGORYORDER}`, function (req, res) {
     runUpdCategoryOrder(res, req);
 });
+
+/**
+ * タスクのデフォルト属性の更新
+ */
+app.put(`${ENV.TASKINPUTSETTING}/:param`, function (req, res) {
+    runUpdDefaultAttribute(res, req, req.params.param);
+});
+
 
 
 /**

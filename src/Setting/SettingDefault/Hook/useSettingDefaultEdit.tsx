@@ -106,18 +106,6 @@ function useSettingDefaultEdit(props: propsType) {
         return tmp && tmp.length > 0 ? tmp[0].label : "";
     }, [generalDataList, caType]);
 
-    //初期値セット
-    useEffect(() => {
-        //新規登録
-        if (editMode === editModeEnum.create) {
-            setCaNm("");
-            setCaDescription("");
-            setCaType("");
-            setCaRequired(false);
-            return;
-        }
-    }, []);
-
     //URLを直打ちした際にデフォルト画面トップに遷移させる
     useEffect(() => {
         //モード未選択状態
@@ -128,7 +116,7 @@ function useSettingDefaultEdit(props: propsType) {
 
     //更新用フック
     const updMutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CUSTOMATTRIBUTE}/${defaultAttributeId}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASKINPUTSETTING}/${defaultAttributeId}`,
         method: "PUT",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {

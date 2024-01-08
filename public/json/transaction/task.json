@@ -893,5 +893,17 @@
 		"priority": "1",
 		"status": "1",
 		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-76",
+		"title": "ユーザーメニュー画面の作成",
+		"content": "",
+		"registerTime": "2024/01/08",
+		"updTime": "2024/01/08",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
 	}
 ]
