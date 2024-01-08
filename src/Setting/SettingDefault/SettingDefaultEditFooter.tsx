@@ -13,7 +13,6 @@ export type buttonObjType = {
 //引数の型
 type propsType = {
     positiveButtonObj: buttonObjType,
-    deleteButtonObj: buttonObjType,
     runButtonObj: buttonObjType,
     outerHeight: string,
 }
@@ -47,20 +46,7 @@ function SettingDefaultEditFooter(props: propsType) {
                 />
             }
             <SpaceComponent
-                space={"50%"}
-            />
-            {
-                props.deleteButtonObj &&
-                props.deleteButtonObj.title &&
-                props.deleteButtonObj.onclick &&
-                <ButtonComponent
-                    styleTypeNumber={props.deleteButtonObj.type}
-                    title={props.deleteButtonObj.title}
-                    onclick={props.deleteButtonObj.onclick}
-                />
-            }
-            <SpaceComponent
-                space={"5%"}
+                space={"60%"}
             />
             {
                 props.runButtonObj &&

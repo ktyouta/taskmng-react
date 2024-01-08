@@ -34,7 +34,8 @@ const MainDiv = styled.div`
 //引数の型
 type propsType = {
     outerHeight: string | undefined,
-    id: string | undefined,
+    defaultId: string,
+    type: string,
     caNm: string | undefined,
     caDescription: string | undefined,
     caType: string | undefined,
@@ -43,7 +44,6 @@ type propsType = {
     isNewCreateVisible: boolean | undefined,
     typeValue: string,
     length: number | undefined,
-    setId: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaNm: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaDescription: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaType: React.Dispatch<React.SetStateAction<string | undefined>>,
@@ -71,7 +71,7 @@ function SettingDefaultEditMain(props: propsType) {
                     width='30%'
                     position='left'
                 >
-                    {props.id}
+                    {props.defaultId}
                 </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
                     title={'名称'}
@@ -88,6 +88,21 @@ function SettingDefaultEditMain(props: propsType) {
                         />
                     }
                 </HorizonLabelItemComponent>
+                <HorizonLabelItemComponent
+                    title={'説明'}
+                    width='30%'
+                    position='left'
+                >
+                    {
+                        props.caDescription !== undefined &&
+                        <BaseInputComponent
+                            value={props.caDescription}
+                            length={500}
+                            onChange={props.setCaDescription}
+                            textWidth='80%'
+                        />
+                    }
+                </HorizonLabelItemComponent>
                 {
                     props.typeValue &&
                     <HorizonLabelItemComponent
@@ -98,22 +113,27 @@ function SettingDefaultEditMain(props: propsType) {
                         {props.typeValue}
                     </HorizonLabelItemComponent>
                 }
-                <HorizonLabelItemComponent
-                    title={'入力可能文字数'}
-                    width='30%'
-                    position='left'
-                >
-                    {
-                        props.length !== undefined &&
-                        <NumberPickerComponent
-                            value={props.length}
-                            onChange={props.setLength}
-                        />
-                    }
-                </HorizonLabelItemComponent>
+                {/* テキストエリアまたはテキストボックスのみnumberpickerを表示する */}
+                {
+                    props.type &&
+                    (props.type === "input" || props.type === "textarea") &&
+                    <HorizonLabelItemComponent
+                        title={'入力可能文字数'}
+                        width='30%'
+                        position='left'
+                    >
+                        {
+                            props.length !== undefined &&
+                            <NumberPickerComponent
+                                value={props.length}
+                                onChange={props.setLength}
+                            />
+                        }
+                    </HorizonLabelItemComponent>
+                }
                 {
                     !props.isHidden &&
-                    props.isNewCreateVisible &&
+                    !props.isNewCreateVisible &&
                     <HorizonLabelItemComponent
                         title={'属性の設定'}
                         width='30%'
@@ -121,7 +141,6 @@ function SettingDefaultEditMain(props: propsType) {
                     >
                         {
                             props.caRequired !== undefined &&
-
                             <LabelCheckBoxComponent
                                 title={'必須項目とする'}
                                 value={''}

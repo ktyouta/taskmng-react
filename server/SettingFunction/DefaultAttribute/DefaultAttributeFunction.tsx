@@ -9,7 +9,6 @@ import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, searchConditionType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
-import { createDeleteDefaultAttribute, } from "./DefaultAttributeDeleteFunction";
 import { createUpdDefaultAttribute, } from "./DefaultAttributeUpdateFunction";
 import { filterDefaultAttributeDetail, getDefaultAttributeData, } from "./DefaultAttributeSelectFunction";
 import { defaultAttributeType } from "./Type/DefaultAttributeType";
@@ -80,61 +79,6 @@ export function getDefaultAttributeInputSetting(res: any, req: any) {
     }
 
     return res.status(200).json(defaultAttributeList);
-}
-
-
-/**
- * デフォルト属性の削除
- */
-export function runDeleteDefaultAttribute(res: any, req: any, caId: string) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
-
-    //IDの指定がない
-    if (!caId) {
-        return res
-            .status(400)
-            .json({ errMessage: `パラメータが不正です。` });
-    }
-
-    let errMessage = "";
-
-    //デフォルト属性ファイルの読み込み
-    let caDecodeFileData: defaultAttributeType[] = getFileJsonData(DEFAULT_ATTRIBUTE_FILEPATH);
-
-    //存在チェック
-    let filterdCaData = caDecodeFileData.find((element) => {
-        return element.id === caId;
-    });
-
-    if (!filterdCaData) {
-        return res
-            .status(400)
-            .json({ errMessage: `削除データが存在しません。` });
-    }
-
-    //削除データの作成
-    let delCaData = createDeleteDefaultAttribute(caDecodeFileData, caId);
-
-    //データを削除
-    errMessage = overWriteData(DEFAULT_ATTRIBUTE_FILEPATH, JSON.stringify(delCaData, null, '\t'));
-
-    //削除に失敗
-    if (errMessage) {
-        return res
-            .status(500)
-            .json({ errMessage });
-    }
-
-    //正常終了
-    return res
-        .status(200)
-        .json({ errMessage: `削除が完了しました。` });
 }
 
 

@@ -35,8 +35,6 @@ function useSettingDefaultEdit(props: propsType) {
     });
 
     //デフォルト属性のパラメータ
-    //ID
-    const [id, setId] = useState<string | undefined>();
     //名称
     const [caNm, setCaNm] = useState<string | undefined>();
     //説明
@@ -62,7 +60,6 @@ function useSettingDefaultEdit(props: propsType) {
                 if (!data) {
                     return;
                 }
-                setId(data.id);
                 setCaNm(data.name);
                 setCaDescription(data.description);
                 setCaType(data.type);
@@ -77,6 +74,16 @@ function useSettingDefaultEdit(props: propsType) {
             }
         }
     );
+
+    //ID
+    let defaultId = useMemo(() => {
+        return updDefaultAttribute && updDefaultAttribute.id ? updDefaultAttribute.id : "";
+    }, [updDefaultAttribute]);
+
+    //形式
+    let type = useMemo(() => {
+        return updDefaultAttribute && updDefaultAttribute.type ? updDefaultAttribute.type : "";
+    }, [updDefaultAttribute]);
 
     //登録日
     let registerTime = useMemo(() => {
@@ -134,21 +141,6 @@ function useSettingDefaultEdit(props: propsType) {
         },
     });
 
-    //削除用フック
-    const delMutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CUSTOMATTRIBUTE}/${defaultAttributeId}`,
-        method: "DELETE",
-        //正常終了後の処理
-        afSuccessFn: (res: resType) => {
-            alert(res.errMessage);
-        },
-        //失敗後の処理
-        afErrorFn: (res: errResType) => {
-            //エラーメッセージを表示
-            setErrMessage(res.response.data.errMessage);
-        },
-    });
-
     /**
      * 戻るイベント
      */
@@ -172,16 +164,6 @@ function useSettingDefaultEdit(props: propsType) {
             return;
         }
         updMutation.mutate(body);
-    }
-
-    /**
-     * 削除イベント
-     */
-    const deleteAttribute = () => {
-        if (!window.confirm('デフォルト属性を削除しますか？')) {
-            return
-        }
-        delMutation.mutate();
     }
 
     /**
@@ -224,11 +206,17 @@ function useSettingDefaultEdit(props: propsType) {
             body.isNewCreateVisible = isNewCreateVisible;
         }
 
+        //入力可能文字数
+        if (length) {
+            body.length = length;
+        }
+
         return body;
     };
 
     return {
-        id,
+        defaultId,
+        type,
         caNm,
         caDescription,
         caType,
@@ -236,7 +224,6 @@ function useSettingDefaultEdit(props: propsType) {
         isHidden,
         isNewCreateVisible,
         length,
-        setId,
         setCaNm,
         setCaDescription,
         setCaType,
@@ -247,17 +234,11 @@ function useSettingDefaultEdit(props: propsType) {
         isLoadinGetDefaultAttribute,
         backPage,
         updateAttribute,
-        deleteAttribute,
         typeValue,
         positiveButtonObj: {
             title: '戻る',
             type: "BASE",
             onclick: backPage
-        } as buttonObjType,
-        deleteButtonObj: {
-            title: "削除",
-            type: "DANGER",
-            onclick: editMode === editModeEnum.update ? deleteAttribute : undefined
         } as buttonObjType,
         runButtonObj: {
             title: "更新",
