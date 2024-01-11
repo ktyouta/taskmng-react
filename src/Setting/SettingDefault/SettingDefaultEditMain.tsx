@@ -44,6 +44,7 @@ type propsType = {
     isNewCreateVisible: boolean | undefined,
     typeValue: string,
     length: number | undefined,
+    isSettingEditable: boolean,
     setCaNm: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaDescription: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaType: React.Dispatch<React.SetStateAction<string | undefined>>,

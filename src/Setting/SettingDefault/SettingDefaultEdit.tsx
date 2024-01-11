@@ -37,6 +37,7 @@ function SettingDefaultEdit(props: propsType) {
     isHidden,
     isNewCreateVisible,
     length,
+    isSettingEditable,
     setCaNm,
     setCaDescription,
     setCaType,
@@ -64,6 +65,7 @@ function SettingDefaultEdit(props: propsType) {
         caType={caType}
         caRequired={caRequired}
         typeValue={typeValue}
+        isSettingEditable={isSettingEditable}
         setCaNm={setCaNm}
         setCaDescription={setCaDescription}
         setCaType={setCaType}
@@ -82,6 +84,7 @@ function SettingDefaultEdit(props: propsType) {
         positiveButtonObj={positiveButtonObj}
         runButtonObj={runButtonObj}
         outerHeight={'15%'}
+        isSettingEditable={isSettingEditable}
       />
       {
         isLoadinGetDefaultAttribute &&

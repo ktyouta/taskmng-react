@@ -95,6 +95,11 @@ function useSettingDefaultEdit(props: propsType) {
         return updDefaultAttribute && updDefaultAttribute.updTime ? updDefaultAttribute.updTime : "";
     }, [updDefaultAttribute]);
 
+    //編集可能フラグ
+    let isSettingEditable = useMemo(() => {
+        return updDefaultAttribute && updDefaultAttribute.isSettingEditable ? updDefaultAttribute.isSettingEditable : false;
+    }, [updDefaultAttribute]);
+
     //デフォルト属性の形式
     const typeValue = useMemo(() => {
         if (!generalDataList || !caType) {
@@ -212,6 +217,7 @@ function useSettingDefaultEdit(props: propsType) {
         isHidden,
         isNewCreateVisible,
         length,
+        isSettingEditable,
         setCaNm,
         setCaDescription,
         setCaType,

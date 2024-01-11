@@ -15,6 +15,7 @@ type propsType = {
     positiveButtonObj: buttonObjType,
     runButtonObj: buttonObjType,
     outerHeight: string,
+    isSettingEditable: boolean,
 }
 
 //外側のスタイル
@@ -49,6 +50,7 @@ function SettingDefaultEditFooter(props: propsType) {
                 space={"60%"}
             />
             {
+                props.isSettingEditable &&
                 props.runButtonObj &&
                 props.runButtonObj.title &&
                 props.runButtonObj.onclick &&
