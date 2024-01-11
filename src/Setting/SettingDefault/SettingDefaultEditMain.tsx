@@ -80,13 +80,17 @@ function SettingDefaultEditMain(props: propsType) {
                     position='left'
                 >
                     {
-                        props.caNm !== undefined &&
-                        <BaseInputComponent
-                            value={props.caNm}
-                            length={50}
-                            onChange={props.setCaNm}
-                            textWidth='80%'
-                        />
+                        props.isSettingEditable
+                            ?
+                            props.caNm !== undefined &&
+                            <BaseInputComponent
+                                value={props.caNm}
+                                length={50}
+                                onChange={props.setCaNm}
+                                textWidth='80%'
+                            />
+                            :
+                            <React.Fragment>{props.caNm}</React.Fragment>
                     }
                 </HorizonLabelItemComponent>
                 <HorizonLabelItemComponent
@@ -95,13 +99,17 @@ function SettingDefaultEditMain(props: propsType) {
                     position='left'
                 >
                     {
-                        props.caDescription !== undefined &&
-                        <BaseInputComponent
-                            value={props.caDescription}
-                            length={500}
-                            onChange={props.setCaDescription}
-                            textWidth='80%'
-                        />
+                        props.isSettingEditable
+                            ?
+                            props.caDescription !== undefined &&
+                            <BaseInputComponent
+                                value={props.caDescription}
+                                length={500}
+                                onChange={props.setCaDescription}
+                                textWidth='80%'
+                            />
+                            :
+                            <React.Fragment>{props.caDescription}</React.Fragment>
                     }
                 </HorizonLabelItemComponent>
                 {
