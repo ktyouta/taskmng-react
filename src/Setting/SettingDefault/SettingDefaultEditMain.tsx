@@ -55,6 +55,7 @@ type propsType = {
     registerTime: string,
     updTime: string,
     editMode: number,
+    selectElementList: inputRefType[] | undefined,
 }
 
 
@@ -122,6 +123,32 @@ function SettingDefaultEditMain(props: propsType) {
                         {props.typeValue}
                     </HorizonLabelItemComponent>
                 }
+                {
+                    <HorizonLabelItemComponent
+                        title={'選択項目'}
+                        width='30%'
+                        position='left'
+                    >
+                        {
+                            props.selectElementList && props.selectElementList.map((element) => {
+                                return (
+                                    <React.Fragment>
+                                        <BaseInputComponent
+                                            value={element.value}
+                                            ref={element.ref}
+                                            length={10}
+                                            textWidth='80%'
+                                        />
+                                        <VerticalSpaceComponent
+                                            space={'5px'}
+                                        />
+                                    </React.Fragment>
+                                );
+                            })
+                        }
+                    </HorizonLabelItemComponent>
+
+                }
                 {/* テキストエリアまたはテキストボックスのみnumberpickerを表示する */}
                 {
                     props.type &&
@@ -156,6 +183,7 @@ function SettingDefaultEditMain(props: propsType) {
                                 htmlForId={'requiredItem'}
                                 initValue={props.caRequired}
                                 onChangeBl={props.setCaRequired}
+                                disabled={!props.isSettingEditable}
                             />
                         }
                     </HorizonLabelItemComponent>
@@ -173,6 +201,7 @@ function SettingDefaultEditMain(props: propsType) {
                             htmlForId={'isHiddenItem'}
                             initValue={props.isHidden}
                             onChangeBl={props.setIsHidden}
+                            disabled={!props.isSettingEditable}
                         />
                     }
                 </HorizonLabelItemComponent>
@@ -189,6 +218,7 @@ function SettingDefaultEditMain(props: propsType) {
                             htmlForId={'isNewCreateVisibleItem'}
                             initValue={!props.isNewCreateVisible}
                             onChangeBl={props.setIsNewCreateVisible}
+                            disabled={!props.isSettingEditable}
                         />
                     }
                 </HorizonLabelItemComponent>

@@ -11,21 +11,21 @@
 		"isRequired": false,
 		"isSettingEditable": false,
 		"description": "",
-		"updTime":""
+		"updTime": ""
 	},
 	{
 		"id": "title",
-        "name": "タイトル",
-        "type": "input",
-        "length": 500,
-        "value": "",
-        "disabled": false,
-        "isNewCreateVisible": true,
-        "isHidden": false,
-        "isRequired": true,
-        "isSettingEditable":true,
-        "description": "",
-		"updTime":""
+		"name": "タイトル",
+		"type": "input",
+		"length": 500,
+		"value": "",
+		"disabled": false,
+		"isNewCreateVisible": true,
+		"isHidden": false,
+		"isRequired": true,
+		"isSettingEditable": true,
+		"description": "",
+		"updTime": "2024/01/13"
 	},
 	{
 		"id": "content",
@@ -39,7 +39,7 @@
 		"isRequired": false,
 		"description": "タスクの詳細について記入",
 		"isSettingEditable": true,
-		"updTime":""
+		"updTime": ""
 	},
 	{
 		"id": "registerTime",
@@ -53,7 +53,7 @@
 		"isRequired": false,
 		"isSettingEditable": false,
 		"description": "",
-		"updTime":""
+		"updTime": ""
 	},
 	{
 		"id": "updTime",
@@ -67,7 +67,7 @@
 		"isRequired": false,
 		"isSettingEditable": false,
 		"description": "",
-		"updTime":""
+		"updTime": ""
 	},
 	{
 		"id": "limitTime",
@@ -81,7 +81,7 @@
 		"isRequired": false,
 		"description": "タスクの処理期限",
 		"isSettingEditable": false,
-		"updTime":""
+		"updTime": ""
 	},
 	{
 		"id": "userId",
@@ -95,7 +95,7 @@
 		"isRequired": false,
 		"isSettingEditable": false,
 		"description": "",
-		"updTime":""
+		"updTime": ""
 	},
 	{
 		"id": "priority",
@@ -110,7 +110,7 @@
 		"isRequired": false,
 		"description": "タスクの優先度",
 		"isSettingEditable": true,
-		"updTime":""
+		"updTime": ""
 	},
 	{
 		"id": "status",
@@ -125,7 +125,7 @@
 		"isRequired": false,
 		"description": "タスクの状態",
 		"isSettingEditable": true,
-		"updTime":""
+		"updTime": ""
 	},
 	{
 		"id": "customAttribute",
@@ -140,6 +140,6 @@
 		"isRequired": false,
 		"description": "",
 		"isSettingEditable": false,
-		"updTime":""
+		"updTime": ""
 	}
 ]

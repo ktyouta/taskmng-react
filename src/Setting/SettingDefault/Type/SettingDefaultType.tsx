@@ -8,6 +8,7 @@ export type defaultAttributeType = {
     registerTime?: string,
     updTime?: string,
     isNewCreateVisible: boolean,
+    selectElementList: string[],
     isHidden: boolean,
     length: number,
     isSettingEditable: boolean,

@@ -51,7 +51,8 @@ function SettingDefaultEdit(props: propsType) {
     runButtonObj,
     registerTime,
     updTime,
-    editMode
+    editMode,
+    selectElementList
   } = useSettingDefaultEdit({ ...props });
 
   return (
@@ -79,6 +80,7 @@ function SettingDefaultEdit(props: propsType) {
         setIsNewCreateVisible={setIsNewCreateVisible}
         length={length}
         setLength={setLength}
+        selectElementList={selectElementList}
       />
       <SettingDefaultEditFooter
         positiveButtonObj={positiveButtonObj}

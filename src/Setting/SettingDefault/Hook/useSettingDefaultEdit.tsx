@@ -49,6 +49,8 @@ function useSettingDefaultEdit(props: propsType) {
     const [isNewCreateVisible, setIsNewCreateVisible] = useState<boolean | undefined>();
     //入力可能数
     const [length, setLength] = useState<number | undefined>();
+    //可変選択リスト
+    const [selectElementList, setSelectElementList] = useState<inputRefType[] | undefined>();
 
     //編集画面遷移時に更新用デフォルト属性を取得
     const { data: updDefaultAttribute, isLoading: isLoadinGetDefaultAttribute } = useQueryWrapper<defaultAttributeType>(
@@ -67,6 +69,17 @@ function useSettingDefaultEdit(props: propsType) {
                 setIsHidden(data.isHidden);
                 setIsNewCreateVisible(data.isNewCreateVisible);
                 setLength(data.length);
+                //選択リストを所持している場合
+                if (data.selectElementList && data.selectElementList.length > 0) {
+                    let tmpRefArray: inputRefType[] = [];
+                    for (let i = 0; i < data.selectElementList.length; i++) {
+                        tmpRefArray.push({
+                            value: data.selectElementList[i],
+                            ref: createRef()
+                        });
+                    }
+                    setSelectElementList(tmpRefArray);
+                }
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -185,7 +198,7 @@ function useSettingDefaultEdit(props: propsType) {
         }
 
         //必須
-        if (caRequired && !isHidden && !isNewCreateVisible) {
+        if (caRequired && !isHidden && isNewCreateVisible) {
             body.isRequired = caRequired;
         }
 
@@ -242,6 +255,7 @@ function useSettingDefaultEdit(props: propsType) {
         registerTime,
         updTime,
         editMode,
+        selectElementList,
     }
 }
 

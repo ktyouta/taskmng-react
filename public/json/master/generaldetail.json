@@ -52,12 +52,12 @@
     {
         "id": "4",
         "value": "input",
-        "label": "文字列"
+        "label": "テキストボックス"
     },
     {
         "id": "4",
         "value": "textarea",
-        "label": "文章"
+        "label": "テキストエリア"
     },
     {
         "id": "4",

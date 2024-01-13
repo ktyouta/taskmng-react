@@ -8,7 +8,7 @@ export type defaultAttributeType = {
     type: inputType,
     isRequired: boolean,
     selectElementList?: string[],
-    selectElementListId: string,
+    listKey: string,
     registerTime: string,
     updTime: string,
     userId: string,

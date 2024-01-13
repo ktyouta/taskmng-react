@@ -1,17 +1,21 @@
 import { authenticate } from "../../AuthFunction";
 import {
+    GENERALDETAILFILEPATH,
     JSONEXTENSION,
+    MASTERFILEPATH,
     SETTINGFILEPATH,
     TASKINPUTSETTING,
     TRANSACTION,
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
-import { authInfoType, comboType, inputSettingType, searchConditionType, taskListType } from "../../Type/type";
+import { authInfoType, comboType, generalDetailType, inputSettingType, searchConditionType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
 import { DEFAULT_ATTRIBUTE_FILEPATH } from "./DefaultAttributeFunction";
 import { defaultAttributeType } from "./Type/DefaultAttributeType";
 
+//汎用詳細リストファイルのパス
+export const GENERALDETAIL_FILEPATH = `${MASTERFILEPATH}${GENERALDETAILFILEPATH}${JSONEXTENSION}`
 
 
 /**
@@ -44,6 +48,20 @@ export function filterDefaultAttributeDetail(decodeFileData: defaultAttributeTyp
     let singleDefaultAttributeData = decodeFileData.find((element) => { return element.id === id });
     if (!singleDefaultAttributeData) {
         return res.status(400).json({ errMessage: `該当データがありません。` });
+    }
+
+    //選択形式の場合はリストを取得する
+    if (singleDefaultAttributeData.listKey) {
+        //汎用詳細の読み込み
+        let generalDatas: generalDetailType[] = getFileJsonData(GENERALDETAIL_FILEPATH);
+
+        let listKey = singleDefaultAttributeData.listKey;
+        let singleGeneralData = generalDatas.filter((element) => {
+            return element.id === listKey;
+        });
+        singleDefaultAttributeData.selectElementList = singleGeneralData.map((element) => {
+            return element.label;
+        });
     }
 
     return res.status(200).json(singleDefaultAttributeData);

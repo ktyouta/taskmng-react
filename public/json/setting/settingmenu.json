@@ -1,18 +1,19 @@
 [
     {
-        "name": "カスタム属性",
-        "path": "/custom",
-        "componentName": "SettingCustom",
-        "auth": "3",
-        "isHidden": false
-    },
-    {
         "name": "デフォルト属性",
         "path": "/default",
         "componentName": "SettingDefault",
         "auth": "3",
         "isHidden": false
     },
+    {
+        "name": "カスタム属性",
+        "path": "/custom",
+        "componentName": "SettingCustom",
+        "auth": "3",
+        "isHidden": false
+    },
+    
     {
         "name": "カテゴリ",
         "path": "/category",
