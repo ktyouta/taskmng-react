@@ -1,3 +1,6 @@
+import { RefObject } from "react"
+import { refType } from "../../../Common/Type/CommonType"
+
 //デフォルト属性の型
 export type defaultAttributeType = {
     id: string,
@@ -8,7 +11,7 @@ export type defaultAttributeType = {
     registerTime?: string,
     updTime?: string,
     isNewCreateVisible: boolean,
-    selectElementList: string[],
+    selectElementList: selectListType[],
     isHidden: boolean,
     length: number,
     isSettingEditable: boolean,
@@ -22,4 +25,18 @@ export type defaultAttributeUpdType = {
     isNewCreateVisible: boolean,
     isHidden: boolean,
     length: number,
+    selectElementList: selectListType[],
+}
+
+//選択リストの型
+export type selectListType = {
+    value: string,
+    label: string,
+}
+
+//入力欄参照用の型
+export type defaultAttributeInputRefType = {
+    label: string,
+    value: string,
+    ref: RefObject<refType>,
 }

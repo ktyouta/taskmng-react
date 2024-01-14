@@ -2,12 +2,12 @@ import { inputType } from "../../../Type/type";
 
 //デフォルト属性の型
 export type defaultAttributeType = {
-    [key: string]: string | string[] | boolean | number | undefined,
+    [key: string]: string | string[] | boolean | number | selectListType[] | undefined,
     id: string,
     name: string,
     type: inputType,
     isRequired: boolean,
-    selectElementList?: string[],
+    selectElementList?: selectListType[],
     listKey: string,
     registerTime: string,
     updTime: string,
@@ -21,11 +21,18 @@ export type defaultAttributeType = {
 
 //デフォルト属性の更新時の型
 export type defaultAttributeUpdType = {
-    [key: string]: string | string[] | boolean | number | undefined,
+    [key: string]: string | string[] | boolean | number | selectListType[] | undefined,
     name: string,
     description: string,
     isRequired: boolean,
     isNewCreateVisible: boolean,
     isHidden: boolean,
     length: number,
+    selectElementList: selectListType[],
+}
+
+//選択リストの型
+export type selectListType = {
+    value: string,
+    label: string,
 }

@@ -1,8 +1,9 @@
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
-import { authInfoType, searchConditionType, taskListType } from "../../Type/type";
+import { authInfoType, generalDetailType, searchConditionType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
-import { defaultAttributeType, defaultAttributeUpdType } from "./Type/DefaultAttributeType";
+import { defaultAttributeType, defaultAttributeUpdType, selectListType } from "./Type/DefaultAttributeType";
+import { GENERALDETAIL_FILEPATH } from "./DefaultAttributeFunction";
 
 
 /**
@@ -32,6 +33,53 @@ export function createUpdDefaultAttribute(fileDataObj: defaultAttributeType[], b
             });
             return true;
         }
+    });
+
+    return fileDataObj;
+}
+
+/**
+ * 選択リストの更新
+ * @param filePath 
+ * @param stream 
+ * @returns 
+ */
+export function createUpdDefaultAttributeSelectList(fileDataObj: generalDetailType[],
+    defaultDatas: defaultAttributeType[], updDAId: string, selectElementList: selectListType[])
+    : generalDetailType[] {
+
+    //IDで絞り込む
+    let defaultData = defaultDatas.find((element) => {
+        return element.id === updDAId;
+    });
+
+    //IDに一致するデータが存在しない場合
+    if (!defaultData) {
+        return fileDataObj;
+    }
+
+    //リストキー
+    let listKey = defaultData.listKey;
+
+    //リストキーが存在しない場合
+    if (!listKey) {
+        return fileDataObj;
+    }
+
+    //リストキーに一致するデータを取得
+    let updGeneralDatas = fileDataObj.filter((element) => {
+        return element.id === listKey;
+    });
+
+    //選択リストを更新
+    selectElementList.forEach((element) => {
+        let tmp = updGeneralDatas.find((element1) => {
+            return element1.value === element.value;
+        });
+        if (!tmp) {
+            return;
+        }
+        tmp.label = element.label;
     });
 
     return fileDataObj;

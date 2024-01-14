@@ -11,11 +11,9 @@ import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, comboType, generalDetailType, inputSettingType, searchConditionType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
-import { DEFAULT_ATTRIBUTE_FILEPATH } from "./DefaultAttributeFunction";
+import { DEFAULT_ATTRIBUTE_FILEPATH, GENERALDETAIL_FILEPATH } from "./DefaultAttributeFunction";
 import { defaultAttributeType } from "./Type/DefaultAttributeType";
 
-//汎用詳細リストファイルのパス
-export const GENERALDETAIL_FILEPATH = `${MASTERFILEPATH}${GENERALDETAILFILEPATH}${JSONEXTENSION}`
 
 
 /**
@@ -60,7 +58,10 @@ export function filterDefaultAttributeDetail(decodeFileData: defaultAttributeTyp
             return element.id === listKey;
         });
         singleDefaultAttributeData.selectElementList = singleGeneralData.map((element) => {
-            return element.label;
+            return {
+                value: element.value,
+                label: element.label
+            }
         });
     }
 

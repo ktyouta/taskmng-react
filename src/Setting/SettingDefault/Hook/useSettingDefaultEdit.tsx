@@ -11,7 +11,7 @@ import { generalDataType, refInfoType } from "../../../Common/Type/CommonType";
 import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
 import { buttonObjType } from "../SettingDefaultEditFooter";
-import { defaultAttributeType, defaultAttributeUpdType } from "../Type/SettingDefaultType";
+import { defaultAttributeInputRefType, defaultAttributeType, defaultAttributeUpdType } from "../Type/SettingDefaultType";
 
 
 //引数の型
@@ -50,7 +50,7 @@ function useSettingDefaultEdit(props: propsType) {
     //入力可能数
     const [length, setLength] = useState<number | undefined>();
     //可変選択リスト
-    const [selectElementList, setSelectElementList] = useState<inputRefType[] | undefined>();
+    const [selectElementList, setSelectElementList] = useState<defaultAttributeInputRefType[] | undefined>();
 
     //編集画面遷移時に更新用デフォルト属性を取得
     const { data: updDefaultAttribute, isLoading: isLoadinGetDefaultAttribute } = useQueryWrapper<defaultAttributeType>(
@@ -71,11 +71,12 @@ function useSettingDefaultEdit(props: propsType) {
                 setLength(data.length);
                 //選択リストを所持している場合
                 if (data.selectElementList && data.selectElementList.length > 0) {
-                    let tmpRefArray: inputRefType[] = [];
+                    let tmpRefArray: defaultAttributeInputRefType[] = [];
                     for (let i = 0; i < data.selectElementList.length; i++) {
                         tmpRefArray.push({
-                            value: data.selectElementList[i],
-                            ref: createRef()
+                            value: data.selectElementList[i].value,
+                            ref: createRef(),
+                            label: data.selectElementList[i].label
                         });
                     }
                     setSelectElementList(tmpRefArray);
@@ -182,7 +183,8 @@ function useSettingDefaultEdit(props: propsType) {
             isRequired: false,
             isNewCreateVisible: false,
             isHidden: false,
-            length: 0
+            length: 0,
+            selectElementList: []
         };
 
         //名称
@@ -215,6 +217,16 @@ function useSettingDefaultEdit(props: propsType) {
         //入力可能文字数
         if (length) {
             body.length = length;
+        }
+
+        //選択リスト
+        if (selectElementList) {
+            body.selectElementList = selectElementList.map((element) => {
+                return {
+                    value: element.value,
+                    label: element.ref.current ? element.ref.current.refValue : ""
+                }
+            });
         }
 
         return body;

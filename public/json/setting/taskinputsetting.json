@@ -110,7 +110,7 @@
 		"isRequired": false,
 		"description": "タスクの優先度",
 		"isSettingEditable": true,
-		"updTime": ""
+		"updTime": "2024/01/14"
 	},
 	{
 		"id": "status",
@@ -125,7 +125,7 @@
 		"isRequired": false,
 		"description": "タスクの状態",
 		"isSettingEditable": true,
-		"updTime": ""
+		"updTime": "2024/01/14"
 	},
 	{
 		"id": "customAttribute",

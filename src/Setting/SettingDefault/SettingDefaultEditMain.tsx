@@ -16,6 +16,7 @@ import SpaceComponent from '../../Common/SpaceComponent';
 import HorizontalComponent from '../../Common/HorizontalComponent';
 import { editModeEnum } from './SettingDefault';
 import NumberPickerComponent from '../../Common/NumberPickerComponent';
+import { defaultAttributeInputRefType } from './Type/SettingDefaultType';
 
 
 //外側のスタイル
@@ -55,7 +56,7 @@ type propsType = {
     registerTime: string,
     updTime: string,
     editMode: number,
-    selectElementList: inputRefType[] | undefined,
+    selectElementList: defaultAttributeInputRefType[] | undefined,
 }
 
 
@@ -124,17 +125,18 @@ function SettingDefaultEditMain(props: propsType) {
                     </HorizonLabelItemComponent>
                 }
                 {
+                    props.selectElementList &&
                     <HorizonLabelItemComponent
                         title={'選択項目'}
                         width='30%'
                         position='left'
                     >
                         {
-                            props.selectElementList && props.selectElementList.map((element) => {
+                            props.selectElementList.map((element) => {
                                 return (
                                     <React.Fragment>
                                         <BaseInputComponent
-                                            value={element.value}
+                                            value={element.label}
                                             ref={element.ref}
                                             length={10}
                                             textWidth='80%'

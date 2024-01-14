@@ -1,21 +1,25 @@
 import { authenticate } from "../../AuthFunction";
 import {
+    GENERALDETAILFILEPATH,
     JSONEXTENSION,
+    MASTERFILEPATH,
     SETTINGFILEPATH,
     TASKINPUTSETTING,
     TRANSACTION,
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
-import { authInfoType, searchConditionType, taskListType } from "../../Type/type";
+import { authInfoType, generalDetailType, searchConditionType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
-import { createUpdDefaultAttribute, } from "./DefaultAttributeUpdateFunction";
+import { createUpdDefaultAttribute, createUpdDefaultAttributeSelectList, } from "./DefaultAttributeUpdateFunction";
 import { filterDefaultAttributeDetail, getDefaultAttributeData, } from "./DefaultAttributeSelectFunction";
 import { defaultAttributeType, defaultAttributeUpdType } from "./Type/DefaultAttributeType";
 
 
 //デフォルト属性ファイルのパス
 export const DEFAULT_ATTRIBUTE_FILEPATH = `${SETTINGFILEPATH}${TASKINPUTSETTING}${JSONEXTENSION}`;
+//汎用詳細リストファイルのパス
+export const GENERALDETAIL_FILEPATH = `${MASTERFILEPATH}${GENERALDETAILFILEPATH}${JSONEXTENSION}`
 
 
 /**
@@ -85,7 +89,7 @@ export function getDefaultAttributeInputSetting(res: any, req: any) {
 /**
  * デフォルト属性の更新
  */
-export function runUpdDefaultAttribute(res: any, req: any, caId: string) {
+export function runUpdDefaultAttribute(res: any, req: any, dfId: string) {
     //認証権限チェック
     let authResult = checkUpdAuth(req.cookies.cookie);
     if (authResult.errMessage) {
@@ -95,7 +99,7 @@ export function runUpdDefaultAttribute(res: any, req: any, caId: string) {
     }
 
     //IDの指定がない
-    if (!caId) {
+    if (!dfId) {
         return res
             .status(400)
             .json({ errMessage: `パラメータが不正です。` });
@@ -108,7 +112,7 @@ export function runUpdDefaultAttribute(res: any, req: any, caId: string) {
 
     //存在チェック
     let filterdCaData = caDecodeFileData.find((element) => {
-        return element.id === caId;
+        return element.id === dfId;
     });
 
     //更新対象が存在しない
@@ -121,7 +125,7 @@ export function runUpdDefaultAttribute(res: any, req: any, caId: string) {
     let updDefaultAttribute: defaultAttributeUpdType = req.body;
 
     //更新データの作成
-    let updCaData = createUpdDefaultAttribute(caDecodeFileData, updDefaultAttribute, caId);
+    let updCaData = createUpdDefaultAttribute(caDecodeFileData, updDefaultAttribute, dfId);
 
     //データを更新
     errMessage = overWriteData(DEFAULT_ATTRIBUTE_FILEPATH, JSON.stringify(updCaData, null, '\t'));
@@ -130,6 +134,23 @@ export function runUpdDefaultAttribute(res: any, req: any, caId: string) {
         return res
             .status(500)
             .json({ errMessage });
+    }
+
+    //選択リストが存在する場合は更新
+    if (updDefaultAttribute.selectElementList && updDefaultAttribute.selectElementList.length > 0) {
+        //汎用詳細の読み込み
+        let generalDatas: generalDetailType[] = getFileJsonData(GENERALDETAIL_FILEPATH);
+        //更新データを作成
+        let updGeneralDatas = createUpdDefaultAttributeSelectList(generalDatas, updCaData, dfId, updDefaultAttribute.selectElementList);
+
+        //データを更新
+        errMessage = overWriteData(GENERALDETAIL_FILEPATH, JSON.stringify(updGeneralDatas, null, '\t'));
+        //更新に失敗
+        if (errMessage) {
+            return res
+                .status(500)
+                .json({ errMessage });
+        }
     }
 
     //正常終了
