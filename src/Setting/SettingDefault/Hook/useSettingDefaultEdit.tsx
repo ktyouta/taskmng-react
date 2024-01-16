@@ -51,6 +51,8 @@ function useSettingDefaultEdit(props: propsType) {
     const [length, setLength] = useState<number | undefined>();
     //可変選択リスト
     const [selectElementList, setSelectElementList] = useState<defaultAttributeInputRefType[] | undefined>();
+    //初期値
+    const [initValue, setInitValue] = useState<string | undefined>();
 
     //編集画面遷移時に更新用デフォルト属性を取得
     const { data: updDefaultAttribute, isLoading: isLoadinGetDefaultAttribute } = useQueryWrapper<defaultAttributeType>(
@@ -81,6 +83,7 @@ function useSettingDefaultEdit(props: propsType) {
                     }
                     setSelectElementList(tmpRefArray);
                 }
+                setInitValue(data.initValue);
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -243,6 +246,7 @@ function useSettingDefaultEdit(props: propsType) {
         isNewCreateVisible,
         length,
         isSettingEditable,
+        initValue,
         setCaNm,
         setCaDescription,
         setCaType,
@@ -250,6 +254,7 @@ function useSettingDefaultEdit(props: propsType) {
         setIsHidden,
         setIsNewCreateVisible,
         setLength,
+        setInitValue,
         isLoadinGetDefaultAttribute,
         backPage,
         updateAttribute,

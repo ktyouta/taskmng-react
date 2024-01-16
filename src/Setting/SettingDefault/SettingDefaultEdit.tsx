@@ -37,6 +37,7 @@ function SettingDefaultEdit(props: propsType) {
     isHidden,
     isNewCreateVisible,
     length,
+    initValue,
     isSettingEditable,
     setCaNm,
     setCaDescription,
@@ -45,6 +46,7 @@ function SettingDefaultEdit(props: propsType) {
     setIsHidden,
     setIsNewCreateVisible,
     setLength,
+    setInitValue,
     isLoadinGetDefaultAttribute,
     typeValue,
     positiveButtonObj,
@@ -81,6 +83,8 @@ function SettingDefaultEdit(props: propsType) {
         length={length}
         setLength={setLength}
         selectElementList={selectElementList}
+        initValue={initValue}
+        setInitValue={setInitValue}
       />
       <SettingDefaultEditFooter
         positiveButtonObj={positiveButtonObj}

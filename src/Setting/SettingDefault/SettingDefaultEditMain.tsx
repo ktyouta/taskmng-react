@@ -45,6 +45,7 @@ type propsType = {
     isNewCreateVisible: boolean | undefined,
     typeValue: string,
     length: number | undefined,
+    initValue: string | undefined,
     isSettingEditable: boolean,
     setCaNm: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaDescription: React.Dispatch<React.SetStateAction<string | undefined>>,
@@ -53,6 +54,7 @@ type propsType = {
     setIsHidden: React.Dispatch<React.SetStateAction<boolean | undefined>>,
     setIsNewCreateVisible: React.Dispatch<React.SetStateAction<boolean | undefined>>,
     setLength: React.Dispatch<React.SetStateAction<number | undefined>>,
+    setInitValue: React.Dispatch<React.SetStateAction<string | undefined>>,
     registerTime: string,
     updTime: string,
     editMode: number,
@@ -150,6 +152,27 @@ function SettingDefaultEditMain(props: propsType) {
                         }
                     </HorizonLabelItemComponent>
 
+                }
+                {
+                    <HorizonLabelItemComponent
+                        title={'初期値'}
+                        width='30%'
+                        position='left'
+                    >
+                        {
+                            props.isSettingEditable
+                                ?
+                                props.initValue !== undefined &&
+                                <BaseInputComponent
+                                    value={props.initValue}
+                                    length={50}
+                                    onChange={props.setInitValue}
+                                    textWidth='80%'
+                                />
+                                :
+                                <React.Fragment>{props.initValue}</React.Fragment>
+                        }
+                    </HorizonLabelItemComponent>
                 }
                 {/* テキストエリアまたはテキストボックスのみnumberpickerを表示する */}
                 {
