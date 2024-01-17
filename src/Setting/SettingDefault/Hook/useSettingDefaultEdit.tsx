@@ -53,6 +53,8 @@ function useSettingDefaultEdit(props: propsType) {
     const [selectElementList, setSelectElementList] = useState<defaultAttributeInputRefType[] | undefined>();
     //初期値
     const [initValue, setInitValue] = useState<string | undefined>();
+    //タイプが選択形式の場合のリスト
+    const [selectTypeInitList, setSelectTypeInitList] = useState<defaultAttributeInputRefType[] | undefined>();
 
     //編集画面遷移時に更新用デフォルト属性を取得
     const { data: updDefaultAttribute, isLoading: isLoadinGetDefaultAttribute } = useQueryWrapper<defaultAttributeType>(
@@ -82,6 +84,8 @@ function useSettingDefaultEdit(props: propsType) {
                         });
                     }
                     setSelectElementList(tmpRefArray);
+                    setSelectTypeInitList(tmpRefArray);
+                    return;
                 }
                 setInitValue(data.initValue);
             }
@@ -247,6 +251,7 @@ function useSettingDefaultEdit(props: propsType) {
         length,
         isSettingEditable,
         initValue,
+        selectTypeInitList,
         setCaNm,
         setCaDescription,
         setCaType,

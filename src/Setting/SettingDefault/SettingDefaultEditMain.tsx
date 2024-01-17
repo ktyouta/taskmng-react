@@ -47,6 +47,7 @@ type propsType = {
     length: number | undefined,
     initValue: string | undefined,
     isSettingEditable: boolean,
+    selectTypeInitList: defaultAttributeInputRefType[] | undefined,
     setCaNm: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaDescription: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaType: React.Dispatch<React.SetStateAction<string | undefined>>,
@@ -163,12 +164,33 @@ function SettingDefaultEditMain(props: propsType) {
                             props.isSettingEditable
                                 ?
                                 props.initValue !== undefined &&
-                                <BaseInputComponent
-                                    value={props.initValue}
-                                    length={50}
-                                    onChange={props.setInitValue}
-                                    textWidth='80%'
-                                />
+                                (
+                                    (props.selectTypeInitList !== undefined &&
+                                        props.selectTypeInitList.length > 0)
+                                        ?
+                                        props.selectTypeInitList.map((element) => {
+                                            return (
+                                                <React.Fragment>
+                                                    <BaseInputComponent
+                                                        value={element.label}
+                                                        ref={element.ref}
+                                                        length={10}
+                                                        textWidth='80%'
+                                                    />
+                                                    <VerticalSpaceComponent
+                                                        space={'5px'}
+                                                    />
+                                                </React.Fragment>
+                                            );
+                                        })
+                                        :
+                                        <BaseInputComponent
+                                            value={props.initValue}
+                                            length={50}
+                                            onChange={props.setInitValue}
+                                            textWidth='80%'
+                                        />
+                                )
                                 :
                                 <React.Fragment>{props.initValue}</React.Fragment>
                         }

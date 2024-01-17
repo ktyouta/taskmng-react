@@ -39,6 +39,7 @@ function SettingDefaultEdit(props: propsType) {
     length,
     initValue,
     isSettingEditable,
+    selectTypeInitList,
     setCaNm,
     setCaDescription,
     setCaType,
@@ -85,6 +86,7 @@ function SettingDefaultEdit(props: propsType) {
         selectElementList={selectElementList}
         initValue={initValue}
         setInitValue={setInitValue}
+        selectTypeInitList={selectTypeInitList}
       />
       <SettingDefaultEditFooter
         positiveButtonObj={positiveButtonObj}
