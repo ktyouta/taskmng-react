@@ -102,7 +102,7 @@
 		"name": "優先度",
 		"type": "radio",
 		"length": 500,
-		"initValue": "",
+		"initValue": "1",
 		"disabled": false,
 		"isNewCreateVisible": true,
 		"isHidden": false,

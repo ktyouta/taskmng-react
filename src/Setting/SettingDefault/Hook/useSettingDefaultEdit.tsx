@@ -262,16 +262,13 @@ function useSettingDefaultEdit(props: propsType) {
      * 選択項目の編集イベント
      * @returns 
      */
-    const editSelectList = (e: string) => {
-        if (!selectTypeInitRef || !selectElementList) {
+    const editSelectList = (e: string, index: number) => {
+        if (!selectTypeInitRef) {
             return;
         }
         let tmpSelectTypeInitRef: initRefValueType = JSON.parse(JSON.stringify(selectTypeInitRef))
         tmpSelectTypeInitRef.selectElementList.some((element, i) => {
-            if (!element.label) {
-                return;
-            }
-            if (e !== selectElementList[i].label) {
+            if (i === index) {
                 element.label = e;
                 return true;
             }

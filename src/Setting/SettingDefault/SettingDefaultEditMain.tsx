@@ -61,7 +61,7 @@ type propsType = {
     updTime: string,
     editMode: number,
     selectElementList: defaultAttributeInputRefType[] | undefined,
-    editSelectList: (e: string) => void,
+    editSelectList: (e: string, index: number) => void,
 }
 
 
@@ -137,7 +137,7 @@ function SettingDefaultEditMain(props: propsType) {
                         position='left'
                     >
                         {
-                            props.selectElementList.map((element) => {
+                            props.selectElementList.map((element, index) => {
                                 return (
                                     <React.Fragment>
                                         <BaseInputComponent
@@ -145,7 +145,7 @@ function SettingDefaultEditMain(props: propsType) {
                                             ref={element.ref}
                                             length={10}
                                             textWidth='80%'
-                                            onChange={props.editSelectList}
+                                            onChange={(e) => { props.editSelectList(e, index + 1) }}
                                         />
                                         <VerticalSpaceComponent
                                             space={'5px'}
