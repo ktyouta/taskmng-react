@@ -102,7 +102,7 @@
 		"name": "優先度",
 		"type": "radio",
 		"length": 500,
-		"initValue": "1",
+		"initValue": "",
 		"disabled": false,
 		"isNewCreateVisible": true,
 		"isHidden": false,
@@ -110,7 +110,7 @@
 		"isRequired": false,
 		"description": "タスクの優先度",
 		"isSettingEditable": true,
-		"updTime": "2024/01/14"
+		"updTime": "2024/01/20"
 	},
 	{
 		"id": "status",

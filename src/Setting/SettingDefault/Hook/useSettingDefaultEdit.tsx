@@ -11,7 +11,7 @@ import { generalDataType, refInfoType } from "../../../Common/Type/CommonType";
 import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
 import { buttonObjType } from "../SettingDefaultEditFooter";
-import { defaultAttributeInputRefType, defaultAttributeType, defaultAttributeUpdType } from "../Type/SettingDefaultType";
+import { defaultAttributeInputRefType, defaultAttributeType, defaultAttributeUpdType, initRefValueType, selectListType } from "../Type/SettingDefaultType";
 
 
 //引数の型
@@ -54,7 +54,7 @@ function useSettingDefaultEdit(props: propsType) {
     //初期値
     const [initValue, setInitValue] = useState<string | undefined>();
     //タイプが選択形式の場合のリスト
-    const [selectTypeInitList, setSelectTypeInitList] = useState<defaultAttributeInputRefType[] | undefined>();
+    const [selectTypeInitRef, setSelectTypeInitRef] = useState<initRefValueType | undefined>();
 
     //編集画面遷移時に更新用デフォルト属性を取得
     const { data: updDefaultAttribute, isLoading: isLoadinGetDefaultAttribute } = useQueryWrapper<defaultAttributeType>(
@@ -76,18 +76,31 @@ function useSettingDefaultEdit(props: propsType) {
                 //選択リストを所持している場合
                 if (data.selectElementList && data.selectElementList.length > 0) {
                     let tmpRefArray: defaultAttributeInputRefType[] = [];
+                    let tmpRefSelectArray: selectListType[] = [{
+                        value: "",
+                        label: "",
+                    }];
                     for (let i = 0; i < data.selectElementList.length; i++) {
                         tmpRefArray.push({
                             value: data.selectElementList[i].value,
                             ref: createRef(),
                             label: data.selectElementList[i].label
                         });
+                        tmpRefSelectArray.push({
+                            value: data.selectElementList[i].value,
+                            label: data.selectElementList[i].label,
+                        })
                     }
                     setSelectElementList(tmpRefArray);
-                    setSelectTypeInitList(tmpRefArray);
-                    return;
+                    setSelectTypeInitRef({
+                        selectElementList: tmpRefSelectArray,
+                        initValue: data.initValue,
+                        ref: createRef(),
+                    });
                 }
-                setInitValue(data.initValue);
+                else {
+                    setInitValue(data.initValue);
+                }
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -191,7 +204,8 @@ function useSettingDefaultEdit(props: propsType) {
             isNewCreateVisible: false,
             isHidden: false,
             length: 0,
-            selectElementList: []
+            selectElementList: [],
+            initValue: ""
         };
 
         //名称
@@ -234,10 +248,36 @@ function useSettingDefaultEdit(props: propsType) {
                     label: element.ref.current ? element.ref.current.refValue : ""
                 }
             });
+            //初期値
+            body.initValue = selectTypeInitRef?.ref.current ? selectTypeInitRef.ref.current.refValue : ""
+        }
+        else if (initValue) {
+            body.initValue = initValue;
         }
 
         return body;
     };
+
+    /**
+     * 選択項目の編集イベント
+     * @returns 
+     */
+    const editSelectList = (e: string) => {
+        if (!selectTypeInitRef || !selectElementList) {
+            return;
+        }
+        let tmpSelectTypeInitRef: initRefValueType = JSON.parse(JSON.stringify(selectTypeInitRef))
+        tmpSelectTypeInitRef.selectElementList.some((element, i) => {
+            if (!element.label) {
+                return;
+            }
+            if (e !== selectElementList[i].label) {
+                element.label = e;
+                return true;
+            }
+        });
+        setSelectTypeInitRef(tmpSelectTypeInitRef);
+    }
 
     return {
         defaultId,
@@ -251,7 +291,7 @@ function useSettingDefaultEdit(props: propsType) {
         length,
         isSettingEditable,
         initValue,
-        selectTypeInitList,
+        selectTypeInitRef,
         setCaNm,
         setCaDescription,
         setCaType,
@@ -278,6 +318,7 @@ function useSettingDefaultEdit(props: propsType) {
         updTime,
         editMode,
         selectElementList,
+        editSelectList,
     }
 }
 

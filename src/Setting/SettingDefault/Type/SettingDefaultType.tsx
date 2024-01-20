@@ -27,6 +27,7 @@ export type defaultAttributeUpdType = {
     isHidden: boolean,
     length: number,
     selectElementList: selectListType[],
+    initValue: string,
 }
 
 //選択リストの型
@@ -39,5 +40,12 @@ export type selectListType = {
 export type defaultAttributeInputRefType = {
     label: string,
     value: string,
+    ref: RefObject<refType>,
+}
+
+//初期値の型
+export type initRefValueType = {
+    selectElementList: selectListType[],
+    initValue: string,
     ref: RefObject<refType>,
 }

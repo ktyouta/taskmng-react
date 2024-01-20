@@ -16,7 +16,8 @@ import SpaceComponent from '../../Common/SpaceComponent';
 import HorizontalComponent from '../../Common/HorizontalComponent';
 import { editModeEnum } from './SettingDefault';
 import NumberPickerComponent from '../../Common/NumberPickerComponent';
-import { defaultAttributeInputRefType } from './Type/SettingDefaultType';
+import { defaultAttributeInputRefType, initRefValueType } from './Type/SettingDefaultType';
+import ComboComponent from '../../Common/ComboComponent';
 
 
 //外側のスタイル
@@ -47,7 +48,7 @@ type propsType = {
     length: number | undefined,
     initValue: string | undefined,
     isSettingEditable: boolean,
-    selectTypeInitList: defaultAttributeInputRefType[] | undefined,
+    selectTypeInitRef: initRefValueType | undefined,
     setCaNm: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaDescription: React.Dispatch<React.SetStateAction<string | undefined>>,
     setCaType: React.Dispatch<React.SetStateAction<string | undefined>>,
@@ -60,6 +61,7 @@ type propsType = {
     updTime: string,
     editMode: number,
     selectElementList: defaultAttributeInputRefType[] | undefined,
+    editSelectList: (e: string) => void,
 }
 
 
@@ -143,6 +145,7 @@ function SettingDefaultEditMain(props: propsType) {
                                             ref={element.ref}
                                             length={10}
                                             textWidth='80%'
+                                            onChange={props.editSelectList}
                                         />
                                         <VerticalSpaceComponent
                                             space={'5px'}
@@ -163,34 +166,20 @@ function SettingDefaultEditMain(props: propsType) {
                         {
                             props.isSettingEditable
                                 ?
-                                props.initValue !== undefined &&
-                                (
-                                    (props.selectTypeInitList !== undefined &&
-                                        props.selectTypeInitList.length > 0)
-                                        ?
-                                        props.selectTypeInitList.map((element) => {
-                                            return (
-                                                <React.Fragment>
-                                                    <BaseInputComponent
-                                                        value={element.label}
-                                                        ref={element.ref}
-                                                        length={10}
-                                                        textWidth='80%'
-                                                    />
-                                                    <VerticalSpaceComponent
-                                                        space={'5px'}
-                                                    />
-                                                </React.Fragment>
-                                            );
-                                        })
-                                        :
-                                        <BaseInputComponent
-                                            value={props.initValue}
-                                            length={50}
-                                            onChange={props.setInitValue}
-                                            textWidth='80%'
-                                        />
-                                )
+                                props.initValue !== undefined ?
+                                    <BaseInputComponent
+                                        value={props.initValue}
+                                        length={50}
+                                        onChange={props.setInitValue}
+                                        textWidth='80%'
+                                    />
+                                    :
+                                    props.selectTypeInitRef !== undefined &&
+                                    <ComboComponent
+                                        combo={props.selectTypeInitRef.selectElementList}
+                                        initValue={props.selectTypeInitRef.initValue}
+                                        ref={props.selectTypeInitRef.ref}
+                                    />
                                 :
                                 <React.Fragment>{props.initValue}</React.Fragment>
                         }
