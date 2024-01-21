@@ -35,7 +35,7 @@ const TaskSearchAreaDt = styled.dt`
  * @param customAttribute APIから取得したカスタム属性リスト
  * @returns 
  */
-export function createCunstomAttributeViewList(customAttribute: customAttributeListType[]): viewTaskType[] {
+export function createCustomAttributeViewList(customAttribute: customAttributeListType[]): viewTaskType[] {
     let tmpViewCustomAttributeList: viewTaskType[] = [];
 
     customAttribute.forEach((element) => {
@@ -46,7 +46,7 @@ export function createCunstomAttributeViewList(customAttribute: customAttributeL
         if (list && list.length > 0) {
 
             //複数選択可能形式(チェックボックス)の場合
-            if (tmp.includes(",")) {
+            if (tmp && tmp.includes(",")) {
                 let tmpArr = tmp.split(",");
                 let valArr: string[] = [];
                 tmpArr.forEach((element1) => {
@@ -625,7 +625,7 @@ export function createTaskViewList(taskSettingList: inputTaskSettingType[], updT
             if (!updTask?.customAttribute) {
                 return;
             }
-            tmpViewCustomAttributeList = createCunstomAttributeViewList(updTask.customAttribute);
+            tmpViewCustomAttributeList = createCustomAttributeViewList(updTask.customAttribute);
             return;
         }
 

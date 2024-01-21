@@ -3,7 +3,7 @@ import ENV from '../../env.json';
 import { bodyObj, comboType, generalDataType, inputMasterSettingType, refInfoType } from "../../Common/Type/CommonType";
 import { apiTaskDetailType, customAttributeListType, displayTaskType, inputTaskSettingType, taskListType, viewTaskType } from "../Type/TaskType";
 import { buttonObjType } from "../../Master/MasterEditFooter";
-import { createCunstomAttributeViewList, createTaskViewList } from "../Function/TaskFunction";
+import { createTaskViewList } from "../Function/TaskFunction";
 
 
 //引数の型

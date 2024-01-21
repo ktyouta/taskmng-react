@@ -10,7 +10,7 @@ import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
-import { checkTaskRequest, createCunstomAttributeEditList, createCunstomAttributeViewList, createTaskCustomAttributeRequestBody, createTaskRequestBody, createUpdRefArray } from "../Function/TaskFunction";
+import { checkTaskRequest, createTaskRequestBody, createUpdRefArray } from "../Function/TaskFunction";
 
 
 //引数の型
