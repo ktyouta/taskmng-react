@@ -921,13 +921,13 @@
 	{
 		"id": "TASKID-78",
 		"title": "タスクの登録時に日付が登録されないバグの修正",
-		"content": "",
+		"content": "登録自体は正常にされている。\nTASKID-79により発生。",
 		"registerTime": "2024/01/21",
 		"updTime": "2024/01/21",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
-		"status": "1",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
@@ -939,12 +939,24 @@
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
-		"status": "1",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
 		"id": "TASKID-80",
 		"title": "ユーザー管理画面の一覧に権限の列を追加",
+		"content": "",
+		"registerTime": "2024/01/21",
+		"updTime": "2024/01/21",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-81",
+		"title": "完了したタスクの色が変わらないバグの修正",
 		"content": "",
 		"registerTime": "2024/01/21",
 		"updTime": "2024/01/21",

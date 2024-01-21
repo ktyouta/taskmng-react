@@ -70,6 +70,9 @@ export function requestBodyInputCheck(refInputArray: refInfoType[]) {
  * 文字列を日付に変換
  */
 export const parseStrDate = (strDate: string) => {
+    if (strDate.includes("/")) {
+        strDate = strDate.replaceAll("/", "");
+    }
     const year = strDate.substring(0, 4);
     const month = strDate.substring(4, 6);
     const day = strDate.substring(6, 8);
