@@ -99,7 +99,7 @@ export type inputTaskSettingType = {
     name: string,
     type: inputType,
     length: number,
-    value: string,
+    initValue: string,
     disabled: boolean,
     isNewCreateVisible: boolean,
     isHidden: boolean,

@@ -121,7 +121,7 @@ function useMasterEditLogic(): retType {
                 type: element.type,
                 length: element.length,
                 //キーに一致するデータが存在する場合はその値を表示
-                value: tmpValue ?? element.value,
+                initValue: tmpValue ?? element.value,
                 //閲覧モードの場合は全項目編集不可
                 disabled: editMode !== editModeEnum.view && element.disabled,
                 visible: isVisible,
@@ -167,7 +167,7 @@ function useMasterEditLogic(): retType {
         let body: bodyObj = {};
         //bodyの作成
         refInfoArray.forEach((element) => {
-            let postValue: string | undefined = element.value;
+            let postValue: string | undefined = element.initValue;
             if (element.ref && element.ref.current) {
                 postValue = element.ref?.current?.refValue;
             }

@@ -25,7 +25,7 @@
 		"isRequired": true,
 		"isSettingEditable": true,
 		"description": "",
-		"updTime": "2024/01/13"
+		"updTime": "2024/01/21"
 	},
 	{
 		"id": "content",
@@ -110,7 +110,7 @@
 		"isRequired": false,
 		"description": "タスクの優先度",
 		"isSettingEditable": true,
-		"updTime": "2024/01/20"
+		"updTime": "2024/01/21"
 	},
 	{
 		"id": "status",
@@ -125,7 +125,7 @@
 		"isRequired": false,
 		"description": "タスクの状態",
 		"isSettingEditable": true,
-		"updTime": "2024/01/14"
+		"updTime": "2024/01/21"
 	},
 	{
 		"id": "customAttribute",

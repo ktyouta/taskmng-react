@@ -905,5 +905,53 @@
 		"priority": "1",
 		"status": "1",
 		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-77",
+		"title": "デフォルト属性にエラーメッセージを設定を追加する",
+		"content": "",
+		"registerTime": "2024/01/21",
+		"updTime": "2024/01/21",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-78",
+		"title": "タスクの登録時に日付が登録されないバグの修正",
+		"content": "",
+		"registerTime": "2024/01/21",
+		"updTime": "2024/01/21",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-79",
+		"title": "タスクの日付の表示バグの修正",
+		"content": "",
+		"registerTime": "2024/01/21",
+		"updTime": "2024/01/21",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-80",
+		"title": "ユーザー管理画面の一覧に権限の列を追加",
+		"content": "",
+		"registerTime": "2024/01/21",
+		"updTime": "2024/01/21",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
 	}
 ]

@@ -18,7 +18,7 @@ type propsType = {
     checkBox: checkBoxType[],
     htmlForId?: string,
     disabled?: boolean,
-    value: string,
+    initValue: string,
     width?: string,
 }
 
@@ -56,7 +56,7 @@ const LabelCheckBoxListComponent = forwardRef<refType, propsType>((props, ref) =
     //チェックボックスの参照
     const [checkBoxRefList, setCheckBoxRefList] = useState<checkBoxRefInfoType[]>();
     //チェックボックスの選択値リスト
-    const [checkBoxIdList, setCheckBoxIdList] = useState<string[]>(props.value.split(",").filter(e => e));
+    const [checkBoxIdList, setCheckBoxIdList] = useState<string[]>(props.initValue ? props.initValue.split(",").filter(e => e) : []);
 
     //参照の作成
     useEffect(() => {
@@ -82,7 +82,7 @@ const LabelCheckBoxListComponent = forwardRef<refType, propsType>((props, ref) =
         checkBoxRefList?.forEach((element) => {
             element.ref.current?.clearValue();
         });
-        setCheckBoxIdList(props.value.split(",").filter(e => e));
+        setCheckBoxIdList(props.initValue.split(",").filter(e => e));
     };
 
     //チェックボックスのクリックイベント
@@ -114,7 +114,7 @@ const LabelCheckBoxListComponent = forwardRef<refType, propsType>((props, ref) =
                                 width={props.width}
                                 disabled={props.disabled}
                                 onChange={changeCheckBox}
-                                initValue={getInitValue(element.value, props.value.split(","))}
+                                initValue={getInitValue(element.value, props.initValue ? props.initValue.split(",") : [])}
                                 ref={element.ref}
                             />
                             <SpaceComponent

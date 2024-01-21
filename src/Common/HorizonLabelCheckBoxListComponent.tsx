@@ -15,7 +15,7 @@ type propsType = {
     radioLabelWidth?: string,
     htmlForId: string,
     disabled?: boolean,
-    value: string,
+    initValue: string,
 }
 
 

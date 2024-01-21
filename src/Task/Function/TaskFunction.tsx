@@ -88,7 +88,7 @@ export function createCunstomAttributeEditList(customAttribute: customAttributeL
 
     customAttributeInputSetting.forEach((element) => {
 
-        let tmp = element.value;
+        let tmp = element.initValue;
         let list = element.selectList ? [...element.selectList] : [];
 
         let tmpCustomAttribute = customAttribute.find((element1) => {
@@ -104,7 +104,7 @@ export function createCunstomAttributeEditList(customAttribute: customAttributeL
         if (list && list.length > 0) {
 
             //複数選択可能形式(チェックボックス)の場合
-            if (tmp.includes(",")) {
+            if (tmp && tmp.includes(",")) {
                 let tmpArr = tmp.split(",");
                 let valArr: string[] = [];
                 tmpArr.forEach((element1) => {
@@ -142,7 +142,7 @@ export function createCunstomAttributeEditList(customAttribute: customAttributeL
             length: element.length,
             disabled: false,
             visible: true,
-            value: tmp,
+            initValue: tmp,
             selectList: list,
             ref: createRef()
         });
@@ -176,7 +176,7 @@ export function createCunstomAttributeRegistList(customAttribute: refInfoType[])
             length: element.length,
             disabled: false,
             visible: true,
-            value: element.value,
+            initValue: element.initValue,
             selectList: element.selectList,
             description: element.description,
             isRequired: element.isRequired,
@@ -191,7 +191,7 @@ export function createTaskCustomAttributeRequestBody(refInputArray: refInfoType[
     let tmpBody: customAttributeRequestBodyType[] = [];
     //bodyの作成
     refInputArray.forEach((element) => {
-        let postValue: string | undefined = element.value;
+        let postValue: string | undefined = element.initValue;
         if (element.ref && element.ref.current) {
             postValue = element.ref?.current?.refValue;
         }
@@ -255,7 +255,7 @@ export function createUpdRefArray(taskSettingList: inputTaskSettingType[], updTa
             type: element.type,
             length: element.length,
             //キーに一致するデータが存在する場合はその値を表示
-            value: tmpValue ?? element.value,
+            initValue: tmpValue ?? element.initValue,
             //閲覧モードの場合は全項目編集不可
             disabled: element.disabled,
             visible: isVisible,
@@ -312,7 +312,7 @@ export function createRegistRefArray(taskSettingList: inputTaskSettingType[],
             type: element.type,
             length: element.length,
             //キーに一致するデータが存在する場合はその値を表示
-            value: element.value,
+            initValue: element.initValue,
             disabled: element.disabled,
             visible: isVisible,
             selectList: tmpSelectLits,
@@ -364,7 +364,7 @@ export function createSearchRefArray(taskSearchConditionList: taskSearchConditio
             name: element.name,
             type: element.type,
             //キーに一致するデータが存在する場合はその値を表示
-            value: tmpValue ?? element.value,
+            initValue: tmpValue ?? element.value,
             selectList: tmpSelectLits,
             ref: createRef(),
             length: element.length,

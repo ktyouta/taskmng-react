@@ -86,7 +86,7 @@ export type refInfoType = {
     length: number,
     disabled: boolean,
     visible: boolean,
-    value: string,
+    initValue: string,
     selectList?: comboType[],
     description?: string,
     isRequired?: boolean,
@@ -139,7 +139,7 @@ export type refConditionType = {
     id: string,
     name: string,
     type: inputType,
-    value: string,
+    initValue: string,
     selectList?: comboType[],
     ref: RefObject<refType>,
 }

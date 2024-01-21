@@ -38,7 +38,7 @@ export function createRequestBody(refInputArray: refInfoType[]) {
     let tmpBody: bodyObj = {};
     //bodyの作成
     refInputArray.forEach((element) => {
-        let postValue: string | undefined = element.value;
+        let postValue: string | undefined = element.initValue;
         if (element.ref && element.ref.current) {
             postValue = element.ref?.current?.refValue;
         }

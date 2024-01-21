@@ -83,7 +83,7 @@ function DynamicForm(props: propsType) {
                                             case "label":
                                                 return (
                                                     <LabelComponent
-                                                        title={element.value}
+                                                        title={element.initValue}
                                                         width='auto'
                                                     />
                                                 );
@@ -91,7 +91,7 @@ function DynamicForm(props: propsType) {
                                             case "input":
                                                 return (
                                                     <BaseInputComponent
-                                                        value={element.value}
+                                                        value={element.initValue}
                                                         length={element.length}
                                                         disabled={element.disabled}
                                                         bgColor={bgColor}
@@ -102,7 +102,7 @@ function DynamicForm(props: propsType) {
                                             case "textarea":
                                                 return (
                                                     <LabelTextAreaComponent
-                                                        value={element.value}
+                                                        value={element.initValue}
                                                         length={element.length}
                                                         disabled={element.disabled}
                                                         bgColor={bgColor}
@@ -114,7 +114,7 @@ function DynamicForm(props: propsType) {
                                                 return (
                                                     element.selectList && <LabelRadioListComponent
                                                         radioList={element.selectList}
-                                                        selectedValue={element.value}
+                                                        selectedValue={element.initValue}
                                                         htmlForId={`dynamicformradio-${index}-`}
                                                         disabled={element.disabled}
                                                         width={props.listTitleWidth ?? "50px"}
@@ -125,7 +125,7 @@ function DynamicForm(props: propsType) {
                                             case "date":
                                                 return (
                                                     <DatePickerComponent
-                                                        value={element.value}
+                                                        value={element.initValue}
                                                         disabled={element.disabled}
                                                         bgColor={bgColor}
                                                         ref={element.ref}
@@ -136,7 +136,7 @@ function DynamicForm(props: propsType) {
                                                 return (
                                                     element.selectList && <ComboComponent
                                                         combo={element.selectList}
-                                                        initValue={element.value}
+                                                        initValue={element.initValue}
                                                         disabled={element.disabled}
                                                         bgColor={bgColor}
                                                         ref={element.ref}
@@ -149,7 +149,7 @@ function DynamicForm(props: propsType) {
                                                         checkBox={element.selectList}
                                                         htmlForId={`dynamicformcheckbox-${index}-`}
                                                         disabled={element.disabled}
-                                                        value={element.value}
+                                                        initValue={element.initValue}
                                                         width={props.listTitleWidth ?? "50px"}
                                                         ref={element.ref}
                                                     />
@@ -159,7 +159,7 @@ function DynamicForm(props: propsType) {
                                                 return (
                                                     <NumberPickerComponent
                                                         disabled={element.disabled}
-                                                        value={parseNum(element.value)}
+                                                        value={parseNum(element.initValue)}
                                                         bgColor={bgColor}
                                                         ref={element.ref}
                                                     />
