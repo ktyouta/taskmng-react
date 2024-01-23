@@ -485,9 +485,9 @@ export function createTaskContentList(taskList: taskListType[], generalDataList:
         //背景色の設定
         let bgButtonColor: string | undefined = undefined;
         //ステータスとタスクが存在する場合
-        if (status && limitTime) {
+        if (status) {
             //期限切れのタスク
-            if (limitTime < nowDate) {
+            if (limitTime && limitTime < nowDate) {
                 switch (status) {
                     //未対応
                     case NOCOMP_STATUS:
