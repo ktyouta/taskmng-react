@@ -24,7 +24,7 @@ function useSettingUserTable(props: propsType) {
     //カスタム属性のID
     const setUserId = useSetAtom(userIdAtom);
 
-    //カスタム属性のリストを取得する
+    //ユーザー情報のリストを取得する
     const { data: userInfoList, isLoading } = useQueryWrapper<userType[]>(
         {
             url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGUSER}`,

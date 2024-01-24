@@ -1,8 +1,11 @@
 import { JSONEXTENSION, SETTINGFILEPATH, USERINFOFILEPATH } from "../../Constant";
 import { getFileJsonData } from "../../FileFunction";
-import { userInfoType } from "../../Type/type";
+import { generalDetailType, userInfoType } from "../../Type/type";
+import { GENERALDETAIL_FILEPATH } from "../DefaultAttribute/DefaultAttributeFunction";
 import { USERINFO_FILEPATH } from "./UserFunction";
 
+//権限のID
+const AUTH_ID = "1";
 
 /**
  * ユーザー情報を取得
@@ -36,4 +39,37 @@ export function filterUserInfoDetail(decodeFileData: userInfoType[], id: string,
         return res.status(400).json({ errMessage: `該当データがありません。` });
     }
     return res.status(200).json(singleCustomAttributeData);
+}
+
+/**
+ * 権限情報の紐づけ
+ * @param decodeFileData 
+ * @param id 
+ * @param res 
+ * @returns 
+ */
+export function joinAuthInfo(decodeFileData: userInfoType[])
+    : any {
+
+    //汎用詳細の読み込み
+    let generalDatas: generalDetailType[] = getFileJsonData(GENERALDETAIL_FILEPATH);
+
+    //権限リスト
+    let authList: generalDetailType[] = generalDatas.filter((element) => {
+        return element.id === AUTH_ID;
+    });
+
+    //権限の紐づけ
+    decodeFileData.forEach((element) => {
+        //権限の名称を取得
+        let authObj = authList.find((element1) => {
+            return element1.value === element.auth;
+        });
+        if (!authObj) {
+            return;
+        }
+        element.authNm = authObj.label;
+    });
+
+    return decodeFileData;
 }

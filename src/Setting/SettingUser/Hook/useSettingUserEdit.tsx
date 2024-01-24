@@ -11,7 +11,7 @@ import { generalDataType, refInfoType } from "../../../Common/Type/CommonType";
 import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
 import { buttonObjType } from "../SettingUserEditFooter";
-import { userType } from "../Type/SettingUserType";
+import { updUserType, userType } from "../Type/SettingUserType";
 
 //権限ID
 const AUTH_ID = "1";
@@ -240,7 +240,7 @@ function useSettingUserEdit(props: propsType) {
      * リクエストボディの作成
      */
     const createRequestBody = () => {
-        let body: userType = {
+        let body: updUserType = {
             userId: "",
             userName: "",
             password: "",

@@ -12,7 +12,7 @@ import { checkUpdAuth } from "../../MasterDataFunction";
 import { userInfoType } from "../../Type/type";
 import { createDeleteUserData } from "./UserDeleteFunction";
 import { createAddUserData, dubUserCheck } from "./UserRegistFunction";
-import { filterUserInfoDetail, getUserInfoData } from "./UserSelectFunction";
+import { filterUserInfoDetail, getUserInfoData, joinAuthInfo } from "./UserSelectFunction";
 import { createUpdUserData } from "./UserUpdateFunction";
 
 
@@ -38,6 +38,9 @@ export function getUserInfo(res: any, req: any) {
         return res.status(400).json({ errMessage: `ユーザー情報が登録されていません。` });
     }
 
+    //権限情報の紐づけ
+    decodeFileData = joinAuthInfo(decodeFileData);
+
     return res.status(200).json(decodeFileData);
 }
 
@@ -51,7 +54,7 @@ export function getUserInfoDetail(res: any, req: any, id: string) {
         return authResult;
     }
 
-    //カスタム属性の読み込み
+    //ユーザー情報の読み込み
     let decodeFileData: userInfoType[] = getUserInfoData();
 
     //データなし

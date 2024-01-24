@@ -1,5 +1,5 @@
 import { getNowDate } from "../../CommonFunction";
-import { authInfoType, userInfoType } from "../../Type/type";
+import { authInfoType, updUserInfoType, userInfoType } from "../../Type/type";
 
 /**
  * 登録用データの作成
@@ -14,7 +14,7 @@ export function createAddUserData(fileDataObj: userInfoType[], req: any, authRes
     const nowDate = getNowDate();
 
     //リクエストボディ
-    let body: userInfoType = {
+    let body: updUserInfoType = {
         userId: "",
         userName: "",
         auth: "",

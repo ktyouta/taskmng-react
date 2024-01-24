@@ -70,6 +70,9 @@ function SettingUserTable(props: propsType) {
               <th>
                 名称
               </th>
+              <th>
+                権限
+              </th>
             </tr>
           </thead>
           <tbody className="tablecomponent-tbody">
@@ -84,6 +87,9 @@ function SettingUserTable(props: propsType) {
                     </IdTd>
                     <td>
                       {element.userName}
+                    </td>
+                    <td>
+                      {element.authNm}
                     </td>
                   </tr>
                 );
