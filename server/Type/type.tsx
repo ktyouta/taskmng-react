@@ -65,6 +65,7 @@ export type searchConditionType = {
     type: string,
     listKey: string,
     value: string,
+    attribute: string,
 }
 
 //カスタム属性の型

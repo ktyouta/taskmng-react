@@ -977,5 +977,17 @@
 		"priority": "1",
 		"status": "1",
 		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-83",
+		"title": "カスタム属性の選択リストの更新時のロジック修正",
+		"content": "現在の更新ロジックでは選択リストに空行が含まれている場合に、そのデータを物理削除している。\n他の仕様に合わせて論理削除とする。",
+		"registerTime": "2024/01/27",
+		"updTime": "2024/01/27",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
 	}
 ]

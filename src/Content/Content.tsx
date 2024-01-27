@@ -11,6 +11,8 @@ import CenterLoading from '../Common/CenterLoading';
 
 function Content() {
 
+    console.log(`Content render`);
+
     //Contentのビジネスロジック
     const { clientMenuList, userInfo } = useContentLogic();
 

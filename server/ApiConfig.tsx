@@ -10,38 +10,38 @@ export const config = {
         }
     },
     //GETメソッド用
-    get:[
+    get: [
         {
-            callUrl:ENV.MENU,
-            fileUrl:"./public/json/setting/menu.json"
+            callUrl: ENV.MENU,
+            fileUrl: "./public/json/setting/menu.json"
         },
         {
-            callUrl:ENV.MASTERTABLE,
-            fileUrl:"./public/json/master/samplemastertable.json"
+            callUrl: ENV.MASTERTABLE,
+            fileUrl: "./public/json/master/samplemastertable.json"
         },
         {
-            callUrl:ENV.INPUTSETTING,
-            fileUrl:"./public/json/setting/inputsetting.json"
+            callUrl: ENV.INPUTSETTING,
+            fileUrl: "./public/json/setting/inputsetting.json"
         },
         {
-            callUrl:ENV.TABLECOLUMN,
-            fileUrl:"./public/json/setting/tablecolumn.json"
+            callUrl: ENV.TABLECOLUMN,
+            fileUrl: "./public/json/setting/tablecolumn.json"
         },
         {
-            callUrl:ENV.WORKHISTORY,
-            fileUrl:"./public/json/transaction/workhistory.json"
+            callUrl: ENV.WORKHISTORY,
+            fileUrl: "./public/json/transaction/workhistory.json"
         },
         {
-            callUrl:ENV.SEARCHCONDITION,
-            fileUrl:"./public/json/setting/searchcondition.json"
+            callUrl: ENV.SEARCHCONDITION,
+            fileUrl: "./public/json/setting/searchcondition.json"
         },
         {
-            callUrl:ENV.TASKCONTENTSETTING,
-            fileUrl:"./public/json/setting/taskcontentsetting.json"
+            callUrl: ENV.TASKCONTENTSETTING,
+            fileUrl: "./public/json/setting/taskcontentsetting.json"
         },
         {
-            callUrl:ENV.SETTINGMENU,
-            fileUrl:"./public/json/setting/settingmenu.json"
+            callUrl: ENV.SETTINGMENU,
+            fileUrl: "./public/json/setting/settingmenu.json"
         }
     ]
 };

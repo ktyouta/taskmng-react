@@ -23,6 +23,7 @@ import { getCategory, getCategoryDetail, runAddCategory, runDeleteCategory, runU
 import { Response, Request, ParamsDictionary } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 import { getDefaultAttribute, getDefaultAttributeDetail, runUpdDefaultAttribute } from './SettingFunction/DefaultAttribute/DefaultAttributeFunction';
+import { getSearchCondition } from './SearchCondition/SearchConditionFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -196,6 +197,12 @@ app.get(`${ENV.TASKINPUTSETTING}/:param`, function (req, res) {
     getDefaultAttributeDetail(res, req, req.params.param);
 });
 
+/**
+ * searchconditionにアクセスした際の動作
+ */
+// app.get(`${ENV.SEARCHCONDITION}`, function (req, res) {
+//     getSearchCondition(res, req);
+// });
 
 
 /**
