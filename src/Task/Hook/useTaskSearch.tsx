@@ -16,19 +16,10 @@ import useGetGeneralDataList from "../../Common/Hook/useGetGeneralDataList";
 import SpaceComponent from "../../Common/SpaceComponent";
 import React from "react";
 import { parseStrDate } from "../../Common/Function/Function";
-import { taskSearchConditionObjAtom } from "./useTask";
+import { SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY, taskSearchConditionObjAtom } from "./useTask";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
 import { createSearchDispCondition, createSearchRefArray } from "../Function/TaskFunction";
 
-
-/**
- * タスクの検索条件リストを取得
- * @param data 
- * @returns 
- */
-function createSearchConditionList(data: searchConditionType): taskSearchConditionType[] {
-    return data.task;
-}
 
 
 /**
@@ -50,9 +41,8 @@ function useTaskSearch() {
     const [searchConditionObj, setSearchConditionObj] = useAtom(taskSearchConditionObjAtom);
 
     //検索条件リスト
-    const { data: taskSearchConditionList } = useQueryWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}`,
-        callback: createSearchConditionList
+    const { data: taskSearchConditionList } = useQueryWrapper<taskSearchConditionType[]>({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}${SEARCHCONDITION_QUERY_KEY}${SEARCHCONDITION_KEY_DEFAULT}`,
     });
     //汎用詳細リスト
     const { generalDataList } = useGetGeneralDataList();

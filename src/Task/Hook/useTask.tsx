@@ -26,6 +26,11 @@ export const taskSearchConditionObjAtom = atom<{ [key: string]: string }>({});
 export const detailRoutingIdAtom = atom("");
 //タスクIDの接頭辞
 const PRE_TASK_ID = `TASKID-`;
+//検索条件取得用のクエリキー
+export const SEARCHCONDITION_QUERY_KEY = "?attribute=";
+//デフォルト属性用の検索条件取得キー
+export const SEARCHCONDITION_KEY_DEFAULT = "default";
+
 
 /**
  * useTaskコンポーネントのビジネスロジック
@@ -38,9 +43,8 @@ function useTask(props: propsType) {
     //ルーティング用
     const navigate = useNavigate();
     //検索条件リスト
-    const { data: taskSearchConditionList } = useQueryWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}`,
-        callback: createSearchConditionList
+    const { data: taskSearchConditionList } = useQueryWrapper<taskSearchConditionType[]>({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}${SEARCHCONDITION_QUERY_KEY}${SEARCHCONDITION_KEY_DEFAULT}`,
     });
 
     /**

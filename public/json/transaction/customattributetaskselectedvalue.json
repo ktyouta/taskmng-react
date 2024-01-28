@@ -1566,5 +1566,64 @@
 		"updTime": "2024/01/27",
 		"deleteFlg": "0",
 		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-84",
+		"customAttributeId": "ATTRIBUTEID-1",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-84",
+		"customAttributeId": "ATTRIBUTEID-2",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-84",
+		"customAttributeId": "ATTRIBUTEID-5",
+		"selectedValue": "",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-84",
+		"customAttributeId": "ATTRIBUTEID-7",
+		"selectedValue": "",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-84",
+		"customAttributeId": "ATTRIBUTEID-8",
+		"selectedValue": "",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-84",
+		"customAttributeId": "ATTRIBUTEID-9",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-84",
+		"customAttributeId": "ATTRIBUTEID-10",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
 	}
 ]

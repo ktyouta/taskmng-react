@@ -200,9 +200,9 @@ app.get(`${ENV.TASKINPUTSETTING}/:param`, function (req, res) {
 /**
  * searchconditionにアクセスした際の動作
  */
-// app.get(`${ENV.SEARCHCONDITION}`, function (req, res) {
-//     getSearchCondition(res, req);
-// });
+app.get(`${ENV.SEARCHCONDITION}`, function (req, res) {
+    getSearchCondition(res, req);
+});
 
 
 /**

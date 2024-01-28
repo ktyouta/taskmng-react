@@ -8,11 +8,11 @@ import { searchConditionType } from "../Type/type";
 export function getSearchConditionList(): searchConditionType[] {
     //タスクファイルの読み込み
     let fileData = readFile(`${SETTINGFILEPATH}${SEARCHCONDITIONFILEPATH}${JSONEXTENSION}`);
-    return JSON.parse(fileData).task;
+    return JSON.parse(fileData);
 }
 
 /**
- * クエリストリングで絞り込む
+ * 検索条件の属性で絞り込む
  */
 export function getFilterdSearchConditionList(searchConditionList: searchConditionType[], attribute: string) {
 

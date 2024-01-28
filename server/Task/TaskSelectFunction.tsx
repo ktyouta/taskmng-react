@@ -6,6 +6,8 @@ import { checkUpdAuth } from "../MasterDataFunction";
 import { authInfoType, comboType, customAttributeListType, customAttributeType, searchConditionType, inputSettingType, taskCustomAttributeSelectedType, taskListType, taskCustomAttributeSelectType } from "../Type/type";
 import { getNowDate } from "../CommonFunction";
 import { getCustomAttributeData, getCustomAttributeListData } from "../SettingFunction/CustomAttribute/CustomAttributeSelectFunction";
+import { joinGeneralSetting } from "../History/HistorySelectFunction";
+import { getFilterdSearchConditionList, getSearchConditionList } from "../SearchCondition/SearchConditionSelectFunction";
 
 //タスクファイルのパス
 export const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
@@ -13,6 +15,8 @@ export const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
 export const TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTESELECT}${JSONEXTENSION}`;
 //カスタム属性登録用ファイルのパス
 const CUSTOMATTRIBUTESELECTVALUE_FILE_PATH = `${TRANSACTION}${CUSTOMATTRIBUTESELECT}${JSONEXTENSION}`;
+//デフォルト属性用の検索条件取得キー
+const SEARCHCONDITION_KEY_DEFAULT = "default";
 
 
 /**
@@ -43,8 +47,11 @@ export function getFilterdTask() {
  * タスクリストをクエリストリングで絞り込む
  */
 export function filterTask(decodeFileData: taskListType[], query: any) {
+
     //タスク用の検索条件設定リストを取得
-    let taskConditionList: searchConditionType[] = getTaskSearchConditionList();
+    let searchConditionList: searchConditionType[] = getSearchConditionList();
+    let taskConditionList: searchConditionType[] = getFilterdSearchConditionList(searchConditionList, SEARCHCONDITION_KEY_DEFAULT);
+
     //検索条件で絞り込み
     taskConditionList.forEach((element) => {
         let value = query[element.id] as string;
@@ -82,11 +89,11 @@ export function filterTask(decodeFileData: taskListType[], query: any) {
 /**
  * タスク用の検索条件を取得
  */
-function getTaskSearchConditionList() {
-    //タスクファイルの読み込み
-    let fileData = readFile(`${SETTINGFILEPATH}${SEARCHCONDITIONFILEPATH}${JSONEXTENSION}`);
-    return JSON.parse(fileData).task;
-}
+// function getTaskSearchConditionList() {
+//     //タスクファイルの読み込み
+//     let fileData = readFile(`${SETTINGFILEPATH}${SEARCHCONDITIONFILEPATH}${JSONEXTENSION}`);
+//     return JSON.parse(fileData).task;
+// }
 
 /**
  * カスタム属性の選択値リストを取得

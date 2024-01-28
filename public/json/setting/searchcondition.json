@@ -1,49 +1,53 @@
-{
-    "task": [
-        {
-            "id": "num",
-            "name": "最大取得件数",
-            "type": "number",
-            "isHidden": false,
-            "value": "100"
-        },
-        {
-            "id": "keyword",
-            "name": "キーワード",
-            "type": "input",
-            "isHidden": false,
-            "value": ""
-        },
-        {
-            "id": "title",
-            "name": "タイトル",
-            "type": "input",
-            "isHidden": false,
-            "length": 500,
-            "value": ""
-        },
-        {
-            "id": "priority",
-            "name": "優先度",
-            "type": "checkbox",
-            "listKey": "2",
-            "isHidden": false,
-            "value": "1,2"
-        },
-        {
-            "id": "status",
-            "name": "状態",
-            "type": "checkbox",
-            "listKey": "3",
-            "isHidden": false,
-            "value": ""
-        },
-        {
-            "id": "limitTime",
-            "name": "期限",
-            "type": "date",
-            "isHidden": false,
-            "value": ""
-        }
-    ]
-}
+[
+    {
+        "id": "num",
+        "name": "最大取得件数",
+        "type": "number",
+        "isHidden": false,
+        "value": "100",
+        "attribute":"default"
+    },
+    {
+        "id": "keyword",
+        "name": "キーワード",
+        "type": "input",
+        "isHidden": false,
+        "value": "",
+        "attribute":"default"
+    },
+    {
+        "id": "title",
+        "name": "タイトル",
+        "type": "input",
+        "isHidden": false,
+        "length": 500,
+        "value": "",
+        "attribute":"default"
+    },
+    {
+        "id": "priority",
+        "name": "優先度",
+        "type": "checkbox",
+        "listKey": "2",
+        "isHidden": false,
+        "value": "1,2",
+        "attribute":"default"
+    },
+    {
+        "id": "status",
+        "name": "状態",
+        "type": "checkbox",
+        "listKey": "3",
+        "isHidden": false,
+        "value": "",
+        "attribute":"default"
+    },
+    {
+        "id": "limitTime",
+        "name": "期限",
+        "type": "date",
+        "isHidden": false,
+        "value": "",
+        "attribute":"default"
+    }
+]
