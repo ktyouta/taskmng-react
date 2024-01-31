@@ -1,6 +1,13 @@
 import { authenticate } from "../AuthFunction";
-import { searchConditionType } from "../Type/type";
+import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH } from "../Constant";
+import { overWriteData } from "../FileFunction";
+import { createAddSearchCondition } from "./SearchConditionRegisterFunction";
 import { getFilterdSearchConditionList, getSearchConditionList } from "./SearchConditionSelectFunction";
+import { searchConditionType } from "./Type/SearchConditionType";
+
+
+//検索条件設定ファイルのパス
+export const SEARCHCONDITION_FILE_PATH = `${SETTINGFILEPATH}${SEARCHCONDITIONFILEPATH}${JSONEXTENSION}`
 
 /**
  * 検索条件設定リストの取得
@@ -12,7 +19,7 @@ export function getSearchCondition(res: any, req: any) {
         return authResult;
     }
 
-    //タスクファイルの読み込み
+    //検索設定ファイルの読み込み
     let searchConditionList: searchConditionType[] = getSearchConditionList();
 
     //該当データなし
@@ -37,4 +44,34 @@ export function getSearchCondition(res: any, req: any) {
     }
 
     return res.status(200).json(searchConditionList);
+}
+
+
+/**
+ * 検索条件設定の登録
+ */
+export function runAddSearchCondition(res: any, req: any) {
+
+    //認証チェック
+    let authResult = authenticate(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return authResult;
+    }
+
+    let body: searchConditionType = req.body;
+
+    //検索設定ファイルの読み込み
+    let searchConditionList: searchConditionType[] = getSearchConditionList();
+
+    //登録用データの作成
+    let registData = createAddSearchCondition(searchConditionList, body);
+
+    //データを登録
+    let errMessage = overWriteData(SEARCHCONDITION_FILE_PATH, JSON.stringify(registData, null, '\t'));
+
+    if (errMessage) {
+        return "検索条件設定の登録に失敗しました。"
+    }
+
+    return errMessage;
 }

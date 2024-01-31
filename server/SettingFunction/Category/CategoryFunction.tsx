@@ -7,7 +7,7 @@ import {
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
-import { authInfoType, customAttributeListType, customAttributeType, searchConditionType, taskListType } from "../../Type/type";
+import { authInfoType, customAttributeListType, customAttributeType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
 import { CATEGORY_FILEPATH, filterCategoryDetail, getFilterdCategory } from "./CategorySelectFunction";
 import { categoryType, checkOrderType } from "./Type/CategoryType";

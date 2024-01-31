@@ -3,7 +3,7 @@ import { CUSTOMATTRIBUTESELECT, JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGF
 import { overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
 import { checkUpdAuth } from "../MasterDataFunction";
-import { authInfoType, searchConditionType, inputSettingType, taskDetailType, taskListType } from "../Type/type";
+import { authInfoType, inputSettingType, taskDetailType, taskListType } from "../Type/type";
 import { getNowDate } from "../CommonFunction";
 import { createDeleteCustomAttributeData, createDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";

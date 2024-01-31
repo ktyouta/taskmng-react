@@ -7,7 +7,7 @@ import {
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
-import { authInfoType, comboType, customAttributeListType, customAttributeType, inputSettingType, searchConditionType, taskListType } from "../../Type/type";
+import { authInfoType, comboType, customAttributeListType, customAttributeType, inputSettingType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
 import { CUSTOM_ATTRIBUTE_FILEPATH } from "./CustomAttributeFunction";
 

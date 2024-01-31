@@ -1,6 +1,6 @@
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
-import { authInfoType, generalDetailType, searchConditionType, taskListType } from "../../Type/type";
+import { authInfoType, generalDetailType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
 import { defaultAttributeType, defaultAttributeUpdType, selectListType } from "./Type/DefaultAttributeType";
 import { GENERALDETAIL_FILEPATH } from "./DefaultAttributeFunction";
