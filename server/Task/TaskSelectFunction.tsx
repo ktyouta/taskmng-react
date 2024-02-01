@@ -18,6 +18,8 @@ export const TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOM
 const CUSTOMATTRIBUTESELECTVALUE_FILE_PATH = `${TRANSACTION}${CUSTOMATTRIBUTESELECT}${JSONEXTENSION}`;
 //デフォルト属性用の検索条件取得キー
 const SEARCHCONDITION_KEY_DEFAULT = "default";
+//カスタム属性用の検索条件取得キー
+const CUSTOMATTRIBUTE_KEY_DEFAULT = "custom";
 
 
 /**
@@ -86,6 +88,70 @@ export function filterTask(decodeFileData: taskListType[], query: any) {
     }
     return decodeFileData;
 }
+
+
+/**
+ * タスクリストをカスタム属性のクエリストリングで絞り込む
+ */
+export function filterCustomAttribute(decodeFileData: taskListType[], query: any) {
+
+    //タスク用の検索条件設定リストを取得
+    let searchConditionList: searchConditionType[] = getSearchConditionList();
+    let customAttributeConditionList: searchConditionType[] = getFilterdSearchConditionList(searchConditionList, CUSTOMATTRIBUTE_KEY_DEFAULT);
+
+    //カスタム属性の選択値リスト
+    let taskCustomAttributeList = getCustomAttributeTaskObj();
+
+    decodeFileData.filter((element) => {
+        let taskIdMatchingCustomDatas = taskCustomAttributeList.filter((element1) => {
+            //IDの一致するデータを取得
+            return element1.taskId === element.id;
+        });
+
+        //カスタム属性の選択値リストに登録されていないタスクを省く
+        if (!taskIdMatchingCustomDatas) {
+            return false;
+        }
+
+        let isMatch = false;
+        customAttributeConditionList.some((element1) => {
+            let customAttributeId = element1.id;
+            let value = query[customAttributeId] as string;
+
+            //クエリストリングにセットされていないキーはチェックしない
+            if (!value) {
+                return;
+            }
+
+            //カスタム属性の選択値リストからカスタム属性のIDに一致するデータを取得
+            let idMatchCustomAttribute = taskIdMatchingCustomDatas.find((element2) => {
+                return element2.customAttributeId === customAttributeId;
+            });
+
+            //クエリストリングにセットされたキーを保持していない
+            if (!idMatchCustomAttribute) {
+                return true;
+            }
+
+            //クエリストリングと選択値のチェック
+            //複数選択項目の場合
+            if (element.type === "checkbox") {
+                isMatch = value.split(",").includes(idMatchCustomAttribute.selectedValue);
+            }
+            else {
+                isMatch = idMatchCustomAttribute.selectedValue.includes(value);
+            }
+
+            return !isMatch;
+        });
+
+        //検索条件にマッチしなかったタスクは除外する
+        return isMatch;
+    });
+
+    return decodeFileData;
+}
+
 
 /**
  * タスク用の検索条件を取得
