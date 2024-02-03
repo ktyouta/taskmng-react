@@ -6,4 +6,8 @@ export type searchConditionType = {
     listKey: string,
     value: string,
     attribute: string,
+    registerTime: string,
+    updTime: string,
+    deleteFlg: string,
+    userId: string
 }

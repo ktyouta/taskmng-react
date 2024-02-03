@@ -1,8 +1,10 @@
 import { authenticate } from "../AuthFunction";
 import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH } from "../Constant";
 import { overWriteData } from "../FileFunction";
+import { authInfoType } from "../Type/type";
 import { createAddSearchCondition } from "./SearchConditionRegisterFunction";
 import { getFilterdSearchConditionList, getSearchConditionList } from "./SearchConditionSelectFunction";
+import { createUpdSearchCondition } from "./SearchConditionUpdateFunction";
 import { searchConditionType } from "./Type/SearchConditionType";
 
 
@@ -32,7 +34,8 @@ export function getSearchCondition(res: any, req: any) {
     let tmpSearchConditionList: searchConditionType[] = [];
     let retSearchConditionList: searchConditionType[] = queryStr ? [] : searchConditionList;
 
-    if (queryStr && queryStr.split(",")) {
+    //クエリストリングが設定されている場合は絞り込む
+    if (queryStr && queryStr.split(",").length > 0) {
         let queryArr = queryStr.split(",");
         tmpSearchConditionList = JSON.parse(JSON.stringify(searchConditionList));
 
@@ -50,28 +53,49 @@ export function getSearchCondition(res: any, req: any) {
 /**
  * 検索条件設定の登録
  */
-export function runAddSearchCondition(res: any, req: any) {
-
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return authResult;
-    }
-
-    let body: searchConditionType = req.body;
+export function runAddSearchCondition(authResult: authInfoType, body: searchConditionType) {
 
     //検索設定ファイルの読み込み
     let searchConditionList: searchConditionType[] = getSearchConditionList();
 
     //登録用データの作成
-    let registData = createAddSearchCondition(searchConditionList, body);
+    let registData = createAddSearchCondition(searchConditionList, body, authResult);
 
     //データを登録
     let errMessage = overWriteData(SEARCHCONDITION_FILE_PATH, JSON.stringify(registData, null, '\t'));
 
     if (errMessage) {
-        return "検索条件設定の登録に失敗しました。"
+        return "検索条件設定の登録に失敗しました。";
     }
 
-    return errMessage;
+    //正常終了
+    return "登録が完了しました。";
+}
+
+
+/**
+ * 検索条件設定の更新
+ */
+export function runUpdSearchCondition(authResult: authInfoType, body: searchConditionType, id: string) {
+
+    //IDの指定がない
+    if (!id) {
+        return "パラメータが不正です。";
+    }
+
+    //検索設定ファイルの読み込み
+    let searchConditionList: searchConditionType[] = getSearchConditionList();
+
+    //更新用データの作成
+    let updData = createUpdSearchCondition(searchConditionList, body, id, authResult);
+
+    //データを登録
+    let errMessage = overWriteData(SEARCHCONDITION_FILE_PATH, JSON.stringify(updData, null, '\t'));
+
+    if (errMessage) {
+        return "検索条件設定の更新に失敗しました。";
+    }
+
+    //正常終了
+    return "";
 }

@@ -1,0 +1,34 @@
+import { getNowDate } from "../CommonFunction";
+import { authInfoType } from "../Type/type";
+import { searchConditionType } from "./Type/SearchConditionType";
+
+/**
+ * 検索条件設定の更新用データの作成
+ */
+export function createUpdSearchCondition(searchConditionList: searchConditionType[], body: searchConditionType, id: string,
+    authResult: authInfoType) {
+
+    //更新データ
+    let updData = searchConditionList.find((element) => {
+        return element.id === id;
+    });
+
+    if (!updData) {
+        return searchConditionList;
+    }
+
+    //現在日付を取得
+    const nowDate = getNowDate();
+
+    updData.attribute = body.attribute;
+    updData.listKey = body.listKey;
+    updData.name = body.name;
+    updData.type = body.type;
+    updData.value = body.value;
+    body.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
+    body.registerTime = nowDate;
+    body.updTime = nowDate;
+    body.deleteFlg = "0";
+
+    return searchConditionList;
+}

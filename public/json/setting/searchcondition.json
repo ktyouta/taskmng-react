@@ -5,7 +5,11 @@
         "type": "number",
         "isHidden": false,
         "value": "100",
-        "attribute":"default"
+        "attribute":"default",
+        "registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
     },
     {
         "id": "keyword",
@@ -13,7 +17,11 @@
         "type": "input",
         "isHidden": false,
         "value": "",
-        "attribute":"default"
+        "attribute":"default",
+        "registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
     },
     {
         "id": "title",
@@ -22,7 +30,11 @@
         "isHidden": false,
         "length": 500,
         "value": "",
-        "attribute":"default"
+        "attribute":"default",
+        "registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
     },
     {
         "id": "priority",
@@ -31,7 +43,11 @@
         "listKey": "2",
         "isHidden": false,
         "value": "1,2",
-        "attribute":"default"
+        "attribute":"default",
+        "registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
     },
     {
         "id": "status",
@@ -40,7 +56,11 @@
         "listKey": "3",
         "isHidden": false,
         "value": "",
-        "attribute":"default"
+        "attribute":"default",
+        "registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
     },
     {
         "id": "limitTime",
@@ -48,6 +68,48 @@
         "type": "date",
         "isHidden": false,
         "value": "",
-        "attribute":"default"
+        "attribute":"default",
+        "registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
+    }
+
+    ,
+    {
+        "id": "ATTRIBUTEID-1",
+        "name": "サンプル属性",
+        "type": "date",
+        "isHidden": false,
+        "value": "",
+        "attribute":"default",
+        "registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
+    },
+    {
+        "id": "ATTRIBUTEID-2",
+        "name": "test2",
+        "type": "checkbox",
+        "isHidden": false,
+        "value": "",
+        "attribute":"default",
+        "registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
+    },
+    {
+        "id": "ATTRIBUTEID-3",
+        "name": "test3",
+        "type": "checkbox",
+        "isHidden": false,
+        "value": "",
+        "attribute":"default",
+        "registerTime": "2024/01/28",
+		"updTime": "2024/01/28",
+		"deleteFlg": "0",
+		"userId": "f"
     }
 ]
