@@ -154,15 +154,6 @@ export function filterCustomAttribute(decodeFileData: taskListType[], query: any
 
 
 /**
- * タスク用の検索条件を取得
- */
-// function getTaskSearchConditionList() {
-//     //タスクファイルの読み込み
-//     let fileData = readFile(`${SETTINGFILEPATH}${SEARCHCONDITIONFILEPATH}${JSONEXTENSION}`);
-//     return JSON.parse(fileData).task;
-// }
-
-/**
  * カスタム属性の選択値リストを取得
  */
 function getTaskCustomAttributeSelectedData() {

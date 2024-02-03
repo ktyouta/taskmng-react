@@ -378,8 +378,8 @@ export function createSearchRefArray(taskSearchConditionList: taskSearchConditio
 
 /**
  * タスクの検索条件domを作成
- * @param taskSearchConditionList 
- * @param searchConditionObj 
+ * @param taskSearchConditionList 選択条件の設定リスト
+ * @param searchConditionObj 現在の選択条件
  * @param generalDataList 
  * @returns 
  */
@@ -392,51 +392,54 @@ export function createSearchDispCondition(taskSearchConditionList: taskSearchCon
     let tmpDisplayList: ReactNode[] = [];
 
     Object.keys(searchConditionObj).forEach((key) => {
+        let value = searchConditionObj[key];
+        if (!searchConditionObj[key]) {
+            return true;
+        }
+
         taskSearchConditionList.some((item) => {
-            //値がセットされている検索条件
-            if (key === item.id) {
-                if (!searchConditionObj[key]) {
-                    return true;
-                }
-                let value = searchConditionObj[key];
-                //複数選択項目
-                if (item.listKey) {
-                    value = "";
-                    let tmpSelectLits: comboType[] = [];
-                    tmpSelectLits = generalDataList.filter((list) => {
-                        return list.id === item.listKey;
-                    });
-                    let valArray = searchConditionObj[key].split(",");
-                    //選択値に対応したラベルを取得
-                    valArray.forEach((val) => {
-                        tmpSelectLits.some((list) => {
-                            if (val === list.value) {
-                                value += ` ${list.label} /`;
-                                return true;
-                            }
-                        });
-                    });
-                    //末尾の/を削除
-                    if (value.slice(-1) === "/") {
-                        value = value.slice(0, -1);
-                    }
-                }
-                //日付の場合は/を入れる
-                if (item.type === "date") {
-                    value = parseStrDate(value);
-                }
-                //画面表示用の検索条件を追加
-                tmpDisplayList.push(
-                    <React.Fragment>
-                        <TaskConditionItemDiv>
-                            <TaskSearchAreaDt>{`[${item.name}]：`}</TaskSearchAreaDt>
-                            <TaskSearchAreaDt>{`${value}`}</TaskSearchAreaDt>
-                        </TaskConditionItemDiv>
-                        <SpaceComponent space={"3%"} />
-                    </React.Fragment>
-                );
-                return true;
+            if (key !== item.id) {
+                return;
             }
+
+            //値がセットされている検索条件
+            //複数選択項目
+            if (item.listKey) {
+                value = "";
+                let tmpSelectLits: comboType[] = [];
+                tmpSelectLits = generalDataList.filter((list) => {
+                    return list.id === item.listKey;
+                });
+                let valArray = searchConditionObj[key].split(",");
+                //選択値に対応したラベルを取得
+                valArray.forEach((val) => {
+                    tmpSelectLits.some((list) => {
+                        if (val === list.value) {
+                            value += ` ${list.label} /`;
+                            return true;
+                        }
+                    });
+                });
+                //末尾の/を削除
+                if (value.slice(-1) === "/") {
+                    value = value.slice(0, -1);
+                }
+            }
+            //日付の場合は/を入れる
+            if (item.type === "date") {
+                value = parseStrDate(value);
+            }
+            //画面表示用の検索条件を追加
+            tmpDisplayList.push(
+                <React.Fragment>
+                    <TaskConditionItemDiv>
+                        <TaskSearchAreaDt>{`[${item.name}]：`}</TaskSearchAreaDt>
+                        <TaskSearchAreaDt>{`${value}`}</TaskSearchAreaDt>
+                    </TaskConditionItemDiv>
+                    <SpaceComponent space={"3%"} />
+                </React.Fragment>
+            );
+            return true;
         });
     });
 

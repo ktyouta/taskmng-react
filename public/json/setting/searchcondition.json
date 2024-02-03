@@ -73,16 +73,14 @@
 		"updTime": "2024/01/28",
 		"deleteFlg": "0",
 		"userId": "f"
-    }
-
-    ,
+    },
     {
         "id": "ATTRIBUTEID-1",
         "name": "サンプル属性",
         "type": "date",
         "isHidden": false,
         "value": "",
-        "attribute":"default",
+        "attribute":"attribute",
         "registerTime": "2024/01/28",
 		"updTime": "2024/01/28",
 		"deleteFlg": "0",
@@ -94,7 +92,7 @@
         "type": "checkbox",
         "isHidden": false,
         "value": "",
-        "attribute":"default",
+        "attribute":"attribute",
         "registerTime": "2024/01/28",
 		"updTime": "2024/01/28",
 		"deleteFlg": "0",
@@ -106,7 +104,7 @@
         "type": "checkbox",
         "isHidden": false,
         "value": "",
-        "attribute":"default",
+        "attribute":"attribute",
         "registerTime": "2024/01/28",
 		"updTime": "2024/01/28",
 		"deleteFlg": "0",

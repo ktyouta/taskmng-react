@@ -3,13 +3,15 @@ import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH } from "../Cons
 import { overWriteData } from "../FileFunction";
 import { authInfoType } from "../Type/type";
 import { createAddSearchCondition } from "./SearchConditionRegisterFunction";
-import { getFilterdSearchConditionList, getSearchConditionList } from "./SearchConditionSelectFunction";
+import { getFilterdSearchConditionList, getSearchConditionList, joinSelectListSearchCondition } from "./SearchConditionSelectFunction";
 import { createUpdSearchCondition } from "./SearchConditionUpdateFunction";
-import { searchConditionType } from "./Type/SearchConditionType";
+import { retSearchConditionType, searchConditionType } from "./Type/SearchConditionType";
 
 
 //検索条件設定ファイルのパス
-export const SEARCHCONDITION_FILE_PATH = `${SETTINGFILEPATH}${SEARCHCONDITIONFILEPATH}${JSONEXTENSION}`
+export const SEARCHCONDITION_FILE_PATH = `${SETTINGFILEPATH}${SEARCHCONDITIONFILEPATH}${JSONEXTENSION}`;
+//検索条件取得用のクリストリングキー
+const SEARCHCONDITION_QUERYLRY = "attribute";
 
 /**
  * 検索条件設定リストの取得
@@ -30,7 +32,7 @@ export function getSearchCondition(res: any, req: any) {
     }
 
     //クエリストリング
-    let queryStr = req.query["attribute"];
+    let queryStr = req.query[SEARCHCONDITION_QUERYLRY];
     let tmpSearchConditionList: searchConditionType[] = [];
     let retSearchConditionList: searchConditionType[] = queryStr ? [] : searchConditionList;
 
@@ -42,11 +44,14 @@ export function getSearchCondition(res: any, req: any) {
         //クエリストリングに一致する検索条件設定を取得して結合
         queryArr.forEach((element: string) => {
             let tmp = getFilterdSearchConditionList(tmpSearchConditionList, element);
-            retSearchConditionList.concat(tmp);
+            retSearchConditionList = [...retSearchConditionList, ...tmp];
         });
     }
 
-    return res.status(200).json(searchConditionList);
+    //選択リストを結合
+    let joinedSearchConditionList: retSearchConditionType[] = joinSelectListSearchCondition(retSearchConditionList);
+
+    return res.status(200).json(joinedSearchConditionList);
 }
 
 

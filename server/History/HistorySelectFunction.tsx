@@ -1,3 +1,4 @@
+import { getGeneralDataList } from "../Common/Function";
 import { GENERALDETAILFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKHISTORYPATH, TRANSACTION, USERINFOFILEPATH } from "../Constant";
 import { readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
@@ -45,8 +46,7 @@ export function getFilterdTaskHistory() {
 export function joinGeneralSetting(decodeFileData: taskHistoryType[]) {
 
     //汎用詳細ファイルの読み込み
-    let generalData = readFile(GENERAL_DETAIL_FILEPATH);
-    let decodeGeneralData: generalDetailType[] = JSON.parse(generalData);
+    let decodeGeneralData: generalDetailType[] = getGeneralDataList();
 
     //ユーザーファイルの読み込み
     let userFileData = readFile(USER_INFO_FILEPATH);

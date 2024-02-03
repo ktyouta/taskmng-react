@@ -32,10 +32,6 @@ export const config = {
             fileUrl: "./public/json/transaction/workhistory.json"
         },
         {
-            callUrl: ENV.SEARCHCONDITION,
-            fileUrl: "./public/json/setting/searchcondition.json"
-        },
-        {
             callUrl: ENV.TASKCONTENTSETTING,
             fileUrl: "./public/json/setting/taskcontentsetting.json"
         },
