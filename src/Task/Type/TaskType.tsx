@@ -72,7 +72,7 @@ export type taskSearchConditionType = {
     id: string,
     name: string,
     type: inputType,
-    listKey?: string,
+    selectList: comboType[],
     length: number,
     value: string,
     isHidden: boolean,

@@ -32,7 +32,7 @@ export function getTaskObj(): taskListType[] {
 }
 
 /**
- * タスクリストをクエリストリングで絞り込む
+ * 削除データをフィルターする
  */
 export function getFilterdTask() {
     //タスクファイルの読み込み
@@ -49,7 +49,7 @@ export function getFilterdTask() {
 /**
  * タスクリストをクエリストリングで絞り込む
  */
-export function filterTask(decodeFileData: taskListType[], query: any) {
+export function filterDefaultAttribute(decodeFileData: taskListType[], query: any) {
 
     //タスク用の検索条件設定リストを取得
     let searchConditionList: searchConditionType[] = getSearchConditionList();
@@ -93,7 +93,7 @@ export function filterTask(decodeFileData: taskListType[], query: any) {
 /**
  * タスクリストをカスタム属性のクエリストリングで絞り込む
  */
-export function filterCustomAttribute(decodeFileData: taskListType[], query: any) {
+export function filterCustomAttribute(taskList: taskListType[], query: any) {
 
     //タスク用の検索条件設定リストを取得
     let searchConditionList: searchConditionType[] = getSearchConditionList();
@@ -102,54 +102,38 @@ export function filterCustomAttribute(decodeFileData: taskListType[], query: any
     //カスタム属性の選択値リスト
     let taskCustomAttributeList = getCustomAttributeTaskObj();
 
-    decodeFileData.filter((element) => {
-        let taskIdMatchingCustomDatas = taskCustomAttributeList.filter((element1) => {
-            //IDの一致するデータを取得
-            return element1.taskId === element.id;
-        });
+    customAttributeConditionList.forEach((element) => {
+        let customAttributeId = element.id;
+        //クエリストリングの値を取得
+        let value = query[customAttributeId] as string;
 
-        //カスタム属性の選択値リストに登録されていないタスクを省く
-        if (!taskIdMatchingCustomDatas) {
-            return false;
+        //クエリストリングにセットされていないキーはチェックしない
+        if (!value) {
+            return;
         }
 
-        let isMatch = false;
-        customAttributeConditionList.some((element1) => {
-            let customAttributeId = element1.id;
-            let value = query[customAttributeId] as string;
-
-            //クエリストリングにセットされていないキーはチェックしない
-            if (!value) {
-                return;
-            }
-
-            //カスタム属性の選択値リストからカスタム属性のIDに一致するデータを取得
-            let idMatchCustomAttribute = taskIdMatchingCustomDatas.find((element2) => {
-                return element2.customAttributeId === customAttributeId;
+        taskList = taskList.filter((element1) => {
+            //カスタム属性の選択値リストから、カスタム属性IDとタスクIDの一致するデータを取得
+            let taskIdMatchingCustomDatas = taskCustomAttributeList.find((element2) => {
+                return element2.customAttributeId === customAttributeId && element2.taskId === element1.id;
             });
 
-            //クエリストリングにセットされたキーを保持していない
-            if (!idMatchCustomAttribute) {
-                return true;
+            //カスタム属性の選択値リストに登録されていないタスクを省く
+            if (!taskIdMatchingCustomDatas) {
+                return false;
             }
 
             //クエリストリングと選択値のチェック
             //複数選択項目の場合
             if (element.type === "checkbox") {
-                isMatch = value.split(",").includes(idMatchCustomAttribute.selectedValue);
-            }
-            else {
-                isMatch = idMatchCustomAttribute.selectedValue.includes(value);
+                return value.split(",").includes(taskIdMatchingCustomDatas.selectedValue);
             }
 
-            return !isMatch;
+            return taskIdMatchingCustomDatas.selectedValue.includes(value);
         });
-
-        //検索条件にマッチしなかったタスクは除外する
-        return isMatch;
     });
 
-    return decodeFileData;
+    return taskList;
 }
 
 

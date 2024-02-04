@@ -12,7 +12,14 @@ import { retSearchConditionType, searchConditionType } from "./Type/SearchCondit
 export function getSearchConditionList(): searchConditionType[] {
     //タスクファイルの読み込み
     let fileData = readFile(SEARCHCONDITION_FILE_PATH);
-    return JSON.parse(fileData);
+    let decodeFileData: searchConditionType[] = JSON.parse(fileData);
+
+    //削除フラグが1(削除済)のデータをフィルターする
+    decodeFileData = decodeFileData.filter((element) => {
+        return element.deleteFlg !== "1";
+    });
+
+    return decodeFileData;
 }
 
 /**

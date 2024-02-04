@@ -30,6 +30,8 @@ const PRE_TASK_ID = `TASKID-`;
 export const SEARCHCONDITION_QUERY_KEY = "?attribute=";
 //デフォルト属性用の検索条件取得キー
 export const SEARCHCONDITION_KEY_DEFAULT = "default";
+//カスタム属性用の検索条件取得キー
+export const SEARCHCONDITION_KEY_CUSTOM = "custom";
 
 
 /**
@@ -44,7 +46,7 @@ function useTask(props: propsType) {
     const navigate = useNavigate();
     //検索条件リスト
     const { data: taskSearchConditionList } = useQueryWrapper<taskSearchConditionType[]>({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}${SEARCHCONDITION_QUERY_KEY}${SEARCHCONDITION_KEY_DEFAULT}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}${SEARCHCONDITION_QUERY_KEY}${SEARCHCONDITION_KEY_DEFAULT},${SEARCHCONDITION_KEY_CUSTOM}`,
     });
 
     /**

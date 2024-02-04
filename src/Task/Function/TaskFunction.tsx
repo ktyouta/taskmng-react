@@ -352,20 +352,14 @@ export function createSearchRefArray(taskSearchConditionList: taskSearchConditio
                 break;
             }
         }
-        let tmpSelectLits: comboType[] = [];
-        //リストキーが存在する(選択項目)
-        if (element.listKey) {
-            tmpSelectLits = generalDataList.filter((item) => {
-                return item.id === element.listKey;
-            });
-        }
+
         tmpRefInfoArray.push({
             id: element.id,
             name: element.name,
             type: element.type,
             //キーに一致するデータが存在する場合はその値を表示
             initValue: tmpValue ?? element.value,
-            selectList: tmpSelectLits,
+            selectList: element.selectList,
             ref: createRef(),
             length: element.length,
             disabled: false,
@@ -404,16 +398,12 @@ export function createSearchDispCondition(taskSearchConditionList: taskSearchCon
 
             //値がセットされている検索条件
             //複数選択項目
-            if (item.listKey) {
+            if (item.selectList && item.selectList.length > 0) {
                 value = "";
-                let tmpSelectLits: comboType[] = [];
-                tmpSelectLits = generalDataList.filter((list) => {
-                    return list.id === item.listKey;
-                });
                 let valArray = searchConditionObj[key].split(",");
                 //選択値に対応したラベルを取得
                 valArray.forEach((val) => {
-                    tmpSelectLits.some((list) => {
+                    item.selectList.some((list) => {
                         if (val === list.value) {
                             value += ` ${list.label} /`;
                             return true;

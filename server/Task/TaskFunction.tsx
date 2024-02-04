@@ -8,7 +8,7 @@ import { getNowDate } from "../CommonFunction";
 import { createDeleteCustomAttributeData, createDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
 import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
-import { filterTask, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
+import { filterCustomAttribute, filterDefaultAttribute, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
 import { runAddTaskHistory } from "../History/HistoryFunction";
 
 //タスクファイルのパス
@@ -34,9 +34,13 @@ export function getTaskList(res: any, req: any) {
     }
     //タスクファイルの読み込み
     let decodeFileData: taskListType[] = getFilterdTask();
+    let queryStr = req.query;
 
-    //クエリストリングでフィルター
-    decodeFileData = filterTask(decodeFileData, req.query);
+    //クエリストリングでフィルター(デフォルト属性)
+    decodeFileData = filterDefaultAttribute(decodeFileData, queryStr);
+
+    //クエリストリングでフィルター(カスタム属性)
+    decodeFileData = filterCustomAttribute(decodeFileData, queryStr);
 
     //該当データなし
     if (decodeFileData.length === 0) {
