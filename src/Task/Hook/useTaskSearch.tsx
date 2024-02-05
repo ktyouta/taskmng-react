@@ -44,8 +44,6 @@ function useTaskSearch() {
     const { data: taskSearchConditionList } = useQueryWrapper<taskSearchConditionType[]>({
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}${SEARCHCONDITION_QUERY_KEY}${SEARCHCONDITION_KEY_DEFAULT},${SEARCHCONDITION_KEY_CUSTOM}`,
     });
-    //汎用詳細リスト
-    const { generalDataList } = useGetGeneralDataList();
 
     /**
      * 初期表示タスク取得用URLと検索条件オブジェクトの作成
@@ -60,13 +58,10 @@ function useTaskSearch() {
         if (!searchConditionObj) {
             return;
         }
-        if (!generalDataList) {
-            return;
-        }
 
         //検索条件のdomを作成
-        return createSearchDispCondition(taskSearchConditionList, searchConditionObj, generalDataList);
-    }, [searchConditionObj, taskSearchConditionList, generalDataList]);
+        return createSearchDispCondition(taskSearchConditionList, searchConditionObj);
+    }, [searchConditionObj, taskSearchConditionList]);
 
 
     /**
@@ -113,12 +108,9 @@ function useTaskSearch() {
         if (!searchConditionObj) {
             return;
         }
-        if (!generalDataList) {
-            return;
-        }
 
         //検索条件の参照を作成
-        setRefInfoArray(createSearchRefArray(taskSearchConditionList, searchConditionObj, generalDataList,));
+        setRefInfoArray(createSearchRefArray(taskSearchConditionList, searchConditionObj));
         onFlag();
     }
 

@@ -36,7 +36,7 @@ export function getFilterdSearchConditionList(searchConditionList: searchConditi
 
 
 /**
- * 検索条件の属性で絞り込む
+ * 選択リストを結合
  */
 export function joinSelectListSearchCondition(searchConditionList: searchConditionType[]) {
 
@@ -47,7 +47,9 @@ export function joinSelectListSearchCondition(searchConditionList: searchConditi
     //カスタム属性リストファイルの読み込み
     let customAttributeSelectList: customAttributeListType[] = getCustomAttributeListData();
 
-    let retSearchConditionList: retSearchConditionType[] = searchConditionList.map((element) => {
+    //選択リストと結合
+    let retSearchConditionList: retSearchConditionType[] = searchConditionList.reduce((nowList: retSearchConditionType[],
+        element: searchConditionType) => {
 
         let selectList: comboType[] = [];
         //選択リストを保持している
@@ -62,10 +64,10 @@ export function joinSelectListSearchCondition(searchConditionList: searchConditi
                 return element1.id === element.id;
             });
 
-            //検索条件の属性がカスタム属性の場合
-            if (customAttribute) {
+            //検索条件の属性がカスタム属性で選択リストを保持している場合
+            if (customAttribute && customAttribute.selectElementListId) {
                 let tmpCustomAttributeSelectList = customAttributeSelectList.filter((element1) => {
-                    return element1.id === customAttribute?.selectElementListId;
+                    return element1.id === customAttribute?.selectElementListId && element1.deleteFlg !== "1";
                 });
                 selectList = tmpCustomAttributeSelectList.map((element1) => {
                     return {
@@ -73,14 +75,21 @@ export function joinSelectListSearchCondition(searchConditionList: searchConditi
                         value: element1.no,
                     }
                 });
+
+                //選択リストが存在しない場合は検索条件リストから除外する
+                if (!selectList || selectList.length === 0) {
+                    return nowList;
+                }
             }
         }
 
-        return {
+        nowList.push({
             ...element,
             selectList: selectList
-        }
-    });
+        });
+
+        return nowList;
+    }, []);
 
     return retSearchConditionList;
 }

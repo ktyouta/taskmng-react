@@ -338,7 +338,7 @@ export function createRegistRefArray(taskSettingList: inputTaskSettingType[],
 export function createSearchRefArray(taskSearchConditionList: taskSearchConditionType[],
     searchConditionObj: {
         [key: string]: string;
-    }, generalDataList: generalDataType[]
+    }
 ): refInfoType[] {
 
     let tmpRefInfoArray: refInfoType[] = [];
@@ -380,7 +380,7 @@ export function createSearchRefArray(taskSearchConditionList: taskSearchConditio
 export function createSearchDispCondition(taskSearchConditionList: taskSearchConditionType[],
     searchConditionObj: {
         [key: string]: string;
-    }, generalDataList: generalDataType[]
+    }
 ): ReactNode[] {
 
     let tmpDisplayList: ReactNode[] = [];
