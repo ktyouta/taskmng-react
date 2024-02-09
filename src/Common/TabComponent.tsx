@@ -1,3 +1,4 @@
+import React from "react";
 import {
     createContext,
     memo,
@@ -30,17 +31,6 @@ const TabTitleDiv = styled.div<{ isActive: boolean }>`
 `;
 
 
-type TabState = {
-    activeKey: string;
-    addItem: (title: string, key: string, children: ReactNode) => void;
-};
-
-
-const TabContext = createContext<TabState>({
-    activeKey: "",
-    addItem: () => { },
-});
-
 //タブの表示用の型
 type tabType = {
     key: string,
@@ -53,69 +43,60 @@ type propsType = {
     tabObj: tabType[]
 }
 
+//タブコンテンツの引数の型
+type tabItemPropsType = {
+    key: string,
+    title: string,
+    children: ReactNode,
+    activeKey: string,
+}
+
 export function Tab(props: propsType) {
 
     //選択しているタブのキー
-    const [activeKey, setActiveKey] = useState(props.tabObj[0].key);
-    //タブのリスト
-    const [tabs, setTabs] = useState<tabType[]>([]);
+    const [activeKey, setActiveKey] = useState(props.tabObj &&
+        props.tabObj.length > 0
+        ? props.tabObj[0].key
+        : "");
 
-    //タブを追加
-    const addTab = useCallback((title: string, key: string, children: ReactNode) => {
-        setTabs((tabs) => {
-            if (tabs.findIndex((item) => item.key === key) > 0) {
-                return tabs;
-            } else {
-                return [...tabs, { title, key, children }];
-            }
-        });
-    }, []);
-
-    const state = useMemo<TabState>(() => {
-        return {
-            activeKey,
-            addItem: addTab,
-        }
-    },
-        [activeKey, tabs]
-    );
 
     return (
-        <TabContext.Provider value={state}>
+        <React.Fragment>
             <TabWrapDiv>
-                {tabs.map(({ title, key }) => (
-                    <TabTitleDiv
-                        key={key}
-                        isActive={activeKey === key}
-                        onClick={() => setActiveKey(key)}
-                    >
-                        {title}
-                    </TabTitleDiv>
-                ))}
+                {
+                    props.tabObj &&
+                    props.tabObj.length > 0 &&
+                    props.tabObj.map(({ title, key }) => (
+                        <TabTitleDiv
+                            key={key}
+                            isActive={activeKey === key}
+                            onClick={() => setActiveKey(key)}
+                        >
+                            {title}
+                        </TabTitleDiv>
+                    ))
+                }
             </TabWrapDiv>
             {
-                tabs.map(({ title, key, children }) => {
+                props.tabObj &&
+                props.tabObj.length > 0 &&
+                props.tabObj.map(({ title, key, children }) => {
                     return (
                         <TabItem
                             key={key}
                             title={title}
                             children={children}
+                            activeKey={activeKey}
                         />
                     )
                 })
             }
-        </TabContext.Provider>
+        </React.Fragment>
     );
 };
 
 
 //タブ内のコンテンツ
-function TabItem(props: tabType) {
-    const { activeKey, addItem } = useContext(TabContext);
-
-    useLayoutEffect(() => {
-        addItem(props.title, props.key, props.children);
-    }, []);
-
-    return props.key === activeKey ? <>{props.children}</> : null;
+function TabItem(props: tabItemPropsType) {
+    return props.key === props.activeKey ? <React.Fragment>{props.children}</React.Fragment> : null;
 };
