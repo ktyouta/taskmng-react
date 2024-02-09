@@ -86,6 +86,16 @@ export function joinGeneralSetting(decodeFileData: taskHistoryType[]) {
         }
     });
 
+    //日付で降順ソート
+    decodeFileData.sort((a, b) => {
+        if (a.time > b.time) {
+            return -1;
+        }
+        else {
+            return 1;
+        }
+    })
+
     return decodeFileData;
 }
 
