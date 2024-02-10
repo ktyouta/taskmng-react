@@ -12,7 +12,6 @@ import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 //引数の型
 type propsType = {
     refInfoArray: refInfoType[] | undefined,
-    isUpDelLoading: boolean,
     errMessage: string,
     outerHeight: string,
 }

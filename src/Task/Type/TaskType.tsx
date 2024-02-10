@@ -62,11 +62,6 @@ export type viewTaskType = {
     value: string,
 }
 
-//検索条件リストの型
-export type searchConditionType = {
-    task: taskSearchConditionType[]
-}
-
 //検索条件リストの型(タスク)
 export type taskSearchConditionType = {
     id: string,
@@ -76,6 +71,7 @@ export type taskSearchConditionType = {
     length: number,
     value: string,
     isHidden: boolean,
+    attribute: string,
 }
 
 //カスタム属性リストの型
@@ -136,4 +132,11 @@ export type customAttributeRequestBodyType = {
 export type taskRequestBodyType = {
     default: bodyObj,
     customAttribute: customAttributeRequestBodyType[],
+}
+
+//タスクの検索条件の型
+export type taskSearchConditionRefType = {
+    [key: string]: refInfoType[],
+    default: refInfoType[],
+    custom: refInfoType[],
 }

@@ -7,12 +7,15 @@ import TaskConditionFooter from './TaskConditionFooter';
 import Loading from '../Common/Loading';
 import LabelComponent from '../Common/LabelComponent';
 import styled from 'styled-components';
-import { HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import { BoldSpan, HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import React from 'react';
+import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
+import { taskSearchConditionRefType } from './Type/TaskType';
 
 
 //引数の型
 type propsType = {
-    refInfoArray: refInfoType[],
+    taskSearchRefInfo: taskSearchConditionRefType,
     closeFn: () => void,
 }
 
@@ -35,7 +38,8 @@ function TaskCondition(props: propsType) {
     } = useTaskCondition({ ...props });
 
     //ローディング
-    if (!props.refInfoArray || props.refInfoArray.length === 0) {
+    if (!props.taskSearchRefInfo ||
+        props.taskSearchRefInfo.default.length === 0) {
         return <Loading height='50vh' />;
     }
 
@@ -54,12 +58,29 @@ function TaskCondition(props: propsType) {
                 <VerticalFlowDiv
                     height='85%'
                 >
+                    {/* デフォルト属性 */}
                     <TaskEditForm
-                        refInfoArray={props.refInfoArray}
-                        isUpDelLoading={false}
+                        refInfoArray={props.taskSearchRefInfo.default}
                         errMessage={""}
-                        outerHeight='85%'
+                        outerHeight='auto'
                     />
+                    {/* カスタム属性 */}
+                    {
+                        <React.Fragment>
+                            <HorizonLabelItemComponent
+                                title={<BoldSpan>カスタム属性</BoldSpan>}
+                                marginLt='15%'
+                                width="20%"
+                            >
+                            </HorizonLabelItemComponent>
+                            <TaskEditForm
+                                refInfoArray={props.taskSearchRefInfo.custom}
+                                errMessage={""}
+                                outerHeight='auto'
+                            />
+                        </React.Fragment>
+
+                    }
                 </VerticalFlowDiv>
             </HeightDiv>
             <HeightDiv

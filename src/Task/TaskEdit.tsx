@@ -63,7 +63,6 @@ function TaskEdit(props: propsType) {
           {/* デフォルト属性 */}
           <TaskEditForm
             refInfoArray={refInfoArray.default}
-            isUpDelLoading={isUpDelLoading}
             errMessage={errMessage}
             outerHeight='auto'
           />
@@ -81,7 +80,6 @@ function TaskEdit(props: propsType) {
               </HorizonLabelItemComponent>
               <TaskEditForm
                 refInfoArray={refInfoArray.customAttribute}
-                isUpDelLoading={isUpDelLoading}
                 errMessage={errMessage}
                 outerHeight='auto'
               />

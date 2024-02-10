@@ -15,7 +15,6 @@ import { useGlobalAtom, useGlobalAtomValue } from '../../Common/Hook/useGlobalAt
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import AddMaster from '../../AddMaster/AddMaster';
 import Task from '../../Task/Task';
-import { searchConditionType } from '../../Task/Type/TaskType';
 import Home from '../../Home/Home';
 
 
@@ -40,23 +39,28 @@ function createMasterDataListInfo(data: { mastertable: masterDataListType[] }): 
 const retComponent = (componentName: string, path: string) => {
     let component = <React.Fragment />;
     switch (componentName) {
+        //ホーム
         case "Home":
             component = <Home />;
             break;
         // case "Top":
         //     Component = <Top />;
         //     break;
+        //マスタ編集
         case "Master":
             component = <Master />;
             break;
+        //新規マスタ追加
         case "AddMaster":
             component = <AddMaster />;
             break;
+        //タスク
         case "Task":
             component = <Task
                 path={path}
             />;
             break;
+        //設定
         case "Setting":
             component = <Setting
                 path={path} />;
@@ -89,19 +93,6 @@ function useMainLogic() {
     //useQueryAtomValueを使用した取得法
     //const {clientData:userInfo} = useQueryAtomValue<userInfoType | undefined>(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.AUTH}`);
 
-    //汎用詳細を取得
-    useQueryWrapper<generalDataType[]>(
-        {
-            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
-        }
-    );
-
-    //検索条件リストを取得
-    useQueryWrapper<searchConditionType[]>(
-        {
-            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}`,
-        }
-    );
 
     //Mainコンポーネントのルーティングリスト
     const componentList = useMemo(() => {

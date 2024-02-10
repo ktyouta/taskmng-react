@@ -57,7 +57,6 @@ function TaskRegister(props: propsType) {
             refInfoArray.default.length > 0 &&
             <TaskEditForm
               refInfoArray={refInfoArray.default}
-              isUpDelLoading={isUpDelLoading}
               errMessage={errMessage}
               outerHeight='auto'
             />
@@ -76,7 +75,6 @@ function TaskRegister(props: propsType) {
               </HorizonLabelItemComponent>
               <TaskEditForm
                 refInfoArray={refInfoArray.customAttribute}
-                isUpDelLoading={isUpDelLoading}
                 errMessage={errMessage}
                 outerHeight='auto'
               />

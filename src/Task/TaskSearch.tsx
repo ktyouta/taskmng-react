@@ -50,7 +50,7 @@ function TaskSearch() {
         isModalOpen,
         openModal,
         closeModal,
-        refInfoArray,
+        taskSearchRefInfo,
         displaySearchConditionList,
     } = useTaskSearch();
 
@@ -87,7 +87,7 @@ function TaskSearch() {
                 closeModal={closeModal}
             >
                 <TaskCondition
-                    refInfoArray={refInfoArray}
+                    taskSearchRefInfo={taskSearchRefInfo}
                     closeFn={closeModal}
                 />
             </ModalComponent>

@@ -971,11 +971,11 @@
 		"title": "タスクの検索条件にカスタム属性を追加する",
 		"content": "",
 		"registerTime": "2024/01/24",
-		"updTime": "2024/01/24",
+		"updTime": "2024/02/10",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
-		"status": "1",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
@@ -1011,6 +1011,18 @@
 		"limitTime": "",
 		"userId": "f",
 		"priority": "3",
+		"status": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-86",
+		"title": "タスク検索条件の属性をタブで切り替えるように改修",
+		"content": "",
+		"registerTime": "2024/02/10",
+		"updTime": "2024/02/10",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
 		"status": "1",
 		"deleteFlg": "0"
 	}

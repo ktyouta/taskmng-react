@@ -1,6 +1,20 @@
 import React, { SetStateAction } from "react";
 import { bodyObj, comboType, generalDataType, refInfoType } from "../../Common/Type/CommonType";
-import { apiTaskDetailType, customAttributeListType, customAttributeRequestBodyType, displayTaskType, editDisplayTaskType, inputTaskSettingType, taskContentDisplayType, taskContentSettingType, taskListType, taskRequestBodyType, taskSearchConditionType, viewTaskType } from "../Type/TaskType";
+import {
+    apiTaskDetailType,
+    customAttributeListType,
+    customAttributeRequestBodyType,
+    displayTaskType,
+    editDisplayTaskType,
+    inputTaskSettingType,
+    taskContentDisplayType,
+    taskContentSettingType,
+    taskListType,
+    taskRequestBodyType,
+    taskSearchConditionRefType,
+    taskSearchConditionType,
+    viewTaskType
+} from "../Type/TaskType";
 import { ReactNode, createRef } from "react";
 import SpaceComponent from "../../Common/SpaceComponent";
 import { createRequestBody, getNowDate, parseStrDate, requestBodyInputCheck } from "../../Common/Function/Function";
@@ -339,9 +353,12 @@ export function createSearchRefArray(taskSearchConditionList: taskSearchConditio
     searchConditionObj: {
         [key: string]: string;
     }
-): refInfoType[] {
+): taskSearchConditionRefType {
 
-    let tmpRefInfoArray: refInfoType[] = [];
+    let tmpSearchConditionRef: taskSearchConditionRefType = {
+        default: [],
+        custom: []
+    }
 
     taskSearchConditionList.forEach((element) => {
         let tmpValue: string | undefined = undefined;
@@ -353,21 +370,41 @@ export function createSearchRefArray(taskSearchConditionList: taskSearchConditio
             }
         }
 
-        tmpRefInfoArray.push({
-            id: element.id,
-            name: element.name,
-            type: element.type,
-            //キーに一致するデータが存在する場合はその値を表示
-            initValue: tmpValue ?? element.value,
-            selectList: element.selectList,
-            ref: createRef(),
-            length: element.length,
-            disabled: false,
-            visible: !element.isHidden,
-        });
+        switch (element.attribute) {
+            //デフォルト属性
+            case "default":
+                tmpSearchConditionRef.default.push({
+                    id: element.id,
+                    name: element.name,
+                    type: element.type,
+                    //キーに一致するデータが存在する場合はその値を表示
+                    initValue: tmpValue ?? element.value,
+                    selectList: element.selectList,
+                    ref: createRef(),
+                    length: element.length,
+                    disabled: false,
+                    visible: !element.isHidden,
+                });
+                break;
+            //カスタム属性
+            case "custom":
+                tmpSearchConditionRef.custom.push({
+                    id: element.id,
+                    name: element.name,
+                    type: element.type,
+                    //キーに一致するデータが存在する場合はその値を表示
+                    initValue: tmpValue ?? element.value,
+                    selectList: element.selectList,
+                    ref: createRef(),
+                    length: element.length,
+                    disabled: false,
+                    visible: !element.isHidden,
+                });
+                break;
+        }
     });
 
-    return tmpRefInfoArray;
+    return tmpSearchConditionRef;
 }
 
 /**

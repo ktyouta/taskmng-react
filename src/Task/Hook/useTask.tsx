@@ -4,20 +4,11 @@ import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
 import { useNavigate } from "react-router-dom";
-import { searchConditionType, taskSearchConditionType } from "../Type/TaskType";
+import { taskSearchConditionType } from "../Type/TaskType";
 
 
 type propsType = {
     path: string
-}
-
-/**
- * タスクの検索条件リストを取得
- * @param data 
- * @returns 
- */
-function createSearchConditionList(data: searchConditionType): taskSearchConditionType[] {
-    return data.task;
 }
 
 //検索条件用オブジェクト

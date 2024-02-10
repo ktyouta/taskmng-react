@@ -8,7 +8,7 @@ import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import { masterDataListAtom } from "../../Main/Hook/useMainLogic";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
-import { searchConditionType, taskListType, taskSearchConditionType } from "../Type/TaskType";
+import { taskSearchConditionRefType, taskSearchConditionType } from "../Type/TaskType";
 import { refType } from "../../Common/BaseInputComponent";
 import { taskListUrlAtom } from "./useTaskListContent";
 import useSwitch from "../../Common/Hook/useSwitch";
@@ -29,18 +29,19 @@ import { createSearchDispCondition, createSearchRefArray } from "../Function/Tas
  */
 function useTaskSearch() {
 
-    //登録するタスク内容
-    const contentRef: RefObject<refType> = useRef(null);
     //タスクリスト取得用URL
     const setTaskListUrl = useSetAtom(taskListUrlAtom);
     //モーダルの開閉用フラグ
     const { flag: isModalOpen, onFlag, offFlag } = useSwitch();
     //検索条件参照用リスト
-    const [refInfoArray, setRefInfoArray] = useState<refInfoType[]>([]);
+    const [taskSearchRefInfo, setTaskSearchRefInfo] = useState<taskSearchConditionRefType>({
+        default: [],
+        custom: []
+    });
     //検索条件用オブジェクト
     const [searchConditionObj, setSearchConditionObj] = useAtom(taskSearchConditionObjAtom);
 
-    //検索条件リスト
+    //検索条件の設定リスト
     const { data: taskSearchConditionList } = useQueryWrapper<taskSearchConditionType[]>({
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}${SEARCHCONDITION_QUERY_KEY}${SEARCHCONDITION_KEY_DEFAULT},${SEARCHCONDITION_KEY_CUSTOM}`,
     });
@@ -70,9 +71,7 @@ function useTaskSearch() {
     function clickSearchBtn() {
         let tmpUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`;
         let query = "?";
-        if (contentRef.current && contentRef.current?.refValue) {
-            query += `keyword=${contentRef.current?.refValue}`;
-        }
+
         //モーダル内の検索条件を取得
         Object.keys(searchConditionObj).forEach((element) => {
             //値が存在するプロパティをクエリストリングに設定
@@ -110,7 +109,7 @@ function useTaskSearch() {
         }
 
         //検索条件の参照を作成
-        setRefInfoArray(createSearchRefArray(taskSearchConditionList, searchConditionObj));
+        setTaskSearchRefInfo(createSearchRefArray(taskSearchConditionList, searchConditionObj));
         onFlag();
     }
 
@@ -118,29 +117,30 @@ function useTaskSearch() {
      * モーダルクローズイベント
      */
     function closeModal() {
-        if (!refInfoArray) {
+        if (!taskSearchRefInfo) {
             offFlag();
         }
         //検索条件を保存する
         let tmpCondition: { [key: string]: string } = {};
-        refInfoArray.forEach((element) => {
-            if (!element.ref.current) {
-                return true;
-            }
-            tmpCondition[element.id] = element.ref.current.refValue;
+        Object.keys(taskSearchRefInfo).forEach((objKey) => {
+            taskSearchRefInfo[objKey].forEach((element) => {
+                if (!element.ref.current) {
+                    return true;
+                }
+                tmpCondition[element.id] = element.ref.current.refValue;
+            });
         });
         setSearchConditionObj(tmpCondition);
         offFlag();
     }
 
     return {
-        contentRef,
         clickSearchBtn,
         clickClearBtn,
         isModalOpen,
         openModal,
         closeModal,
-        refInfoArray,
+        taskSearchRefInfo,
         displaySearchConditionList,
     };
 }

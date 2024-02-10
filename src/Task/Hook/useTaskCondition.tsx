@@ -4,7 +4,7 @@ import { bodyObj, comboType, generalDataType, inputMasterSettingType, inputSetti
 import { refType } from "../../Common/BaseInputComponent";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
-import { taskListType } from "../Type/TaskType";
+import { taskListType, taskSearchConditionRefType } from "../Type/TaskType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
@@ -14,7 +14,7 @@ import useGetTaskInputSetting from "./useGetTaskInputSetting";
 
 //引数の型
 type propsType = {
-    refInfoArray: refConditionType[],
+    taskSearchRefInfo: taskSearchConditionRefType,
     closeFn: () => void,
 }
 
@@ -25,7 +25,6 @@ type propsType = {
  * @returns 
  */
 function useTaskCondition(props: propsType) {
-
 
     /**
      * 閉じるボタン押下処理
@@ -41,8 +40,11 @@ function useTaskCondition(props: propsType) {
         if (!window.confirm("入力を元に戻しますか？")) {
             return;
         }
-        props.refInfoArray.forEach((element) => {
-            element.ref.current?.clearValue();
+        //入力を初期化する
+        Object.keys(props.taskSearchRefInfo).forEach((objKey) => {
+            props.taskSearchRefInfo[objKey].forEach((element) => {
+                element.ref.current?.clearValue();
+            });
         });
     }
 
@@ -50,7 +52,7 @@ function useTaskCondition(props: propsType) {
         negativeButtonObj: {
             title: `元に戻す`,
             type: `RUN`,
-            onclick: props.refInfoArray && props.refInfoArray.length > 0 ? clearButtonFunc : undefined
+            onclick: props.taskSearchRefInfo && props.taskSearchRefInfo.default.length > 0 ? clearButtonFunc : undefined
         } as buttonObjType,
         backPageButtonObj: {
             title: `閉じる`,
