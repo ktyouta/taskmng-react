@@ -20,6 +20,10 @@ import SpaceComponent from "../../Common/SpaceComponent";
 import { createRequestBody, getNowDate, parseStrDate, requestBodyInputCheck } from "../../Common/Function/Function";
 import ButtonComponent from "../../Common/ButtonComponent";
 import styled from "styled-components";
+import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT } from "../Hook/useTask";
+import { tabType } from "../../Common/TabComponent";
+import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
+import TaskEditForm from "../TaskEditForm";
 
 //ステータス
 //未完了
@@ -372,7 +376,7 @@ export function createSearchRefArray(taskSearchConditionList: taskSearchConditio
 
         switch (element.attribute) {
             //デフォルト属性
-            case "default":
+            case SEARCHCONDITION_KEY_DEFAULT:
                 tmpSearchConditionRef.default.push({
                     id: element.id,
                     name: element.name,
@@ -387,7 +391,7 @@ export function createSearchRefArray(taskSearchConditionList: taskSearchConditio
                 });
                 break;
             //カスタム属性
-            case "custom":
+            case SEARCHCONDITION_KEY_CUSTOM:
                 tmpSearchConditionRef.custom.push({
                     id: element.id,
                     name: element.name,
@@ -732,4 +736,47 @@ export function createTaskRequestBody(refInfoArray: editDisplayTaskType)
         default: defBody,
         customAttribute: customBody
     };
+}
+
+/**
+ * 検索条件のタブを作成
+ */
+export function createTabItems(taskSearchRefInfo: taskSearchConditionRefType) {
+    let tmpTabItemList: tabType[] = [];
+
+    Object.keys(taskSearchRefInfo).forEach((objKey) => {
+
+        let tmpComponent: ReactNode =
+            <React.Fragment>
+                <VerticalSpaceComponent
+                    space={'7%'}
+                />
+                <TaskEditForm
+                    refInfoArray={taskSearchRefInfo[objKey]}
+                    errMessage={""}
+                    outerHeight='auto'
+                />
+            </React.Fragment>
+
+        let tmpTitle = "";
+        let tmpKey = "";
+        switch (objKey) {
+            case SEARCHCONDITION_KEY_DEFAULT:
+                tmpTitle = "デフォルト属性";
+                tmpKey = SEARCHCONDITION_KEY_DEFAULT;
+                break;
+            case SEARCHCONDITION_KEY_CUSTOM:
+                tmpTitle = "カスタム属性";
+                tmpKey = SEARCHCONDITION_KEY_CUSTOM;
+                break;
+        }
+
+        tmpTabItemList.push({
+            key: tmpKey,
+            title: tmpTitle,
+            children: tmpComponent
+        });
+    });
+
+    return tmpTabItemList;
 }

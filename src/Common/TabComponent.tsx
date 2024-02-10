@@ -19,7 +19,6 @@ import styled from "styled-components";
 const TabWrapDiv = styled.div`
     display: flex;
     justify-content: space-around;
-    gap: 3px;
 `;
 
 //タブタイトルのdiv
@@ -28,11 +27,12 @@ const TabTitleDiv = styled.div<{ isActive: boolean }>`
     width: 100%;
     text-align: center;
     cursor: pointer;
+    border-bottom: 2px solid #c0c0c0;
 `;
 
 
 //タブの表示用の型
-type tabType = {
+export type tabType = {
     key: string,
     title: string,
     children: ReactNode
@@ -45,13 +45,13 @@ type propsType = {
 
 //タブコンテンツの引数の型
 type tabItemPropsType = {
-    key: string,
+    attributeKey: string,
     title: string,
     children: ReactNode,
     activeKey: string,
 }
 
-export function Tab(props: propsType) {
+export function TabComponent(props: propsType) {
 
     //選択しているタブのキー
     const [activeKey, setActiveKey] = useState(props.tabObj &&
@@ -83,7 +83,7 @@ export function Tab(props: propsType) {
                 props.tabObj.map(({ title, key, children }) => {
                     return (
                         <TabItem
-                            key={key}
+                            attributeKey={key}
                             title={title}
                             children={children}
                             activeKey={activeKey}
@@ -98,5 +98,5 @@ export function Tab(props: propsType) {
 
 //タブ内のコンテンツ
 function TabItem(props: tabItemPropsType) {
-    return props.key === props.activeKey ? <React.Fragment>{props.children}</React.Fragment> : null;
+    return props.attributeKey === props.activeKey ? <React.Fragment>{props.children}</React.Fragment> : null;
 };

@@ -1,4 +1,4 @@
-import { createRef, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { createRef, ReactNode, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
 import ENV from '../../env.json';
 import { bodyObj, comboType, generalDataType, inputMasterSettingType, inputSettingType, refConditionType, refInfoType } from "../../Common/Type/CommonType";
 import { refType } from "../../Common/BaseInputComponent";
@@ -10,6 +10,12 @@ import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
 import { createRequestBody } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
+import TaskEditForm from "../TaskEditForm";
+import { tabType } from "../../Common/TabComponent";
+import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT } from "./useTask";
+import React from "react";
+import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
+import { createTabItems } from "../Function/TaskFunction";
 
 
 //引数の型
@@ -32,6 +38,15 @@ function useTaskCondition(props: propsType) {
     const backPageButtonFunc = () => {
         props.closeFn();
     }
+
+    //タスクの検索条件画面
+    let searchConditionComponent = useMemo(() => {
+        if (!props.taskSearchRefInfo) {
+            return;
+        }
+
+        return createTabItems(props.taskSearchRefInfo);
+    }, [props.taskSearchRefInfo]);
 
     /**
      * 入力値の初期化
@@ -59,6 +74,7 @@ function useTaskCondition(props: propsType) {
             type: `BASE`,
             onclick: backPageButtonFunc
         } as buttonObjType,
+        searchConditionComponent,
     }
 }
 

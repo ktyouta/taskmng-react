@@ -11,6 +11,7 @@ import { BoldSpan, HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import { taskSearchConditionRefType } from './Type/TaskType';
+import { TabComponent } from '../Common/TabComponent';
 
 
 //引数の型
@@ -35,6 +36,7 @@ function TaskCondition(props: propsType) {
     const {
         backPageButtonObj,
         negativeButtonObj,
+        searchConditionComponent,
     } = useTaskCondition({ ...props });
 
     //ローディング
@@ -58,28 +60,33 @@ function TaskCondition(props: propsType) {
                 <VerticalFlowDiv
                     height='85%'
                 >
+                    {
+                        searchConditionComponent &&
+                        <TabComponent
+                            tabObj={searchConditionComponent}
+                        />
+                    }
                     {/* デフォルト属性 */}
-                    <TaskEditForm
+                    {/* <TaskEditForm
                         refInfoArray={props.taskSearchRefInfo.default}
                         errMessage={""}
                         outerHeight='auto'
-                    />
+                    /> */}
                     {/* カスタム属性 */}
                     {
-                        <React.Fragment>
-                            <HorizonLabelItemComponent
-                                title={<BoldSpan>カスタム属性</BoldSpan>}
-                                marginLt='15%'
-                                width="20%"
-                            >
-                            </HorizonLabelItemComponent>
-                            <TaskEditForm
-                                refInfoArray={props.taskSearchRefInfo.custom}
-                                errMessage={""}
-                                outerHeight='auto'
-                            />
-                        </React.Fragment>
-
+                        // <React.Fragment>
+                        //     <HorizonLabelItemComponent
+                        //         title={<BoldSpan>カスタム属性</BoldSpan>}
+                        //         marginLt='15%'
+                        //         width="20%"
+                        //     >
+                        //     </HorizonLabelItemComponent>
+                        //     <TaskEditForm
+                        //         refInfoArray={props.taskSearchRefInfo.custom}
+                        //         errMessage={""}
+                        //         outerHeight='auto'
+                        //     />
+                        // </React.Fragment>
                     }
                 </VerticalFlowDiv>
             </HeightDiv>
