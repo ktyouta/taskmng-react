@@ -1,33 +1,34 @@
 import React from "react";
 import {
-    createContext,
-    memo,
-    PropsWithChildren,
     ReactNode,
-    useCallback,
-    useContext,
-    useLayoutEffect,
-    useMemo,
     useState,
-    VFC,
 } from "react";
-
 import styled from "styled-components";
 
 
-//タブタイトルの外側のdiv
-const TabWrapDiv = styled.div`
+//タブタイトルの外側のul
+const TabWrapUl = styled.ul`
     display: flex;
-    justify-content: space-around;
+    list-style: none;
+    gap: 12px;
+    box-shadow: 0 -1px 0 0 #808080 inset;
+    padding: 0;
+    margin-left: 5%;
 `;
 
-//タブタイトルのdiv
-const TabTitleDiv = styled.div<{ isActive: boolean }>`
-    background-color: ${({ isActive }) => (isActive ? "#ffe600" : "")};
-    width: 100%;
+//タブタイトルのli
+const TabTitleLi = styled.li<{ isActive: boolean }>`
+    color:${({ isActive }) => (isActive ? "#00bfff" : "#808080")};
+    border-bottom: ${({ isActive }) => (isActive ? "3px solid #00bfff" : "")};
+    font-weight: ${({ isActive }) => (isActive ? "bold" : "")};
     text-align: center;
     cursor: pointer;
-    border-bottom: 2px solid #c0c0c0;
+    width: fit-content;
+`;
+
+//タブコンテンツのdiv
+const TabTitleItemDiv = styled.div<{ isActive: boolean }>`
+    display:${({ isActive }) => (isActive ? "inline" : "none")};
 `;
 
 
@@ -59,24 +60,23 @@ export function TabComponent(props: propsType) {
         ? props.tabObj[0].key
         : "");
 
-
     return (
         <React.Fragment>
-            <TabWrapDiv>
+            <TabWrapUl>
                 {
                     props.tabObj &&
                     props.tabObj.length > 0 &&
                     props.tabObj.map(({ title, key }) => (
-                        <TabTitleDiv
+                        <TabTitleLi
                             key={key}
                             isActive={activeKey === key}
                             onClick={() => setActiveKey(key)}
                         >
                             {title}
-                        </TabTitleDiv>
+                        </TabTitleLi>
                     ))
                 }
-            </TabWrapDiv>
+            </TabWrapUl>
             {
                 props.tabObj &&
                 props.tabObj.length > 0 &&
@@ -98,5 +98,11 @@ export function TabComponent(props: propsType) {
 
 //タブ内のコンテンツ
 function TabItem(props: tabItemPropsType) {
-    return props.attributeKey === props.activeKey ? <React.Fragment>{props.children}</React.Fragment> : null;
+    return (
+        <TabTitleItemDiv
+            isActive={props.attributeKey === props.activeKey}
+        >
+            {props.children}
+        </TabTitleItemDiv>
+    )
 };

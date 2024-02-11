@@ -739,17 +739,18 @@ export function createTaskRequestBody(refInfoArray: editDisplayTaskType)
 }
 
 /**
- * 検索条件のタブを作成
+ * 検索条件画面に表示するタブのコンテンツを作成
  */
 export function createTabItems(taskSearchRefInfo: taskSearchConditionRefType) {
     let tmpTabItemList: tabType[] = [];
 
     Object.keys(taskSearchRefInfo).forEach((objKey) => {
 
+        //タブ内に表示するコンテンツ
         let tmpComponent: ReactNode =
             <React.Fragment>
                 <VerticalSpaceComponent
-                    space={'7%'}
+                    space={'3%'}
                 />
                 <TaskEditForm
                     refInfoArray={taskSearchRefInfo[objKey]}
