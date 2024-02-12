@@ -6,13 +6,22 @@ import { comboType, customAttributeListType, customAttributeType, generalDetailT
 import { SEARCHCONDITION_FILE_PATH } from "./SearchConditionFunction";
 import { retSearchConditionType, searchConditionType } from "./Type/SearchConditionType";
 
+
 /**
  * 検索条件リストの読み込み
  */
-export function getSearchConditionList(): searchConditionType[] {
+export function getSearchConditionObj(): searchConditionType[] {
     //タスクファイルの読み込み
     let fileData = readFile(SEARCHCONDITION_FILE_PATH);
-    let decodeFileData: searchConditionType[] = JSON.parse(fileData);
+
+    return JSON.parse(fileData);
+}
+
+/**
+ * 画面表示用検索条件リストの読み込み
+ */
+export function getSearchConditionList(): searchConditionType[] {
+    let decodeFileData: searchConditionType[] = getSearchConditionObj();
 
     //削除フラグが1(削除済)のデータをフィルターする
     decodeFileData = decodeFileData.filter((element) => {

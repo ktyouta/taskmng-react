@@ -9,10 +9,13 @@ import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, customAttributeListType, customAttributeType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
-import { createAddCustomAttribute, createAddCustomAttributeList, runCreateSelectList } from "./CustomAttributeRegistFunction";
+import { callCreateAddSearchCondition, createAddCustomAttribute, createAddCustomAttributeList, runCreateSelectList } from "./CustomAttributeRegistFunction";
 import { createDeleteCustomAttribute, createDeleteCustomAttributeList, runDeleteSelectList } from "./CustomAttributeDeleteFunction";
 import { createUpdCustomAttribute, createUpdCustomAttributeList, runUpdSelectList } from "./CustomAttributeUpdateFunction";
 import { filterCustomAttributeDetail, getCustomAttributeData, getCustomAttributeListData, joinCustomAttributeList } from "./CustomAttributeSelectFunction";
+import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
+import { getSearchConditionList, getSearchConditionObj } from "../../SearchCondition/SearchConditionSelectFunction";
+import { SEARCHCONDITION_FILE_PATH } from "../../SearchCondition/SearchConditionFunction";
 
 
 //カスタム属性ファイルのパス
@@ -113,14 +116,17 @@ export function runAddCustomAttribute(res: any, req: any) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    //リクエストボディ
+    let body: customAttributeType = req.body;
+
     //カスタム属性ファイルの読み込み
     let caDecodeFileData: customAttributeType[] = getFileJsonData(CUSTOM_ATTRIBUTE_FILEPATH);
 
     //カスタム属性の登録用データの作成
-    let caRegistData = createAddCustomAttribute(caDecodeFileData, req, authResult);
+    let caRegistDataObj = createAddCustomAttribute(caDecodeFileData, body, authResult);
 
     //データを登録
-    let errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(caRegistData, null, '\t'));
+    let errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(caRegistDataObj.registData, null, '\t'));
 
     //登録に失敗
     if (errMessage) {
@@ -130,17 +136,17 @@ export function runAddCustomAttribute(res: any, req: any) {
     }
 
     //カスタム属性リストのIDが存在する場合はリストを登録する
-    let selectList: string[] = req.body.selectElementList;
-    selectList = selectList.flatMap((element) => {
+    let selectList: string[] = body.selectElementList ?? [];
+    selectList = selectList.filter((element) => {
         //空欄は登録しない
-        return element ? element : [];
+        return element !== "";
     });
 
     let registListFlg: boolean = selectList && selectList.length > 0;
 
     //カスタム属性リストを登録
     if (registListFlg) {
-        errMessage = runCreateSelectList(caRegistData, selectList, authResult);
+        errMessage = runCreateSelectList(caRegistDataObj.registData, selectList, authResult);
 
         //IDの整合性エラー
         if (errMessage) {
@@ -148,6 +154,22 @@ export function runAddCustomAttribute(res: any, req: any) {
                 .status(500)
                 .json({ errMessage });
         }
+    }
+
+    //検索設定ファイルの読み込み
+    let searchConditionList: searchConditionType[] = getSearchConditionObj();
+
+    //検索条件設定登録用データの作成
+    let saRegistData = callCreateAddSearchCondition(searchConditionList, body, caRegistDataObj.customAttributeId, authResult);
+
+    //データを登録
+    errMessage = overWriteData(SEARCHCONDITION_FILE_PATH, JSON.stringify(saRegistData, null, '\t'));
+
+    //登録に失敗
+    if (errMessage) {
+        return res
+            .status(500)
+            .json({ errMessage });
     }
 
     //正常終了

@@ -12,6 +12,10 @@ import { retSearchConditionType, searchConditionType } from "./Type/SearchCondit
 export const SEARCHCONDITION_FILE_PATH = `${SETTINGFILEPATH}${SEARCHCONDITIONFILEPATH}${JSONEXTENSION}`;
 //検索条件取得用のクリストリングキー
 const SEARCHCONDITION_QUERYLRY = "attribute";
+//デフォルト属性
+export const ATTRIBUTE_KEY_DEFAULT = "default";
+//カスタム属性
+export const ATTRIBUTE_KEY_CUSTOM = "custom";
 
 /**
  * 検索条件設定リストの取得

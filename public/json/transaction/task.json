@@ -1025,5 +1025,65 @@
 		"priority": "1",
 		"status": "2",
 		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-87",
+		"title": "カスタム属性登録時に検索条件設定に設定値を追加する処理の実装",
+		"content": "カスタム属性が選択形式でない場合に、検索条件画面にテキストボックスが正常に表示されない。",
+		"registerTime": "2024/02/12",
+		"updTime": "2024/02/12",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "4",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-88",
+		"title": "カスタム属性更新時に検索条件設定に設定値を更新する処理の実装",
+		"content": "",
+		"registerTime": "2024/02/12",
+		"updTime": "2024/02/12",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-89",
+		"title": "定数を定数ファイルに分離",
+		"content": "",
+		"registerTime": "2024/02/12",
+		"updTime": "2024/02/12",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-90",
+		"title": "セッションアウト後に再ログインした際に読み込み中になるバグの修正",
+		"content": "",
+		"registerTime": "2024/02/12",
+		"updTime": "2024/02/12",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-91",
+		"title": "検索条件画面でチェックボックスのラベルをクリックしてもチェックがつかないバグの修正",
+		"content": "",
+		"registerTime": "2024/02/12",
+		"updTime": "2024/02/12",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
 	}
 ]

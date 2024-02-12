@@ -117,5 +117,16 @@
 		"selectElementListId": "ATTRIBUTELISTID-10",
 		"registerTime": "2023/11/29",
 		"updTime": "2023/12/17"
+	},
+	{
+		"id": "ATTRIBUTEID-11",
+		"name": "testtest",
+		"description": "",
+		"type": "select",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-11",
+		"registerTime": "2024/02/12",
+		"updTime": "2024/02/12",
+		"userId": "f"
 	}
 ]

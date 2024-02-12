@@ -11,6 +11,10 @@ import {
     PRE_CUSTOMATTRIBUTE_ID,
     registSelectListRetType
 } from "./CustomAttributeFunction";
+import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
+import { createAddSearchCondition } from "../../SearchCondition/SearchConditionRegisterFunction";
+import { ATTRIBUTE_KEY_CUSTOM } from "../../SearchCondition/SearchConditionFunction";
+import { retCreateAddCustomAttributeType } from "./Type/CustomAttributeType";
 
 //inputのmaxlength
 const INPUT_LENGTH = "200";
@@ -25,8 +29,8 @@ const TEXTAREA_LENGTH = "2000";
  * @param authResult ユーザー情報
  * @returns 
  */
-export function createAddCustomAttribute(fileDataObj: customAttributeType[], req: any, authResult: authInfoType)
-    : customAttributeType[] {
+export function createAddCustomAttribute(fileDataObj: customAttributeType[], body: customAttributeType, authResult: authInfoType)
+    : retCreateAddCustomAttributeType {
 
     //現在日付を取得
     const nowDate = getNowDate();
@@ -48,7 +52,7 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], req
     };
 
     //登録データをセット
-    registData = { ...req.body };
+    registData = { ...body };
     delete registData.selectElementList;
     registData.selectElementListId = "";
     registData.registerTime = nowDate;
@@ -56,10 +60,10 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], req
     registData.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
 
     //フォーマットがinputまたはtextareaの場合は、maxlengthをセット
-    if (req.body.type === "input") {
+    if (body.type === "input") {
         registData.length = INPUT_LENGTH;
     }
-    else if (req.body.type === "textarea") {
+    else if (body.type === "textarea") {
         registData.length = TEXTAREA_LENGTH;
     }
 
@@ -70,7 +74,7 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], req
     registData.id = `${PRE_CUSTOMATTRIBUTE_ID}${parseInt(id) + 1}`;
 
     //選択リストが存在する場合IDを取得
-    if (req.body.selectElementList && req.body.selectElementList.length > 0) {
+    if (body.selectElementList && body.selectElementList.length > 0) {
         //カスタム属性リストの読み込み
         let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
         let len = calDecodeFileData.length;
@@ -83,7 +87,10 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], req
 
     fileDataObj.push(registData);
 
-    return fileDataObj;
+    return {
+        customAttributeId: registData.id,
+        registData: fileDataObj
+    };
 }
 
 /**
@@ -172,4 +179,36 @@ export function createAddCustomAttributeList(
 
     ret.registSelectList = fileDataObj;
     return ret;
+}
+
+
+/**
+ * 検索条件設定用データの作成処理の呼び出し
+ * @param searchConditionList 
+ * @param body 
+ * @param authResult 
+ * @returns 
+ */
+export function callCreateAddSearchCondition(
+    searchConditionList: searchConditionType[], body: customAttributeType, customAtrributeId: string, authResult: authInfoType)
+    : searchConditionType[] {
+
+    //登録データ
+    let registData: searchConditionType = {
+        id: customAtrributeId,
+        name: body.name,
+        type: body.selectElementListId ? "input" : "checkbox",
+        listKey: "",
+        value: "",
+        attribute: ATTRIBUTE_KEY_CUSTOM,
+        registerTime: "",
+        updTime: "",
+        deleteFlg: "",
+        userId: ""
+    };
+
+    //登録用データの作成
+    let retSearchConditionList = createAddSearchCondition(searchConditionList, registData, authResult);
+
+    return retSearchConditionList;
 }
