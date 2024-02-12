@@ -190,14 +190,20 @@ export function createAddCustomAttributeList(
  * @returns 
  */
 export function callCreateAddSearchCondition(
-    searchConditionList: searchConditionType[], body: customAttributeType, customAtrributeId: string, authResult: authInfoType)
+    searchConditionList: searchConditionType[], body: customAttributeType, customAtrributeId: string,
+    registSearchConditionData: customAttributeType[], authResult: authInfoType)
     : searchConditionType[] {
+
+    //カスタム属性の選択リストID
+    let selectElementListId = registSearchConditionData.find((element) => {
+        return element.id === customAtrributeId;
+    })?.selectElementListId;
 
     //登録データ
     let registData: searchConditionType = {
         id: customAtrributeId,
         name: body.name,
-        type: body.selectElementListId ? "input" : "checkbox",
+        type: selectElementListId ? "checkbox" : "input",
         listKey: "",
         value: "",
         attribute: ATTRIBUTE_KEY_CUSTOM,

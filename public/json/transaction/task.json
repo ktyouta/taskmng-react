@@ -1035,7 +1035,7 @@
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
-		"status": "4",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
@@ -1078,6 +1078,30 @@
 		"id": "TASKID-91",
 		"title": "検索条件画面でチェックボックスのラベルをクリックしてもチェックがつかないバグの修正",
 		"content": "",
+		"registerTime": "2024/02/12",
+		"updTime": "2024/02/12",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-92",
+		"title": "検索条件の設定画面作成",
+		"content": "",
+		"registerTime": "2024/02/12",
+		"updTime": "2024/02/12",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-93",
+		"title": "チェックボックスのラベルがボックスに被っている",
+		"content": "タスクの検索条件設定画面で、チェックボックスラベルがボックスに被っているのでスタイルを修正する。",
 		"registerTime": "2024/02/12",
 		"updTime": "2024/02/12",
 		"limitTime": "",

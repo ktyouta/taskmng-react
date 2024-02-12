@@ -160,7 +160,8 @@ export function runAddCustomAttribute(res: any, req: any) {
     let searchConditionList: searchConditionType[] = getSearchConditionObj();
 
     //検索条件設定登録用データの作成
-    let saRegistData = callCreateAddSearchCondition(searchConditionList, body, caRegistDataObj.customAttributeId, authResult);
+    let saRegistData = callCreateAddSearchCondition(searchConditionList, body,
+        caRegistDataObj.customAttributeId, caRegistDataObj.registData, authResult);
 
     //データを登録
     errMessage = overWriteData(SEARCHCONDITION_FILE_PATH, JSON.stringify(saRegistData, null, '\t'));
