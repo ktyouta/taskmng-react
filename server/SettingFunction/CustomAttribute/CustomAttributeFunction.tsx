@@ -11,7 +11,7 @@ import { authInfoType, customAttributeListType, customAttributeType, taskListTyp
 import { getNowDate } from "../../CommonFunction";
 import { callCreateAddSearchCondition, createAddCustomAttribute, createAddCustomAttributeList, runCreateSelectList } from "./CustomAttributeRegistFunction";
 import { createDeleteCustomAttribute, createDeleteCustomAttributeList, runDeleteSelectList } from "./CustomAttributeDeleteFunction";
-import { createUpdCustomAttribute, createUpdCustomAttributeList, runUpdSelectList } from "./CustomAttributeUpdateFunction";
+import { callCreateUpdSearchCondition, createUpdCustomAttribute, createUpdCustomAttributeList, runUpdSelectList } from "./CustomAttributeUpdateFunction";
 import { filterCustomAttributeDetail, getCustomAttributeData, getCustomAttributeListData, joinCustomAttributeList } from "./CustomAttributeSelectFunction";
 import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
 import { getSearchConditionList, getSearchConditionObj } from "../../SearchCondition/SearchConditionSelectFunction";
@@ -268,6 +268,7 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
     }
 
     let errMessage = "";
+    let body: customAttributeType = req.body;
 
     //カスタム属性ファイルの読み込み
     let caDecodeFileData: customAttributeType[] = getFileJsonData(CUSTOM_ATTRIBUTE_FILEPATH);
@@ -285,7 +286,7 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
     }
 
     //更新データの作成
-    let updCaData = createUpdCustomAttribute(caDecodeFileData, req.body, caId);
+    let updCaData = createUpdCustomAttribute(caDecodeFileData, body, caId);
 
     //データを更新
     errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(updCaData, null, '\t'));
@@ -297,7 +298,7 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
     }
 
     //選択形式の場合はリストの追加更新をする
-    let type = req.body.type;
+    let type = body.type;
     if (type === "select" || type === "radio" || type === "checkbox") {
         //選択リストの追加および更新
         errMessage = runUpdSelectList(updCaData, filterdCaData, req, caId, authResult);
@@ -308,6 +309,22 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
                 .status(500)
                 .json({ errMessage });
         }
+    }
+
+    //検索設定ファイルの読み込み
+    let searchConditionList: searchConditionType[] = getSearchConditionObj();
+
+    //検索条件設定登録用データの更新
+    let saRegistData = callCreateUpdSearchCondition(searchConditionList, body, caId, updCaData, authResult);
+
+    //データを登録
+    errMessage = overWriteData(SEARCHCONDITION_FILE_PATH, JSON.stringify(saRegistData, null, '\t'));
+
+    //登録に失敗
+    if (errMessage) {
+        return res
+            .status(500)
+            .json({ errMessage });
     }
 
     //正常終了

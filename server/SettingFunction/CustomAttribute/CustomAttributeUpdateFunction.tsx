@@ -4,6 +4,9 @@ import { authInfoType, customAttributeListType, customAttributeType, taskListTyp
 import { getNowDate } from "../../CommonFunction";
 import { CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, registSelectListRetType } from "./CustomAttributeFunction";
 import { createAddCustomAttributeList } from "./CustomAttributeRegistFunction";
+import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
+import { ATTRIBUTE_KEY_CUSTOM } from "../../SearchCondition/SearchConditionFunction";
+import { createUpdSearchCondition } from "../../SearchCondition/SearchConditionUpdateFunction";
 
 
 /**
@@ -164,4 +167,42 @@ export function createUpdCustomAttributeList(fileDataObj: customAttributeListTyp
     });
 
     return fileDataObj;
+}
+
+
+/**
+ * 検索条件設定用データの作成処理の呼び出し
+ * @param searchConditionList 
+ * @param body 
+ * @param authResult 
+ * @returns 
+ */
+export function callCreateUpdSearchCondition(
+    searchConditionList: searchConditionType[], body: customAttributeType, customAtrributeId: string,
+    registSearchConditionData: customAttributeType[], authResult: authInfoType)
+    : searchConditionType[] {
+
+    //カスタム属性の選択リストID
+    let selectElementListId = registSearchConditionData.find((element) => {
+        return element.id === customAtrributeId;
+    })?.selectElementListId;
+
+    //更新データ
+    let updData: searchConditionType = {
+        id: customAtrributeId,
+        name: body.name,
+        type: selectElementListId ? "checkbox" : "input",
+        listKey: "",
+        value: "",
+        attribute: ATTRIBUTE_KEY_CUSTOM,
+        registerTime: "",
+        updTime: "",
+        deleteFlg: "",
+        userId: ""
+    };
+
+    //更新用データの作成
+    let retSearchConditionList = createUpdSearchCondition(searchConditionList, updData, customAtrributeId, authResult);
+
+    return retSearchConditionList;
 }
