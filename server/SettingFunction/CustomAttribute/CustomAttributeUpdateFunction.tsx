@@ -43,26 +43,27 @@ export function createUpdCustomAttribute(fileDataObj: customAttributeType[], bod
 
 /**
  * カスタム属性の追加および更新
- * @param updCaData カスタム属性リスト
+ * @param updCaDatas カスタム属性リスト
  * @param filterdCaData 更新対象のカスタム属性
  * @param req 
  * @param caId 
  * @param authResult 
  * @returns 
  */
-export function runUpdSelectList(updCaData: customAttributeType[], filterdCaData: customAttributeType,
-    req: any, caId: string, authResult: authInfoType)
+export function runUpdSelectList(updCaDatas: customAttributeType[], filterdCaData: customAttributeType,
+    body: customAttributeType, caId: string, authResult: authInfoType)
     : string {
 
     //カスタム属性リストファイルの読み込み
     let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
     let updCaLists: customAttributeListType[] = [];
     let selectListId = filterdCaData.selectElementListId;
+    let selectElementList = body.selectElementList ?? [];
 
     //カスタム属性リストのIDが存在する場合はリストを更新する
     if (selectListId) {
         //更新データの作成
-        updCaLists = createUpdCustomAttributeList(calDecodeFileData, req.body.selectElementList, selectListId, authResult);
+        updCaLists = createUpdCustomAttributeList(calDecodeFileData, selectElementList, selectListId, authResult);
     }
     //リストの新規登録
     else {
@@ -70,14 +71,14 @@ export function runUpdSelectList(updCaData: customAttributeType[], filterdCaData
             errMsg: "",
             registSelectList: []
         };
-        let tmp = updCaData.find((element) => { return element.id === caId });
+        let updCaData = updCaDatas.find((element) => { return element.id === caId });
 
-        if (!tmp) {
+        if (!updCaData) {
             return "更新対象のデータが存在しません。";
         }
 
         //カスタム属性リストの登録用データの作成
-        calRegistData = createAddCustomAttributeList(calDecodeFileData, req.body.selectElementList, tmp, authResult);
+        calRegistData = createAddCustomAttributeList(calDecodeFileData, selectElementList, updCaData, authResult);
 
         //IDの整合性エラー
         if (calRegistData.errMsg) {

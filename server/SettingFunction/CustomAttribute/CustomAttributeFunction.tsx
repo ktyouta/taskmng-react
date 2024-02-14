@@ -301,7 +301,7 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
     let type = body.type;
     if (type === "select" || type === "radio" || type === "checkbox") {
         //選択リストの追加および更新
-        errMessage = runUpdSelectList(updCaData, filterdCaData, req, caId, authResult);
+        errMessage = runUpdSelectList(updCaData, filterdCaData, body, caId, authResult);
 
         //リストの更新に失敗
         if (errMessage) {
