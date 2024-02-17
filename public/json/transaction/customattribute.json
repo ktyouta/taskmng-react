@@ -155,10 +155,11 @@
 		"description": "",
 		"type": "select",
 		"required": false,
-		"selectElementListId": "ATTRIBUTELISTID-14",
+		"selectElementListId": "ATTRIBUTELISTID-13",
 		"registerTime": "2024/02/17",
 		"updTime": "2024/02/17",
-		"userId": "f"
+		"userId": "f",
+		"deleteFlg": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-15",
@@ -169,6 +170,19 @@
 		"selectElementListId": "ATTRIBUTELISTID-14",
 		"registerTime": "2024/02/17",
 		"updTime": "2024/02/17",
-		"userId": "f"
+		"userId": "f",
+		"deleteFlg": "1"
+	},
+	{
+		"id": "ATTRIBUTEID-16",
+		"name": "削除確認用",
+		"description": "",
+		"type": "select",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-15",
+		"registerTime": "2024/02/17",
+		"updTime": "2024/02/17",
+		"userId": "f",
+		"deleteFlg": "1"
 	}
 ]

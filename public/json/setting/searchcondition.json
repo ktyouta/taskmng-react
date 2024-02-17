@@ -239,7 +239,7 @@
 		"attribute": "custom",
 		"registerTime": "2024/02/17",
 		"updTime": "2024/02/17",
-		"deleteFlg": "0",
+		"deleteFlg": "1",
 		"userId": "f"
 	},
 	{
@@ -251,7 +251,19 @@
 		"attribute": "custom",
 		"registerTime": "2024/02/17",
 		"updTime": "2024/02/17",
-		"deleteFlg": "0",
+		"deleteFlg": "1",
+		"userId": "f"
+	},
+	{
+		"id": "ATTRIBUTEID-16",
+		"name": "削除確認用",
+		"type": "checkbox",
+		"listKey": "",
+		"value": "",
+		"attribute": "custom",
+		"registerTime": "2024/02/17",
+		"updTime": "2024/02/17",
+		"deleteFlg": "1",
 		"userId": "f"
 	}
 ]

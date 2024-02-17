@@ -10,7 +10,7 @@ import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, customAttributeListType, customAttributeType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
 import { callCreateAddSearchCondition, createAddCustomAttribute, createAddCustomAttributeList, runCreateSelectList } from "./CustomAttributeRegistFunction";
-import { createDeleteCustomAttribute, createDeleteCustomAttributeList, runDeleteSelectList } from "./CustomAttributeDeleteFunction";
+import { callCreateDelSearchCondition, createDeleteCustomAttribute, createDeleteCustomAttributeList, runDeleteSelectList } from "./CustomAttributeDeleteFunction";
 import { callCreateUpdSearchCondition, createUpdCustomAttribute, createUpdCustomAttributeList, runUpdSelectList } from "./CustomAttributeUpdateFunction";
 import { filterCustomAttributeDetail, getCustomAttributeData, getCustomAttributeListData, joinCustomAttributeList } from "./CustomAttributeSelectFunction";
 import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
@@ -215,6 +215,19 @@ export function runDeleteCustomAttribute(res: any, req: any, caId: string) {
             .json({ errMessage: `削除データが存在しません。` });
     }
 
+    //削除データの作成
+    let delCaData = createDeleteCustomAttribute(caDecodeFileData, caId, authResult);
+
+    //データを削除
+    errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(delCaData, null, '\t'));
+
+    //削除に失敗
+    if (errMessage) {
+        return res
+            .status(500)
+            .json({ errMessage });
+    }
+
     //カスタム属性リストのIDが存在する場合はリストを削除する
     let selectListId = filterdCaData.selectElementListId;
     if (selectListId) {
@@ -228,13 +241,16 @@ export function runDeleteCustomAttribute(res: any, req: any, caId: string) {
         }
     }
 
-    //削除データの作成
-    let delCaData = createDeleteCustomAttribute(caDecodeFileData, caId);
+    //検索設定ファイルの読み込み
+    let searchConditionList: searchConditionType[] = getSearchConditionObj();
 
-    //データを削除
-    errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(delCaData, null, '\t'));
+    //検索条件設定データの削除
+    let saRegistData = callCreateDelSearchCondition(searchConditionList, caId, authResult);
 
-    //削除に失敗
+    //データを登録
+    errMessage = overWriteData(SEARCHCONDITION_FILE_PATH, JSON.stringify(saRegistData, null, '\t'));
+
+    //登録に失敗
     if (errMessage) {
         return res
             .status(500)
@@ -304,7 +320,7 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
 
     if (!updCaData) {
         return res
-            .status(500)
+            .status(400)
             .json({ errMessage: "更新データが存在しません。" });
     }
 

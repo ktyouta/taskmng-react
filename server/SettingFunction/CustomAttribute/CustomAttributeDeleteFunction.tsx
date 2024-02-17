@@ -10,6 +10,8 @@ import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, customAttributeListType, customAttributeType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
 import { CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH } from "./CustomAttributeFunction";
+import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
+import { createDelSearchCondition } from "../../SearchCondition/SearchConditionDeleteFunction";
 
 
 /**
@@ -18,30 +20,24 @@ import { CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH } from "./CustomAttributeFunction"
  * @param stream 
  * @returns 
  */
-export function createDeleteCustomAttribute(fileDataObj: customAttributeType[], delCaId: string)
+export function createDeleteCustomAttribute(fileDataObj: customAttributeType[], delCaId: string, authResult: authInfoType)
     : customAttributeType[] {
 
     //現在日付を取得
     const nowDate = getNowDate();
 
-    fileDataObj.some((element) => {
-        //IDの一致するデータを削除
-        if (element.id === delCaId) {
-            Object.keys(element).forEach((item) => {
-                //更新日時
-                if (item === `updTime`) {
-                    element[item] = nowDate;
-                    return true;
-                }
-                //削除フラグを立てる
-                if (item === `deleteFlg`) {
-                    element[item] = "1";
-                    return true;
-                }
-            });
-            return true;
-        }
+    let delData = fileDataObj.find((element) => {
+        return element.id === delCaId;
     });
+
+    if (!delData) {
+        return fileDataObj;
+    }
+
+    delData.deleteFlg = "1";
+    delData.updTime = nowDate;
+    delData.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
+
     return fileDataObj;
 }
 
@@ -91,4 +87,20 @@ export function createDeleteCustomAttributeList(fileDataObj: customAttributeList
         }
     });
     return fileDataObj;
+}
+
+
+/**
+ * 検索条件設定用データの削除処理の呼び出し
+ * @param searchConditionList 
+ * @param body 
+ * @param authResult 
+ * @returns 
+ */
+export function callCreateDelSearchCondition(
+    searchConditionList: searchConditionType[], customAtrributeId: string,
+    authResult: authInfoType)
+    : searchConditionType[] {
+
+    return createDelSearchCondition(searchConditionList, customAtrributeId, authResult);
 }

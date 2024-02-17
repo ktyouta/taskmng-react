@@ -267,7 +267,7 @@
 		"registerTime": "2024/02/17",
 		"updTime": "2024/02/17",
 		"userId": "f",
-		"deleteFlg": "0"
+		"deleteFlg": "1"
 	},
 	{
 		"id": "ATTRIBUTELISTID-13",
@@ -276,7 +276,7 @@
 		"registerTime": "2024/02/17",
 		"updTime": "2024/02/17",
 		"userId": "f",
-		"deleteFlg": "0"
+		"deleteFlg": "1"
 	},
 	{
 		"id": "ATTRIBUTELISTID-14",
@@ -285,7 +285,7 @@
 		"registerTime": "2024/02/17",
 		"updTime": "2024/02/17",
 		"userId": "f",
-		"deleteFlg": "0"
+		"deleteFlg": "1"
 	},
 	{
 		"id": "ATTRIBUTELISTID-14",
@@ -294,6 +294,24 @@
 		"registerTime": "2024/02/17",
 		"updTime": "2024/02/17",
 		"userId": "f",
-		"deleteFlg": "0"
+		"deleteFlg": "1"
+	},
+	{
+		"id": "ATTRIBUTELISTID-15",
+		"no": "1",
+		"content": "test2",
+		"registerTime": "2024/02/17",
+		"updTime": "2024/02/17",
+		"userId": "f",
+		"deleteFlg": "1"
+	},
+	{
+		"id": "ATTRIBUTELISTID-15",
+		"no": "2",
+		"content": "test3",
+		"registerTime": "2024/02/17",
+		"updTime": "2024/02/17",
+		"userId": "f",
+		"deleteFlg": "1"
 	}
 ]

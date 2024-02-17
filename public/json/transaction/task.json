@@ -1043,11 +1043,11 @@
 		"title": "カスタム属性更新時に検索条件設定に設定値を更新する処理の実装",
 		"content": "",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/13",
+		"updTime": "2024/02/17",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
-		"status": "4",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
@@ -1115,11 +1115,11 @@
 		"title": "カスタム属性を入力形式から選択形式に更新できないバグの修正",
 		"content": "input形式から選択形式に更新する際に、「選択リストの登録に失敗しました」のエラーが発生する。\n原因：更新対象のカスタム属性にリストIDを割り当てていないため、整合値チェックでエラーとなっている。",
 		"registerTime": "2024/02/13",
-		"updTime": "2024/02/14",
+		"updTime": "2024/02/17",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
-		"status": "4",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
