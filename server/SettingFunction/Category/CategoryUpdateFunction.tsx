@@ -22,7 +22,7 @@ export function createUpdCategoryData(fileDataObj: categoryType[], req: any, aut
     fileDataObj.some((element) => {
         //IDの一致するデータを更新
         if (element.id === id) {
-            element.userId = authResult.userInfo ? authResult.userInfo?.userId : "";;
+            element.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
             element.auth = req.body.auth;
             element.updTime = nowDate;
             element.componentName = req.body.componentName;

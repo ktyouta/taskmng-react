@@ -229,5 +229,29 @@
 		"updTime": "2024/02/12",
 		"deleteFlg": "0",
 		"userId": "f"
+	},
+	{
+		"id": "ATTRIBUTEID-14",
+		"name": "リストID更新テスト",
+		"type": "checkbox",
+		"listKey": "",
+		"value": "",
+		"attribute": "custom",
+		"registerTime": "2024/02/17",
+		"updTime": "2024/02/17",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"id": "ATTRIBUTEID-15",
+		"name": "リストID更新テスト2",
+		"type": "checkbox",
+		"listKey": "",
+		"value": "",
+		"attribute": "custom",
+		"registerTime": "2024/02/17",
+		"updTime": "2024/02/17",
+		"deleteFlg": "0",
+		"userId": "f"
 	}
 ]

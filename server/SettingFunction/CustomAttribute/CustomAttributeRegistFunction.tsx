@@ -15,6 +15,7 @@ import { searchConditionType } from "../../SearchCondition/Type/SearchConditionT
 import { createAddSearchCondition } from "../../SearchCondition/SearchConditionRegisterFunction";
 import { ATTRIBUTE_KEY_CUSTOM } from "../../SearchCondition/SearchConditionFunction";
 import { retCreateAddCustomAttributeType } from "./Type/CustomAttributeType";
+import { createCustomAttributeNewId, createCustomAttributeSelectListNewId } from "./CustomAttributeSelectFunction";
 
 //inputのmaxlength
 const INPUT_LENGTH = "200";
@@ -60,29 +61,24 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], bod
     registData.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
 
     //フォーマットがinputまたはtextareaの場合は、maxlengthをセット
-    if (body.type === "input") {
-        registData.length = INPUT_LENGTH;
-    }
-    else if (body.type === "textarea") {
-        registData.length = TEXTAREA_LENGTH;
+    switch (body.type) {
+        case "input":
+            registData.length = INPUT_LENGTH;
+            break;
+        case "textarea":
+            registData.length = TEXTAREA_LENGTH;
+            break;
     }
 
-    let fileDataObjLen = fileDataObj.length;
     //IDを取得
-    let id = fileDataObjLen === 0 ? "1" : fileDataObj[fileDataObjLen - 1]['id'].replace(`${PRE_CUSTOMATTRIBUTE_ID}`, "");
-    //新しいIDを割り当てる
-    registData.id = `${PRE_CUSTOMATTRIBUTE_ID}${parseInt(id) + 1}`;
+    registData.id = createCustomAttributeNewId(fileDataObj);
 
     //選択リストが存在する場合IDを取得
     if (body.selectElementList && body.selectElementList.length > 0) {
         //カスタム属性リストの読み込み
         let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
-        let len = calDecodeFileData.length;
-        //IDを取得
-        let tmp = len === 0 ? "0" : calDecodeFileData[len - 1]['id'].replace(`${PRE_CUSTOMATTRIBUTELIST_ID}`, "");
-        let newId = `${PRE_CUSTOMATTRIBUTELIST_ID}${parseInt(tmp) + 1}`;
         //選択リストIDをセット
-        registData.selectElementListId = newId;
+        registData.selectElementListId = createCustomAttributeSelectListNewId(calDecodeFileData);
     }
 
     fileDataObj.push(registData);
@@ -147,10 +143,8 @@ export function createAddCustomAttributeList(
         return ret;
     }
 
-    let fileDataObjLen = fileDataObj.length;
     //IDを取得
-    let id = fileDataObjLen === 0 ? "0" : fileDataObj[fileDataObjLen - 1]['id'].replace(`${PRE_CUSTOMATTRIBUTELIST_ID}`, "");
-    let newId = `${PRE_CUSTOMATTRIBUTELIST_ID}${parseInt(id) + 1}`;
+    let newId = createCustomAttributeSelectListNewId(fileDataObj);
 
     //IDの整合性チェック
     if (newId !== caData.selectElementListId) {

@@ -286,10 +286,11 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
     }
 
     //更新データの作成
-    let updCaData = createUpdCustomAttribute(caDecodeFileData, body, caId);
+    let updCaDatas = createUpdCustomAttribute(caDecodeFileData, body, caId, authResult);
 
     //データを更新
-    errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(updCaData, null, '\t'));
+    errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(updCaDatas, null, '\t'));
+
     //更新に失敗
     if (errMessage) {
         return res
@@ -297,11 +298,31 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
             .json({ errMessage });
     }
 
+    let updCaData = updCaDatas.find((element) => {
+        return element.id === caId;
+    });
+
+    if (!updCaData) {
+        return res
+            .status(500)
+            .json({ errMessage: "更新データが存在しません。" });
+    }
+
     //選択形式の場合はリストの追加更新をする
-    let type = body.type;
-    if (type === "select" || type === "radio" || type === "checkbox") {
+    if (updCaData.selectElementListId) {
         //選択リストの追加および更新
-        errMessage = runUpdSelectList(updCaData, filterdCaData, body, caId, authResult);
+        errMessage = runUpdSelectList(updCaDatas, filterdCaData, body, caId, authResult);
+
+        //リストの更新に失敗
+        if (errMessage) {
+            return res
+                .status(500)
+                .json({ errMessage });
+        }
+    }
+    else {
+        //選択リストを削除する
+        errMessage = runDeleteSelectList(caId);
 
         //リストの更新に失敗
         if (errMessage) {
@@ -315,7 +336,7 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
     let searchConditionList: searchConditionType[] = getSearchConditionObj();
 
     //検索条件設定登録用データの更新
-    let saRegistData = callCreateUpdSearchCondition(searchConditionList, body, caId, updCaData, authResult);
+    let saRegistData = callCreateUpdSearchCondition(searchConditionList, body, caId, updCaDatas, authResult);
 
     //データを登録
     errMessage = overWriteData(SEARCHCONDITION_FILE_PATH, JSON.stringify(saRegistData, null, '\t'));

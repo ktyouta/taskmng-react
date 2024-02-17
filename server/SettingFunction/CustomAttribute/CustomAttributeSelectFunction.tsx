@@ -9,7 +9,7 @@ import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, comboType, customAttributeListType, customAttributeType, inputSettingType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
-import { CUSTOM_ATTRIBUTE_FILEPATH } from "./CustomAttributeFunction";
+import { CUSTOM_ATTRIBUTE_FILEPATH, PRE_CUSTOMATTRIBUTELIST_ID, PRE_CUSTOMATTRIBUTE_ID } from "./CustomAttributeFunction";
 
 
 //カスタム属性リストファイルのパス
@@ -122,4 +122,31 @@ export function joinCustomAttributeList(customAttributeList: customAttributeType
     });
 
     return retCustomAttributeList;
+}
+
+
+/**
+ * カスタム属性のIDを作成
+ */
+export function createCustomAttributeNewId(customAttributeList: customAttributeType[]) {
+    //IDが最大のNOを取得
+    let maxNo = customAttributeList.reduce<number>((prev: number, current: customAttributeType) => {
+        let currentNm = parseInt(current.id.replace(`${PRE_CUSTOMATTRIBUTE_ID}`, ""));
+        return Math.max(prev, currentNm);
+    }, 0);
+    return `${PRE_CUSTOMATTRIBUTE_ID}${maxNo + 1}`;
+}
+
+
+/**
+ * カスタム属性の選択リストのIDを作成
+ * @param calDecodeFileData 
+ */
+export function createCustomAttributeSelectListNewId(calDecodeFileData: customAttributeListType[]) {
+    //IDが最大のNOを取得
+    let maxNo = calDecodeFileData.reduce<number>((prev: number, current: customAttributeListType) => {
+        let currentNm = parseInt(current.id.replace(`${PRE_CUSTOMATTRIBUTELIST_ID}`, ""));
+        return Math.max(prev, currentNm);
+    }, 0);
+    return `${PRE_CUSTOMATTRIBUTELIST_ID}${maxNo + 1}`;
 }

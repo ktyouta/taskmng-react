@@ -148,5 +148,27 @@
 		"selectElementListId": "ATTRIBUTELISTID-12",
 		"registerTime": "2024/02/12",
 		"updTime": "2024/02/12"
+	},
+	{
+		"id": "ATTRIBUTEID-14",
+		"name": "リストID更新テスト",
+		"description": "",
+		"type": "select",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-14",
+		"registerTime": "2024/02/17",
+		"updTime": "2024/02/17",
+		"userId": "f"
+	},
+	{
+		"id": "ATTRIBUTEID-15",
+		"name": "リストID更新テスト2",
+		"description": "",
+		"type": "select",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-14",
+		"registerTime": "2024/02/17",
+		"updTime": "2024/02/17",
+		"userId": "f"
 	}
 ]

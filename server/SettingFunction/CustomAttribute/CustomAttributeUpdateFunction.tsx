@@ -7,6 +7,7 @@ import { createAddCustomAttributeList } from "./CustomAttributeRegistFunction";
 import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
 import { ATTRIBUTE_KEY_CUSTOM } from "../../SearchCondition/SearchConditionFunction";
 import { createUpdSearchCondition } from "../../SearchCondition/SearchConditionUpdateFunction";
+import { createCustomAttributeSelectListNewId } from "./CustomAttributeSelectFunction";
 
 
 /**
@@ -15,27 +16,47 @@ import { createUpdSearchCondition } from "../../SearchCondition/SearchConditionU
  * @param stream 
  * @returns 
  */
-export function createUpdCustomAttribute(fileDataObj: customAttributeType[], body: customAttributeType, updTaskId: string)
+export function createUpdCustomAttribute(fileDataObj: customAttributeType[], body: customAttributeType,
+    updTaskId: string, authResult: authInfoType)
     : customAttributeType[] {
+
+    //カスタム属性リストの読み込み
+    let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
 
     //現在日付を取得
     const nowDate = getNowDate();
 
-    fileDataObj.some((element) => {
-        //IDの一致するデータを更新
-        if (element.id === updTaskId) {
-            Object.keys(element).forEach((item) => {
-                if (item === `id` || item === `deleteFlg` || item === 'selectElementListId' || item === 'registerTime') return true;
-                //更新日時
-                if (item === `updTime`) {
-                    element[item] = nowDate;
-                    return true;
-                }
-                element[item] = body[item];
-            });
-            return true;
-        }
+    let updData = fileDataObj.find((element) => {
+        return element.id === updTaskId;
     });
+
+    if (!updData) {
+        return fileDataObj;
+    }
+
+    updData.name = body.name;
+    updData.length = body.length;
+    updData.description = body.description;
+    updData.required = body.required;
+    updData.type = body.type;
+    updData.updTime = nowDate;
+    updData.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
+
+    //選択リストIDの更新
+    if (body.selectElementList && body.selectElementList.length > 0) {
+        //選択リストIDを保持していない(入力形式から選択形式に変更された場合)
+        if (!updData.selectElementListId) {
+            //新規のIDを作成
+            updData.selectElementListId = createCustomAttributeSelectListNewId(calDecodeFileData);
+        }
+    }
+    else {
+        //選択形式から入力形式に変更された場合
+        if (updData.selectElementListId) {
+            //IDを削除
+            updData.selectElementListId = "";
+        }
+    }
 
     return fileDataObj;
 }
