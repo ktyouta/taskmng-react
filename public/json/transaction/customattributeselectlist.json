@@ -313,5 +313,14 @@
 		"updTime": "2024/02/17",
 		"userId": "f",
 		"deleteFlg": "1"
+	},
+	{
+		"id": "ATTRIBUTELISTID-12",
+		"no": "3",
+		"content": "test3",
+		"registerTime": "2024/02/18",
+		"updTime": "2024/02/18",
+		"userId": "f",
+		"deleteFlg": "0"
 	}
 ]

@@ -38,8 +38,10 @@ export function createUpdCustomAttribute(fileDataObj: customAttributeType[], bod
         return retObj;
     }
 
-    //名称が被っている場合はエラーとする
-    if (fileDataObj.filter((element) => element.deleteFlg !== "1").find((element) => element.name === body.name.trim())) {
+    //自身以外のカスタム属性と名称が被っている場合はエラーとする
+    if (fileDataObj.filter((element) => {
+        return element.deleteFlg !== "1" && element.id !== updTaskId
+    }).find((element) => { return element.name === body.name.trim() })) {
         retObj.errMessage = "同一名称のカスタム属性が存在します。"
         return retObj;
     }
