@@ -8,6 +8,7 @@ import { searchConditionType } from "../../SearchCondition/Type/SearchConditionT
 import { ATTRIBUTE_KEY_CUSTOM } from "../../SearchCondition/SearchConditionFunction";
 import { createUpdSearchCondition } from "../../SearchCondition/SearchConditionUpdateFunction";
 import { createCustomAttributeSelectListNewId } from "./CustomAttributeSelectFunction";
+import { retCreateUpdCustomAttributeType } from "./Type/CustomAttributeType";
 
 
 /**
@@ -18,23 +19,36 @@ import { createCustomAttributeSelectListNewId } from "./CustomAttributeSelectFun
  */
 export function createUpdCustomAttribute(fileDataObj: customAttributeType[], body: customAttributeType,
     updTaskId: string, authResult: authInfoType)
-    : customAttributeType[] {
+    : retCreateUpdCustomAttributeType {
+
+    let retObj = {
+        updDatas: fileDataObj,
+        errMessage: ""
+    };
 
     //カスタム属性リストの読み込み
     let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
-
-    //現在日付を取得
-    const nowDate = getNowDate();
 
     let updData = fileDataObj.find((element) => {
         return element.id === updTaskId;
     });
 
+    //更新対象のデータが存在しない
     if (!updData) {
-        return fileDataObj;
+        retObj.updDatas = fileDataObj
+        return retObj;
     }
 
-    updData.name = body.name;
+    //名称が被っている場合はエラーとする
+    if (fileDataObj.filter((element) => element.deleteFlg !== "1").find((element) => element.name === body.name.trim())) {
+        retObj.errMessage = "同一名称のカスタム属性が存在します。"
+        return retObj;
+    }
+
+    //現在日付を取得
+    const nowDate = getNowDate();
+
+    updData.name = body.name.trim();
     updData.length = body.length;
     updData.description = body.description;
     updData.required = body.required;
@@ -58,7 +72,9 @@ export function createUpdCustomAttribute(fileDataObj: customAttributeType[], bod
         }
     }
 
-    return fileDataObj;
+    retObj.updDatas = fileDataObj;
+
+    return retObj;
 }
 
 

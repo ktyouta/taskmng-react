@@ -33,6 +33,18 @@ const TEXTAREA_LENGTH = "2000";
 export function createAddCustomAttribute(fileDataObj: customAttributeType[], body: customAttributeType, authResult: authInfoType)
     : retCreateAddCustomAttributeType {
 
+    let retObj = {
+        customAttributeId: "",
+        registDatas: fileDataObj,
+        errMessage: ""
+    };
+
+    //名称が被っている場合はエラーとする
+    if (fileDataObj.filter((element) => element.deleteFlg !== "1").find((element) => element.name === body.name.trim())) {
+        retObj.errMessage = "同一名称のカスタム属性が存在します。"
+        return retObj;
+    }
+
     //現在日付を取得
     const nowDate = getNowDate();
 
@@ -54,6 +66,7 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], bod
 
     //登録データをセット
     registData = { ...body };
+    registData.name = { ...body }.name.trim();
     delete registData.selectElementList;
     registData.selectElementListId = "";
     registData.registerTime = nowDate;
@@ -71,7 +84,7 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], bod
     }
 
     //IDを取得
-    registData.id = createCustomAttributeNewId(fileDataObj);
+    retObj.customAttributeId = createCustomAttributeNewId(fileDataObj);
 
     //選択リストが存在する場合IDを取得
     if (body.selectElementList && body.selectElementList.length > 0) {
@@ -82,11 +95,9 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], bod
     }
 
     fileDataObj.push(registData);
+    retObj.registDatas = fileDataObj;
 
-    return {
-        customAttributeId: registData.id,
-        registData: fileDataObj
-    };
+    return retObj;
 }
 
 /**

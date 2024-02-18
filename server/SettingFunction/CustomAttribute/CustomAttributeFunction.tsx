@@ -125,8 +125,15 @@ export function runAddCustomAttribute(res: any, req: any) {
     //カスタム属性の登録用データの作成
     let caRegistDataObj = createAddCustomAttribute(caDecodeFileData, body, authResult);
 
+    //エラー
+    if (caRegistDataObj.errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage: caRegistDataObj.errMessage });
+    }
+
     //データを登録
-    let errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(caRegistDataObj.registData, null, '\t'));
+    let errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(caRegistDataObj.registDatas, null, '\t'));
 
     //登録に失敗
     if (errMessage) {
@@ -146,7 +153,7 @@ export function runAddCustomAttribute(res: any, req: any) {
 
     //カスタム属性リストを登録
     if (registListFlg) {
-        errMessage = runCreateSelectList(caRegistDataObj.registData, selectList, authResult);
+        errMessage = runCreateSelectList(caRegistDataObj.registDatas, selectList, authResult);
 
         //IDの整合性エラー
         if (errMessage) {
@@ -161,7 +168,7 @@ export function runAddCustomAttribute(res: any, req: any) {
 
     //検索条件設定登録用データの作成
     let saRegistData = callCreateAddSearchCondition(searchConditionList, body,
-        caRegistDataObj.customAttributeId, caRegistDataObj.registData, authResult);
+        caRegistDataObj.customAttributeId, caRegistDataObj.registDatas, authResult);
 
     //データを登録
     errMessage = overWriteData(SEARCHCONDITION_FILE_PATH, JSON.stringify(saRegistData, null, '\t'));
@@ -302,19 +309,16 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
     }
 
     //更新データの作成
-    let updCaDatas = createUpdCustomAttribute(caDecodeFileData, body, caId, authResult);
+    let caUpdDataObj = createUpdCustomAttribute(caDecodeFileData, body, caId, authResult);
 
-    //データを更新
-    errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(updCaDatas, null, '\t'));
-
-    //更新に失敗
-    if (errMessage) {
+    //エラー
+    if (caUpdDataObj.errMessage) {
         return res
             .status(500)
-            .json({ errMessage });
+            .json({ errMessage: caUpdDataObj.errMessage });
     }
 
-    let updCaData = updCaDatas.find((element) => {
+    let updCaData = caUpdDataObj.updDatas.find((element) => {
         return element.id === caId;
     });
 
@@ -324,10 +328,20 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
             .json({ errMessage: "更新データが存在しません。" });
     }
 
+    //データを更新
+    errMessage = overWriteData(CUSTOM_ATTRIBUTE_FILEPATH, JSON.stringify(caUpdDataObj.updDatas, null, '\t'));
+
+    //更新に失敗
+    if (errMessage) {
+        return res
+            .status(500)
+            .json({ errMessage });
+    }
+
     //選択形式の場合はリストの追加更新をする
     if (updCaData.selectElementListId) {
         //選択リストの追加および更新
-        errMessage = runUpdSelectList(updCaDatas, filterdCaData, body, caId, authResult);
+        errMessage = runUpdSelectList(caUpdDataObj.updDatas, filterdCaData, body, caId, authResult);
 
         //リストの更新に失敗
         if (errMessage) {
@@ -352,7 +366,7 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
     let searchConditionList: searchConditionType[] = getSearchConditionObj();
 
     //検索条件設定登録用データの更新
-    let saRegistData = callCreateUpdSearchCondition(searchConditionList, body, caId, updCaDatas, authResult);
+    let saRegistData = callCreateUpdSearchCondition(searchConditionList, body, caId, caUpdDataObj.updDatas, authResult);
 
     //データを登録
     errMessage = overWriteData(SEARCHCONDITION_FILE_PATH, JSON.stringify(saRegistData, null, '\t'));
