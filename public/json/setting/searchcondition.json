@@ -220,13 +220,13 @@
 	},
 	{
 		"id": "ATTRIBUTEID-13",
-		"name": "検索条件登録確認2",
+		"name": "検索条件設定登録確認2",
 		"type": "checkbox",
 		"listKey": "",
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/12",
+		"updTime": "2024/02/18",
 		"deleteFlg": "0",
 		"userId": "f"
 	},

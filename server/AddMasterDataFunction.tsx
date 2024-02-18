@@ -1,6 +1,7 @@
+import { checkUpdAuth } from "./AuthFunction";
 import { JSONEXTENSION, MASTERFILEPATH, MASTERTABLEFILENM } from "./Constant";
 import { overWriteData, readFile } from "./FileFunction";
-import { checkUpdAuth, createAddMasterData } from "./MasterDataFunction";
+import { createAddMasterData } from "./MasterDataFunction";
 
 /**
  * 新規マスタ追加

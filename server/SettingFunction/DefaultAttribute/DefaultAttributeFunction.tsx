@@ -1,4 +1,4 @@
-import { authenticate } from "../../AuthFunction";
+import { authenticate, checkUpdAuth } from "../../AuthFunction";
 import {
     GENERALDETAILFILEPATH,
     JSONEXTENSION,
@@ -8,7 +8,6 @@ import {
     TRANSACTION,
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, generalDetailType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
 import { createUpdDefaultAttribute, createUpdDefaultAttributeSelectList, } from "./DefaultAttributeUpdateFunction";

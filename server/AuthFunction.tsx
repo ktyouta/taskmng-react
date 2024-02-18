@@ -109,3 +109,22 @@ export function createToken(res: any, req: any) {
     const token = jwt.sign({ ID: jwtStr }, config.jwt.secret, { expiresIn: '1h' });
     res.status(200).json({ errMessage: '', token: token, userInfo: { userId: userId } });
 }
+
+
+/**
+ * 登録更新削除前認証チェック
+ */
+export function checkUpdAuth(cookie: any): authInfoType {
+    //認証チェック
+    let authResult = authenticate(cookie);
+    if (authResult.errMessage) {
+        return authResult;
+    }
+
+    //ファイルの更新権限チェック
+    if (!authResult || !authResult.userInfo || parseInt(authResult.userInfo.auth) < 2) {
+        return { status: 400, errMessage: `権限がありません。` };
+    }
+
+    return authResult;
+}

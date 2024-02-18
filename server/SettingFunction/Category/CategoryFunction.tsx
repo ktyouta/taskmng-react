@@ -1,4 +1,4 @@
-import { authenticate } from "../../AuthFunction";
+import { authenticate, checkUpdAuth } from "../../AuthFunction";
 import {
     CUSTOMATTRIBUTE,
     JSONEXTENSION,
@@ -6,7 +6,6 @@ import {
     CUSTOMATTRIBUTELIST
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, customAttributeListType, customAttributeType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
 import { CATEGORY_FILEPATH, filterCategoryDetail, getFilterdCategory } from "./CategorySelectFunction";

@@ -1,5 +1,4 @@
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, customAttributeListType, customAttributeType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
 import { CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, registSelectListRetType } from "./CustomAttributeFunction";

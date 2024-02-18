@@ -1,8 +1,7 @@
-import { authenticate } from "../AuthFunction";
+import { authenticate, checkUpdAuth } from "../AuthFunction";
 import { CUSTOMATTRIBUTESELECT, JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "../Constant";
 import { overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
-import { checkUpdAuth } from "../MasterDataFunction";
 import { authInfoType, inputSettingType, taskDetailType, taskListType } from "../Type/type";
 import { getNowDate } from "../CommonFunction";
 import { createDeleteCustomAttributeData, createDeleteTaskData } from "./TaskDeleteFunction";

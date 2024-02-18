@@ -8,7 +8,6 @@ import {
     TRANSACTION,
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { checkUpdAuth } from "../../MasterDataFunction";
 import { authInfoType, comboType, generalDetailType, inputSettingType, taskListType } from "../../Type/type";
 import { getNowDate } from "../../CommonFunction";
 import { DEFAULT_ATTRIBUTE_FILEPATH, GENERALDETAIL_FILEPATH } from "./DefaultAttributeFunction";

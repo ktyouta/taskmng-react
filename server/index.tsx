@@ -4,7 +4,7 @@ import { checkFile, overWriteData, readFile } from './FileFunction';
 import { bodyObj, generalDetailType, taskListType, userInfoType } from './Type/type';
 import { authenticate, createToken } from './AuthFunction';
 import { config } from './ApiConfig';
-import { checkUpdAuth, createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterDataFunction';
+import { createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterDataFunction';
 import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION, USERINFOFILEPATH } from './Constant';
 import { runAddMaster } from './AddMasterDataFunction';
 import { getGeneralDetailData } from './GeneralFunction';

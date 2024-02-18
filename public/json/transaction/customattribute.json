@@ -147,7 +147,8 @@
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-12",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/12"
+		"updTime": "2024/02/18",
+		"userId": "f"
 	},
 	{
 		"id": "ATTRIBUTEID-14",

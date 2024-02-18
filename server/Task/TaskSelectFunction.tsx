@@ -2,7 +2,6 @@ import { authenticate } from "../AuthFunction";
 import { CUSTOMATTRIBUTESELECT, JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
-import { checkUpdAuth } from "../MasterDataFunction";
 import { authInfoType, comboType, customAttributeListType, customAttributeType, inputSettingType, taskCustomAttributeSelectedType, taskListType, taskCustomAttributeSelectType } from "../Type/type";
 import { getNowDate } from "../CommonFunction";
 import { getCustomAttributeData, getCustomAttributeListData } from "../SettingFunction/CustomAttribute/CustomAttributeSelectFunction";

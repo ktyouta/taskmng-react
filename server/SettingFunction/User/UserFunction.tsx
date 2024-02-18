@@ -1,4 +1,4 @@
-import { authenticate } from "../../AuthFunction";
+import { authenticate, checkUpdAuth } from "../../AuthFunction";
 import {
     CUSTOMATTRIBUTE,
     JSONEXTENSION,
@@ -8,7 +8,6 @@ import {
     SETTINGFILEPATH
 } from "../../Constant";
 import { overWriteData } from "../../FileFunction";
-import { checkUpdAuth } from "../../MasterDataFunction";
 import { userInfoType } from "../../Type/type";
 import { createDeleteUserData } from "./UserDeleteFunction";
 import { createAddUserData, dubUserCheck } from "./UserRegistFunction";
