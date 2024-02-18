@@ -104,13 +104,14 @@ const LabelCheckBoxListComponent = forwardRef<refType, propsType>((props, ref) =
         <OuterDiv>
             {
                 checkBoxRefList && checkBoxRefList.length > 0 && checkBoxRefList.map((element, index) => {
+                    let tmpTime = new Date().getTime();
                     return (
                         <React.Fragment>
                             <LabelCheckBoxComponent
                                 key={props.htmlForId ? `${props.htmlForId}-${element.value}-` : element.value}
                                 title={element.label}
                                 value={element.value}
-                                htmlForId={props.htmlForId ? `${props.htmlForId}${element.value}` : element.value}
+                                htmlForId={props.htmlForId ? `${props.htmlForId}-${element.value}-${element.label}-${tmpTime}` : element.value}
                                 width={props.width}
                                 disabled={props.disabled}
                                 onChange={changeCheckBox}

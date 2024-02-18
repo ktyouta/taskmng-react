@@ -115,7 +115,7 @@ function DynamicForm(props: propsType) {
                                                     element.selectList && <LabelRadioListComponent
                                                         radioList={element.selectList}
                                                         selectedValue={element.initValue}
-                                                        htmlForId={`dynamicformradio-${index}-`}
+                                                        htmlForId={`dynamicformradio-${index}`}
                                                         disabled={element.disabled}
                                                         width={props.listTitleWidth ?? "50px"}
                                                         ref={element.ref}
@@ -147,7 +147,7 @@ function DynamicForm(props: propsType) {
                                                 return (
                                                     element.selectList && <LabelCheckBoxListComponent
                                                         checkBox={element.selectList}
-                                                        htmlForId={`dynamicformcheckbox-${index}-`}
+                                                        htmlForId={`dynamicformcheckbox-${index}`}
                                                         disabled={element.disabled}
                                                         initValue={element.initValue}
                                                         width={props.listTitleWidth ?? "50px"}

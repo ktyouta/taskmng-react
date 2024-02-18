@@ -61,6 +61,7 @@ const LabelRadioListComponent = forwardRef<refType, propsType>((props, ref) => {
         <RadioListDiv>
             {
                 props.radioList.map((element, index) => {
+                    let tmpTime = new Date().getTime();
                     return (
                         <React.Fragment>
                             <LabelRadioComponent
@@ -69,7 +70,7 @@ const LabelRadioListComponent = forwardRef<refType, propsType>((props, ref) => {
                                 value={element.value}
                                 selectedValue={radioValue}
                                 onChange={changeRadio}
-                                htmlForId={props.htmlForId ? `${props.htmlForId}${element.value}` : element.value}
+                                htmlForId={props.htmlForId ? `${props.htmlForId}-${element.value}-${element.label}-${tmpTime}` : element.value}
                                 width={props.width}
                                 disabled={props.disabled}
                             />
