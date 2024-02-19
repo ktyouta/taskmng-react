@@ -117,7 +117,7 @@ function DynamicForm(props: propsType) {
                                                         selectedValue={element.initValue}
                                                         htmlForId={`dynamicformradio-${index}`}
                                                         disabled={element.disabled}
-                                                        width={props.listTitleWidth ?? "50px"}
+                                                        width={props.listTitleWidth ?? "auto"}
                                                         ref={element.ref}
                                                     />
                                                 );
@@ -150,7 +150,7 @@ function DynamicForm(props: propsType) {
                                                         htmlForId={`dynamicformcheckbox-${index}`}
                                                         disabled={element.disabled}
                                                         initValue={element.initValue}
-                                                        width={props.listTitleWidth ?? "50px"}
+                                                        width={props.listTitleWidth ?? "auto"}
                                                         ref={element.ref}
                                                     />
                                                 )

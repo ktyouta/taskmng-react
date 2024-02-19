@@ -1103,11 +1103,11 @@
 		"title": "チェックボックスのラベルがボックスに被っている",
 		"content": "タスクの検索条件設定画面で、チェックボックスラベルがボックスに被っているのでスタイルを修正する。",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/12",
+		"updTime": "2024/02/19",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
-		"status": "1",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
@@ -1156,6 +1156,18 @@
 		"userId": "f",
 		"priority": "1",
 		"status": "2",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-98",
+		"title": "タブコンポーネントのヘッダを固定する",
+		"content": "",
+		"registerTime": "2024/02/19",
+		"updTime": "2024/02/19",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
 		"deleteFlg": "0"
 	}
 ]
