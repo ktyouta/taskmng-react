@@ -57,7 +57,7 @@ function TaskCondition(props: propsType) {
                         title="検索条件"
                     />
                 </HeaderDiv>
-                <VerticalFlowDiv
+                <HeightDiv
                     height='85%'
                 >
                     {
@@ -66,29 +66,7 @@ function TaskCondition(props: propsType) {
                             tabObj={searchConditionComponent}
                         />
                     }
-                    {/* デフォルト属性 */}
-                    {/* <TaskEditForm
-                        refInfoArray={props.taskSearchRefInfo.default}
-                        errMessage={""}
-                        outerHeight='auto'
-                    /> */}
-                    {/* カスタム属性 */}
-                    {
-                        // <React.Fragment>
-                        //     <HorizonLabelItemComponent
-                        //         title={<BoldSpan>カスタム属性</BoldSpan>}
-                        //         marginLt='15%'
-                        //         width="20%"
-                        //     >
-                        //     </HorizonLabelItemComponent>
-                        //     <TaskEditForm
-                        //         refInfoArray={props.taskSearchRefInfo.custom}
-                        //         errMessage={""}
-                        //         outerHeight='auto'
-                        //     />
-                        // </React.Fragment>
-                    }
-                </VerticalFlowDiv>
+                </HeightDiv>
             </HeightDiv>
             <HeightDiv
                 height='15%'

@@ -6,6 +6,12 @@ import {
 import styled from "styled-components";
 
 
+//タブアイテムの外側のdiv
+const TabBodyDiv = styled.div<{ height?: string }>`
+    height:${({ height }) => (height ? height : "85%")};
+    overflow-y: auto;
+`;
+
 //タブタイトルの外側のul
 const TabWrapUl = styled.ul`
     display: flex;
@@ -77,20 +83,22 @@ export function TabComponent(props: propsType) {
                     ))
                 }
             </TabWrapUl>
-            {
-                props.tabObj &&
-                props.tabObj.length > 0 &&
-                props.tabObj.map(({ title, key, children }) => {
-                    return (
-                        <TabItem
-                            attributeKey={key}
-                            title={title}
-                            children={children}
-                            activeKey={activeKey}
-                        />
-                    )
-                })
-            }
+            <TabBodyDiv>
+                {
+                    props.tabObj &&
+                    props.tabObj.length > 0 &&
+                    props.tabObj.map(({ title, key, children }) => {
+                        return (
+                            <TabItem
+                                attributeKey={key}
+                                title={title}
+                                children={children}
+                                activeKey={activeKey}
+                            />
+                        )
+                    })
+                }
+            </TabBodyDiv>
         </React.Fragment>
     );
 };
