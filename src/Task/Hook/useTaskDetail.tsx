@@ -10,6 +10,9 @@ import { buttonType } from "../../Common/ButtonComponent";
 import { buttonObjType } from "../../Master/MasterEditFooter";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
+import { useSetAtom } from "jotai";
+import { detailRoutingIdAtom } from "./useTask";
+import { DUMMY_ID } from "../Task";
 
 
 //引数の型
@@ -26,12 +29,12 @@ type propsType = {
  */
 function useTaskDetail(props: propsType) {
 
-    //スナックバーに表示する登録更新時のエラーメッセージ
-    const [errMessage, setErrMessage] = useState("");
     //閲覧モード(1:閲覧 2:編集)
     const [viewMode, setViewMode] = useState(1);
     //入力欄設定リスト
     const { taskSettingList } = useGetTaskInputSetting();
+    //詳細画面へのルーティング用ID
+    const setDetailRoutingId = useSetAtom(detailRoutingIdAtom);
 
     //汎用詳細リスト
     const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
@@ -43,11 +46,11 @@ function useTaskDetail(props: propsType) {
         {
             url: props.updTaskId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}/${props.updTaskId}` : ``,
             afSuccessFn: (data) => {
-                setErrMessage("");
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
-                setErrMessage(tmp.response.data.errMessage);
+                //NotFound画面に遷移
+                setDetailRoutingId(DUMMY_ID);
             }
         }
     );

@@ -13,6 +13,9 @@ import TaskDetail from './TaskDetail';
 import NotFoundComponent from '../NotFound/NotFoundComponent';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 
+//NotFound画面遷移用のダミーID
+export const DUMMY_ID = "ZZZ";
+
 type propsType = {
   path: string,
 }
@@ -39,7 +42,7 @@ function Task(props: propsType) {
             {
               (() => {
                 switch (detailRoutingId) {
-                  case "ZZZ":
+                  case DUMMY_ID:
                     return <Route
                       key={"*"}
                       path="*"

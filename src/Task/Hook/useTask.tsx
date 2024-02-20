@@ -5,6 +5,7 @@ import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
 import { useNavigate } from "react-router-dom";
 import { taskSearchConditionType } from "../Type/TaskType";
+import { DUMMY_ID } from "../Task";
 
 
 type propsType = {
@@ -61,7 +62,7 @@ function useTask(props: propsType) {
         //IDチェック
         if (isNaN(Number(taskId.replace(PRE_TASK_ID, "")))) {
             //ダミーをセット
-            taskId = "ZZZ";
+            taskId = DUMMY_ID;
         }
         setDetailRoutingId(taskId);
     }, []);
