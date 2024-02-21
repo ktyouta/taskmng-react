@@ -1,6 +1,5 @@
 import '../App.css';
 import './css/AddMasterSummaryForm.css';
-import MasterEditFooter, { buttonObjType } from '../Master/MasterEditFooter';
 import useMasterEditLogic from '../Master/Hook/useMasterEditLogic';
 import { useAtomValue } from 'jotai';
 import { selectedMasterNmAtom } from '../Master/Master';
@@ -10,7 +9,7 @@ import { SnackbarComponent } from '../Common/SnackbarComponent';
 import WaitLoading from '../Common/WaitLoading';
 import useAddMasterSummary from './Hook/useAddMasterSummary';
 import AddMasterTopFooter from './AddMasterTopFooter';
-import { inputAddMasterSettingType, refInfoType } from '../Common/Type/CommonType';
+import { buttonObjType, inputAddMasterSettingType, refInfoType } from '../Common/Type/CommonType';
 import DynamicForm from '../Common/DynamicForm';
 
 

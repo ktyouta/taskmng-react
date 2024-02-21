@@ -1,10 +1,10 @@
 import '../App.css';
 import '../Master/css/MasterEdit.css';
-import MasterEditFooter, { buttonObjType } from '../Master/MasterEditFooter';
+import MasterEditFooter from '../Master/MasterEditFooter';
 import LabelComponent from '../Common/LabelComponent';
 import { SnackbarComponent } from '../Common/SnackbarComponent';
 import WaitLoading from '../Common/WaitLoading';
-import { refInfoType } from './Type/CommonType';
+import { buttonObjType, refInfoType } from './Type/CommonType';
 import DynamicForm from './DynamicForm';
 
 

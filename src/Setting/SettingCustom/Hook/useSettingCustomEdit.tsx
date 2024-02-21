@@ -7,10 +7,9 @@ import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrappe
 import { inputRefType } from "../../Type/SettingType";
 import ENV from '../../../env.json';
 import useMutationWrapper, { resType } from "../../../Common/Hook/useMutationWrapper";
-import { generalDataType, refInfoType } from "../../../Common/Type/CommonType";
+import { buttonObjType, generalDataType, refInfoType } from "../../../Common/Type/CommonType";
 import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
-import { buttonObjType } from "../SettingCustomEditFooter";
 import { customAttributeType } from "../Type/SettingCustomType";
 
 

@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
 import { createJsonData, createRequestBody } from "../../Common/Function/Function";
 import ENV from '../../env.json';
-import { bodyObj, inputMasterSettingType, inputSettingType, refInfoType } from "../../Common/Type/CommonType";
+import { bodyObj, buttonObjType, inputMasterSettingType, inputSettingType, refInfoType } from "../../Common/Type/CommonType";
 import { useCookies } from "react-cookie";
 import { refType } from "../../Common/BaseInputComponent";
 import { useAtom, useAtomValue } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import useSwitch from "../../Common/Hook/useSwitch";
-import { buttonObjType } from "../MasterEditFooter";
+
 
 
 //返り値の型

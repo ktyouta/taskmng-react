@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
 import { createJsonData, createRequestBody } from "../../Common/Function/Function";
 import ENV from '../../env.json';
-import { bodyObj, inputAddMasterSettingType, refInfoType } from "../../Common/Type/CommonType";
+import { bodyObj, buttonObjType, inputAddMasterSettingType, refInfoType } from "../../Common/Type/CommonType";
 import { useCookies } from "react-cookie";
 import { refType } from "../../Common/BaseInputComponent";
 import { useAtom, useAtomValue } from "jotai";
@@ -11,7 +11,6 @@ import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import useSwitch from "../../Common/Hook/useSwitch";
 import { addDataInputBodyAtom } from "../AddMaster";
-import { buttonObjType } from "../../Master/MasterEditFooter";
 
 
 //引数の型

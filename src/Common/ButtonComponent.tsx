@@ -1,10 +1,11 @@
+import { ReactNode } from "react";
 import styled from "styled-components";
 
 //引数の型
 type propsType = {
   styleTypeNumber: buttonType,
   bgColor?: string,
-  title: string,
+  title: ReactNode,
   onclick: () => void,
 }
 

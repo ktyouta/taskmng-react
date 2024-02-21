@@ -7,7 +7,6 @@ import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
 import { taskContentDisplayType, taskListType } from "../Type/TaskType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
-import { buttonObjType } from "../../Master/MasterEditFooter";
 import { createRequestBody } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
 import React from "react";

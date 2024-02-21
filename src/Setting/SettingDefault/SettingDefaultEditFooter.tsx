@@ -1,14 +1,9 @@
 import ButtonComponent, { buttonType } from '../../Common/ButtonComponent';
 import SpaceComponent from '../../Common/SpaceComponent';
 import styled from 'styled-components';
+import { buttonObjType } from '../../Common/Type/CommonType';
 
 
-//ボタン用
-export type buttonObjType = {
-    title: string,
-    type: buttonType,
-    onclick: (() => void) | undefined,
-}
 
 //引数の型
 type propsType = {

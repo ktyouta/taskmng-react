@@ -1,5 +1,6 @@
-import { RefObject } from "react"
+import { ReactNode, RefObject } from "react"
 import { inputTaskSettingType } from "../../Task/Type/TaskType"
+import { buttonType } from "../ButtonComponent"
 
 //画面に表示するテーブル
 export type selectedMasterDataType = {
@@ -166,4 +167,11 @@ export type inputSettingType = {
     inputMasterSetting: inputMasterSettingType[],
     addMasterSummarySetting: inputAddMasterSettingType[],
     taskEditSetting: inputTaskSettingType[]
+}
+
+//ボタン用
+export type buttonObjType = {
+    title: ReactNode,
+    type: buttonType,
+    onclick: (() => void) | undefined,
 }

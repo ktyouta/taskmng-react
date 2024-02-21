@@ -4,7 +4,7 @@ import '../App.css';
 import '../Master/css/MasterEditFooter.css';
 import ButtonComponent from '../Common/ButtonComponent';
 import SpaceComponent from '../Common/SpaceComponent';
-import { buttonObjType } from '../Master/MasterEditFooter';
+import { buttonObjType } from '../Common/Type/CommonType';
 
 //引数の型
 type propsType = {
