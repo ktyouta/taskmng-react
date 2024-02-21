@@ -60,7 +60,7 @@ function TaskContent(props: propsType) {
 
     console.log("TaskContent render");
 
-    let {
+    const {
         contentList
     } = useTaskContent({ ...props });
 
@@ -73,14 +73,14 @@ function TaskContent(props: propsType) {
                 titleBgColor={props.contentObj.titleBgColor}
                 onClick={props.contentObj.onClickTitle}
             >
-                {props.contentObj.title}
+                {`${props.contentObj.id}：${props.contentObj.title}`}
             </ContentTitleDiv>
             <ContentInfoDiv
                 infoBgColor={props.contentObj.infoBgColor}
             >
                 {/* 内容 */}
                 {contentList}
-                {/* ボタン */}
+                {/* モーダル表示ボタン */}
                 <ButtonAreaDiv>
                     {props.contentObj.editButton}
                 </ButtonAreaDiv>
