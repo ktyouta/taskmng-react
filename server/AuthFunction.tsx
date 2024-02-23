@@ -13,6 +13,12 @@ const app: express.Express = express();
 
 app.use(cookieParser());
 
+
+/**
+ * 認証チェック
+ * @param cookie 
+ * @returns 
+ */
 export function authenticate(cookie: string): authInfoType {
     let tmpAuthInfo: authInfoType = {
         status: 200,
@@ -49,23 +55,22 @@ export function authenticate(cookie: string): authInfoType {
             return tmpAuthInfo;
         }
 
-        //ユーザー情報の配列
-        let userJson: userInfoType[] = JSON.parse(fileData);
-        let isExist: boolean = false;
-        for (let i = 0; i < userJson.length; i++) {
-            if (isExist = (userId === userJson[i].userId && password === userJson[i].password)) {
-                tmpAuthInfo.userInfo = userJson[i];
-                break;
-            }
-        }
+        //ユーザー情報リスト
+        let userDatas: userInfoType[] = JSON.parse(fileData);
+        let userData = userDatas.find((element) => {
+            return userId === element.userId && password === element.password && element.deleteFlg !== "1";
+        });
 
         //ユーザー情報が存在しない
-        if (!isExist) {
+        if (!userData) {
             tmpAuthInfo.status = 400;
             tmpAuthInfo.errMessage = 'ユーザーIDまたはパスワードが違います。';
             return tmpAuthInfo;
         }
+
+        tmpAuthInfo.userInfo = userData;
     } catch (err) {
+        console.log("err:", err);
         tmpAuthInfo.status = 500;
         tmpAuthInfo.errMessage = '予期しないエラーが発生しました。';
     }

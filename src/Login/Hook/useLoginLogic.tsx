@@ -14,7 +14,7 @@ function useLoginLogic() {
     //ユーザーID参照用
     const userIdRef: RefObject<refType> = useRef(null);
     //パスワード参照用
-    const userPassword: RefObject<refType> = useRef(null);
+    const userPasswordRef: RefObject<refType> = useRef(null);
     //認証クッキー
     const [cookie, setCookie, removeCookie] = useCookies();
     //ルーティング用
@@ -51,12 +51,12 @@ function useLoginLogic() {
             return;
         }
         //パスワード未入力
-        if (!userPassword.current?.refValue) {
+        if (!userPasswordRef.current?.refValue) {
             alert("パスワードが未入力です。");
             return;
         }
         let userId = userIdRef.current?.refValue as string;
-        let password = userPassword.current?.refValue as string;
+        let password = userPasswordRef.current?.refValue as string;
         let body: userInfoType = { userId, password }
         //認証API呼び出し
         postMutation.mutate(body);
@@ -67,10 +67,10 @@ function useLoginLogic() {
      */
     function clickClearBtn() {
         userIdRef.current?.clearValue();
-        userPassword.current?.clearValue();
+        userPasswordRef.current?.clearValue();
     }
 
-    return { userIdRef, userPassword, clickLoginBtn, clickClearBtn }
+    return { userIdRef, userPasswordRef, clickLoginBtn, clickClearBtn }
 }
 
 export default useLoginLogic;
