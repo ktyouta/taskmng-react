@@ -38,7 +38,10 @@ function useContentLogic() {
 
     //メニューリストを作成
     useEffect(() => {
-        if (!menuList || !userInfo) {
+        if (!menuList) {
+            return;
+        }
+        if (!userInfo) {
             return;
         }
         let tmpMenuList = [...menuList].filter((element: menuListType) => {

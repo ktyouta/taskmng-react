@@ -71,6 +71,7 @@ function useCheckAuth() {
 
     //認証失敗
     if (isError) {
+        // クッキーを削除
         Object.keys(cookie).forEach((key) => {
             removeCookie(key, { path: '/' });
         });

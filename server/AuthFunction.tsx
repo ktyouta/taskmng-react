@@ -35,6 +35,7 @@ export function authenticate(cookie: string): authInfoType {
 
         //トークンの作成に使用したキーを取得
         const decoded = jwt.verify(cookie, config.jwt.secret).ID;
+
         let userArray = decoded.split(',');
         let userId = userArray[0];
         let password = userArray[1];
@@ -64,7 +65,6 @@ export function authenticate(cookie: string): authInfoType {
             tmpAuthInfo.errMessage = 'ユーザーIDまたはパスワードが違います。';
             return tmpAuthInfo;
         }
-
     } catch (err) {
         tmpAuthInfo.status = 500;
         tmpAuthInfo.errMessage = '予期しないエラーが発生しました。';
@@ -77,8 +77,8 @@ export function authenticate(cookie: string): authInfoType {
  */
 export function createToken(res: any, req: any) {
     //ID,PW取得
-    var userId = req.body.userId;
-    var password = req.body.password;
+    var userId: string = req.body.userId;
+    var password: string = req.body.password;
 
     //認証
     let fileData = readFile(`${SETTINGFILEPATH}${USERINFOFILEPATH}${JSONEXTENSION}`);
@@ -106,7 +106,7 @@ export function createToken(res: any, req: any) {
     }
     //token生成
     let jwtStr = `${userId},${password}`
-    const token = jwt.sign({ ID: jwtStr }, config.jwt.secret, { expiresIn: '1h' });
+    const token = jwt.sign({ ID: jwtStr }, config.jwt.secret, { expiresIn: config.jwt.options.expiresIn });
     res.status(200).json({ errMessage: '', token: token, userInfo: { userId: userId } });
 }
 

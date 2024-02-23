@@ -16,7 +16,7 @@ function useLoginLogic() {
     //パスワード参照用
     const userPassword: RefObject<refType> = useRef(null);
     //認証クッキー
-    const [, setCookie, removeCookie] = useCookies();
+    const [cookie, setCookie, removeCookie] = useCookies();
     //ルーティング用
     const navigate = useNavigate();
 
@@ -32,8 +32,11 @@ function useLoginLogic() {
         },
         //失敗後の処理
         afErrorFn: (res: errResType) => {
+            // クッキーを削除
+            Object.keys(cookie).forEach((key) => {
+                removeCookie(key, { path: '/' });
+            });
             //エラーメッセージを表示
-            removeCookie(ENV.AUTHENTICATION.cookie);
             alert(res.response.data.errMessage);
         },
     });
