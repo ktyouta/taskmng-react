@@ -26,7 +26,9 @@ export function getUserInfo(res: any, req: any) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
-        return authResult;
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     //ユーザー情報の読み込み
@@ -50,7 +52,9 @@ export function getUserInfoDetail(res: any, req: any, id: string) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
-        return authResult;
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     //ユーザー情報の読み込み

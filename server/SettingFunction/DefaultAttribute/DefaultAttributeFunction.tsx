@@ -9,7 +9,6 @@ import {
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { authInfoType, generalDetailType, taskListType } from "../../Type/type";
-import { getNowDate } from "../../CommonFunction";
 import { createUpdDefaultAttribute, createUpdDefaultAttributeSelectList, } from "./DefaultAttributeUpdateFunction";
 import { filterDefaultAttributeDetail, getDefaultAttributeData, } from "./DefaultAttributeSelectFunction";
 import { defaultAttributeType, defaultAttributeUpdType } from "./Type/DefaultAttributeType";
@@ -28,7 +27,9 @@ export function getDefaultAttribute(res: any, req: any) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
-        return authResult;
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     //デフォルト属性の読み込み
@@ -49,7 +50,9 @@ export function getDefaultAttributeDetail(res: any, req: any, id: string) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
-        return authResult;
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     //デフォルト属性の読み込み
@@ -70,7 +73,9 @@ export function getDefaultAttributeInputSetting(res: any, req: any) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
-        return authResult;
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     //デフォルト属性の読み込み

@@ -11,3 +11,15 @@ export function getGeneralDataList() {
     let decodeGeneralData: generalDetailType[] = JSON.parse(generalData);
     return decodeGeneralData;
 }
+
+
+/**
+ * 現在日時を取得
+ */
+export function getNowDate() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, "0");
+    const date = (now.getDate()).toString().padStart(2, "0");
+    return `${year}/${month}/${date}`;
+}

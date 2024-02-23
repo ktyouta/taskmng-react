@@ -1,4 +1,4 @@
-import { getNowDate } from "../../CommonFunction";
+import { getNowDate } from "../../Common/Function";
 import { userInfoType } from "../../Type/type";
 
 /**

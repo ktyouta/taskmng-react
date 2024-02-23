@@ -3,7 +3,6 @@ import { CUSTOMATTRIBUTESELECT, JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGF
 import { overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
 import { authInfoType, inputSettingType, taskDetailType, taskListType } from "../Type/type";
-import { getNowDate } from "../CommonFunction";
 import { createDeleteCustomAttributeData, createDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
 import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
@@ -29,7 +28,9 @@ export function getTaskList(res: any, req: any) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
-        return authResult;
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
     //タスクファイルの読み込み
     let decodeFileData: taskListType[] = getFilterdTask();
@@ -59,7 +60,9 @@ export function getTaskDetail(res: any, req: any, id: string) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
-        return authResult;
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
     //タスクファイルの読み込み
     let decodeFileData: taskListType[] = getFilterdTask();

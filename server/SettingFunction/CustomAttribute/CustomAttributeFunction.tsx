@@ -7,7 +7,6 @@ import {
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { authInfoType, customAttributeListType, customAttributeType, taskListType } from "../../Type/type";
-import { getNowDate } from "../../CommonFunction";
 import { callCreateAddSearchCondition, createAddCustomAttribute, createAddCustomAttributeList, runCreateSelectList } from "./CustomAttributeRegistFunction";
 import { callCreateDelSearchCondition, createDeleteCustomAttribute, createDeleteCustomAttributeList, runDeleteSelectList } from "./CustomAttributeDeleteFunction";
 import { callCreateUpdSearchCondition, createUpdCustomAttribute, createUpdCustomAttributeList, runUpdSelectList } from "./CustomAttributeUpdateFunction";
@@ -40,7 +39,9 @@ export function getCustomAttribute(res: any, req: any) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
-        return authResult;
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     //カスタム属性の読み込み
@@ -61,7 +62,9 @@ export function getCustomAttributeDetail(res: any, req: any, id: string) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
-        return authResult;
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     //カスタム属性の読み込み
@@ -82,7 +85,9 @@ export function getCustomAttributeInputSetting(res: any, req: any) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
-        return authResult;
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     //カスタム属性の読み込み

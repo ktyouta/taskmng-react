@@ -4,7 +4,6 @@ import {
     customAttributeListType,
     customAttributeType,
 } from "../../Type/type";
-import { getNowDate } from "../../CommonFunction";
 import {
     CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH,
     PRE_CUSTOMATTRIBUTELIST_ID,
@@ -16,6 +15,7 @@ import { createAddSearchCondition } from "../../SearchCondition/SearchConditionR
 import { ATTRIBUTE_KEY_CUSTOM } from "../../SearchCondition/SearchConditionFunction";
 import { retCreateAddCustomAttributeType } from "./Type/CustomAttributeType";
 import { createCustomAttributeNewId, createCustomAttributeSelectListNewId } from "./CustomAttributeSelectFunction";
+import { getNowDate } from "../../Common/Function";
 
 //inputのmaxlength
 const INPUT_LENGTH = "200";

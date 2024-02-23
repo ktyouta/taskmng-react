@@ -9,7 +9,6 @@ import {
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { authInfoType, comboType, generalDetailType, inputSettingType, taskListType } from "../../Type/type";
-import { getNowDate } from "../../CommonFunction";
 import { DEFAULT_ATTRIBUTE_FILEPATH, GENERALDETAIL_FILEPATH } from "./DefaultAttributeFunction";
 import { defaultAttributeType } from "./Type/DefaultAttributeType";
 

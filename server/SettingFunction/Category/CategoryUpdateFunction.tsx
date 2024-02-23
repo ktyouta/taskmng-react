@@ -1,4 +1,4 @@
-import { getNowDate } from "../../CommonFunction";
+import { getNowDate } from "../../Common/Function";
 import { authInfoType } from "../../Type/type";
 import { categoryType, checkOrderType } from "./Type/CategoryType";
 

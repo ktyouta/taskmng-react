@@ -1,4 +1,4 @@
-import { getNowDate } from "../CommonFunction";
+import { getNowDate } from "../Common/Function";
 import { authInfoType } from "../Type/type";
 import { searchConditionType } from "./Type/SearchConditionType";
 

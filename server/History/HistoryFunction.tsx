@@ -17,7 +17,9 @@ export function getTaskHistory(res: any, req: any) {
     //認証チェック
     let authResult = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
-        return authResult;
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     //タスクの作業履歴オブジェクトの取得
