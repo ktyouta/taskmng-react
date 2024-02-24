@@ -36,6 +36,10 @@ function useTaskList(props: propsType) {
 
     //タスクのコンテンツリスト
     let taskContentList: ReactNode = useMemo(() => {
+        if (!props.displayTaskList || props.displayTaskList.length === 0) {
+            return null;
+        }
+
         return props.displayTaskList.map((element, index) => {
             let id = element.id as string;
             return (

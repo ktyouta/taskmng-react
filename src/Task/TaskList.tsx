@@ -38,6 +38,11 @@ function TaskList(props: propsType) {
         return <CenterLoading />;
     }
 
+    //検索結果が0件
+    if (!props.isLoading && !taskContentList) {
+        return <div>検索結果がありません。</div>;
+    }
+
     return (
         <VerticalFlowDiv
             height='100%'
