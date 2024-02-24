@@ -14,6 +14,7 @@ import SpaceComponent from "../../Common/SpaceComponent";
 import TaskContent from "../TaskContent";
 import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
 import styled from "styled-components";
+import CenterLoading from "../../Common/CenterLoading";
 
 
 const TaskListLi = styled.li`
@@ -23,7 +24,8 @@ const TaskListLi = styled.li`
 
 //引数の型
 type propsType = {
-    displayTaskList: taskContentDisplayType[]
+    displayTaskList: taskContentDisplayType[] | null,
+    isLoading: boolean,
 }
 
 
@@ -36,10 +38,21 @@ function useTaskList(props: propsType) {
 
     //タスクのコンテンツリスト
     let taskContentList: ReactNode = useMemo(() => {
-        if (!props.displayTaskList || props.displayTaskList.length === 0) {
-            return null;
+        //タスクリスト表示までのローディング
+        if (props.isLoading) {
+            return <CenterLoading />;
         }
 
+        if (!props.displayTaskList) {
+            return <CenterLoading />;
+        }
+
+        //検索結果が0件
+        if (props.displayTaskList.length === 0) {
+            return <div>検索結果がありません。</div>;
+        }
+
+        //タスクデータから画面表示用domを作成
         return props.displayTaskList.map((element, index) => {
             let id = element.id as string;
             return (

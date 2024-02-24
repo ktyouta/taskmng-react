@@ -19,7 +19,7 @@ const TaskListUl = styled.ul`
 
 //引数の型
 type propsType = {
-    displayTaskList: taskContentDisplayType[],
+    displayTaskList: taskContentDisplayType[] | null,
     isLoading: boolean,
 }
 
@@ -31,17 +31,6 @@ function TaskList(props: propsType) {
     const {
         taskContentList
     } = useTaskList({ ...props });
-
-
-    //タスクリスト表示までのローディング
-    if (props.isLoading) {
-        return <CenterLoading />;
-    }
-
-    //検索結果が0件
-    if (!props.isLoading && !taskContentList) {
-        return <div>検索結果がありません。</div>;
-    }
 
     return (
         <VerticalFlowDiv

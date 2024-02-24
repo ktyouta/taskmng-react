@@ -23,7 +23,12 @@ const DispLabel = styled(WidthDiv)`
     text-align: right;
 `;
 
-function TaskListContent() {
+//引数の型
+type propsType = {
+    path: string,
+}
+
+function TaskListContent(props: propsType) {
 
     console.log("TaskListContent render");
 
@@ -34,7 +39,7 @@ function TaskListContent() {
         errMessage,
         updTaskId,
         isLoading,
-    } = useTaskListContent();
+    } = useTaskListContent({ ...props });
 
     //該当データが存在しない
     if (errMessage) {
@@ -56,7 +61,7 @@ function TaskListContent() {
                 width='93%'
             >
                 <LabelComponent
-                    title={`表示件数：${displayTaskList.length}件`}
+                    title={`表示件数：${displayTaskList ? displayTaskList.length : "0"}件`}
                 />
             </DispLabel>
             {/* タスク一覧 */}

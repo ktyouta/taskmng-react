@@ -12,8 +12,13 @@ import TaskListContent from './TaskListContent';
 import './css/TaskTop.css';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 
+//引数の型
+type propsType = {
+  path: string,
+}
 
-function TaskTop() {
+
+function TaskTop(props: propsType) {
 
   console.log("TaskTop render");
 
@@ -22,7 +27,9 @@ function TaskTop() {
       height='85%'
     >
       <TaskSearch />
-      <TaskListContent />
+      <TaskListContent
+        path={props.path}
+      />
     </HeightDiv>
   );
 }

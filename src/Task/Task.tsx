@@ -34,7 +34,7 @@ function Task(props: propsType) {
       height='100%'
     >
       <Routes>
-        <Route path="/" element={<TaskMain />} />
+        <Route path="/" element={<TaskMain path={props.path} />} />
         {/* タスク詳細画面のルーティング */}
         {
           detailRoutingId &&

@@ -25,33 +25,18 @@ export const taskListUrlAtom = atom(``);
 //更新用タスク
 export const updTaskAtom = atom([]);
 
-/**
- * 日付の文字列変換
- */
-const getNowDate = (now: Date) => {
-    const year = now.getFullYear();
-    const month = (now.getMonth() + 1).toString().padStart(2, "0");
-    const date = (now.getDate()).toString().padStart(2, "0");
-    return `${year}${month}${date}`;
-};
+//引数の型
+type propsType = {
+    path: string,
+}
 
-
-//ステータス
-//未完了
-const NOCOMP_STATUS = "1";
-//完了
-const COMP_STATUS = "2";
-//保留
-const HOLD_STATUS = "3";
-//対応中
-const WORKING_STATUS = "4";
 
 /**
  * MasterTopコンポーネントのビジネスロジック
  * @param selectedMaster 
  * @returns 
  */
-function useTaskListContent() {
+function useTaskListContent(props: propsType) {
 
     //タスクリスト取得用URL
     const taskListUrl = useAtomValue(taskListUrlAtom);
@@ -67,8 +52,6 @@ function useTaskListContent() {
     const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
     });
-    //現在日時
-    const nowDate = getNowDate(new Date());
     //ルーティング用
     const navigate = useNavigate();
 
@@ -76,14 +59,7 @@ function useTaskListContent() {
     const { data: taskList, isLoading } = useQueryWrapper<taskListType[]>(
         {
             url: taskListUrl,
-            afSuccessFn: (data) => {
-                let errMessage = "";
-                //データが存在しない
-                if (!data || data.length === 0) {
-                    errMessage = "データが存在しません。";
-                }
-                setErrMessage(errMessage);
-            }
+            afSuccessFn: () => { }
         }
     );
 
@@ -110,22 +86,22 @@ function useTaskListContent() {
     //タスクの詳細画面に遷移する
     const moveTaskDetail = (taskId: string,) => {
         setDetailRoutingId(taskId);
-        navigate(`/task/${taskId}`);
+        navigate(`${props.path}/${taskId}`);
     };
 
     //取得したタスクリストを画面表示用に変換
     const displayTaskList = useMemo(() => {
         //タスクリスト
         if (!taskList) {
-            return [];
+            return null;
         }
         //汎用リスト
         if (!generalDataList) {
-            return [];
+            return null;
         }
         //タスクの画面表示設定リスト
         if (!taskContentSetting) {
-            return [];
+            return null;
         }
 
         //コンテンツリストを作成

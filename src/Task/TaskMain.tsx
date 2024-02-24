@@ -4,14 +4,20 @@ import TaskFooter from './TaskFooter';
 import './css/Task.css';
 import React from 'react';
 
+//引数の型
+type propsType = {
+    path: string,
+}
 
-function TaskMain() {
+function TaskMain(props: propsType) {
 
     console.log("TaskMain render");
 
     return (
         <React.Fragment>
-            <TaskTop />
+            <TaskTop
+                path={props.path}
+            />
             <TaskFooter />
         </React.Fragment>
     );

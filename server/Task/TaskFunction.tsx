@@ -44,7 +44,7 @@ export function getTaskList(res: any, req: any) {
 
     //該当データなし
     if (decodeFileData.length === 0) {
-        return res.status(400).json({ errMessage: `該当データがありません。` });
+        return res.status(200).json(decodeFileData);
     }
 
     //優先度およびステータスの紐づけを行う
