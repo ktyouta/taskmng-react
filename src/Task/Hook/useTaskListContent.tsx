@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
 import { generalDataType, masterDataListType, selectedMasterDataType } from "../../Common/Type/CommonType";
 import ENV from '../../env.json';
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import { masterDataListAtom } from "../../Main/Hook/useMainLogic";
@@ -14,16 +14,10 @@ import useQueryClientWapper from "../../Common/Hook/useQueryClientWrapper";
 import useSwitch from "../../Common/Hook/useSwitch";
 import ButtonComponent from "../../Common/ButtonComponent";
 import { parseStrDate } from "../../Common/Function/Function";
-import { detailRoutingIdAtom } from "./useTask";
 import { createTaskContentList } from "../Function/TaskFunction";
+import { detailRoutingIdAtom, taskListUrlAtom } from "../Atom/TaskAtom";
 
 
-//画面表示用タスクリスト
-export const displayTaskListAtom = atom<taskContentDisplayType[]>([]);
-//タスク取得用URL
-export const taskListUrlAtom = atom(``);
-//更新用タスク
-export const updTaskAtom = atom([]);
 
 //引数の型
 type propsType = {

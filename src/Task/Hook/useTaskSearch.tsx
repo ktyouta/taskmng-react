@@ -3,22 +3,22 @@ import { useNavigate } from "react-router-dom";
 import useFetchJsonData from "../../Common/Hook/useFetchJsonData";
 import { comboType, masterDataListType, refConditionType, refInfoType, } from "../../Common/Type/CommonType";
 import ENV from '../../env.json';
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import { masterDataListAtom } from "../../Main/Hook/useMainLogic";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import { taskSearchConditionRefType, taskSearchConditionType } from "../Type/TaskType";
 import { refType } from "../../Common/BaseInputComponent";
-import { taskListUrlAtom } from "./useTaskListContent";
 import useSwitch from "../../Common/Hook/useSwitch";
 import useGetGeneralDataList from "../../Common/Hook/useGetGeneralDataList";
 import SpaceComponent from "../../Common/SpaceComponent";
 import React from "react";
 import { parseStrDate } from "../../Common/Function/Function";
-import { SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY, taskSearchConditionObjAtom, SEARCHCONDITION_KEY_CUSTOM } from "./useTask";
+import { SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY, SEARCHCONDITION_KEY_CUSTOM } from "./useTask";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
 import { createSearchDispCondition, createSearchRefArray } from "../Function/TaskFunction";
+import { taskListUrlAtom, taskSearchConditionObjAtom } from "../Atom/TaskAtom";
 
 
 

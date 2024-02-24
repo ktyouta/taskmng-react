@@ -1,8 +1,7 @@
 import ENV from '../../env.json';
 import { useSetAtom } from "jotai";
-import { taskListUrlAtom } from "./useTaskListContent";
-import { taskSearchConditionObjAtom } from "./useTask";
 import { taskSearchConditionType } from '../Type/TaskType';
+import { taskListUrlAtom, taskSearchConditionObjAtom } from '../Atom/TaskAtom';
 
 
 /**

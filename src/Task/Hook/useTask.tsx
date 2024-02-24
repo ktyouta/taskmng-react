@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
 import ENV from '../../env.json';
-import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
 import { useNavigate } from "react-router-dom";
 import { taskSearchConditionType } from "../Type/TaskType";
 import { DUMMY_ID } from "../Task";
+import { detailRoutingIdAtom } from "../Atom/TaskAtom";
 
 
 type propsType = {
     path: string
 }
 
-//検索条件用オブジェクト
-export const taskSearchConditionObjAtom = atom<{ [key: string]: string }>({});
-//詳細画面へのルーティング用ID
-export const detailRoutingIdAtom = atom("");
 //タスクIDの接頭辞
 const PRE_TASK_ID = `TASKID-`;
 //検索条件取得用のクエリキー
