@@ -1,9 +1,5 @@
 import { atom, useAtom, useAtomValue } from "jotai";
-
-//詳細画面へのルーティング用ID
-export const editModeAtom = atom(0);
-//カスタム属性のID
-export const userIdAtom = atom("");
+import { editModeAtom, userIdAtom } from "../Atom/SettingUserAtom";
 
 
 function useSettingUser() {

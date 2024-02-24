@@ -1,5 +1,4 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { categoryIdAtom, editModeAtom } from "./useSettingCategory";
 import { editModeEnum } from "../SettingCategory";
 import { useNavigate } from "react-router-dom";
 import { createRef, useEffect, useMemo, useState } from "react";
@@ -12,6 +11,7 @@ import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
 import { categoryType, registCategoryType } from "../Type/SettingCategoryType";
 import useSwitch from "../../../Common/Hook/useSwitch";
+import { categoryIdAtom, editModeAtom } from "../Atom/SettingCategoryAtom";
 
 //権限ID
 const AUTH_ID = "1";

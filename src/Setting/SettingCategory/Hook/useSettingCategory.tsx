@@ -1,9 +1,6 @@
 import { atom, useAtom, useAtomValue } from "jotai";
+import { categoryIdAtom, editModeAtom } from "../Atom/SettingCategoryAtom";
 
-//詳細画面へのルーティング用ID
-export const editModeAtom = atom(0);
-//カスタム属性のID
-export const categoryIdAtom = atom("");
 
 
 function useSettingCategory() {

@@ -1,5 +1,4 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { customAttributeIdAtom, editModeAtom } from "./useSettingCustom";
 import { editModeEnum } from "../SettingCustom";
 import { useNavigate } from "react-router-dom";
 import { createRef, useEffect, useMemo, useState } from "react";
@@ -11,6 +10,7 @@ import { buttonObjType, generalDataType, refInfoType } from "../../../Common/Typ
 import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
 import { customAttributeType } from "../Type/SettingCustomType";
+import { customAttributeIdAtom, editModeAtom } from "../Atom/SettingCustomAtom";
 
 
 //引数の型

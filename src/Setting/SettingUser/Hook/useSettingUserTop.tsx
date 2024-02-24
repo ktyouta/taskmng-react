@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
-import { userIdAtom, editModeAtom } from "./useSettingUser";
 import { useNavigate } from "react-router-dom";
 import { editModeEnum } from "../SettingUser";
+import { editModeAtom, userIdAtom } from "../Atom/SettingUserAtom";
 
 
 //引数の型

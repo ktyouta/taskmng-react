@@ -3,9 +3,9 @@ import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrappe
 import ENV from '../../../env.json';
 import { useNavigate } from "react-router-dom";
 import { useSetAtom } from "jotai";
-import { customAttributeIdAtom, editModeAtom } from "./useSettingCustom";
 import { editModeEnum } from "../SettingCustom";
 import { customAttributeType } from "../Type/SettingCustomType";
+import { customAttributeIdAtom, editModeAtom } from "../Atom/SettingCustomAtom";
 
 
 //引数の型
