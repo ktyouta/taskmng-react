@@ -33,6 +33,7 @@ function TaskListContent() {
         displayTaskList,
         errMessage,
         updTaskId,
+        isLoading,
     } = useTaskListContent();
 
     //該当データが存在しない
@@ -58,9 +59,12 @@ function TaskListContent() {
                     title={`表示件数：${displayTaskList.length}件`}
                 />
             </DispLabel>
+            {/* タスク一覧 */}
             <TaskList
                 displayTaskList={displayTaskList}
+                isLoading={isLoading}
             />
+            {/* タスク詳細表示用モーダル */}
             <ModalComponent
                 modalIsOpen={isModalOpen}
                 closeModal={offFlag}

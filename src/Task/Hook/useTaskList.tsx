@@ -1,4 +1,4 @@
-import { createRef, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { createRef, ReactNode, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
 import ENV from '../../env.json';
 import { bodyObj, comboType, generalDataType, inputMasterSettingType, inputSettingType, refConditionType, refInfoType } from "../../Common/Type/CommonType";
 import { refType } from "../../Common/BaseInputComponent";
@@ -35,7 +35,7 @@ type propsType = {
 function useTaskList(props: propsType) {
 
     //タスクのコンテンツリスト
-    let taskContentList = useMemo(() => {
+    let taskContentList: ReactNode = useMemo(() => {
         return props.displayTaskList.map((element, index) => {
             let id = element.id as string;
             return (

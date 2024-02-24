@@ -12,7 +12,6 @@ function LoadingBase() {
 
     return (
         <ClipLoader
-            color="#a9a9a9"
             cssOverride={override}
             size={100}
             aria-label="Loading Spinner"

@@ -7,6 +7,8 @@ import './css/TaskList.css';
 import { VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import useTaskList from './Hook/useTaskList';
 import styled from 'styled-components';
+import Loading from '../Common/Loading';
+import CenterLoading from '../Common/CenterLoading';
 
 
 const TaskListUl = styled.ul`
@@ -17,7 +19,8 @@ const TaskListUl = styled.ul`
 
 //引数の型
 type propsType = {
-    displayTaskList: taskContentDisplayType[]
+    displayTaskList: taskContentDisplayType[],
+    isLoading: boolean,
 }
 
 
@@ -25,9 +28,15 @@ function TaskList(props: propsType) {
 
     console.log("TaskList render");
 
-    let {
+    const {
         taskContentList
     } = useTaskList({ ...props });
+
+
+    //タスクリスト表示までのローディング
+    if (props.isLoading) {
+        return <CenterLoading />;
+    }
 
     return (
         <VerticalFlowDiv

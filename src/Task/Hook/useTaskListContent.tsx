@@ -73,7 +73,7 @@ function useTaskListContent() {
     const navigate = useNavigate();
 
     //タスクリストを取得
-    const { data: taskList } = useQueryWrapper<taskListType[]>(
+    const { data: taskList, isLoading } = useQueryWrapper<taskListType[]>(
         {
             url: taskListUrl,
             afSuccessFn: (data) => {
@@ -138,6 +138,7 @@ function useTaskListContent() {
         displayTaskList,
         errMessage,
         updTaskId,
+        isLoading,
     };
 }
 
