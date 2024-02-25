@@ -1,3 +1,5 @@
+import { customAttributeListType } from "../../../Type/type"
+
 //カテゴリの型
 export type categoryType = {
     id: string,
@@ -17,4 +19,10 @@ export type categoryType = {
 export type checkOrderType = {
     id: string,
     order: string,
+}
+
+//カスタム属性の選択リストの登録メソッドの戻り値
+export type registSelectListRetType = {
+    errMsg: string,
+    registSelectList: customAttributeListType[]
 }

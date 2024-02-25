@@ -1,5 +1,4 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { editModeEnum } from "../SettingUser";
 import { useNavigate } from "react-router-dom";
 import { createRef, useEffect, useMemo, useState } from "react";
 import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrapper";
@@ -11,9 +10,9 @@ import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
 import { updUserType, userType } from "../Type/SettingUserType";
 import { editModeAtom, userIdAtom } from "../Atom/SettingUserAtom";
+import { editModeEnum } from "../../Const/SettingConst";
+import { AUTH_ID } from "../Const/SettingUserConst";
 
-//権限ID
-const AUTH_ID = "1";
 
 //引数の型
 type propsType = {

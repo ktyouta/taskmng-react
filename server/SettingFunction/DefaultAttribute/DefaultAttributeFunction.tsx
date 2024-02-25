@@ -12,12 +12,8 @@ import { authInfoType, generalDetailType, taskListType } from "../../Type/type";
 import { createUpdDefaultAttribute, createUpdDefaultAttributeSelectList, } from "./DefaultAttributeUpdateFunction";
 import { filterDefaultAttributeDetail, getDefaultAttributeData, } from "./DefaultAttributeSelectFunction";
 import { defaultAttributeType, defaultAttributeUpdType } from "./Type/DefaultAttributeType";
+import { DEFAULT_ATTRIBUTE_FILEPATH, GENERALDETAIL_FILEPATH } from "./Const/DefaultAttributeConst";
 
-
-//デフォルト属性ファイルのパス
-export const DEFAULT_ATTRIBUTE_FILEPATH = `${SETTINGFILEPATH}${TASKINPUTSETTING}${JSONEXTENSION}`;
-//汎用詳細リストファイルのパス
-export const GENERALDETAIL_FILEPATH = `${MASTERFILEPATH}${GENERALDETAILFILEPATH}${JSONEXTENSION}`
 
 
 /**

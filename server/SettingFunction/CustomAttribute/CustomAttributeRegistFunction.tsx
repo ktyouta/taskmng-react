@@ -5,9 +5,6 @@ import {
     customAttributeType,
 } from "../../Type/type";
 import {
-    CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH,
-    PRE_CUSTOMATTRIBUTELIST_ID,
-    PRE_CUSTOMATTRIBUTE_ID,
     registSelectListRetType
 } from "./CustomAttributeFunction";
 import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
@@ -16,11 +13,8 @@ import { ATTRIBUTE_KEY_CUSTOM } from "../../SearchCondition/SearchConditionFunct
 import { retCreateAddCustomAttributeType } from "./Type/CustomAttributeType";
 import { createCustomAttributeNewId, createCustomAttributeSelectListNewId } from "./CustomAttributeSelectFunction";
 import { getNowDate } from "../../Common/Function";
+import { CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, INPUT_LENGTH, TEXTAREA_LENGTH } from "./Const/CustomAttributeConst";
 
-//inputのmaxlength
-const INPUT_LENGTH = "200";
-//inputのmaxlength
-const TEXTAREA_LENGTH = "2000";
 
 
 /**

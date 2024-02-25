@@ -7,11 +7,8 @@ import {
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { authInfoType, comboType, customAttributeListType, customAttributeType, inputSettingType, taskListType } from "../../Type/type";
-import { CUSTOM_ATTRIBUTE_FILEPATH, PRE_CUSTOMATTRIBUTELIST_ID, PRE_CUSTOMATTRIBUTE_ID } from "./CustomAttributeFunction";
+import { CUSTOM_ATTRIBUTE_FILEPATH, CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, PRE_CUSTOMATTRIBUTELIST_ID, PRE_CUSTOMATTRIBUTE_ID } from "./Const/CustomAttributeConst";
 
-
-//カスタム属性リストファイルのパス
-const CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTELIST}${JSONEXTENSION}`;
 
 
 /**

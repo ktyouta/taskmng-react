@@ -20,12 +20,6 @@ const OuterDiv = styled.div`
     min-height: 100%;
 `;
 
-//編集モードの種類
-export const editModeEnum = {
-    noselect: 0,
-    create: 1,
-    update: 2,
-}
 
 //引数の型
 type propsType = {

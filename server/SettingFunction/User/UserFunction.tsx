@@ -9,14 +9,12 @@ import {
 } from "../../Constant";
 import { overWriteData } from "../../FileFunction";
 import { userInfoType } from "../../Type/type";
+import { USERINFO_FILEPATH } from "./Const/UserConst";
 import { createDeleteUserData } from "./UserDeleteFunction";
 import { createAddUserData, dubUserCheck } from "./UserRegistFunction";
 import { filterUserInfoDetail, getUserInfoData, joinAuthInfo } from "./UserSelectFunction";
 import { createUpdUserData } from "./UserUpdateFunction";
 
-
-//ユーザー情報ファイルのパス
-export const USERINFO_FILEPATH = `${SETTINGFILEPATH}${USERINFOFILEPATH}${JSONEXTENSION}`;
 
 
 /**

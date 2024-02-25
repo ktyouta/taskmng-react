@@ -3,10 +3,6 @@ import { authInfoType } from "../../Type/type";
 import { categoryType, checkOrderType } from "./Type/CategoryType";
 
 
-//カテゴリIDの接頭辞
-const PRE_CATEGORY_ID = `CATEGORY-`;
-
-
 /**
  * 更新用データの作成
  * @param filePath 

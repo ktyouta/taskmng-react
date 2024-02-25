@@ -1304,8 +1304,8 @@
 	},
 	{
 		"id": "TASKID-110",
-		"title": "タスク登録時のID取得処理の修正",
-		"content": "参考：CustomAttributeSelectFunction.tsx",
+		"title": "データ登録時のID取得処理の修正",
+		"content": "・対象\n　・CategoryRegistFunction.tsx\n　・TaskRegistFunction.tsx\n\n\n・参考\n　・CustomAttributeSelectFunction.tsx",
 		"registerTime": "2024/02/25",
 		"updTime": "2024/02/25",
 		"limitTime": "",

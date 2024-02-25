@@ -1,10 +1,7 @@
 import { getNowDate } from "../../Common/Function";
 import { authInfoType } from "../../Type/type";
+import { PRE_CATEGORY_ID } from "./Const/CategoryConst";
 import { categoryType } from "./Type/CategoryType";
-
-
-//カテゴリIDの接頭辞
-const PRE_CATEGORY_ID = `CATEGORY-`;
 
 
 /**

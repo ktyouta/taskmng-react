@@ -7,27 +7,12 @@ import {
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { authInfoType, customAttributeListType, customAttributeType, taskListType } from "../../Type/type";
-import { CATEGORY_FILEPATH, filterCategoryDetail, getFilterdCategory } from "./CategorySelectFunction";
+import { filterCategoryDetail, getFilterdCategory } from "./CategorySelectFunction";
 import { categoryType, checkOrderType } from "./Type/CategoryType";
 import { createAddCategoryData } from "./CategoryRegistFunction";
 import { createUpdCategoryData, createUpdCategoryOrderData } from "./CategoryUpdateFunction";
 import { createDelCategoryData } from "./CategoryDeleteFunction";
-
-
-//カスタム属性ファイルのパス
-export const CUSTOM_ATTRIBUTE_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTE}${JSONEXTENSION}`;
-//カスタム属性リストファイルのパス
-export const CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTELIST}${JSONEXTENSION}`;
-//カスタム属性IDの接頭辞
-export const PRE_CUSTOMATTRIBUTE_ID = `ATTRIBUTEID-`;
-//カスタム属性リストIDの接頭辞
-export const PRE_CUSTOMATTRIBUTELIST_ID = `ATTRIBUTELISTID-`;
-
-//カスタム属性の選択リストの登録メソッドの戻り値
-export type registSelectListRetType = {
-    errMsg: string,
-    registSelectList: customAttributeListType[]
-}
+import { CATEGORY_FILEPATH } from "./Const/CategoryConst";
 
 
 /**

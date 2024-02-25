@@ -1,5 +1,4 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { editModeEnum } from "../SettingCategory";
 import { useNavigate } from "react-router-dom";
 import { createRef, useEffect, useMemo, useState } from "react";
 import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrapper";
@@ -12,9 +11,9 @@ import { buttonType } from "../../../Common/ButtonComponent";
 import { categoryType, registCategoryType } from "../Type/SettingCategoryType";
 import useSwitch from "../../../Common/Hook/useSwitch";
 import { categoryIdAtom, editModeAtom } from "../Atom/SettingCategoryAtom";
+import { AUTH_ID } from "../Const/SettingCategoryConst";
+import { editModeEnum } from "../../Const/SettingConst";
 
-//権限ID
-const AUTH_ID = "1";
 
 //引数の型
 type propsType = {

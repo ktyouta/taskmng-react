@@ -3,10 +3,10 @@ import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrappe
 import ENV from '../../../env.json';
 import { useNavigate } from "react-router-dom";
 import { useSetAtom } from "jotai";
-import { editModeEnum } from "../SettingDefault";
 import { defaultAttributeType } from "../Type/SettingDefaultType";
 import useGetTaskInputSetting from "../../../Task/Hook/useGetTaskInputSetting";
 import { defaultAttributeIdAtom, editModeAtom } from "../Atom/SettingDefaultAtom";
+import { editModeEnum } from "../../Const/SettingConst";
 
 
 //引数の型

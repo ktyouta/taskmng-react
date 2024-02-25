@@ -14,10 +14,10 @@ import LabelTextAreaComponent from '../../Common/LabelTextAreaComponent';
 import BaseTextAreaComponent from '../../Common/BaseTextAreaComponent';
 import SpaceComponent from '../../Common/SpaceComponent';
 import HorizontalComponent from '../../Common/HorizontalComponent';
-import { editModeEnum } from './SettingDefault';
 import NumberPickerComponent from '../../Common/NumberPickerComponent';
 import { defaultAttributeInputRefType, initRefValueType } from './Type/SettingDefaultType';
 import ComboComponent from '../../Common/ComboComponent';
+import { editModeEnum } from '../Const/SettingConst';
 
 
 //外側のスタイル

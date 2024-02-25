@@ -14,16 +14,9 @@ import { filterCustomAttributeDetail, getCustomAttributeData, getCustomAttribute
 import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
 import { getSearchConditionList, getSearchConditionObj } from "../../SearchCondition/SearchConditionSelectFunction";
 import { SEARCHCONDITION_FILE_PATH } from "../../SearchCondition/SearchConditionFunction";
+import { CUSTOM_ATTRIBUTE_FILEPATH } from "./Const/CustomAttributeConst";
 
 
-//カスタム属性ファイルのパス
-export const CUSTOM_ATTRIBUTE_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTE}${JSONEXTENSION}`;
-//カスタム属性リストファイルのパス
-export const CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTELIST}${JSONEXTENSION}`;
-//カスタム属性IDの接頭辞
-export const PRE_CUSTOMATTRIBUTE_ID = `ATTRIBUTEID-`;
-//カスタム属性リストIDの接頭辞
-export const PRE_CUSTOMATTRIBUTELIST_ID = `ATTRIBUTELISTID-`;
 
 //カスタム属性の選択リストの登録メソッドの戻り値
 export type registSelectListRetType = {

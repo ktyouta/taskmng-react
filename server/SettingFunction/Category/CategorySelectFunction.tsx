@@ -1,9 +1,8 @@
 import { CATEGORYFILEPATH, JSONEXTENSION, SETTINGFILEPATH } from "../../Constant";
 import { getFileJsonData } from "../../FileFunction";
+import { CATEGORY_FILEPATH } from "./Const/CategoryConst";
 import { categoryType } from "./Type/CategoryType";
 
-//メニューファイルのパス
-export const CATEGORY_FILEPATH = `${SETTINGFILEPATH}${CATEGORYFILEPATH}${JSONEXTENSION}`;
 
 /**
  * カテゴリの絞り込み

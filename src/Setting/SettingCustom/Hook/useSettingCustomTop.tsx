@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
-import { editModeEnum } from "../SettingCustom";
 import { useNavigate } from "react-router-dom";
 import { customAttributeIdAtom, editModeAtom } from "../Atom/SettingCustomAtom";
+import { editModeEnum } from "../../Const/SettingConst";
 
 //引数の型
 type propsType = {

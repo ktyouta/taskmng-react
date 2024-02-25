@@ -3,9 +3,6 @@ import { authInfoType } from "../../Type/type";
 import { categoryType } from "./Type/CategoryType";
 
 
-//カテゴリIDの接頭辞
-const PRE_CATEGORY_ID = `CATEGORY-`;
-
 
 /**
  * 削除用データの作成

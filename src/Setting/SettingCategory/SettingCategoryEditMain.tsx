@@ -15,8 +15,8 @@ import BaseTextAreaComponent from '../../Common/BaseTextAreaComponent';
 import SpaceComponent from '../../Common/SpaceComponent';
 import HorizontalComponent from '../../Common/HorizontalComponent';
 import ComboComponent from '../../Common/ComboComponent';
-import { editModeEnum } from './SettingCategory';
 import CheckBoxComponent from '../../Common/CheckBoxComponent';
+import { editModeEnum } from '../Const/SettingConst';
 
 
 //外側のスタイル

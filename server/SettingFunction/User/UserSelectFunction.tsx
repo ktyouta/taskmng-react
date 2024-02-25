@@ -1,11 +1,9 @@
 import { JSONEXTENSION, SETTINGFILEPATH, USERINFOFILEPATH } from "../../Constant";
 import { getFileJsonData } from "../../FileFunction";
 import { generalDetailType, userInfoType } from "../../Type/type";
-import { GENERALDETAIL_FILEPATH } from "../DefaultAttribute/DefaultAttributeFunction";
-import { USERINFO_FILEPATH } from "./UserFunction";
+import { GENERALDETAIL_FILEPATH } from "../DefaultAttribute/Const/DefaultAttributeConst";
+import { AUTH_ID, USERINFO_FILEPATH } from "./Const/UserConst";
 
-//権限のID
-const AUTH_ID = "1";
 
 /**
  * ユーザー情報を取得
