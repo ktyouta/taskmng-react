@@ -12,9 +12,8 @@ import useTask from './Hook/useTask';
 import TaskDetail from './TaskDetail';
 import NotFoundComponent from '../NotFound/NotFoundComponent';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import { DUMMY_ID } from './Const/TaskConst';
 
-//NotFound画面遷移用のダミーID
-export const DUMMY_ID = "ZZZ";
 
 type propsType = {
   path: string,

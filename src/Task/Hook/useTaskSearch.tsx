@@ -15,10 +15,10 @@ import useGetGeneralDataList from "../../Common/Hook/useGetGeneralDataList";
 import SpaceComponent from "../../Common/SpaceComponent";
 import React from "react";
 import { parseStrDate } from "../../Common/Function/Function";
-import { SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY, SEARCHCONDITION_KEY_CUSTOM } from "./useTask";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
 import { createSearchDispCondition, createSearchRefArray } from "../Function/TaskFunction";
 import { taskListUrlAtom, taskSearchConditionObjAtom } from "../Atom/TaskAtom";
+import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../Const/TaskConst";
 
 
 

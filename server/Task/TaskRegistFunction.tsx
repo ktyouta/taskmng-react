@@ -6,9 +6,8 @@ import { authInfoType, taskCustomAttributeSelectType, taskListType } from "../Ty
 import { getCustomAttributeTaskObj } from "./TaskSelectFunction";
 import { runAddTaskHistory } from "../History/HistoryFunction";
 import { getNowDate } from "../Common/Function";
+import { PRE_TASK_ID } from "./Const/TaskConst";
 
-//タスクIDの接頭辞
-const PRE_TASK_ID = `TASKID-`;
 
 /**
  * 登録用データの作成

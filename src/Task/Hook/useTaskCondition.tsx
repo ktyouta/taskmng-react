@@ -11,7 +11,6 @@ import { createRequestBody } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
 import TaskEditForm from "../TaskEditForm";
 import { tabType } from "../../Common/TabComponent";
-import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT } from "./useTask";
 import React from "react";
 import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
 import { createTabItems } from "../Function/TaskFunction";

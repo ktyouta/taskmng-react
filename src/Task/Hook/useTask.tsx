@@ -5,22 +5,14 @@ import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
 import { useNavigate } from "react-router-dom";
 import { taskSearchConditionType } from "../Type/TaskType";
-import { DUMMY_ID } from "../Task";
 import { detailRoutingIdAtom } from "../Atom/TaskAtom";
+import { DUMMY_ID, PRE_TASK_ID, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../Const/TaskConst";
 
 
+//引数の型
 type propsType = {
     path: string
 }
-
-//タスクIDの接頭辞
-const PRE_TASK_ID = `TASKID-`;
-//検索条件取得用のクエリキー
-export const SEARCHCONDITION_QUERY_KEY = "?attribute=";
-//デフォルト属性用の検索条件取得キー
-export const SEARCHCONDITION_KEY_DEFAULT = "default";
-//カスタム属性用の検索条件取得キー
-export const SEARCHCONDITION_KEY_CUSTOM = "custom";
 
 
 /**

@@ -10,8 +10,8 @@ import { buttonType } from "../../Common/ButtonComponent";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
 import { useSetAtom } from "jotai";
-import { DUMMY_ID } from "../Task";
 import { detailRoutingIdAtom } from "../Atom/TaskAtom";
+import { DUMMY_ID } from "../Const/TaskConst";
 
 
 //引数の型

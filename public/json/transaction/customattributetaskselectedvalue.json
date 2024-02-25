@@ -1901,7 +1901,7 @@
 		"taskId": "TASKID-89",
 		"customAttributeId": "ATTRIBUTEID-1",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/12",
+		"updTime": "2024/02/25",
 		"deleteFlg": "0",
 		"userId": "f"
 	},
@@ -1909,16 +1909,17 @@
 		"taskId": "TASKID-89",
 		"customAttributeId": "ATTRIBUTEID-2",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/12",
+		"updTime": "2024/02/25",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"selectedValue": ""
 	},
 	{
 		"taskId": "TASKID-89",
 		"customAttributeId": "ATTRIBUTEID-5",
 		"selectedValue": "",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/12",
+		"updTime": "2024/02/25",
 		"deleteFlg": "0",
 		"userId": "f"
 	},
@@ -1927,7 +1928,7 @@
 		"customAttributeId": "ATTRIBUTEID-7",
 		"selectedValue": "",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/12",
+		"updTime": "2024/02/25",
 		"deleteFlg": "0",
 		"userId": "f"
 	},
@@ -1936,7 +1937,7 @@
 		"customAttributeId": "ATTRIBUTEID-8",
 		"selectedValue": "",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/12",
+		"updTime": "2024/02/25",
 		"deleteFlg": "0",
 		"userId": "f"
 	},
@@ -1944,25 +1945,28 @@
 		"taskId": "TASKID-89",
 		"customAttributeId": "ATTRIBUTEID-9",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/12",
+		"updTime": "2024/02/25",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"selectedValue": ""
 	},
 	{
 		"taskId": "TASKID-89",
 		"customAttributeId": "ATTRIBUTEID-10",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/12",
+		"updTime": "2024/02/25",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"selectedValue": ""
 	},
 	{
 		"taskId": "TASKID-89",
 		"customAttributeId": "ATTRIBUTEID-11",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/12",
+		"updTime": "2024/02/25",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"selectedValue": ""
 	},
 	{
 		"taskId": "TASKID-90",
@@ -3806,5 +3810,105 @@
 		"deleteFlg": "0",
 		"userId": "f",
 		"selectedValue": ""
+	},
+	{
+		"taskId": "TASKID-89",
+		"customAttributeId": "ATTRIBUTEID-12",
+		"registerTime": "2024/02/25",
+		"updTime": "2024/02/25",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-89",
+		"customAttributeId": "ATTRIBUTEID-13",
+		"selectedValue": "",
+		"registerTime": "2024/02/25",
+		"updTime": "2024/02/25",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-110",
+		"customAttributeId": "ATTRIBUTEID-1",
+		"registerTime": "2024/02/25",
+		"updTime": "2024/02/25",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-110",
+		"customAttributeId": "ATTRIBUTEID-2",
+		"registerTime": "2024/02/25",
+		"updTime": "2024/02/25",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-110",
+		"customAttributeId": "ATTRIBUTEID-5",
+		"selectedValue": "",
+		"registerTime": "2024/02/25",
+		"updTime": "2024/02/25",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-110",
+		"customAttributeId": "ATTRIBUTEID-7",
+		"selectedValue": "",
+		"registerTime": "2024/02/25",
+		"updTime": "2024/02/25",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-110",
+		"customAttributeId": "ATTRIBUTEID-8",
+		"selectedValue": "",
+		"registerTime": "2024/02/25",
+		"updTime": "2024/02/25",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-110",
+		"customAttributeId": "ATTRIBUTEID-9",
+		"registerTime": "2024/02/25",
+		"updTime": "2024/02/25",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-110",
+		"customAttributeId": "ATTRIBUTEID-10",
+		"registerTime": "2024/02/25",
+		"updTime": "2024/02/25",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-110",
+		"customAttributeId": "ATTRIBUTEID-11",
+		"registerTime": "2024/02/25",
+		"updTime": "2024/02/25",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-110",
+		"customAttributeId": "ATTRIBUTEID-12",
+		"registerTime": "2024/02/25",
+		"updTime": "2024/02/25",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"taskId": "TASKID-110",
+		"customAttributeId": "ATTRIBUTEID-13",
+		"registerTime": "2024/02/25",
+		"updTime": "2024/02/25",
+		"deleteFlg": "0",
+		"userId": "f"
 	}
 ]

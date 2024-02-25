@@ -20,20 +20,11 @@ import SpaceComponent from "../../Common/SpaceComponent";
 import { createRequestBody, getNowDate, parseStrDate, requestBodyInputCheck } from "../../Common/Function/Function";
 import ButtonComponent from "../../Common/ButtonComponent";
 import styled from "styled-components";
-import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT } from "../Hook/useTask";
 import { tabType } from "../../Common/TabComponent";
 import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
 import TaskEditForm from "../TaskEditForm";
+import { COMP_STATUS, HOLD_STATUS, NOCOMP_STATUS, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, WORKING_STATUS } from "../Const/TaskConst";
 
-//ステータス
-//未完了
-const NOCOMP_STATUS = "1";
-//完了
-const COMP_STATUS = "2";
-//保留
-const HOLD_STATUS = "3";
-//対応中
-const WORKING_STATUS = "4";
 
 //フッターのスタイル
 const TaskConditionItemDiv = styled.div`

@@ -6,10 +6,7 @@ import { getGeneralDetailData } from "../GeneralFunction";
 import { authInfoType, taskCustomAttributeSelectType, taskListType } from "../Type/type";
 import { getCustomAttributeTaskObj } from "./TaskSelectFunction";
 
-//タスクファイルのパス
-const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
-//タスクIDの接頭辞
-const PRE_TASK_ID = `TASKID-`;
+
 
 /**
  * 削除用データの作成

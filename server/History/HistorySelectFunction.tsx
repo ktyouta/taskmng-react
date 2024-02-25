@@ -2,7 +2,7 @@ import { getGeneralDataList } from "../Common/Function";
 import { GENERALDETAILFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKHISTORYPATH, TRANSACTION, USERINFOFILEPATH } from "../Constant";
 import { readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
-import { TASK_FILEPATH } from "../Task/TaskSelectFunction";
+import { TASK_FILEPATH } from "../Task/Const/TaskConst";
 import { generalDetailType, taskListType, userInfoType } from "../Type/type";
 import { TASK_HISTORY_PATH } from "./HistoryFunction";
 import { addTaskHistoryType, taskHistoryType } from "./Type/HistoryType";

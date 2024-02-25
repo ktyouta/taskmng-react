@@ -8,17 +8,8 @@ import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFun
 import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
 import { filterCustomAttribute, filterDefaultAttribute, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
 import { runAddTaskHistory } from "../History/HistoryFunction";
+import { CREATE, CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, DELETE, TASK_FILEPATH, UPDATE } from "./Const/TaskConst";
 
-//タスクファイルのパス
-const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
-//カスタム属性登録用ファイルのパス
-const CUSTOMATTRIBUTESELECTVALUE_FILE_PATH = `${TRANSACTION}${CUSTOMATTRIBUTESELECT}${JSONEXTENSION}`;
-//CRUDモード(登録)
-const CREATE = "1";
-//CRUDモード(更新)
-const UPDATE = "2";
-//CRUDモード(削除)
-const DELETE = "3";
 
 
 /**

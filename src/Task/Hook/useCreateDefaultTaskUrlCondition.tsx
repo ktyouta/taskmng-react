@@ -5,8 +5,8 @@ import { taskListUrlAtom, taskSearchConditionObjAtom } from '../Atom/TaskAtom';
 
 
 /**
- * 
- * @param selectedMaster 
+ * 検索条件設定リストから初期表示タスクの取得用URLを作成するメソッドを返却
+ * @param taskSearchConditionList タスクの設定リスト
  * @returns 
  */
 function useCreateDefaultTaskUrlCondition(taskSearchConditionList: taskSearchConditionType[] | undefined) {

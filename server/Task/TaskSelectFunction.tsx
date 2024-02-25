@@ -7,17 +7,8 @@ import { getCustomAttributeData, getCustomAttributeListData } from "../SettingFu
 import { joinGeneralSetting } from "../History/HistorySelectFunction";
 import { getFilterdSearchConditionList, getSearchConditionList } from "../SearchCondition/SearchConditionSelectFunction";
 import { searchConditionType } from "../SearchCondition/Type/SearchConditionType";
+import { CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, CUSTOMATTRIBUTE_KEY_DEFAULT, SEARCHCONDITION_KEY_DEFAULT, TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, TASK_FILEPATH } from "./Const/TaskConst";
 
-//タスクファイルのパス
-export const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
-//カスタム属性リストファイルのパス
-export const TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOMATTRIBUTESELECT}${JSONEXTENSION}`;
-//カスタム属性登録用ファイルのパス
-const CUSTOMATTRIBUTESELECTVALUE_FILE_PATH = `${TRANSACTION}${CUSTOMATTRIBUTESELECT}${JSONEXTENSION}`;
-//デフォルト属性用の検索条件取得キー
-const SEARCHCONDITION_KEY_DEFAULT = "default";
-//カスタム属性用の検索条件取得キー
-const CUSTOMATTRIBUTE_KEY_DEFAULT = "custom";
 
 
 /**
