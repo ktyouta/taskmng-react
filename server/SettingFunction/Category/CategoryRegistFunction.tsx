@@ -1,5 +1,6 @@
 import { getNowDate } from "../../Common/Function";
 import { authInfoType } from "../../Type/type";
+import { createCategoryNewId } from "./CategorySelectFunction";
 import { PRE_CATEGORY_ID } from "./Const/CategoryConst";
 import { categoryType } from "./Type/CategoryType";
 
@@ -36,11 +37,8 @@ export function createAddCategoryData(fileDataObj: categoryType[], req: any, aut
     body.updTime = nowDate;
     body.deleteFlg = "0";
 
-    let fileDataObjLen = fileDataObj.length;
-    //IDを取得
-    let id = fileDataObjLen === 0 ? "1" : fileDataObj[fileDataObjLen - 1].id.replace(`${PRE_CATEGORY_ID}`, "");
     //新しいIDを割り当てる
-    body.id = `${PRE_CATEGORY_ID}${parseInt(id) + 1}`;
+    body.id = createCategoryNewId(fileDataObj);
 
     fileDataObj.push(body);
     return fileDataObj;

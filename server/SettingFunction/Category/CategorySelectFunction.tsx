@@ -1,6 +1,6 @@
 import { CATEGORYFILEPATH, JSONEXTENSION, SETTINGFILEPATH } from "../../Constant";
 import { getFileJsonData } from "../../FileFunction";
-import { CATEGORY_FILEPATH } from "./Const/CategoryConst";
+import { CATEGORY_FILEPATH, PRE_CATEGORY_ID } from "./Const/CategoryConst";
 import { categoryType } from "./Type/CategoryType";
 
 
@@ -35,4 +35,17 @@ export function filterCategoryDetail(decodeFileData: categoryType[], id: string,
     }
 
     return res.status(200).json(singleCustomAttributeData);
+}
+
+
+/**
+ * カテゴリのIDを作成
+ */
+export function createCategoryNewId(categoryList: categoryType[]) {
+    //IDが最大のNOを取得
+    let maxNo = categoryList.reduce<number>((prev: number, current: categoryType) => {
+        let currentNm = parseInt(current.id.replace(`${PRE_CATEGORY_ID}`, ""));
+        return Math.max(prev, currentNm);
+    }, 0);
+    return `${PRE_CATEGORY_ID}${maxNo + 1}`;
 }

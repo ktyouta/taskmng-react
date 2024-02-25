@@ -137,3 +137,9 @@ export type taskCustomAttributeSelectType = {
     deleteFlg: string,
     userId: string
 }
+
+//タスクの登録用データの作成時の返却用の型
+export type retCreateAddTaskType = {
+    registDatas: taskListType[],
+    newTaskId: string,
+}

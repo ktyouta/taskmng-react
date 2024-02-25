@@ -95,20 +95,17 @@ export function runAddTask(res: any, req: any) {
     let decodeFileData: taskListType[] = getTaskObj();
 
     //登録用データの作成
-    let registData = createAddTaskData(decodeFileData, req, authResult);
+    let retObj = createAddTaskData(decodeFileData, req, authResult);
 
     //タスクが登録されていない
-    if (!registData || !Array.isArray(registData) || registData.length === 0) {
+    if (!retObj.registDatas || retObj.registDatas.length === 0) {
         return res
             .status(400)
-            .json({ errMessage: "タスクが登録されていません。" });
+            .json({ errMessage: "タスクの登録に失敗しました。" });
     }
 
-    //新規登録するタスクのID
-    let registTaskId = registData[registData.length - 1].id;
-
     //データを登録
-    let errMessage = overWriteData(TASK_FILEPATH, JSON.stringify(registData, null, '\t'));
+    let errMessage = overWriteData(TASK_FILEPATH, JSON.stringify(retObj.registDatas, null, '\t'));
 
     //登録更新削除に失敗
     if (errMessage) {
@@ -118,7 +115,7 @@ export function runAddTask(res: any, req: any) {
     }
 
     //カスタム属性の登録用データを作成
-    let registCustomData = createAddCustomAttributeData(req, authResult, registData);
+    let registCustomData = createAddCustomAttributeData(req, authResult, retObj.registDatas);
 
     //カスタム属性のデータを登録
     let customErrMessage = overWriteData(CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, JSON.stringify(registCustomData, null, '\t'));
@@ -131,7 +128,7 @@ export function runAddTask(res: any, req: any) {
     }
 
     //作業履歴の登録
-    let historyErrMessage = runAddTaskHistory(authResult, registTaskId, CREATE);
+    let historyErrMessage = runAddTaskHistory(authResult, retObj.newTaskId, CREATE);
 
     //作業履歴の登録に失敗
     if (historyErrMessage) {

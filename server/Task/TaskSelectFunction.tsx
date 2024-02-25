@@ -7,7 +7,7 @@ import { getCustomAttributeData, getCustomAttributeListData } from "../SettingFu
 import { joinGeneralSetting } from "../History/HistorySelectFunction";
 import { getFilterdSearchConditionList, getSearchConditionList } from "../SearchCondition/SearchConditionSelectFunction";
 import { searchConditionType } from "../SearchCondition/Type/SearchConditionType";
-import { CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, CUSTOMATTRIBUTE_KEY_DEFAULT, SEARCHCONDITION_KEY_DEFAULT, TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, TASK_FILEPATH } from "./Const/TaskConst";
+import { CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, CUSTOMATTRIBUTE_KEY_DEFAULT, PRE_TASK_ID, SEARCHCONDITION_KEY_DEFAULT, TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, TASK_FILEPATH } from "./Const/TaskConst";
 
 
 
@@ -229,4 +229,17 @@ export function getCustomAttributeTaskObj(): taskCustomAttributeSelectType[] {
     //タスクファイルの読み込み
     let fileData = readFile(CUSTOMATTRIBUTESELECTVALUE_FILE_PATH);
     return JSON.parse(fileData);
+}
+
+
+/**
+ * タスクのIDを作成
+ */
+export function createTaskNewId(taskList: taskListType[]) {
+    //IDが最大のNOを取得
+    let maxNo = taskList.reduce<number>((prev: number, current: taskListType) => {
+        let currentNm = parseInt(current.id.replace(`${PRE_TASK_ID}`, ""));
+        return Math.max(prev, currentNm);
+    }, 0);
+    return `${PRE_TASK_ID}${maxNo + 1}`;
 }

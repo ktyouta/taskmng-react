@@ -83,7 +83,7 @@ export function runAddCategory(res: any, req: any) {
     if (!registData || !Array.isArray(registData) || registData.length === 0) {
         return res
             .status(400)
-            .json({ errMessage: "カテゴリが登録されませんでした。" });
+            .json({ errMessage: "カテゴリの登録に失敗しました。" });
     }
 
     //表示順を割り当てる

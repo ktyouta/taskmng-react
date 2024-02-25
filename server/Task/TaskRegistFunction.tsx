@@ -2,8 +2,8 @@ import { authenticate } from "../AuthFunction";
 import { CUSTOMATTRIBUTESELECT, JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "../Constant";
 import { overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
-import { authInfoType, taskCustomAttributeSelectType, taskListType } from "../Type/type";
-import { getCustomAttributeTaskObj } from "./TaskSelectFunction";
+import { authInfoType, retCreateAddTaskType, taskCustomAttributeSelectType, taskListType } from "../Type/type";
+import { createTaskNewId, getCustomAttributeTaskObj } from "./TaskSelectFunction";
 import { runAddTaskHistory } from "../History/HistoryFunction";
 import { getNowDate } from "../Common/Function";
 import { PRE_TASK_ID } from "./Const/TaskConst";
@@ -16,7 +16,12 @@ import { PRE_TASK_ID } from "./Const/TaskConst";
  * @returns 
  */
 export function createAddTaskData(fileDataObj: taskListType[], req: any, authResult: authInfoType)
-    : taskListType[] {
+    : retCreateAddTaskType {
+
+    let retObj: retCreateAddTaskType = {
+        registDatas: [],
+        newTaskId: ""
+    }
 
     //現在日付を取得
     const nowDate = getNowDate();
@@ -42,13 +47,16 @@ export function createAddTaskData(fileDataObj: taskListType[], req: any, authRes
     //未対応
     //body.status = "1";
 
-    let fileDataObjLen = fileDataObj.length;
     //IDを取得
-    let id = fileDataObjLen === 0 ? "1" : fileDataObj[fileDataObjLen - 1]['id'].replace(`${PRE_TASK_ID}`, "");
+    let id = createTaskNewId(fileDataObj);
     //新しいIDを割り当てる
-    body['id'] = `${PRE_TASK_ID}${parseInt(id) + 1}`;
+    body['id'] = id;
     fileDataObj.push(body);
-    return fileDataObj;
+
+    retObj.registDatas = fileDataObj;
+    retObj.newTaskId = id;
+
+    return retObj;
 }
 
 
