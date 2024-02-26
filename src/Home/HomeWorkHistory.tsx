@@ -8,6 +8,15 @@ import styled from 'styled-components';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 
 
+//外側のスタイル
+const OuterDiv = styled.div<{ height: string, width: string }>`
+    width: ${({ width }) => (width)};
+    height: ${({ height }) => (height)};
+    overflow: auto;
+    overflow-x: hidden;
+    margin-left: auto;
+    margin-right: auto;
+`;
 
 //履歴表示エリアのスタイル
 const WorkHistoryListUl = styled.ul`
@@ -29,7 +38,8 @@ function HomeWorkHistory() {
     const {
         workDisplayList,
         isLoading,
-        isError
+        isError,
+        workHistoryList
     } = useHomeWorkHistory();
 
     //ローディング
@@ -43,11 +53,70 @@ function HomeWorkHistory() {
     }
 
     return (
-        <OunterDiv>
-            <WorkHistoryListUl>
+        <React.Fragment>
+            {/* <WorkHistoryListUl>
                 {workDisplayList}
-            </WorkHistoryListUl>
-        </OunterDiv>
+            </WorkHistoryListUl> */}
+            <OuterDiv
+                height="100%"
+                width="100%"
+            >
+                <div className="tablecomponent">
+                    <table className="tablecomponent-table-tag">
+                        <thead className="tablecomponent-thead">
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    タイトル
+                                </th>
+                                <th>
+                                    作業内容
+                                </th>
+                                <th>
+                                    作業ユーザー
+                                </th>
+                                <th>
+                                    作業日時
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody className="tablecomponent-tbody">
+                            {
+                                workHistoryList && workHistoryList.map((element) => {
+                                    return (
+                                        <tr>
+                                            <td>
+                                                {element.taskId}
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                {element.editType}
+                                            </td>
+                                            <td>
+                                                {element.userName}
+                                            </td>
+                                            <td>
+                                                {element.time}
+                                            </td>
+                                            <td>
+                                                URLをコピー
+                                            </td>
+                                        </tr>
+                                    );
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </OuterDiv>
+        </React.Fragment>
     );
 }
 

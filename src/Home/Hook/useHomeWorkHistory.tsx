@@ -45,7 +45,8 @@ function useHomeWorkHistory() {
     return {
         workDisplayList,
         isLoading: isLoading || isFetching,
-        isError
+        isError,
+        workHistoryList,
     };
 }
 
