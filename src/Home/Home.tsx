@@ -5,6 +5,7 @@ import LabelComponent from '../Common/LabelComponent';
 import HomeWorkHistory from './HomeWorkHistory';
 import { BoldSpan, HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import styled from 'styled-components';
+import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
 
 
 //履歴表示エリアのスタイル
@@ -21,11 +22,14 @@ function Home() {
 
     return (
         <HeightDiv
-            height='100%'
+            height='95%'
         >
             <MainDiv>
                 <LabelComponent
                     title={<BoldSpan>作業履歴</BoldSpan>}
+                />
+                <VerticalSpaceComponent
+                    space={'5%'}
                 />
                 <HomeWorkHistory />
             </MainDiv>

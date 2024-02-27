@@ -8,4 +8,5 @@ export type taskHistoryType = {
     editType: string,
     deleteFlg: string,
     historyMessage: string,
+    url: string,
 }

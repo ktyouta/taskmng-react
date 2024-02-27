@@ -42,11 +42,25 @@ function useHomeWorkHistory() {
         return createTaskHistory(workHistoryList);
     }, [workHistoryList, userInfo]);
 
+    /**
+     * タスク詳細のURLをクリップボードにコピー
+     * @param url 
+     */
+    const copyUrlToClipboard = (url: string) => {
+        navigator.clipboard.writeText(url)
+            .then(function () {
+                alert("URLをコピーしました。");
+            }, function (err) {
+                alert("URLのコピーに失敗しました。");
+            });
+    }
+
     return {
         workDisplayList,
         isLoading: isLoading || isFetching,
         isError,
         workHistoryList,
+        copyUrlToClipboard,
     };
 }
 

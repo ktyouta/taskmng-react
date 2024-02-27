@@ -2,19 +2,23 @@ import { getGeneralDataList } from "../Common/Function";
 import { GENERALDETAILFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKHISTORYPATH, TRANSACTION, USERINFOFILEPATH } from "../Constant";
 import { readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
+import { getFilterdCategory } from "../SettingFunction/Category/CategorySelectFunction";
+import { categoryType } from "../SettingFunction/Category/Type/CategoryType";
 import { TASK_FILEPATH } from "../Task/Const/TaskConst";
 import { generalDetailType, taskListType, userInfoType } from "../Type/type";
 import { TASK_HISTORY_PATH } from "./HistoryFunction";
 import { addTaskHistoryType, taskHistoryType } from "./Type/HistoryType";
+import ENV from '../../src/env.json';
 
 
-//汎用詳細ファイルのパス
-const GENERAL_DETAIL_FILEPATH = `${MASTERFILEPATH}${GENERALDETAILFILEPATH}${JSONEXTENSION}`;
 //ユーザー情報ファイルのパス
 const USER_INFO_FILEPATH = `${SETTINGFILEPATH}${USERINFOFILEPATH}${JSONEXTENSION}`;
 
 //CRUDのID
 const CRUD_ID = "5";
+
+//タスクのカテゴリID
+const TASK_CATEGORY_ID = "CATEGORY-5";
 
 /**
  * タスクの作業履歴を取得
@@ -114,12 +118,39 @@ export function getAddTaskHistoryObj(): addTaskHistoryType[] {
 export function createHistoryMessage(decodeFileData: taskHistoryType[]) {
 
     //タスクステータスリスト
-    let crudList = getGeneralDetailData(CRUD_ID);
+    // let crudList = getGeneralDetailData(CRUD_ID);
 
+    // decodeFileData.forEach((element) => {
+
+    //     element.historyMessage = `${element.editType}日時：${element.time}　ID：${element.taskId}　タイトル：${element.taskTitle}　
+    //     作業内容：${element.editType}　　作業ユーザー：${element.userName}`;
+    // });
+
+    return decodeFileData;
+}
+
+
+/**
+ * タスクのURLを作成
+ */
+export function createTaskUrl(decodeFileData: taskHistoryType[]) {
+
+    //カテゴリの読み込み
+    let categoryLists: categoryType[] = getFilterdCategory();
+
+    //タスクのメニューデータを取得
+    let taskCategoryData = categoryLists.find((element) => {
+        return element.id === TASK_CATEGORY_ID;
+    });
+
+    //タスクのカテゴリが存在しない
+    if (!taskCategoryData) {
+        return decodeFileData;
+    }
+
+    //タスクのURLを作成
     decodeFileData.forEach((element) => {
-
-        element.historyMessage = `${element.editType}日時：${element.time}　ID：${element.taskId}　タイトル：${element.taskTitle}　
-        作業内容：${element.editType}　　作業ユーザー：${element.userName}`;
+        element.url = taskCategoryData ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.LOCALPORT}${taskCategoryData?.path}/${element.taskId}` : "";
     });
 
     return decodeFileData;

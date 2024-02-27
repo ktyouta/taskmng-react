@@ -3,7 +3,7 @@ import { JSONEXTENSION, TASKHISTORYPATH, TRANSACTION } from "../Constant";
 import { overWriteData } from "../FileFunction";
 import { authInfoType } from "../Type/type";
 import { createAddTaskHistory } from "./HistoryRegistFunction";
-import { createHistoryMessage, getAddTaskHistoryObj, getFilterdTaskHistory, joinGeneralSetting } from "./HistorySelectFunction";
+import { createHistoryMessage, createTaskUrl, getAddTaskHistoryObj, getFilterdTaskHistory, joinGeneralSetting } from "./HistorySelectFunction";
 import { addTaskHistoryType, taskHistoryType } from "./Type/HistoryType";
 
 //タスクの作業履歴ファイルのパス
@@ -34,7 +34,10 @@ export function getTaskHistory(res: any, req: any) {
     decodeFileData = joinGeneralSetting(decodeFileData);
 
     //履歴のメッセージを作成
-    decodeFileData = createHistoryMessage(decodeFileData);
+    //decodeFileData = createHistoryMessage(decodeFileData);
+
+    //タスクのURLを作成
+    decodeFileData = createTaskUrl(decodeFileData);
 
     return res.status(200).json(decodeFileData);
 }

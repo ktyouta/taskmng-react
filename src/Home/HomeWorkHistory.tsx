@@ -6,6 +6,7 @@ import Loading from '../Common/Loading';
 import useHomeWorkHistory from './Hook/useHomeWorkHistory';
 import styled from 'styled-components';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import ENV from '../env.json';
 
 
 //外側のスタイル
@@ -25,10 +26,14 @@ const WorkHistoryListUl = styled.ul`
     margin-right: 10%;
 `;
 
-const OunterDiv = styled.div`
-    height: 85%;
-    overflow-y: auto;
+//URL列
+const IdTd = styled.td<{ titleBgColor?: string }>`
+    cursor:pointer;
+    color: blue;
+    text-decoration: underline;
 `;
+
+
 
 function HomeWorkHistory() {
 
@@ -39,7 +44,8 @@ function HomeWorkHistory() {
         workDisplayList,
         isLoading,
         isError,
-        workHistoryList
+        workHistoryList,
+        copyUrlToClipboard,
     } = useHomeWorkHistory();
 
     //ローディング
@@ -81,7 +87,7 @@ function HomeWorkHistory() {
                                     作業日時
                                 </th>
                                 <th>
-
+                                    タスク詳細のURL
                                 </th>
                             </tr>
                         </thead>
@@ -105,9 +111,9 @@ function HomeWorkHistory() {
                                             <td>
                                                 {element.time}
                                             </td>
-                                            <td>
+                                            <IdTd onClick={() => { copyUrlToClipboard(element.url) }}>
                                                 URLをコピー
-                                            </td>
+                                            </IdTd>
                                         </tr>
                                     );
                                 })
