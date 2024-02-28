@@ -7,6 +7,7 @@ import useHomeWorkHistory from './Hook/useHomeWorkHistory';
 import styled from 'styled-components';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import ENV from '../env.json';
+import CenterLoading from '../Common/CenterLoading';
 
 
 //外側のスタイル
@@ -50,7 +51,7 @@ function HomeWorkHistory() {
 
     //ローディング
     if (isLoading) {
-        return <WorkHistoryListUl>Loading...</WorkHistoryListUl>;
+        return <CenterLoading />;
     }
 
     //エラー
@@ -64,7 +65,7 @@ function HomeWorkHistory() {
                 {workDisplayList}
             </WorkHistoryListUl> */}
             <OuterDiv
-                height="100%"
+                height="95%"
                 width="100%"
             >
                 <div className="tablecomponent">

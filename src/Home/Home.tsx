@@ -10,10 +10,16 @@ import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
 
 //履歴表示エリアのスタイル
 const MainDiv = styled.div`
+    padding-top: 2%;
+    height: 90%;
+    width: 100%;
+`;
+
+//履歴表示エリアのスタイル
+const TitleDiv = styled.div`
     text-align: left;
     margin-left: 5%;
     padding-top: 3%;
-    height: 90%;
 `;
 
 function Home() {
@@ -22,14 +28,16 @@ function Home() {
 
     return (
         <HeightDiv
-            height='95%'
+            height='90%'
         >
-            <MainDiv>
+            <TitleDiv>
                 <LabelComponent
                     title={<BoldSpan>作業履歴</BoldSpan>}
                 />
+            </TitleDiv>
+            <MainDiv>
                 <VerticalSpaceComponent
-                    space={'5%'}
+                    space={'1%'}
                 />
                 <HomeWorkHistory />
             </MainDiv>
