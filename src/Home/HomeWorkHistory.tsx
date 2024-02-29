@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import ENV from '../env.json';
 import CenterLoading from '../Common/CenterLoading';
+import AccordionComponent from '../Common/AccordionComponent';
 
 
 //外側のスタイル
@@ -101,7 +102,11 @@ function HomeWorkHistory() {
                                                 {element.taskId}
                                             </td>
                                             <td>
-
+                                                {
+                                                    <AccordionComponent
+                                                        text={'aaaaaaaaaaaaaaaaaaaaaaaaa'}
+                                                    />
+                                                }
                                             </td>
                                             <td>
                                                 {element.editType}
