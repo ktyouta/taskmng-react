@@ -35,6 +35,10 @@ const IdTd = styled.td<{ titleBgColor?: string }>`
     text-decoration: underline;
 `;
 
+//URL列
+const Th = styled.th<{ width: string }>`
+    width: ${({ width }) => (width)};
+`;
 
 
 function HomeWorkHistory() {
@@ -73,24 +77,36 @@ function HomeWorkHistory() {
                     <table className="tablecomponent-table-tag">
                         <thead className="tablecomponent-thead">
                             <tr>
-                                <th>
+                                <Th
+                                    width='10%'
+                                >
                                     ID
-                                </th>
-                                <th>
+                                </Th>
+                                <Th
+                                    width='30%'
+                                >
                                     タイトル
-                                </th>
-                                <th>
+                                </Th>
+                                <Th
+                                    width='10%'
+                                >
                                     作業内容
-                                </th>
-                                <th>
+                                </Th>
+                                <Th
+                                    width='20%'
+                                >
                                     作業ユーザー
-                                </th>
-                                <th>
+                                </Th>
+                                <Th
+                                    width='10%'
+                                >
                                     作業日時
-                                </th>
-                                <th>
+                                </Th>
+                                <Th
+                                    width='20%'
+                                >
                                     タスク詳細のURL
-                                </th>
+                                </Th>
                             </tr>
                         </thead>
                         <tbody className="tablecomponent-tbody">
@@ -104,7 +120,11 @@ function HomeWorkHistory() {
                                             <td>
                                                 {
                                                     <AccordionComponent
-                                                        text={'aaaaaaaaaaaaaaaaaaaaaaaaa'}
+                                                        text={
+                                                            <div style={{ textAlign: "left", paddingLeft: "10%" }}>
+                                                                {element.taskTitle}
+                                                            </div>
+                                                        }
                                                         defaultHeight={'30px'}
                                                     />
                                                 }
