@@ -105,6 +105,7 @@ function HomeWorkHistory() {
                                                 {
                                                     <AccordionComponent
                                                         text={'aaaaaaaaaaaaaaaaaaaaaaaaa'}
+                                                        defaultHeight={'30px'}
                                                     />
                                                 }
                                             </td>
