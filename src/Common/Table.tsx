@@ -1,46 +1,39 @@
 import React, { ReactNode, useState } from 'react';
 import '../App.css';
-import './css/TableComponent.css';
 import styled from 'styled-components';
 
 //ヘッダの型
-type tableHeadType = {
+export type tableHeadType = {
     content: ReactNode,
-    widht?: string,
+    width?: string,
     height?: string,
 }
 
-//ボディの型
-type tableBodyType = {
+//ボディのセルの型
+export type tableBodyType = {
     content: ReactNode,
-    widht?: string,
+    width?: string,
     height?: string,
+}
+
+//テーブルデータの型
+export type tableType = {
+    tableHead: tableHeadType[],
+    tableBody: tableBodyType[][],
+    tableHeight?: string,
+    tableWidth?: string,
 }
 
 //引数の型
 type propsType = {
-    tableHead: tableHeadType[],
-    tableBody: tableBodyType[],
-    tableHeight: string,
-    tableMaxHeight: string,
-    tableWidth: string,
+    tableDatas: tableType,
 }
 
 
-//外側のスタイル
-const OuterDiv = styled.div<{ height?: string, maxHeight?: string, width?: string, }>`
-  height: ${({ height }) => (height ? height : "400px")};
-  max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "80%")};
-  width: ${({ width }) => (width ? width : "90%")};
-  overflow: auto;
-  overflow-x: hidden;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
 //テーブルのスタイル
-const TableTable = styled.table`
-  width: 95%;
+const TableTable = styled.table<{ height?: string, width?: string, }>`
+  width: ${({ width }) => (width ? width : "90%")};
+  height: ${({ height }) => (height ? height : "90%")};
   margin-left: 3%;
   border: 1px solid #696969;
   border-collapse: separate;
@@ -48,7 +41,8 @@ const TableTable = styled.table`
 `;
 
 //ヘッダのスタイル
-const TableTh = styled.th`
+const TableTh = styled.th<{ width?: string, }>`
+  width: ${({ width }) => (width ? width : "")};
   cursor: pointer;
   border-bottom: 1px solid #696969;
   height: 50px;
@@ -59,28 +53,21 @@ const TableTh = styled.th`
 `;
 
 //行のスタイル
-const TableHeadTr = styled.tr`
+const TableHeadTr = styled.tr<{ height?: string }>`
+  height: ${({ height }) => (height ? height : "")};
   cursor: pointer;
 `;
 
 //行のスタイル
-const TableBodyTr = styled.tr<{ isSelected?: boolean }>`
-  background-color: ${({ isSelected }) => (isSelected ? "#00CCCC !important" : "")};
-  background-color: #66FFFF;
-  &:hover {
-    background-color: #46cdcf;
-    color: #fff;
-    cursor: pointer;
+const TableBodyTr = styled.tr`
+  &:last-child td{
+    border-bottom: none;
   }
 `;
 
 //セルのスタイル
-const TableTd = styled.td<{ height?: string }>`
+const TableTd = styled.td`
   border-bottom: 1px solid #696969;
-  height: ${({ height }) => (height ? height : "50px")};
-  &:tr:last-child {
-    border-bottom: none;
-  }
 `;
 
 
@@ -88,18 +75,25 @@ function Table(props: propsType) {
 
     console.log("Table render");
 
-    //選択した行データ
-    const [selectedElement, setSelectedElement] = useState<{}>({});
-
     return (
-        <OuterDiv>
-            <TableTable>
+        <React.Fragment>
+            <TableTable
+                height={props.tableDatas.tableHeight}
+                width={props.tableDatas.tableWidth}
+            >
                 <thead>
-                    <TableHeadTr>
+                    <TableHeadTr
+                    >
                         {
-                            props.tableHead.map((element, i) => {
+                            props.tableDatas.tableHead.map((element, i) => {
+                                //thのキー
+                                let tmpTime = new Date().getTime();
                                 return (
-                                    <TableTh key={`${element}-${i}`} onClick={() => { }}>
+                                    <TableTh
+                                        key={`th-${tmpTime}-${i}`}
+                                        onClick={() => { }}
+                                        width={element.width}
+                                    >
                                         {element.content}
                                     </TableTh>
                                 );
@@ -109,25 +103,27 @@ function Table(props: propsType) {
                 </thead>
                 <tbody>
                     {
-                        props.tableBody && props.tableBody.map((element, i) => {
-                            //テーブルボディの行選択イベント
-                            const rowClick = (element: { [key: string]: ReactNode }) => {
-                                setSelectedElement(element);
-                            }
-                            //行ごとにキーを作成
-                            let trkey = Object.values(element).join('-');
+                        props.tableDatas.tableBody && props.tableDatas.tableBody.map((element, i) => {
+                            //キー用
+                            let tmpTime = new Date().getTime();
+                            let trKey = `tr-${tmpTime}-${i}`;
                             return (
                                 <TableBodyTr
-                                    key={`${trkey}-${i}`}
-                                    onClick={() => { rowClick(element) }}
-                                    isSelected={JSON.stringify(element) === JSON.stringify(selectedElement)}
+                                    key={trKey}
                                 >
                                     {
-                                        Object.keys(element).map((key, j) => (
-                                            <TableTd>
-                                                {element.content}
-                                            </TableTd>
-                                        ))
+                                        element.map((item, j) => {
+                                            //キー用
+                                            let tmpTdTime = new Date().getTime();
+                                            let tdKey = `tr-${tmpTdTime}-${j}`;
+                                            return (
+                                                <TableTd
+                                                    key={tdKey}
+                                                >
+                                                    {item.content}
+                                                </TableTd>
+                                            )
+                                        })
                                     }
                                 </TableBodyTr>
                             );
@@ -135,7 +131,7 @@ function Table(props: propsType) {
                     }
                 </tbody>
             </TableTable>
-        </OuterDiv>
+        </React.Fragment>
     );
 }
 
