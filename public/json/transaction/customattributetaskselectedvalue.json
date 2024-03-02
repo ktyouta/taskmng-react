@@ -4023,7 +4023,8 @@
 		"registerTime": "2024/03/02",
 		"updTime": "2024/03/02",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"selectedValue": ""
 	},
 	{
 		"taskId": "TASKID-112",
@@ -4058,7 +4059,8 @@
 		"registerTime": "2024/03/02",
 		"updTime": "2024/03/02",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"selectedValue": ""
 	},
 	{
 		"taskId": "TASKID-112",
@@ -4066,7 +4068,8 @@
 		"registerTime": "2024/03/02",
 		"updTime": "2024/03/02",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"selectedValue": ""
 	},
 	{
 		"taskId": "TASKID-112",
@@ -4074,7 +4077,8 @@
 		"registerTime": "2024/03/02",
 		"updTime": "2024/03/02",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"selectedValue": ""
 	},
 	{
 		"taskId": "TASKID-112",
@@ -4090,6 +4094,7 @@
 		"registerTime": "2024/03/02",
 		"updTime": "2024/03/02",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"selectedValue": ""
 	}
 ]

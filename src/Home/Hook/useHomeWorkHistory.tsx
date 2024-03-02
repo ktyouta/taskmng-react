@@ -7,41 +7,34 @@ import { useAtomValue } from 'jotai';
 import { userInfoAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import { taskHistoryType } from '../Type/HomeType';
-import { createTaskHistory } from '../Function/HomeFunction';
+import { createTaskHistory, createTaskHistoryTable } from '../Function/HomeFunction';
+import { tableType } from '../../Common/Table';
 
 
 function useHomeWorkHistory() {
 
     //作業履歴リスト
     const {
-        data: workHistoryList,
         isLoading,
         isFetching,
         isError
     } = useQueryWrapper<taskHistoryType[]>(
         {
             url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASKHISTORY}`,
+            afSuccessFn: (data: taskHistoryType[]) => {
+                //取得したデータをテーブル用に変換
+                setTableWorkHistoryList(createTaskHistoryTable(data));
+            }
         }
     );
 
-    /**
-     * タスク詳細のURLをクリップボードにコピー
-     * @param url 
-     */
-    const copyUrlToClipboard = (url: string) => {
-        navigator.clipboard.writeText(url)
-            .then(function () {
-                alert("URLをコピーしました。");
-            }, function (err) {
-                alert("URLのコピーに失敗しました。");
-            });
-    }
+    //テーブル表示用作業履歴リスト
+    const [tableWorkHistoryList, setTableWorkHistoryList] = useState<tableType>();
 
     return {
+        tableWorkHistoryList,
         isLoading: isLoading || isFetching,
         isError,
-        workHistoryList,
-        copyUrlToClipboard,
     };
 }
 

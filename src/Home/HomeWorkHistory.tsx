@@ -10,6 +10,7 @@ import ENV from '../env.json';
 import CenterLoading from '../Common/CenterLoading';
 import AccordionComponent from '../Common/AccordionComponent';
 import ButtonComponent from '../Common/ButtonComponent';
+import Table from '../Common/Table';
 
 
 //外側のスタイル
@@ -56,8 +57,7 @@ function HomeWorkHistory() {
     const {
         isLoading,
         isError,
-        workHistoryList,
-        copyUrlToClipboard,
+        tableWorkHistoryList,
     } = useHomeWorkHistory();
 
     //ローディング
@@ -73,88 +73,15 @@ function HomeWorkHistory() {
     return (
         <React.Fragment>
             <OuterDiv
-                height="100%"
-                width="100%"
+                height="90%"
+                width="90%"
             >
-                <div className="tablecomponent">
-                    <table className="tablecomponent-table-tag">
-                        <thead className="tablecomponent-thead">
-                            <tr>
-                                <Th
-                                    width='10%'
-                                >
-                                    ID
-                                </Th>
-                                <Th
-                                    width='30%'
-                                >
-                                    タイトル
-                                </Th>
-                                <Th
-                                    width='10%'
-                                >
-                                    作業内容
-                                </Th>
-                                <Th
-                                    width='20%'
-                                >
-                                    作業ユーザー
-                                </Th>
-                                <Th
-                                    width='10%'
-                                >
-                                    作業日時
-                                </Th>
-                                <Th
-                                    width='20%'
-                                >
-                                    タスク詳細のURL
-                                </Th>
-                            </tr>
-                        </thead>
-                        <tbody className="tablecomponent-tbody">
-                            {
-                                workHistoryList && workHistoryList.map((element) => {
-                                    return (
-                                        <tr>
-                                            <td>
-                                                {element.taskId}
-                                            </td>
-                                            <td>
-                                                {
-                                                    <AccordionComponent
-                                                        text={
-                                                            <TitleDiv>
-                                                                {element.taskTitle}
-                                                            </TitleDiv>
-                                                        }
-                                                        defaultHeight={'30px'}
-                                                    />
-                                                }
-                                            </td>
-                                            <td>
-                                                {element.editType}
-                                            </td>
-                                            <td>
-                                                {element.userName}
-                                            </td>
-                                            <td>
-                                                {element.time}
-                                            </td>
-                                            <td>
-                                                <ButtonComponent
-                                                    styleTypeNumber="BASE"
-                                                    title={"URLをコピー"}
-                                                    onclick={() => { copyUrlToClipboard(element.url) }}
-                                                />
-                                            </td>
-                                        </tr>
-                                    );
-                                })
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                {
+                    tableWorkHistoryList &&
+                    <Table
+                        tableDatas={tableWorkHistoryList}
+                    />
+                }
             </OuterDiv>
         </React.Fragment>
     );
