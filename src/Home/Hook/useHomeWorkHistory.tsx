@@ -24,24 +24,6 @@ function useHomeWorkHistory() {
         }
     );
 
-    //ユーザー情報
-    const userInfo = useGlobalAtomValue(userInfoAtom);
-
-    //画面表示用リストを作成する
-    const workDisplayList: JSX.Element | JSX.Element[] | undefined = useMemo(() => {
-        if (!userInfo) {
-            return <React.Fragment></React.Fragment>;
-        }
-        if (!workHistoryList) {
-            return <React.Fragment></React.Fragment>;
-        }
-        if (workHistoryList.length === 0) {
-            return <div>作業履歴がありません。</div>
-        }
-
-        return createTaskHistory(workHistoryList);
-    }, [workHistoryList, userInfo]);
-
     /**
      * タスク詳細のURLをクリップボードにコピー
      * @param url 
@@ -56,7 +38,6 @@ function useHomeWorkHistory() {
     }
 
     return {
-        workDisplayList,
         isLoading: isLoading || isFetching,
         isError,
         workHistoryList,

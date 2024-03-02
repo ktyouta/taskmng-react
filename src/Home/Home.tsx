@@ -28,7 +28,7 @@ function Home() {
 
     return (
         <HeightDiv
-            height='90%'
+            height='93%'
         >
             <TitleDiv>
                 <LabelComponent

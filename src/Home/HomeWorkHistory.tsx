@@ -9,6 +9,7 @@ import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import ENV from '../env.json';
 import CenterLoading from '../Common/CenterLoading';
 import AccordionComponent from '../Common/AccordionComponent';
+import ButtonComponent from '../Common/ButtonComponent';
 
 
 //外側のスタイル
@@ -35,9 +36,15 @@ const IdTd = styled.td<{ titleBgColor?: string }>`
     text-decoration: underline;
 `;
 
-//URL列
+//テーブルヘッダ
 const Th = styled.th<{ width: string }>`
     width: ${({ width }) => (width)};
+`;
+
+//タイトルのスタイル
+const TitleDiv = styled.div`
+    text-align:left;
+    padding-left:10%;
 `;
 
 
@@ -47,7 +54,6 @@ function HomeWorkHistory() {
 
     //WorkHistoryのビジネスロジック
     const {
-        workDisplayList,
         isLoading,
         isError,
         workHistoryList,
@@ -66,11 +72,8 @@ function HomeWorkHistory() {
 
     return (
         <React.Fragment>
-            {/* <WorkHistoryListUl>
-                {workDisplayList}
-            </WorkHistoryListUl> */}
             <OuterDiv
-                height="95%"
+                height="100%"
                 width="100%"
             >
                 <div className="tablecomponent">
@@ -121,9 +124,9 @@ function HomeWorkHistory() {
                                                 {
                                                     <AccordionComponent
                                                         text={
-                                                            <div style={{ textAlign: "left", paddingLeft: "10%" }}>
+                                                            <TitleDiv>
                                                                 {element.taskTitle}
-                                                            </div>
+                                                            </TitleDiv>
                                                         }
                                                         defaultHeight={'30px'}
                                                     />
@@ -138,9 +141,13 @@ function HomeWorkHistory() {
                                             <td>
                                                 {element.time}
                                             </td>
-                                            <IdTd onClick={() => { copyUrlToClipboard(element.url) }}>
-                                                URLをコピー
-                                            </IdTd>
+                                            <td>
+                                                <ButtonComponent
+                                                    styleTypeNumber="BASE"
+                                                    title={"URLをコピー"}
+                                                    onclick={() => { copyUrlToClipboard(element.url) }}
+                                                />
+                                            </td>
                                         </tr>
                                     );
                                 })
