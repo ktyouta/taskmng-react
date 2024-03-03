@@ -11,6 +11,8 @@ type propsType = {
     titleWidth?: string,
     textWidth?: string,
     bgColor?: string,
+    onChange?: (e: string) => void,
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void,
 }
 
 const LabelInputComponent = forwardRef<refType, propsType>((props, ref) => {

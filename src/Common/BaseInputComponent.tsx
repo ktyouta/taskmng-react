@@ -12,6 +12,7 @@ type propsType = {
     bgColor?: string,
     disabled?: boolean,
     onChange?: (e: string) => void,
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void,
 }
 
 //参照の型
@@ -48,6 +49,13 @@ const BaseInputComponent = forwardRef<refType, propsType>((props, ref) => {
         }
     };
 
+    //キー押下イベント
+    const inputEnterKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (props.onKeyDown) {
+            props.onKeyDown(e);
+        }
+    };
+
     //テキストボックスのクリアイベント
     const clearInput = () => {
         setInputValue(props.value);
@@ -62,6 +70,7 @@ const BaseInputComponent = forwardRef<refType, propsType>((props, ref) => {
             textWidth={props.textWidth}
             bgColor={props.bgColor}
             disabled={props.disabled}
+            onKeyDown={inputEnterKey}
         />
     );
 })

@@ -41,6 +41,13 @@ function useLoginLogic() {
         },
     });
 
+    //エンターキー押下時イベント
+    function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
+        if (event.key === 'Enter') {
+            clickLoginBtn();
+        }
+    };
+
     /**
      * ログインボタン押下
      */
@@ -70,7 +77,13 @@ function useLoginLogic() {
         userPasswordRef.current?.clearValue();
     }
 
-    return { userIdRef, userPasswordRef, clickLoginBtn, clickClearBtn }
+    return {
+        userIdRef,
+        userPasswordRef,
+        clickLoginBtn,
+        clickClearBtn,
+        handleKeyPress,
+    }
 }
 
 export default useLoginLogic;

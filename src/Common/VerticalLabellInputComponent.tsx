@@ -14,13 +14,10 @@ type propsType = {
   length: number,
   titleWidth?: string,
   textWidth?: string,
+  onChange?: (e: string) => void,
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void,
 }
 
-//ラベルの基本スタイル
-const BaseLabel = styled.label<{ titleWidth: string | undefined }>`
-  width: ${({ titleWidth }) => (titleWidth ? titleWidth : "150px")};
-  height:30px;
-`;
 
 const VerticalLabellInputComponent = forwardRef<refType, propsType>((props, ref) => {
 

@@ -11,7 +11,13 @@ import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
 function Login() {
 
     //ログインのビジネスロジック
-    const { userIdRef, userPasswordRef, clickLoginBtn, clickClearBtn } = useLoginLogic();
+    const {
+        userIdRef,
+        userPasswordRef,
+        clickLoginBtn,
+        clickClearBtn,
+        handleKeyPress,
+    } = useLoginLogic();
 
     return (
         <div className="login">
@@ -24,6 +30,7 @@ function Login() {
                     disabled={false}
                     ref={userIdRef}
                     textWidth={"350px"}
+                    onKeyDown={handleKeyPress}
                 />
                 <VerticalSpaceComponent
                     space={'15px'}
@@ -36,6 +43,7 @@ function Login() {
                     disabled={false}
                     ref={userPasswordRef}
                     textWidth={"350px"}
+                    onKeyDown={handleKeyPress}
                 />
                 <div className="login-button-area">
                     <ButtonComponent
