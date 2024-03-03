@@ -30,24 +30,6 @@ const WorkHistoryListUl = styled.ul`
     margin-right: 10%;
 `;
 
-//URL列
-const IdTd = styled.td<{ titleBgColor?: string }>`
-    cursor:pointer;
-    color: blue;
-    text-decoration: underline;
-`;
-
-//テーブルヘッダ
-const Th = styled.th<{ width: string }>`
-    width: ${({ width }) => (width)};
-`;
-
-//タイトルのスタイル
-const TitleDiv = styled.div`
-    text-align:left;
-    padding-left:10%;
-`;
-
 
 function HomeWorkHistory() {
 

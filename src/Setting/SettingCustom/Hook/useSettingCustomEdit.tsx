@@ -367,6 +367,7 @@ function useSettingCustomEdit(props: propsType) {
         registerTime,
         updTime,
         editMode,
+        customAttributeId,
     }
 }
 
