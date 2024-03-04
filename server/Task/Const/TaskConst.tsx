@@ -18,3 +18,5 @@ export const TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOM
 export const SEARCHCONDITION_KEY_DEFAULT = "default";
 //カスタム属性用の検索条件取得キー
 export const CUSTOMATTRIBUTE_KEY_DEFAULT = "custom";
+//タスクのカテゴリID
+export const TASK_CATEGORY_ID = "CATEGORY-5";

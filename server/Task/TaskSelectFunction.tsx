@@ -7,7 +7,10 @@ import { getCustomAttributeData, getCustomAttributeListData } from "../SettingFu
 import { joinGeneralSetting } from "../History/HistorySelectFunction";
 import { getFilterdSearchConditionList, getSearchConditionList } from "../SearchCondition/SearchConditionSelectFunction";
 import { searchConditionType } from "../SearchCondition/Type/SearchConditionType";
-import { CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, CUSTOMATTRIBUTE_KEY_DEFAULT, PRE_TASK_ID, SEARCHCONDITION_KEY_DEFAULT, TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, TASK_FILEPATH } from "./Const/TaskConst";
+import { CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, CUSTOMATTRIBUTE_KEY_DEFAULT, PRE_TASK_ID, SEARCHCONDITION_KEY_DEFAULT, TASK_CATEGORY_ID, TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, TASK_FILEPATH } from "./Const/TaskConst";
+import { categoryType } from "../SettingFunction/Category/Type/CategoryType";
+import { getFilterdCategory } from "../SettingFunction/Category/CategorySelectFunction";
+import ENV from '../../src/env.json';
 
 
 
@@ -242,4 +245,29 @@ export function createTaskNewId(taskList: taskListType[]) {
         return Math.max(prev, currentNm);
     }, 0);
     return `${PRE_TASK_ID}${maxNo + 1}`;
+}
+
+
+/**
+ * タスクのURLを作成
+ */
+export function createTaskDetailUrl(taskData: taskListType) {
+
+    //カテゴリの読み込み
+    let categoryLists: categoryType[] = getFilterdCategory();
+
+    //タスクのメニューデータを取得
+    let taskCategoryData = categoryLists.find((element) => {
+        return element.id === TASK_CATEGORY_ID;
+    });
+
+    //タスクのカテゴリが存在しない
+    if (!taskCategoryData) {
+        return taskData;
+    }
+
+    //タスクのURLを作成
+    taskData.url = taskCategoryData ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.LOCALPORT}${taskCategoryData?.path}/${taskData.id}` : "";
+
+    return taskData;
 }

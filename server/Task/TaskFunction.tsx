@@ -6,7 +6,7 @@ import { authInfoType, inputSettingType, taskDetailType, taskListType } from "..
 import { createDeleteCustomAttributeData, createDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
 import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
-import { filterCustomAttribute, filterDefaultAttribute, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
+import { createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
 import { runAddTaskHistory } from "../History/HistoryFunction";
 import { CREATE, CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, DELETE, TASK_FILEPATH, UPDATE } from "./Const/TaskConst";
 
@@ -68,6 +68,9 @@ export function getTaskDetail(res: any, req: any, id: string) {
     if (!singleTaskData) {
         return res.status(400).json({ errMessage: `該当データがありません。` });
     }
+
+    //URLを作成
+    singleTaskData = createTaskDetailUrl(singleTaskData);
 
     //カスタム属性の選択値を取得
     let selectedCustomAttributeList: inputSettingType[] = joinCustomAttribute(singleTaskData);

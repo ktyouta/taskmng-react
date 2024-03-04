@@ -141,5 +141,19 @@
 		"description": "",
 		"isSettingEditable": false,
 		"updTime": ""
+	},
+	{
+		"id": "url",
+		"name": "URL",
+		"type": "label",
+		"length": 0,
+		"initValue": "",
+		"disabled": true,
+		"isNewCreateVisible": false,
+		"isHidden": false,
+		"isRequired": false,
+		"isSettingEditable": false,
+		"description": "",
+		"updTime": ""
 	}
 ]
