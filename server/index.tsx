@@ -1,7 +1,6 @@
 import express from 'express';
 import ENV from '../src/env.json';
 import { checkFile, overWriteData, readFile } from './FileFunction';
-import { bodyObj, generalDetailType, taskListType, userInfoType } from './Type/type';
 import { authenticate, createToken } from './AuthFunction';
 import { config } from './ApiConfig';
 import { createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterDataFunction';

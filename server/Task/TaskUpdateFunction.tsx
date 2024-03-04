@@ -3,8 +3,9 @@ import { getNowDate } from "../Common/Function";
 import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "../Constant";
 import { overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
-import { authInfoType, taskCustomAttributeSelectType, taskListType } from "../Type/type";
+import { authInfoType } from "../Type/type";
 import { getCustomAttributeTaskObj } from "./TaskSelectFunction";
+import { taskCustomAttributeSelectType, taskListType } from "./Type/TaskType";
 
 
 

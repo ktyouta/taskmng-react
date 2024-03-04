@@ -1,0 +1,50 @@
+import { inputSettingType } from "../../Type/type"
+
+//タスクリストの型
+export type taskListType = {
+    [key: string]: string,
+    id: string,
+    title: string,
+    content: string,
+    registerTime: string,
+    updTime: string,
+    limitTime: string,
+    userId: string,
+    priority: string,
+    status: string,
+    deleteFlg: string,
+}
+
+//画面返却用のタスク詳細の型
+export type taskDetailType = {
+    default: taskListType,
+    customAttribute: inputSettingType[]
+}
+
+//タスクの登録用データの作成時の返却用の型
+export type retCreateAddTaskType = {
+    registDatas: taskListType[],
+    newTaskId: string,
+}
+
+//タスクに紐づくカスタム属性の選択値の型
+export type taskCustomAttributeSelectedType = {
+    taskId: string,
+    customAttributeId: string,
+    selectedValue: string,
+    registerTime: string,
+    updTime: string,
+    userId: string,
+    deleteFlg: string
+}
+
+//タスクのカスタム属性の選択値の型
+export type taskCustomAttributeSelectType = {
+    taskId: string,
+    customAttributeId: string,
+    selectedValue: string,
+    registerTime: string,
+    updTime: string,
+    deleteFlg: string,
+    userId: string
+}

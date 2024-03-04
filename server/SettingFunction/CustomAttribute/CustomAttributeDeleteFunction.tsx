@@ -6,7 +6,7 @@ import {
     CUSTOMATTRIBUTELIST
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { authInfoType, customAttributeListType, customAttributeType, taskListType } from "../../Type/type";
+import { authInfoType, customAttributeListType, customAttributeType } from "../../Type/type";
 import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
 import { createDelSearchCondition } from "../../SearchCondition/SearchConditionDeleteFunction";
 import { getNowDate } from "../../Common/Function";

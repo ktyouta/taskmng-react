@@ -8,7 +8,7 @@ import {
     TRANSACTION,
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { authInfoType, comboType, generalDetailType, inputSettingType, taskListType } from "../../Type/type";
+import { authInfoType, comboType, generalDetailType, inputSettingType } from "../../Type/type";
 import { DEFAULT_ATTRIBUTE_FILEPATH, GENERALDETAIL_FILEPATH } from "./Const/DefaultAttributeConst";
 import { defaultAttributeType } from "./Type/DefaultAttributeType";
 

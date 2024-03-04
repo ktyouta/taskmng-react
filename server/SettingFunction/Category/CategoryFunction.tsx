@@ -6,7 +6,6 @@ import {
     CUSTOMATTRIBUTELIST
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { authInfoType, customAttributeListType, customAttributeType, taskListType } from "../../Type/type";
 import { filterCategoryDetail, getFilterdCategory } from "./CategorySelectFunction";
 import { categoryType, checkOrderType } from "./Type/CategoryType";
 import { createAddCategoryData } from "./CategoryRegistFunction";

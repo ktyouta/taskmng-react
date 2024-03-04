@@ -2,7 +2,7 @@ import { authenticate } from "../AuthFunction";
 import { CUSTOMATTRIBUTESELECT, JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
-import { authInfoType, comboType, customAttributeListType, customAttributeType, inputSettingType, taskCustomAttributeSelectedType, taskListType, taskCustomAttributeSelectType } from "../Type/type";
+import { authInfoType, comboType, customAttributeListType, customAttributeType, inputSettingType } from "../Type/type";
 import { getCustomAttributeData, getCustomAttributeListData } from "../SettingFunction/CustomAttribute/CustomAttributeSelectFunction";
 import { joinGeneralSetting } from "../History/HistorySelectFunction";
 import { getFilterdSearchConditionList, getSearchConditionList } from "../SearchCondition/SearchConditionSelectFunction";
@@ -11,6 +11,7 @@ import { CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, CUSTOMATTRIBUTE_KEY_DEFAULT, PRE_
 import { categoryType } from "../SettingFunction/Category/Type/CategoryType";
 import { getFilterdCategory } from "../SettingFunction/Category/CategorySelectFunction";
 import ENV from '../../src/env.json';
+import { taskCustomAttributeSelectType, taskCustomAttributeSelectedType, taskListType } from "./Type/TaskType";
 
 
 

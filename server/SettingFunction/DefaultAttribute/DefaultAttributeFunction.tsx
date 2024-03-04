@@ -8,7 +8,7 @@ import {
     TRANSACTION,
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { authInfoType, generalDetailType, taskListType } from "../../Type/type";
+import { authInfoType, generalDetailType } from "../../Type/type";
 import { createUpdDefaultAttribute, createUpdDefaultAttributeSelectList, } from "./DefaultAttributeUpdateFunction";
 import { filterDefaultAttributeDetail, getDefaultAttributeData, } from "./DefaultAttributeSelectFunction";
 import { defaultAttributeType, defaultAttributeUpdType } from "./Type/DefaultAttributeType";

@@ -1,5 +1,5 @@
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { authInfoType, customAttributeListType, customAttributeType, taskListType } from "../../Type/type";
+import { authInfoType, customAttributeListType, customAttributeType } from "../../Type/type";
 import { registSelectListRetType } from "./CustomAttributeFunction";
 import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
 import { ATTRIBUTE_KEY_CUSTOM } from "../../SearchCondition/SearchConditionFunction";

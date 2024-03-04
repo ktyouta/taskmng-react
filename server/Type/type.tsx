@@ -36,21 +36,6 @@ export type updUserInfoType = {
 //メソッドタイプ
 export type methodType = "POST" | "PUT" | "DELETE"
 
-//タスクリストの型
-export type taskListType = {
-    [key: string]: string,
-    id: string,
-    title: string,
-    content: string,
-    registerTime: string,
-    updTime: string,
-    limitTime: string,
-    userId: string,
-    priority: string,
-    status: string,
-    deleteFlg: string,
-}
-
 //汎用詳細の型
 export type generalDetailType = {
     id: string,
@@ -86,27 +71,10 @@ export type customAttributeListType = {
     deleteFlg: string,
 }
 
-//タスクに紐づくカスタム属性の選択値の型
-export type taskCustomAttributeSelectedType = {
-    taskId: string,
-    customAttributeId: string,
-    selectedValue: string,
-    registerTime: string,
-    updTime: string,
-    userId: string,
-    deleteFlg: string
-}
-
 //ラベルと値の型
 export type comboType = {
     label: string,
     value: string,
-}
-
-//画面返却用のタスク詳細の型
-export type taskDetailType = {
-    default: taskListType,
-    customAttribute: inputSettingType[]
 }
 
 //入力欄参照用の型
@@ -126,20 +94,3 @@ export type inputSettingType = {
 
 //inputのタイプ
 export type inputType = "input" | "select" | "radio" | "date" | "textarea" | "checkbox" | "number" | "label" | "";
-
-//タスクのカスタム属性の選択値の型
-export type taskCustomAttributeSelectType = {
-    taskId: string,
-    customAttributeId: string,
-    selectedValue: string,
-    registerTime: string,
-    updTime: string,
-    deleteFlg: string,
-    userId: string
-}
-
-//タスクの登録用データの作成時の返却用の型
-export type retCreateAddTaskType = {
-    registDatas: taskListType[],
-    newTaskId: string,
-}
