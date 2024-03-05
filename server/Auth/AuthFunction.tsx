@@ -4,7 +4,7 @@ import { config } from '../ApiConfig';
 import { JSONEXTENSION, SETTINGFILEPATH, USERINFOFILEPATH } from '../Constant';
 import { userInfoType } from '../SettingFunction/User/Type/UserType';
 import { authInfoType } from './Type/AuthType';
-import { USER_INFO_FILEPATH } from './Const/AuthConst';
+import { USERINFO_FILEPATH } from '../SettingFunction/User/Const/UserConst';
 
 
 const jwt = require('jsonwebtoken');
@@ -47,7 +47,7 @@ export function authenticate(cookie: string): authInfoType {
         let password = userArray[1];
 
         //認証
-        let fileData = readFile(USER_INFO_FILEPATH);
+        let fileData = readFile(USERINFO_FILEPATH);
         //ファイルの読み込みに失敗
         if (!fileData) {
             tmpAuthInfo.status = 500;
@@ -86,7 +86,7 @@ export function createToken(res: any, req: any) {
     var password: string = req.body.password;
 
     //認証
-    let fileData = readFile(`${SETTINGFILEPATH}${USERINFOFILEPATH}${JSONEXTENSION}`);
+    let fileData = readFile(USERINFO_FILEPATH);
     //ファイルの読み込みに失敗
     if (!fileData) {
         return res

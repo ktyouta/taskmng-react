@@ -2,12 +2,10 @@ import { authenticate } from "../Auth/AuthFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
 import { JSONEXTENSION, TASKHISTORYPATH, TRANSACTION } from "../Constant";
 import { overWriteData } from "../FileFunction";
+import { TASK_HISTORY_PATH } from "./Const/HistoryConst";
 import { createAddTaskHistory } from "./HistoryRegistFunction";
 import { createHistoryMessage, createTaskUrl, getAddTaskHistoryObj, getFilterdTaskHistory, joinGeneralSetting } from "./HistorySelectFunction";
 import { addTaskHistoryType, taskHistoryType } from "./Type/HistoryType";
-
-//タスクの作業履歴ファイルのパス
-export const TASK_HISTORY_PATH = `${TRANSACTION}${TASKHISTORYPATH}${JSONEXTENSION}`;
 
 
 /**

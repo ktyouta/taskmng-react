@@ -1,26 +1,20 @@
 import { getGeneralDataList } from "../Common/Function";
-import { GENERALDETAILFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKHISTORYPATH, TRANSACTION, USERINFOFILEPATH } from "../Constant";
+import { CRUD_ID, GENERALDETAILFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKHISTORYPATH, TASK_CATEGORY_ID, TRANSACTION, USERINFOFILEPATH } from "../Constant";
 import { readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
 import { getFilterdCategory } from "../SettingFunction/Category/CategorySelectFunction";
 import { categoryType } from "../SettingFunction/Category/Type/CategoryType";
 import { TASK_FILEPATH } from "../Task/Const/TaskConst";
 import { generalDetailType } from "../Type/type";
-import { TASK_HISTORY_PATH } from "./HistoryFunction";
 import { addTaskHistoryType, taskHistoryType } from "./Type/HistoryType";
 import ENV from '../../src/env.json';
 import { taskListType } from "../Task/Type/TaskType";
 import { userInfoType } from "../SettingFunction/User/Type/UserType";
+import { TASK_HISTORY_PATH } from "./Const/HistoryConst";
+import { USERINFO_FILEPATH } from "../SettingFunction/User/Const/UserConst";
 
 
-//ユーザー情報ファイルのパス
-const USER_INFO_FILEPATH = `${SETTINGFILEPATH}${USERINFOFILEPATH}${JSONEXTENSION}`;
 
-//CRUDのID
-const CRUD_ID = "5";
-
-//タスクのカテゴリID
-const TASK_CATEGORY_ID = "CATEGORY-5";
 
 /**
  * タスクの作業履歴を取得
@@ -55,7 +49,7 @@ export function joinGeneralSetting(decodeFileData: taskHistoryType[]) {
     let decodeGeneralData: generalDetailType[] = getGeneralDataList();
 
     //ユーザーファイルの読み込み
-    let userFileData = readFile(USER_INFO_FILEPATH);
+    let userFileData = readFile(USERINFO_FILEPATH);
     let decodeUserFileData: userInfoType[] = JSON.parse(userFileData);
 
     //タスクファイルの読み込み

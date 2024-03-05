@@ -38,3 +38,10 @@ export const CATEGORYFILEPATH = "menu";
 
 //タスクの入力設定値用ファイルパス
 export const TASKINPUTSETTING = "taskinputsetting";
+
+
+//CRUDのID
+export const CRUD_ID = "5";
+
+//タスクのカテゴリID
+export const TASK_CATEGORY_ID = "CATEGORY-5";
