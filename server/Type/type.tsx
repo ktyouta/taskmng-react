@@ -1,3 +1,5 @@
+import { userInfoType } from "../SettingFunction/User/Type/UserType"
+
 //リクエストボディのタイプ
 export type bodyObj = {
     [prop: string]: any
@@ -10,29 +12,6 @@ export type authInfoType = {
     userInfo?: userInfoType
 }
 
-//ユーザー情報
-export type userInfoType = {
-    userId: string,
-    userName: string,
-    password?: string,
-    auth: string,
-    authNm?: string,
-    deleteFlg?: string,
-    registerTime: string,
-    updTime: string,
-}
-
-//登録更新時のユーザー情報
-export type updUserInfoType = {
-    userId: string,
-    userName: string,
-    password?: string,
-    auth: string,
-    deleteFlg?: string,
-    registerTime: string,
-    updTime: string,
-}
-
 //メソッドタイプ
 export type methodType = "POST" | "PUT" | "DELETE"
 
@@ -41,34 +20,6 @@ export type generalDetailType = {
     id: string,
     value: string,
     label: string,
-}
-
-//カスタム属性の型
-export type customAttributeType = {
-    [key: string]: string | string[] | boolean | undefined,
-    id: string,
-    name: string,
-    type: inputType,
-    required: boolean,
-    selectElementList?: string[],
-    selectElementListId: string,
-    registerTime: string,
-    updTime: string,
-    userId: string,
-    deleteFlg: string,
-    description: string,
-    length: string,
-}
-
-//カスタム属性リストの型
-export type customAttributeListType = {
-    id: string,
-    no: string,
-    content: string,
-    registerTime: string,
-    updTime: string,
-    userId: string,
-    deleteFlg: string,
 }
 
 //ラベルと値の型

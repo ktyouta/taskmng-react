@@ -1,5 +1,5 @@
 import { getNowDate } from "../../Common/Function";
-import { userInfoType } from "../../Type/type";
+import { userInfoType } from "./Type/UserType";
 
 /**
  * 更新用データの作成

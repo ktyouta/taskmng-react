@@ -2,7 +2,8 @@ import { getGeneralDataList } from "../Common/Function";
 import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH } from "../Constant";
 import { readFile } from "../FileFunction";
 import { getCustomAttributeData, getCustomAttributeListData } from "../SettingFunction/CustomAttribute/CustomAttributeSelectFunction";
-import { comboType, customAttributeListType, customAttributeType, generalDetailType } from "../Type/type";
+import { customAttributeListType, customAttributeType } from "../SettingFunction/CustomAttribute/Type/CustomAttributeType";
+import { comboType } from "../Type/type";
 import { SEARCHCONDITION_FILE_PATH } from "./SearchConditionFunction";
 import { retSearchConditionType, searchConditionType } from "./Type/SearchConditionType";
 

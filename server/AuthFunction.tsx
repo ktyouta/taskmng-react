@@ -1,8 +1,9 @@
 import express from 'express';
 import { readFile } from './FileFunction';
-import { authInfoType, userInfoType } from './Type/type';
+import { authInfoType } from './Type/type';
 import { config } from './ApiConfig';
 import { JSONEXTENSION, SETTINGFILEPATH, USERINFOFILEPATH } from './Constant';
+import { userInfoType } from './SettingFunction/User/Type/UserType';
 
 //ユーザー情報ファイルのパス
 const USER_INFO_FILEPATH = `${SETTINGFILEPATH}${USERINFOFILEPATH}${JSONEXTENSION}`;

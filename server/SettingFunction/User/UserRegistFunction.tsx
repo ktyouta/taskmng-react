@@ -1,5 +1,6 @@
 import { getNowDate } from "../../Common/Function";
-import { authInfoType, updUserInfoType, userInfoType } from "../../Type/type";
+import { authInfoType } from "../../Type/type";
+import { updUserInfoType, userInfoType } from "./Type/UserType";
 
 /**
  * 登録用データの作成

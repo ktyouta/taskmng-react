@@ -5,11 +5,12 @@ import { getGeneralDetailData } from "../GeneralFunction";
 import { getFilterdCategory } from "../SettingFunction/Category/CategorySelectFunction";
 import { categoryType } from "../SettingFunction/Category/Type/CategoryType";
 import { TASK_FILEPATH } from "../Task/Const/TaskConst";
-import { generalDetailType, userInfoType } from "../Type/type";
+import { generalDetailType } from "../Type/type";
 import { TASK_HISTORY_PATH } from "./HistoryFunction";
 import { addTaskHistoryType, taskHistoryType } from "./Type/HistoryType";
 import ENV from '../../src/env.json';
 import { taskListType } from "../Task/Type/TaskType";
+import { userInfoType } from "../SettingFunction/User/Type/UserType";
 
 
 //ユーザー情報ファイルのパス

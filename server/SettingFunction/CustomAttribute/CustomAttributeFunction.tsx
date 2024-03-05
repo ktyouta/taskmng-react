@@ -6,7 +6,6 @@ import {
     CUSTOMATTRIBUTELIST
 } from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { authInfoType, customAttributeListType, customAttributeType } from "../../Type/type";
 import { callCreateAddSearchCondition, createAddCustomAttribute, createAddCustomAttributeList, runCreateSelectList } from "./CustomAttributeRegistFunction";
 import { callCreateDelSearchCondition, createDeleteCustomAttribute, createDeleteCustomAttributeList, runDeleteSelectList } from "./CustomAttributeDeleteFunction";
 import { callCreateUpdSearchCondition, createUpdCustomAttribute, createUpdCustomAttributeList, runUpdSelectList } from "./CustomAttributeUpdateFunction";
@@ -15,14 +14,11 @@ import { searchConditionType } from "../../SearchCondition/Type/SearchConditionT
 import { getSearchConditionList, getSearchConditionObj } from "../../SearchCondition/SearchConditionSelectFunction";
 import { SEARCHCONDITION_FILE_PATH } from "../../SearchCondition/SearchConditionFunction";
 import { CUSTOM_ATTRIBUTE_FILEPATH } from "./Const/CustomAttributeConst";
+import { customAttributeListType, customAttributeType } from "./Type/CustomAttributeType";
 
 
 
-//カスタム属性の選択リストの登録メソッドの戻り値
-export type registSelectListRetType = {
-    errMsg: string,
-    registSelectList: customAttributeListType[]
-}
+
 
 
 /**

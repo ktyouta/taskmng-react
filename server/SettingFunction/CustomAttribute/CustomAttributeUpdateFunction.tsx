@@ -1,11 +1,10 @@
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { authInfoType, customAttributeListType, customAttributeType } from "../../Type/type";
-import { registSelectListRetType } from "./CustomAttributeFunction";
+import { authInfoType, } from "../../Type/type";
 import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
 import { ATTRIBUTE_KEY_CUSTOM } from "../../SearchCondition/SearchConditionFunction";
 import { createUpdSearchCondition } from "../../SearchCondition/SearchConditionUpdateFunction";
 import { createCustomAttributeSelectListNewId } from "./CustomAttributeSelectFunction";
-import { retCreateUpdCustomAttributeType } from "./Type/CustomAttributeType";
+import { customAttributeListType, customAttributeType, registSelectListRetType, retCreateUpdCustomAttributeType } from "./Type/CustomAttributeType";
 import { getNowDate } from "../../Common/Function";
 import { CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH } from "./Const/CustomAttributeConst";
 import { createAddCustomAttributeList } from "./CustomAttributeRegistFunction";

@@ -8,8 +8,8 @@ import {
     SETTINGFILEPATH
 } from "../../Constant";
 import { overWriteData } from "../../FileFunction";
-import { userInfoType } from "../../Type/type";
 import { USERINFO_FILEPATH } from "./Const/UserConst";
+import { userInfoType } from "./Type/UserType";
 import { createDeleteUserData } from "./UserDeleteFunction";
 import { createAddUserData, dubUserCheck } from "./UserRegistFunction";
 import { filterUserInfoDetail, getUserInfoData, joinAuthInfo } from "./UserSelectFunction";
