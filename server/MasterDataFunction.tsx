@@ -1,7 +1,7 @@
-import { authenticate, checkUpdAuth } from "./AuthFunction";
+import { checkUpdAuth } from "./Auth/AuthFunction";
 import { JSONEXTENSION, MASTERFILEPATH } from "./Constant";
 import { checkFile, overWriteData, readFile } from "./FileFunction";
-import { authInfoType, methodType } from "./Type/type";
+import { methodType } from "./Type/type";
 
 /**
  * 登録用データの作成

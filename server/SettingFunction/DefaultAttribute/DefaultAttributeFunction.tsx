@@ -1,18 +1,10 @@
-import { authenticate, checkUpdAuth } from "../../AuthFunction";
-import {
-    GENERALDETAILFILEPATH,
-    JSONEXTENSION,
-    MASTERFILEPATH,
-    SETTINGFILEPATH,
-    TASKINPUTSETTING,
-    TRANSACTION,
-} from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { authInfoType, generalDetailType } from "../../Type/type";
+import { generalDetailType } from "../../Type/type";
 import { createUpdDefaultAttribute, createUpdDefaultAttributeSelectList, } from "./DefaultAttributeUpdateFunction";
 import { filterDefaultAttributeDetail, getDefaultAttributeData, } from "./DefaultAttributeSelectFunction";
 import { defaultAttributeType, defaultAttributeUpdType } from "./Type/DefaultAttributeType";
 import { DEFAULT_ATTRIBUTE_FILEPATH, GENERALDETAIL_FILEPATH } from "./Const/DefaultAttributeConst";
+import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
 
 
 

@@ -1,10 +1,3 @@
-import { authenticate, checkUpdAuth } from "../../AuthFunction";
-import {
-    CUSTOMATTRIBUTE,
-    JSONEXTENSION,
-    TRANSACTION,
-    CUSTOMATTRIBUTELIST
-} from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { callCreateAddSearchCondition, createAddCustomAttribute, createAddCustomAttributeList, runCreateSelectList } from "./CustomAttributeRegistFunction";
 import { callCreateDelSearchCondition, createDeleteCustomAttribute, createDeleteCustomAttributeList, runDeleteSelectList } from "./CustomAttributeDeleteFunction";
@@ -15,6 +8,7 @@ import { getSearchConditionList, getSearchConditionObj } from "../../SearchCondi
 import { SEARCHCONDITION_FILE_PATH } from "../../SearchCondition/SearchConditionFunction";
 import { CUSTOM_ATTRIBUTE_FILEPATH } from "./Const/CustomAttributeConst";
 import { customAttributeListType, customAttributeType } from "./Type/CustomAttributeType";
+import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
 
 
 

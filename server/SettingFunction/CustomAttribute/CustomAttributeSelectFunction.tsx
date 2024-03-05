@@ -1,12 +1,5 @@
-import { authenticate } from "../../AuthFunction";
-import {
-    CUSTOMATTRIBUTE,
-    JSONEXTENSION,
-    TRANSACTION,
-    CUSTOMATTRIBUTELIST
-} from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { authInfoType, comboType, inputSettingType } from "../../Type/type";
+import { comboType, inputSettingType } from "../../Type/type";
 import { CUSTOM_ATTRIBUTE_FILEPATH, CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, PRE_CUSTOMATTRIBUTELIST_ID, PRE_CUSTOMATTRIBUTE_ID } from "./Const/CustomAttributeConst";
 import { customAttributeListType, customAttributeType } from "./Type/CustomAttributeType";
 

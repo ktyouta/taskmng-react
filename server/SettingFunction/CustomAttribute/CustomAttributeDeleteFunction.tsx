@@ -1,17 +1,10 @@
-import { authenticate } from "../../AuthFunction";
-import {
-    CUSTOMATTRIBUTE,
-    JSONEXTENSION,
-    TRANSACTION,
-    CUSTOMATTRIBUTELIST
-} from "../../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { authInfoType } from "../../Type/type";
 import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
 import { createDelSearchCondition } from "../../SearchCondition/SearchConditionDeleteFunction";
 import { getNowDate } from "../../Common/Function";
 import { CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH } from "./Const/CustomAttributeConst";
 import { customAttributeListType, customAttributeType } from "./Type/CustomAttributeType";
+import { authInfoType } from "../../Auth/Type/AuthType";
 
 
 /**

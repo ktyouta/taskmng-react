@@ -1,5 +1,5 @@
+import { authInfoType } from "../Auth/Type/AuthType";
 import { getNowDate } from "../Common/Function";
-import { authInfoType } from "../Type/type";
 import { addTaskHistoryType, taskHistoryType } from "./Type/HistoryType";
 
 

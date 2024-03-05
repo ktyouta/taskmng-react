@@ -1,7 +1,7 @@
-import { authenticate } from "../AuthFunction";
+import { authenticate } from "../Auth/AuthFunction";
+import { authInfoType } from "../Auth/Type/AuthType";
 import { JSONEXTENSION, TASKHISTORYPATH, TRANSACTION } from "../Constant";
 import { overWriteData } from "../FileFunction";
-import { authInfoType } from "../Type/type";
 import { createAddTaskHistory } from "./HistoryRegistFunction";
 import { createHistoryMessage, createTaskUrl, getAddTaskHistoryObj, getFilterdTaskHistory, joinGeneralSetting } from "./HistorySelectFunction";
 import { addTaskHistoryType, taskHistoryType } from "./Type/HistoryType";

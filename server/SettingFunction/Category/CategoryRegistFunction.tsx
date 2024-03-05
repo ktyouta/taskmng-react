@@ -1,7 +1,6 @@
+import { authInfoType } from "../../Auth/Type/AuthType";
 import { getNowDate } from "../../Common/Function";
-import { authInfoType } from "../../Type/type";
 import { createCategoryNewId } from "./CategorySelectFunction";
-import { PRE_CATEGORY_ID } from "./Const/CategoryConst";
 import { categoryType } from "./Type/CategoryType";
 
 

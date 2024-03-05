@@ -1,7 +1,7 @@
-import { authenticate } from "../AuthFunction";
+import { authenticate } from "../Auth/AuthFunction";
+import { authInfoType } from "../Auth/Type/AuthType";
 import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH } from "../Constant";
 import { overWriteData } from "../FileFunction";
-import { authInfoType } from "../Type/type";
 import { createAddSearchCondition } from "./SearchConditionRegisterFunction";
 import { getFilterdSearchConditionList, getSearchConditionList, joinSelectListSearchCondition } from "./SearchConditionSelectFunction";
 import { createUpdSearchCondition } from "./SearchConditionUpdateFunction";

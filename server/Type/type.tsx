@@ -1,15 +1,6 @@
-import { userInfoType } from "../SettingFunction/User/Type/UserType"
-
 //リクエストボディのタイプ
 export type bodyObj = {
     [prop: string]: any
-}
-
-//認証情報
-export type authInfoType = {
-    status: number,
-    errMessage: string,
-    userInfo?: userInfoType
 }
 
 //メソッドタイプ

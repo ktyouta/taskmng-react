@@ -1,7 +1,6 @@
 import express from 'express';
 import ENV from '../src/env.json';
 import { checkFile, overWriteData, readFile } from './FileFunction';
-import { authenticate, createToken } from './AuthFunction';
 import { config } from './ApiConfig';
 import { createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterDataFunction';
 import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION, USERINFOFILEPATH } from './Constant';
@@ -23,6 +22,7 @@ import { Response, Request, ParamsDictionary } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 import { getDefaultAttribute, getDefaultAttributeDetail, runUpdDefaultAttribute } from './SettingFunction/DefaultAttribute/DefaultAttributeFunction';
 import { getSearchCondition } from './SearchCondition/SearchConditionFunction';
+import { authenticate, createToken } from './Auth/AuthFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');

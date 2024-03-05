@@ -1,12 +1,4 @@
-import { authenticate, checkUpdAuth } from "../../AuthFunction";
-import {
-    CUSTOMATTRIBUTE,
-    JSONEXTENSION,
-    TRANSACTION,
-    CUSTOMATTRIBUTELIST,
-    USERINFOFILEPATH,
-    SETTINGFILEPATH
-} from "../../Constant";
+import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
 import { overWriteData } from "../../FileFunction";
 import { USERINFO_FILEPATH } from "./Const/UserConst";
 import { userInfoType } from "./Type/UserType";

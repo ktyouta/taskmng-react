@@ -1,13 +1,12 @@
-import { authenticate } from "../AuthFunction";
 import { CUSTOMATTRIBUTESELECT, JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "../Constant";
 import { overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
-import { authInfoType, } from "../Type/type";
 import { createTaskNewId, getCustomAttributeTaskObj } from "./TaskSelectFunction";
 import { runAddTaskHistory } from "../History/HistoryFunction";
 import { getNowDate } from "../Common/Function";
 import { PRE_TASK_ID } from "./Const/TaskConst";
 import { retCreateAddTaskType, taskCustomAttributeSelectType, taskListType } from "./Type/TaskType";
+import { authInfoType } from "../Auth/Type/AuthType";
 
 
 /**

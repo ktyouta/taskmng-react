@@ -1,4 +1,4 @@
-import { checkUpdAuth } from "./AuthFunction";
+import { checkUpdAuth } from "./Auth/AuthFunction";
 import { JSONEXTENSION, MASTERFILEPATH, MASTERTABLEFILENM } from "./Constant";
 import { overWriteData, readFile } from "./FileFunction";
 import { createAddMasterData } from "./MasterDataFunction";
