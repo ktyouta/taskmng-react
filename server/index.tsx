@@ -3,7 +3,6 @@ import ENV from '../src/env.json';
 import { checkFile, overWriteData, readFile } from './FileFunction';
 import { config } from './ApiConfig';
 import { createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterDataFunction';
-import { GENERALDETAILFILEPATH, GENERALFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION, USERINFOFILEPATH } from './Constant';
 import { runAddMaster } from './AddMasterDataFunction';
 import { getGeneralDetailData } from './GeneralFunction';
 import { getTaskDetail, getTaskList, runAddTask, runDeleteTask, runUpdTask } from './Task/TaskFunction';
@@ -23,6 +22,7 @@ import { ParsedQs } from 'qs';
 import { getDefaultAttribute, getDefaultAttributeDetail, runUpdDefaultAttribute } from './SettingFunction/DefaultAttribute/DefaultAttributeFunction';
 import { getSearchCondition } from './SearchCondition/SearchConditionFunction';
 import { authenticate, createToken } from './Auth/AuthFunction';
+import { JSONEXTENSION, MASTERFILEPATH } from './Common/Const.tsx/CommonConst';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');

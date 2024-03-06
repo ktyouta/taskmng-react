@@ -1,5 +1,5 @@
 import { checkUpdAuth } from "./Auth/AuthFunction";
-import { JSONEXTENSION, MASTERFILEPATH, MASTERTABLEFILENM } from "./Constant";
+import { JSONEXTENSION, MASTERFILEPATH, MASTERTABLEFILENM } from "./Common/Const.tsx/CommonConst";
 import { overWriteData, readFile } from "./FileFunction";
 import { createAddMasterData } from "./MasterDataFunction";
 

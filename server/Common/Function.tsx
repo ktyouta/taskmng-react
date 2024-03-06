@@ -1,9 +1,7 @@
-import { GENERALDETAILFILEPATH, JSONEXTENSION, MASTERFILEPATH } from "../Constant";
 import { readFile } from "../FileFunction";
 import { generalDetailType } from "../Type/type";
+import { GENERAL_DETAIL_FILEPATH } from "./Const.tsx/CommonConst";
 
-//汎用詳細ファイルのパス
-const GENERAL_DETAIL_FILEPATH = `${MASTERFILEPATH}${GENERALDETAILFILEPATH}${JSONEXTENSION}`;
 
 export function getGeneralDataList() {
     //汎用詳細ファイルの読み込み

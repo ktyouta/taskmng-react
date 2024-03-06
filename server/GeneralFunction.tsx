@@ -1,4 +1,4 @@
-import { GENERALDETAILFILEPATH, JSONEXTENSION, MASTERFILEPATH } from "./Constant";
+import { GENERALDETAILFILEPATH, JSONEXTENSION, MASTERFILEPATH } from "./Common/Const.tsx/CommonConst";
 import { readFile } from "./FileFunction";
 import { generalDetailType } from "./Type/type";
 

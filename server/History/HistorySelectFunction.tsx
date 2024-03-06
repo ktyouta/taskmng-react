@@ -1,5 +1,4 @@
 import { getGeneralDataList } from "../Common/Function";
-import { CRUD_ID, GENERALDETAILFILEPATH, JSONEXTENSION, MASTERFILEPATH, SETTINGFILEPATH, TASKHISTORYPATH, TASK_CATEGORY_ID, TRANSACTION, USERINFOFILEPATH } from "../Constant";
 import { readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
 import { getFilterdCategory } from "../SettingFunction/Category/CategorySelectFunction";
@@ -12,6 +11,7 @@ import { taskListType } from "../Task/Type/TaskType";
 import { userInfoType } from "../SettingFunction/User/Type/UserType";
 import { TASK_HISTORY_PATH } from "./Const/HistoryConst";
 import { USERINFO_FILEPATH } from "../SettingFunction/User/Const/UserConst";
+import { CRUD_ID, TASK_CATEGORY_ID } from "../Common/Const.tsx/CommonConst";
 
 
 

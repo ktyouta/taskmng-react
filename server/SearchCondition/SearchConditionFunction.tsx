@@ -1,6 +1,6 @@
 import { authenticate } from "../Auth/AuthFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
-import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH } from "../Constant";
+import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH } from "../Common/Const.tsx/CommonConst";
 import { overWriteData } from "../FileFunction";
 import { createAddSearchCondition } from "./SearchConditionRegisterFunction";
 import { getFilterdSearchConditionList, getSearchConditionList, joinSelectListSearchCondition } from "./SearchConditionSelectFunction";

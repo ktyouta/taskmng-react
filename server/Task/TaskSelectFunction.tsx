@@ -1,4 +1,3 @@
-import { CUSTOMATTRIBUTESELECT, JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TASK_CATEGORY_ID, TRANSACTION } from "../Constant";
 import { getFileJsonData, overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
 import { comboType, inputSettingType } from "../Type/type";
@@ -12,6 +11,7 @@ import { getFilterdCategory } from "../SettingFunction/Category/CategorySelectFu
 import ENV from '../../src/env.json';
 import { taskCustomAttributeSelectType, taskCustomAttributeSelectedType, taskListType } from "./Type/TaskType";
 import { customAttributeListType, customAttributeType } from "../SettingFunction/CustomAttribute/Type/CustomAttributeType";
+import { TASK_CATEGORY_ID } from "../Common/Const.tsx/CommonConst";
 
 
 

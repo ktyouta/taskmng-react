@@ -1,7 +1,6 @@
 import express from 'express';
 import { readFile } from '../FileFunction';
 import { config } from '../ApiConfig';
-import { JSONEXTENSION, SETTINGFILEPATH, USERINFOFILEPATH } from '../Constant';
 import { userInfoType } from '../SettingFunction/User/Type/UserType';
 import { authInfoType } from './Type/AuthType';
 import { USERINFO_FILEPATH } from '../SettingFunction/User/Const/UserConst';

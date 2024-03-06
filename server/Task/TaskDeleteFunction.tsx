@@ -1,5 +1,4 @@
 import { getNowDate } from "../Common/Function";
-import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH, TASKFILENM, TRANSACTION } from "../Constant";
 import { overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
 import { getCustomAttributeTaskObj } from "./TaskSelectFunction";

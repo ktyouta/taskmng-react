@@ -1,4 +1,3 @@
-import { CATEGORYFILEPATH, JSONEXTENSION, SETTINGFILEPATH } from "../../Constant";
 import { getFileJsonData } from "../../FileFunction";
 import { CATEGORY_FILEPATH, PRE_CATEGORY_ID } from "./Const/CategoryConst";
 import { categoryType } from "./Type/CategoryType";

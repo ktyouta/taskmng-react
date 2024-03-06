@@ -45,3 +45,6 @@ export const CRUD_ID = "5";
 
 //タスクのカテゴリID
 export const TASK_CATEGORY_ID = "CATEGORY-5";
+
+//汎用詳細ファイルのパス
+export const GENERAL_DETAIL_FILEPATH = `${MASTERFILEPATH}${GENERALDETAILFILEPATH}${JSONEXTENSION}`;

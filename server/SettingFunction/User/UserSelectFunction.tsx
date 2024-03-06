@@ -1,4 +1,3 @@
-import { JSONEXTENSION, SETTINGFILEPATH, USERINFOFILEPATH } from "../../Constant";
 import { getFileJsonData } from "../../FileFunction";
 import { generalDetailType } from "../../Type/type";
 import { GENERALDETAIL_FILEPATH } from "../DefaultAttribute/Const/DefaultAttributeConst";

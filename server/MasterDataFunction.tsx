@@ -1,5 +1,5 @@
 import { checkUpdAuth } from "./Auth/AuthFunction";
-import { JSONEXTENSION, MASTERFILEPATH } from "./Constant";
+import { JSONEXTENSION, MASTERFILEPATH } from "./Common/Const.tsx/CommonConst";
 import { checkFile, overWriteData, readFile } from "./FileFunction";
 import { methodType } from "./Type/type";
 

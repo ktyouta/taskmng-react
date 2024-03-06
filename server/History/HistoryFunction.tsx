@@ -1,6 +1,5 @@
 import { authenticate } from "../Auth/AuthFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
-import { JSONEXTENSION, TASKHISTORYPATH, TRANSACTION } from "../Constant";
 import { overWriteData } from "../FileFunction";
 import { TASK_HISTORY_PATH } from "./Const/HistoryConst";
 import { createAddTaskHistory } from "./HistoryRegistFunction";
