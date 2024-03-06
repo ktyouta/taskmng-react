@@ -1425,5 +1425,18 @@
 		"status": "2",
 		"url": "http://localhost:3000/task/TASKID-119",
 		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-120",
+		"title": "定数定義を専用のファイルに分離(検索条件)",
+		"content": "",
+		"registerTime": "2024/03/06",
+		"updTime": "2024/03/06",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "2",
+		"url": "http://localhost:3000/task/TASKID-120",
+		"deleteFlg": "0"
 	}
 ]

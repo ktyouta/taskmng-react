@@ -5,10 +5,10 @@ import { callCreateUpdSearchCondition, createUpdCustomAttribute, createUpdCustom
 import { filterCustomAttributeDetail, getCustomAttributeData, getCustomAttributeListData, joinCustomAttributeList } from "./CustomAttributeSelectFunction";
 import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
 import { getSearchConditionList, getSearchConditionObj } from "../../SearchCondition/SearchConditionSelectFunction";
-import { SEARCHCONDITION_FILE_PATH } from "../../SearchCondition/SearchConditionFunction";
 import { CUSTOM_ATTRIBUTE_FILEPATH } from "./Const/CustomAttributeConst";
 import { customAttributeListType, customAttributeType } from "./Type/CustomAttributeType";
 import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
+import { SEARCHCONDITION_FILE_PATH } from "../../SearchCondition/Const/SearchConditionConst";
 
 
 

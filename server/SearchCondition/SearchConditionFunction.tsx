@@ -2,20 +2,12 @@ import { authenticate } from "../Auth/AuthFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
 import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH } from "../Common/Const.tsx/CommonConst";
 import { overWriteData } from "../FileFunction";
+import { SEARCHCONDITION_FILE_PATH, SEARCHCONDITION_QUERYLRY } from "./Const/SearchConditionConst";
 import { createAddSearchCondition } from "./SearchConditionRegisterFunction";
 import { getFilterdSearchConditionList, getSearchConditionList, joinSelectListSearchCondition } from "./SearchConditionSelectFunction";
 import { createUpdSearchCondition } from "./SearchConditionUpdateFunction";
 import { retSearchConditionType, searchConditionType } from "./Type/SearchConditionType";
 
-
-//検索条件設定ファイルのパス
-export const SEARCHCONDITION_FILE_PATH = `${SETTINGFILEPATH}${SEARCHCONDITIONFILEPATH}${JSONEXTENSION}`;
-//検索条件取得用のクリストリングキー
-const SEARCHCONDITION_QUERYLRY = "attribute";
-//デフォルト属性
-export const ATTRIBUTE_KEY_DEFAULT = "default";
-//カスタム属性
-export const ATTRIBUTE_KEY_CUSTOM = "custom";
 
 /**
  * 検索条件設定リストの取得
