@@ -1,6 +1,6 @@
 import { getGeneralDataList } from "../Common/Function";
 import { readFile } from "../FileFunction";
-import { getGeneralDetailData } from "../GeneralFunction";
+import { getGeneralDetailData } from "../General/GeneralFunction";
 import { getFilterdCategory } from "../SettingFunction/Category/CategorySelectFunction";
 import { categoryType } from "../SettingFunction/Category/Type/CategoryType";
 import { TASK_FILEPATH } from "../Task/Const/TaskConst";

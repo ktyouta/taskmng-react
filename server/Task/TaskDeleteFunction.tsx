@@ -1,6 +1,6 @@
 import { getNowDate } from "../Common/Function";
 import { overWriteData, readFile } from "../FileFunction";
-import { getGeneralDetailData } from "../GeneralFunction";
+import { getGeneralDetailData } from "../General/GeneralFunction";
 import { getCustomAttributeTaskObj } from "./TaskSelectFunction";
 import { taskCustomAttributeSelectType, taskListType } from "./Type/TaskType";
 

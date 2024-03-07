@@ -1,5 +1,5 @@
 import { getFileJsonData, overWriteData, readFile } from "../FileFunction";
-import { getGeneralDetailData } from "../GeneralFunction";
+import { getGeneralDetailData } from "../General/GeneralFunction";
 import { getCustomAttributeData, getCustomAttributeListData } from "../SettingFunction/CustomAttribute/CustomAttributeSelectFunction";
 import { joinGeneralSetting } from "../History/HistorySelectFunction";
 import { getFilterdSearchConditionList, getSearchConditionList } from "../SearchCondition/SearchConditionSelectFunction";

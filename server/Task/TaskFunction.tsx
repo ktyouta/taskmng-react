@@ -1,5 +1,5 @@
 import { overWriteData, readFile } from "../FileFunction";
-import { getGeneralDetailData } from "../GeneralFunction";
+import { getGeneralDetailData } from "../General/GeneralFunction";
 import { createDeleteCustomAttributeData, createDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
 import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";

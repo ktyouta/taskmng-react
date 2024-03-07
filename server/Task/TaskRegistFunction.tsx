@@ -1,5 +1,5 @@
 import { overWriteData, readFile } from "../FileFunction";
-import { getGeneralDetailData } from "../GeneralFunction";
+import { getGeneralDetailData } from "../General/GeneralFunction";
 import { createTaskNewId, getCustomAttributeTaskObj } from "./TaskSelectFunction";
 import { runAddTaskHistory } from "../History/HistoryFunction";
 import { getNowDate } from "../Common/Function";
