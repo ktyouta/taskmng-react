@@ -1,7 +1,7 @@
-import { checkUpdAuth } from "./Auth/AuthFunction";
-import { JSONEXTENSION, MASTERFILEPATH } from "./Common/Const.tsx/CommonConst";
-import { methodType } from "./Common/Type/CommonType";
-import { checkFile, overWriteData, readFile } from "./FileFunction";
+import { checkUpdAuth } from "../Auth/AuthFunction";
+import { JSONEXTENSION, MASTERFILEPATH } from "../Common/Const.tsx/CommonConst";
+import { methodType } from "../Common/Type/CommonType";
+import { checkFile, overWriteData, readFile } from "../FileFunction";
 
 /**
  * 登録用データの作成

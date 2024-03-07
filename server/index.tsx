@@ -2,8 +2,8 @@ import express from 'express';
 import ENV from '../src/env.json';
 import { checkFile, overWriteData, readFile } from './FileFunction';
 import { config } from './ApiConfig';
-import { createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterDataFunction';
-import { runAddMaster } from './AddMasterDataFunction';
+import { createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterData/MasterDataFunction';
+import { runAddMaster } from './AddMasterData/AddMasterDataFunction';
 import { getGeneralDetailData } from './GeneralFunction';
 import { getTaskDetail, getTaskList, runAddTask, runDeleteTask, runUpdTask } from './Task/TaskFunction';
 import {
