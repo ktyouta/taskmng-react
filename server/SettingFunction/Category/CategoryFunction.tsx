@@ -1,4 +1,3 @@
-import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { filterCategoryDetail, getFilterdCategory } from "./CategorySelectFunction";
 import { categoryType, checkOrderType } from "./Type/CategoryType";
 import { createAddCategoryData } from "./CategoryRegistFunction";
@@ -6,6 +5,7 @@ import { createUpdCategoryData, createUpdCategoryOrderData } from "./CategoryUpd
 import { createDelCategoryData } from "./CategoryDeleteFunction";
 import { CATEGORY_FILEPATH } from "./Const/CategoryConst";
 import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
+import { overWriteData } from "../../Common/FileFunction";
 
 
 /**

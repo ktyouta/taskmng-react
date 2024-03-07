@@ -1,10 +1,10 @@
-import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { createUpdDefaultAttribute, createUpdDefaultAttributeSelectList, } from "./DefaultAttributeUpdateFunction";
 import { filterDefaultAttributeDetail, getDefaultAttributeData, } from "./DefaultAttributeSelectFunction";
 import { defaultAttributeType, defaultAttributeUpdType } from "./Type/DefaultAttributeType";
 import { DEFAULT_ATTRIBUTE_FILEPATH, GENERALDETAIL_FILEPATH } from "./Const/DefaultAttributeConst";
 import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
 import { generalDetailType } from "../../Common/Type/CommonType";
+import { getFileJsonData, overWriteData } from "../../Common/FileFunction";
 
 
 

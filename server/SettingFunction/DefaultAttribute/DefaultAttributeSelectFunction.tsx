@@ -1,5 +1,5 @@
+import { getFileJsonData } from "../../Common/FileFunction";
 import { generalDetailType } from "../../Common/Type/CommonType";
-import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { DEFAULT_ATTRIBUTE_FILEPATH, GENERALDETAIL_FILEPATH } from "./Const/DefaultAttributeConst";
 import { defaultAttributeType } from "./Type/DefaultAttributeType";
 

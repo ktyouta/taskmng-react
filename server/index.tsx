@@ -1,6 +1,5 @@
 import express from 'express';
 import ENV from '../src/env.json';
-import { checkFile, overWriteData, readFile } from './FileFunction';
 import { config } from './ApiConfig';
 import { createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterData/MasterDataFunction';
 import { runAddMaster } from './AddMasterData/AddMasterDataFunction';
@@ -23,6 +22,7 @@ import { getDefaultAttribute, getDefaultAttributeDetail, runUpdDefaultAttribute 
 import { getSearchCondition } from './SearchCondition/SearchConditionFunction';
 import { authenticate, createToken } from './Auth/AuthFunction';
 import { JSONEXTENSION, MASTERFILEPATH } from './Common/Const.tsx/CommonConst';
+import { readFile } from './Common/FileFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');

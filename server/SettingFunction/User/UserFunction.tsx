@@ -1,5 +1,5 @@
 import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
-import { overWriteData } from "../../FileFunction";
+import { overWriteData } from "../../Common/FileFunction";
 import { USERINFO_FILEPATH } from "./Const/UserConst";
 import { userInfoType } from "./Type/UserType";
 import { createDeleteUserData } from "./UserDeleteFunction";

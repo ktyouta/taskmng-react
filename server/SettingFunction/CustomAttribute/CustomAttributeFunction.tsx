@@ -1,4 +1,3 @@
-import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
 import { callCreateAddSearchCondition, createAddCustomAttribute, createAddCustomAttributeList, runCreateSelectList } from "./CustomAttributeRegistFunction";
 import { callCreateDelSearchCondition, createDeleteCustomAttribute, createDeleteCustomAttributeList, runDeleteSelectList } from "./CustomAttributeDeleteFunction";
 import { callCreateUpdSearchCondition, createUpdCustomAttribute, createUpdCustomAttributeList, runUpdSelectList } from "./CustomAttributeUpdateFunction";
@@ -9,6 +8,7 @@ import { CUSTOM_ATTRIBUTE_FILEPATH } from "./Const/CustomAttributeConst";
 import { customAttributeListType, customAttributeType } from "./Type/CustomAttributeType";
 import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
 import { SEARCHCONDITION_FILE_PATH } from "../../SearchCondition/Const/SearchConditionConst";
+import { getFileJsonData, overWriteData } from "../../Common/FileFunction";
 
 
 

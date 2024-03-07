@@ -1,5 +1,5 @@
-import { readFile } from "../FileFunction";
 import { GENERAL_DETAIL_FILEPATH } from "./Const.tsx/CommonConst";
+import { readFile } from "./FileFunction";
 import { generalDetailType } from "./Type/CommonType";
 
 

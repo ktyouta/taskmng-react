@@ -1,4 +1,3 @@
-import { overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../General/GeneralFunction";
 import { createDeleteCustomAttributeData, createDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
@@ -9,6 +8,7 @@ import { CREATE, CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, DELETE, TASK_FILEPATH, UP
 import { taskDetailType, taskListType } from "./Type/TaskType";
 import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
+import { overWriteData } from "../Common/FileFunction";
 
 
 
