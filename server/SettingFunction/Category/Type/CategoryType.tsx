@@ -1,4 +1,4 @@
-import { customAttributeListType } from "../../../Type/type"
+import { customAttributeListType } from "../../CustomAttribute/Type/CustomAttributeType"
 
 //カテゴリの型
 export type categoryType = {

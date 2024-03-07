@@ -1,4 +1,4 @@
-import { inputType } from "../../../Type/type"
+import { inputType } from "../../../Common/Type/CommonType"
 
 //カスタム属性の登録用データの作成時の返却用の型
 export type retCreateAddCustomAttributeType = {

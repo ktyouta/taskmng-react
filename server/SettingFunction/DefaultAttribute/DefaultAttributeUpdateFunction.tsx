@@ -1,7 +1,7 @@
 import { getFileJsonData, overWriteData, readFile } from "../../FileFunction";
-import { generalDetailType } from "../../Type/type";
 import { defaultAttributeType, defaultAttributeUpdType, selectListType } from "./Type/DefaultAttributeType";
 import { getNowDate } from "../../Common/Function";
+import { generalDetailType } from "../../Common/Type/CommonType";
 
 
 /**

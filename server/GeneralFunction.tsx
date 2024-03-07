@@ -1,6 +1,6 @@
 import { GENERALDETAILFILEPATH, JSONEXTENSION, MASTERFILEPATH } from "./Common/Const.tsx/CommonConst";
+import { generalDetailType } from "./Common/Type/CommonType";
 import { readFile } from "./FileFunction";
-import { generalDetailType } from "./Type/type";
 
 /**
  * 汎用詳細データを取得

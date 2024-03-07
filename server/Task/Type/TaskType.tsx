@@ -1,4 +1,4 @@
-import { inputSettingType } from "../../Type/type"
+import { inputSettingType } from "../../Common/Type/CommonType"
 
 //タスクリストの型
 export type taskListType = {

@@ -1,6 +1,5 @@
 import { overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
-import { inputSettingType } from "../Type/type";
 import { createDeleteCustomAttributeData, createDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
 import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
@@ -9,6 +8,7 @@ import { runAddTaskHistory } from "../History/HistoryFunction";
 import { CREATE, CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, DELETE, TASK_FILEPATH, UPDATE } from "./Const/TaskConst";
 import { taskDetailType, taskListType } from "./Type/TaskType";
 import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
+import { inputSettingType } from "../Common/Type/CommonType";
 
 
 

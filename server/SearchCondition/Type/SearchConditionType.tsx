@@ -1,4 +1,4 @@
-import { comboType } from "../../Type/type"
+import { comboType } from "../../Common/Type/CommonType"
 
 //検索条件の型
 export type searchConditionType = {

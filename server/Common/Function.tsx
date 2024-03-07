@@ -1,6 +1,6 @@
 import { readFile } from "../FileFunction";
-import { generalDetailType } from "../Type/type";
 import { GENERAL_DETAIL_FILEPATH } from "./Const.tsx/CommonConst";
+import { generalDetailType } from "./Type/CommonType";
 
 
 export function getGeneralDataList() {

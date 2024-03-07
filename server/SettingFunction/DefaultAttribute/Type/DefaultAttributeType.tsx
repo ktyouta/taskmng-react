@@ -1,4 +1,4 @@
-import { inputType } from "../../../Type/type";
+import { inputType } from "../../../Common/Type/CommonType"
 
 //デフォルト属性の型
 export type defaultAttributeType = {

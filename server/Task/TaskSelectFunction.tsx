@@ -1,6 +1,5 @@
 import { getFileJsonData, overWriteData, readFile } from "../FileFunction";
 import { getGeneralDetailData } from "../GeneralFunction";
-import { comboType, inputSettingType } from "../Type/type";
 import { getCustomAttributeData, getCustomAttributeListData } from "../SettingFunction/CustomAttribute/CustomAttributeSelectFunction";
 import { joinGeneralSetting } from "../History/HistorySelectFunction";
 import { getFilterdSearchConditionList, getSearchConditionList } from "../SearchCondition/SearchConditionSelectFunction";
@@ -12,6 +11,7 @@ import ENV from '../../src/env.json';
 import { taskCustomAttributeSelectType, taskCustomAttributeSelectedType, taskListType } from "./Type/TaskType";
 import { customAttributeListType, customAttributeType } from "../SettingFunction/CustomAttribute/Type/CustomAttributeType";
 import { TASK_CATEGORY_ID } from "../Common/Const.tsx/CommonConst";
+import { comboType, inputSettingType } from "../Common/Type/CommonType";
 
 
 

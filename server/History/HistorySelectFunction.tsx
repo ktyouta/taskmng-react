@@ -4,7 +4,6 @@ import { getGeneralDetailData } from "../GeneralFunction";
 import { getFilterdCategory } from "../SettingFunction/Category/CategorySelectFunction";
 import { categoryType } from "../SettingFunction/Category/Type/CategoryType";
 import { TASK_FILEPATH } from "../Task/Const/TaskConst";
-import { generalDetailType } from "../Type/type";
 import { addTaskHistoryType, taskHistoryType } from "./Type/HistoryType";
 import ENV from '../../src/env.json';
 import { taskListType } from "../Task/Type/TaskType";
@@ -12,6 +11,7 @@ import { userInfoType } from "../SettingFunction/User/Type/UserType";
 import { TASK_HISTORY_PATH } from "./Const/HistoryConst";
 import { USERINFO_FILEPATH } from "../SettingFunction/User/Const/UserConst";
 import { CRUD_ID, TASK_CATEGORY_ID } from "../Common/Const.tsx/CommonConst";
+import { generalDetailType } from "../Common/Type/CommonType";
 
 
 
