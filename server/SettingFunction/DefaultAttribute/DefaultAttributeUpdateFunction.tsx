@@ -1,6 +1,6 @@
 import { defaultAttributeType, defaultAttributeUpdType, selectListType } from "./Type/DefaultAttributeType";
 import { getNowDate } from "../../Common/Function";
-import { generalDetailType } from "../../Common/Type/CommonType";
+import { generalDetailType } from "../../General/Type/GeneralType";
 
 
 /**

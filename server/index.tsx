@@ -3,7 +3,7 @@ import ENV from '../src/env.json';
 import { config } from './ApiConfig';
 import { createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterData/MasterDataFunction';
 import { runAddMaster } from './AddMasterData/AddMasterDataFunction';
-import { getGeneralDetailData } from './General/GeneralFunction';
+import { getGeneralData, getGeneralDetailData } from './General/GeneralFunction';
 import { getTaskDetail, getTaskList, runAddTask, runDeleteTask, runUpdTask } from './Task/TaskFunction';
 import {
     getCustomAttribute,
@@ -88,13 +88,7 @@ config.get.forEach((element) => {
  * generaldetailにアクセスした際の動作
  */
 app.get(`${ENV.GENERALDETAIL}`, function (req, res) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return authResult;
-    }
-    let generalDetailList = getGeneralDetailData();
-    res.status(200).json(generalDetailList);
+    getGeneralData(req, res);
 });
 
 
@@ -102,13 +96,7 @@ app.get(`${ENV.GENERALDETAIL}`, function (req, res) {
  * generaldetailにアクセスした際の動作(パスパラメータあり)
  */
 app.get(`${ENV.GENERALDETAIL}/:param`, function (req, res) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return authResult;
-    }
-    let generalDetailList = getGeneralDetailData(req.params.param);
-    res.status(200).json(generalDetailList);
+    getGeneralDetailData(req, res, req.params.param)
 });
 
 

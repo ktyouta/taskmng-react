@@ -1,20 +1,42 @@
-import { GENERALDETAILFILEPATH, JSONEXTENSION, MASTERFILEPATH } from "../Common/Const.tsx/CommonConst";
-import { generalDetailType } from "../Common/Type/CommonType";
-import { readFile } from "../Common/FileFunction";
+import { authenticate } from "../Auth/AuthFunction";
+import { getGeneralDataList, getGeneralDetailDataList } from "./GeneralSelectFunction";
+
 
 /**
  * 汎用詳細データを取得
+ * @returns 
  */
-export function getGeneralDetailData(id?: string) {
+export function getGeneralData(req: any, res: any) {
+    //認証チェック
+    let authResult = authenticate(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
     //汎用詳細ファイルの読み込み
-    let generalDetailFileData = readFile(`${MASTERFILEPATH}${GENERALDETAILFILEPATH}${JSONEXTENSION}`);
-    let decodeGeneralDetailFileData: generalDetailType[] = JSON.parse(generalDetailFileData);
-    let taskPriorityList = decodeGeneralDetailFileData.filter((element) => {
-        //idで絞り込み
-        if (id) {
-            return element.id === id;
-        }
-        return true;
-    });
-    return taskPriorityList;
+    let generalList = getGeneralDataList();
+    return res.status(200).json(generalList);
+}
+
+
+/**
+ * 汎用詳細データを取得
+ * @returns 
+ */
+export function getGeneralDetailData(req: any, res: any, id: string) {
+    //認証チェック
+    let authResult = authenticate(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //汎用詳細ファイルの読み込み
+    let generalList = getGeneralDataList();
+    let generalDetail = getGeneralDetailDataList(generalList, id);
+
+    return res.status(200).json(generalDetail);
 }

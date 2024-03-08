@@ -1,5 +1,3 @@
-import { getGeneralDataList } from "../Common/Function";
-import { getGeneralDetailData } from "../General/GeneralFunction";
 import { getFilterdCategory } from "../SettingFunction/Category/CategorySelectFunction";
 import { categoryType } from "../SettingFunction/Category/Type/CategoryType";
 import { TASK_FILEPATH } from "../Task/Const/TaskConst";
@@ -10,8 +8,9 @@ import { userInfoType } from "../SettingFunction/User/Type/UserType";
 import { TASK_HISTORY_PATH } from "./Const/HistoryConst";
 import { USERINFO_FILEPATH } from "../SettingFunction/User/Const/UserConst";
 import { CRUD_ID, TASK_CATEGORY_ID } from "../Common/Const.tsx/CommonConst";
-import { generalDetailType } from "../Common/Type/CommonType";
 import { readFile } from "../Common/FileFunction";
+import { generalDetailType } from "../General/Type/GeneralType";
+import { getGeneralDataList } from "../General/GeneralSelectFunction";
 
 
 

@@ -1,15 +1,3 @@
-import { GENERAL_DETAIL_FILEPATH } from "./Const.tsx/CommonConst";
-import { readFile } from "./FileFunction";
-import { generalDetailType } from "./Type/CommonType";
-
-
-export function getGeneralDataList() {
-    //汎用詳細ファイルの読み込み
-    let generalData = readFile(GENERAL_DETAIL_FILEPATH);
-    let decodeGeneralData: generalDetailType[] = JSON.parse(generalData);
-    return decodeGeneralData;
-}
-
 
 /**
  * 現在日時を取得

@@ -1,5 +1,5 @@
 import { getFileJsonData } from "../../Common/FileFunction";
-import { generalDetailType } from "../../Common/Type/CommonType";
+import { generalDetailType } from "../../General/Type/GeneralType";
 import { GENERALDETAIL_FILEPATH } from "../DefaultAttribute/Const/DefaultAttributeConst";
 import { AUTH_ID, USERINFO_FILEPATH } from "./Const/UserConst";
 import { userInfoType } from "./Type/UserType";

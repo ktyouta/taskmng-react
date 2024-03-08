@@ -6,13 +6,6 @@ export type bodyObj = {
 //メソッドタイプ
 export type methodType = "POST" | "PUT" | "DELETE"
 
-//汎用詳細の型
-export type generalDetailType = {
-    id: string,
-    value: string,
-    label: string,
-}
-
 //ラベルと値の型
 export type comboType = {
     label: string,

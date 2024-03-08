@@ -3,8 +3,8 @@ import { filterDefaultAttributeDetail, getDefaultAttributeData, } from "./Defaul
 import { defaultAttributeType, defaultAttributeUpdType } from "./Type/DefaultAttributeType";
 import { DEFAULT_ATTRIBUTE_FILEPATH, GENERALDETAIL_FILEPATH } from "./Const/DefaultAttributeConst";
 import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
-import { generalDetailType } from "../../Common/Type/CommonType";
 import { getFileJsonData, overWriteData } from "../../Common/FileFunction";
+import { generalDetailType } from "../../General/Type/GeneralType";
 
 
 

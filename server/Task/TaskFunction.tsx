@@ -277,37 +277,37 @@ export function runDeleteTask(res: any, req: any, delTaskId: string) {
 /**
  * タスクのjoinを行う
  */
-function joinTask(decodeFileData: taskListType[]) {
-    //汎用詳細データを取得
-    //タスク優先度リスト
-    let taskPriorityList = getGeneralDetailData("2");
+// function joinTask(decodeFileData: taskListType[]) {
+//     //汎用詳細データを取得
+//     //タスク優先度リスト
+//     let taskPriorityList = getGeneralDetailData("2");
 
-    //タスクステータスリスト
-    let taskStatusList = getGeneralDetailData("3");
+//     //タスクステータスリスト
+//     let taskStatusList = getGeneralDetailData("3");
 
-    //優先度およびステータスの紐づけを行う
-    let joinTaskData: taskListType[] = [];
-    decodeFileData.forEach((element) => {
-        let isMatchPriority = false;
-        let isMatchStatus = false;
-        taskPriorityList.some((item) => {
-            //優先度が一致
-            if (element.priority === item.value) {
-                element.priority = item.label;
-                return isMatchPriority = true;
-            }
-        });
-        taskStatusList.some((item) => {
-            //ステータスが一致
-            if (element.status === item.value) {
-                element.status = item.label;
-                return isMatchStatus = true;
-            }
-        });
-        //優先度とステータスの結合に成功したデータのみクライアントに返却する
-        if (isMatchPriority && isMatchStatus) {
-            joinTaskData.push(element);
-        }
-    });
-    return joinTaskData;
-}
+//     //優先度およびステータスの紐づけを行う
+//     let joinTaskData: taskListType[] = [];
+//     decodeFileData.forEach((element) => {
+//         let isMatchPriority = false;
+//         let isMatchStatus = false;
+//         taskPriorityList.some((item) => {
+//             //優先度が一致
+//             if (element.priority === item.value) {
+//                 element.priority = item.label;
+//                 return isMatchPriority = true;
+//             }
+//         });
+//         taskStatusList.some((item) => {
+//             //ステータスが一致
+//             if (element.status === item.value) {
+//                 element.status = item.label;
+//                 return isMatchStatus = true;
+//             }
+//         });
+//         //優先度とステータスの結合に成功したデータのみクライアントに返却する
+//         if (isMatchPriority && isMatchStatus) {
+//             joinTaskData.push(element);
+//         }
+//     });
+//     return joinTaskData;
+// }
