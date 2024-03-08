@@ -1,12 +1,12 @@
-import { getFilterdCategory } from "../SettingFunction/Category/CategorySelectFunction";
-import { categoryType } from "../SettingFunction/Category/Type/CategoryType";
+import { getFilterdCategory } from "../Setting/Category/CategorySelectFunction";
+import { categoryType } from "../Setting/Category/Type/CategoryType";
 import { TASK_FILEPATH } from "../Task/Const/TaskConst";
 import { addTaskHistoryType, taskHistoryType } from "./Type/HistoryType";
 import ENV from '../../src/env.json';
 import { taskListType } from "../Task/Type/TaskType";
-import { userInfoType } from "../SettingFunction/User/Type/UserType";
+import { userInfoType } from "../Setting/User/Type/UserType";
 import { TASK_HISTORY_PATH } from "./Const/HistoryConst";
-import { USERINFO_FILEPATH } from "../SettingFunction/User/Const/UserConst";
+import { USERINFO_FILEPATH } from "../Setting/User/Const/UserConst";
 import { CRUD_ID, TASK_CATEGORY_ID } from "../Common/Const.tsx/CommonConst";
 import { readFile } from "../Common/FileFunction";
 import { generalDetailType } from "../General/Type/GeneralType";

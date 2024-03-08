@@ -1,14 +1,14 @@
 import { getGeneralDetailData } from "../General/GeneralFunction";
-import { getCustomAttributeData, getCustomAttributeListData } from "../SettingFunction/CustomAttribute/CustomAttributeSelectFunction";
+import { getCustomAttributeData, getCustomAttributeListData } from "../Setting/CustomAttribute/CustomAttributeSelectFunction";
 import { joinGeneralSetting } from "../History/HistorySelectFunction";
 import { getFilterdSearchConditionList, getSearchConditionList } from "../SearchCondition/SearchConditionSelectFunction";
 import { searchConditionType } from "../SearchCondition/Type/SearchConditionType";
 import { CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, CUSTOMATTRIBUTE_KEY_DEFAULT, PRE_TASK_ID, SEARCHCONDITION_KEY_DEFAULT, TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, TASK_FILEPATH } from "./Const/TaskConst";
-import { categoryType } from "../SettingFunction/Category/Type/CategoryType";
-import { getFilterdCategory } from "../SettingFunction/Category/CategorySelectFunction";
+import { categoryType } from "../Setting/Category/Type/CategoryType";
+import { getFilterdCategory } from "../Setting/Category/CategorySelectFunction";
 import ENV from '../../src/env.json';
 import { taskCustomAttributeSelectType, taskCustomAttributeSelectedType, taskListType } from "./Type/TaskType";
-import { customAttributeListType, customAttributeType } from "../SettingFunction/CustomAttribute/Type/CustomAttributeType";
+import { customAttributeListType, customAttributeType } from "../Setting/CustomAttribute/Type/CustomAttributeType";
 import { TASK_CATEGORY_ID } from "../Common/Const.tsx/CommonConst";
 import { comboType, inputSettingType } from "../Common/Type/CommonType";
 import { getFileJsonData, readFile } from "../Common/FileFunction";

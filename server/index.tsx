@@ -12,13 +12,13 @@ import {
     runAddCustomAttribute,
     runDeleteCustomAttribute,
     runUpdCustomAttribute
-} from './SettingFunction/CustomAttribute/CustomAttributeFunction';
+} from './Setting/CustomAttribute/CustomAttributeFunction';
 import { getTaskHistory } from './History/HistoryFunction';
-import { getUserInfo, getUserInfoDetail, runAddUser, runDeleteUser, runUpdUser } from './SettingFunction/User/UserFunction';
-import { getCategory, getCategoryDetail, runAddCategory, runDeleteCategory, runUpdCategory, runUpdCategoryOrder } from './SettingFunction/Category/CategoryFunction';
+import { getUserInfo, getUserInfoDetail, runAddUser, runDeleteUser, runUpdUser } from './Setting/User/UserFunction';
+import { getCategory, getCategoryDetail, runAddCategory, runDeleteCategory, runUpdCategory, runUpdCategoryOrder } from './Setting/Category/CategoryFunction';
 import { Response, Request, ParamsDictionary } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
-import { getDefaultAttribute, getDefaultAttributeDetail, runUpdDefaultAttribute } from './SettingFunction/DefaultAttribute/DefaultAttributeFunction';
+import { getDefaultAttribute, getDefaultAttributeDetail, runUpdDefaultAttribute } from './Setting/DefaultAttribute/DefaultAttributeFunction';
 import { getSearchCondition } from './SearchCondition/SearchConditionFunction';
 import { authenticate, createToken } from './Auth/AuthFunction';
 import { JSONEXTENSION, MASTERFILEPATH } from './Common/Const.tsx/CommonConst';
