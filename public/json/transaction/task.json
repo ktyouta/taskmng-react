@@ -983,11 +983,11 @@
 		"title": "カスタム属性の選択リストの更新時のロジック修正",
 		"content": "現在の更新ロジックでは選択リストに空行が含まれている場合に、そのデータを物理削除している。\n他の仕様に合わせて論理削除とする。",
 		"registerTime": "2024/01/27",
-		"updTime": "2024/01/27",
+		"updTime": "2024/03/09",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
-		"status": "1",
+		"status": "4",
 		"deleteFlg": "0"
 	},
 	{
@@ -1501,6 +1501,19 @@
 		"userId": "f",
 		"priority": "1",
 		"status": "2",
+		"url": "",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-126",
+		"title": "カスタム属性詳細画面で登録時にID欄を非表示にする",
+		"content": "",
+		"registerTime": "2024/03/09",
+		"updTime": "2024/03/09",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
 		"url": "",
 		"deleteFlg": "0"
 	}

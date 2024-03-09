@@ -1,6 +1,6 @@
 import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
 import { createAddSearchCondition } from "../../SearchCondition/SearchConditionRegisterFunction";
-import { customAttributeListType, customAttributeType, registSelectListRetType, retCreateAddCustomAttributeType } from "./Type/CustomAttributeType";
+import { customAttributeListType, customAttributeType, registSelectListRetType, reqClientCustomAttributeType, retCreateAddCustomAttributeType, selectElementListType } from "./Type/CustomAttributeType";
 import { createCustomAttributeNewId, createCustomAttributeSelectListNewId } from "./CustomAttributeSelectFunction";
 import { getNowDate } from "../../Common/Function";
 import { CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, INPUT_LENGTH, TEXTAREA_LENGTH } from "./Const/CustomAttributeConst";
@@ -17,7 +17,7 @@ import { getFileJsonData, overWriteData } from "../../Common/FileFunction";
  * @param authResult ユーザー情報
  * @returns 
  */
-export function createAddCustomAttribute(fileDataObj: customAttributeType[], body: customAttributeType, authResult: authInfoType)
+export function createAddCustomAttribute(fileDataObj: customAttributeType[], body: reqClientCustomAttributeType, authResult: authInfoType)
     : retCreateAddCustomAttributeType {
 
     let retObj = {
@@ -46,19 +46,21 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], bod
         type: "",
         required: false,
         selectElementListId: "",
-        selectElementList: [],
         description: "",
         length: "0",
     };
 
     //登録データをセット
-    registData = { ...body };
+    registData.id = { ...body }.id;
     registData.name = { ...body }.name.trim();
-    delete registData.selectElementList;
+    registData.type = { ...body }.type;
+    registData.required = { ...body }.required;
+    registData.description = { ...body }.description;
     registData.selectElementListId = "";
     registData.registerTime = nowDate;
     registData.updTime = nowDate;
     registData.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
+    delete registData.selectElementList;
 
     //フォーマットがinputまたはtextareaの場合は、maxlengthをセット
     switch (body.type) {
@@ -95,7 +97,7 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], bod
  * @returns 
  */
 export function runCreateSelectList(
-    caRegistData: customAttributeType[], selectList: string[], authResult: authInfoType) {
+    caRegistData: customAttributeType[], selectList: selectElementListType[], authResult: authInfoType) {
 
     let calRegistData: registSelectListRetType = {
         errMsg: "",
@@ -128,7 +130,7 @@ export function runCreateSelectList(
  * @returns 
  */
 export function createAddCustomAttributeList(
-    fileDataObj: customAttributeListType[], selectList: string[], caData: customAttributeType, authResult: authInfoType)
+    fileDataObj: customAttributeListType[], selectList: selectElementListType[], caData: customAttributeType, authResult: authInfoType)
     : registSelectListRetType {
 
     let ret: registSelectListRetType = {
@@ -159,7 +161,7 @@ export function createAddCustomAttributeList(
         let body: customAttributeListType = {
             id: newId,
             no: (i + 1).toString(),
-            content: selectList[i],
+            content: selectList[i].value,
             registerTime: nowDate,
             updTime: nowDate,
             userId: authResult.userInfo ? authResult.userInfo?.userId : "",
@@ -182,7 +184,7 @@ export function createAddCustomAttributeList(
  * @returns 
  */
 export function callCreateAddSearchCondition(
-    searchConditionList: searchConditionType[], body: customAttributeType, customAtrributeId: string,
+    searchConditionList: searchConditionType[], body: reqClientCustomAttributeType, customAtrributeId: string,
     registSearchConditionData: customAttributeType[], authResult: authInfoType)
     : searchConditionType[] {
 

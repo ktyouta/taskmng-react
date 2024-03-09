@@ -1,17 +1,14 @@
 import { callCreateAddSearchCondition, createAddCustomAttribute, createAddCustomAttributeList, runCreateSelectList } from "./CustomAttributeRegistFunction";
 import { callCreateDelSearchCondition, createDeleteCustomAttribute, createDeleteCustomAttributeList, runDeleteSelectList } from "./CustomAttributeDeleteFunction";
 import { callCreateUpdSearchCondition, createUpdCustomAttribute, createUpdCustomAttributeList, runUpdSelectList } from "./CustomAttributeUpdateFunction";
-import { filterCustomAttributeDetail, getCustomAttributeData, getCustomAttributeListData, joinCustomAttributeList } from "./CustomAttributeSelectFunction";
+import { convertCustomAttribute, getCustomAttributeData, getCustomAttributeListData, joinCustomAttributeList, joinCustomAttributeSelectList } from "./CustomAttributeSelectFunction";
 import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
 import { getSearchConditionList, getSearchConditionObj } from "../../SearchCondition/SearchConditionSelectFunction";
 import { CUSTOM_ATTRIBUTE_FILEPATH } from "./Const/CustomAttributeConst";
-import { customAttributeListType, customAttributeType } from "./Type/CustomAttributeType";
+import { customAttributeListType, customAttributeType, reqClientCustomAttributeType, selectElementListType } from "./Type/CustomAttributeType";
 import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
 import { SEARCHCONDITION_FILE_PATH } from "../../SearchCondition/Const/SearchConditionConst";
 import { getFileJsonData, overWriteData } from "../../Common/FileFunction";
-
-
-
 
 
 
@@ -58,8 +55,25 @@ export function getCustomAttributeDetail(res: any, req: any, id: string) {
         return res.status(400).json({ errMessage: `カスタム属性が登録されていません。` });
     }
 
-    return filterCustomAttributeDetail(decodeFileData, id, res);
+    //IDに一致するカスタム属性を取得
+    let singleCustomAttributeData = decodeFileData.find((element) => {
+        return element.id === id
+    });
+
+    //IDに一致するカスタム属性が存在しない
+    if (!singleCustomAttributeData) {
+        return res.status(400).json({ errMessage: `カスタム属性が登録されていません。` });
+    }
+
+    //画面返却用に型変換
+    let resClientCustomAttribute = convertCustomAttribute(singleCustomAttributeData);
+
+    //選択リストを結合する
+    resClientCustomAttribute = joinCustomAttributeSelectList(resClientCustomAttribute);
+
+    return res.status(200).json(resClientCustomAttribute);
 }
+
 
 /**
  * カスタム属性入力値設定の取得
@@ -104,7 +118,7 @@ export function runAddCustomAttribute(res: any, req: any) {
     }
 
     //リクエストボディ
-    let body: customAttributeType = req.body;
+    let body: reqClientCustomAttributeType = req.body;
 
     //カスタム属性ファイルの読み込み
     let caDecodeFileData: customAttributeType[] = getFileJsonData(CUSTOM_ATTRIBUTE_FILEPATH);
@@ -130,10 +144,10 @@ export function runAddCustomAttribute(res: any, req: any) {
     }
 
     //カスタム属性リストのIDが存在する場合はリストを登録する
-    let selectList: string[] = body.selectElementList ?? [];
+    let selectList: selectElementListType[] = body.selectElementList ?? [];
     selectList = selectList.filter((element) => {
         //空欄は登録しない
-        return element !== "";
+        return element.value !== "";
     });
 
     let registListFlg: boolean = selectList && selectList.length > 0;
@@ -278,7 +292,7 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
     }
 
     let errMessage = "";
-    let body: customAttributeType = req.body;
+    let body: reqClientCustomAttributeType = req.body;
 
     //カスタム属性ファイルの読み込み
     let caDecodeFileData: customAttributeType[] = getFileJsonData(CUSTOM_ATTRIBUTE_FILEPATH);

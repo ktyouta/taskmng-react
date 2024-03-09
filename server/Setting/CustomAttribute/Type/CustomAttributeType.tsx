@@ -46,3 +46,42 @@ export type registSelectListRetType = {
     errMsg: string,
     registSelectList: customAttributeListType[]
 }
+
+//カスタム属性選択リストの型
+export type selectElementListType = {
+    no: string,
+    value: string,
+}
+
+//画面から受け取るカスタム属性の型
+export type reqClientCustomAttributeType = {
+    [key: string]: string | string[] | boolean | undefined | selectElementListType[],
+    id: string,
+    name: string,
+    type: inputType,
+    required: boolean,
+    selectElementList?: selectElementListType[],
+    selectElementListId: string,
+    registerTime: string,
+    updTime: string,
+    userId: string,
+    deleteFlg: string,
+    description: string,
+    length: string,
+}
+
+//画面に返却するカスタム属性の型
+export type resClientCustomAttributeType = {
+    [key: string]: string | string[] | boolean | undefined | selectElementListType[],
+    id: string,
+    name: string,
+    type: inputType,
+    required: boolean,
+    selectElementList?: selectElementListType[],
+    selectElementListId: string,
+    registerTime: string,
+    updTime: string,
+    userId: string,
+    description: string,
+    length: string,
+}

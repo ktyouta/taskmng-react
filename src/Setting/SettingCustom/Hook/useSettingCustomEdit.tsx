@@ -8,7 +8,7 @@ import useMutationWrapper, { resType } from "../../../Common/Hook/useMutationWra
 import { buttonObjType, generalDataType, refInfoType } from "../../../Common/Type/CommonType";
 import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
-import { customAttributeType } from "../Type/SettingCustomType";
+import { customAttributeType, resClientCustomAttributeType, selectElementListType, updCustomAttributeType } from "../Type/SettingCustomType";
 import { customAttributeIdAtom, editModeAtom } from "../Atom/SettingCustomAtom";
 import { editModeEnum } from "../../Const/SettingConst";
 
@@ -47,9 +47,11 @@ function useSettingCustomEdit(props: propsType) {
         value: "",
         ref: createRef(),
     }]);
+    //カスタム属性の初期選択リスト
+    const [initSelectList, setInitSelectList] = useState<selectElementListType[]>([]);
 
     //編集画面遷移時に更新用タスクを取得
-    const { data: updCustomAttribute, isLoading: isLoadinGetCustomAttribute } = useQueryWrapper<customAttributeType>(
+    const { data: updCustomAttribute, isLoading: isLoadinGetCustomAttribute } = useQueryWrapper<resClientCustomAttributeType>(
         {
             url: customAttributeId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CUSTOMATTRIBUTE}/${customAttributeId}` : ``,
             //取得したデータをセット
@@ -67,11 +69,12 @@ function useSettingCustomEdit(props: propsType) {
                     let tmpRefArray: inputRefType[] = [];
                     for (let i = 0; i < data.selectElementList.length; i++) {
                         tmpRefArray.push({
-                            value: data.selectElementList[i],
+                            value: data.selectElementList[i].value,
                             ref: createRef()
                         });
                     }
                     setSelectElementList(tmpRefArray);
+                    setInitSelectList(data.selectElementList);
                 }
             }
             , afErrorFn: (res) => {
@@ -276,7 +279,7 @@ function useSettingCustomEdit(props: propsType) {
      * リクエストボディの作成
      */
     const createRequestBody = () => {
-        let body: customAttributeType = {
+        let body: updCustomAttributeType = {
             id: "",
             name: "",
             description: "",
@@ -308,18 +311,24 @@ function useSettingCustomEdit(props: propsType) {
             body.required = caRequired;
         }
 
-        let selectList: string[] = [];
+        let selectList: selectElementListType[] = [];
         //カスタム属性の形式が選択形式の場合はリストをセット
         if (caType === "select" || caType === "radio" || caType === "checkbox") {
             let cnt = 0;
-            selectList = selectElementList.flatMap((element) => {
-                //空欄をスキップ
-                if (!element.ref.current || element.ref.current.refValue === "") {
+            selectList = [...selectElementList].reduce((pre: selectElementListType[], current: inputRefType, index) => {
+                //選択リストが空欄
+                if (!current.ref.current || current.ref.current.refValue === "") {
                     cnt++;
-                    return "";
                 }
-                return element.ref.current?.refValue;
-            });
+
+                //行番号が存在する場合はセット
+                pre.push({
+                    no: initSelectList[index] ? initSelectList[index].no : "",
+                    value: current.ref.current && current.ref.current.refValue ? current.ref.current.refValue : ""
+                });
+                return pre;
+            }, []);
+
             //選択形式の場合は最低1つ以上の項目を持たせる
             if (selectList.length === cnt) {
                 alert("1つ以上の項目が必要です。");

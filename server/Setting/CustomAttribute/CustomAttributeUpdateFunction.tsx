@@ -1,7 +1,7 @@
 import { searchConditionType } from "../../SearchCondition/Type/SearchConditionType";
 import { createUpdSearchCondition } from "../../SearchCondition/SearchConditionUpdateFunction";
-import { createCustomAttributeSelectListNewId } from "./CustomAttributeSelectFunction";
-import { customAttributeListType, customAttributeType, registSelectListRetType, retCreateUpdCustomAttributeType } from "./Type/CustomAttributeType";
+import { createCustomAttributeSelectListNewId, createCustomAttributeSelectListNewNo } from "./CustomAttributeSelectFunction";
+import { customAttributeListType, customAttributeType, registSelectListRetType, reqClientCustomAttributeType, retCreateUpdCustomAttributeType, selectElementListType } from "./Type/CustomAttributeType";
 import { getNowDate } from "../../Common/Function";
 import { CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH } from "./Const/CustomAttributeConst";
 import { createAddCustomAttributeList } from "./CustomAttributeRegistFunction";
@@ -16,7 +16,7 @@ import { getFileJsonData, overWriteData } from "../../Common/FileFunction";
  * @param stream 
  * @returns 
  */
-export function createUpdCustomAttribute(fileDataObj: customAttributeType[], body: customAttributeType,
+export function createUpdCustomAttribute(fileDataObj: customAttributeType[], body: reqClientCustomAttributeType,
     updTaskId: string, authResult: authInfoType)
     : retCreateUpdCustomAttributeType {
 
@@ -89,7 +89,7 @@ export function createUpdCustomAttribute(fileDataObj: customAttributeType[], bod
  * @returns 
  */
 export function runUpdSelectList(updCaDatas: customAttributeType[], filterdCaData: customAttributeType,
-    body: customAttributeType, caId: string, authResult: authInfoType)
+    body: reqClientCustomAttributeType, caId: string, authResult: authInfoType)
     : string {
 
     //カスタム属性リストファイルの読み込み
@@ -136,8 +136,8 @@ export function runUpdSelectList(updCaDatas: customAttributeType[], filterdCaDat
  * @param stream 
  * @returns 
  */
-export function createUpdCustomAttributeList(fileDataObj: customAttributeListType[],
-    newSelectList: string[], id: string, authResult: authInfoType)
+export function createUpdCustomAttributeList(customAttributeSelectList: customAttributeListType[],
+    newSelectList: selectElementListType[], id: string, authResult: authInfoType)
     : customAttributeListType[] {
 
     //現在日付を取得
@@ -146,66 +146,55 @@ export function createUpdCustomAttributeList(fileDataObj: customAttributeListTyp
     //選択リストの登録および更新
     newSelectList.forEach((element, i) => {
         //選択項目の存在チェック
-        let no = (i + 1).toString();
-        let tmp = fileDataObj.find((element1) => {
-            return element1.id === id && element1.no === no;
+        let updCustomAttributeSelectList = customAttributeSelectList.find((element1) => {
+            return element1.id === id && element1.no === element.no;
         });
         //更新
-        if (tmp) {
+        if (updCustomAttributeSelectList) {
+            updCustomAttributeSelectList.updTime = nowDate;
+            updCustomAttributeSelectList.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
+
             //空文字の場合は項目を削除する
-            if (!element) {
-                fileDataObj = fileDataObj.filter((element2) => {
-                    return !(element2.id === id && element2.no === no);
-                });
+            if (!element.value.trim()) {
+                updCustomAttributeSelectList.deleteFlg = "1";
                 return;
             }
-            tmp.content = element;
-            tmp.updTime = nowDate;
-            tmp.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
-            tmp.deleteFlg = "0";
+
+            updCustomAttributeSelectList.content = element.value;
         }
         //登録
         else {
             let body: customAttributeListType = {
                 id: id,
-                no: (i + 1).toString(),
-                content: newSelectList[i],
+                no: createCustomAttributeSelectListNewNo(customAttributeSelectList, id),
+                content: newSelectList[i].value,
                 registerTime: nowDate,
                 updTime: nowDate,
                 userId: authResult.userInfo ? authResult.userInfo?.userId : "",
                 deleteFlg: "0",
             };
 
-            fileDataObj.push(body);
+            customAttributeSelectList.push(body);
         }
     });
 
-    let filterdFileDataObj = fileDataObj.filter((element) => {
-        return element.id === id;
+    //削除済み以外の選択リストを取得
+    let filterdCustomAttributeSelectList = customAttributeSelectList.filter((element) => {
+        return element.id === id && element.deleteFlg !== "1";
     });
 
     //余分な選択リストを削除
-    let newSelectListLen = newSelectList.filter((element) => element).length;
-    let diff = filterdFileDataObj.length - newSelectListLen;
+    let newSelectListLen = newSelectList.filter((element) => element.value).length;
+    let diff = filterdCustomAttributeSelectList.length - newSelectListLen;
     if (diff > 0) {
-        let delBaseIndex = newSelectListLen;
-        fileDataObj.some((element) => {
-            if (element.id === id) {
-                return true;
+        filterdCustomAttributeSelectList.forEach((element, i) => {
+            if (!newSelectList[i]) {
+                element.deleteFlg = "1";
             }
-            delBaseIndex++;
         });
-        fileDataObj.splice(delBaseIndex, diff);
     }
 
-    //行番号を振りなおす
-    fileDataObj.filter((element) => {
-        return element.id === id;
-    }).forEach((element1, i) => {
-        element1.no = (i + 1).toString();
-    });
-
-    return fileDataObj;
+    return customAttributeSelectList;
 }
 
 
@@ -217,7 +206,7 @@ export function createUpdCustomAttributeList(fileDataObj: customAttributeListTyp
  * @returns 
  */
 export function callCreateUpdSearchCondition(
-    searchConditionList: searchConditionType[], body: customAttributeType, customAtrributeId: string,
+    searchConditionList: searchConditionType[], body: reqClientCustomAttributeType, customAtrributeId: string,
     registSearchConditionData: customAttributeType[], authResult: authInfoType)
     : searchConditionType[] {
 

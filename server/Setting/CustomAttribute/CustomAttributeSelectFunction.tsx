@@ -1,7 +1,7 @@
 import { getFileJsonData } from "../../Common/FileFunction";
 import { comboType, inputSettingType } from "../../Common/Type/CommonType";
 import { CUSTOM_ATTRIBUTE_FILEPATH, CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, PRE_CUSTOMATTRIBUTELIST_ID, PRE_CUSTOMATTRIBUTE_ID } from "./Const/CustomAttributeConst";
-import { customAttributeListType, customAttributeType } from "./Type/CustomAttributeType";
+import { customAttributeListType, customAttributeType, resClientCustomAttributeType, selectElementListType } from "./Type/CustomAttributeType";
 
 
 
@@ -37,40 +37,77 @@ export function getCustomAttributeListData() {
     return calDecodeFileData;
 }
 
+
 /**
- * カスタム属性のリストをIDで絞り込む
+ * ファイルから取得したカスタム属性を画面返却用に変換
  * @param decodeFileData カスタム属性リスト
  * @param id カスタム属性ID
  * @param res 
  * @returns 
  */
-export function filterCustomAttributeDetail(decodeFileData: customAttributeType[], id: string, res: any)
-    : any {
+export function convertCustomAttribute(singleCustomAttributeData: customAttributeType)
+    : resClientCustomAttributeType {
 
-    let singleCustomAttributeData = decodeFileData.find((element) => { return element.id === id });
-    if (!singleCustomAttributeData) {
-        return res.status(400).json({ errMessage: `該当データがありません。` });
+    let clientCustomAttributeObj: resClientCustomAttributeType = {
+        id: "",
+        name: "",
+        type: "",
+        required: false,
+        selectElementListId: "",
+        registerTime: "",
+        updTime: "",
+        userId: "",
+        deleteFlg: "",
+        description: "",
+        length: ""
     }
 
-    //選択リストを所持している場合は結合する
-    if (singleCustomAttributeData.selectElementListId) {
-        //カスタム属性リストファイルの読み込み
-        let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
-        //選択リストのIDで絞り込み
-        let filterdCalDate = calDecodeFileData
-            .filter((element) => {
-                return element.id === singleCustomAttributeData?.selectElementListId && element.deleteFlg !== "1"
-            })
-            .map((element) => { return element.content });
+    Object.keys(clientCustomAttributeObj).forEach((key) => {
+        if (!singleCustomAttributeData[key]) {
+            return;
+        }
+        clientCustomAttributeObj[key] = singleCustomAttributeData[key];
+    });
 
-        singleCustomAttributeData.selectElementList = filterdCalDate;
-    }
-
-    return res.status(200).json(singleCustomAttributeData);
+    return clientCustomAttributeObj;
 }
 
+
 /**
- * カスタム属性のリストをIDで絞り込む
+ * カスタム属性を選択リストと結合する
+ * @param decodeFileData カスタム属性リスト
+ * @returns 
+ */
+export function joinCustomAttributeSelectList(singleCustomAttributeData: resClientCustomAttributeType)
+    : resClientCustomAttributeType {
+
+    //選択リストを所持している場合はリストと結合する
+    if (!singleCustomAttributeData.selectElementListId) {
+        return singleCustomAttributeData;
+    }
+
+    //カスタム属性リストファイルの読み込み
+    let calDecodeFileData: customAttributeListType[] = getCustomAttributeListData();
+    //選択リストのIDで絞り込み
+    let filterdCalDate: selectElementListType[] = calDecodeFileData
+        .filter((element) => {
+            return element.id === singleCustomAttributeData?.selectElementListId
+        })
+        .map((element) => {
+            return {
+                no: element.no,
+                value: element.content
+            }
+        });
+
+    singleCustomAttributeData.selectElementList = filterdCalDate;
+
+    return singleCustomAttributeData;
+}
+
+
+/**
+ * 入力設定を画面入力用に変換する
  * @param decodeFileData カスタム属性リスト
  * @param id カスタム属性ID
  * @param res 
@@ -137,5 +174,21 @@ export function createCustomAttributeSelectListNewId(calDecodeFileData: customAt
         let currentNm = parseInt(current.id.replace(`${PRE_CUSTOMATTRIBUTELIST_ID}`, ""));
         return Math.max(prev, currentNm);
     }, 0);
+    return `${PRE_CUSTOMATTRIBUTELIST_ID}${maxNo + 1}`;
+}
+
+
+/**
+ * カスタム属性の選択リストのNOを作成
+ * @param calDecodeFileData 
+ */
+export function createCustomAttributeSelectListNewNo(calDecodeFileData: customAttributeListType[], id: string,) {
+    //IDが最大のNOを取得
+    let maxNo = calDecodeFileData
+        .filter((element) => { return element.id === id })
+        .reduce<number>((prev: number, current: customAttributeListType) => {
+            let currentNm = parseInt(current.no);
+            return Math.max(prev, currentNm);
+        }, 0);
     return `${PRE_CUSTOMATTRIBUTELIST_ID}${maxNo + 1}`;
 }
