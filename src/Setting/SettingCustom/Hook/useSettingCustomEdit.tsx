@@ -314,24 +314,23 @@ function useSettingCustomEdit(props: propsType) {
         let selectList: selectElementListType[] = [];
         //カスタム属性の形式が選択形式の場合はリストをセット
         if (caType === "select" || caType === "radio" || caType === "checkbox") {
-            let cnt = 0;
-            selectList = [...selectElementList].reduce((pre: selectElementListType[], current: inputRefType, index) => {
-                //選択リストが空欄
-                if (!current.ref.current || current.ref.current.refValue === "") {
-                    cnt++;
-                }
-
+            selectList = [...selectElementList].map((element: inputRefType, index) => {
                 //行番号が存在する場合はセット
-                pre.push({
+                return {
                     no: initSelectList[index] ? initSelectList[index].no : "",
-                    value: current.ref.current && current.ref.current.refValue ? current.ref.current.refValue : ""
-                });
-                return pre;
-            }, []);
+                    value: element.ref.current && element.ref.current.refValue ? element.ref.current.refValue.trim() : ""
+                };
+            });
 
-            //選択形式の場合は最低1つ以上の項目を持たせる
-            if (selectList.length === cnt) {
+            //リストが全て空欄の場合
+            if (selectList.filter((element) => !element.value.trim()).length === selectList.length) {
                 alert("1つ以上の項目が必要です。");
+                return;
+            }
+
+            //リストの重複チェック
+            if (new Set(selectList.map((element) => element.value.trim())).size !== selectList.length) {
+                alert("選択項目が重複しています。");
                 return;
             }
         }

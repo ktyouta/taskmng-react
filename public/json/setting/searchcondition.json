@@ -226,7 +226,7 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/18",
+		"updTime": "2024/03/10",
 		"deleteFlg": "0",
 		"userId": "f"
 	},
@@ -264,6 +264,42 @@
 		"registerTime": "2024/02/17",
 		"updTime": "2024/02/17",
 		"deleteFlg": "1",
+		"userId": "f"
+	},
+	{
+		"id": "ATTRIBUTEID-17",
+		"name": "確認テスト（テキスト）",
+		"type": "checkbox",
+		"listKey": "",
+		"value": "",
+		"attribute": "custom",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"id": "ATTRIBUTEID-18",
+		"name": "確認テスト（選択）",
+		"type": "checkbox",
+		"listKey": "",
+		"value": "",
+		"attribute": "custom",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"id": "ATTRIBUTEID-19",
+		"name": "確認テスト2（選択）",
+		"type": "checkbox",
+		"listKey": "",
+		"value": "",
+		"attribute": "custom",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"deleteFlg": "0",
 		"userId": "f"
 	}
 ]

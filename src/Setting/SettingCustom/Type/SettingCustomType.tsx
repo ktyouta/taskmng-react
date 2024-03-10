@@ -30,7 +30,7 @@ export type selectElementListType = {
     value: string,
 }
 
-//登録リクエスト用のカスタム属性の型
+//登録更新リクエスト用のカスタム属性の型
 export type updCustomAttributeType = {
     id: string,
     name: string,

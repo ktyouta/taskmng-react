@@ -247,18 +247,18 @@
 		"no": "1",
 		"content": "test1",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/18",
+		"updTime": "2024/03/10",
 		"userId": "f",
 		"deleteFlg": "0"
 	},
 	{
 		"id": "ATTRIBUTELISTID-12",
 		"no": "2",
-		"content": "test2",
+		"content": "test2upd",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/18",
+		"updTime": "2024/03/10",
 		"userId": "f",
-		"deleteFlg": "0"
+		"deleteFlg": "1"
 	},
 	{
 		"id": "ATTRIBUTELISTID-13",
@@ -319,7 +319,106 @@
 		"no": "3",
 		"content": "test3",
 		"registerTime": "2024/02/18",
-		"updTime": "2024/02/18",
+		"updTime": "2024/03/10",
+		"userId": "f",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-12",
+		"no": "ATTRIBUTELISTID-4",
+		"content": "test4",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"userId": "f",
+		"deleteFlg": "1"
+	},
+	{
+		"id": "ATTRIBUTELISTID-16",
+		"no": "1",
+		"content": "test1",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"userId": "f",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-16",
+		"no": "2",
+		"content": "test3",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"userId": "f",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-17",
+		"no": "ATTRIBUTELISTID-1",
+		"content": "test1",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"userId": "f",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-17",
+		"no": "ATTRIBUTELISTID-NaN",
+		"content": "",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"userId": "f",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-17",
+		"no": "ATTRIBUTELISTID-NaN",
+		"content": "test3",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"userId": "f",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-18",
+		"no": "1",
+		"content": "test1upd",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"userId": "f",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-18",
+		"no": "2",
+		"content": "test2",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"userId": "f",
+		"deleteFlg": "1"
+	},
+	{
+		"id": "ATTRIBUTELISTID-18",
+		"no": "3",
+		"content": "test3",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"userId": "f",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-18",
+		"no": "4",
+		"content": "test6",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"userId": "f",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "ATTRIBUTELISTID-18",
+		"no": "5",
+		"content": "test5",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
 		"userId": "f",
 		"deleteFlg": "0"
 	}

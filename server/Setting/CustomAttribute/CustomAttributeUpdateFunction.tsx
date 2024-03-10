@@ -183,11 +183,11 @@ export function createUpdCustomAttributeList(customAttributeSelectList: customAt
         return element.id === id && element.deleteFlg !== "1";
     });
 
-    //余分な選択リストを削除
-    let newSelectListLen = newSelectList.filter((element) => element.value).length;
-    let diff = filterdCustomAttributeSelectList.length - newSelectListLen;
+    //画面の選択リストと差分がある場合は、余分な選択リストを削除する
+    let diff = filterdCustomAttributeSelectList.length - newSelectList.length;
     if (diff > 0) {
         filterdCustomAttributeSelectList.forEach((element, i) => {
+            //画面のリストより余分なリストを削除
             if (!newSelectList[i]) {
                 element.deleteFlg = "1";
             }

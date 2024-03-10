@@ -50,8 +50,11 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], bod
         length: "0",
     };
 
+    //IDを取得
+    let newCustomAttributeId = createCustomAttributeNewId(fileDataObj);
+
     //登録データをセット
-    registData.id = { ...body }.id;
+    registData.id = newCustomAttributeId;
     registData.name = { ...body }.name.trim();
     registData.type = { ...body }.type;
     registData.required = { ...body }.required;
@@ -73,7 +76,7 @@ export function createAddCustomAttribute(fileDataObj: customAttributeType[], bod
     }
 
     //IDを取得
-    retObj.customAttributeId = createCustomAttributeNewId(fileDataObj);
+    retObj.customAttributeId = newCustomAttributeId;
 
     //選択リストが存在する場合IDを取得
     if (body.selectElementList && body.selectElementList.length > 0) {

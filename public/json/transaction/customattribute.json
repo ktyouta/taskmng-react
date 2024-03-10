@@ -147,7 +147,7 @@
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-12",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/18",
+		"updTime": "2024/03/10",
 		"userId": "f"
 	},
 	{
@@ -185,5 +185,42 @@
 		"updTime": "2024/02/17",
 		"userId": "f",
 		"deleteFlg": "1"
+	},
+	{
+		"id": "ATTRIBUTEID-17",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"userId": "f",
+		"deleteFlg": "0",
+		"name": "確認テスト（テキスト）",
+		"type": "select",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-17",
+		"description": ""
+	},
+	{
+		"id": "ATTRIBUTEID-18",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"userId": "f",
+		"deleteFlg": "0",
+		"name": "確認テスト（選択）",
+		"type": "select",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-16",
+		"description": "",
+		"length": "0"
+	},
+	{
+		"id": "ATTRIBUTEID-19",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"userId": "f",
+		"deleteFlg": "0",
+		"name": "確認テスト2（選択）",
+		"type": "select",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-18",
+		"description": ""
 	}
 ]
