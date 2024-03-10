@@ -178,9 +178,9 @@ export function createUpdCustomAttributeList(customAttributeSelectList: customAt
         }
     });
 
-    //削除済み以外の選択リストを取得
+    //更新対象のカスタム属性の選択リストを取得
     let filterdCustomAttributeSelectList = customAttributeSelectList.filter((element) => {
-        return element.id === id && element.deleteFlg !== "1";
+        return element.id === id;
     });
 
     //画面の選択リストと差分がある場合は、余分な選択リストを削除する

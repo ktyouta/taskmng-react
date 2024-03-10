@@ -4,7 +4,7 @@
 		"name": "最大取得件数",
 		"type": "number",
 		"isHidden": false,
-		"value": "100",
+		"value": "250",
 		"attribute": "default",
 		"registerTime": "2024/01/28",
 		"updTime": "2024/01/28",
@@ -293,6 +293,18 @@
 	{
 		"id": "ATTRIBUTEID-19",
 		"name": "確認テスト2（選択）",
+		"type": "checkbox",
+		"listKey": "",
+		"value": "",
+		"attribute": "custom",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"id": "ATTRIBUTEID-20",
+		"name": "確認テスト3（選択）",
 		"type": "checkbox",
 		"listKey": "",
 		"value": "",

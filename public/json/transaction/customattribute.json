@@ -222,5 +222,17 @@
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-18",
 		"description": ""
+	},
+	{
+		"id": "ATTRIBUTEID-20",
+		"registerTime": "2024/03/10",
+		"updTime": "2024/03/10",
+		"userId": "f",
+		"deleteFlg": "0",
+		"name": "確認テスト3（選択）",
+		"type": "select",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-19",
+		"description": ""
 	}
 ]
