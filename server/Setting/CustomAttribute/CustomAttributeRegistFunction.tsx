@@ -159,7 +159,11 @@ export function createAddCustomAttributeList(
     const nowDate = getNowDate();
 
     //データを登録用リストにセット
-    for (let i = 0; i < selectList.length; i++) {
+    selectList.forEach((element, i) => {
+        //空のリストは登録しない
+        if (!element.value.trim()) {
+            return;
+        }
         //登録データ
         let body: customAttributeListType = {
             id: newId,
@@ -172,7 +176,7 @@ export function createAddCustomAttributeList(
         };
 
         fileDataObj.push(body);
-    }
+    });
 
     ret.registSelectList = fileDataObj;
     return ret;

@@ -313,5 +313,29 @@
 		"updTime": "2024/03/10",
 		"deleteFlg": "0",
 		"userId": "f"
+	},
+	{
+		"id": "ATTRIBUTEID-21",
+		"name": "確認用（テキスト→選択）",
+		"type": "checkbox",
+		"listKey": "",
+		"value": "",
+		"attribute": "custom",
+		"registerTime": "2024/03/11",
+		"updTime": "2024/03/11",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"id": "ATTRIBUTEID-22",
+		"name": "確認用2（テキスト→選択）",
+		"type": "checkbox",
+		"listKey": "",
+		"value": "",
+		"attribute": "custom",
+		"registerTime": "2024/03/11",
+		"updTime": "2024/03/11",
+		"deleteFlg": "0",
+		"userId": "f"
 	}
 ]

@@ -98,8 +98,13 @@ export function runUpdSelectList(updCaDatas: customAttributeType[], filterdCaDat
     let selectListId = filterdCaData.selectElementListId;
     let selectElementList = body.selectElementList ?? [];
 
-    //カスタム属性リストのIDが存在する場合はリストを更新する
-    if (selectListId) {
+    //カスタム属性の選択リストを取得
+    let customAttributeDetail: customAttributeListType[] = calDecodeFileData.filter((element) => {
+        return element.id === caId;
+    });
+
+    //カスタム属性のリストが存在する場合は更新する
+    if (customAttributeDetail.length > 0) {
         //更新データの作成
         updCaLists = createUpdCustomAttributeList(calDecodeFileData, selectElementList, selectListId, authResult);
     }

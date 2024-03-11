@@ -234,5 +234,29 @@
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-19",
 		"description": ""
+	},
+	{
+		"id": "ATTRIBUTEID-21",
+		"registerTime": "2024/03/11",
+		"updTime": "2024/03/11",
+		"userId": "f",
+		"deleteFlg": "0",
+		"name": "確認用（テキスト→選択）",
+		"type": "select",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-20",
+		"description": ""
+	},
+	{
+		"id": "ATTRIBUTEID-22",
+		"registerTime": "2024/03/11",
+		"updTime": "2024/03/11",
+		"userId": "f",
+		"deleteFlg": "0",
+		"name": "確認用2（テキスト→選択）",
+		"type": "select",
+		"required": false,
+		"selectElementListId": "ATTRIBUTELISTID-21",
+		"description": ""
 	}
 ]

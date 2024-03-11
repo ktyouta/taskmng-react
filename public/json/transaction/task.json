@@ -1522,12 +1522,12 @@
 		"title": "カスタム属性をテキストから選択形式に更新した際に、リストの途中の空欄が登録されるバグの修正",
 		"content": "",
 		"registerTime": "2024/03/10",
-		"updTime": "2024/03/10",
+		"updTime": "2024/03/11",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
-		"status": "1",
-		"url": "",
+		"status": "2",
+		"url": "http://localhost:3000/task/TASKID-127",
 		"deleteFlg": "0"
 	}
 ]
