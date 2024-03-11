@@ -61,14 +61,16 @@ function SettingCustomEditMain(props: propsType) {
             height={props.outerHeight}
         >
             <MainDiv>
-                <HorizonLabelItemComponent
-                    title={'ID'}
-                    width='30%'
-                    position='left'
-                >
-                    {props.customAttributeId}
-                </HorizonLabelItemComponent>
-
+                {
+                    props.editMode === editModeEnum.update &&
+                    <HorizonLabelItemComponent
+                        title={'ID'}
+                        width='30%'
+                        position='left'
+                    >
+                        {props.customAttributeId}
+                    </HorizonLabelItemComponent>
+                }
                 <HorizonLabelItemComponent
                     title={'カスタム属性の名称'}
                     width='30%'

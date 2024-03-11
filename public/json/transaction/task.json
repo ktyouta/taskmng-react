@@ -1506,15 +1506,15 @@
 	},
 	{
 		"id": "TASKID-126",
-		"title": "カスタム属性詳細画面で登録時にID欄を非表示にする",
+		"title": "カスタム属性詳細画面で更新時にのみID欄を表示する処理の実装",
 		"content": "",
 		"registerTime": "2024/03/09",
-		"updTime": "2024/03/09",
+		"updTime": "2024/03/11",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
-		"status": "1",
-		"url": "",
+		"status": "2",
+		"url": "http://localhost:3000/task/TASKID-126",
 		"deleteFlg": "0"
 	},
 	{
