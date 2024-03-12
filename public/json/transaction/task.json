@@ -1444,12 +1444,12 @@
 		"title": "検索条件設定画面の作成",
 		"content": "",
 		"registerTime": "2024/03/07",
-		"updTime": "2024/03/07",
+		"updTime": "2024/03/12",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
-		"status": "1",
-		"url": "",
+		"status": "4",
+		"url": "http://localhost:3000/task/TASKID-121",
 		"deleteFlg": "0"
 	},
 	{
