@@ -12,6 +12,7 @@ import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import { taskSearchConditionRefType } from './Type/TaskType';
 import { TabComponent } from '../Common/TabComponent';
+import TaskSearchConditionTab from './TaskSearchConditionTab';
 
 
 //引数の型
@@ -60,12 +61,9 @@ function TaskCondition(props: propsType) {
                 <HeightDiv
                     height='85%'
                 >
-                    {
-                        searchConditionComponent &&
-                        <TabComponent
-                            tabObj={searchConditionComponent}
-                        />
-                    }
+                    <TaskSearchConditionTab
+                        searchConditionComponent={searchConditionComponent}
+                    />
                 </HeightDiv>
             </HeightDiv>
             <HeightDiv
