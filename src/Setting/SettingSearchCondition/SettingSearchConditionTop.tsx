@@ -5,6 +5,7 @@ import useSettingCategoryTop from '../SettingCategory/Hook/useSettingCategoryTop
 import SettingCategoryTable from '../SettingCategory/SettingCategoryTable';
 import SpaceComponent from '../../Common/SpaceComponent';
 import useSettingSearchConditionTop from './Hook/useSettingSearchConditionTop';
+import TaskSearchConditionTab from '../../Task/TaskSearchConditionTab';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -42,7 +43,8 @@ function SettingSearchConditionTop(props: prospType) {
     console.log("SettingSearchConditionTop render");
 
     const {
-
+        backPageButtonObj,
+        searchConditionComponent
     } = useSettingSearchConditionTop();
 
     return (
@@ -55,12 +57,14 @@ function SettingSearchConditionTop(props: prospType) {
             </TitleDiv>
             <BtnDiv>
                 <ButtonComponent
-                    styleTypeNumber="RUN"
-                    title={"初期設定を更新"}
-                    onclick={() => { }}
+                    styleTypeNumber={backPageButtonObj.type}
+                    title={backPageButtonObj.title}
+                    onclick={backPageButtonObj.onclick ? backPageButtonObj.onclick : () => { }}
                 />
             </BtnDiv>
-
+            <TaskSearchConditionTab
+                searchConditionComponent={searchConditionComponent}
+            />
         </OuterDiv>
     );
 }

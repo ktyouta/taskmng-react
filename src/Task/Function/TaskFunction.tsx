@@ -402,6 +402,58 @@ export function createSearchRefArray(taskSearchConditionList: taskSearchConditio
     return tmpSearchConditionRef;
 }
 
+
+/**
+ * タスク新規追加画面のrefリストを作成
+ * @param taskSearchConditionList 
+ * @param searchConditionObj 
+ * @param generalDataList 
+ * @returns 
+ */
+export function createSettingSearchRefArray(taskSearchConditionList: taskSearchConditionType[],
+): taskSearchConditionRefType {
+
+    let tmpSearchConditionRef: taskSearchConditionRefType = {
+        default: [],
+        custom: []
+    }
+
+    taskSearchConditionList.forEach((element) => {
+        switch (element.attribute) {
+            //デフォルト属性
+            case SEARCHCONDITION_KEY_DEFAULT:
+                tmpSearchConditionRef.default.push({
+                    id: element.id,
+                    name: element.name,
+                    type: element.type,
+                    initValue: element.value,
+                    selectList: element.selectList,
+                    ref: createRef(),
+                    length: element.length,
+                    disabled: false,
+                    visible: !element.isHidden,
+                });
+                break;
+            //カスタム属性
+            case SEARCHCONDITION_KEY_CUSTOM:
+                tmpSearchConditionRef.custom.push({
+                    id: element.id,
+                    name: element.name,
+                    type: element.type,
+                    initValue: element.value,
+                    selectList: element.selectList,
+                    ref: createRef(),
+                    length: element.length,
+                    disabled: false,
+                    visible: !element.isHidden,
+                });
+                break;
+        }
+    });
+
+    return tmpSearchConditionRef;
+}
+
 /**
  * タスクの検索条件domを作成
  * @param taskSearchConditionList 選択条件の設定リスト

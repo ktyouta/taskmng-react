@@ -1,20 +1,41 @@
 import { createRef, ReactNode, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
 import ENV from '../../../env.json';
-import { createTabItems } from "../../../Task/Function/TaskFunction";
+import { createSearchDispCondition, createSearchRefArray, createSettingSearchRefArray, createTabItems } from "../../../Task/Function/TaskFunction";
 import { taskSearchConditionRefType, taskSearchConditionType } from "../../../Task/Type/TaskType";
 import { buttonObjType } from "../../../Common/Type/CommonType";
 import useQueryWrapper from "../../../Common/Hook/useQueryWrapper";
 import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../../../Task/Const/TaskConst";
 import useCreateDefaultTaskUrlCondition from "../../../Task/Hook/useCreateDefaultTaskUrlCondition";
+import { useAtom } from "jotai";
+import { taskSearchConditionObjAtom } from "../Atom/SettingSearchConditionAtom";
 
 
 
-/**
- * useTaskConditionコンポーネントのビジネスロジック
- * @param selectedMaster 
- * @returns 
- */
 function useSettingSearchConditionTop() {
+
+    //検索条件参照用リスト
+    const [taskSearchRefInfo, setTaskSearchRefInfo] = useState<taskSearchConditionRefType>({
+        default: [],
+        custom: []
+    });
+
+    //検索条件の設定リスト
+    useQueryWrapper<taskSearchConditionType[]>({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}${SEARCHCONDITION_QUERY_KEY}${SEARCHCONDITION_KEY_DEFAULT},${SEARCHCONDITION_KEY_CUSTOM}`,
+        afSuccessFn: (data: taskSearchConditionType[]) => {
+            //検索条件の参照リストを作成
+            setTaskSearchRefInfo(createSettingSearchRefArray(data));
+        }
+    });
+
+    //タブに表示する検索条件を作成する
+    let searchConditionComponent = useMemo(() => {
+        if (!taskSearchRefInfo) {
+            return;
+        }
+
+        return createTabItems(taskSearchRefInfo);
+    }, [taskSearchRefInfo]);
 
     /**
      * 更新ボタン押下処理
@@ -23,45 +44,13 @@ function useSettingSearchConditionTop() {
 
     }
 
-    //検索条件の設定リスト
-    const { data: taskSearchConditionList } = useQueryWrapper<taskSearchConditionType[]>({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}${SEARCHCONDITION_QUERY_KEY}${SEARCHCONDITION_KEY_DEFAULT},${SEARCHCONDITION_KEY_CUSTOM}`,
-    });
-
-    /**
-     * 初期表示タスク取得用URLと検索条件オブジェクトの作成
-     */
-    const { createDefaultUrlCondition } = useCreateDefaultTaskUrlCondition(taskSearchConditionList);
-
-    //現在の検索条件(画面表示用)
-    // const displaySearchConditionList = useMemo(() => {
-    //     if (!taskSearchConditionList) {
-    //         return;
-    //     }
-    //     if (!searchConditionObj) {
-    //         return;
-    //     }
-
-    //     //検索条件のdomを作成
-    //     return createSearchDispCondition(taskSearchConditionList, searchConditionObj);
-    // }, [searchConditionObj, taskSearchConditionList]);
-
-    //タスクの検索条件画面
-    // let searchConditionComponent = useMemo(() => {
-    //     if (!props.taskSearchRefInfo) {
-    //         return;
-    //     }
-
-    //     return createTabItems(props.taskSearchRefInfo);
-    // }, [props.taskSearchRefInfo]);
-
     return {
         backPageButtonObj: {
-            title: `検索条件初期値を更新する`,
+            title: `初期設定を更新`,
             type: `BASE`,
             onclick: updButtonFunc
         } as buttonObjType,
-        //searchConditionComponent,
+        searchConditionComponent,
     }
 }
 
