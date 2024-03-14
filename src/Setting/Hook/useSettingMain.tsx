@@ -14,6 +14,7 @@ import SettingCategory from '../SettingCategory/SettingCategory';
 import SettingUser from '../SettingUser/SettingUser';
 import { Provider } from 'jotai';
 import SettingDefault from '../SettingDefault/SettingDefault';
+import SettingSearchCondition from '../SettingSearchCondition/SettingSearchCondition';
 
 
 /**
@@ -42,6 +43,11 @@ const retSettingComponent = (componentName: string, path: string) => {
             break;
         case "SettingDefault":
             component = <SettingDefault
+                path={path}
+            />;
+            break;
+        case "SettingSearchCondition":
+            component = <SettingSearchCondition
                 path={path}
             />;
             break;

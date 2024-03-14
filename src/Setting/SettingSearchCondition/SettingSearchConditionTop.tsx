@@ -6,6 +6,7 @@ import SettingCategoryTable from '../SettingCategory/SettingCategoryTable';
 import SpaceComponent from '../../Common/SpaceComponent';
 import useSettingSearchConditionTop from './Hook/useSettingSearchConditionTop';
 import TaskSearchConditionTab from '../../Task/TaskSearchConditionTab';
+import { HeightDiv } from '../../Common/StyledComponent/CommonStyledComponent';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -18,8 +19,8 @@ const OuterDiv = styled.div`
 
 //ボタンのスタイル
 const BtnDiv = styled.div`
-    margin-left: 14%;
-    width: 47%;
+    margin-left: 75%;
+    width: 10%;
     margin-top:1%;
     margin-bottom:1%;
     display:flex;
@@ -55,6 +56,13 @@ function SettingSearchConditionTop(props: prospType) {
                     width="100%"
                 />
             </TitleDiv>
+            <HeightDiv
+                height='75%'
+            >
+                <TaskSearchConditionTab
+                    searchConditionComponent={searchConditionComponent}
+                />
+            </HeightDiv>
             <BtnDiv>
                 <ButtonComponent
                     styleTypeNumber={backPageButtonObj.type}
@@ -62,9 +70,6 @@ function SettingSearchConditionTop(props: prospType) {
                     onclick={backPageButtonObj.onclick ? backPageButtonObj.onclick : () => { }}
                 />
             </BtnDiv>
-            <TaskSearchConditionTab
-                searchConditionComponent={searchConditionComponent}
-            />
         </OuterDiv>
     );
 }
