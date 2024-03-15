@@ -19,7 +19,7 @@ import { getCategory, getCategoryDetail, runAddCategory, runDeleteCategory, runU
 import { Response, Request, ParamsDictionary } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 import { getDefaultAttribute, getDefaultAttributeDetail, runUpdDefaultAttribute } from './Setting/DefaultAttribute/DefaultAttributeFunction';
-import { getSearchCondition } from './SearchCondition/SearchConditionFunction';
+import { getSearchCondition, runUpdSearchConditionList } from './SearchCondition/SearchConditionFunction';
 import { authenticate, createToken } from './Auth/AuthFunction';
 import { JSONEXTENSION, MASTERFILEPATH } from './Common/Const.tsx/CommonConst';
 import { readFile } from './Common/FileFunction';
@@ -305,6 +305,12 @@ app.put(`${ENV.TASKINPUTSETTING}/:param`, function (req, res) {
     runUpdDefaultAttribute(res, req, req.params.param);
 });
 
+/**
+ * 検索条件の更新
+ */
+app.put(`${ENV.SEARCHCONDITION}`, function (req, res) {
+    runUpdSearchConditionList(res, req);
+});
 
 
 /**

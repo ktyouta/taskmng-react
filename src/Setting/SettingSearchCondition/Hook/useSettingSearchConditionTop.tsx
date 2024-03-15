@@ -62,16 +62,25 @@ function useSettingSearchConditionTop() {
             condition: []
         };
 
+        if (!window.confirm('検索条件の初期値を更新しますか？')) {
+            return
+        }
+        if (!updMutation) {
+            alert("リクエストの送信に失敗しました。");
+            return;
+        }
+
         //リクエストボディの作成
         body.condition = Object.keys(taskSearchRefInfo).flatMap((element) => {
             return taskSearchRefInfo[element];
         }).reduce((pre: settingSearchConditionUpdType[], element: refInfoType) => {
             pre.push({
                 id: element.id,
-                value: ""
+                value: element.ref?.current?.refValue.trim() ?? ""
             });
             return pre;
         }, []);
+        updMutation.mutate(body);
     }
 
     return {

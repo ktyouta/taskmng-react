@@ -1,12 +1,12 @@
-import { authenticate } from "../Auth/AuthFunction";
+import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
 import { JSONEXTENSION, SEARCHCONDITIONFILEPATH, SETTINGFILEPATH } from "../Common/Const.tsx/CommonConst";
 import { overWriteData } from "../Common/FileFunction";
 import { SEARCHCONDITION_FILE_PATH, SEARCHCONDITION_QUERYLRY } from "./Const/SearchConditionConst";
 import { createAddSearchCondition } from "./SearchConditionRegisterFunction";
-import { getFilterdSearchConditionList, getSearchConditionList, joinSelectListSearchCondition } from "./SearchConditionSelectFunction";
-import { createUpdSearchCondition } from "./SearchConditionUpdateFunction";
-import { retSearchConditionType, searchConditionType } from "./Type/SearchConditionType";
+import { getFilterdSearchConditionList, getSearchConditionList, getSearchConditionObj, joinSelectListSearchCondition } from "./SearchConditionSelectFunction";
+import { createUpdSearchCondition, createUpdSearchConditionList } from "./SearchConditionUpdateFunction";
+import { retSearchConditionType, searchConditionType, settingSearchConditionUpdReqType } from "./Type/SearchConditionType";
 
 
 /**
@@ -101,4 +101,42 @@ export function runUpdSearchCondition(authResult: authInfoType, body: searchCond
 
     //正常終了
     return "";
+}
+
+/**
+ * 検索条件設定の一括更新
+ */
+export function runUpdSearchConditionList(res: any, req: any) {
+
+    //認証権限チェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //リクエストボディ
+    let body: settingSearchConditionUpdReqType = req.body;
+
+    //検索設定ファイルの読み込み
+    let searchConditionList: searchConditionType[] = getSearchConditionObj();
+
+    //更新用データの作成
+    let updData = createUpdSearchConditionList(searchConditionList, body, authResult);
+
+    //データを登録
+    let errMessage = overWriteData(SEARCHCONDITION_FILE_PATH, JSON.stringify(updData, null, '\t'));
+
+    //エラー
+    if (errMessage) {
+        return res
+            .status(500)
+            .json({ errMessage });
+    }
+
+    //正常終了
+    return res
+        .status(200)
+        .json({ errMessage: `更新が完了しました。` });
 }
