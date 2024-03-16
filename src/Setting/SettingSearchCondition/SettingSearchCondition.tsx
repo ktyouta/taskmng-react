@@ -32,9 +32,7 @@ function SettingSearchCondition(props: propsType) {
             <Routes>
                 <Route
                     path="/"
-                    element={<SearchConditionTop
-                        path={props.path}
-                    />}
+                    element={<SearchConditionTop />}
                 />
             </Routes>
         </OuterDiv>

@@ -13,8 +13,10 @@ import { settingSearchConditionUpdReqType, settingSearchConditionUpdType } from 
 
 
 
-function useSettingSearchConditionTop() {
+function useSettingSearchConditionMain() {
 
+    //エラーメッセージ
+    const [errMessage, setErrMessage] = useState("");
     //検索条件参照用リスト
     const [taskSearchRefInfo, setTaskSearchRefInfo] = useState<taskSearchConditionRefType>({
         default: [],
@@ -22,12 +24,18 @@ function useSettingSearchConditionTop() {
     });
 
     //検索条件の設定リスト
-    useQueryWrapper<taskSearchConditionType[]>({
+    const { isLoading } = useQueryWrapper<taskSearchConditionType[]>({
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}${SEARCHCONDITION_QUERY_KEY}${SEARCHCONDITION_KEY_DEFAULT},${SEARCHCONDITION_KEY_CUSTOM}`,
         afSuccessFn: (data: taskSearchConditionType[]) => {
             //検索条件の参照リストを作成
             setTaskSearchRefInfo(createSettingSearchRefArray(data));
-        }
+        },
+        //失敗後の処理
+        afErrorFn: (res: unknown) => {
+            let tmp = res as errResType;
+            //エラーメッセージを表示
+            setErrMessage(tmp.response.data.errMessage);
+        },
     });
 
     //更新用フック
@@ -73,13 +81,12 @@ function useSettingSearchConditionTop() {
         //リクエストボディの作成
         body.condition = Object.keys(taskSearchRefInfo).flatMap((element) => {
             return taskSearchRefInfo[element];
-        }).reduce((pre: settingSearchConditionUpdType[], element: refInfoType) => {
-            pre.push({
+        }).map((element: refInfoType) => {
+            return {
                 id: element.id,
                 value: element.ref?.current?.refValue.trim() ?? ""
-            });
-            return pre;
-        }, []);
+            };
+        },);
         updMutation.mutate(body);
     }
 
@@ -90,7 +97,10 @@ function useSettingSearchConditionTop() {
             onclick: updButtonFunc
         } as buttonObjType,
         searchConditionComponent,
+        isLoading,
+        errMessage,
+        isUpdLoading: updMutation.isLoading,
     }
 }
 
-export default useSettingSearchConditionTop;
+export default useSettingSearchConditionMain;

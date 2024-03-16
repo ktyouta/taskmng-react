@@ -4,9 +4,11 @@ import LabelComponent from '../../Common/LabelComponent';
 import useSettingCategoryTop from '../SettingCategory/Hook/useSettingCategoryTop';
 import SettingCategoryTable from '../SettingCategory/SettingCategoryTable';
 import SpaceComponent from '../../Common/SpaceComponent';
-import useSettingSearchConditionTop from './Hook/useSettingSearchConditionTop';
 import TaskSearchConditionTab from '../../Task/TaskSearchConditionTab';
 import { HeightDiv } from '../../Common/StyledComponent/CommonStyledComponent';
+import Loading from '../../Common/Loading';
+import CenterLoading from '../../Common/CenterLoading';
+import SettingSearchConditionMain from './SettingSearchConditionMain';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -17,15 +19,6 @@ const OuterDiv = styled.div`
     min-height: 100%;
 `;
 
-//ボタンのスタイル
-const BtnDiv = styled.div`
-    margin-left: 75%;
-    width: 10%;
-    margin-top:1%;
-    margin-bottom:1%;
-    display:flex;
-`;
-
 //タイトルのスタイル
 const TitleDiv = styled.div`
     height: 7%;
@@ -34,19 +27,10 @@ const TitleDiv = styled.div`
     align-items: center;
 `;
 
-//引数の型
-type prospType = {
-    path: string,
-}
 
-function SettingSearchConditionTop(props: prospType) {
+function SettingSearchConditionTop() {
 
     console.log("SettingSearchConditionTop render");
-
-    const {
-        backPageButtonObj,
-        searchConditionComponent
-    } = useSettingSearchConditionTop();
 
     return (
         <OuterDiv>
@@ -56,20 +40,7 @@ function SettingSearchConditionTop(props: prospType) {
                     width="100%"
                 />
             </TitleDiv>
-            <HeightDiv
-                height='75%'
-            >
-                <TaskSearchConditionTab
-                    searchConditionComponent={searchConditionComponent}
-                />
-            </HeightDiv>
-            <BtnDiv>
-                <ButtonComponent
-                    styleTypeNumber={backPageButtonObj.type}
-                    title={backPageButtonObj.title}
-                    onclick={backPageButtonObj.onclick ? backPageButtonObj.onclick : () => { }}
-                />
-            </BtnDiv>
+            <SettingSearchConditionMain />
         </OuterDiv>
     );
 }

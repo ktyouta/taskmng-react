@@ -1,8 +1,8 @@
-import { readFile } from "../Common/FileFunction";
-import { comboType } from "../Common/Type/CommonType";
-import { getGeneralDataList } from "../General/GeneralSelectFunction";
-import { getCustomAttributeData, getCustomAttributeListData } from "../Setting/CustomAttribute/CustomAttributeSelectFunction";
-import { customAttributeListType, customAttributeType } from "../Setting/CustomAttribute/Type/CustomAttributeType";
+import { readFile } from "../../Common/FileFunction";
+import { comboType } from "../../Common/Type/CommonType";
+import { getGeneralDataList } from "../../General/GeneralSelectFunction";
+import { getCustomAttributeData, getCustomAttributeListData } from "../CustomAttribute/CustomAttributeSelectFunction";
+import { customAttributeListType, customAttributeType } from "../CustomAttribute/Type/CustomAttributeType";
 import { SEARCHCONDITION_FILE_PATH } from "./Const/SearchConditionConst";
 import { retSearchConditionType, searchConditionType } from "./Type/SearchConditionType";
 
