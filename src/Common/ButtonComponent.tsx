@@ -6,7 +6,9 @@ type propsType = {
   styleTypeNumber: buttonType,
   bgColor?: string,
   title: ReactNode,
-  onclick: () => void,
+  onclick?: () => void,
+  onMouseEnter?: () => void,
+  onMouseLeave?: () => void,
 }
 
 //ボタンの種類
@@ -63,7 +65,9 @@ const ButtonComponent = (props: propsType) => {
   // Component変数に格納したコンポーネントでReact要素を作成
   return <Component
     bgColor={props.bgColor}
-    onClick={() => { props.onclick() }}
+    onClick={() => { if (props.onclick) props.onclick() }}
+    onMouseEnter={() => { if (props.onMouseEnter) props.onMouseEnter() }}
+    onMouseLeave={() => { if (props.onMouseLeave) props.onMouseLeave() }}
   >
     {props.title}
   </Component>;

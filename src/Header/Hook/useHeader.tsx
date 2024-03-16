@@ -6,6 +6,7 @@ import ENV from '../../env.json';
 import { useAtomValue } from 'jotai';
 import { clientMenuListAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
+import { useState } from 'react';
 
 
 function useHeader() {
@@ -19,18 +20,40 @@ function useHeader() {
     const [cookie, , removeCookie] = useCookies();
     //ルーティング用
     const navigate = useNavigate();
+    //ナビゲーション表示フラグ
+    const [isDisplayNavi, setIsDisplayNavi] = useState(false);
 
     /**
      * ログアウト
      */
-    function logout() {
+    const logout = () => {
         Object.keys(cookie).forEach((key) => {
             removeCookie(key, { path: '/' });
         });
         navigate(`/login`);
     }
 
-    return { headerTile, logout };
+    /**
+     * ナビゲーションを表示する
+     */
+    const displayNavi = () => {
+        setIsDisplayNavi(true);
+    }
+
+    /**
+     * ナビゲーションを非表示にする
+     */
+    const hidDisplayNavi = () => {
+        setIsDisplayNavi(false);
+    }
+
+    return {
+        headerTile,
+        logout,
+        isDisplayNavi,
+        displayNavi,
+        hidDisplayNavi,
+    };
 }
 
 export default useHeader;

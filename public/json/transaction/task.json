@@ -896,14 +896,14 @@
 	},
 	{
 		"id": "TASKID-76",
-		"title": "ユーザーメニュー画面の作成",
+		"title": "ユーザーメニューの実装",
 		"content": "",
 		"registerTime": "2024/01/08",
-		"updTime": "2024/01/08",
+		"updTime": "2024/03/16",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
-		"status": "1",
+		"status": "4",
 		"deleteFlg": "0"
 	},
 	{
@@ -1553,6 +1553,19 @@
 		"userId": "f",
 		"priority": "1",
 		"status": "2",
+		"url": "",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-130",
+		"title": "タスク検索条件部分のロジックの見直し",
+		"content": "",
+		"registerTime": "2024/03/16",
+		"updTime": "2024/03/16",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
 		"url": "",
 		"deleteFlg": "0"
 	}
