@@ -5,11 +5,13 @@ import LoadingBase from "./LoadingBase";
 
 
 //ローディング領域のスタイル
-const LoadingDiv = styled.div`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+export const LoadingDiv = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
 `;
 
 

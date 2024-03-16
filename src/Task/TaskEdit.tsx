@@ -104,11 +104,11 @@ function TaskEdit(props: propsType) {
           outerHeight='15%'
         />
       </HeightDiv>
-
       {/* ローディング */}
-      <WaitLoading
-        isLoading={isUpDelLoading}
-      />
+      {
+        isUpDelLoading &&
+        <WaitLoading />
+      }
     </HeightDiv>
   );
 }

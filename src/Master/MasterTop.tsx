@@ -70,9 +70,10 @@ function MasterTop() {
         selectedMasterBody={selectedMasterBody}
       />
       {/* ローディング */}
-      <WaitLoading
-        isLoading={isLoading}
-      />
+      {
+        isLoading &&
+        <WaitLoading />
+      }
     </div>
   );
 }

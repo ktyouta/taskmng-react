@@ -983,11 +983,11 @@
 		"title": "カスタム属性の選択リストの更新時のロジック修正",
 		"content": "現在の更新ロジックでは選択リストに空行が含まれている場合に、そのデータを物理削除している。\n他の仕様に合わせて論理削除とする。",
 		"registerTime": "2024/01/27",
-		"updTime": "2024/03/09",
+		"updTime": "2024/03/16",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
-		"status": "4",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
@@ -1091,11 +1091,11 @@
 		"title": "検索条件の設定画面作成",
 		"content": "",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/12",
+		"updTime": "2024/03/16",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
-		"status": "1",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
@@ -1259,11 +1259,11 @@
 		"title": "ホームの作業履歴をテーブルで表示する",
 		"content": "",
 		"registerTime": "2024/02/24",
-		"updTime": "2024/02/26",
+		"updTime": "2024/03/16",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
-		"status": "4",
+		"status": "2",
 		"deleteFlg": "0"
 	},
 	{
@@ -1540,6 +1540,19 @@
 		"userId": "f",
 		"priority": "1",
 		"status": "1",
+		"url": "",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-129",
+		"title": "ローディングコンポーネントの修正",
+		"content": "",
+		"registerTime": "2024/03/16",
+		"updTime": "2024/03/16",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "2",
 		"url": "",
 		"deleteFlg": "0"
 	}

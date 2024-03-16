@@ -53,9 +53,10 @@ function AddMasterForm(props: propsType) {
                 />
             </div>
             {/* ローディング */}
-            <WaitLoading
-                isLoading={props.isLoading}
-            />
+            {
+                props.isLoading &&
+                <WaitLoading />
+            }
         </div>
     );
 }

@@ -93,9 +93,10 @@ function TaskRegister(props: propsType) {
         />
       </HeightDiv>
       {/* ローディング */}
-      <WaitLoading
-        isLoading={isUpDelLoading}
-      />
+      {
+        isUpDelLoading &&
+        <WaitLoading />
+      }
     </HeightDiv>
   );
 }

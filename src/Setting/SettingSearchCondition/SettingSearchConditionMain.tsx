@@ -62,9 +62,10 @@ function SettingSearchConditionMain() {
                 />
             </BtnDiv>
             {/* ローディング */}
-            <WaitLoading
-                isLoading={isUpdLoading}
-            />
+            {
+                isUpdLoading &&
+                <WaitLoading />
+            }
         </React.Fragment>
     );
 }
