@@ -65,9 +65,9 @@
 		"userId": "f"
 	},
 	{
-		"name": "test",
-		"path": "/test",
-		"componentName": "test",
+		"name": "ユーザー情報",
+		"path": "/user",
+		"componentName": "User",
 		"auth": "1",
 		"isHidden": "1",
 		"userId": "f",
@@ -76,18 +76,5 @@
 		"deleteFlg": "0",
 		"id": "CATEGORY-7",
 		"order": "6"
-	},
-	{
-		"name": "test1",
-		"path": "/test1",
-		"componentName": "test1",
-		"auth": "1",
-		"isHidden": "1",
-		"userId": "f",
-		"registerTime": "2024/02/25",
-		"updTime": "2024/02/25",
-		"deleteFlg": "0",
-		"id": "CATEGORY-8",
-		"order": "7"
 	}
 ]

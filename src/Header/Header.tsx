@@ -3,6 +3,7 @@ import './css/Header.css';
 import ButtonComponent from '../Common/ButtonComponent';
 import useHeader from './Hook/useHeader';
 import styled from 'styled-components';
+import { userInfoType } from '../Common/Type/CommonType';
 
 
 //ナビゲーション
@@ -32,7 +33,7 @@ const ContentDiv = styled.div`
 
 //引数の型
 type propsType = {
-  userName: string | undefined,
+  userInfo: userInfoType | undefined,
 }
 
 function Header(props: propsType) {
@@ -44,7 +45,8 @@ function Header(props: propsType) {
     isDisplayNavi,
     displayNavi,
     hidDisplayNavi,
-  } = useHeader();
+    clickUserInfo,
+  } = useHeader({ ...props });
 
   return (
     <div className="header">
@@ -52,7 +54,7 @@ function Header(props: propsType) {
         {headerTile}
       </span>
       <div className="username-area">
-        ユーザー：{props.userName ?? ""}
+        ユーザー：{props.userInfo?.userName ?? ""}
       </div>
       <ButtonComponent
         styleTypeNumber="BASE"
@@ -66,7 +68,7 @@ function Header(props: propsType) {
         onMouseLeave={hidDisplayNavi}
       >
         <ContentDiv
-          onClick={() => { }}
+          onClick={clickUserInfo}
         >
           ユーザー情報
         </ContentDiv>

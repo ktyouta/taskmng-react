@@ -25,7 +25,9 @@ function Content() {
         <div className="App">
             <Menu />
             <div className='App-maincontent-area'>
-                <Header userName={userInfo?.userName} />
+                <Header
+                    userInfo={userInfo}
+                />
                 <Main />
             </div>
         </div>

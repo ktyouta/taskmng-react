@@ -16,6 +16,7 @@ import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import AddMaster from '../../AddMaster/AddMaster';
 import Task from '../../Task/Task';
 import Home from '../../Home/Home';
+import User from '../../User/User';
 
 
 //マスタのリスト(マスタメンテ画面のコンボ用)
@@ -36,7 +37,7 @@ function createMasterDataListInfo(data: { mastertable: masterDataListType[] }): 
  * @param url 
  * @returns 
  */
-const retComponent = (componentName: string, path: string) => {
+const retComponent = (componentName: string, path: string, userInfo: userInfoType) => {
     let component = <React.Fragment />;
     switch (componentName) {
         //ホーム
@@ -64,6 +65,13 @@ const retComponent = (componentName: string, path: string) => {
         case "Setting":
             component = <Setting
                 path={path} />;
+            break;
+        //ユーザーメニュー
+        case "User":
+            component = <User
+                path={path}
+                userInfo={userInfo}
+            />;
             break;
     }
     return component;
@@ -110,12 +118,12 @@ function useMainLogic() {
                 return <React.Fragment />;
             }
             let componentPath = `${element.path}/*`;
-            if (element.isHidden === "1") {
-                return <React.Fragment />;
-            }
+            // if (element.isHidden === "1") {
+            //     return <React.Fragment />;
+            // }
 
             //ルーティングの設定
-            let component = retComponent(element.componentName, element.path);
+            let component = retComponent(element.componentName, element.path, userInfo);
             return <Route key={componentPath} path={componentPath} element={<Provider>{component}</Provider>} />
         });
 

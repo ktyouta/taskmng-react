@@ -3,13 +3,22 @@ import ButtonComponent from '../../Common/ButtonComponent';
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import ENV from '../../env.json';
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { clientMenuListAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import { useState } from 'react';
+import { editModeAtom, userIdAtom } from '../../Setting/SettingUser/Atom/SettingUserAtom';
+import { editModeEnum } from '../../Setting/Const/SettingConst';
+import { userInfoType } from '../../Common/Type/CommonType';
+import { LOGIN_PATH, USER_PATH } from '../Const/HeaderConst';
 
 
-function useHeader() {
+//引数の型
+type propsType = {
+    userInfo: userInfoType | undefined,
+}
+
+function useHeader(props: propsType) {
 
     //クライアント用メニューリスト
     const menu = useGlobalAtomValue(clientMenuListAtom);
@@ -30,7 +39,7 @@ function useHeader() {
         Object.keys(cookie).forEach((key) => {
             removeCookie(key, { path: '/' });
         });
-        navigate(`/login`);
+        navigate(LOGIN_PATH);
     }
 
     /**
@@ -47,12 +56,24 @@ function useHeader() {
         setIsDisplayNavi(false);
     }
 
+    /**
+     * ユーザー情報のクリックイベント
+     */
+    const clickUserInfo = () => {
+        if (!props.userInfo) {
+            alert("ユーザー情報画面にアクセスできません。");
+            return;
+        }
+        navigate(USER_PATH);
+    };
+
     return {
         headerTile,
         logout,
         isDisplayNavi,
         displayNavi,
         hidDisplayNavi,
+        clickUserInfo,
     };
 }
 

@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from "react-query/devtools";
 import useQueryApp from './useQueryApp';
 import CenterLoading from './Common/CenterLoading';
+import { LOGIN_PATH } from './Header/Const/HeaderConst';
 
 
 function QueryApp() {
@@ -22,12 +23,12 @@ function QueryApp() {
             {/* クッキーが存在する場合：ホーム画面に遷移
           クッキーが存在しない場合：ログイン画面に遷移 */}
             <Route
-                path="/login"
+                path={LOGIN_PATH}
                 element={Object.keys(cookies).length ? <Navigate to="/" /> : <Login />}
             />
             <Route
                 path="/*"
-                element={Object.keys(cookies).length ? <Content /> : <Navigate to="/login" />}
+                element={Object.keys(cookies).length ? <Content /> : <Navigate to={LOGIN_PATH} />}
             />
         </Routes>
     );
