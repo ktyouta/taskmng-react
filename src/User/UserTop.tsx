@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import useSettingUserEdit from '../Setting/SettingUser/Hook/useSettingUserEdit';
 import SettingUserEditMain from '../Setting/SettingUser/SettingUserEditMain';
 import CenterLoading from '../Common/CenterLoading';
+import useUserTop from './Hook/useUserTop';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -41,10 +42,9 @@ function UserTop(props: propsType) {
         isLoadinGetuser,
         authList,
         positiveButtonObj,
-        deleteButtonObj,
         runButtonObj,
         editMode,
-    } = useSettingUserEdit({ ...props });
+    } = useUserTop({ ...props });
 
     return (
         <OuterDiv>
@@ -66,7 +66,6 @@ function UserTop(props: propsType) {
             />
             <UserFooter
                 positiveButtonObj={positiveButtonObj}
-                deleteButtonObj={deleteButtonObj}
                 runButtonObj={runButtonObj}
                 outerHeight={'15%'}
             />

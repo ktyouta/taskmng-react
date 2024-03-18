@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 import ENV from '../../env.json';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { clientMenuListAtom } from '../../Content/Hook/useContentLogic';
-import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
+import { useGlobalAtom, useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import { useState } from 'react';
 import { editModeAtom, userIdAtom } from '../../Setting/SettingUser/Atom/SettingUserAtom';
 import { editModeEnum } from '../../Setting/Const/SettingConst';
 import { userInfoType } from '../../Common/Type/CommonType';
-import { LOGIN_PATH, USER_PATH } from '../Const/HeaderConst';
+import { LOGIN_PATH, NOWPATH_STRAGEKEY, USER_PATH } from '../Const/HeaderConst';
 
 
 //引数の型
@@ -63,6 +63,15 @@ function useHeader(props: propsType) {
         if (!props.userInfo) {
             alert("ユーザー情報画面にアクセスできません。");
             return;
+        }
+
+        //現在のパスを保持する
+        let pathArray = window.location.pathname.split("/");
+        if (pathArray.length > 1) {
+            pathArray.splice(0, 1);
+            let mainPath = pathArray.join("/");
+            //現在のパスをローカルストレージに保存する
+            localStorage.setItem(NOWPATH_STRAGEKEY, `/${mainPath}`);
         }
         navigate(USER_PATH);
     };

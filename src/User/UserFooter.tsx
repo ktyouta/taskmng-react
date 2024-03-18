@@ -8,7 +8,6 @@ import ButtonComponent from "../Common/ButtonComponent";
 //引数の型
 type propsType = {
     positiveButtonObj: buttonObjType,
-    deleteButtonObj: buttonObjType,
     runButtonObj: buttonObjType,
     outerHeight: string,
 }
@@ -29,7 +28,20 @@ function UserFooter(props: propsType) {
             height={props.outerHeight}
         >
             <SpaceComponent
-                space={"80%"}
+                space={"8%"}
+            />
+            {
+                props.positiveButtonObj &&
+                props.positiveButtonObj.title &&
+                props.positiveButtonObj.onclick &&
+                <ButtonComponent
+                    styleTypeNumber={props.positiveButtonObj.type}
+                    title={props.positiveButtonObj.title}
+                    onclick={props.positiveButtonObj.onclick}
+                />
+            }
+            <SpaceComponent
+                space={"65%"}
             />
             {
                 props.runButtonObj &&

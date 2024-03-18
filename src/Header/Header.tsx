@@ -1,25 +1,55 @@
 import '../App.css';
-import './css/Header.css';
 import ButtonComponent from '../Common/ButtonComponent';
 import useHeader from './Hook/useHeader';
 import styled from 'styled-components';
 import { userInfoType } from '../Common/Type/CommonType';
 
 
+
+//ヘッダーのスタイル
+const HeaderDiv = styled.div`
+  width: 100%;
+  height: 10vh;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  border-bottom: 1px solid #a9a9a9;
+  box-sizing: border-box;
+`;
+
+//タイトルのスタイル
+const TitleSpan = styled.span`
+  margin-left: 2%;
+`;
+
+//ユーザー名のスタイル
+const UserNameDiv = styled.div`
+  margin: 0 2% 0 auto;
+  font-size: 15px;
+`;
+
+//ボタンのスタイル
+const BtnDiv = styled.div`
+  margin-right: 4%;
+  position:relative;
+`;
+
 //ナビゲーション
 const NavDiv = styled.div<{ isDisplay: boolean }>`
-    position: absolute;
-    top: 8%;
-    left: 87%;
-    font-size:13px;
-    width: 11%;
-    height: auto;
-    min-height:9%;
-    background-color: white;
-    padding-top: 1%;
-    border:1px solid #a9a9a9;
-    display: ${({ isDisplay }) => (isDisplay ? "block" : "none")};
-    border-radius:6px;
+  position: absolute;
+  top: 50px;
+  left: -7px;
+  font-size: 13px;
+  width: 140px;
+  height: auto;
+  min-height: 90px;
+  background-color: white;
+  padding-top: 8px;
+  border: 1px solid #a9a9a9;
+  display: ${({ isDisplay }) => (isDisplay ? "block" : "none")};
+  border-radius: 6px;
+  z-index:10;
 `;
 
 //コンテンツのスタイル
@@ -49,36 +79,38 @@ function Header(props: propsType) {
   } = useHeader({ ...props });
 
   return (
-    <div className="header">
-      <span>
+    <HeaderDiv>
+      <TitleSpan>
         {headerTile}
-      </span>
-      <div className="username-area">
-        ユーザー：{props.userInfo?.userName ?? ""}
-      </div>
-      <ButtonComponent
-        styleTypeNumber="BASE"
-        title={"ユーザーメニュー"}
-        onMouseEnter={displayNavi}
-        onMouseLeave={hidDisplayNavi}
-      />
-      <NavDiv
-        isDisplay={isDisplayNavi}
-        onMouseEnter={displayNavi}
-        onMouseLeave={hidDisplayNavi}
-      >
-        <ContentDiv
-          onClick={clickUserInfo}
+      </TitleSpan>
+      <UserNameDiv>
+        {props.userInfo?.userName ? `ユーザー：${props.userInfo?.userName}` : ""}
+      </UserNameDiv>
+      <BtnDiv>
+        <ButtonComponent
+          styleTypeNumber="BASE"
+          title={"ユーザーメニュー"}
+          onMouseEnter={displayNavi}
+          onMouseLeave={hidDisplayNavi}
+        />
+        <NavDiv
+          isDisplay={isDisplayNavi}
+          onMouseEnter={displayNavi}
+          onMouseLeave={hidDisplayNavi}
         >
-          ユーザー情報
-        </ContentDiv>
-        <ContentDiv
-          onClick={logout}
-        >
-          ログアウト
-        </ContentDiv>
-      </NavDiv>
-    </div>
+          <ContentDiv
+            onClick={clickUserInfo}
+          >
+            ユーザー情報
+          </ContentDiv>
+          <ContentDiv
+            onClick={logout}
+          >
+            ログアウト
+          </ContentDiv>
+        </NavDiv>
+      </BtnDiv>
+    </HeaderDiv>
   );
 }
 
