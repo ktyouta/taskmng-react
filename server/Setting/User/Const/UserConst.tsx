@@ -1,4 +1,4 @@
-import { JSONEXTENSION, SETTINGFILEPATH, USERINFOFILEPATH } from "../../../Common/Const.tsx/CommonConst";
+import { JSONEXTENSION, SETTINGFILEPATH, USERINFOFILEPATH } from "../../../Common/Const/CommonConst";
 
 //ユーザー情報ファイルのパス
 export const USERINFO_FILEPATH = `${SETTINGFILEPATH}${USERINFOFILEPATH}${JSONEXTENSION}`;

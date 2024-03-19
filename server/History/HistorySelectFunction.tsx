@@ -7,7 +7,7 @@ import { taskListType } from "../Task/Type/TaskType";
 import { userInfoType } from "../Setting/User/Type/UserType";
 import { TASK_HISTORY_PATH } from "./Const/HistoryConst";
 import { USERINFO_FILEPATH } from "../Setting/User/Const/UserConst";
-import { CRUD_ID, TASK_CATEGORY_ID } from "../Common/Const.tsx/CommonConst";
+import { CRUD_ID, TASK_CATEGORY_ID } from "../Common/Const/CommonConst";
 import { readFile } from "../Common/FileFunction";
 import { generalDetailType } from "../General/Type/GeneralType";
 import { getGeneralDataList } from "../General/GeneralSelectFunction";

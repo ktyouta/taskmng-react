@@ -7,7 +7,7 @@ import { getFilterdCategory } from "../Setting/Category/CategorySelectFunction";
 import ENV from '../../src/env.json';
 import { taskCustomAttributeSelectType, taskCustomAttributeSelectedType, taskListType } from "./Type/TaskType";
 import { customAttributeListType, customAttributeType } from "../Setting/CustomAttribute/Type/CustomAttributeType";
-import { TASK_CATEGORY_ID } from "../Common/Const.tsx/CommonConst";
+import { TASK_CATEGORY_ID } from "../Common/Const/CommonConst";
 import { comboType, inputSettingType } from "../Common/Type/CommonType";
 import { getFileJsonData, readFile } from "../Common/FileFunction";
 import { getFilterdSearchConditionList, getSearchConditionList } from "../Setting/SearchCondition/SearchConditionSelectFunction";

@@ -20,9 +20,10 @@ import { Response, Request, ParamsDictionary } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
 import { getDefaultAttribute, getDefaultAttributeDetail, runUpdDefaultAttribute } from './Setting/DefaultAttribute/DefaultAttributeFunction';
 import { authenticate, createToken } from './Auth/AuthFunction';
-import { JSONEXTENSION, MASTERFILEPATH } from './Common/Const.tsx/CommonConst';
 import { readFile } from './Common/FileFunction';
 import { getSearchCondition, runUpdSearchConditionList } from './Setting/SearchCondition/SearchConditionFunction';
+import { JSONEXTENSION, MASTERFILEPATH } from './Common/Const/CommonConst';
+import { getMemoDetail, getMemoList } from './Memo/MemoFunction';
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');
@@ -189,6 +190,20 @@ app.get(`${ENV.TASKINPUTSETTING}/:param`, function (req, res) {
  */
 app.get(`${ENV.SEARCHCONDITION}`, function (req, res) {
     getSearchCondition(res, req);
+});
+
+/**
+ * memoにアクセスした際の動作
+ */
+app.get(ENV.MEMO, function (req, res) {
+    getMemoList(res, req);
+});
+
+/**
+ * memo/idにアクセスした際の動作
+ */
+app.get(`${ENV.MEMO}/:param`, function (req, res) {
+    getMemoDetail(res, req, req.params.param);
 });
 
 

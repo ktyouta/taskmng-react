@@ -39,6 +39,9 @@ export const CATEGORYFILEPATH = "menu";
 //タスクの入力設定値用ファイルパス
 export const TASKINPUTSETTING = "taskinputsetting";
 
+//メモファイル名
+export const MEMOFILENM = `memo`;
+
 
 //CRUDのID
 export const CRUD_ID = "5";

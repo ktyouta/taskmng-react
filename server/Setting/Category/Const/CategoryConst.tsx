@@ -1,4 +1,4 @@
-import { CATEGORYFILEPATH, JSONEXTENSION, SETTINGFILEPATH } from "../../../Common/Const.tsx/CommonConst";
+import { CATEGORYFILEPATH, JSONEXTENSION, SETTINGFILEPATH } from "../../../Common/Const/CommonConst";
 
 //カテゴリIDの接頭辞
 export const PRE_CATEGORY_ID = `CATEGORY-`;

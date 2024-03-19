@@ -1,4 +1,4 @@
-import { CUSTOMATTRIBUTESELECT, JSONEXTENSION, TASKFILENM, TRANSACTION } from "../../Common/Const.tsx/CommonConst";
+import { CUSTOMATTRIBUTESELECT, JSONEXTENSION, TASKFILENM, TRANSACTION } from "../../Common/Const/CommonConst";
 
 //タスクファイルのパス
 export const TASK_FILEPATH = `${TRANSACTION}${TASKFILENM}${JSONEXTENSION}`;
