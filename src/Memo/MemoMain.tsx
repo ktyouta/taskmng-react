@@ -18,7 +18,9 @@ function MemoMain(props: propsType) {
             <MemoTop
                 path={props.path}
             />
-            <MemoFooter />
+            <MemoFooter
+                path={props.path}
+            />
         </React.Fragment>
     );
 }

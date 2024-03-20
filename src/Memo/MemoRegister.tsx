@@ -14,7 +14,7 @@ import { BoldSpan, HeaderDiv, HeightDiv, VerticalFlowDiv } from '../Common/Style
 
 //引数の型
 type propsType = {
-  closeFn?: () => void,
+  path: string,
 }
 
 
@@ -50,7 +50,6 @@ function MemoRegister(props: propsType) {
         <VerticalFlowDiv
           height='85%'
         >
-          {/* デフォルト属性 */}
           {
             refInfoArray &&
             refInfoArray.default &&
@@ -60,25 +59,6 @@ function MemoRegister(props: propsType) {
               errMessage={errMessage}
               outerHeight='auto'
             />
-          }
-          {/* カスタム属性 */}
-          {
-            refInfoArray &&
-            refInfoArray.customAttribute &&
-            refInfoArray.customAttribute.length > 0 &&
-            <React.Fragment>
-              <HorizonLabelItemComponent
-                title={<BoldSpan>カスタム属性</BoldSpan>}
-                marginLt='15%'
-                width="20%"
-              >
-              </HorizonLabelItemComponent>
-              <MemoEditForm
-                refInfoArray={refInfoArray.customAttribute}
-                errMessage={errMessage}
-                outerHeight='auto'
-              />
-            </React.Fragment>
           }
         </VerticalFlowDiv>
       </HeightDiv>

@@ -10,11 +10,12 @@ import { buttonType } from "../../Common/ButtonComponent";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
 import useGetMemoInputSetting from "./useGetMemoInputSetting";
 import { checkMemoRequest, createCunstomAttributeEditList, createCunstomAttributeRegistList, createRegistRefArray, createMemoCustomAttributeRequestBody, createMemoRequestBody } from "../Function/MemoFunction";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
 
 //引数の型
 type propsType = {
-    closeFn?: () => void,
+    path: string,
 }
 
 
@@ -32,7 +33,8 @@ function useMemoRegister(props: propsType) {
 
     //入力欄設定リスト
     const { memoSettingList } = useGetMemoInputSetting();
-
+    //ルーティング用
+    const navigate = useNavigate();
     //汎用詳細リスト
     const { data: generalDataList, isLoading } = useQueryWrapper<generalDataType[]>({
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
@@ -66,7 +68,7 @@ function useMemoRegister(props: propsType) {
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
             alert(res.errMessage);
-            if (props.closeFn) props.closeFn();
+            navigate(`${props.path}`);
         },
         //失敗後の処理
         afErrorFn: (res: errResType) => {
@@ -79,27 +81,7 @@ function useMemoRegister(props: propsType) {
      * 閉じるボタン押下処理
      */
     const backPageButtonFunc = () => {
-        if (props.closeFn) {
-            props.closeFn();
-        }
-    }
-
-    /**
-     * 入力値の初期化
-     */
-    const clearButtonFunc = () => {
-        if (!window.confirm("入力をクリアしますか？")) {
-            return;
-        }
-        if (!refInfoArray) {
-            return;
-        }
-        refInfoArray.default.forEach((element) => {
-            element.ref.current?.clearValue();
-        });
-        refInfoArray.customAttribute.forEach((element) => {
-            element.ref.current?.clearValue();
-        });
+        navigate(`${props.path}`);
     }
 
     /**
@@ -133,14 +115,14 @@ function useMemoRegister(props: propsType) {
         refInfoArray,
         isUpDelLoading: registerMutation.isLoading,
         backPageButtonObj: {
-            title: `閉じる`,
+            title: `戻る`,
             type: `BASE`,
             onclick: backPageButtonFunc
         } as buttonObjType,
         negativeButtonObj: {
-            title: `元に戻す`,
+            title: `プレビュー`,
             type: `RUN`,
-            onclick: refInfoArray && refInfoArray.default && refInfoArray.customAttribute ? clearButtonFunc : undefined
+            onclick: () => { }
         } as buttonObjType,
         positiveButtonObj: {
             title: `登録`,

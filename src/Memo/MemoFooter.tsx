@@ -23,15 +23,19 @@ const MemoFooterDiv = styled.div`
     padding: 0% 0% 0% 2%;
 `;
 
+//引数の型
+type propsType = {
+    path: string,
+}
 
-function MemoFooter() {
+
+function MemoFooter(props: propsType) {
 
     console.log("MemoFooter render");
 
     const {
-        isModalOpen,
-        onFlag,
-        offFlag, } = useMemoFooter();
+        clickCreateBtn,
+    } = useMemoFooter({ ...props });
 
     return (
         <React.Fragment>
@@ -42,17 +46,9 @@ function MemoFooter() {
                 <ButtonComponent
                     styleTypeNumber="PRIMARY"
                     title={"メモ作成"}
-                    onclick={onFlag}
+                    onclick={clickCreateBtn}
                 />
             </MemoFooterDiv>
-            <ModalComponent
-                modalIsOpen={isModalOpen}
-                closeModal={offFlag}
-            >
-                <MemoRegister
-                    closeFn={offFlag}
-                />
-            </ModalComponent>
         </React.Fragment>
     );
 }

@@ -10,17 +10,28 @@ import useQueryClientWrapper from '../../Common/Hook/useQueryClientWrapper';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import useGetMemoInputSetting from './useGetMemoInputSetting';
 import useSwitch from '../../Common/Hook/useSwitch';
+import { MEMO_EDIT_PATH } from '../Const/MemoConst';
 
 
-function useMemoFooter() {
+//引数の型
+type propsType = {
+    path: string,
+}
 
-    //モーダルの開閉用フラグ
-    const { flag: isModalOpen, onFlag, offFlag } = useSwitch();
+function useMemoFooter(props: propsType) {
+
+    //ルーティング用
+    const navigate = useNavigate();
+
+    /**
+     * メモ作成ボタン押下イベント
+     */
+    const clickCreateBtn = () => {
+        navigate(`${props.path}/${MEMO_EDIT_PATH}`);
+    };
 
     return {
-        isModalOpen,
-        onFlag,
-        offFlag,
+        clickCreateBtn
     }
 }
 

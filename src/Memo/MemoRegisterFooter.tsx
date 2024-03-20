@@ -43,7 +43,7 @@ function MemoRegisterFooter(props: propsType) {
                 />
             }
             <SpaceComponent
-                space={"45%"}
+                space={"55%"}
             />
             {
                 props.negativeButtonObj &&
