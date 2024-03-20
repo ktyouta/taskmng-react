@@ -17,3 +17,7 @@ export const COMP_STATUS = "2";
 export const HOLD_STATUS = "3";
 //対応中
 export const WORKING_STATUS = "4";
+//メモ画面ルートパス
+export const MEMO_ROOT_PATH = "/";
+//メモ画面編集画面ルートパス
+export const MEMO_EDIT_PATH = "edit"

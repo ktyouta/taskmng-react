@@ -1,0 +1,47 @@
+.memosearch {
+    height: 18%;
+}
+
+.memosearch-area {
+    height: 100%;
+    display: flex;
+    /* padding-bottom: 2%; */
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.memosearch-area dt{
+    height: 100%;
+    /* padding-bottom: 2%; */
+    width: auto;
+    align-items: center;
+}
+
+.memosearch-area dd{
+    height: 100%;
+    width: auto;
+    align-items: center;
+}
+
+.memosearch-condition-area {
+    /* height: 100%; */
+    display: flex;
+    width: 70%;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.memosearch-button-area {
+    height: 100%;
+    display: flex;
+    width: 30%;
+    align-items: center;
+}
+
+.display-memo-condition-item{
+    display: flex;
+    align-items: center;
+}

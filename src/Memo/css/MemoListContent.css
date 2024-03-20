@@ -1,0 +1,16 @@
+.memolistcontent-errarea {
+    padding: 0 1%;
+}
+
+.memolistcontent{
+    height: 78%;
+}
+
+.memolistcontent-num {
+    width: 93%;
+}
+
+.memolistcontent-num label {
+    display: block;
+    margin-left: auto;
+}

@@ -26,7 +26,7 @@ function MemoTop(props: propsType) {
     <HeightDiv
       height='85%'
     >
-      {/* <MemoSearch /> */}
+      <MemoSearch />
       <MemoListContent
         path={props.path}
       />

@@ -1,0 +1,30 @@
+.memoedit {
+    height: 100%;
+}
+
+.memoedit-header-area {
+    height: 10%;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.memoedit-main-area {
+    min-height: 90%;
+    height: auto;
+    overflow-y: auto;
+}
+
+.memoedit-footer-area {
+    height: 15%;
+}
+
+.memoedit-input-main-area {
+    overflow: auto;
+    height: 90%;
+    margin-left: 15%;
+}
+
+.memoedit-content-area {
+    height: 85%
+}

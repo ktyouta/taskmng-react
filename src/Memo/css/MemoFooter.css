@@ -1,0 +1,8 @@
+.memofooter{
+    display: flex;
+    align-items: center;
+    height: 15%;
+    padding: 0% 0% 0% 2%;
+    /* background-color: aquamarine; */
+    /* justify-content:space-around; */
+}

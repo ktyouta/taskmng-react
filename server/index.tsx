@@ -24,7 +24,8 @@ import { readFile } from './Common/FileFunction';
 import { getSearchCondition, runUpdSearchConditionList } from './Setting/SearchCondition/SearchConditionFunction';
 import { JSONEXTENSION, MASTERFILEPATH } from './Common/Const/CommonConst';
 import { getMemoContentSettingList, getMemoDetail, getMemoInputSettingList, getMemoList, getMemoSearchConditionList } from './Memo/MemoFunction';
-import { getMemoInputSettingObj } from './Memo/MemoSelectFunction';
+
+
 
 const app: express.Express = express();
 const bodyParser = require('body-parser');

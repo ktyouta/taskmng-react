@@ -17,6 +17,7 @@ import AddMaster from '../../AddMaster/AddMaster';
 import Task from '../../Task/Task';
 import Home from '../../Home/Home';
 import User from '../../User/User';
+import Memo from '../../Memo/Memo';
 
 
 //マスタのリスト(マスタメンテ画面のコンボ用)
@@ -58,6 +59,12 @@ const retComponent = (componentName: string, path: string, userInfo: userInfoTyp
         //タスク
         case "Task":
             component = <Task
+                path={path}
+            />;
+            break;
+        //メモ
+        case "Memo":
+            component = <Memo
                 path={path}
             />;
             break;

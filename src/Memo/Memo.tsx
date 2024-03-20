@@ -12,7 +12,8 @@ import useMemo from './Hook/useMemo';
 import MemoDetail from './MemoDetail';
 import NotFoundComponent from '../NotFound/NotFoundComponent';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
-import { DUMMY_ID } from './Const/MemoConst';
+import { DUMMY_ID, MEMO_EDIT_PATH, MEMO_ROOT_PATH } from './Const/MemoConst';
+import MemoEditRoute from './MemoEditRoute';
 
 
 type propsType = {
@@ -33,39 +34,25 @@ function Memo(props: propsType) {
       height='100%'
     >
       <Routes>
-        <Route path="/" element={<MemoMain path={props.path} />} />
+        <Route
+          path={MEMO_ROOT_PATH}
+          element={
+            <MemoMain
+              path={props.path}
+            />
+          }
+        />
         {/* メモ詳細画面のルーティング */}
-        {
-          detailRoutingId &&
-          <React.Fragment>
-            {
-              (() => {
-                switch (detailRoutingId) {
-                  case DUMMY_ID:
-                    return <Route
-                      key={"*"}
-                      path="*"
-                      element={
-                        <NotFoundComponent
-                          backUrl={props.path}
-                        />
-                      }
-                    />
-                  default:
-                    return <Route
-                      path={detailRoutingId}
-                      element={
-                        <MemoDetail
-                          updMemoId={detailRoutingId}
-                          closeFn={backPageFunc}
-                        />
-                      }
-                    />
-                }
-              })()
-            }
-          </React.Fragment>
-        }
+        <Route
+          path={MEMO_EDIT_PATH}
+          element={
+            <MemoEditRoute
+              path={props.path}
+              detailRoutingId={detailRoutingId}
+              backPageFunc={backPageFunc}
+            />
+          }
+        />
       </Routes>
     </HeightDiv>
   );

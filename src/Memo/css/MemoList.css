@@ -1,0 +1,14 @@
+.memolist{
+    overflow: auto;
+    height: 100%;
+}
+
+.memolist ul {
+    padding-left: 0;
+    height: 100%;
+}
+
+.memolist li {
+    list-style: none;
+    padding: 0% 5% 0% 2%
+}
