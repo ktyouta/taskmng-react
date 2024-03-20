@@ -41,7 +41,12 @@ export const TASKINPUTSETTING = "taskinputsetting";
 
 //メモファイル名
 export const MEMOFILENM = `memo`;
-
+//メモ入力設定ファイル名
+export const MEMOINPUTSETTINGFILENM = `memoinputsetting`;
+//メモコンテンツ設定ファイル名
+export const MEMOCONTENTSETTINGFILENM = `memocontentsetting`;
+//メモ検索条件設定ファイル名
+export const MEMOSEARCHCONDITIONFILENM = `memosearchcondition`;
 
 //CRUDのID
 export const CRUD_ID = "5";

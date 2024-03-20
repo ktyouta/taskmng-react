@@ -1,0 +1,44 @@
+[
+	{
+		"id": "id",
+		"name": "MEMOID",
+		"type": "label",
+		"length": 0,
+		"initValue": "",
+		"disabled": true,
+		"isNewCreateVisible": false,
+		"isHidden": true,
+		"isRequired": false,
+		"isSettingEditable": false,
+		"description": "",
+		"updTime": ""
+	},
+	{
+		"id": "title",
+		"name": "タイトル",
+		"type": "input",
+		"length": 500,
+		"initValue": "",
+		"disabled": false,
+		"isNewCreateVisible": true,
+		"isHidden": false,
+		"isRequired": true,
+		"isSettingEditable": true,
+		"description": "",
+		"updTime": "2024/01/21"
+	},
+	{
+		"id": "content",
+		"name": "メモ内容",
+		"type": "textarea",
+		"length": 2000,
+		"initValue": "",
+		"disabled": false,
+		"isNewCreateVisible": true,
+		"isHidden": false,
+		"isRequired": false,
+		"description": "メモの詳細について記入",
+		"isSettingEditable": true,
+		"updTime": ""
+	}
+]

@@ -1,0 +1,39 @@
+[
+	{
+		"id": "num",
+		"name": "最大取得件数",
+		"type": "number",
+		"isHidden": false,
+		"value": "250",
+		"attribute": "default",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/03/16",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"id": "keyword",
+		"name": "キーワード",
+		"type": "input",
+		"isHidden": false,
+		"value": "",
+		"attribute": "default",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/03/16",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"id": "title",
+		"name": "タイトル",
+		"type": "input",
+		"isHidden": false,
+		"length": 500,
+		"value": "",
+		"attribute": "default",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/03/16",
+		"deleteFlg": "0",
+		"userId": "f"
+	}
+]

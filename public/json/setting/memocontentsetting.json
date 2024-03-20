@@ -1,0 +1,29 @@
+[
+    {
+        "id": "id",
+        "name": "ID",
+        "isHidden": true
+    },
+    {
+        "id": "title",
+        "name": "タイトル",
+        "isHidden": false
+    },
+    {
+        "id": "registerTime",
+        "name": "登録日付",
+        "type": "date",
+        "isHidden": false
+    },
+    {
+        "id": "updTime",
+        "name": "更新日付",
+        "type": "date",
+        "isHidden": false
+    },
+    {
+        "id": "userId",
+        "name": "ユーザーID",
+        "isHidden": true
+    }
+]
