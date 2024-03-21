@@ -43,7 +43,7 @@ function useMemoSearch() {
 
     //検索条件の設定リスト
     const { data: memoSearchConditionList } = useQueryWrapper<memoSearchConditionType[]>({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}${SEARCHCONDITION_QUERY_KEY}${SEARCHCONDITION_KEY_DEFAULT},${SEARCHCONDITION_KEY_CUSTOM}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MEMOSEARCHCONDITION}`,
     });
 
     /**

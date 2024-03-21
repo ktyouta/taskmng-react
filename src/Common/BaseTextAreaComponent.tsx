@@ -4,11 +4,12 @@ import styled from "styled-components";
 
 //引数の型
 type propsType = {
-    value: string,
-    length: number,
+    value?: string,
+    length?: number,
     titleWidth?: string,
     textWidth?: string,
     bgColor?: string,
+    height?: string,
     onChange?: (e: string) => void,
 }
 
@@ -19,10 +20,10 @@ export type refType = {
 }
 
 //テキストエリアの基本スタイル
-const BaseInput = styled.textarea<{ textWidth?: string, bgColor?: string, }>`
+const BaseInput = styled.textarea<{ textWidth?: string, bgColor?: string, height?: string, }>`
   width: ${({ textWidth }) => (textWidth ? textWidth : "400px")};
   background-color:${({ bgColor }) => (bgColor ?? "")};
-  height:70px;
+  height:${({ height }) => (height ? height : "70px")};
   border-radius: 5px;
   border:solid 1px rgb(118, 118, 118);
 `;
@@ -30,7 +31,7 @@ const BaseInput = styled.textarea<{ textWidth?: string, bgColor?: string, }>`
 const BaseTextAreaComponent = forwardRef<refType, propsType>((props, ref) => {
 
     //テキストエリアの入力値
-    const [inputValue, setInputValue] = useState<string>(props.value);
+    const [inputValue, setInputValue] = useState<string>(props.value ?? "");
 
     //テキストエリアの入力値を割り当てる
     React.useImperativeHandle(ref, () => ({
@@ -48,7 +49,7 @@ const BaseTextAreaComponent = forwardRef<refType, propsType>((props, ref) => {
 
     //テキストエリアのクリアイベント
     const clearInput = () => {
-        setInputValue(props.value);
+        setInputValue(props.value ?? "");
     };
 
     return (
@@ -58,6 +59,7 @@ const BaseTextAreaComponent = forwardRef<refType, propsType>((props, ref) => {
             value={inputValue}
             textWidth={props.textWidth}
             bgColor={props.bgColor}
+            height={props.height}
         />
     );
 })

@@ -61,30 +61,7 @@ function MemoEdit(props: propsType) {
           height='85%'
         >
           {/* デフォルト属性 */}
-          <MemoEditForm
-            refInfoArray={refInfoArray.default}
-            errMessage={errMessage}
-            outerHeight='auto'
-          />
-          {/* カスタム属性 */}
-          {
-            refInfoArray &&
-            refInfoArray.customAttribute &&
-            refInfoArray.customAttribute.length > 0 &&
-            <React.Fragment>
-              <HorizonLabelItemComponent
-                title={<BoldSpan>カスタム属性</BoldSpan>}
-                marginLt='15%'
-                width="20%"
-              >
-              </HorizonLabelItemComponent>
-              <MemoEditForm
-                refInfoArray={refInfoArray.customAttribute}
-                errMessage={errMessage}
-                outerHeight='auto'
-              />
-            </React.Fragment>
-          }
+          <MemoEditForm />
           {/* エラーメッセージ用スナックバー */}
           <SnackbarComponent
             open={!!errMessage}

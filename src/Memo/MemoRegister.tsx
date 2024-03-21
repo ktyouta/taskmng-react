@@ -42,25 +42,11 @@ function MemoRegister(props: propsType) {
       <HeightDiv
         height='85%'
       >
-        <HeaderDiv>
-          <LabelComponent
-            title="メモ作成"
-          />
-        </HeaderDiv>
-        <VerticalFlowDiv
-          height='85%'
+        <HeightDiv
+          height='100%'
         >
-          {
-            refInfoArray &&
-            refInfoArray.default &&
-            refInfoArray.default.length > 0 &&
-            <MemoEditForm
-              refInfoArray={refInfoArray.default}
-              errMessage={errMessage}
-              outerHeight='auto'
-            />
-          }
-        </VerticalFlowDiv>
+          <MemoEditForm />
+        </HeightDiv>
       </HeightDiv>
       <HeightDiv
         height='15%'

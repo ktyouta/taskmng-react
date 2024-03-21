@@ -7,44 +7,49 @@ import styled from 'styled-components';
 import { editDisplayMemoType } from './Type/MemoType';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
+import BaseInputComponent from '../Common/BaseInputComponent';
+import LabelTextAreaComponent from '../Common/LabelTextAreaComponent';
+import BaseTextAreaComponent from '../Common/BaseTextAreaComponent';
+import { VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
 
-
-//引数の型
-type propsType = {
-    refInfoArray: refInfoType[] | undefined,
-    errMessage: string,
-    outerHeight: string,
-}
-
-//外側のスタイル
-const OuterDiv = styled.div<{ height: string | undefined }>`
-    height:${({ height }) => (height)};
-`;
 
 //入力欄
 const MainAreaDiv = styled.div`
-    margin-left: 15%;
+    padding-left: 1%;
+    padding-top: 2%;
+    height:100%;
 `;
 
-function MemoEditForm(props: propsType) {
+//タイトル
+const TitleAreaDiv = styled.div<{ height: string | undefined }>`
+    height:${({ height }) => (height)};
+`;
+
+
+function MemoEditForm() {
 
     console.log("MemoEditForm render");
 
     return (
-        <OuterDiv
-            height={props.outerHeight}
-        >
-            <MainAreaDiv>
-                {/* 入力欄 */}
-                {
-                    props.refInfoArray &&
-                    props.refInfoArray.length > 0 &&
-                    <DynamicForm
-                        refInfoArray={props.refInfoArray}
-                    />
-                }
-            </MainAreaDiv>
-        </OuterDiv>
+        <MainAreaDiv>
+            {/* 入力欄 */}
+            <TitleAreaDiv
+                height="10%"
+            >
+                <BaseInputComponent
+                    placeholder='タイトル'
+                    textWidth='90%'
+                />
+            </TitleAreaDiv>
+            <VerticalFlowDiv
+                height='70%'
+            >
+                <BaseTextAreaComponent
+                    textWidth='90%'
+                    height='80%'
+                />
+            </VerticalFlowDiv>
+        </MainAreaDiv>
     );
 }
 

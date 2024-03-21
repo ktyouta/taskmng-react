@@ -5,14 +5,15 @@ import styled from "styled-components";
 //引数の型
 type propsType = {
     type?: string,
-    value: string,
-    length: number,
+    value?: string,
+    length?: number,
     titleWidth?: string,
     textWidth?: string,
     bgColor?: string,
     disabled?: boolean,
     onChange?: (e: string) => void,
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void,
+    placeholder?: string,
 }
 
 //参照の型
@@ -33,7 +34,7 @@ const BaseInput = styled.input<{ textWidth?: string, bgColor?: string, }>`
 const BaseInputComponent = forwardRef<refType, propsType>((props, ref) => {
 
     //テキストボックスの入力値
-    const [inputValue, setInputValue] = useState<string>(props.value);
+    const [inputValue, setInputValue] = useState<string>(props.value ?? "");
 
     //テキストボックスの入力値を割り当てる
     React.useImperativeHandle(ref, () => ({
@@ -58,7 +59,7 @@ const BaseInputComponent = forwardRef<refType, propsType>((props, ref) => {
 
     //テキストボックスのクリアイベント
     const clearInput = () => {
-        setInputValue(props.value);
+        setInputValue(props.value ?? "");
     };
 
     return (
@@ -71,6 +72,7 @@ const BaseInputComponent = forwardRef<refType, propsType>((props, ref) => {
             bgColor={props.bgColor}
             disabled={props.disabled}
             onKeyDown={inputEnterKey}
+            placeholder={props.placeholder}
         />
     );
 })

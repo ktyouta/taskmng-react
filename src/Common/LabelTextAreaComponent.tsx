@@ -5,9 +5,9 @@ import BaseTextAreaComponent from './BaseTextAreaComponent';
 
 //引数の型
 type propsType = {
-    disabled: boolean,
-    value: string,
-    length: number,
+    disabled?: boolean,
+    value?: string,
+    length?: number,
     titleWidth?: string,
     textWidth?: string,
     bgColor?: string,

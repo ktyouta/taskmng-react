@@ -795,11 +795,7 @@ export function createTabItems(memoSearchRefInfo: memoSearchConditionRefType) {
                 <VerticalSpaceComponent
                     space={'3%'}
                 />
-                <MemoEditForm
-                    refInfoArray={memoSearchRefInfo[objKey]}
-                    errMessage={""}
-                    outerHeight='auto'
-                />
+                <MemoEditForm />
             </React.Fragment>
 
         let tmpTitle = "";
