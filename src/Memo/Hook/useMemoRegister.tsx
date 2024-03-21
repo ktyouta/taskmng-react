@@ -30,36 +30,13 @@ function useMemoRegister(props: propsType) {
     const [refInfoArray, setRefInfoArray] = useState<editDisplayMemoType>();
     //スナックバーに表示する登録更新時のエラーメッセージ
     const [errMessage, setErrMessage] = useState("");
-
-    //入力欄設定リスト
-    const { memoSettingList } = useGetMemoInputSetting();
     //ルーティング用
     const navigate = useNavigate();
-    //汎用詳細リスト
-    const { data: generalDataList, isLoading } = useQueryWrapper<generalDataType[]>({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
-    });
+    //メモタイトル
+    const [memoTitle, setMemoTitle] = useState("");
+    //メモ内容
+    const [memoContent, setMemoContent] = useState("");
 
-    //カスタム属性入力設定リスト
-    const { data: customAttributeInputSetting } = useQueryWrapper<refInfoType[]>({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CUSTOMATTRIBUTEINPUTSETTING}`,
-    });
-
-    //入力欄参照用refの作成
-    useEffect(() => {
-        if (!memoSettingList) {
-            return;
-        }
-        if (!generalDataList) {
-            return;
-        }
-        if (!customAttributeInputSetting) {
-            return;
-        }
-
-        //入力欄の参照を作成
-        setRefInfoArray(createRegistRefArray(memoSettingList, generalDataList, customAttributeInputSetting));
-    }, [memoSettingList, generalDataList, customAttributeInputSetting]);
 
     //登録用フック
     const registerMutation = useMutationWrapper({
@@ -78,7 +55,7 @@ function useMemoRegister(props: propsType) {
     });
 
     /**
-     * 閉じるボタン押下処理
+     * 戻るボタン押下処理
      */
     const backPageButtonFunc = () => {
         navigate(`${props.path}`);
@@ -119,17 +96,16 @@ function useMemoRegister(props: propsType) {
             type: `BASE`,
             onclick: backPageButtonFunc
         } as buttonObjType,
-        negativeButtonObj: {
-            title: `プレビュー`,
-            type: `RUN`,
-            onclick: () => { }
-        } as buttonObjType,
         positiveButtonObj: {
             title: `登録`,
             type: `RUN`,
-            onclick: refInfoArray && refInfoArray.default && refInfoArray.customAttribute ? create : undefined
+            onclick: create
         } as buttonObjType,
         errMessage,
+        memoTitle,
+        setMemoTitle,
+        memoContent,
+        setMemoContent,
     }
 }
 

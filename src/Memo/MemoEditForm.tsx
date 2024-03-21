@@ -11,13 +11,24 @@ import BaseInputComponent from '../Common/BaseInputComponent';
 import LabelTextAreaComponent from '../Common/LabelTextAreaComponent';
 import BaseTextAreaComponent from '../Common/BaseTextAreaComponent';
 import { VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import ReactMarkdown from 'react-markdown';
+import MarkDownArea from '../Common/MarkDownArea';
 
+
+//引数の型
+type propsType = {
+    memoTitle: string,
+    setMemoTitle: React.Dispatch<React.SetStateAction<string>>,
+    memoContent: string,
+    setMemoContent: React.Dispatch<React.SetStateAction<string>>,
+}
 
 //入力欄
 const MainAreaDiv = styled.div`
-    padding-left: 1%;
+    padding-left: 5%;
     padding-top: 2%;
     height:100%;
+    text-align:left;
 `;
 
 //タイトル
@@ -26,7 +37,7 @@ const TitleAreaDiv = styled.div<{ height: string | undefined }>`
 `;
 
 
-function MemoEditForm() {
+function MemoEditForm(props: propsType) {
 
     console.log("MemoEditForm render");
 
@@ -46,8 +57,14 @@ function MemoEditForm() {
             >
                 <BaseTextAreaComponent
                     textWidth='90%'
-                    height='80%'
+                    height='96%'
+                    value={props.memoContent}
+                    onChange={props.setMemoContent}
                 />
+                <MarkDownArea
+                    content={props.memoContent}
+                    height={'96%'}
+                    width={'90%'} />
             </VerticalFlowDiv>
         </MainAreaDiv>
     );

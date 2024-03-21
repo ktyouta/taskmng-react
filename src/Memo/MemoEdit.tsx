@@ -60,8 +60,7 @@ function MemoEdit(props: propsType) {
         <VerticalFlowDiv
           height='85%'
         >
-          {/* デフォルト属性 */}
-          <MemoEditForm />
+          {/* <MemoEditForm /> */}
           {/* エラーメッセージ用スナックバー */}
           <SnackbarComponent
             open={!!errMessage}

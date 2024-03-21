@@ -9,7 +9,6 @@ import { buttonObjType } from '../Common/Type/CommonType';
 //引数の型
 type propsType = {
     backPageButtonObj: buttonObjType,
-    negativeButtonObj: buttonObjType,
     positiveButtonObj: buttonObjType,
     outerHeight: string,
 }
@@ -43,21 +42,7 @@ function MemoRegisterFooter(props: propsType) {
                 />
             }
             <SpaceComponent
-                space={"55%"}
-            />
-            {
-                props.negativeButtonObj &&
-                props.negativeButtonObj.title &&
-                props.negativeButtonObj.onclick &&
-                props.positiveButtonObj.onclick &&
-                <ButtonComponent
-                    styleTypeNumber={props.negativeButtonObj.type}
-                    title={props.negativeButtonObj.title}
-                    onclick={props.negativeButtonObj.onclick}
-                />
-            }
-            <SpaceComponent
-                space={"3%"}
+                space={"65%"}
             />
             {
                 props.positiveButtonObj &&

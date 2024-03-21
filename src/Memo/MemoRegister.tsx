@@ -23,17 +23,15 @@ function MemoRegister(props: propsType) {
   console.log("MemoRegister render");
 
   const {
-    refInfoArray,
     isUpDelLoading,
     backPageButtonObj,
-    negativeButtonObj,
     positiveButtonObj,
-    errMessage, } = useMemoRegister({ ...props });
+    memoTitle,
+    setMemoTitle,
+    memoContent,
+    setMemoContent,
+  } = useMemoRegister({ ...props });
 
-  //ローディング
-  if (!refInfoArray || !refInfoArray.default || !refInfoArray.customAttribute) {
-    return <Loading height='50vh' />;
-  }
 
   return (
     <HeightDiv
@@ -42,20 +40,19 @@ function MemoRegister(props: propsType) {
       <HeightDiv
         height='85%'
       >
-        <HeightDiv
-          height='100%'
-        >
-          <MemoEditForm />
-        </HeightDiv>
+        <MemoEditForm
+          memoTitle={memoTitle}
+          setMemoTitle={setMemoTitle}
+          memoContent={memoContent}
+          setMemoContent={setMemoContent} />
       </HeightDiv>
       <HeightDiv
         height='15%'
       >
         <MemoRegisterFooter
           backPageButtonObj={backPageButtonObj}
-          negativeButtonObj={negativeButtonObj}
           positiveButtonObj={positiveButtonObj}
-          outerHeight='15%'
+          outerHeight='100%'
         />
       </HeightDiv>
       {/* ローディング */}
