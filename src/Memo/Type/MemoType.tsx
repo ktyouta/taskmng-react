@@ -140,3 +140,10 @@ export type memoSearchConditionRefType = {
     default: refInfoType[],
     custom: refInfoType[],
 }
+
+
+//メモの登録リクエストの型
+export type memoRegistReqType = {
+    title: string,
+    content: string,
+}

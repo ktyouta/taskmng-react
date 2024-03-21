@@ -6,7 +6,6 @@ export type memoListType = {
     content: string,
     registerTime: string,
     updTime: string,
-    limitTime: string,
     userId: string,
     deleteFlg: string,
 }
@@ -50,4 +49,10 @@ export type memoInputSettingListType = {
     isHidden: boolean,
     isRequired: boolean,
     description: string,
+}
+
+//メモの登録リクエストの型
+export type memoRegistReqType = {
+    title: string,
+    content: string,
 }

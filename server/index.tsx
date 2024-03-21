@@ -23,7 +23,7 @@ import { authenticate, createToken } from './Auth/AuthFunction';
 import { readFile } from './Common/FileFunction';
 import { getSearchCondition, runUpdSearchConditionList } from './Setting/SearchCondition/SearchConditionFunction';
 import { JSONEXTENSION, MASTERFILEPATH } from './Common/Const/CommonConst';
-import { getMemoContentSettingList, getMemoDetail, getMemoInputSettingList, getMemoList, getMemoSearchConditionList } from './Memo/MemoFunction';
+import { getMemoContentSettingList, getMemoDetail, getMemoInputSettingList, getMemoList, getMemoSearchConditionList, runAddMemo } from './Memo/MemoFunction';
 
 
 
@@ -289,6 +289,13 @@ app.post(ENV.LOGIN, function (req, res) {
 app.post(ENV.AUTH, function (req, res) {
     let authResult = authenticate(req.cookies.cookie);
     res.status(authResult.status).json({ errMessage: authResult.errMessage, userInfo: authResult.userInfo });
+});
+
+/**
+ * メモの登録
+ */
+app.post(ENV.MEMO, function (req, res) {
+    runAddMemo(res, req);
 });
 
 

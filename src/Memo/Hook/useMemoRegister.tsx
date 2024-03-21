@@ -4,7 +4,7 @@ import { bodyObj, buttonObjType, comboType, generalDataType, refInfoType } from 
 import { refType } from "../../Common/BaseInputComponent";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
-import { customAttributeRequestBodyType, editDisplayMemoType, memoListType } from "../Type/MemoType";
+import { customAttributeRequestBodyType, editDisplayMemoType, memoListType, memoRegistReqType } from "../Type/MemoType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
@@ -65,14 +65,15 @@ function useMemoRegister(props: propsType) {
      * 登録ボタン押下処理
      */
     const create = () => {
-        if (!refInfoArray || !refInfoArray.default || refInfoArray.default.length === 0 || !refInfoArray.customAttribute) {
+        //タイトル
+        if (!memoTitle) {
+            alert("タイトルを入力してください。");
             return;
         }
 
-        //入力チェック
-        let errObj = checkMemoRequest(refInfoArray);
-        if (errObj.errFlg) {
-            setRefInfoArray(errObj.refInfoArray);
+        //内容
+        if (!memoContent || !memoContent.trim()) {
+            alert("メモ内容を入力してください。");
             return;
         }
 
@@ -84,8 +85,14 @@ function useMemoRegister(props: propsType) {
             return;
         }
 
-        //bodyの作成
-        registerMutation.mutate(createMemoRequestBody(refInfoArray));
+        //リクエストボディ
+        let body: memoRegistReqType = {
+            title: memoTitle,
+            content: memoContent,
+        }
+
+        //リクエスト送信
+        registerMutation.mutate(body);
     }
 
     return {

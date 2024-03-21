@@ -3,8 +3,10 @@ import { runAddTaskHistory } from "../History/HistoryFunction";
 import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
-import { memoContentListType, memoInputSettingListType, memoListType, memoSearchConditionListType } from "./Type/MemoType";
-import { getFilterdMemo, getFilterdMemoContent, getFilterdMemoInputSetting, getFilterdSearchCondition } from "./MemoSelectFunction";
+import { memoContentListType, memoInputSettingListType, memoListType, memoRegistReqType, memoSearchConditionListType } from "./Type/MemoType";
+import { getFilterdMemo, getFilterdMemoContent, getFilterdMemoInputSetting, getFilterdSearchCondition, getMemoObj } from "./MemoSelectFunction";
+import { MEMO_FILEPATH } from "./Const/MemoConst";
+import { createAddMemoData } from "./MemoRegistFunction";
 
 
 
@@ -130,4 +132,49 @@ export function getMemoInputSettingList(res: any, req: any) {
     }
 
     return res.status(200).json(decodeFileData);
+}
+
+
+/**
+ * メモの追加
+ */
+export function runAddMemo(res: any, req: any) {
+    //認証権限チェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //リクエストボディ
+    let body: memoRegistReqType = req.body;
+
+    //メモファイルの読み込み
+    let decodeFileData: memoListType[] = getMemoObj();
+
+    //登録用データの作成
+    let retObj = createAddMemoData(decodeFileData, body, authResult);
+
+    //メモが登録されていない
+    if (!retObj || retObj.length === 0) {
+        return res
+            .status(400)
+            .json({ errMessage: "メモの登録に失敗しました。" });
+    }
+
+    //データを登録
+    let errMessage = overWriteData(MEMO_FILEPATH, JSON.stringify(retObj, null, '\t'));
+
+    //登録更新削除に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
+    //正常終了
+    return res
+        .status(200)
+        .json({ errMessage: `登録が完了しました。` });
 }

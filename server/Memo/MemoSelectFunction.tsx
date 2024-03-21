@@ -1,5 +1,5 @@
 import { memoContentListType, memoInputSettingListType, memoListType, memoSearchConditionListType } from "./Type/MemoType";
-import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_INPUTSETTING_FILEPATH, MEMO_SEARCHCONDITION_FILEPATH } from "./Const/MemoConst";
+import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_INPUTSETTING_FILEPATH, MEMO_SEARCHCONDITION_FILEPATH, PRE_MEMO_ID } from "./Const/MemoConst";
 import { readFile } from "../Common/FileFunction";
 
 
@@ -101,4 +101,17 @@ export function getFilterdMemoInputSetting() {
     });
 
     return decodeFileData;
+}
+
+
+/**
+ * メモのIDを作成
+ */
+export function createMemoNewId(taskList: memoListType[]) {
+    //IDが最大のNOを取得
+    let maxNo = taskList.reduce<number>((prev: number, current: memoListType) => {
+        let currentNm = parseInt(current.id.replace(`${PRE_MEMO_ID}`, ""));
+        return Math.max(prev, currentNm);
+    }, 0);
+    return `${PRE_MEMO_ID}${maxNo + 1}`;
 }
