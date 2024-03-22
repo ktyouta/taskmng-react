@@ -11,13 +11,13 @@
     },
     {
         "id": "registerTime",
-        "name": "登録日付",
+        "name": "登録日",
         "type": "date",
         "isHidden": false
     },
     {
         "id": "updTime",
-        "name": "更新日付",
+        "name": "更新日",
         "type": "date",
         "isHidden": false
     },

@@ -554,52 +554,6 @@ export function createMemoContentList(memoList: memoListType[], generalDataList:
             onClickTitle: () => { },
         };
 
-        //メモの状態に応じて背景色を変える
-        //ステータス
-        let status = element["status"];
-        //期限
-        let limitTime = element["limitTime"];
-        //背景色の設定
-        let bgButtonColor: string | undefined = undefined;
-        //ステータスとメモが存在する場合
-        if (status) {
-            //期限切れのメモ
-            if (limitTime && limitTime < nowDate) {
-                switch (status) {
-                    //未対応
-                    case NOCOMP_STATUS:
-                        displayMemoObj.bdColor = "#CD5C5C";
-                        displayMemoObj.titleBgColor = "#F08080";
-                        displayMemoObj.infoBgColor = "#FA8072";
-                        bgButtonColor = "#FA8072";
-                        break;
-                    //保留
-                    case HOLD_STATUS:
-                        displayMemoObj.bdColor = "#FFFF00";
-                        displayMemoObj.titleBgColor = "#FFFF66";
-                        displayMemoObj.infoBgColor = "#FFFF66";
-                        bgButtonColor = "#FFFF66";
-                        break;
-                    default:
-                        break;
-                }
-            }
-            //完了したメモ
-            if (status === COMP_STATUS) {
-                displayMemoObj.bdColor = "#808080";
-                displayMemoObj.titleBgColor = "#808080";
-                displayMemoObj.infoBgColor = "#808080";
-                bgButtonColor = "#808080";
-            }
-            //対応中
-            else if (status === WORKING_STATUS) {
-                displayMemoObj.bdColor = "#33FFFF";
-                displayMemoObj.titleBgColor = "#66FFFF";
-                displayMemoObj.infoBgColor = "#66FFCC";
-                bgButtonColor = "#66FFCC";
-            }
-        }
-
         //画面に表示するオブジェクトを作成
         memoContentSetting.forEach((item) => {
             //メモリスト内に設定に一致するプロパティが存在しない場合は画面に表示しない
@@ -619,26 +573,6 @@ export function createMemoContentList(memoList: memoListType[], generalDataList:
             //非表示項目
             if (item.isHidden) {
                 return;
-            }
-
-            //選択項目
-            if (item.listKey) {
-                //汎用詳細リストからリストキーに一致する要素を抽出する
-                let selectList = generalDataList.filter((list) => {
-                    return list.id === item.listKey;
-                });
-                let isMatchPriority = false;
-                selectList.some((list) => {
-                    //値の一致する名称を取得
-                    if (list.value === element[item.id]) {
-                        element[item.id] = list.label;
-                        return isMatchPriority = true;
-                    }
-                });
-                //結合できなかった要素は画面に表示しない
-                if (!isMatchPriority) {
-                    return;
-                }
             }
 
             if ((typeof element[item.id]) !== "string") {
@@ -661,13 +595,6 @@ export function createMemoContentList(memoList: memoListType[], generalDataList:
         displayMemoObj.onClickTitle = () => {
             moveMemoDetail(displayMemoObj.id);
         };
-
-        //編集ボタン
-        displayMemoObj["editButton"] = <ButtonComponent
-            styleTypeNumber={"BASE"}
-            bgColor={bgButtonColor}
-            title={"詳細"}
-            onclick={() => { openModal(element.id); }} />;
 
         tmpDisplayMemoList.push(displayMemoObj);
     });

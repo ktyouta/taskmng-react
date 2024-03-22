@@ -10,7 +10,7 @@ import useMemoContent from './Hook/useMemoContent';
 const OuterDiv = styled.div<{ bdColor?: string }>`
     border: 1px solid;
     border-radius: 5px;
-    min-height: 65px;
+    min-height: 80px;
     height: auto;
     border-color: ${({ bdColor }) => (bdColor ?? "#c0c0c0")};
 `;
@@ -26,7 +26,7 @@ const ContentTitleDiv = styled.div<{ titleBgColor?: string }>`
     overflow-wrap: break-word;
     font-size: 20px;
     padding-left: 10px;
-    background-color: ${({ titleBgColor }) => (titleBgColor ?? "#d3d3d3")};
+    background-color: ${({ titleBgColor }) => (titleBgColor ?? "#cccccc")};
     cursor:pointer;
     &:hover {
         color: blue;
@@ -40,9 +40,9 @@ const ContentInfoDiv = styled.div<{ infoBgColor?: string }>`
     align-items: center;
     height: auto;
     border-radius: 0px 0x 5px 5px;
-    min-height: 30px;
+    min-height: 50px;
     padding-left: 10px;
-    background-color: ${({ infoBgColor }) => (infoBgColor ?? "#dcdcdc")};
+    background-color: ${({ infoBgColor }) => (infoBgColor ?? "#cccccc")};
 `;
 
 //ボタンエリアのスタイル
@@ -73,7 +73,7 @@ function MemoContent(props: propsType) {
                 titleBgColor={props.contentObj.titleBgColor}
                 onClick={props.contentObj.onClickTitle}
             >
-                {`${props.contentObj.id}：${props.contentObj.title}`}
+                {`タイトル：${props.contentObj.title}`}
             </ContentTitleDiv>
             <ContentInfoDiv
                 infoBgColor={props.contentObj.infoBgColor}
