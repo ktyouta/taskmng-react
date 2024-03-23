@@ -10,9 +10,6 @@ export type memoListType = {
     updTime: string,
     limitTime: string,
     userId: string,
-    priority: string,
-    status: string,
-    customAttribute?: customAttributeListType[]
 }
 
 //画面表示用メモリストの型
@@ -110,12 +107,6 @@ export type displayMemoType = {
     customAttribute: viewMemoType[],
 }
 
-//APIから取得するメモ詳細の型
-export type apiMemoDetailType = {
-    default: viewMemoType[],
-    customAttribute: customAttributeListType[],
-}
-
 //編集画面表示用メモの型
 export type editDisplayMemoType = {
     default: refInfoType[],
@@ -146,4 +137,16 @@ export type memoSearchConditionRefType = {
 export type memoRegistReqType = {
     title: string,
     content: string,
+}
+
+//APIから取得するメモ詳細
+export type apiMemoDetailType = {
+    [key: string]: string | customAttributeListType[] | undefined,
+    id: string,
+    registerTime: string,
+    title: string,
+    content: string,
+    updTime: string,
+    limitTime: string,
+    userId: string,
 }

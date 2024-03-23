@@ -99,7 +99,7 @@ function useMemoListContent(props: propsType) {
         }
 
         //コンテンツリストを作成
-        return createMemoContentList(memoList, generalDataList, memoContentSetting, openModal, moveMemoDetail);
+        return createMemoContentList(memoList, memoContentSetting, moveMemoDetail);
     }, [memoList, generalDataList, memoContentSetting]);
 
     return {

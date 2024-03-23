@@ -34,6 +34,10 @@ function useMemoDetail(props: propsType) {
     const { memoSettingList } = useGetMemoInputSetting();
     //詳細画面へのルーティング用ID
     const setDetailRoutingId = useSetAtom(detailRoutingIdAtom);
+    //メモのタイトル
+    const [memoTitle, setMemoTitle] = useState("");
+    //メモの内容
+    const [memoContent, setMemoContent] = useState("");
 
     //汎用詳細リスト
     const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
@@ -44,7 +48,9 @@ function useMemoDetail(props: propsType) {
     const { data: updMemo, isLoading: isLoadinGetUpdMemo } = useQueryWrapper<apiMemoDetailType>(
         {
             url: props.updMemoId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MEMO}/${props.updMemoId}` : ``,
-            afSuccessFn: (data) => {
+            afSuccessFn: (data: apiMemoDetailType) => {
+                setMemoTitle(data.title);
+                setMemoContent(data.content);
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -75,6 +81,11 @@ function useMemoDetail(props: propsType) {
         viewMode,
         openViewPage,
         openEditPage,
+        memoTitle,
+        setMemoTitle,
+        memoContent,
+        setMemoContent,
+        isLoadinGetUpdMemo,
     }
 }
 

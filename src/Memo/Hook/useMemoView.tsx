@@ -2,7 +2,6 @@ import { createRef, RefObject, useContext, useEffect, useMemo, useRef, useState 
 import ENV from '../../env.json';
 import { bodyObj, buttonObjType, comboType, generalDataType, inputMasterSettingType, refInfoType } from "../../Common/Type/CommonType";
 import { apiMemoDetailType, customAttributeListType, displayMemoType, inputMemoSettingType, memoListType, viewMemoType } from "../Type/MemoType";
-import { createMemoViewList } from "../Function/MemoFunction";
 
 
 //引数の型
@@ -39,7 +38,7 @@ function useMemoView(props: propsType) {
         }
 
         //メモの詳細リストを作成
-        setViewMemo(createMemoViewList(props.memoSettingList, props.updMemo, props.generalDataList));
+        //setViewMemo(createMemoViewList(props.memoSettingList, props.updMemo, props.generalDataList));
     }, [props.memoSettingList, props.updMemo, props.generalDataList]);
 
 

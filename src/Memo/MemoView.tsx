@@ -24,7 +24,7 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
 
 //ヘッダー
 const HeaderDiv = styled.div`
-    height: 10%;
+    height: 1%;
     font-size: 20px;
     display: flex;
     align-items: center;
@@ -32,15 +32,9 @@ const HeaderDiv = styled.div`
 
 //入力欄
 const MainAreaDiv = styled.div`
-    height: 85%;
-    overflow-y: auto;
-    margin-left: 15%;
+    height: 92%;
 `;
 
-//太文字のスタイル
-const BoldSpan = styled.span`
-    font-weight: bold;
-`;
 
 
 //引数の型
@@ -51,6 +45,11 @@ type propsType = {
   openEditPage: () => void,
   closeFn?: () => void,
   backBtnTitle?: string,
+  memoTitle: string,
+  setMemoTitle: React.Dispatch<React.SetStateAction<string>>,
+  memoContent: string,
+  setMemoContent: React.Dispatch<React.SetStateAction<string>>,
+  isLoading: boolean,
 }
 
 
@@ -59,13 +58,12 @@ function MemoView(props: propsType) {
   console.log("MemoView render");
 
   const {
-    viewMemo,
     backPageButtonObj,
     positiveButtonObj,
   } = useMemoView({ ...props });
 
   //ローディング
-  if (!viewMemo || !viewMemo.default || viewMemo.default.length === 0) {
+  if (props.isLoading) {
     return <Loading height='50vh' />;
   }
 
@@ -77,31 +75,12 @@ function MemoView(props: propsType) {
         height='85%'
       >
         <HeaderDiv>
-          <LabelComponent
-            title="メモ詳細"
-          />
         </HeaderDiv>
         <MainAreaDiv>
-          {/* デフォルト属性 */}
           <MemoViewForm
-            viewMemoList={viewMemo.default}
+            memoTitle={props.memoTitle}
+            memoContent={props.memoContent}
           />
-          {/* カスタム属性 */}
-          {
-            viewMemo &&
-            viewMemo.customAttribute &&
-            viewMemo.customAttribute.length > 0 &&
-            <React.Fragment>
-              <HorizonLabelItemComponent
-                title={<BoldSpan>カスタム属性</BoldSpan>}
-                width="20%"
-              >
-              </HorizonLabelItemComponent>
-              <MemoViewForm
-                viewMemoList={viewMemo.customAttribute}
-              />
-            </React.Fragment>
-          }
         </MainAreaDiv>
       </OuterDiv>
       <MemoViewFooter

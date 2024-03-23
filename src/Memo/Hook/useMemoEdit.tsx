@@ -9,7 +9,7 @@ import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
 import useGetMemoInputSetting from "./useGetMemoInputSetting";
-import { checkMemoRequest, createMemoRequestBody, createUpdRefArray } from "../Function/MemoFunction";
+import { checkMemoRequest, createMemoRequestBody } from "../Function/MemoFunction";
 
 
 //引数の型
@@ -56,7 +56,7 @@ function useMemoEdit(props: propsType) {
         }
 
         //入力欄の参照を作成
-        setRefInfoArray(createUpdRefArray(props.memoSettingList, props.updMemo, props.generalDataList, customAttributeInputSetting));
+        //setRefInfoArray(createUpdRefArray(props.memoSettingList, props.updMemo, props.generalDataList, customAttributeInputSetting));
     }, [props.memoSettingList, props.updMemo, props.generalDataList, customAttributeInputSetting]);
 
     //更新用フック

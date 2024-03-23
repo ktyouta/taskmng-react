@@ -30,6 +30,11 @@ function MemoDetail(props: propsType) {
         viewMode,
         openViewPage,
         openEditPage,
+        memoTitle,
+        setMemoTitle,
+        memoContent,
+        setMemoContent,
+        isLoadinGetUpdMemo,
     } = useMemoDetail({ ...props });
 
 
@@ -48,6 +53,11 @@ function MemoDetail(props: propsType) {
                                     openEditPage={openEditPage}
                                     closeFn={props.closeFn}
                                     backBtnTitle={props.backBtnTitle}
+                                    memoTitle={memoTitle}
+                                    setMemoTitle={setMemoTitle}
+                                    memoContent={memoContent}
+                                    setMemoContent={setMemoContent}
+                                    isLoading={isLoadinGetUpdMemo}
                                 />
                             )
                         //編集

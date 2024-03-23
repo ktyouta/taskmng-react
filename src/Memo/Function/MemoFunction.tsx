@@ -220,66 +220,66 @@ export function createMemoCustomAttributeRequestBody(refInputArray: refInfoType[
  * @param customAttributeInputSetting 
  * @returns 
  */
-export function createUpdRefArray(memoSettingList: inputMemoSettingType[], updMemo: apiMemoDetailType,
-    generalDataList: generalDataType[], customAttributeInputSetting: refInfoType[]
-): editDisplayMemoType {
+// export function createUpdRefArray(memoSettingList: inputMemoSettingType[], updMemo: apiMemoDetailType,
+//     generalDataList: generalDataType[], customAttributeInputSetting: refInfoType[]
+// ): editDisplayMemoType {
 
-    let tmpRefInfoArray: refInfoType[] = [];
-    let tmpEditCustomAttributeList: refInfoType[] = [];
+//     let tmpRefInfoArray: refInfoType[] = [];
+//     let tmpEditCustomAttributeList: refInfoType[] = [];
 
-    memoSettingList.forEach((element) => {
-        let tmpValue: string | undefined = undefined;
+//     memoSettingList.forEach((element) => {
+//         let tmpValue: string | undefined = undefined;
 
-        //カスタム属性をセット
-        if (element.id === "customAttribute") {
-            if (!updMemo?.customAttribute) {
-                return;
-            }
-            tmpEditCustomAttributeList = createCunstomAttributeEditList(updMemo.customAttribute, customAttributeInputSetting);
-            return;
-        }
+//         //カスタム属性をセット
+//         if (element.id === "customAttribute") {
+//             if (!updMemo?.customAttribute) {
+//                 return;
+//             }
+//             tmpEditCustomAttributeList = createCunstomAttributeEditList(updMemo.customAttribute, customAttributeInputSetting);
+//             return;
+//         }
 
-        for (const [columnKey, value] of Object.entries(updMemo?.default as {})) {
-            //キーの一致する要素を取り出す
-            if (element.id === columnKey) {
-                tmpValue = value as string;
-                break;
-            }
-        }
-        let isVisible = true;
-        let tmpSelectLits: comboType[] = [];
-        //項目の表示非表示
-        if (element.isHidden) {
-            isVisible = false;
-        }
-        //リストキーが存在する(選択項目)
-        if (element.listKey && generalDataList) {
-            tmpSelectLits = generalDataList.filter((item) => {
-                return item.id === element.listKey;
-            });
-        }
-        tmpRefInfoArray.push({
-            id: element.id,
-            name: element.name,
-            type: element.type,
-            length: element.length,
-            //キーに一致するデータが存在する場合はその値を表示
-            initValue: tmpValue ?? element.initValue,
-            //閲覧モードの場合は全項目編集不可
-            disabled: element.disabled,
-            visible: isVisible,
-            selectList: tmpSelectLits,
-            description: element.description,
-            isRequired: element.isRequired,
-            ref: createRef(),
-        });
-    });
+//         for (const [columnKey, value] of Object.entries(updMemo?.default as {})) {
+//             //キーの一致する要素を取り出す
+//             if (element.id === columnKey) {
+//                 tmpValue = value as string;
+//                 break;
+//             }
+//         }
+//         let isVisible = true;
+//         let tmpSelectLits: comboType[] = [];
+//         //項目の表示非表示
+//         if (element.isHidden) {
+//             isVisible = false;
+//         }
+//         //リストキーが存在する(選択項目)
+//         if (element.listKey && generalDataList) {
+//             tmpSelectLits = generalDataList.filter((item) => {
+//                 return item.id === element.listKey;
+//             });
+//         }
+//         tmpRefInfoArray.push({
+//             id: element.id,
+//             name: element.name,
+//             type: element.type,
+//             length: element.length,
+//             //キーに一致するデータが存在する場合はその値を表示
+//             initValue: tmpValue ?? element.initValue,
+//             //閲覧モードの場合は全項目編集不可
+//             disabled: element.disabled,
+//             visible: isVisible,
+//             selectList: tmpSelectLits,
+//             description: element.description,
+//             isRequired: element.isRequired,
+//             ref: createRef(),
+//         });
+//     });
 
-    return {
-        default: tmpRefInfoArray,
-        customAttribute: tmpEditCustomAttributeList,
-    }
-}
+//     return {
+//         default: tmpRefInfoArray,
+//         customAttribute: tmpEditCustomAttributeList,
+//     }
+// }
 
 /**
  * メモ新規追加画面のrefリストを作成
@@ -529,8 +529,8 @@ export function createSearchDispCondition(memoSearchConditionList: memoSearchCon
  * @param moveMemoDetail 
  * @returns 
  */
-export function createMemoContentList(memoList: memoListType[], generalDataList: generalDataType[],
-    memoContentSetting: memoContentSettingType[], openModal: (id: string) => void,
+export function createMemoContentList(memoList: memoListType[],
+    memoContentSetting: memoContentSettingType[],
     moveMemoDetail: (memoId: string) => void
 ): memoContentDisplayType[] {
 
@@ -610,64 +610,64 @@ export function createMemoContentList(memoList: memoListType[], generalDataList:
  * @param customAttributeInputSetting 
  * @returns 
  */
-export function createMemoViewList(memoSettingList: inputMemoSettingType[], updMemo: apiMemoDetailType,
-    generalDataList: generalDataType[]
-): displayMemoType {
+// export function createMemoViewList(memoSettingList: inputMemoSettingType[], updMemo: apiMemoDetailType,
+//     generalDataList: generalDataType[]
+// ): displayMemoType {
 
-    let tmpViewMemoList: viewMemoType[] = [];
-    let tmpViewCustomAttributeList: viewMemoType[] = [];
+//     let tmpViewMemoList: viewMemoType[] = [];
+//     let tmpViewCustomAttributeList: viewMemoType[] = [];
 
-    memoSettingList.forEach((element) => {
-        let tmpValue: string = "";
+//     memoSettingList.forEach((element) => {
+//         let tmpValue: string = "";
 
-        //項目の表示非表示
-        if (element.isHidden) {
-            return;
-        }
-        //カスタム属性をセット
-        if (element.id === "customAttribute") {
-            if (!updMemo?.customAttribute) {
-                return;
-            }
-            tmpViewCustomAttributeList = createCustomAttributeViewList(updMemo.customAttribute);
-            return;
-        }
+//         //項目の表示非表示
+//         if (element.isHidden) {
+//             return;
+//         }
+//         //カスタム属性をセット
+//         if (element.id === "customAttribute") {
+//             if (!updMemo?.customAttribute) {
+//                 return;
+//             }
+//             tmpViewCustomAttributeList = createCustomAttributeViewList(updMemo.customAttribute);
+//             return;
+//         }
 
-        for (const [columnKey, value] of Object.entries(updMemo?.default as {})) {
-            //キーの一致する要素を取り出す
-            if (element.id === columnKey) {
-                tmpValue = value as string;
-                break;
-            }
-        }
+//         for (const [columnKey, value] of Object.entries(updMemo?.default as {})) {
+//             //キーの一致する要素を取り出す
+//             if (element.id === columnKey) {
+//                 tmpValue = value as string;
+//                 break;
+//             }
+//         }
 
-        let tmpSelectLits: comboType[] = [];
-        //リストキーが存在する(選択項目)
-        if (element.listKey && generalDataList) {
-            //汎用詳細から対応するリストを抽出
-            tmpSelectLits = generalDataList.filter((item) => {
-                return item.id === element.listKey;
-            });
-            //valueに一致する要素を抽出
-            let matchList = tmpSelectLits.filter((item) => {
-                return item.value === tmpValue;
-            });
-            //labelを「/」区切りで結合
-            tmpValue = matchList.map((item) => {
-                return item.label;
-            }).join("/");
-        }
-        tmpViewMemoList.push({
-            title: element.name,
-            value: tmpValue,
-        });
-    });
+//         let tmpSelectLits: comboType[] = [];
+//         //リストキーが存在する(選択項目)
+//         if (element.listKey && generalDataList) {
+//             //汎用詳細から対応するリストを抽出
+//             tmpSelectLits = generalDataList.filter((item) => {
+//                 return item.id === element.listKey;
+//             });
+//             //valueに一致する要素を抽出
+//             let matchList = tmpSelectLits.filter((item) => {
+//                 return item.value === tmpValue;
+//             });
+//             //labelを「/」区切りで結合
+//             tmpValue = matchList.map((item) => {
+//                 return item.label;
+//             }).join("/");
+//         }
+//         tmpViewMemoList.push({
+//             title: element.name,
+//             value: tmpValue,
+//         });
+//     });
 
-    return {
-        default: tmpViewMemoList,
-        customAttribute: tmpViewCustomAttributeList,
-    }
-}
+//     return {
+//         default: tmpViewMemoList,
+//         customAttribute: tmpViewCustomAttributeList,
+//     }
+// }
 
 /**
  * リクエスト時の入力チェック
