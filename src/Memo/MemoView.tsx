@@ -39,9 +39,6 @@ const MainAreaDiv = styled.div`
 
 //引数の型
 type propsType = {
-  memoSettingList: inputMemoSettingType[] | undefined,
-  generalDataList: generalDataType[] | undefined,
-  updMemo: apiMemoDetailType | undefined,
   openEditPage: () => void,
   closeFn?: () => void,
   backBtnTitle?: string,

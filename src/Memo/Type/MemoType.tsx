@@ -150,3 +150,9 @@ export type apiMemoDetailType = {
     limitTime: string,
     userId: string,
 }
+
+//メモの更新リクエストの型
+export type memoUpdReqType = {
+    title: string,
+    content: string,
+}

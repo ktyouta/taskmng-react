@@ -23,7 +23,7 @@ import { authenticate, createToken } from './Auth/AuthFunction';
 import { readFile } from './Common/FileFunction';
 import { getSearchCondition, runUpdSearchConditionList } from './Setting/SearchCondition/SearchConditionFunction';
 import { JSONEXTENSION, MASTERFILEPATH } from './Common/Const/CommonConst';
-import { getMemoContentSettingList, getMemoDetail, getMemoInputSettingList, getMemoList, getMemoSearchConditionList, runAddMemo } from './Memo/MemoFunction';
+import { getMemoContentSettingList, getMemoDetail, getMemoInputSettingList, getMemoList, getMemoSearchConditionList, runAddMemo, runUpdMemo } from './Memo/MemoFunction';
 
 
 
@@ -356,6 +356,13 @@ app.put(`${ENV.TASKINPUTSETTING}/:param`, function (req, res) {
  */
 app.put(`${ENV.SEARCHCONDITION}`, function (req, res) {
     runUpdSearchConditionList(res, req);
+});
+
+/**
+ * memo/idにアクセスした際の動作
+ */
+app.put(`${ENV.MEMO}/:param`, function (req, res) {
+    runUpdMemo(res, req, req.params.param);
 });
 
 

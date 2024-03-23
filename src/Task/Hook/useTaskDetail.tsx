@@ -12,6 +12,7 @@ import useGetTaskInputSetting from "./useGetTaskInputSetting";
 import { useSetAtom } from "jotai";
 import { detailRoutingIdAtom } from "../Atom/TaskAtom";
 import { DUMMY_ID } from "../Const/TaskConst";
+import { VIEW_MODE } from "../../Common/Const/CommonConst";
 
 
 //引数の型
@@ -58,14 +59,14 @@ function useTaskDetail(props: propsType) {
      * 編集ボタン押下処理
      */
     const openEditPage = () => {
-        setViewMode(2);
+        setViewMode(VIEW_MODE.edit);
     }
 
     /**
      * 戻るボタン押下処理(閲覧モードに切り替え)
      */
     const openViewPage = () => {
-        setViewMode(1);
+        setViewMode(VIEW_MODE.view);
     }
 
     return {

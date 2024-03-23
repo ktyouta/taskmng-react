@@ -26,8 +26,6 @@ type propsType = {
  */
 function useMemoRegister(props: propsType) {
 
-    //入力参照用リスト
-    const [refInfoArray, setRefInfoArray] = useState<editDisplayMemoType>();
     //スナックバーに表示する登録更新時のエラーメッセージ
     const [errMessage, setErrMessage] = useState("");
     //ルーティング用
@@ -96,7 +94,6 @@ function useMemoRegister(props: propsType) {
     }
 
     return {
-        refInfoArray,
         isUpDelLoading: registerMutation.isLoading,
         backPageButtonObj: {
             title: `戻る`,

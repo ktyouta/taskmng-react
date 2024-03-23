@@ -3,10 +3,11 @@ import { runAddTaskHistory } from "../History/HistoryFunction";
 import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
-import { memoContentListType, memoInputSettingListType, memoListType, memoRegistReqType, memoSearchConditionListType } from "./Type/MemoType";
+import { memoContentListType, memoInputSettingListType, memoListType, memoRegistReqType, memoSearchConditionListType, memoUpdReqType } from "./Type/MemoType";
 import { getFilterdMemo, getFilterdMemoContent, getFilterdMemoInputSetting, getFilterdSearchCondition, getMemoObj } from "./MemoSelectFunction";
 import { MEMO_FILEPATH } from "./Const/MemoConst";
 import { createAddMemoData } from "./MemoRegistFunction";
+import { createUpdMemoData } from "./MemoUpdateFunction";
 
 
 
@@ -177,4 +178,56 @@ export function runAddMemo(res: any, req: any) {
     return res
         .status(200)
         .json({ errMessage: `登録が完了しました。` });
+}
+
+
+/**
+ * メモの更新
+ */
+export function runUpdMemo(res: any, req: any, updMemoId: string) {
+    //認証権限チェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //IDの指定がない
+    if (!updMemoId) {
+        return res
+            .status(400)
+            .json({ errMessage: `パラメータが不正です。` });
+    }
+
+    //リクエストボディ
+    let body: memoUpdReqType = req.body;
+
+    //メモファイルの読み込み
+    let decodeFileData: memoListType[] = getMemoObj();
+
+    //更新用データの作成
+    let retObj = createUpdMemoData(decodeFileData, body, updMemoId, authResult);
+
+    //エラー
+    if (retObj.errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage: retObj.errMessage });
+    }
+
+    //データを登録
+    let errMessage = overWriteData(MEMO_FILEPATH, JSON.stringify(retObj.memoList, null, '\t'));
+
+    //更新に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
+    //正常終了
+    return res
+        .status(200)
+        .json({ errMessage: `更新が完了しました。` });
 }

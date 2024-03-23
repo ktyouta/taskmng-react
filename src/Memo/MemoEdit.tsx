@@ -20,9 +20,10 @@ type propsType = {
   updMemoId: string,
   backFn?: () => void,
   closeFn?: () => void,
-  memoSettingList: inputMemoSettingType[] | undefined,
-  generalDataList: generalDataType[] | undefined,
-  updMemo: apiMemoDetailType | undefined,
+  memoTitle: string,
+  setMemoTitle: React.Dispatch<React.SetStateAction<string>>,
+  memoContent: string,
+  setMemoContent: React.Dispatch<React.SetStateAction<string>>,
 }
 
 
@@ -31,19 +32,13 @@ function MemoEdit(props: propsType) {
   console.log("MemoEdit render");
 
   const {
-    refInfoArray,
     isUpDelLoading,
     backPageButtonObj,
     negativeButtonObj,
     positiveButtonObj,
     deleteButtonObj,
-    errMessage, } = useMemoEdit({ ...props });
-
-
-  //ローディング
-  if (!refInfoArray || refInfoArray.default.length === 0) {
-    return <Loading height='50vh' />;
-  }
+    errMessage,
+  } = useMemoEdit({ ...props });
 
   return (
     <HeightDiv
@@ -52,15 +47,15 @@ function MemoEdit(props: propsType) {
       <HeightDiv
         height='85%'
       >
-        <HeaderDiv>
-          <LabelComponent
-            title="メモ編集"
-          />
-        </HeaderDiv>
         <VerticalFlowDiv
           height='85%'
         >
-          {/* <MemoEditForm /> */}
+          <MemoEditForm
+            memoTitle={props.memoTitle}
+            setMemoTitle={props.setMemoTitle}
+            memoContent={props.memoContent}
+            setMemoContent={props.setMemoContent}
+          />
           {/* エラーメッセージ用スナックバー */}
           <SnackbarComponent
             open={!!errMessage}

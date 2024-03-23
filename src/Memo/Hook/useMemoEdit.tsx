@@ -4,7 +4,7 @@ import { bodyObj, buttonObjType, comboType, generalDataType, refInfoType } from 
 import { refType } from "../../Common/BaseInputComponent";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
-import { apiMemoDetailType, customAttributeRequestBodyType, editDisplayMemoType, inputMemoSettingType, memoListType, viewMemoType } from "../Type/MemoType";
+import { apiMemoDetailType, customAttributeRequestBodyType, editDisplayMemoType, inputMemoSettingType, memoListType, memoUpdReqType, viewMemoType } from "../Type/MemoType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
@@ -17,9 +17,8 @@ type propsType = {
     updMemoId: string,
     backFn?: () => void,
     closeFn?: () => void,
-    memoSettingList: inputMemoSettingType[] | undefined,
-    generalDataList: generalDataType[] | undefined,
-    updMemo: apiMemoDetailType | undefined,
+    memoTitle: string,
+    memoContent: string,
 }
 
 
@@ -30,34 +29,9 @@ type propsType = {
  */
 function useMemoEdit(props: propsType) {
 
-    //入力参照用リスト
-    const [refInfoArray, setRefInfoArray] = useState<editDisplayMemoType>();
     //スナックバーに表示する登録更新時のエラーメッセージ
     const [errMessage, setErrMessage] = useState("");
 
-    //カスタム属性入力設定リスト
-    const { data: customAttributeInputSetting } = useQueryWrapper<refInfoType[]>({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CUSTOMATTRIBUTEINPUTSETTING}`,
-    });
-
-    //入力欄参照用refの作成
-    useEffect(() => {
-        if (!props.memoSettingList) {
-            return;
-        }
-        if (!props.updMemo) {
-            return;
-        }
-        if (!props.generalDataList) {
-            return;
-        }
-        if (!customAttributeInputSetting) {
-            return;
-        }
-
-        //入力欄の参照を作成
-        //setRefInfoArray(createUpdRefArray(props.memoSettingList, props.updMemo, props.generalDataList, customAttributeInputSetting));
-    }, [props.memoSettingList, props.updMemo, props.generalDataList, customAttributeInputSetting]);
 
     //更新用フック
     const updMutation = useMutationWrapper({
@@ -107,29 +81,22 @@ function useMemoEdit(props: propsType) {
         if (!window.confirm("入力を元に戻しますか？")) {
             return;
         }
-        if (!refInfoArray || !refInfoArray.default || !refInfoArray.customAttribute) {
-            return;
-        }
-        refInfoArray.default.forEach((element) => {
-            element.ref.current?.clearValue();
-        });
-        refInfoArray.customAttribute.forEach((element) => {
-            element.ref.current?.clearValue();
-        });
+
     }
 
     /**
      * 更新ボタン押下処理
      */
     const update = () => {
-        if (!refInfoArray || !refInfoArray.default || !refInfoArray.customAttribute) {
+        //タイトル
+        if (!props.memoTitle) {
+            alert("タイトルを入力してください。");
             return;
         }
 
-        //入力チェック
-        let errObj = checkMemoRequest(refInfoArray);
-        if (errObj.errFlg) {
-            setRefInfoArray(errObj.refInfoArray);
+        //内容
+        if (!props.memoContent || !props.memoContent.trim()) {
+            alert("メモ内容を入力してください。");
             return;
         }
 
@@ -140,18 +107,20 @@ function useMemoEdit(props: propsType) {
             alert("リクエストの送信に失敗しました。");
             return;
         }
-
+        //リクエストボディ
+        let body: memoUpdReqType = {
+            title: props.memoTitle,
+            content: props.memoContent,
+        }
         //リクエストボディを作成
-        updMutation.mutate(createMemoRequestBody(refInfoArray));
+        updMutation.mutate(body);
     }
+
 
     /**
      * 削除ボタン押下処理
      */
     const deleteMemo = () => {
-        if (!refInfoArray || !refInfoArray.default || refInfoArray.default.length === 0 || !refInfoArray.customAttribute) {
-            return;
-        }
         if (!window.confirm('メモを削除しますか？')) {
             return
         }
@@ -163,7 +132,6 @@ function useMemoEdit(props: propsType) {
     }
 
     return {
-        refInfoArray,
         isUpDelLoading: updMutation.isLoading || delMutation.isLoading,
         backPageButtonObj: {
             title: `戻る`,
@@ -173,17 +141,17 @@ function useMemoEdit(props: propsType) {
         negativeButtonObj: {
             title: `元に戻す`,
             type: `RUN`,
-            onclick: refInfoArray && refInfoArray.default.length > 0 ? clearButtonFunc : undefined
+            onclick: clearButtonFunc
         } as buttonObjType,
         deleteButtonObj: {
             title: `削除`,
             type: `DANGER`,
-            onclick: refInfoArray && refInfoArray.default.length > 0 ? deleteMemo : undefined
+            onclick: deleteMemo
         } as buttonObjType,
         positiveButtonObj: {
             title: `更新`,
             type: `RUN`,
-            onclick: refInfoArray && refInfoArray.default.length > 0 ? update : undefined
+            onclick: update
         } as buttonObjType,
         errMessage,
     }

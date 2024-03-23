@@ -56,3 +56,15 @@ export type memoRegistReqType = {
     title: string,
     content: string,
 }
+
+//メモの更新リクエストの型
+export type memoUpdReqType = {
+    title: string,
+    content: string,
+}
+
+//メモの更新データ作成メソッドの返り値の型
+export type retCreateUpdMemoType = {
+    errMessage: string,
+    memoList: memoListType[],
+}

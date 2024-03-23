@@ -73,17 +73,13 @@ function MemoContent(props: propsType) {
                 titleBgColor={props.contentObj.titleBgColor}
                 onClick={props.contentObj.onClickTitle}
             >
-                {`タイトル：${props.contentObj.title}`}
+                {`${props.contentObj.title}`}
             </ContentTitleDiv>
             <ContentInfoDiv
                 infoBgColor={props.contentObj.infoBgColor}
             >
                 {/* 内容 */}
                 {contentList}
-                {/* モーダル表示ボタン */}
-                <ButtonAreaDiv>
-                    {props.contentObj.editButton}
-                </ButtonAreaDiv>
             </ContentInfoDiv>
         </OuterDiv>
     );

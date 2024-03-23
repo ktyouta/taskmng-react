@@ -9,6 +9,7 @@ import React from 'react';
 import useMemoDetail from './Hook/useMemoDetail';
 import MemoView from './MemoView';
 import MemoEdit from './MemoEdit';
+import { VIEW_MODE } from '../Common/Const/CommonConst';
 
 
 //引数の型
@@ -24,9 +25,6 @@ function MemoDetail(props: propsType) {
     console.log("MemoDetail render");
 
     const {
-        updMemo,
-        generalDataList,
-        memoSettingList,
         viewMode,
         openViewPage,
         openEditPage,
@@ -44,12 +42,9 @@ function MemoDetail(props: propsType) {
                 (() => {
                     switch (viewMode) {
                         //閲覧
-                        case 1:
+                        case VIEW_MODE.view:
                             return (
                                 <MemoView
-                                    memoSettingList={memoSettingList}
-                                    generalDataList={generalDataList}
-                                    updMemo={updMemo}
                                     openEditPage={openEditPage}
                                     closeFn={props.closeFn}
                                     backBtnTitle={props.backBtnTitle}
@@ -61,15 +56,16 @@ function MemoDetail(props: propsType) {
                                 />
                             )
                         //編集
-                        case 2:
+                        case VIEW_MODE.edit:
                             return (
                                 <MemoEdit
                                     updMemoId={props.updMemoId}
-                                    memoSettingList={memoSettingList}
-                                    generalDataList={generalDataList}
-                                    updMemo={updMemo}
                                     backFn={openViewPage}
                                     closeFn={props.closeFn}
+                                    memoTitle={memoTitle}
+                                    setMemoTitle={setMemoTitle}
+                                    memoContent={memoContent}
+                                    setMemoContent={setMemoContent}
                                 />
                             )
                         default:
