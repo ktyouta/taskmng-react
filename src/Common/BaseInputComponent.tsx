@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import './css/HorizonLabelInputComponent.css';
 import styled from "styled-components";
 
@@ -61,6 +61,10 @@ const BaseInputComponent = forwardRef<refType, propsType>((props, ref) => {
     const clearInput = () => {
         setInputValue(props.value ?? "");
     };
+
+    useEffect(() => {
+        setInputValue(props.value ?? "");
+    }, [props.value]);
 
     return (
         <BaseInput

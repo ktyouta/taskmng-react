@@ -6,7 +6,6 @@ import ENV from '../../env.json';
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
-import { masterDataListAtom } from "../../Main/Hook/useMainLogic";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import { displayMemoListType, memoContentDisplayType, memoContentSettingType, memoListType } from "../Type/MemoType";
 import { refType } from "../../Common/BaseInputComponent";
@@ -64,18 +63,6 @@ function useMemoListContent(props: propsType) {
         }
     );
 
-    //モーダルオープン
-    const openModal = (id: string) => {
-        //IDが存在しない
-        if (!id) {
-            setUpdMemoId(``);
-            alert(`データの取得に失敗しました。`);
-            return;
-        }
-        //更新用メモ取得ID
-        setUpdMemoId(id)
-        onFlag();
-    };
 
     //メモの詳細画面に遷移する
     const moveMemoDetail = (memoId: string,) => {

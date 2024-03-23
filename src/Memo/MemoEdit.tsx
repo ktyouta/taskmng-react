@@ -24,6 +24,8 @@ type propsType = {
   setMemoTitle: React.Dispatch<React.SetStateAction<string>>,
   memoContent: string,
   setMemoContent: React.Dispatch<React.SetStateAction<string>>,
+  initMemoTitle: string | undefined,
+  initMemoContent: string | undefined,
 }
 
 

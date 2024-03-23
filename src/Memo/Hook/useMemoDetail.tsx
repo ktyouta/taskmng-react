@@ -54,6 +54,22 @@ function useMemoDetail(props: propsType) {
         }
     );
 
+    //メモのタイトルの初期値
+    let initMemoTitle = useMemo(() => {
+        if (!updMemo) {
+            return;
+        }
+        return updMemo.title;
+    }, [updMemo]);
+
+    //メモの内容の初期値
+    let initMemoContent = useMemo(() => {
+        if (!updMemo) {
+            return;
+        }
+        return updMemo.content;
+    }, [updMemo]);
+
     /**
      * 編集ボタン押下処理
      */
@@ -78,6 +94,8 @@ function useMemoDetail(props: propsType) {
         memoContent,
         setMemoContent,
         isLoadinGetUpdMemo,
+        initMemoTitle,
+        initMemoContent,
     }
 }
 

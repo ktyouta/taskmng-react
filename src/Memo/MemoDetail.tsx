@@ -33,6 +33,8 @@ function MemoDetail(props: propsType) {
         memoContent,
         setMemoContent,
         isLoadinGetUpdMemo,
+        initMemoTitle,
+        initMemoContent,
     } = useMemoDetail({ ...props });
 
 
@@ -66,6 +68,8 @@ function MemoDetail(props: propsType) {
                                     setMemoTitle={setMemoTitle}
                                     memoContent={memoContent}
                                     setMemoContent={setMemoContent}
+                                    initMemoTitle={initMemoTitle}
+                                    initMemoContent={initMemoContent}
                                 />
                             )
                         default:

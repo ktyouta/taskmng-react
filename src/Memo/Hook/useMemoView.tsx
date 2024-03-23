@@ -1,7 +1,4 @@
-import { createRef, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
-import ENV from '../../env.json';
 import { bodyObj, buttonObjType, comboType, generalDataType, inputMasterSettingType, refInfoType } from "../../Common/Type/CommonType";
-import { apiMemoDetailType, customAttributeListType, displayMemoType, inputMemoSettingType, memoListType, viewMemoType } from "../Type/MemoType";
 
 
 //引数の型

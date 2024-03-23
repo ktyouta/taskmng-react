@@ -19,6 +19,10 @@ type propsType = {
     closeFn?: () => void,
     memoTitle: string,
     memoContent: string,
+    initMemoTitle: string | undefined,
+    initMemoContent: string | undefined,
+    setMemoTitle: React.Dispatch<React.SetStateAction<string>>,
+    setMemoContent: React.Dispatch<React.SetStateAction<string>>,
 }
 
 
@@ -78,10 +82,14 @@ function useMemoEdit(props: propsType) {
      * 入力値の初期化
      */
     const clearButtonFunc = () => {
+        if (!props.initMemoTitle || !props.initMemoContent) {
+            return;
+        }
         if (!window.confirm("入力を元に戻しますか？")) {
             return;
         }
-
+        props.setMemoTitle(props.initMemoTitle);
+        props.setMemoContent(props.initMemoContent);
     }
 
     /**
