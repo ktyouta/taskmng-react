@@ -13,11 +13,6 @@ import { HeightDiv, WidthDiv } from '../Common/StyledComponent/CommonStyledCompo
 import styled from 'styled-components';
 
 
-//エラーメッセージエリア
-const ErrAreaDiv = styled.div`
-    padding: 0 1 %;
-`;
-
 //表示件数
 const DispLabel = styled(WidthDiv)`
     text-align: right;
@@ -33,25 +28,10 @@ function MemoListContent(props: propsType) {
     console.log("MemoListContent render");
 
     const {
-        isModalOpen,
-        offFlag,
         displayMemoList,
-        errMessage,
-        updMemoId,
         isLoading,
     } = useMemoListContent({ ...props });
 
-    //該当データが存在しない
-    if (errMessage) {
-        return (
-            <ErrAreaDiv>
-                <MessageComponent
-                    message={errMessage}
-                    styleTypeNumber={labelType.danger}
-                />
-            </ErrAreaDiv>
-        );
-    }
 
     return (
         <HeightDiv
@@ -69,17 +49,6 @@ function MemoListContent(props: propsType) {
                 displayMemoList={displayMemoList}
                 isLoading={isLoading}
             />
-            {/* メモ詳細表示用モーダル */}
-            <ModalComponent
-                modalIsOpen={isModalOpen}
-                closeModal={offFlag}
-            >
-                <MemoDetail
-                    updMemoId={updMemoId}
-                    closeFn={offFlag}
-                    backBtnTitle="閉じる"
-                />
-            </ModalComponent>
         </HeightDiv>
     );
 }

@@ -13,7 +13,7 @@ import CenterLoading from '../Common/CenterLoading';
 
 const MemoListUl = styled.ul`
     padding-left: 0;
-    height: 100%;
+    height: 93%;
 `;
 
 

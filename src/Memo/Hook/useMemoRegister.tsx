@@ -1,16 +1,9 @@
 import { createRef, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
 import ENV from '../../env.json';
 import { bodyObj, buttonObjType, comboType, generalDataType, refInfoType } from "../../Common/Type/CommonType";
-import { refType } from "../../Common/BaseInputComponent";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
-import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
-import { customAttributeRequestBodyType, editDisplayMemoType, memoListType, memoRegistReqType } from "../Type/MemoType";
-import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
-import { buttonType } from "../../Common/ButtonComponent";
-import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
-import useGetMemoInputSetting from "./useGetMemoInputSetting";
-import { checkMemoRequest, createCunstomAttributeEditList, createCunstomAttributeRegistList, createRegistRefArray, createMemoCustomAttributeRequestBody, createMemoRequestBody } from "../Function/MemoFunction";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { memoRegistReqType } from "../Type/MemoType";
 
 
 //引数の型

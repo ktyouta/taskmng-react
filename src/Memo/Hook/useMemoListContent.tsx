@@ -33,12 +33,6 @@ function useMemoListContent(props: propsType) {
 
     //メモリスト取得用URL
     const memoListUrl = useAtomValue(memoListUrlAtom);
-    //モーダルの開閉用フラグ
-    const { flag: isModalOpen, onFlag, offFlag } = useSwitch();
-    //データの取得に失敗した場合のメッセージ
-    const [errMessage, setErrMessage] = useState(``);
-    //更新用メモID
-    const [updMemoId, setUpdMemoId] = useState(``);
     //詳細画面へのルーティング用ID
     const setDetailRoutingId = useSetAtom(detailRoutingIdAtom);
     //汎用詳細リスト
@@ -90,11 +84,7 @@ function useMemoListContent(props: propsType) {
     }, [memoList, generalDataList, memoContentSetting]);
 
     return {
-        isModalOpen,
-        offFlag,
         displayMemoList,
-        errMessage,
-        updMemoId,
         isLoading,
     };
 }

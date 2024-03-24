@@ -1,14 +1,8 @@
 import { createRef, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
 import ENV from '../../env.json';
-import { bodyObj, comboType, generalDataType } from "../../Common/Type/CommonType";
-import { refType } from "../../Common/BaseInputComponent";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
-import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
 import { apiMemoDetailType, memoListType } from "../Type/MemoType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
-import { buttonType } from "../../Common/ButtonComponent";
-import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
-import useGetMemoInputSetting from "./useGetMemoInputSetting";
 import { useSetAtom } from "jotai";
 import { detailRoutingIdAtom } from "../Atom/MemoAtom";
 import { DUMMY_ID } from "../Const/MemoConst";

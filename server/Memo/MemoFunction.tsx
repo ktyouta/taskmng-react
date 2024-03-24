@@ -3,8 +3,8 @@ import { runAddTaskHistory } from "../History/HistoryFunction";
 import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
-import { memoContentListType, memoInputSettingListType, memoListType, memoRegistReqType, memoSearchConditionListType, memoUpdReqType } from "./Type/MemoType";
-import { getFilterdMemo, getFilterdMemoContent, getFilterdMemoInputSetting, getFilterdSearchCondition, getMemoObj } from "./MemoSelectFunction";
+import { memoContentListType, memoListType, memoRegistReqType, memoSearchConditionListType, memoUpdReqType } from "./Type/MemoType";
+import { getFilterdMemo, getFilterdMemoContent, getFilterdSearchCondition, getMemoObj } from "./MemoSelectFunction";
 import { MEMO_FILEPATH } from "./Const/MemoConst";
 import { createAddMemoData } from "./MemoRegistFunction";
 import { createUpdMemoData } from "./MemoUpdateFunction";
@@ -103,30 +103,6 @@ export function getMemoContentSettingList(res: any, req: any) {
 
     //メモコンテンツファイルの読み込み
     let decodeFileData: memoContentListType[] = getFilterdMemoContent();
-
-    //該当データなし
-    if (decodeFileData.length === 0) {
-        return res.status(200).json(decodeFileData);
-    }
-
-    return res.status(200).json(decodeFileData);
-}
-
-
-/**
- * メモ入力設定リストの取得
- */
-export function getMemoInputSettingList(res: any, req: any) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
-
-    //メモ入力設定ファイルの読み込み
-    let decodeFileData: memoInputSettingListType[] = getFilterdMemoInputSetting();
 
     //該当データなし
     if (decodeFileData.length === 0) {

@@ -1,18 +1,6 @@
 import { createRef, ReactNode, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
-import ENV from '../../env.json';
 import { bodyObj, buttonObjType, comboType, generalDataType, inputMasterSettingType, inputSettingType, refConditionType, refInfoType } from "../../Common/Type/CommonType";
-import { refType } from "../../Common/BaseInputComponent";
-import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
-import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
 import { memoListType, memoSearchConditionRefType } from "../Type/MemoType";
-import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
-import { buttonType } from "../../Common/ButtonComponent";
-import { createRequestBody } from "../../Common/Function/Function";
-import useGetMemoInputSetting from "./useGetMemoInputSetting";
-import MemoEditForm from "../MemoEditForm";
-import { tabType } from "../../Common/TabComponent";
-import React from "react";
-import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
 import { createTabItems } from "../Function/MemoFunction";
 
 

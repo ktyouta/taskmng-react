@@ -1,4 +1,4 @@
-import { memoContentListType, memoInputSettingListType, memoListType, memoSearchConditionListType } from "./Type/MemoType";
+import { memoContentListType, memoListType, memoSearchConditionListType } from "./Type/MemoType";
 import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_INPUTSETTING_FILEPATH, MEMO_SEARCHCONDITION_FILEPATH, PRE_MEMO_ID } from "./Const/MemoConst";
 import { readFile } from "../Common/FileFunction";
 
@@ -69,31 +69,6 @@ export function getMemoContentObj(): memoContentListType[] {
 export function getFilterdMemoContent() {
     //メモコンテンツファイルの読み込み
     let decodeFileData: memoContentListType[] = getMemoContentObj();
-
-    //削除フラグが1(削除済)のデータをフィルターする
-    decodeFileData = decodeFileData.filter((element) => {
-        return element.deleteFlg !== "1";
-    });
-
-    return decodeFileData;
-}
-
-
-/**
- * メモ入力設定ファイルからオブジェクトを取得
- */
-export function getMemoInputSettingObj(): memoInputSettingListType[] {
-    //メモ入力設定ファイルの読み込み
-    let fileData = readFile(MEMO_INPUTSETTING_FILEPATH);
-    return JSON.parse(fileData);
-}
-
-/**
- * 削除データをフィルターする
- */
-export function getFilterdMemoInputSetting() {
-    //メモ入力設定ファイルの読み込み
-    let decodeFileData: memoInputSettingListType[] = getMemoInputSettingObj();
 
     //削除フラグが1(削除済)のデータをフィルターする
     decodeFileData = decodeFileData.filter((element) => {
