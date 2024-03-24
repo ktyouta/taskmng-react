@@ -31,7 +31,7 @@ function MemoEditFooter(props: propsType) {
             height={props.outerHeight}
         >
             <SpaceComponent
-                space={"10%"}
+                space={"5%"}
             />
             {
                 props.backPageButtonObj &&
@@ -44,7 +44,7 @@ function MemoEditFooter(props: propsType) {
                 />
             }
             <SpaceComponent
-                space={"45%"}
+                space={"48%"}
             />
             {
                 props.negativeButtonObj &&

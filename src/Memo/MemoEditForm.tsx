@@ -40,7 +40,7 @@ const TitleAreaDiv = styled.div<{ height: string | undefined }>`
 //テキストエリアのスタイル
 const MemoTextAreaDiv = styled(VerticalFlowDiv)`
   display:flex;
-  width: 89%;
+  width: 90%;
 `;
 
 
@@ -62,20 +62,21 @@ function MemoEditForm(props: propsType) {
                 />
             </TitleAreaDiv>
             <MemoTextAreaDiv
-                height='70%'
+                height='84%'
             >
                 <BaseTextAreaComponent
                     textWidth='90%'
                     height='96%'
                     value={props.memoContent}
                     onChange={props.setMemoContent}
+                    isNotResize={true}
                 />
                 <SpaceComponent
                     space={'2%'}
                 />
                 <MarkDownArea
                     content={props.memoContent}
-                    height={'96%'}
+                    height={'97%'}
                     width={'90%'} />
             </MemoTextAreaDiv>
         </MainAreaDiv>

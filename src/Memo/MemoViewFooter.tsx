@@ -42,7 +42,7 @@ function MemoViewFooter(props: propsType) {
                 />
             }
             <SpaceComponent
-                space={"57%"}
+                space={"65%"}
             />
             {
                 props.positiveButtonObj &&

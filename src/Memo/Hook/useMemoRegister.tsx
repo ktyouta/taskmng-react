@@ -94,7 +94,7 @@ function useMemoRegister(props: propsType) {
     }
 
     return {
-        isUpDelLoading: registerMutation.isLoading,
+        isRegistLoading: registerMutation.isLoading,
         backPageButtonObj: {
             title: `戻る`,
             type: `BASE`,

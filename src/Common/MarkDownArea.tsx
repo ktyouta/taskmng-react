@@ -19,6 +19,7 @@ const OuterDiv = styled.div<{ height: string | undefined, width: string | undefi
     width:${({ width }) => (width)};
     border: 1px solid #a9a9a9;
     border-radius: 6px;
+    overflow-y: auto;
 `;
 
 

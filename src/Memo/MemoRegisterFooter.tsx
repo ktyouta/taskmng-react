@@ -29,7 +29,7 @@ function MemoRegisterFooter(props: propsType) {
             height={props.outerHeight}
         >
             <SpaceComponent
-                space={"10%"}
+                space={"5%"}
             />
             {
                 props.backPageButtonObj &&
@@ -42,7 +42,7 @@ function MemoRegisterFooter(props: propsType) {
                 />
             }
             <SpaceComponent
-                space={"65%"}
+                space={"70%"}
             />
             {
                 props.positiveButtonObj &&

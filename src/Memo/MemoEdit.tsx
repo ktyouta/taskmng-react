@@ -39,7 +39,6 @@ function MemoEdit(props: propsType) {
     negativeButtonObj,
     positiveButtonObj,
     deleteButtonObj,
-    errMessage,
   } = useMemoEdit({ ...props });
 
   return (
@@ -49,22 +48,12 @@ function MemoEdit(props: propsType) {
       <HeightDiv
         height='85%'
       >
-        <VerticalFlowDiv
-          height='85%'
-        >
-          <MemoEditForm
-            memoTitle={props.memoTitle}
-            setMemoTitle={props.setMemoTitle}
-            memoContent={props.memoContent}
-            setMemoContent={props.setMemoContent}
-          />
-          {/* エラーメッセージ用スナックバー */}
-          <SnackbarComponent
-            open={!!errMessage}
-            message={errMessage}
-            severity='error'
-          />
-        </VerticalFlowDiv>
+        <MemoEditForm
+          memoTitle={props.memoTitle}
+          setMemoTitle={props.setMemoTitle}
+          memoContent={props.memoContent}
+          setMemoContent={props.setMemoContent}
+        />
       </HeightDiv>
       <HeightDiv
         height='15%'
@@ -74,7 +63,7 @@ function MemoEdit(props: propsType) {
           negativeButtonObj={negativeButtonObj}
           deleteButtomObj={deleteButtonObj}
           positiveButtonObj={positiveButtonObj}
-          outerHeight='15%'
+          outerHeight='100%'
         />
       </HeightDiv>
       {/* ローディング */}

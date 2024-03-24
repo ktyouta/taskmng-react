@@ -3,7 +3,6 @@ import '../App.css';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import styled from 'styled-components';
 import { displayMemoType, viewMemoType } from './Type/MemoType';
-import useMemoViewForm from './Hook/useMemoViewForm';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from "remark-gfm";
 
@@ -28,15 +27,12 @@ const ContentAreaDiv = styled.div`
     margin-left: 10%;
     text-align: left;
     padding-left: 2%;
+    overflow-y: auto;
 `;
 
 function MemoViewForm(props: propsType) {
 
     console.log("MemoViewForm render");
-
-    // let {
-    //     viewList
-    // } = useMemoViewForm({ ...props });
 
     return (
         <React.Fragment>

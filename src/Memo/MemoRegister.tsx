@@ -23,7 +23,7 @@ function MemoRegister(props: propsType) {
   console.log("MemoRegister render");
 
   const {
-    isUpDelLoading,
+    isRegistLoading,
     backPageButtonObj,
     positiveButtonObj,
     memoTitle,
@@ -57,7 +57,7 @@ function MemoRegister(props: propsType) {
       </HeightDiv>
       {/* ローディング */}
       {
-        isUpDelLoading &&
+        isRegistLoading &&
         <WaitLoading />
       }
     </HeightDiv>

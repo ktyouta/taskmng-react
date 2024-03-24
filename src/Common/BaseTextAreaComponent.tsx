@@ -10,6 +10,7 @@ type propsType = {
     textWidth?: string,
     bgColor?: string,
     height?: string,
+    isNotResize?: boolean,
     onChange?: (e: string) => void,
 }
 
@@ -20,12 +21,13 @@ export type refType = {
 }
 
 //テキストエリアの基本スタイル
-const BaseInput = styled.textarea<{ textWidth?: string, bgColor?: string, height?: string, }>`
+const BaseInput = styled.textarea<{ textWidth?: string, bgColor?: string, height?: string, isNotResize?: boolean }>`
   width: ${({ textWidth }) => (textWidth ? textWidth : "400px")};
   background-color:${({ bgColor }) => (bgColor ?? "")};
   height:${({ height }) => (height ? height : "70px")};
   border-radius: 5px;
   border:solid 1px rgb(118, 118, 118);
+  resize: ${({ isNotResize }) => (isNotResize ? "none" : "")};
 `;
 
 const BaseTextAreaComponent = forwardRef<refType, propsType>((props, ref) => {
@@ -64,6 +66,7 @@ const BaseTextAreaComponent = forwardRef<refType, propsType>((props, ref) => {
             textWidth={props.textWidth}
             bgColor={props.bgColor}
             height={props.height}
+            isNotResize={props.isNotResize}
         />
     );
 })
