@@ -132,7 +132,7 @@ function useMemoEdit(props: propsType) {
         if (!window.confirm('メモを削除しますか？')) {
             return
         }
-        if (!updMutation) {
+        if (!delMutation) {
             alert("リクエストの送信に失敗しました。");
             return;
         }

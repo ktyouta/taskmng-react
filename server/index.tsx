@@ -23,7 +23,7 @@ import { authenticate, createToken } from './Auth/AuthFunction';
 import { readFile } from './Common/FileFunction';
 import { getSearchCondition, runUpdSearchConditionList } from './Setting/SearchCondition/SearchConditionFunction';
 import { JSONEXTENSION, MASTERFILEPATH } from './Common/Const/CommonConst';
-import { getMemoContentSettingList, getMemoDetail, getMemoInputSettingList, getMemoList, getMemoSearchConditionList, runAddMemo, runUpdMemo } from './Memo/MemoFunction';
+import { getMemoContentSettingList, getMemoDetail, getMemoInputSettingList, getMemoList, getMemoSearchConditionList, runAddMemo, runDelMemo, runUpdMemo } from './Memo/MemoFunction';
 
 
 
@@ -399,4 +399,11 @@ app.delete(`${ENV.SETTINGUSER}/:param`, function (req, res) {
  */
 app.delete(`${ENV.CATEGORY}/:param`, function (req, res) {
     runDeleteCategory(res, req, req.params.param);
+});
+
+/**
+ * memo/idにアクセスした際の動作
+ */
+app.delete(`${ENV.MEMO}/:param`, function (req, res) {
+    runDelMemo(res, req, req.params.param);
 });

@@ -8,6 +8,7 @@ import { getFilterdMemo, getFilterdMemoContent, getFilterdMemoInputSetting, getF
 import { MEMO_FILEPATH } from "./Const/MemoConst";
 import { createAddMemoData } from "./MemoRegistFunction";
 import { createUpdMemoData } from "./MemoUpdateFunction";
+import { createDelMemoData } from "./MemoDeleteFunction";
 
 
 
@@ -230,4 +231,53 @@ export function runUpdMemo(res: any, req: any, updMemoId: string) {
     return res
         .status(200)
         .json({ errMessage: `更新が完了しました。` });
+}
+
+
+/**
+ * メモの削除
+ */
+export function runDelMemo(res: any, req: any, delMemoId: string) {
+    //認証権限チェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //IDの指定がない
+    if (!delMemoId) {
+        return res
+            .status(400)
+            .json({ errMessage: `パラメータが不正です。` });
+    }
+
+    //メモファイルの読み込み
+    let decodeFileData: memoListType[] = getMemoObj();
+
+    //削除用データの作成
+    let retObj = createDelMemoData(decodeFileData, delMemoId, authResult);
+
+    //エラー
+    if (retObj.errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage: retObj.errMessage });
+    }
+
+    //データを登録
+    let errMessage = overWriteData(MEMO_FILEPATH, JSON.stringify(retObj.memoList, null, '\t'));
+
+    //削除に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
+    //正常終了
+    return res
+        .status(200)
+        .json({ errMessage: `削除が完了しました。` });
 }
