@@ -65,19 +65,14 @@ function MemoContent(props: propsType) {
     } = useMemoContent({ ...props });
 
     return (
-        <OuterDiv
-            bdColor={props.contentObj.bdColor}
-        >
+        <OuterDiv>
             {/* タイトル */}
             <ContentTitleDiv
-                titleBgColor={props.contentObj.titleBgColor}
                 onClick={props.contentObj.onClickTitle}
             >
                 {`${props.contentObj.title}`}
             </ContentTitleDiv>
-            <ContentInfoDiv
-                infoBgColor={props.contentObj.infoBgColor}
-            >
+            <ContentInfoDiv>
                 {/* 内容 */}
                 {contentList}
             </ContentInfoDiv>

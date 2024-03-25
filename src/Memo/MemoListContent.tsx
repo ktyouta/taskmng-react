@@ -41,7 +41,7 @@ function MemoListContent(props: propsType) {
                 width='93%'
             >
                 <LabelComponent
-                    title={`表示件数：${displayMemoList ? displayMemoList.length : "0"}件`}
+                    title={displayMemoList ? `検索結果：${displayMemoList.length}件` : ``}
                 />
             </DispLabel>
             {/* メモ一覧 */}

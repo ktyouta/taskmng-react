@@ -61,7 +61,7 @@ function TaskListContent(props: propsType) {
                 width='93%'
             >
                 <LabelComponent
-                    title={`表示件数：${displayTaskList ? displayTaskList.length : "0"}件`}
+                    title={displayTaskList ? `検索結果：${displayTaskList.length}件` : ``}
                 />
             </DispLabel>
             {/* タスク一覧 */}

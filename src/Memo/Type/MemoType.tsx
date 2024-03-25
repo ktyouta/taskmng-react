@@ -45,10 +45,6 @@ export type memoContentDisplayType = {
     [key: string]: string | JSX.Element | undefined | { label: string, value: string, }[] | (() => void),
     id: string,
     title: string,
-    bdColor: string | undefined,
-    titleBgColor: string | undefined,
-    infoBgColor: string | undefined,
-    editButton: JSX.Element,
     content: { label: string, value: string, }[],
     onClickTitle: () => void,
 }
