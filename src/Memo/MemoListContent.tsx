@@ -28,10 +28,8 @@ function MemoListContent(props: propsType) {
     console.log("MemoListContent render");
 
     const {
-        displayMemoList,
-        isLoading,
-    } = useMemoListContent({ ...props });
-
+        memoList,
+    } = useMemoListContent();
 
     return (
         <HeightDiv
@@ -41,13 +39,13 @@ function MemoListContent(props: propsType) {
                 width='93%'
             >
                 <LabelComponent
-                    title={displayMemoList ? `検索結果：${displayMemoList.length}件` : ``}
+                    title={memoList ? `検索結果：${memoList.length}件` : ``}
                 />
             </DispLabel>
             {/* メモ一覧 */}
             <MemoList
-                displayMemoList={displayMemoList}
-                isLoading={isLoading}
+                path={props.path}
+                memoList={memoList}
             />
         </HeightDiv>
     );

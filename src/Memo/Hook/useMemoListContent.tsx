@@ -17,75 +17,26 @@ import { createMemoContentList } from "../Function/MemoFunction";
 import { detailRoutingIdAtom, memoListUrlAtom } from "../Atom/MemoAtom";
 
 
-
-//引数の型
-type propsType = {
-    path: string,
-}
-
-
 /**
  * MasterTopコンポーネントのビジネスロジック
  * @param selectedMaster 
  * @returns 
  */
-function useMemoListContent(props: propsType) {
+function useMemoListContent() {
 
     //メモリスト取得用URL
     const memoListUrl = useAtomValue(memoListUrlAtom);
-    //詳細画面へのルーティング用ID
-    const setDetailRoutingId = useSetAtom(detailRoutingIdAtom);
-    //汎用詳細リスト
-    const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
-    });
-    //ルーティング用
-    const navigate = useNavigate();
 
     //メモリストを取得
-    const { data: memoList, isLoading } = useQueryWrapper<memoListType[]>(
+    const { data: memoList } = useQueryWrapper<memoListType[]>(
         {
             url: memoListUrl,
             afSuccessFn: () => { }
         }
     );
 
-    //メモの画面表示設定を取得
-    const { data: memoContentSetting } = useQueryWrapper<memoContentSettingType[]>(
-        {
-            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MEMOCONTENTSETTING}`,
-        }
-    );
-
-
-    //メモの詳細画面に遷移する
-    const moveMemoDetail = (memoId: string,) => {
-        setDetailRoutingId(memoId);
-        navigate(`${props.path}/${memoId}`);
-    };
-
-    //取得したメモリストを画面表示用に変換
-    const displayMemoList = useMemo(() => {
-        //メモリスト
-        if (!memoList) {
-            return null;
-        }
-        //汎用リスト
-        if (!generalDataList) {
-            return null;
-        }
-        //メモの画面表示設定リスト
-        if (!memoContentSetting) {
-            return null;
-        }
-
-        //コンテンツリストを作成
-        return createMemoContentList(memoList, memoContentSetting, moveMemoDetail);
-    }, [memoList, generalDataList, memoContentSetting]);
-
     return {
-        displayMemoList,
-        isLoading,
+        memoList,
     };
 }
 

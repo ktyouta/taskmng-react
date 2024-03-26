@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../App.css';
 import MemoContent from './MemoContent';
-import { displayMemoListType, memoContentDisplayType } from './Type/MemoType';
+import { displayMemoListType, memoContentDisplayType, memoListType } from './Type/MemoType';
 import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
 import './css/MemoList.css';
 import { VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
@@ -19,8 +19,8 @@ const MemoListUl = styled.ul`
 
 //引数の型
 type propsType = {
-    displayMemoList: memoContentDisplayType[] | null,
-    isLoading: boolean,
+    path: string,
+    memoList: memoListType[] | undefined
 }
 
 
@@ -29,7 +29,7 @@ function MemoList(props: propsType) {
     console.log("MemoList render");
 
     const {
-        memoContentList
+        memoContentListDom
     } = useMemoList({ ...props });
 
     return (
@@ -37,7 +37,7 @@ function MemoList(props: propsType) {
             height='100%'
         >
             <MemoListUl>
-                {memoContentList}
+                {memoContentListDom}
             </MemoListUl>
         </VerticalFlowDiv>
     );

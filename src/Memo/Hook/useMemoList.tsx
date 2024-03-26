@@ -1,10 +1,16 @@
 import { createRef, ReactNode, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { memoContentDisplayType, memoListType } from "../Type/MemoType";
+import { memoContentDisplayType, memoContentSettingType, memoListType } from "../Type/MemoType";
 import React from "react";
 import MemoContent from "../MemoContent";
 import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
 import styled from "styled-components";
 import CenterLoading from "../../Common/CenterLoading";
+import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
+import ENV from '../../env.json';
+import { useNavigate } from "react-router-dom";
+import { useSetAtom } from "jotai";
+import { detailRoutingIdAtom } from "../Atom/MemoAtom";
+import { createMemoContentList } from "../Function/MemoFunction";
 
 
 const MemoListLi = styled.li`
@@ -14,8 +20,8 @@ const MemoListLi = styled.li`
 
 //引数の型
 type propsType = {
-    displayMemoList: memoContentDisplayType[] | null,
-    isLoading: boolean,
+    path: string,
+    memoList: memoListType[] | undefined
 }
 
 
@@ -26,24 +32,48 @@ type propsType = {
  */
 function useMemoList(props: propsType) {
 
-    //メモのコンテンツリスト
-    let memoContentList: ReactNode = useMemo(() => {
+    //ルーティング用
+    const navigate = useNavigate();
+    //詳細画面へのルーティング用ID
+    const setDetailRoutingId = useSetAtom(detailRoutingIdAtom);
+
+    //メモの画面表示設定を取得
+    const { data: memoContentSetting } = useQueryWrapper<memoContentSettingType[]>(
+        {
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MEMOCONTENTSETTING}`,
+        }
+    );
+
+
+    //メモの詳細画面に遷移する
+    const moveMemoDetail = (memoId: string,) => {
+        setDetailRoutingId(memoId);
+        navigate(`${props.path}/${memoId}`);
+    };
+
+
+    //メモのコンテンツリストのDOM
+    const memoContentListDom: ReactNode = useMemo(() => {
         //メモリスト表示までのローディング
-        if (props.isLoading) {
+        if (!props.memoList) {
             return <CenterLoading />;
         }
 
-        if (!props.displayMemoList) {
+        //メモコンテンツの設定リスト
+        if (!memoContentSetting) {
             return <CenterLoading />;
         }
 
         //検索結果が0件
-        if (props.displayMemoList.length === 0) {
+        if (props.memoList.length === 0) {
             return <div>検索結果がありません。</div>;
         }
 
+        //メモのコンテンツリスト
+        let memoContentList = createMemoContentList(props.memoList, memoContentSetting, moveMemoDetail);
+
         //メモデータから画面表示用domを作成
-        return props.displayMemoList.map((element, index) => {
+        return memoContentList.map((element, index) => {
             let id = element.id as string;
             return (
                 <React.Fragment key={`memolist-${id}-${index}`}>
@@ -60,10 +90,10 @@ function useMemoList(props: propsType) {
                 </React.Fragment>
             );
         });
-    }, [props.displayMemoList]);
+    }, [props.memoList, memoContentSetting]);
 
     return {
-        memoContentList
+        memoContentListDom
     }
 }
 
