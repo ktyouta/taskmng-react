@@ -15,6 +15,12 @@ import { BoldSpan, HeaderDiv, HeightDiv, VerticalFlowDiv } from '../Common/Style
 import LabelComponent from '../Common/LabelComponent';
 
 
+//外側のスタイル
+const OuterDiv = styled(HeightDiv)`
+  background-color: #f5f5f5;
+`;
+
+
 //引数の型
 type propsType = {
   updMemoId: string,
@@ -42,11 +48,11 @@ function MemoEdit(props: propsType) {
   } = useMemoEdit({ ...props });
 
   return (
-    <HeightDiv
+    <OuterDiv
       height='100%'
     >
       <HeightDiv
-        height='85%'
+        height='87%'
       >
         <MemoEditForm
           memoTitle={props.memoTitle}
@@ -56,7 +62,7 @@ function MemoEdit(props: propsType) {
         />
       </HeightDiv>
       <HeightDiv
-        height='15%'
+        height='13%'
       >
         <MemoEditFooter
           backPageButtonObj={backPageButtonObj}
@@ -71,7 +77,7 @@ function MemoEdit(props: propsType) {
         isUpDelLoading &&
         <WaitLoading />
       }
-    </HeightDiv>
+    </OuterDiv>
   );
 }
 

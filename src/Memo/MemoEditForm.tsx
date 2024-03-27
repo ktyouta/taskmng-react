@@ -14,6 +14,7 @@ import { VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent
 import ReactMarkdown from 'react-markdown';
 import MarkDownArea from '../Common/MarkDownArea';
 import SpaceComponent from '../Common/SpaceComponent';
+import MemoHeadMenu from './MemoHeadMenu';
 
 
 //引数の型
@@ -28,7 +29,7 @@ type propsType = {
 const MainAreaDiv = styled.div`
     padding-left: 5%;
     padding-top: 2%;
-    height:100%;
+    height: 95%;
     text-align:left;
 `;
 
@@ -61,6 +62,10 @@ function MemoEditForm(props: propsType) {
                     onChange={props.setMemoTitle}
                 />
             </TitleAreaDiv>
+            <MemoHeadMenu
+                height='5%'
+                width='90%'
+            />
             <MemoTextAreaDiv
                 height='84%'
             >
@@ -70,6 +75,7 @@ function MemoEditForm(props: propsType) {
                     value={props.memoContent}
                     onChange={props.setMemoContent}
                     isNotResize={true}
+                    placeholder='Markdown形式で入力してください。'
                 />
                 <SpaceComponent
                     space={'2%'}

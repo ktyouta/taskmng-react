@@ -17,6 +17,11 @@ type propsType = {
   path: string,
 }
 
+//外側のスタイル
+const OuterDiv = styled(HeightDiv)`
+  background-color: #f5f5f5;
+`;
+
 
 function MemoRegister(props: propsType) {
 
@@ -34,7 +39,7 @@ function MemoRegister(props: propsType) {
 
 
   return (
-    <HeightDiv
+    <OuterDiv
       height='100%'
     >
       <HeightDiv
@@ -60,7 +65,7 @@ function MemoRegister(props: propsType) {
         isRegistLoading &&
         <WaitLoading />
       }
-    </HeightDiv>
+    </OuterDiv>
   );
 }
 

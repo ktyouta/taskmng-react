@@ -16,6 +16,7 @@ type propsType = {
 const TitleH1 = styled.h1`
     margin-left: 11%;
     text-align: left;
+    font-size: 1.8em;
 `;
 
 //マークダウンエリアのスタイル
@@ -28,6 +29,7 @@ const ContentAreaDiv = styled.div`
     text-align: left;
     padding-left: 2%;
     overflow-y: auto;
+    background-color:white;
 `;
 
 function MemoViewForm(props: propsType) {

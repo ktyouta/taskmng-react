@@ -11,12 +11,14 @@ type propsType = {
     content: string,
     height: string,
     width: string,
+    bgColor?: string,
 }
 
 //外側のdiv
-const OuterDiv = styled.div<{ height: string | undefined, width: string | undefined }>`
+const OuterDiv = styled.div<{ height: string | undefined, width: string | undefined, bgColor?: string | undefined }>`
     height:${({ height }) => (height)};
     width:${({ width }) => (width)};
+    background-color:${({ bgColor }) => (bgColor ?? "white")};
     border: 1px solid #a9a9a9;
     border-radius: 6px;
     overflow-y: auto;

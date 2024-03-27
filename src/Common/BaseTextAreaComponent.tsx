@@ -12,6 +12,7 @@ type propsType = {
     height?: string,
     isNotResize?: boolean,
     onChange?: (e: string) => void,
+    placeholder?: string,
 }
 
 //参照の型
@@ -67,6 +68,7 @@ const BaseTextAreaComponent = forwardRef<refType, propsType>((props, ref) => {
             bgColor={props.bgColor}
             height={props.height}
             isNotResize={props.isNotResize}
+            placeholder={props.placeholder}
         />
     );
 })

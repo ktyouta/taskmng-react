@@ -17,11 +17,6 @@ import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 
 
-//外側のスタイル
-const OuterDiv = styled.div<{ height: string | undefined }>`
-    height:${({ height }) => (height)};
-`;
-
 //ヘッダー
 const HeaderDiv = styled.div`
     height: 1%;
@@ -35,7 +30,10 @@ const MainAreaDiv = styled.div`
     height: 92%;
 `;
 
-
+//外側のスタイル
+const OuterDiv = styled(HeightDiv)`
+  background-color: #f5f5f5;
+`;
 
 //引数の型
 type propsType = {
@@ -65,10 +63,10 @@ function MemoView(props: propsType) {
   }
 
   return (
-    <HeightDiv
+    <OuterDiv
       height='100%'
     >
-      <OuterDiv
+      <HeightDiv
         height='85%'
       >
         <HeaderDiv>
@@ -79,13 +77,13 @@ function MemoView(props: propsType) {
             memoContent={props.memoContent}
           />
         </MainAreaDiv>
-      </OuterDiv>
+      </HeightDiv>
       <MemoViewFooter
         backPageButtonObj={backPageButtonObj}
         positiveButtonObj={positiveButtonObj}
         outerHeight='15%'
       />
-    </HeightDiv>
+    </OuterDiv>
   );
 }
 
