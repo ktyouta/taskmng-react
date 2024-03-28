@@ -11,6 +11,7 @@ import { editModeAtom, userIdAtom } from '../../Setting/SettingUser/Atom/Setting
 import { editModeEnum } from '../../Setting/Const/SettingConst';
 import { userInfoType } from '../../Common/Type/CommonType';
 import { LOGIN_PATH, NOWPATH_STRAGEKEY, USER_PATH } from '../Const/HeaderConst';
+import useSwitch from '../../Common/Hook/useSwitch';
 
 
 //引数の型
@@ -30,7 +31,7 @@ function useHeader(props: propsType) {
     //ルーティング用
     const navigate = useNavigate();
     //ナビゲーション表示フラグ
-    const [isDisplayNavi, setIsDisplayNavi] = useState(false);
+    const { flag, onFlag, offFlag } = useSwitch();
 
     /**
      * ログアウト
@@ -40,20 +41,6 @@ function useHeader(props: propsType) {
             removeCookie(key, { path: '/' });
         });
         navigate(LOGIN_PATH);
-    }
-
-    /**
-     * ナビゲーションを表示する
-     */
-    const displayNavi = () => {
-        setIsDisplayNavi(true);
-    }
-
-    /**
-     * ナビゲーションを非表示にする
-     */
-    const hidDisplayNavi = () => {
-        setIsDisplayNavi(false);
     }
 
     /**
@@ -73,16 +60,17 @@ function useHeader(props: propsType) {
             //現在のパスをローカルストレージに保存する
             localStorage.setItem(NOWPATH_STRAGEKEY, `/${mainPath}`);
         }
+        offFlag();
         navigate(USER_PATH);
     };
 
     return {
         headerTile,
         logout,
-        isDisplayNavi,
-        displayNavi,
-        hidDisplayNavi,
+        flag,
         clickUserInfo,
+        onFlag,
+        offFlag
     };
 }
 

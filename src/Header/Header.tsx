@@ -3,6 +3,9 @@ import ButtonComponent from '../Common/ButtonComponent';
 import useHeader from './Hook/useHeader';
 import styled from 'styled-components';
 import { userInfoType } from '../Common/Type/CommonType';
+import { AiOutlineMenu } from "react-icons/ai";
+import { IoMdClose } from "react-icons/io";
+import IconComponent from '../Common/IconComponent';
 
 
 
@@ -31,15 +34,15 @@ const UserNameDiv = styled.div`
 
 //ボタンのスタイル
 const BtnDiv = styled.div`
-  margin-right: 4%;
+  margin-right: 5%;
   position:relative;
 `;
 
 //ナビゲーション
 const NavDiv = styled.div<{ isDisplay: boolean }>`
   position: absolute;
-  top: 50px;
-  left: -7px;
+  top: 34px;
+  left: -55px;
   font-size: 13px;
   width: 140px;
   height: auto;
@@ -72,10 +75,10 @@ function Header(props: propsType) {
   const {
     headerTile,
     logout,
-    isDisplayNavi,
-    displayNavi,
-    hidDisplayNavi,
+    flag,
     clickUserInfo,
+    onFlag,
+    offFlag
   } = useHeader({ ...props });
 
   return (
@@ -87,16 +90,20 @@ function Header(props: propsType) {
         {props.userInfo?.userName ? `ユーザー：${props.userInfo?.userName}` : ""}
       </UserNameDiv>
       <BtnDiv>
-        <ButtonComponent
-          styleTypeNumber="BASE"
-          title={"ユーザーメニュー"}
-          onMouseEnter={displayNavi}
-          onMouseLeave={hidDisplayNavi}
-        />
+        {
+          flag ?
+            <IconComponent
+              icon={IoMdClose}
+              onclick={offFlag}
+            />
+            :
+            <IconComponent
+              icon={AiOutlineMenu}
+              onclick={onFlag}
+            />
+        }
         <NavDiv
-          isDisplay={isDisplayNavi}
-          onMouseEnter={displayNavi}
-          onMouseLeave={hidDisplayNavi}
+          isDisplay={flag}
         >
           <ContentDiv
             onClick={clickUserInfo}
