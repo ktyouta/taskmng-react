@@ -21,3 +21,9 @@ export const WORKING_STATUS = "4";
 export const MEMO_ROOT_PATH = "/";
 //メモ画面編集画面ルートパス
 export const MEMO_EDIT_PATH = "edit"
+//メモ表示モード
+export const MEMO_VIEW_MODE = {
+    markdownOnly: "1",
+    textareaOnly: "2",
+    multiView: "3",
+}

@@ -2,8 +2,9 @@ import { IconType } from 'react-icons';
 
 //引数の型
 type propsType = {
-    icon:IconType,
+    icon: IconType,
     onclick: () => void,
+    bgColor?: string,
 }
 
 function IconComponent(props: propsType) {
@@ -11,7 +12,7 @@ function IconComponent(props: propsType) {
     const Icon = props.icon;
 
     return (
-        <Icon onClick={props.onclick} style={{cursor:'pointer'}}/>
+        <Icon onClick={props.onclick} style={{ cursor: 'pointer', color: props.bgColor ?? '' }} />
     );
 }
 

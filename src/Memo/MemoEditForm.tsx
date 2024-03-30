@@ -15,6 +15,8 @@ import ReactMarkdown from 'react-markdown';
 import MarkDownArea from '../Common/MarkDownArea';
 import SpaceComponent from '../Common/SpaceComponent';
 import MemoHeadMenu from './MemoHeadMenu';
+import useMemoEditForm from './Hook/useMemoEditForm';
+import { MEMO_VIEW_MODE } from './Const/MemoConst';
 
 
 //引数の型
@@ -44,10 +46,22 @@ const MemoTextAreaDiv = styled(VerticalFlowDiv)`
   width: 90%;
 `;
 
+//タイトル
+const ChangeDiv = styled.div<{ height: string | undefined }>`
+    height:${({ height }) => (height)};
+`;
+
 
 function MemoEditForm(props: propsType) {
 
     console.log("MemoEditForm render");
+
+    const {
+        viewMode,
+        clickMarkdownOnly,
+        clickTeaxtAreaOnly,
+        clickMultiView,
+    } = useMemoEditForm();
 
     return (
         <MainAreaDiv>
@@ -62,28 +76,72 @@ function MemoEditForm(props: propsType) {
                     onChange={props.setMemoTitle}
                 />
             </TitleAreaDiv>
+            {/* ヘッダメニュー */}
             <MemoHeadMenu
                 height='5%'
                 width='90%'
+                viewMode={viewMode}
+                clickMarkdownOnly={clickMarkdownOnly}
+                clickTeaxtAreaOnly={clickTeaxtAreaOnly}
+                clickMultiView={clickMultiView}
             />
+            {/* メモ入力欄 */}
             <MemoTextAreaDiv
                 height='84%'
             >
-                <BaseTextAreaComponent
-                    textWidth='90%'
-                    height='96%'
-                    value={props.memoContent}
-                    onChange={props.setMemoContent}
-                    isNotResize={true}
-                    placeholder='Markdown形式で入力してください。'
-                />
-                <SpaceComponent
-                    space={'2%'}
-                />
-                <MarkDownArea
-                    content={props.memoContent}
-                    height={'97%'}
-                    width={'90%'} />
+                {
+                    (() => {
+                        switch (viewMode) {
+                            //markdownのみ表示
+                            case MEMO_VIEW_MODE.markdownOnly:
+                                return (
+                                    <React.Fragment>
+                                        <MarkDownArea
+                                            content={props.memoContent}
+                                            height='97%'
+                                            width='100%'
+                                        />
+                                    </React.Fragment>
+                                );
+                            //テキストエリアのみ表示
+                            case MEMO_VIEW_MODE.textareaOnly:
+                                return (
+                                    <React.Fragment>
+                                        <BaseTextAreaComponent
+                                            textWidth='100%'
+                                            height='96%'
+                                            value={props.memoContent}
+                                            onChange={props.setMemoContent}
+                                            isNotResize={true}
+                                            placeholder='Markdown形式で入力してください。'
+                                        />
+                                    </React.Fragment>
+                                );
+                            //markdownとテキストエリアの両方を表示
+                            case MEMO_VIEW_MODE.multiView:
+                                return (
+                                    <React.Fragment>
+                                        <BaseTextAreaComponent
+                                            textWidth='90%'
+                                            height='96%'
+                                            value={props.memoContent}
+                                            onChange={props.setMemoContent}
+                                            isNotResize={true}
+                                            placeholder='Markdown形式で入力してください。'
+                                        />
+                                        <SpaceComponent
+                                            space='2%'
+                                        />
+                                        <MarkDownArea
+                                            content={props.memoContent}
+                                            height='97%'
+                                            width='90%'
+                                        />
+                                    </React.Fragment>
+                                );
+                        }
+                    })()
+                }
             </MemoTextAreaDiv>
         </MainAreaDiv>
     );
