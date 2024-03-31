@@ -10,6 +10,7 @@ import { buttonObjType } from '../Common/Type/CommonType';
 type propsType = {
     backPageButtonObj: buttonObjType,
     positiveButtonObj: buttonObjType,
+    saveButtonObj: buttonObjType,
     outerHeight: string,
 }
 
@@ -43,7 +44,21 @@ function MemoRegisterFooter(props: propsType) {
                 />
             }
             <SpaceComponent
-                space={"70%"}
+                space="60%"
+            />
+            {
+                props.saveButtonObj &&
+                props.saveButtonObj.title &&
+                props.saveButtonObj.onclick &&
+                <ButtonComponent
+                    styleTypeNumber={props.saveButtonObj.type}
+                    title={props.saveButtonObj.title}
+                    onclick={props.saveButtonObj.onclick}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                />
+            }
+            <SpaceComponent
+                space='2%'
             />
             {
                 props.positiveButtonObj &&

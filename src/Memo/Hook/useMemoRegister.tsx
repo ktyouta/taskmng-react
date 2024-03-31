@@ -4,6 +4,7 @@ import { bodyObj, buttonObjType, comboType, generalDataType, refInfoType } from 
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { memoRegistReqType } from "../Type/MemoType";
+import { MEMO_STATUS } from "../Const/MemoConst";
 
 
 //引数の型
@@ -53,37 +54,89 @@ function useMemoRegister(props: propsType) {
     }
 
     /**
-     * 登録ボタン押下処理
+     * 入力チェック
      */
-    const create = () => {
+    const inputCheck = () => {
         //タイトル
         if (!memoTitle) {
             alert("タイトルを入力してください。");
-            return;
+            return true;
         }
 
         //内容
         if (!memoContent || !memoContent.trim()) {
             alert("メモ内容を入力してください。");
-            return;
+            return true;
         }
 
-        if (!window.confirm('メモを登録しますか？')) {
-            return
+        return false;
+    }
+
+
+    /**
+     * 登録前チェック
+     */
+    const preCheck = (word: string) => {
+        if (!window.confirm(`${word}`)) {
+            return true;
         }
         if (!registerMutation) {
             alert("リクエストの送信に失敗しました。");
-            return;
+            return true;
         }
 
+        return false;
+    }
+
+    /**
+     * リクエストボディの送信
+     */
+    const sendRequest = (status: string,) => {
         //リクエストボディ
         let body: memoRegistReqType = {
             title: memoTitle,
             content: memoContent,
+            status: status,
+        }
+        console.log(body);
+        //リクエスト送信
+        registerMutation.mutate(body);
+    }
+
+    /**
+     * 登録ボタン押下処理
+     */
+    const create = () => {
+        //入力チェック
+        if (inputCheck()) {
+            return;
+        }
+
+        //リクエスト送信前チェック
+        if (preCheck(`メモを登録しますか？`)) {
+            return;
         }
 
         //リクエスト送信
-        registerMutation.mutate(body);
+        sendRequest(MEMO_STATUS.regist);
+    }
+
+    /**
+     * 下書き保存ボタン押下処理
+     */
+    const save = () => {
+        //入力チェック
+        if (inputCheck()) {
+            return;
+        }
+
+        //リクエスト送信前チェック
+        if (preCheck(`下書きを保存しますか？`)) {
+            return;
+        }
+
+        //リクエスト送信
+        sendRequest(MEMO_STATUS.draft);
     }
 
     return {
@@ -97,6 +150,11 @@ function useMemoRegister(props: propsType) {
             title: `登録`,
             type: `RUN`,
             onclick: create
+        } as buttonObjType,
+        saveButtonObj: {
+            title: `下書き保存`,
+            type: `RUN`,
+            onclick: save
         } as buttonObjType,
         errMessage,
         memoTitle,

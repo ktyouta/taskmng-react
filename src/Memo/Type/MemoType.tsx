@@ -133,6 +133,7 @@ export type memoSearchConditionRefType = {
 export type memoRegistReqType = {
     title: string,
     content: string,
+    status: string
 }
 
 //APIから取得するメモ詳細

@@ -27,3 +27,8 @@ export const MEMO_VIEW_MODE = {
     textareaOnly: "2",
     multiView: "3",
 }
+//メモの状態
+export const MEMO_STATUS = {
+    draft: "1",
+    regist: "2",
+}
