@@ -31,8 +31,9 @@ type propsType = {
 const MainAreaDiv = styled.div`
     padding-left: 5%;
     padding-top: 2%;
-    height: 95%;
+    height: 100%;
     text-align:left;
+    box-sizing: border-box;
 `;
 
 //タイトル
@@ -44,11 +45,6 @@ const TitleAreaDiv = styled.div<{ height: string | undefined }>`
 const MemoTextAreaDiv = styled(VerticalFlowDiv)`
   display:flex;
   width: 90%;
-`;
-
-//タイトル
-const ChangeDiv = styled.div<{ height: string | undefined }>`
-    height:${({ height }) => (height)};
 `;
 
 

@@ -28,5 +28,15 @@
 		"limitTime": "",
 		"userId": "f",
 		"deleteFlg": "0"
+	},
+	{
+		"id": "MEMOID-4",
+		"title": "padding指定時に親要素を飛び出す場合",
+		"content": "box-sizing: border-box;を指定する。  \n参考サイト  \nhttps://web-de-asobo.net/2022/12/15/css-box-sizing/",
+		"registerTime": "2024/03/31",
+		"updTime": "2024/03/31",
+		"limitTime": "",
+		"userId": "f",
+		"deleteFlg": "0"
 	}
 ]

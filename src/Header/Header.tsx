@@ -46,13 +46,14 @@ const NavDiv = styled.div<{ isDisplay: boolean }>`
   font-size: 13px;
   width: 140px;
   height: auto;
-  min-height: 90px;
+  min-height: 95px;
   background-color: white;
   padding-top: 8px;
   border: 1px solid #a9a9a9;
   display: ${({ isDisplay }) => (isDisplay ? "block" : "none")};
   border-radius: 6px;
   z-index:10;
+  box-sizing: border-box;
 `;
 
 //コンテンツのスタイル
