@@ -47,6 +47,7 @@ function MemoFooter(props: propsType) {
                     styleTypeNumber="PRIMARY"
                     title={"メモ作成"}
                     onclick={clickCreateBtn}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             </MemoFooterDiv>
         </React.Fragment>

@@ -17,17 +17,11 @@ import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 
 
-//ヘッダー
-const HeaderDiv = styled.div`
-    height: 1%;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-`;
 
 //入力欄
-const MainAreaDiv = styled.div`
-    height: 92%;
+const MainAreaDiv = styled(HeightDiv)`
+    padding-top:2%;
+    box-sizing: border-box;
 `;
 
 //外側のスタイル
@@ -66,22 +60,18 @@ function MemoView(props: propsType) {
     <OuterDiv
       height='100%'
     >
-      <HeightDiv
-        height='85%'
+      <MainAreaDiv
+        height='87%'
       >
-        <HeaderDiv>
-        </HeaderDiv>
-        <MainAreaDiv>
-          <MemoViewForm
-            memoTitle={props.memoTitle}
-            memoContent={props.memoContent}
-          />
-        </MainAreaDiv>
-      </HeightDiv>
+        <MemoViewForm
+          memoTitle={props.memoTitle}
+          memoContent={props.memoContent}
+        />
+      </MainAreaDiv>
       <MemoViewFooter
         backPageButtonObj={backPageButtonObj}
         positiveButtonObj={positiveButtonObj}
-        outerHeight='15%'
+        outerHeight='13%'
       />
     </OuterDiv>
   );

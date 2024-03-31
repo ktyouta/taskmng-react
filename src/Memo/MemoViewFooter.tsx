@@ -17,6 +17,8 @@ type propsType = {
 const OuterDiv = styled.div<{ height: string | undefined }>`
     height:${({ height }) => (height)};
     display:flex;
+    padding-top: 1%;
+    box-sizing: border-box;
 `;
 
 
@@ -39,6 +41,7 @@ function MemoViewFooter(props: propsType) {
                     styleTypeNumber={props.backPageButtonObj.type}
                     title={props.backPageButtonObj.title}
                     onclick={props.backPageButtonObj.onclick}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             }
             <SpaceComponent
@@ -52,6 +55,7 @@ function MemoViewFooter(props: propsType) {
                     styleTypeNumber={props.positiveButtonObj.type}
                     title={props.positiveButtonObj.title}
                     onclick={props.positiveButtonObj.onclick}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             }
         </OuterDiv>

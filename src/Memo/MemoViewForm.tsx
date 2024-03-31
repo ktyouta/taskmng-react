@@ -13,15 +13,17 @@ type propsType = {
 }
 
 //タイトルのスタイル
-const TitleH1 = styled.h1`
-    margin-left: 11%;
+const TitleDiv = styled.div`
     text-align: left;
-    font-size: 1.8em;
+    font-size: 1.5em;
+    margin-left: 11%;
+    font-weight: 550;
+    margin-bottom: 1%;
 `;
 
 //マークダウンエリアのスタイル
 const ContentAreaDiv = styled.div`
-    height:87%;
+    height:90%;
     width:80%;
     border: 1px solid #a9a9a9;
     border-radius: 6px;
@@ -38,9 +40,9 @@ function MemoViewForm(props: propsType) {
 
     return (
         <React.Fragment>
-            <TitleH1>
+            <TitleDiv>
                 {props.memoTitle}
-            </TitleH1>
+            </TitleDiv>
             <ContentAreaDiv>
                 <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
