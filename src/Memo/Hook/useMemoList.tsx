@@ -70,7 +70,7 @@ function useMemoList(props: propsType) {
         }
 
         //メモのコンテンツリスト
-        let memoContentList = createMemoContentList(props.memoList, memoContentSetting, moveMemoDetail);
+        let memoContentList: memoContentDisplayType[] = createMemoContentList(props.memoList, memoContentSetting, moveMemoDetail);
 
         //メモデータから画面表示用domを作成
         return memoContentList.map((element, index) => {

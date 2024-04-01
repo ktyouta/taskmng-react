@@ -23,7 +23,7 @@ import styled from "styled-components";
 import { tabType } from "../../Common/TabComponent";
 import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
 import MemoEditForm from "../MemoEditForm";
-import { COMP_STATUS, HOLD_STATUS, NOCOMP_STATUS, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, WORKING_STATUS } from "../Const/MemoConst";
+import { COMP_STATUS, HOLD_STATUS, MEMO_STATUS, NOCOMP_STATUS, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, WORKING_STATUS } from "../Const/MemoConst";
 
 
 //フッターのスタイル
@@ -249,6 +249,13 @@ export function createMemoContentList(memoList: memoListType[],
             content: [],
             onClickTitle: () => { },
         };
+
+        //下書きの場合は背景色を変える
+        if (element.status === MEMO_STATUS.draft) {
+            displayMemoObj.bdColor = "#66FFFF";
+            // displayMemoObj.titleBgColor = "#66FFFF";
+            // displayMemoObj.infoBgColor = "#66FFCC";
+        }
 
         //画面に表示するオブジェクトを作成
         memoContentSetting.forEach((item) => {

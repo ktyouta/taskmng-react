@@ -2,6 +2,7 @@ import { getNowDate } from "../Common/Function";
 import { authInfoType } from "../Auth/Type/AuthType";
 import { memoListType, memoRegistReqType } from "./Type/MemoType";
 import { createMemoNewId } from "./MemoSelectFunction";
+import { FLG } from "../Common/Const/CommonConst";
 
 
 /**
@@ -26,12 +27,14 @@ export function createAddMemoData(fileDataObj: memoListType[], body: memoRegistR
         updTime: "",
         limitTime: "",
         userId: "",
-        deleteFlg: ""
+        deleteFlg: "",
+        status: body.status,
     };
+
     newMemo.registerTime = nowDate;
     newMemo.updTime = nowDate;
     newMemo.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
-    newMemo.deleteFlg = "0";
+    newMemo.deleteFlg = FLG.off;
 
     fileDataObj.push(newMemo);
 

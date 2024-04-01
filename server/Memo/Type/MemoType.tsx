@@ -8,6 +8,7 @@ export type memoListType = {
     updTime: string,
     userId: string,
     deleteFlg: string,
+    status: string,
 }
 
 //メモ検索条件リストの型
@@ -37,6 +38,7 @@ export type memoContentListType = {
 export type memoRegistReqType = {
     title: string,
     content: string,
+    status: string,
 }
 
 //メモの更新リクエストの型

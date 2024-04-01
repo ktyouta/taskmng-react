@@ -29,6 +29,8 @@ export const MEMO_VIEW_MODE = {
 }
 //メモの状態
 export const MEMO_STATUS = {
+    //下書き
     draft: "1",
+    //登録
     regist: "2",
 }

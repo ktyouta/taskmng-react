@@ -10,3 +10,10 @@ export const MEMO_CONTENT_FILEPATH = `${SETTINGFILEPATH}${MEMOCONTENTSETTINGFILE
 export const MEMO_INPUTSETTING_FILEPATH = `${SETTINGFILEPATH}${MEMOINPUTSETTINGFILENM}${JSONEXTENSION}`;
 //メモIDの接頭辞
 export const PRE_MEMO_ID = `MEMOID-`;
+//メモの状態
+export const MEMO_STATUS = {
+    //下書き
+    draft: "1",
+    //登録
+    regist: "2",
+}

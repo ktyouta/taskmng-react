@@ -45,10 +45,6 @@ const ContentInfoDiv = styled.div<{ infoBgColor?: string }>`
     background-color: ${({ infoBgColor }) => (infoBgColor ?? "#cccccc")};
 `;
 
-//ボタンエリアのスタイル
-const ButtonAreaDiv = styled.div`
-    margin: 0 0 0 auto;
-`;
 
 //引数の型
 type propsType = {
@@ -65,14 +61,19 @@ function MemoContent(props: propsType) {
     } = useMemoContent({ ...props });
 
     return (
-        <OuterDiv>
+        <OuterDiv
+            bdColor={props.contentObj.bgColor}
+        >
             {/* タイトル */}
             <ContentTitleDiv
                 onClick={props.contentObj.onClickTitle}
+                titleBgColor={props.contentObj.bgColor}
             >
                 {`${props.contentObj.title}`}
             </ContentTitleDiv>
-            <ContentInfoDiv>
+            <ContentInfoDiv
+                infoBgColor={props.contentObj.bgColor}
+            >
                 {/* 内容 */}
                 {contentList}
             </ContentInfoDiv>

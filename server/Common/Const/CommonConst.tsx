@@ -53,3 +53,9 @@ export const CRUD_ID = "5";
 
 //タスクのカテゴリID
 export const TASK_CATEGORY_ID = "CATEGORY-5";
+
+//フラグ
+export const FLG = {
+    off: "0",
+    on: "1",
+}

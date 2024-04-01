@@ -1,4 +1,4 @@
-import { userInfoType } from "../../SettingFunction/User/Type/UserType"
+import { userInfoType } from "../../Setting/User/Type/UserType"
 
 //認証情報
 export type authInfoType = {

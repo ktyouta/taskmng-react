@@ -1,6 +1,7 @@
 import { memoContentListType, memoListType, memoSearchConditionListType } from "./Type/MemoType";
-import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_INPUTSETTING_FILEPATH, MEMO_SEARCHCONDITION_FILEPATH, PRE_MEMO_ID } from "./Const/MemoConst";
+import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_INPUTSETTING_FILEPATH, MEMO_SEARCHCONDITION_FILEPATH, MEMO_STATUS, PRE_MEMO_ID } from "./Const/MemoConst";
 import { readFile } from "../Common/FileFunction";
+import { authInfoType } from "../Auth/Type/AuthType";
 
 
 
@@ -12,6 +13,7 @@ export function getMemoObj(): memoListType[] {
     let fileData = readFile(MEMO_FILEPATH);
     return JSON.parse(fileData);
 }
+
 
 /**
  * 削除データをフィルターする
@@ -89,4 +91,19 @@ export function createMemoNewId(taskList: memoListType[]) {
         return Math.max(prev, currentNm);
     }, 0);
     return `${PRE_MEMO_ID}${maxNo + 1}`;
+}
+
+
+/**
+ * ユーザーと下書きでフィルター
+ */
+export function getFilterdUserStatusMemo(decodeFileData: memoListType[], authResult: authInfoType) {
+
+    decodeFileData = decodeFileData.filter((element) => {
+
+        //ユーザーIDが不一致かつ下書きのデータは省く
+        return !(element.userId !== authResult.userInfo?.userId && element.status === MEMO_STATUS.draft);
+    });
+
+    return decodeFileData;
 }

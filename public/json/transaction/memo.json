@@ -7,7 +7,8 @@
 		"updTime": "2024/03/23",
 		"limitTime": "",
 		"userId": "f",
-		"deleteFlg": "0"
+		"deleteFlg": "0",
+		"status":"1"
 	},
 	{
 		"id": "MEMOID-2",
@@ -17,7 +18,8 @@
 		"updTime": "2024/03/24",
 		"limitTime": "",
 		"userId": "f",
-		"deleteFlg": "1"
+		"deleteFlg": "1",
+		"status":"2"
 	},
 	{
 		"id": "MEMOID-3",
@@ -27,7 +29,8 @@
 		"updTime": "2024/03/30",
 		"limitTime": "",
 		"userId": "f",
-		"deleteFlg": "0"
+		"deleteFlg": "0",
+		"status":"2"
 	},
 	{
 		"id": "MEMOID-4",
@@ -37,6 +40,7 @@
 		"updTime": "2024/03/31",
 		"limitTime": "",
 		"userId": "f",
-		"deleteFlg": "0"
+		"deleteFlg": "0",
+		"status":"2"
 	}
 ]

@@ -4,7 +4,7 @@ import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
 import { memoContentListType, memoListType, memoRegistReqType, memoSearchConditionListType, memoUpdReqType } from "./Type/MemoType";
-import { getFilterdMemo, getFilterdMemoContent, getFilterdSearchCondition, getMemoObj } from "./MemoSelectFunction";
+import { getFilterdMemo, getFilterdMemoContent, getFilterdSearchCondition, getFilterdUserStatusMemo, getMemoObj } from "./MemoSelectFunction";
 import { MEMO_FILEPATH } from "./Const/MemoConst";
 import { createAddMemoData } from "./MemoRegistFunction";
 import { createUpdMemoData } from "./MemoUpdateFunction";
@@ -26,6 +26,9 @@ export function getMemoList(res: any, req: any) {
 
     //メモファイルの読み込み
     let decodeFileData: memoListType[] = getFilterdMemo();
+
+    //メモデータのフィルター
+    decodeFileData = getFilterdUserStatusMemo(decodeFileData, authResult);
 
     //該当データなし
     if (decodeFileData.length === 0) {
