@@ -11,7 +11,6 @@ export type memoListType = {
     limitTime: string,
     userId: string,
     status: string,
-    statusNm: string,
 }
 
 //画面表示用メモリストの型
@@ -49,6 +48,8 @@ export type memoContentDisplayType = {
     title: string,
     content: { label: string, value: string, }[],
     bgColor?: string,
+    bdColor?: string,
+    status?: string,
     onClickTitle: () => void,
 }
 

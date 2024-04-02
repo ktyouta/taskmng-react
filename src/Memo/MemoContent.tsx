@@ -45,6 +45,11 @@ const ContentInfoDiv = styled.div<{ infoBgColor?: string }>`
     background-color: ${({ infoBgColor }) => (infoBgColor ?? "#cccccc")};
 `;
 
+//ステータスエリアのスタイル
+const StatusAreaDiv = styled.div`
+    margin: 0 1% 0 auto;
+`;
+
 
 //引数の型
 type propsType = {
@@ -62,7 +67,7 @@ function MemoContent(props: propsType) {
 
     return (
         <OuterDiv
-            bdColor={props.contentObj.bgColor}
+            bdColor={props.contentObj.bdColor}
         >
             {/* タイトル */}
             <ContentTitleDiv
@@ -76,6 +81,10 @@ function MemoContent(props: propsType) {
             >
                 {/* 内容 */}
                 {contentList}
+                {/* メモのステータス */}
+                <StatusAreaDiv>
+                    {props.contentObj.status}
+                </StatusAreaDiv>
             </ContentInfoDiv>
         </OuterDiv>
     );

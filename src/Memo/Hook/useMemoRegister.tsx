@@ -98,7 +98,7 @@ function useMemoRegister(props: propsType) {
             content: memoContent,
             status: status,
         }
-        console.log(body);
+
         //リクエスト送信
         registerMutation.mutate(body);
     }

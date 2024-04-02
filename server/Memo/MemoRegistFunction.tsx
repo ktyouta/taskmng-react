@@ -35,7 +35,6 @@ export function createAddMemoData(fileDataObj: memoListType[], body: memoRegistR
     newMemo.updTime = nowDate;
     newMemo.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
     newMemo.deleteFlg = FLG.off;
-
     fileDataObj.push(newMemo);
 
     return fileDataObj;

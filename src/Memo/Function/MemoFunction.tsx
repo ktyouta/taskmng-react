@@ -252,9 +252,9 @@ export function createMemoContentList(memoList: memoListType[],
 
         //下書きの場合は背景色を変える
         if (element.status === MEMO_STATUS.draft) {
-            displayMemoObj.bdColor = "#66FFFF";
-            // displayMemoObj.titleBgColor = "#66FFFF";
-            // displayMemoObj.infoBgColor = "#66FFCC";
+            displayMemoObj.bdColor = "#33FFFF";
+            displayMemoObj.bgColor = "#66FFFF";
+            displayMemoObj.status = "下書き";
         }
 
         //画面に表示するオブジェクトを作成
