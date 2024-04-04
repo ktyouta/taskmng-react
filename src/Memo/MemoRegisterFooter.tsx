@@ -11,6 +11,7 @@ type propsType = {
     backPageButtonObj: buttonObjType,
     positiveButtonObj: buttonObjType,
     saveButtonObj: buttonObjType,
+    clearButtonObj: buttonObjType,
     outerHeight: string,
 }
 
@@ -44,7 +45,21 @@ function MemoRegisterFooter(props: propsType) {
                 />
             }
             <SpaceComponent
-                space="60%"
+                space="50%"
+            />
+            {
+                props.clearButtonObj &&
+                props.clearButtonObj.title &&
+                props.clearButtonObj.onclick &&
+                <ButtonComponent
+                    styleTypeNumber={props.clearButtonObj.type}
+                    title={props.clearButtonObj.title}
+                    onclick={props.clearButtonObj.onclick}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                />
+            }
+            <SpaceComponent
+                space='2%'
             />
             {
                 props.saveButtonObj &&

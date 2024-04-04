@@ -5,11 +5,16 @@ import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMu
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { memoRegistReqType } from "../Type/MemoType";
 import { MEMO_STATUS } from "../Const/MemoConst";
+import useMemoEditBase from "./useMemoEditBase";
 
 
 //引数の型
 type propsType = {
     path: string,
+    memoTitle: string,
+    setMemoTitle: React.Dispatch<React.SetStateAction<string>>,
+    memoContent: string,
+    setMemoContent: React.Dispatch<React.SetStateAction<string>>,
 }
 
 
@@ -20,14 +25,19 @@ type propsType = {
  */
 function useMemoRegister(props: propsType) {
 
-    //スナックバーに表示する登録更新時のエラーメッセージ
-    const [errMessage, setErrMessage] = useState("");
     //ルーティング用
     const navigate = useNavigate();
-    //メモタイトル
-    const [memoTitle, setMemoTitle] = useState("");
-    //メモ内容
-    const [memoContent, setMemoContent] = useState("");
+
+
+    const {
+        errMessage,
+        setErrMessage,
+        clearButtonFunc,
+    } = useMemoEditBase({
+        ...props,
+        initMemoTitle: "",
+        initMemoContent: ""
+    });
 
 
     //登録用フック
@@ -60,13 +70,13 @@ function useMemoRegister(props: propsType) {
      */
     const inputCheck = () => {
         //タイトル
-        if (!memoTitle) {
+        if (!props.memoTitle) {
             alert("タイトルを入力してください。");
             return true;
         }
 
         //内容
-        if (!memoContent || !memoContent.trim()) {
+        if (!props.memoContent || !props.memoContent.trim()) {
             alert("メモ内容を入力してください。");
             return true;
         }
@@ -96,8 +106,8 @@ function useMemoRegister(props: propsType) {
     const sendRequest = (status: string,) => {
         //リクエストボディ
         let body: memoRegistReqType = {
-            title: memoTitle,
-            content: memoContent,
+            title: props.memoTitle,
+            content: props.memoContent,
             status: status,
         }
 
@@ -147,10 +157,7 @@ function useMemoRegister(props: propsType) {
         create,
         save,
         errMessage,
-        memoTitle,
-        setMemoTitle,
-        memoContent,
-        setMemoContent,
+        clearButtonFunc,
     }
 }
 

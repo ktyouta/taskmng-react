@@ -36,6 +36,7 @@ function MemoRegister(props: propsType) {
     setMemoTitle,
     memoContent,
     setMemoContent,
+    clearButtonObj,
   } = useMemoRegister({ ...props });
 
 
@@ -59,6 +60,7 @@ function MemoRegister(props: propsType) {
           backPageButtonObj={backPageButtonObj}
           positiveButtonObj={positiveButtonObj}
           saveButtonObj={saveButtonObj}
+          clearButtonObj={clearButtonObj}
           outerHeight='100%'
         />
       </HeightDiv>

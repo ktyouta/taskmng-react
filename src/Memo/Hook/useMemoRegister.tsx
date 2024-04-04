@@ -21,17 +21,26 @@ type propsType = {
  */
 function useMemoRegister(props: propsType) {
 
+    //メモタイトル
+    const [memoTitle, setMemoTitle] = useState("");
+    //メモ内容
+    const [memoContent, setMemoContent] = useState("");
+
+    //登録関連の共通処理を取得
     const {
         isRegistLoading,
         backPageButtonFunc,
         create,
         save,
         errMessage,
+        clearButtonFunc,
+    } = useMemoRegisterCommon({
+        ...props,
         memoTitle,
         setMemoTitle,
         memoContent,
-        setMemoContent,
-    } = useMemoRegisterCommon({ ...props });
+        setMemoContent
+    });
 
     return {
         isRegistLoading,
@@ -49,6 +58,11 @@ function useMemoRegister(props: propsType) {
             title: `下書き保存`,
             type: `RUN`,
             onclick: save
+        } as buttonObjType,
+        clearButtonObj: {
+            title: `元に戻す`,
+            type: `RUN`,
+            onclick: clearButtonFunc
         } as buttonObjType,
         errMessage,
         memoTitle,

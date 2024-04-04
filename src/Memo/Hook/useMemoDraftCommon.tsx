@@ -4,6 +4,7 @@ import { bodyObj, buttonObjType, comboType, generalDataType, refInfoType } from 
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import { apiMemoDetailType, customAttributeRequestBodyType, editDisplayMemoType, inputMemoSettingType, memoListType, memoUpdReqType, viewMemoType } from "../Type/MemoType";
 import useMemoEditBase from "./useMemoEditBase";
+import useMemoEditCommon from "./useMemoEditCommon";
 
 
 //引数の型
@@ -21,17 +22,19 @@ type propsType = {
 
 
 /**
- * useMemoEditCommonコンポーネントのビジネスロジック
+ * useMemoDraftCommonコンポーネントのビジネスロジック
  * @param selectedMaster 
  * @returns 
  */
-function useMemoEditCommon(props: propsType) {
+function useMemoDraftCommon(props: propsType) {
 
     const {
         errMessage,
         setErrMessage,
         clearButtonFunc,
-    } = useMemoEditBase({ ...props });
+    } = useMemoEditCommon({ ...props });
+
+
 
 
     //削除用フック
@@ -85,4 +88,4 @@ function useMemoEditCommon(props: propsType) {
     }
 }
 
-export default useMemoEditCommon;
+export default useMemoDraftCommon;

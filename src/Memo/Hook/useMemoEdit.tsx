@@ -27,6 +27,7 @@ type propsType = {
  */
 function useMemoEdit(props: propsType) {
 
+    //編集関連の共通処理を取得
     const {
         delLoading,
         errMessage,
