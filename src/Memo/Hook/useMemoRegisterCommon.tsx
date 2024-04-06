@@ -30,8 +30,6 @@ function useMemoRegister(props: propsType) {
 
 
     const {
-        errMessage,
-        setErrMessage,
         clearButtonFunc,
     } = useMemoEditBase({
         ...props,
@@ -52,7 +50,7 @@ function useMemoRegister(props: propsType) {
         //失敗後の処理
         afErrorFn: (res: errResType) => {
             //エラーメッセージを表示
-            setErrMessage(res.response.data.errMessage);
+            alert(res.response.data.errMessage);
         },
     });
 
@@ -156,7 +154,6 @@ function useMemoRegister(props: propsType) {
         backPageButtonFunc,
         create,
         save,
-        errMessage,
         clearButtonFunc,
     }
 }

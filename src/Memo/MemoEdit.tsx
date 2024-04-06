@@ -13,6 +13,9 @@ import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import styled from 'styled-components';
 import { BoldSpan, HeaderDiv, HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import LabelComponent from '../Common/LabelComponent';
+import useMemoDraft from './Hook/useMemoDraft';
+import { MEMO_STATUS } from './Const/MemoConst';
+import MemoDraftFooter from './MemoDraftFooter';
 
 
 //外側のスタイル
@@ -32,6 +35,7 @@ type propsType = {
   setMemoContent: React.Dispatch<React.SetStateAction<string>>,
   initMemoTitle: string | undefined,
   initMemoContent: string | undefined,
+  memoStatus: string,
 }
 
 
@@ -43,9 +47,15 @@ function MemoEdit(props: propsType) {
     isUpDelLoading,
     backPageButtonObj,
     negativeButtonObj,
-    positiveButtonObj,
     deleteButtonObj,
+    positiveButtonObj,
   } = useMemoEdit({ ...props });
+
+  const {
+    isCreateLoading,
+    createButtonObj,
+    saveButtonObj,
+  } = useMemoDraft({ ...props });
 
   return (
     <OuterDiv
@@ -64,17 +74,41 @@ function MemoEdit(props: propsType) {
       <HeightDiv
         height='13%'
       >
-        <MemoEditFooter
-          backPageButtonObj={backPageButtonObj}
-          negativeButtonObj={negativeButtonObj}
-          deleteButtomObj={deleteButtonObj}
-          positiveButtonObj={positiveButtonObj}
-          outerHeight='100%'
-        />
+        {
+          (() => {
+            switch (props.memoStatus) {
+              //編集
+              case MEMO_STATUS.regist:
+                return (
+                  <MemoEditFooter
+                    backPageButtonObj={backPageButtonObj}
+                    negativeButtonObj={negativeButtonObj}
+                    deleteButtomObj={deleteButtonObj}
+                    positiveButtonObj={positiveButtonObj}
+                    outerHeight='100%'
+                  />
+                );
+              //下書き
+              case MEMO_STATUS.draft:
+                return (
+                  <MemoDraftFooter
+                    backPageButtonObj={backPageButtonObj}
+                    negativeButtonObj={negativeButtonObj}
+                    deleteButtomObj={deleteButtonObj}
+                    saveButtonObj={saveButtonObj}
+                    positiveButtonObj={createButtonObj}
+                    outerHeight='100%'
+                  />
+                );
+              default:
+                return <></>;
+            }
+          })()
+        }
       </HeightDiv>
       {/* ローディング */}
       {
-        isUpDelLoading &&
+        isUpDelLoading || isCreateLoading &&
         <WaitLoading />
       }
     </OuterDiv>

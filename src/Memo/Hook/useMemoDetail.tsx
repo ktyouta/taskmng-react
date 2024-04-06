@@ -31,6 +31,8 @@ function useMemoDetail(props: propsType) {
     const [memoTitle, setMemoTitle] = useState("");
     //メモの内容
     const [memoContent, setMemoContent] = useState("");
+    //メモの状態
+    const [memoStatus, setMemoStatus] = useState("");
 
     //詳細画面遷移時に更新用メモを取得
     const { data: updMemo, isLoading: isLoadinGetUpdMemo } = useQueryWrapper<apiMemoDetailType>(
@@ -39,6 +41,7 @@ function useMemoDetail(props: propsType) {
             afSuccessFn: (data: apiMemoDetailType) => {
                 setMemoTitle(data.title);
                 setMemoContent(data.content);
+                setMemoStatus(data.status);
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -90,6 +93,7 @@ function useMemoDetail(props: propsType) {
         isLoadinGetUpdMemo,
         initMemoTitle,
         initMemoContent,
+        memoStatus,
     }
 }
 

@@ -28,8 +28,6 @@ type propsType = {
 function useMemoEditCommon(props: propsType) {
 
     const {
-        errMessage,
-        setErrMessage,
         clearButtonFunc,
     } = useMemoEditBase({ ...props });
 
@@ -46,9 +44,10 @@ function useMemoEditCommon(props: propsType) {
         //失敗後の処理
         afErrorFn: (res: errResType) => {
             //エラーメッセージを表示
-            setErrMessage(res.response.data.errMessage);
+            alert(res.response.data.errMessage);
         },
     });
+
 
     /**
      * 戻るボタン押下処理
@@ -77,8 +76,6 @@ function useMemoEditCommon(props: propsType) {
 
     return {
         delLoading: delMutation.isLoading,
-        errMessage,
-        setErrMessage,
         backPageButtonFunc,
         clearButtonFunc,
         deleteMemo,

@@ -4,6 +4,7 @@ import { bodyObj, buttonObjType, comboType, generalDataType, refInfoType } from 
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import { apiMemoDetailType, customAttributeRequestBodyType, editDisplayMemoType, inputMemoSettingType, memoListType, memoUpdReqType, viewMemoType } from "../Type/MemoType";
 import useMemoEditCommon from "./useMemoEditCommon";
+import { MEMO_STATUS } from "../Const/MemoConst";
 
 
 //引数の型
@@ -30,8 +31,6 @@ function useMemoEdit(props: propsType) {
     //編集関連の共通処理を取得
     const {
         delLoading,
-        errMessage,
-        setErrMessage,
         backPageButtonFunc,
         clearButtonFunc,
         deleteMemo,
@@ -50,7 +49,7 @@ function useMemoEdit(props: propsType) {
         //失敗後の処理
         afErrorFn: (res: errResType) => {
             //エラーメッセージを表示
-            setErrMessage(res.response.data.errMessage);
+            alert(res.response.data.errMessage);
         },
     });
 
@@ -82,6 +81,7 @@ function useMemoEdit(props: propsType) {
         let body: memoUpdReqType = {
             title: props.memoTitle,
             content: props.memoContent,
+            status: MEMO_STATUS.regist
         }
         //リクエストボディを作成
         updMutation.mutate(body);
@@ -110,7 +110,6 @@ function useMemoEdit(props: propsType) {
             type: `RUN`,
             onclick: update
         } as buttonObjType,
-        errMessage,
     }
 }
 

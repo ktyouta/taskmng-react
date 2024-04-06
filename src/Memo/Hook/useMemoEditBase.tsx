@@ -23,10 +23,6 @@ type propsType = {
  */
 function useMemoEditBase(props: propsType) {
 
-    //スナックバーに表示する登録更新時のエラーメッセージ
-    const [errMessage, setErrMessage] = useState("");
-
-
     /**
      * 入力値の初期化
      */
@@ -46,8 +42,6 @@ function useMemoEditBase(props: propsType) {
 
 
     return {
-        errMessage,
-        setErrMessage,
         clearButtonFunc,
     }
 }

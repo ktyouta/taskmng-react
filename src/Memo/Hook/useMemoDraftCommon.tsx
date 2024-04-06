@@ -29,12 +29,8 @@ type propsType = {
 function useMemoDraftCommon(props: propsType) {
 
     const {
-        errMessage,
-        setErrMessage,
         clearButtonFunc,
     } = useMemoEditCommon({ ...props });
-
-
 
 
     //削除用フック
@@ -49,7 +45,7 @@ function useMemoDraftCommon(props: propsType) {
         //失敗後の処理
         afErrorFn: (res: errResType) => {
             //エラーメッセージを表示
-            setErrMessage(res.response.data.errMessage);
+            alert(res.response.data.errMessage);
         },
     });
 
@@ -80,8 +76,6 @@ function useMemoDraftCommon(props: propsType) {
 
     return {
         delLoading: delMutation.isLoading,
-        errMessage,
-        setErrMessage,
         backPageButtonFunc,
         clearButtonFunc,
         deleteMemo,

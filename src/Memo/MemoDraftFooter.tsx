@@ -12,6 +12,7 @@ type propsType = {
     deleteButtomObj: buttonObjType,
     negativeButtonObj: buttonObjType,
     positiveButtonObj: buttonObjType,
+    saveButtonObj: buttonObjType,
     outerHeight: string,
 }
 
@@ -22,9 +23,9 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
 `;
 
 
-function MmeoDraftFooter(props: propsType) {
+function MemoDraftFooter(props: propsType) {
 
-    console.log("MmeoDraftFooter render");
+    console.log("MemoDraftFooter render");
 
     return (
         <OuterDiv
@@ -45,7 +46,7 @@ function MmeoDraftFooter(props: propsType) {
                 />
             }
             <SpaceComponent
-                space={"48%"}
+                space={"38%"}
             />
             {
                 props.negativeButtonObj &&
@@ -55,6 +56,20 @@ function MmeoDraftFooter(props: propsType) {
                     styleTypeNumber={props.negativeButtonObj.type}
                     title={props.negativeButtonObj.title}
                     onclick={props.negativeButtonObj.onclick}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                />
+            }
+            <SpaceComponent
+                space={"3%"}
+            />
+            {
+                props.saveButtonObj &&
+                props.saveButtonObj.title &&
+                props.saveButtonObj.onclick &&
+                <ButtonComponent
+                    styleTypeNumber={props.saveButtonObj.type}
+                    title={props.saveButtonObj.title}
+                    onclick={props.saveButtonObj.onclick}
                     style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             }
@@ -91,4 +106,4 @@ function MmeoDraftFooter(props: propsType) {
     );
 }
 
-export default MmeoDraftFooter;
+export default MemoDraftFooter;

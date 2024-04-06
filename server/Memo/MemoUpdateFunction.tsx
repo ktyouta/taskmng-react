@@ -33,6 +33,7 @@ export function createUpdMemoData(memoList: memoListType[], body: memoUpdReqType
     updMemo.content = body.content;
     updMemo.updTime = nowDate;
     updMemo.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
+    updMemo.status = body.status;
     retObj.memoList = memoList;
 
     return retObj;

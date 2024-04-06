@@ -32,7 +32,6 @@ function useMemoRegister(props: propsType) {
         backPageButtonFunc,
         create,
         save,
-        errMessage,
         clearButtonFunc,
     } = useMemoRegisterCommon({
         ...props,
@@ -64,7 +63,6 @@ function useMemoRegister(props: propsType) {
             type: `RUN`,
             onclick: clearButtonFunc
         } as buttonObjType,
-        errMessage,
         memoTitle,
         setMemoTitle,
         memoContent,

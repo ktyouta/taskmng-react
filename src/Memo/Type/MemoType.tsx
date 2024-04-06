@@ -150,10 +150,12 @@ export type apiMemoDetailType = {
     updTime: string,
     limitTime: string,
     userId: string,
+    status: string,
 }
 
 //メモの更新リクエストの型
 export type memoUpdReqType = {
     title: string,
     content: string,
+    status: string,
 }
