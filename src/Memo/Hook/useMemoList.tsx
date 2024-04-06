@@ -37,14 +37,6 @@ function useMemoList(props: propsType) {
     //詳細画面へのルーティング用ID
     const setDetailRoutingId = useSetAtom(detailRoutingIdAtom);
 
-    //メモの画面表示設定を取得
-    const { data: memoContentSetting } = useQueryWrapper<memoContentSettingType[]>(
-        {
-            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MEMOCONTENTSETTING}`,
-        }
-    );
-
-
     //メモの詳細画面に遷移する
     const moveMemoDetail = (memoId: string,) => {
         setDetailRoutingId(memoId);
@@ -59,18 +51,13 @@ function useMemoList(props: propsType) {
             return <CenterLoading />;
         }
 
-        //メモコンテンツの設定リスト
-        if (!memoContentSetting) {
-            return <CenterLoading />;
-        }
-
         //検索結果が0件
         if (props.memoList.length === 0) {
             return <div>検索結果がありません。</div>;
         }
 
         //メモのコンテンツリスト
-        let memoContentList: memoContentDisplayType[] = createMemoContentList(props.memoList, memoContentSetting, moveMemoDetail);
+        let memoContentList: memoContentDisplayType[] = createMemoContentList(props.memoList, moveMemoDetail);
 
         //メモデータから画面表示用domを作成
         return memoContentList.map((element, index) => {
@@ -90,7 +77,7 @@ function useMemoList(props: propsType) {
                 </React.Fragment>
             );
         });
-    }, [props.memoList, memoContentSetting]);
+    }, [props.memoList]);
 
     return {
         memoContentListDom

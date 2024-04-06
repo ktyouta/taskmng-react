@@ -10,6 +10,7 @@ export type memoListType = {
     updTime: string,
     limitTime: string,
     userId: string,
+    userNm: string,
     status: string,
 }
 
@@ -43,10 +44,10 @@ export type memoContentSettingType = {
 
 //画面表示用のメモの型
 export type memoContentDisplayType = {
-    [key: string]: string | JSX.Element | undefined | { label: string, value: string, }[] | (() => void),
+    [key: string]: string | JSX.Element | undefined | memoListType | (() => void),
     id: string,
     title: string,
-    content: { label: string, value: string, }[],
+    content: memoListType,
     bgColor?: string,
     bdColor?: string,
     status?: string,

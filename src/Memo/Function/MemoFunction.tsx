@@ -231,9 +231,7 @@ export function createSearchDispCondition(memoSearchConditionList: memoSearchCon
  * @param moveMemoDetail 
  * @returns 
  */
-export function createMemoContentList(memoList: memoListType[],
-    memoContentSetting: memoContentSettingType[],
-    moveMemoDetail: (memoId: string) => void
+export function createMemoContentList(memoList: memoListType[], moveMemoDetail: (memoId: string) => void
 ): memoContentDisplayType[] {
 
     let tmpDisplayMemoList: memoContentDisplayType[] = [];
@@ -244,9 +242,9 @@ export function createMemoContentList(memoList: memoListType[],
     tmpMemoList.forEach(element => {
         //画面表示用メモ
         let displayMemoObj: memoContentDisplayType = {
-            id: "",
-            title: "",
-            content: [],
+            id: element.id,
+            title: element.title,
+            content: element,
             onClickTitle: () => { },
         };
 
@@ -257,46 +255,9 @@ export function createMemoContentList(memoList: memoListType[],
             displayMemoObj.status = "下書き";
         }
 
-        //画面に表示するオブジェクトを作成
-        memoContentSetting.forEach((item) => {
-            //メモリスト内に設定に一致するプロパティが存在しない場合は画面に表示しない
-            if (!element[item.id]) {
-                return;
-            }
-            //ID
-            if (item.id === "id") {
-                displayMemoObj.id = element[item.id];
-                return;
-            }
-            //タイトル
-            if (item.id === "title") {
-                displayMemoObj.title = element[item.id];
-                return;
-            }
-            //非表示項目
-            if (item.isHidden) {
-                return;
-            }
-
-            if ((typeof element[item.id]) !== "string") {
-                return;
-            }
-
-            let tmp = element[item.id] as string;
-            //日付項目
-            if (item.type === "date") {
-                tmp = parseStrDate(tmp);
-            }
-            //コンテンツにデータを追加
-            displayMemoObj.content.push({
-                label: item.name,
-                value: tmp
-            });
-        });
-
         //タイトルクリック時に詳細画面に遷移する
         displayMemoObj.onClickTitle = () => {
-            moveMemoDetail(displayMemoObj.id);
+            moveMemoDetail(element.id);
         };
 
         tmpDisplayMemoList.push(displayMemoObj);

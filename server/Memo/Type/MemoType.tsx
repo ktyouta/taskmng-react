@@ -53,3 +53,17 @@ export type retCreateUpdMemoType = {
     errMessage: string,
     memoList: memoListType[],
 }
+
+//メモリストの画面返却用の型
+export type memoListResType = {
+    [key: string]: string,
+    id: string,
+    title: string,
+    content: string,
+    registerTime: string,
+    updTime: string,
+    userId: string,
+    deleteFlg: string,
+    status: string,
+    userNm: string,
+}

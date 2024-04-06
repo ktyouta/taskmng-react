@@ -3,8 +3,8 @@ import { runAddTaskHistory } from "../History/HistoryFunction";
 import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
-import { memoContentListType, memoListType, memoRegistReqType, memoSearchConditionListType, memoUpdReqType } from "./Type/MemoType";
-import { getFilterdMemo, getFilterdMemoContent, getFilterdSearchCondition, getFilterdUserStatusMemo, getMemoObj } from "./MemoSelectFunction";
+import { memoContentListType, memoListResType, memoListType, memoRegistReqType, memoSearchConditionListType, memoUpdReqType } from "./Type/MemoType";
+import { convMemo, getFilterdMemo, getFilterdSearchCondition, getFilterdUserStatusMemo, getMemoObj, joinUser } from "./MemoSelectFunction";
 import { MEMO_FILEPATH } from "./Const/MemoConst";
 import { createAddMemoData } from "./MemoRegistFunction";
 import { createUpdMemoData } from "./MemoUpdateFunction";
@@ -27,15 +27,21 @@ export function getMemoList(res: any, req: any) {
     //メモファイルの読み込み
     let decodeFileData: memoListType[] = getFilterdMemo();
 
+    //画面返却用の型に変換
+    let resMemoList: memoListResType[] = convMemo(decodeFileData);
+
     //メモデータのフィルター
-    decodeFileData = getFilterdUserStatusMemo(decodeFileData, authResult);
+    resMemoList = getFilterdUserStatusMemo(resMemoList, authResult);
+
+    //ユーザーIDとユーザーを結合
+    resMemoList = joinUser(resMemoList);
 
     //該当データなし
-    if (decodeFileData.length === 0) {
-        return res.status(200).json(decodeFileData);
+    if (resMemoList.length === 0) {
+        return res.status(200).json(resMemoList);
     }
 
-    return res.status(200).json(decodeFileData);
+    return res.status(200).json(resMemoList);
 }
 
 
@@ -82,30 +88,6 @@ export function getMemoSearchConditionList(res: any, req: any) {
 
     //メモ検索条件ファイルの読み込み
     let decodeFileData: memoSearchConditionListType[] = getFilterdSearchCondition();
-
-    //該当データなし
-    if (decodeFileData.length === 0) {
-        return res.status(200).json(decodeFileData);
-    }
-
-    return res.status(200).json(decodeFileData);
-}
-
-
-/**
- * メモコンテンツ設定リストの取得
- */
-export function getMemoContentSettingList(res: any, req: any) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
-
-    //メモコンテンツファイルの読み込み
-    let decodeFileData: memoContentListType[] = getFilterdMemoContent();
 
     //該当データなし
     if (decodeFileData.length === 0) {

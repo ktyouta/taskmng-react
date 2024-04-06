@@ -19,18 +19,25 @@ function useMemoContent(props: propsType) {
 
     //メモのコンテンツリスト
     let contentList = useMemo(() => {
-        return props.contentObj.content.map((element) => {
-            return (
-                <React.Fragment key={`${element.label}-${element.value}-${props.contentObj.id}`}>
-                    <div>
-                        {`${element.label}：${element.value}`}
-                    </div>
-                    <SpaceComponent
-                        space='2%'
-                    />
-                </React.Fragment>
-            )
-        });
+        return (
+            <React.Fragment key={`${props.contentObj.id}`}>
+                <div>
+                    {`登録日：${props.contentObj.content.registerTime}`}
+                </div>
+                <SpaceComponent
+                    space='2%'
+                />
+                <div>
+                    {`更新日：${props.contentObj.content.registerTime}`}
+                </div>
+                <SpaceComponent
+                    space='2%'
+                />
+                <div>
+                    {`作成ユーザー：${props.contentObj.content.userNm}`}
+                </div>
+            </React.Fragment>
+        )
     }, [props.contentObj]);
 
     return {

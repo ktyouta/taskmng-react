@@ -1,7 +1,8 @@
-import { memoContentListType, memoListType, memoSearchConditionListType } from "./Type/MemoType";
+import { memoContentListType, memoListResType, memoListType, memoSearchConditionListType } from "./Type/MemoType";
 import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_INPUTSETTING_FILEPATH, MEMO_SEARCHCONDITION_FILEPATH, MEMO_STATUS, PRE_MEMO_ID } from "./Const/MemoConst";
 import { readFile } from "../Common/FileFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
+import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 
 
 
@@ -57,31 +58,6 @@ export function getFilterdSearchCondition() {
 
 
 /**
- * メモコンテンツ設定ファイルからオブジェクトを取得
- */
-export function getMemoContentObj(): memoContentListType[] {
-    //メモコンテンツファイルの読み込み
-    let fileData = readFile(MEMO_CONTENT_FILEPATH);
-    return JSON.parse(fileData);
-}
-
-/**
- * 削除データをフィルターする
- */
-export function getFilterdMemoContent() {
-    //メモコンテンツファイルの読み込み
-    let decodeFileData: memoContentListType[] = getMemoContentObj();
-
-    //削除フラグが1(削除済)のデータをフィルターする
-    decodeFileData = decodeFileData.filter((element) => {
-        return element.deleteFlg !== "1";
-    });
-
-    return decodeFileData;
-}
-
-
-/**
  * メモのIDを作成
  */
 export function createMemoNewId(taskList: memoListType[]) {
@@ -97,12 +73,48 @@ export function createMemoNewId(taskList: memoListType[]) {
 /**
  * ユーザーと下書きでフィルター
  */
-export function getFilterdUserStatusMemo(decodeFileData: memoListType[], authResult: authInfoType) {
+export function getFilterdUserStatusMemo(decodeFileData: memoListResType[], authResult: authInfoType) {
 
     decodeFileData = decodeFileData.filter((element) => {
 
         //ユーザーIDが不一致かつ下書きのデータは省く
         return !(element.userId !== authResult.userInfo?.userId && element.status === MEMO_STATUS.draft);
+    });
+
+    return decodeFileData;
+}
+
+
+/**
+ * メモリストを画面返却用の型に変換
+ */
+export function convMemo(decodeFileData: memoListType[]): memoListResType[] {
+
+    //画面返却用の型に変換
+    let convMemoList: memoListResType[] = decodeFileData.map((element) => {
+        return (
+            { ...element, userNm: "" }
+        );
+    });
+
+    return convMemoList;
+}
+
+
+/**
+ * ユーザーリストと結合
+ */
+export function joinUser(decodeFileData: memoListResType[]): memoListResType[] {
+
+    //ユーザーリストを取得
+    let userList = getUserInfoData();
+
+    decodeFileData.forEach((element) => {
+        let userNm = userList.find((element1) => {
+            return element1.userId === element.userId;
+        })?.userName;
+
+        element.userNm = userNm ?? "";
     });
 
     return decodeFileData;
