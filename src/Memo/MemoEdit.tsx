@@ -35,7 +35,7 @@ type propsType = {
   setMemoContent: React.Dispatch<React.SetStateAction<string>>,
   initMemoTitle: string | undefined,
   initMemoContent: string | undefined,
-  memoStatus: string,
+  memoStatus: string | undefined,
 }
 
 

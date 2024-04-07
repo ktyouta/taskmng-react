@@ -7,6 +7,8 @@ import { useSetAtom } from "jotai";
 import { detailRoutingIdAtom } from "../Atom/MemoAtom";
 import { DUMMY_ID } from "../Const/MemoConst";
 import { VIEW_MODE } from "../../Common/Const/CommonConst";
+import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
+import { userInfoAtom } from "../../Content/Hook/useContentLogic";
 
 
 //引数の型
@@ -31,8 +33,9 @@ function useMemoDetail(props: propsType) {
     const [memoTitle, setMemoTitle] = useState("");
     //メモの内容
     const [memoContent, setMemoContent] = useState("");
-    //メモの状態
-    const [memoStatus, setMemoStatus] = useState("");
+    //ユーザー情報
+    const userInfo = useGlobalAtomValue(userInfoAtom);
+
 
     //詳細画面遷移時に更新用メモを取得
     const { data: updMemo, isLoading: isLoadinGetUpdMemo } = useQueryWrapper<apiMemoDetailType>(
@@ -41,7 +44,6 @@ function useMemoDetail(props: propsType) {
             afSuccessFn: (data: apiMemoDetailType) => {
                 setMemoTitle(data.title);
                 setMemoContent(data.content);
-                setMemoStatus(data.status);
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -93,7 +95,8 @@ function useMemoDetail(props: propsType) {
         isLoadinGetUpdMemo,
         initMemoTitle,
         initMemoContent,
-        memoStatus,
+        memoStatus: updMemo?.status,
+        isMatchUser: userInfo?.userId === updMemo?.userId
     }
 }
 

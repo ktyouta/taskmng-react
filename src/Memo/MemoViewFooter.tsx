@@ -11,6 +11,7 @@ type propsType = {
     backPageButtonObj: buttonObjType,
     positiveButtonObj: buttonObjType,
     outerHeight: string,
+    isMatchUser: boolean,
 }
 
 //外側のスタイル
@@ -48,6 +49,7 @@ function MemoViewFooter(props: propsType) {
                 space={"65%"}
             />
             {
+                props.isMatchUser &&
                 props.positiveButtonObj &&
                 props.positiveButtonObj.title &&
                 props.positiveButtonObj.onclick &&

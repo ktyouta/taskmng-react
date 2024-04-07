@@ -36,6 +36,7 @@ function MemoDetail(props: propsType) {
         initMemoTitle,
         initMemoContent,
         memoStatus,
+        isMatchUser,
     } = useMemoDetail({ ...props });
 
 
@@ -56,6 +57,7 @@ function MemoDetail(props: propsType) {
                                     memoContent={memoContent}
                                     setMemoContent={setMemoContent}
                                     isLoading={isLoadinGetUpdMemo}
+                                    isMatchUser={isMatchUser}
                                 />
                             )
                         //編集

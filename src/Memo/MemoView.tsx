@@ -39,6 +39,7 @@ type propsType = {
   memoContent: string,
   setMemoContent: React.Dispatch<React.SetStateAction<string>>,
   isLoading: boolean,
+  isMatchUser: boolean,
 }
 
 
@@ -72,6 +73,7 @@ function MemoView(props: propsType) {
         backPageButtonObj={backPageButtonObj}
         positiveButtonObj={positiveButtonObj}
         outerHeight='13%'
+        isMatchUser={props.isMatchUser}
       />
     </OuterDiv>
   );
