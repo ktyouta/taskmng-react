@@ -33,10 +33,7 @@ function useMemoSearch() {
     //モーダルの開閉用フラグ
     const { flag: isModalOpen, onFlag, offFlag } = useSwitch();
     //検索条件参照用リスト
-    const [memoSearchRefInfo, setMemoSearchRefInfo] = useState<memoSearchConditionRefType>({
-        default: [],
-        custom: []
-    });
+    const [memoSearchRefInfo, setMemoSearchRefInfo] = useState<refInfoType[]>([]);
     //検索条件用オブジェクト
     const [searchConditionObj, setSearchConditionObj] = useAtom(memoSearchConditionObjAtom);
 
@@ -121,13 +118,11 @@ function useMemoSearch() {
         }
         //検索条件を保存する
         let tmpCondition: { [key: string]: string } = {};
-        Object.keys(memoSearchRefInfo).forEach((objKey) => {
-            memoSearchRefInfo[objKey].forEach((element) => {
-                if (!element.ref.current) {
-                    return true;
-                }
-                tmpCondition[element.id] = element.ref.current.refValue;
-            });
+        memoSearchRefInfo.forEach((element) => {
+            if (!element.ref.current) {
+                return true;
+            }
+            tmpCondition[element.id] = element.ref.current.refValue;
         });
         setSearchConditionObj(tmpCondition);
         offFlag();

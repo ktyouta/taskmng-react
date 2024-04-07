@@ -50,14 +50,9 @@ export function createSearchRefArray(memoSearchConditionList: memoSearchConditio
     searchConditionObj: {
         [key: string]: string;
     }
-): memoSearchConditionRefType {
+): refInfoType[] {
 
-    let tmpSearchConditionRef: memoSearchConditionRefType = {
-        default: [],
-        custom: []
-    }
-
-    memoSearchConditionList.forEach((element) => {
+    let tmpSearchConditionRef: refInfoType[] = memoSearchConditionList.map((element) => {
         let tmpValue: string | undefined = undefined;
         for (const [columnKey, value] of Object.entries(searchConditionObj as {})) {
             //キーの一致する要素を取り出す
@@ -67,37 +62,17 @@ export function createSearchRefArray(memoSearchConditionList: memoSearchConditio
             }
         }
 
-        switch (element.attribute) {
-            //デフォルト属性
-            case SEARCHCONDITION_KEY_DEFAULT:
-                tmpSearchConditionRef.default.push({
-                    id: element.id,
-                    name: element.name,
-                    type: element.type,
-                    //キーに一致するデータが存在する場合はその値を表示
-                    initValue: tmpValue ?? element.value,
-                    selectList: element.selectList,
-                    ref: createRef(),
-                    length: element.length,
-                    disabled: false,
-                    visible: !element.isHidden,
-                });
-                break;
-            //カスタム属性
-            case SEARCHCONDITION_KEY_CUSTOM:
-                tmpSearchConditionRef.custom.push({
-                    id: element.id,
-                    name: element.name,
-                    type: element.type,
-                    //キーに一致するデータが存在する場合はその値を表示
-                    initValue: tmpValue ?? element.value,
-                    selectList: element.selectList,
-                    ref: createRef(),
-                    length: element.length,
-                    disabled: false,
-                    visible: !element.isHidden,
-                });
-                break;
+        return {
+            id: element.id,
+            name: element.name,
+            type: element.type,
+            //キーに一致するデータが存在する場合はその値を表示
+            initValue: tmpValue ?? element.value,
+            selectList: element.selectList,
+            ref: createRef(),
+            length: element.length,
+            disabled: false,
+            visible: !element.isHidden,
         }
     });
 

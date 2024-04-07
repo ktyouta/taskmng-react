@@ -13,11 +13,12 @@ import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import { memoSearchConditionRefType } from './Type/MemoType';
 import { TabComponent } from '../Common/TabComponent';
 import MemoSearchConditionTab from './MemoSearchConditionTab';
+import DynamicForm from '../Common/DynamicForm';
 
 
 //引数の型
 type propsType = {
-    memoSearchRefInfo: memoSearchConditionRefType,
+    memoSearchRefInfo: refInfoType[],
     closeFn: () => void,
 }
 
@@ -29,6 +30,16 @@ const HeaderDiv = styled.div`
     align-items: center;
 `;
 
+//タイトル入力欄のスタイル
+const MainAreaDiv = styled(HeightDiv)`
+    margin-left: 5%;
+`;
+
+//入力欄のスタイル
+const InputAreaDiv = styled(HeightDiv)`
+    margin-left: 5%;
+`;
+
 
 function MemoCondition(props: propsType) {
 
@@ -37,12 +48,11 @@ function MemoCondition(props: propsType) {
     const {
         backPageButtonObj,
         negativeButtonObj,
-        searchConditionComponent,
     } = useMemoCondition({ ...props });
 
     //ローディング
     if (!props.memoSearchRefInfo ||
-        props.memoSearchRefInfo.default.length === 0) {
+        props.memoSearchRefInfo.length === 0) {
         return <Loading height='50vh' />;
     }
 
@@ -50,7 +60,7 @@ function MemoCondition(props: propsType) {
         <HeightDiv
             height='100%'
         >
-            <HeightDiv
+            <MainAreaDiv
                 height='85%'
             >
                 <HeaderDiv>
@@ -58,14 +68,14 @@ function MemoCondition(props: propsType) {
                         title="検索条件"
                     />
                 </HeaderDiv>
-                <HeightDiv
+                <InputAreaDiv
                     height='85%'
                 >
-                    <MemoSearchConditionTab
-                        searchConditionComponent={searchConditionComponent}
+                    <DynamicForm
+                        refInfoArray={props.memoSearchRefInfo}
                     />
-                </HeightDiv>
-            </HeightDiv>
+                </InputAreaDiv>
+            </MainAreaDiv>
             <HeightDiv
                 height='15%'
             >
