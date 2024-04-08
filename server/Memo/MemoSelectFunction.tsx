@@ -1,8 +1,12 @@
 import { memoContentListType, memoListResType, memoListType, memoSearchConditionListType } from "./Type/MemoType";
 import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_INPUTSETTING_FILEPATH, MEMO_SEARCHCONDITION_FILEPATH, MEMO_STATUS, PRE_MEMO_ID } from "./Const/MemoConst";
-import { readFile } from "../Common/FileFunction";
+import { getFileJsonData, readFile } from "../Common/FileFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
 import { getUserInfoData } from "../Setting/User/UserSelectFunction";
+import { GENERALDETAIL_FILEPATH } from "../Setting/DefaultAttribute/Const/DefaultAttributeConst";
+import { generalDetailType } from "../General/Type/GeneralType";
+import { getGeneralDataList } from "../General/GeneralSelectFunction";
+import { comboType } from "../Common/Type/CommonType";
 
 
 
@@ -118,4 +122,85 @@ export function joinUser(decodeFileData: memoListResType[]): memoListResType[] {
     });
 
     return decodeFileData;
+}
+
+
+/**
+ * メモリストをクエリストリングで絞り込む
+ */
+export function filterMemoQuery(resMemoList: memoListResType[], query: any): memoListResType[] {
+
+    //メモ用の検索条件設定リストを取得
+    let searchConditionList: memoSearchConditionListType[] = getMemoSearchConditionObj();
+
+    //検索条件で絞り込み
+    searchConditionList.forEach((element) => {
+        let value = query[element.id] as string;
+        if (!value) {
+            return;
+        }
+        resMemoList = resMemoList.filter((item) => {
+            if (!(element.id in item)) {
+                return true;
+            }
+            //複数選択項目の場合
+            if (element.type === "checkbox") {
+                return value.split(",").includes(item[element.id]);
+            }
+            return item[element.id].includes(value);
+        });
+    });
+
+    //キーワードで絞り込み
+    let keyword = query.keyword as string;
+    if (keyword) {
+        resMemoList = resMemoList.filter((element) => {
+            return element.title.includes(keyword) || element.content.includes(keyword);
+        });
+    }
+
+    //取得件数で絞り込み
+    let getNum = query.num as number;
+    if (getNum && !isNaN(Number(getNum))) {
+        resMemoList = resMemoList.slice(0, getNum);
+    }
+
+    return resMemoList;
+}
+
+
+/**
+ * 選択リストを結合
+ */
+export function joinSelectListMemoSearchCondition(searchConditionList: memoSearchConditionListType[]): memoSearchConditionListType[] {
+
+    //汎用詳細ファイルの読み込み
+    let generalDatas = getGeneralDataList();
+
+    //選択リストと結合
+    let retSearchConditionList: memoSearchConditionListType[] = searchConditionList.reduce((nowList: memoSearchConditionListType[],
+        element: memoSearchConditionListType) => {
+
+        let selectList: comboType[] = [];
+
+        if (!element.listKey) {
+            nowList.push({
+                ...element
+            });
+            return nowList;
+        }
+        //選択リストを保持している
+        selectList = generalDatas.filter((element1) => {
+            return element1.id === element.listKey;
+        });
+
+        nowList.push({
+            ...element,
+            selectList: selectList
+        });
+
+        return nowList;
+    }, []);
+
+    return retSearchConditionList;
 }

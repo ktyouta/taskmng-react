@@ -1,3 +1,5 @@
+import { comboType } from "../../Common/Type/CommonType"
+
 //メモリストの型
 export type memoListType = {
     [key: string]: string,
@@ -13,6 +15,22 @@ export type memoListType = {
 
 //メモ検索条件リストの型
 export type memoSearchConditionListType = {
+    [key: string]: string | boolean | comboType[],
+    id: string,
+    name: string,
+    type: string,
+    isHidden: boolean,
+    value: string,
+    registerTime: string,
+    updTime: string,
+    deleteFlg: string,
+    userId: string,
+    listKey: string,
+    selectList: comboType[]
+}
+
+//メモ検索条件リストの型
+export type resMemoSearchConditionListType = {
     [key: string]: string | boolean,
     id: string,
     name: string,
@@ -22,7 +40,8 @@ export type memoSearchConditionListType = {
     registerTime: string,
     updTime: string,
     deleteFlg: string,
-    userId: string
+    userId: string,
+    listKey: string,
 }
 
 //メモコンテンツ設定リストの型

@@ -4,7 +4,7 @@ import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
 import { memoContentListType, memoListResType, memoListType, memoRegistReqType, memoSearchConditionListType, memoUpdReqType } from "./Type/MemoType";
-import { convMemo, getFilterdMemo, getFilterdSearchCondition, getFilterdUserStatusMemo, getMemoObj, joinUser } from "./MemoSelectFunction";
+import { convMemo, filterMemoQuery, getFilterdMemo, getFilterdSearchCondition, getFilterdUserStatusMemo, getMemoObj, joinSelectListMemoSearchCondition, joinUser } from "./MemoSelectFunction";
 import { MEMO_FILEPATH } from "./Const/MemoConst";
 import { createAddMemoData } from "./MemoRegistFunction";
 import { createUpdMemoData } from "./MemoUpdateFunction";
@@ -24,11 +24,17 @@ export function getMemoList(res: any, req: any) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    //クエリストリング
+    let queryStr = req.query;
+
     //メモファイルの読み込み
     let decodeFileData: memoListType[] = getFilterdMemo();
 
     //画面返却用の型に変換
     let resMemoList: memoListResType[] = convMemo(decodeFileData);
+
+    //クエリストリングでフィルター
+    resMemoList = filterMemoQuery(resMemoList, queryStr);
 
     //メモデータのフィルター
     resMemoList = getFilterdUserStatusMemo(resMemoList, authResult);
@@ -89,12 +95,15 @@ export function getMemoSearchConditionList(res: any, req: any) {
     //メモ検索条件ファイルの読み込み
     let decodeFileData: memoSearchConditionListType[] = getFilterdSearchCondition();
 
+    //選択リストと結合する
+    let resMemoSearchConditionList: memoSearchConditionListType[] = joinSelectListMemoSearchCondition(decodeFileData);
+
     //該当データなし
-    if (decodeFileData.length === 0) {
-        return res.status(200).json(decodeFileData);
+    if (resMemoSearchConditionList.length === 0) {
+        return res.status(200).json(resMemoSearchConditionList);
     }
 
-    return res.status(200).json(decodeFileData);
+    return res.status(200).json(resMemoSearchConditionList);
 }
 
 
