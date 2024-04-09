@@ -39,7 +39,7 @@ const RequiredSpan = styled.span`
 //引数の型
 type propsType = {
     refInfoArray: refInfoType[],
-    titleWitdh?: string,
+    titleWidth?: string,
     listTitleWidth?: string,
 }
 
@@ -72,7 +72,7 @@ function DynamicForm(props: propsType) {
                         >
                             <HorizonLabelItemComponent
                                 title={title}
-                                width={props.titleWitdh}
+                                width={props.titleWidth}
                                 color={element.errMessage ? "#DC143C" : ""}
                                 key={`dynamicform-${index}`}
                             >

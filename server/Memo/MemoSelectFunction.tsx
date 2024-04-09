@@ -1,5 +1,5 @@
 import { memoContentListType, memoListResType, memoListType, memoSearchConditionListType } from "./Type/MemoType";
-import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_INPUTSETTING_FILEPATH, MEMO_SEARCHCONDITION_FILEPATH, MEMO_STATUS, PRE_MEMO_ID } from "./Const/MemoConst";
+import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_INPUTSETTING_FILEPATH, MEMO_SEARCHCONDITION_FILEPATH, MEMO_STATUS, PRE_MEMO_ID, USER_SEARCHCONDITION_ID } from "./Const/MemoConst";
 import { getFileJsonData, readFile } from "../Common/FileFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
 import { getUserInfoData } from "../Setting/User/UserSelectFunction";
@@ -174,33 +174,28 @@ export function filterMemoQuery(resMemoList: memoListResType[], query: any): mem
  */
 export function joinSelectListMemoSearchCondition(searchConditionList: memoSearchConditionListType[]): memoSearchConditionListType[] {
 
-    //汎用詳細ファイルの読み込み
-    let generalDatas = getGeneralDataList();
+    //ユーザーリストの読み込み
+    let userList = getUserInfoData();
 
-    //選択リストと結合
-    let retSearchConditionList: memoSearchConditionListType[] = searchConditionList.reduce((nowList: memoSearchConditionListType[],
-        element: memoSearchConditionListType) => {
+    //ユーザープロパティの要素を取得
+    let userProperty = searchConditionList.find((element) => {
+        return element.id === USER_SEARCHCONDITION_ID;
+    });
 
-        let selectList: comboType[] = [];
+    if (!userProperty) {
+        return searchConditionList;
+    }
 
-        if (!element.listKey) {
-            nowList.push({
-                ...element
-            });
-            return nowList;
+    //ユーザーリストと結合
+    let selectList: comboType[] = userList.map((element) => {
+        return {
+            label: element.userName,
+            value: element.userId,
         }
-        //選択リストを保持している
-        selectList = generalDatas.filter((element1) => {
-            return element1.id === element.listKey;
-        });
+    });
 
-        nowList.push({
-            ...element,
-            selectList: selectList
-        });
+    //ユーザーリストをセット
+    userProperty.selectList = selectList;
 
-        return nowList;
-    }, []);
-
-    return retSearchConditionList;
+    return searchConditionList;
 }

@@ -38,6 +38,7 @@ type checkBoxRefInfoType = {
 //チェックボックスリストの基本スタイル
 const OuterDiv = styled.div`
   display:flex;
+  flex-wrap: wrap;
 `;
 
 //チェックボックスの選択値を取得

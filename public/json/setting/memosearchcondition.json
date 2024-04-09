@@ -34,7 +34,7 @@
 		"userId": "f"
 	},
 	{
-		"id": "user",
+		"id": "userId",
 		"name": "作成ユーザー",
 		"type": "checkbox",
 		"listKey": "1",

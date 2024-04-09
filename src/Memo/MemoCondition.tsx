@@ -73,6 +73,7 @@ function MemoCondition(props: propsType) {
                 >
                     <DynamicForm
                         refInfoArray={props.memoSearchRefInfo}
+                        titleWidth='20%'
                     />
                 </InputAreaDiv>
             </MainAreaDiv>

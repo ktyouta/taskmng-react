@@ -17,3 +17,5 @@ export const MEMO_STATUS = {
     //登録
     regist: "2",
 }
+//メモ検索条件のユーザープロパティID
+export const USER_SEARCHCONDITION_ID = "userId";
