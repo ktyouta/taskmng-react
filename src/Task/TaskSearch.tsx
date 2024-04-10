@@ -67,18 +67,21 @@ function TaskSearch() {
                         styleTypeNumber="BASE"
                         title={"リセット"}
                         onclick={clickClearBtn}
+                        style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                     />
                     <SpaceComponent space={"1%"} />
                     <ButtonComponent
                         styleTypeNumber="BASE"
                         title={"検索条件設定"}
                         onclick={openModal}
+                        style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                     />
                     <SpaceComponent space={"1%"} />
                     <ButtonComponent
                         styleTypeNumber="RUN"
                         title={"検索"}
                         onclick={clickSearchBtn}
+                        style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                     />
                 </TaskSearchButtonAreaDiv>
             </TaskSearchAreaDiv>

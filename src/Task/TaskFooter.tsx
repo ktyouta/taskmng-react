@@ -43,6 +43,7 @@ function TaskFooter() {
                     styleTypeNumber="PRIMARY"
                     title={"タスク作成"}
                     onclick={onFlag}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             </TaskFooterDiv>
             <ModalComponent

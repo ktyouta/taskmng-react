@@ -41,6 +41,7 @@ function TaskEditFooter(props: propsType) {
                     styleTypeNumber={props.backPageButtonObj.type}
                     title={props.backPageButtonObj.title}
                     onclick={props.backPageButtonObj.onclick}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             }
             <SpaceComponent
@@ -54,6 +55,7 @@ function TaskEditFooter(props: propsType) {
                     styleTypeNumber={props.negativeButtonObj.type}
                     title={props.negativeButtonObj.title}
                     onclick={props.negativeButtonObj.onclick}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             }
             <SpaceComponent
@@ -67,6 +69,7 @@ function TaskEditFooter(props: propsType) {
                     styleTypeNumber={props.positiveButtonObj.type}
                     title={props.positiveButtonObj.title}
                     onclick={props.positiveButtonObj.onclick}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             }
             <SpaceComponent
@@ -81,6 +84,7 @@ function TaskEditFooter(props: propsType) {
                     styleTypeNumber={props.deleteButtomObj.type}
                     title={props.deleteButtomObj.title}
                     onclick={props.deleteButtomObj.onclick}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             }
         </OuterDiv>

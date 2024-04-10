@@ -667,7 +667,9 @@ export function createTaskContentList(taskList: taskListType[], generalDataList:
             styleTypeNumber={"BASE"}
             bgColor={bgButtonColor}
             title={"詳細"}
-            onclick={() => { openModal(element.id); }} />;
+            onclick={() => { openModal(element.id); }}
+            style={{ "borderRadius": "15px", "fontSize": "0.9rem" }}
+        />;
 
         tmpDisplayTaskList.push(displayTaskObj);
     });
