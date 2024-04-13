@@ -28,7 +28,7 @@ function useMemoContent(props: propsType) {
                     space='2%'
                 />
                 <div>
-                    {`更新日：${props.contentObj.content.registerTime}`}
+                    {`更新日：${props.contentObj.content.updTime}`}
                 </div>
                 <SpaceComponent
                     space='2%'

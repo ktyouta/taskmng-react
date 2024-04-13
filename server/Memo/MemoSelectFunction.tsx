@@ -7,6 +7,7 @@ import { GENERALDETAIL_FILEPATH } from "../Setting/DefaultAttribute/Const/Defaul
 import { generalDetailType } from "../General/Type/GeneralType";
 import { getGeneralDataList } from "../General/GeneralSelectFunction";
 import { comboType } from "../Common/Type/CommonType";
+import { getFormatDate } from "../Common/Function";
 
 
 
@@ -135,18 +136,28 @@ export function filterMemoQuery(resMemoList: memoListResType[], query: any): mem
 
     //検索条件で絞り込み
     searchConditionList.forEach((element) => {
+        //検索条件設定のIDからクエリストリングの値を取得する
         let value = query[element.id] as string;
         if (!value) {
             return;
         }
+
         resMemoList = resMemoList.filter((item) => {
+            //メモリストのプロパティに存在しない場合はフィルターしない
             if (!(element.id in item)) {
                 return true;
             }
+
             //複数選択項目の場合
             if (element.type === "checkbox") {
                 return value.split(",").includes(item[element.id]);
             }
+
+            //dateの場合
+            if (element.type === "date") {
+                value = getFormatDate(value);
+            }
+
             return item[element.id].includes(value);
         });
     });

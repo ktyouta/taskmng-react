@@ -41,6 +41,7 @@ type propsType = {
     refInfoArray: refInfoType[],
     titleWidth?: string,
     listTitleWidth?: string,
+    childWidth?: string,
 }
 
 //数値変換
@@ -75,6 +76,7 @@ function DynamicForm(props: propsType) {
                                 width={props.titleWidth}
                                 color={element.errMessage ? "#DC143C" : ""}
                                 key={`dynamicform-${index}`}
+                                childWidth={props.childWidth}
                             >
                                 {
                                     (() => {

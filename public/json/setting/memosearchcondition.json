@@ -44,5 +44,27 @@
 		"updTime": "2024/03/16",
 		"deleteFlg": "0",
 		"userId": "f"
+	},
+	{
+		"id": "registerTime",
+		"name": "登録日",
+		"type": "date",
+		"isHidden": false,
+		"value": "",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/03/16",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"id": "updTime",
+		"name": "更新日",
+		"type": "date",
+		"isHidden": false,
+		"value": "",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/03/16",
+		"deleteFlg": "0",
+		"userId": "f"
 	}
 ]

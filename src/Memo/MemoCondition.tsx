@@ -12,7 +12,6 @@ import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import { memoSearchConditionRefType } from './Type/MemoType';
 import { TabComponent } from '../Common/TabComponent';
-import MemoSearchConditionTab from './MemoSearchConditionTab';
 import DynamicForm from '../Common/DynamicForm';
 
 
@@ -74,6 +73,7 @@ function MemoCondition(props: propsType) {
                     <DynamicForm
                         refInfoArray={props.memoSearchRefInfo}
                         titleWidth='20%'
+                        childWidth='59%'
                     />
                 </InputAreaDiv>
             </MainAreaDiv>

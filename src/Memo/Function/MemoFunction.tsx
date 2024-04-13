@@ -81,57 +81,6 @@ export function createSearchRefArray(memoSearchConditionList: memoSearchConditio
 
 
 /**
- * メモ新規追加画面のrefリストを作成
- * @param memoSearchConditionList 
- * @param searchConditionObj 
- * @param generalDataList 
- * @returns 
- */
-export function createSettingSearchRefArray(memoSearchConditionList: memoSearchConditionType[],
-): memoSearchConditionRefType {
-
-    let tmpSearchConditionRef: memoSearchConditionRefType = {
-        default: [],
-        custom: []
-    }
-
-    memoSearchConditionList.forEach((element) => {
-        switch (element.attribute) {
-            //デフォルト属性
-            case SEARCHCONDITION_KEY_DEFAULT:
-                tmpSearchConditionRef.default.push({
-                    id: element.id,
-                    name: element.name,
-                    type: element.type,
-                    initValue: element.value,
-                    selectList: element.selectList,
-                    ref: createRef(),
-                    length: element.length,
-                    disabled: false,
-                    visible: !element.isHidden,
-                });
-                break;
-            //カスタム属性
-            case SEARCHCONDITION_KEY_CUSTOM:
-                tmpSearchConditionRef.custom.push({
-                    id: element.id,
-                    name: element.name,
-                    type: element.type,
-                    initValue: element.value,
-                    selectList: element.selectList,
-                    ref: createRef(),
-                    length: element.length,
-                    disabled: false,
-                    visible: !element.isHidden,
-                });
-                break;
-        }
-    });
-
-    return tmpSearchConditionRef;
-}
-
-/**
  * メモの検索条件domを作成
  * @param memoSearchConditionList 選択条件の設定リスト
  * @param searchConditionObj 現在の選択条件
@@ -239,45 +188,4 @@ export function createMemoContentList(memoList: memoListType[], moveMemoDetail: 
     });
 
     return tmpDisplayMemoList;
-}
-
-
-/**
- * 検索条件画面に表示するタブのコンテンツを作成
- */
-export function createTabItems(memoSearchRefInfo: memoSearchConditionRefType) {
-    let tmpTabItemList: tabType[] = [];
-
-    Object.keys(memoSearchRefInfo).forEach((objKey) => {
-
-        //タブ内に表示するコンテンツ
-        let tmpComponent: ReactNode =
-            <React.Fragment>
-                <VerticalSpaceComponent
-                    space={'3%'}
-                />
-                {/* <MemoEditForm /> */}
-            </React.Fragment>
-
-        let tmpTitle = "";
-        let tmpKey = "";
-        switch (objKey) {
-            case SEARCHCONDITION_KEY_DEFAULT:
-                tmpTitle = "デフォルト属性";
-                tmpKey = SEARCHCONDITION_KEY_DEFAULT;
-                break;
-            case SEARCHCONDITION_KEY_CUSTOM:
-                tmpTitle = "カスタム属性";
-                tmpKey = SEARCHCONDITION_KEY_CUSTOM;
-                break;
-        }
-
-        tmpTabItemList.push({
-            key: tmpKey,
-            title: tmpTitle,
-            children: tmpComponent
-        });
-    });
-
-    return tmpTabItemList;
 }

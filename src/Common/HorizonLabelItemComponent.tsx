@@ -19,6 +19,7 @@ type propsType = {
     marginRt?: string,
     marginTp?: string,
     marginBt?: string,
+    childWidth?: string,
 }
 
 //内部要素の位置の型
@@ -44,6 +45,7 @@ const ElementDiv = styled.div<{ width?: string, color?: string, position?: posit
  * 横幅の数字のみを取得する
  */
 const sliceWidthStr = (str?: string) => {
+
     if (!str) {
         return undefined;
     }
@@ -82,7 +84,7 @@ function HorizonLabelItemComponent(props: propsType) {
                 {...props}
             />
             <ElementDiv
-                width={sliceWidthStr(props.width)}
+                width={props.childWidth ?? sliceWidthStr(props.width)}
                 position={props.position}
             >
                 {props.children}

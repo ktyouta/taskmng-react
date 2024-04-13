@@ -9,3 +9,18 @@ export function getNowDate() {
     const date = (now.getDate()).toString().padStart(2, "0");
     return `${year}/${month}/${date}`;
 }
+
+
+/**
+ * yyyymmddをyyyy/mm/ddに変換する
+ */
+export function getFormatDate(dateStr: string) {
+    if (dateStr.includes("/")) {
+        return dateStr;
+    }
+    const year = dateStr.substring(0, 4);
+    const month = dateStr.substring(4, 6);
+    const day = dateStr.substring(6, 8);
+
+    return `${year}/${month}/${day}`;
+}

@@ -29,7 +29,7 @@ export type memoSearchConditionListType = {
     selectList: comboType[]
 }
 
-//メモ検索条件リストの型
+//メモ検索条件リストの画面返却用の型
 export type resMemoSearchConditionListType = {
     [key: string]: string | boolean,
     id: string,
