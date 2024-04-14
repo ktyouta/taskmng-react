@@ -15,7 +15,8 @@ import useSwitch from "../../Common/Hook/useSwitch";
 import ButtonComponent from "../../Common/ButtonComponent";
 import { parseStrDate } from "../../Common/Function/Function";
 import { createTaskContentList } from "../Function/TaskFunction";
-import { detailRoutingIdAtom, taskListUrlAtom } from "../Atom/TaskAtom";
+import { detailRoutingIdAtom, orgTaskListAtom, taskListAtom, taskListUrlAtom } from "../Atom/TaskAtom";
+import { TASK_DISPLAY_NUM } from "../Const/TaskConst";
 
 
 
@@ -48,12 +49,19 @@ function useTaskListContent(props: propsType) {
     });
     //ルーティング用
     const navigate = useNavigate();
+    //APIから取得したタスク一覧
+    const [orgTaskList, setOrgTaskList] = useAtom(orgTaskListAtom);
+    //タスク一覧
+    const [taskList, setTaskList] = useAtom(taskListAtom);
 
     //タスクリストを取得
-    const { data: taskList, isLoading } = useQueryWrapper<taskListType[]>(
+    const { isLoading } = useQueryWrapper<taskListType[]>(
         {
             url: taskListUrl,
-            afSuccessFn: () => { }
+            afSuccessFn: (data: taskListType[]) => {
+                setTaskList(data.slice(0, TASK_DISPLAY_NUM));
+                setOrgTaskList(data);
+            }
         }
     );
 
@@ -109,6 +117,7 @@ function useTaskListContent(props: propsType) {
         errMessage,
         updTaskId,
         isLoading,
+        orgTaskList,
     };
 }
 

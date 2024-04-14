@@ -17,3 +17,5 @@ export const COMP_STATUS = "2";
 export const HOLD_STATUS = "3";
 //対応中
 export const WORKING_STATUS = "4";
+//タスクリストの画面表示件数
+export const TASK_DISPLAY_NUM = 25;

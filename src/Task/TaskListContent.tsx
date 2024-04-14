@@ -39,6 +39,7 @@ function TaskListContent(props: propsType) {
         errMessage,
         updTaskId,
         isLoading,
+        orgTaskList,
     } = useTaskListContent({ ...props });
 
     //該当データが存在しない
@@ -61,7 +62,7 @@ function TaskListContent(props: propsType) {
                 width='93%'
             >
                 <LabelComponent
-                    title={displayTaskList ? `検索結果：${displayTaskList.length}件` : ``}
+                    title={orgTaskList ? `検索結果：${orgTaskList.length}件` : ``}
                 />
             </DispLabel>
             {/* タスク一覧 */}

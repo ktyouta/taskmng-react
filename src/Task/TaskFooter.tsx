@@ -13,6 +13,7 @@ import WaitLoading from '../Common/WaitLoading';
 import ModalComponent from '../Common/ModalComponent';
 import TaskRegister from './TaskRegister';
 import styled from 'styled-components';
+import PagenatetionComponent from '../Common/PagenatetionComponent';
 
 
 //フッターのスタイル
@@ -21,6 +22,13 @@ const TaskFooterDiv = styled.div`
     align-items: center;
     height: 15%;
     padding: 0% 0% 0% 2%;
+    position:relative;
+`;
+
+//ページネーションのスタイル
+const PagenateDiv = styled.div`
+    position: absolute;
+    left: 32%;
 `;
 
 
@@ -31,19 +39,31 @@ function TaskFooter() {
     const {
         isModalOpen,
         onFlag,
-        offFlag, } = useTaskFooter();
+        offFlag,
+        pageNum,
+        changePage,
+    } = useTaskFooter();
 
     return (
         <React.Fragment>
             <TaskFooterDiv>
-                <SpaceComponent
-                    space={"85%"}
-                />
+                <PagenateDiv>
+                    <PagenatetionComponent
+                        changePage={changePage}
+                        totalPage={pageNum}
+                    />
+                </PagenateDiv>
                 <ButtonComponent
                     styleTypeNumber="PRIMARY"
                     title={"タスク作成"}
                     onclick={onFlag}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "borderRadius": "15px",
+                        "fontWeight": "bold",
+                        "fontSize": "0.9rem",
+                        "position": "absolute",
+                        "left": "86%"
+                    }}
                 />
             </TaskFooterDiv>
             <ModalComponent
