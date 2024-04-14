@@ -14,7 +14,8 @@ import useSwitch from "../../Common/Hook/useSwitch";
 import ButtonComponent from "../../Common/ButtonComponent";
 import { parseStrDate } from "../../Common/Function/Function";
 import { createMemoContentList } from "../Function/MemoFunction";
-import { detailRoutingIdAtom, memoListUrlAtom } from "../Atom/MemoAtom";
+import { detailRoutingIdAtom, memoListAtom, memoListUrlAtom, orgMemoListAtom } from "../Atom/MemoAtom";
+import { MEMO_DISPLAY_NUM } from "../Const/MemoConst";
 
 
 /**
@@ -26,17 +27,25 @@ function useMemoListContent() {
 
     //メモリスト取得用URL
     const memoListUrl = useAtomValue(memoListUrlAtom);
+    //APIから取得したメモリスト
+    const [orgMemoList, setOrgMemoList] = useAtom(orgMemoListAtom);
+    //メモリスト
+    const [memoList, setMemoList] = useAtom(memoListAtom);
 
     //メモリストを取得
-    const { data: memoList } = useQueryWrapper<memoListType[]>(
+    useQueryWrapper<memoListType[]>(
         {
             url: memoListUrl,
-            afSuccessFn: () => { }
+            afSuccessFn: (data: memoListType[]) => {
+                setOrgMemoList(data);
+                setMemoList(data.slice(0, MEMO_DISPLAY_NUM));
+            }
         }
     );
 
     return {
         memoList,
+        orgMemoList,
     };
 }
 

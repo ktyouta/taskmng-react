@@ -29,6 +29,7 @@ function MemoListContent(props: propsType) {
 
     const {
         memoList,
+        orgMemoList,
     } = useMemoListContent();
 
     return (
@@ -39,7 +40,7 @@ function MemoListContent(props: propsType) {
                 width='93%'
             >
                 <LabelComponent
-                    title={memoList ? `検索結果：${memoList.length}件` : ``}
+                    title={orgMemoList ? `検索結果：${orgMemoList.length}件` : ``}
                 />
             </DispLabel>
             {/* メモ一覧 */}

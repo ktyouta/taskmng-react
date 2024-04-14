@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { memoContentDisplayType } from "../Type/MemoType";
+import { memoContentDisplayType, memoListType } from "../Type/MemoType";
 
 //検索条件用オブジェクト
 export const memoSearchConditionObjAtom = atom<{ [key: string]: string }>({});
@@ -11,3 +11,7 @@ export const displayMemoListAtom = atom<memoContentDisplayType[]>([]);
 export const memoListUrlAtom = atom(``);
 //更新用メモ
 export const updMemoAtom = atom([]);
+//APIから取得したメモリスト
+export const orgMemoListAtom = atom<memoListType[] | undefined>(undefined);
+//画面表示用メモリスト
+export const memoListAtom = atom<memoListType[] | undefined>(undefined);

@@ -34,3 +34,5 @@ export const MEMO_STATUS = {
     //登録
     regist: "2",
 }
+//メモリストの画面表示件数
+export const MEMO_DISPLAY_NUM = 25;
