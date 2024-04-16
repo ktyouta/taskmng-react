@@ -40,7 +40,7 @@ function TagsComponent(props: propsType) {
 
     return (
         <ReactTags
-            labelText="Select countries"
+            labelText="タグを入力"
             selected={selected}
             suggestions={props.suggestions}
             onAdd={onAdd}

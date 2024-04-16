@@ -45,7 +45,7 @@ function MemoRegister(props: propsType) {
       height='100%'
     >
       <HeightDiv
-        height='85%'
+        height='90%'
       >
         <MemoEditForm
           memoTitle={memoTitle}
@@ -54,7 +54,7 @@ function MemoRegister(props: propsType) {
           setMemoContent={setMemoContent} />
       </HeightDiv>
       <HeightDiv
-        height='15%'
+        height='10%'
       >
         <MemoRegisterFooter
           backPageButtonObj={backPageButtonObj}
