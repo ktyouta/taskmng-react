@@ -74,10 +74,10 @@ function MemoEditForm(props: propsType) {
                 />
             </TitleAreaDiv>
             {/* タグ */}
-            {/* <MemoTag
+            <MemoTag
                 height='5%'
                 width='90%'
-            /> */}
+            />
             {/* ヘッダメニュー */}
             <MemoHeadMenu
                 height='5%'
