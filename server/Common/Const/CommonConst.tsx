@@ -59,3 +59,6 @@ export const FLG = {
     off: "0",
     on: "1",
 }
+
+//タグファイル名
+export const TAGFILENM = `memotag`;

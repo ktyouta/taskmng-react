@@ -10,7 +10,6 @@ import styled from 'styled-components';
 import { BoldSpan, HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
-import { memoSearchConditionRefType } from './Type/MemoType';
 import { TabComponent } from '../Common/TabComponent';
 import DynamicForm from '../Common/DynamicForm';
 

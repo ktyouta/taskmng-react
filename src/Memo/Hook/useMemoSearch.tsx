@@ -7,7 +7,7 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
-import { memoSearchConditionRefType, memoSearchConditionType } from "../Type/MemoType";
+import { memoSearchConditionType } from "../Type/MemoType";
 import { refType } from "../../Common/BaseInputComponent";
 import useSwitch from "../../Common/Hook/useSwitch";
 import useGetGeneralDataList from "../../Common/Hook/useGetGeneralDataList";

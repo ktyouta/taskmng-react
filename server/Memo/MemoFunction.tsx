@@ -3,10 +3,10 @@ import { runAddTaskHistory } from "../History/HistoryFunction";
 import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
-import { memoContentListType, memoListResType, memoListType, memoRegistReqType, memoSearchConditionListType, memoUpdReqType } from "./Type/MemoType";
-import { convMemo, filterMemoQuery, getFilterdMemo, getFilterdSearchCondition, getFilterdUserStatusMemo, getMemoObj, joinSelectListMemoSearchCondition, joinUser } from "./MemoSelectFunction";
-import { MEMO_FILEPATH } from "./Const/MemoConst";
-import { createAddMemoData } from "./MemoRegistFunction";
+import { memoContentListType, memoListResType, memoListType, memoRegistReqType, memoSearchConditionListType, memoUpdReqType, tagListType } from "./Type/MemoType";
+import { convMemo, filterMemoQuery, getFilterdMemo, getFilterdSearchCondition, getFilterdUserStatusMemo, getMemoObj, getTagObj, joinSelectListMemoSearchCondition, joinUser } from "./MemoSelectFunction";
+import { MEMO_FILEPATH, TAG_FILEPATH } from "./Const/MemoConst";
+import { createAddMemoData, createAddMemoTagData } from "./MemoRegistFunction";
 import { createUpdMemoData } from "./MemoUpdateFunction";
 import { createDelMemoData } from "./MemoDeleteFunction";
 
@@ -144,6 +144,24 @@ export function runAddMemo(res: any, req: any) {
             .status(400)
             .json({ errMessage });
     }
+
+    //タグの登録
+    //タグファイルの読み込み
+    let decodeTagFileData: tagListType[] = getTagObj();
+
+    //タグ登録用データの作成
+    decodeTagFileData = createAddMemoTagData(decodeTagFileData, body, authResult);
+
+    //データを登録
+    errMessage = overWriteData(TAG_FILEPATH, JSON.stringify(retObj, null, '\t'));
+
+    //登録更新削除に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
 
     //正常終了
     return res

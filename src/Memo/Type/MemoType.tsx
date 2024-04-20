@@ -1,8 +1,9 @@
-import { bodyObj, comboType, inputAddMasterSettingType, inputMasterSettingType, inputType, refInfoType } from "../../Common/Type/CommonType";
+import { tagType } from "../../Common/TagsComponent";
+import { bodyObj, comboType, inputType, refInfoType } from "../../Common/Type/CommonType";
 
 //メモリストの型
 export type memoListType = {
-    [key: string]: string | customAttributeListType[] | undefined,
+    [key: string]: string | undefined,
     id: string,
     registerTime: string,
     title: string,
@@ -72,21 +73,6 @@ export type memoSearchConditionType = {
     attribute: string,
 }
 
-//カスタム属性リストの型
-export type customAttributeListType = {
-    id: string,
-    name: string,
-    type: inputType,
-    length: number,
-    disabled: boolean,
-    visible: boolean,
-    value: string,
-    selectList: comboType[],
-    description?: string,
-    isRequired?: boolean,
-    errMessage?: string,
-}
-
 //メモ編集画面の入力欄の設定
 export type inputMemoSettingType = {
     id: string,
@@ -114,36 +100,18 @@ export type editDisplayMemoType = {
     customAttribute: refInfoType[],
 }
 
-//カスタム属性のリクエストボディの型
-export type customAttributeRequestBodyType = {
-    customAttributeId: string,
-    selectedValue: string,
-}
-
-//メモのリクエストボディの型
-export type memoRequestBodyType = {
-    default: bodyObj,
-    customAttribute: customAttributeRequestBodyType[],
-}
-
-//メモの検索条件の型
-export type memoSearchConditionRefType = {
-    [key: string]: refInfoType[],
-    default: refInfoType[],
-    custom: refInfoType[],
-}
-
 
 //メモの登録リクエストの型
 export type memoRegistReqType = {
     title: string,
     content: string,
-    status: string
+    status: string,
+    tagList: tagType[]
 }
 
 //APIから取得するメモ詳細
 export type apiMemoDetailType = {
-    [key: string]: string | customAttributeListType[] | undefined,
+    [key: string]: string | undefined,
     id: string,
     registerTime: string,
     title: string,

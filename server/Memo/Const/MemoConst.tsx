@@ -19,3 +19,7 @@ export const MEMO_STATUS = {
 }
 //メモ検索条件のユーザープロパティID
 export const USER_SEARCHCONDITION_ID = "userId";
+//タグファイルのパス
+export const TAG_FILEPATH = `${TRANSACTION}${MEMOFILENM}${JSONEXTENSION}`;
+//タグIDの接頭辞
+export const PRE_TAG_ID = `TAGID-`;

@@ -2,7 +2,7 @@ import { createRef, RefObject, useContext, useEffect, useMemo, useRef, useState 
 import ENV from '../../env.json';
 import { bodyObj, buttonObjType, comboType, generalDataType, refInfoType } from "../../Common/Type/CommonType";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
-import { apiMemoDetailType, customAttributeRequestBodyType, editDisplayMemoType, inputMemoSettingType, memoListType, memoUpdReqType, viewMemoType } from "../Type/MemoType";
+import { memoUpdReqType, viewMemoType } from "../Type/MemoType";
 import useMemoEditCommon from "./useMemoEditCommon";
 import { MEMO_STATUS } from "../Const/MemoConst";
 

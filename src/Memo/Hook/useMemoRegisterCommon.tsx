@@ -110,6 +110,7 @@ function useMemoRegister(props: propsType) {
             title: props.memoTitle,
             content: props.memoContent,
             status: status,
+            tagList: props.memoTagList
         }
 
         //リクエスト送信

@@ -2,7 +2,7 @@ import { createRef, RefObject, useContext, useEffect, useMemo, useRef, useState 
 import ENV from '../../env.json';
 import { bodyObj, buttonObjType, comboType, generalDataType, refInfoType } from "../../Common/Type/CommonType";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
-import { apiMemoDetailType, customAttributeRequestBodyType, editDisplayMemoType, inputMemoSettingType, memoListType, memoRegistReqType, memoUpdReqType, viewMemoType } from "../Type/MemoType";
+import { memoRegistReqType, memoUpdReqType, viewMemoType } from "../Type/MemoType";
 import useMemoEditCommon from "./useMemoEditCommon";
 import useMemoRegisterCommon from "./useMemoRegisterCommon";
 import { MEMO_STATUS } from "../Const/MemoConst";
@@ -97,6 +97,7 @@ function useMemoDraft(props: propsType) {
             title: props.memoTitle,
             content: props.memoContent,
             status: status,
+            tagList: []
         }
 
         //リクエスト送信

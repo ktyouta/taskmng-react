@@ -1,19 +1,9 @@
 import React, { SetStateAction } from "react";
 import { bodyObj, comboType, generalDataType, refInfoType } from "../../Common/Type/CommonType";
 import {
-    apiMemoDetailType,
-    customAttributeListType,
-    customAttributeRequestBodyType,
-    displayMemoType,
-    editDisplayMemoType,
-    inputMemoSettingType,
     memoContentDisplayType,
-    memoContentSettingType,
     memoListType,
-    memoRequestBodyType,
-    memoSearchConditionRefType,
     memoSearchConditionType,
-    viewMemoType
 } from "../Type/MemoType";
 import { ReactNode, createRef } from "react";
 import SpaceComponent from "../../Common/SpaceComponent";

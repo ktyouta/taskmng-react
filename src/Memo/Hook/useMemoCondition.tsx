@@ -1,6 +1,5 @@
 import { createRef, ReactNode, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { bodyObj, buttonObjType, comboType, generalDataType, inputMasterSettingType, inputSettingType, refConditionType, refInfoType } from "../../Common/Type/CommonType";
-import { memoListType, memoSearchConditionRefType } from "../Type/MemoType";
 
 
 //引数の型

@@ -1,4 +1,4 @@
-import { comboType } from "../../Common/Type/CommonType"
+import { comboType, tagType } from "../../Common/Type/CommonType"
 
 //メモリストの型
 export type memoListType = {
@@ -58,6 +58,7 @@ export type memoRegistReqType = {
     title: string,
     content: string,
     status: string,
+    tagList: tagType[]
 }
 
 //メモの更新リクエストの型
@@ -65,6 +66,7 @@ export type memoUpdReqType = {
     title: string,
     content: string,
     status: string,
+    tagList: tagType[]
 }
 
 //メモの更新データ作成メソッドの返り値の型
@@ -85,4 +87,14 @@ export type memoListResType = {
     deleteFlg: string,
     status: string,
     userNm: string,
+}
+
+//タグの型
+export type tagListType = {
+    id: string,
+    name: string,
+    registerTime: string,
+    updTime: string,
+    userId: string,
+    deleteFlg: string,
 }

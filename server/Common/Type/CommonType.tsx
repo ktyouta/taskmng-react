@@ -29,3 +29,9 @@ export type inputSettingType = {
 
 //inputのタイプ
 export type inputType = "input" | "select" | "radio" | "date" | "textarea" | "checkbox" | "number" | "label" | "";
+
+//タグの型
+export type tagType = {
+    label: string,
+    value: string | number | symbol | null,
+}
