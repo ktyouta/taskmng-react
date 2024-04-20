@@ -9,6 +9,7 @@ import { DUMMY_ID } from "../Const/MemoConst";
 import { VIEW_MODE } from "../../Common/Const/CommonConst";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import { userInfoAtom } from "../../Content/Hook/useContentLogic";
+import { tagType } from "../../Common/TagsComponent";
 
 
 //引数の型
@@ -35,6 +36,8 @@ function useMemoDetail(props: propsType) {
     const [memoContent, setMemoContent] = useState("");
     //ユーザー情報
     const userInfo = useGlobalAtomValue(userInfoAtom);
+    //メモタグリスト
+    const [memoTagList, setMemoTagList] = useState<tagType[]>([]);
 
 
     //詳細画面遷移時に更新用メモを取得
@@ -83,6 +86,21 @@ function useMemoDetail(props: propsType) {
         setViewMode(VIEW_MODE.view);
     }
 
+    /**
+     * タグの追加イベント
+     */
+    const addTag = (newTag: tagType) => {
+        setMemoTagList([...memoTagList, newTag]);
+    };
+
+    /**
+     * タグの削除イベント
+     */
+    const deleteTag = (tagIndex: number) => {
+        setMemoTagList(memoTagList.filter((_, i) => i !== tagIndex))
+    }
+
+
     return {
         updMemo,
         viewMode,
@@ -96,7 +114,10 @@ function useMemoDetail(props: propsType) {
         initMemoTitle,
         initMemoContent,
         memoStatus: updMemo?.status,
-        isMatchUser: userInfo?.userId === updMemo?.userId
+        isMatchUser: userInfo?.userId === updMemo?.userId,
+        addTag,
+        deleteTag,
+        memoTagList
     }
 }
 

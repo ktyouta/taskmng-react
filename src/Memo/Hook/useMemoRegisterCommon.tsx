@@ -4,8 +4,9 @@ import { bodyObj, buttonObjType, comboType, generalDataType, refInfoType } from 
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { memoRegistReqType } from "../Type/MemoType";
-import { MEMO_STATUS } from "../Const/MemoConst";
+import { MEMO_STATUS, TAG_MAX_SETTINGNUM } from "../Const/MemoConst";
 import useMemoEditBase from "./useMemoEditBase";
+import { tagType } from "../../Common/TagsComponent";
 
 
 //引数の型
@@ -15,6 +16,8 @@ type propsType = {
     setMemoTitle: React.Dispatch<React.SetStateAction<string>>,
     memoContent: string,
     setMemoContent: React.Dispatch<React.SetStateAction<string>>,
+    memoTagList: tagType[],
+    setMemoTagList: React.Dispatch<React.SetStateAction<tagType[]>>,
 }
 
 
@@ -149,12 +152,32 @@ function useMemoRegister(props: propsType) {
         sendRequest(MEMO_STATUS.draft);
     }
 
+    /**
+     * タグの追加イベント
+     */
+    const addTag = (newTag: tagType) => {
+        if (props.memoTagList.length >= TAG_MAX_SETTINGNUM) {
+            alert("タグの最大設定可能数は5個です。");
+            return;
+        }
+        props.setMemoTagList([...props.memoTagList, newTag]);
+    };
+
+    /**
+     * タグの削除イベント
+     */
+    const deleteTag = (tagIndex: number) => {
+        props.setMemoTagList(props.memoTagList.filter((_, i) => i !== tagIndex))
+    }
+
     return {
         isRegistLoading: registerMutation.isLoading,
         backPageButtonFunc,
         create,
         save,
         clearButtonFunc,
+        addTag,
+        deleteTag
     }
 }
 

@@ -18,6 +18,7 @@ import MemoHeadMenu from './MemoHeadMenu';
 import useMemoEditForm from './Hook/useMemoEditForm';
 import { MEMO_VIEW_MODE } from './Const/MemoConst';
 import MemoTag from './MemoTag';
+import { tagType } from '../Common/TagsComponent';
 
 
 //引数の型
@@ -26,6 +27,9 @@ type propsType = {
     setMemoTitle: React.Dispatch<React.SetStateAction<string>>,
     memoContent: string,
     setMemoContent: React.Dispatch<React.SetStateAction<string>>,
+    memoTagList: tagType[],
+    addTag: (newTag: tagType) => void,
+    deleteTag: (tagIndex: number) => void,
 }
 
 //入力欄
@@ -75,8 +79,12 @@ function MemoEditForm(props: propsType) {
             </TitleAreaDiv>
             {/* タグ */}
             <MemoTag
-                height='5%'
+                height='7%'
                 width='90%'
+                tagList={props.memoTagList}
+                suggestions={[]}
+                addTag={props.addTag}
+                deleteTag={props.deleteTag}
             />
             {/* ヘッダメニュー */}
             <MemoHeadMenu
@@ -100,7 +108,7 @@ function MemoEditForm(props: propsType) {
                                     <React.Fragment>
                                         <MarkDownArea
                                             content={props.memoContent}
-                                            height='93%'
+                                            height='91%'
                                             width='100%'
                                         />
                                     </React.Fragment>
@@ -111,7 +119,7 @@ function MemoEditForm(props: propsType) {
                                     <React.Fragment>
                                         <BaseTextAreaComponent
                                             textWidth='100%'
-                                            height='92%'
+                                            height='90%'
                                             value={props.memoContent}
                                             onChange={props.setMemoContent}
                                             isNotResize={true}
@@ -125,7 +133,7 @@ function MemoEditForm(props: propsType) {
                                     <React.Fragment>
                                         <BaseTextAreaComponent
                                             textWidth='90%'
-                                            height='92%'
+                                            height='90%'
                                             value={props.memoContent}
                                             onChange={props.setMemoContent}
                                             isNotResize={true}
@@ -136,7 +144,7 @@ function MemoEditForm(props: propsType) {
                                         />
                                         <MarkDownArea
                                             content={props.memoContent}
-                                            height='93%'
+                                            height='91%'
                                             width='90%'
                                         />
                                     </React.Fragment>

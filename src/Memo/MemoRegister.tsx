@@ -37,6 +37,9 @@ function MemoRegister(props: propsType) {
     memoContent,
     setMemoContent,
     clearButtonObj,
+    addTag,
+    deleteTag,
+    memoTagList
   } = useMemoRegister({ ...props });
 
 
@@ -51,7 +54,11 @@ function MemoRegister(props: propsType) {
           memoTitle={memoTitle}
           setMemoTitle={setMemoTitle}
           memoContent={memoContent}
-          setMemoContent={setMemoContent} />
+          setMemoContent={setMemoContent}
+          addTag={addTag}
+          deleteTag={deleteTag}
+          memoTagList={memoTagList}
+        />
       </HeightDiv>
       <HeightDiv
         height='10%'

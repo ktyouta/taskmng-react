@@ -3,48 +3,28 @@ import { ReactTags } from 'react-tag-autocomplete'
 import './css/TagsComponent.css';
 
 //タグの型
-type tagType = {
+export type tagType = {
     label: string,
     value: string | number | symbol | null,
 }
 
 //引数の型
-type propsType = {
-    suggestions: tagType[]
+export type propsType = {
+    tagList: tagType[],
+    suggestions: tagType[],
+    addTag: (newTag: tagType) => void,
+    deleteTag: (tagIndex: number) => void,
 }
 
 function TagsComponent(props: propsType) {
 
-    //タグのリスト
-    const [selected, setSelected] = useState<tagType[]>([])
-
-    /**
-     * タグの追加イベント
-     */
-    const onAdd = useCallback(
-        (newTag: tagType) => {
-            setSelected([...selected, newTag])
-        },
-        [selected]
-    )
-
-    /**
-     * タグの削除イベント
-     */
-    const onDelete = useCallback(
-        (tagIndex: number) => {
-            setSelected(selected.filter((_, i) => i !== tagIndex))
-        },
-        [selected]
-    )
 
     return (
         <ReactTags
-            labelText="タグを入力"
-            selected={selected}
+            selected={props.tagList}
             suggestions={props.suggestions}
-            onAdd={onAdd}
-            onDelete={onDelete}
+            onAdd={props.addTag}
+            onDelete={props.deleteTag}
             noOptionsText="No matching countries"
             allowNew
         />

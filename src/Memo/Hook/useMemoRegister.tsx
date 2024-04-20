@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { memoRegistReqType } from "../Type/MemoType";
 import { MEMO_STATUS } from "../Const/MemoConst";
 import useMemoRegisterCommon from "./useMemoRegisterCommon";
+import { tagType } from "../../Common/TagsComponent";
 
 
 //引数の型
@@ -25,6 +26,8 @@ function useMemoRegister(props: propsType) {
     const [memoTitle, setMemoTitle] = useState("");
     //メモ内容
     const [memoContent, setMemoContent] = useState("");
+    //メモタグリスト
+    const [memoTagList, setMemoTagList] = useState<tagType[]>([]);
 
     //登録関連の共通処理を取得
     const {
@@ -33,12 +36,16 @@ function useMemoRegister(props: propsType) {
         create,
         save,
         clearButtonFunc,
+        addTag,
+        deleteTag,
     } = useMemoRegisterCommon({
         ...props,
         memoTitle,
         setMemoTitle,
         memoContent,
-        setMemoContent
+        setMemoContent,
+        memoTagList,
+        setMemoTagList,
     });
 
     return {
@@ -67,6 +74,9 @@ function useMemoRegister(props: propsType) {
         setMemoTitle,
         memoContent,
         setMemoContent,
+        addTag,
+        deleteTag,
+        memoTagList,
     }
 }
 

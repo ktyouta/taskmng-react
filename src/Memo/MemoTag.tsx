@@ -1,4 +1,4 @@
-import TagsComponent from '../Common/TagsComponent';
+import TagsComponent, { tagType } from '../Common/TagsComponent';
 import './css/MemoList.css';
 import styled from 'styled-components';
 
@@ -7,6 +7,10 @@ import styled from 'styled-components';
 type propsType = {
     height: string,
     width: string,
+    tagList: tagType[],
+    suggestions: tagType[],
+    addTag: (newTag: tagType) => void,
+    deleteTag: (tagIndex: number) => void,
 }
 
 
@@ -14,11 +18,7 @@ type propsType = {
 const TagDiv = styled.div<{ height: string, width: string, }>`
     height:${({ height }) => (height)};
     width:${({ width }) => (width)};
-    border: 1px solid #a9a9a9;
-    border-radius: 6px;
     background-color:white;
-    display:flex;
-    align-items: center;
     margin-bottom:1%;
 `;
 
@@ -29,9 +29,17 @@ function MemoTag(props: propsType) {
     console.log("MemoTag render");
 
     return (
-        <TagsComponent
-            suggestions={[]}
-        />
+        <TagDiv
+            height={props.height}
+            width={props.width}
+        >
+            <TagsComponent
+                suggestions={[]}
+                tagList={props.tagList}
+                addTag={props.addTag}
+                deleteTag={props.deleteTag}
+            />
+        </TagDiv>
     );
 }
 

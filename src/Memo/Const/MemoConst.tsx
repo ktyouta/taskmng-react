@@ -36,3 +36,5 @@ export const MEMO_STATUS = {
 }
 //メモリストの画面表示件数
 export const MEMO_DISPLAY_NUM = 25;
+//タグの最大設定個数
+export const TAG_MAX_SETTINGNUM = 5;

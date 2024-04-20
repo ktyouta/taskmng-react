@@ -16,6 +16,7 @@ import LabelComponent from '../Common/LabelComponent';
 import useMemoDraft from './Hook/useMemoDraft';
 import { MEMO_STATUS } from './Const/MemoConst';
 import MemoDraftFooter from './MemoDraftFooter';
+import { tagType } from '../Common/TagsComponent';
 
 
 //外側のスタイル
@@ -36,6 +37,9 @@ type propsType = {
   initMemoTitle: string | undefined,
   initMemoContent: string | undefined,
   memoStatus: string | undefined,
+  addTag: (newTag: tagType) => void,
+  deleteTag: (tagIndex: number) => void,
+  memoTagList: tagType[]
 }
 
 
@@ -69,6 +73,9 @@ function MemoEdit(props: propsType) {
           setMemoTitle={props.setMemoTitle}
           memoContent={props.memoContent}
           setMemoContent={props.setMemoContent}
+          addTag={props.addTag}
+          deleteTag={props.deleteTag}
+          memoTagList={props.memoTagList}
         />
       </HeightDiv>
       <HeightDiv

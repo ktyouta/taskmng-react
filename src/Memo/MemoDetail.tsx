@@ -37,6 +37,9 @@ function MemoDetail(props: propsType) {
         initMemoContent,
         memoStatus,
         isMatchUser,
+        addTag,
+        deleteTag,
+        memoTagList
     } = useMemoDetail({ ...props });
 
 
@@ -74,6 +77,9 @@ function MemoDetail(props: propsType) {
                                     initMemoTitle={initMemoTitle}
                                     initMemoContent={initMemoContent}
                                     memoStatus={memoStatus}
+                                    addTag={addTag}
+                                    deleteTag={deleteTag}
+                                    memoTagList={memoTagList}
                                 />
                             )
                         default:
