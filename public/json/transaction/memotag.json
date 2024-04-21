@@ -1,3 +1,18 @@
 [
-	
+	{
+		"id": "TAGID-1",
+		"label": "test1",
+		"registerTime": "2024/04/21",
+		"updTime": "2024/04/21",
+		"userId": "f",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TAGID-2",
+		"label": "test2",
+		"registerTime": "2024/04/21",
+		"updTime": "2024/04/21",
+		"userId": "f",
+		"deleteFlg": "0"
+	}
 ]

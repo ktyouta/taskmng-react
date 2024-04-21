@@ -4,7 +4,7 @@ import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
 import { memoContentListType, memoListResType, memoListType, memoRegistReqType, memoSearchConditionListType, memoUpdReqType, retCreateAddMemoDataType, tagListType } from "./Type/MemoType";
-import { convMemo, filterMemoQuery, getFilterdMemo, getFilterdSearchCondition, getFilterdUserStatusMemo, getMemoObj, getTagObj, joinSelectListMemoSearchCondition, joinUser } from "./MemoSelectFunction";
+import { convMemo, convMemoDetail, filterMemoQuery, getFilterdMemo, getFilterdSearchCondition, getFilterdTag, getFilterdUserStatusMemo, getMemoObj, getTagObj, joinMemoDetailTag, joinMemoTag, joinSelectListMemoSearchCondition, joinUser } from "./MemoSelectFunction";
 import { MEMO_FILEPATH, TAG_FILEPATH } from "./Const/MemoConst";
 import { createAddMemoData, createAddMemoTagData } from "./MemoRegistFunction";
 import { createUpdMemoData } from "./MemoUpdateFunction";
@@ -42,6 +42,12 @@ export function getMemoList(res: any, req: any) {
     //ユーザーIDとユーザーを結合
     resMemoList = joinUser(resMemoList);
 
+    //タグファイルの読み込み
+    let decodeTagFileData: tagListType[] = getFilterdTag();
+
+    //タグと結合
+    resMemoList = joinMemoTag(resMemoList, decodeTagFileData);
+
     //該当データなし
     if (resMemoList.length === 0) {
         return res.status(200).json(resMemoList);
@@ -76,7 +82,16 @@ export function getMemoDetail(res: any, req: any, id: string) {
         return res.status(400).json({ errMessage: `該当データがありません。` });
     }
 
-    return res.status(200).json(memoDetail);
+    //画面返却用の型に変換
+    let resMemoList: memoListResType = convMemoDetail(memoDetail);
+
+    //タグファイルの読み込み
+    let decodeTagFileData: tagListType[] = getFilterdTag();
+
+    //タグと結合
+    resMemoList = joinMemoDetailTag(resMemoList, decodeTagFileData);
+
+    return res.status(200).json(resMemoList);
 }
 
 

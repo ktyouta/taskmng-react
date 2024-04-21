@@ -111,11 +111,12 @@ export type memoRegistReqType = {
 
 //APIから取得するメモ詳細
 export type apiMemoDetailType = {
-    [key: string]: string | undefined,
+    [key: string]: string | undefined | tagType[],
     id: string,
     registerTime: string,
     title: string,
     content: string,
+    tagList: tagType[],
     updTime: string,
     limitTime: string,
     userId: string,

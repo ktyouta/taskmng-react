@@ -6,7 +6,7 @@ import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 import { GENERALDETAIL_FILEPATH } from "../Setting/DefaultAttribute/Const/DefaultAttributeConst";
 import { generalDetailType } from "../General/Type/GeneralType";
 import { getGeneralDataList } from "../General/GeneralSelectFunction";
-import { comboType } from "../Common/Type/CommonType";
+import { comboType, tagType } from "../Common/Type/CommonType";
 import { getFormatDate } from "../Common/Function";
 import { TAGFILENM } from "../Common/Const/CommonConst";
 
@@ -98,12 +98,21 @@ export function convMemo(decodeFileData: memoListType[]): memoListResType[] {
 
     //画面返却用の型に変換
     let convMemoList: memoListResType[] = decodeFileData.map((element) => {
-        return (
-            { ...element, userNm: "" }
-        );
+        return convMemoDetail(element);
     });
 
     return convMemoList;
+}
+
+/**
+ * メモリストを画面返却用の型に変換
+ */
+export function convMemoDetail(decodeFileData: memoListType): memoListResType {
+
+    //画面返却用の型に変換
+    return (
+        { ...decodeFileData, userNm: "", tagList: [] }
+    );
 }
 
 
@@ -149,9 +158,15 @@ export function filterMemoQuery(resMemoList: memoListResType[], query: any): mem
                 return true;
             }
 
+            let memoValue = item[element.id];
+
+            if (typeof memoValue !== "string") {
+                return true;
+            }
+
             //複数選択項目の場合
             if (element.type === "checkbox") {
-                return value.split(",").includes(item[element.id]);
+                return value.split(",").includes(memoValue);
             }
 
             //dateの場合
@@ -159,7 +174,7 @@ export function filterMemoQuery(resMemoList: memoListResType[], query: any): mem
                 value = getFormatDate(value);
             }
 
-            return item[element.id].includes(value);
+            return memoValue.includes(value);
         });
     });
 
@@ -253,4 +268,53 @@ export function createTagNewId(tagList: tagListType[]) {
         return Math.max(prev, currentNm);
     }, 0);
     return `${PRE_TAG_ID}${maxNo + 1}`;
+}
+
+
+/**
+ * タグリストと結合
+ */
+export function joinMemoTag(resMemoList: memoListResType[], decodeFileData: tagListType[]): memoListResType[] {
+
+    resMemoList.forEach((element) => {
+
+        joinMemoDetailTag(element, decodeFileData);
+    });
+
+    return resMemoList;
+}
+
+
+/**
+ * メモ詳細とタグリストと結合
+ */
+export function joinMemoDetailTag(resMemoList: memoListResType, decodeFileData: tagListType[]): memoListResType {
+
+    if (!resMemoList.tagId) {
+        return resMemoList;
+    }
+    let tagIdList = resMemoList.tagId.split(",");
+
+    //タグが未設定
+    if (!tagIdList || tagIdList.length === 0) {
+        return resMemoList;
+    }
+
+    resMemoList.tagList = tagIdList.reduce((prev: tagType[], current) => {
+        let tagObj = decodeFileData.find((element) => {
+            return current === element.id;
+        });
+
+        if (!tagObj) {
+            return prev;
+        }
+
+        prev.push({
+            label: tagObj.label,
+            value: tagObj.id,
+        });
+
+        return prev;
+    }, [])
+    return resMemoList;
 }

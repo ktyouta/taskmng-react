@@ -47,6 +47,7 @@ function useMemoDetail(props: propsType) {
             afSuccessFn: (data: apiMemoDetailType) => {
                 setMemoTitle(data.title);
                 setMemoContent(data.content);
+                setMemoTagList(data.tagList);
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;

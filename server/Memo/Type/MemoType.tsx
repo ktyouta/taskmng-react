@@ -78,10 +78,12 @@ export type retCreateUpdMemoType = {
 
 //メモリストの画面返却用の型
 export type memoListResType = {
-    [key: string]: string,
+    [key: string]: string | tagType[],
     id: string,
     title: string,
     content: string,
+    tagId: string,
+    tagList: tagType[],
     registerTime: string,
     updTime: string,
     userId: string,
