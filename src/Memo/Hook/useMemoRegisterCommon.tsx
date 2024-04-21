@@ -82,6 +82,12 @@ function useMemoRegister(props: propsType) {
             return true;
         }
 
+        //タグ
+        if (!props.memoTagList || props.memoTagList.length === 0) {
+            alert("タグを一つ以上設定してください");
+            return true;
+        }
+
         return false;
     }
 
@@ -100,6 +106,8 @@ function useMemoRegister(props: propsType) {
 
         return false;
     }
+
+
 
     /**
      * リクエストボディの送信
@@ -161,7 +169,8 @@ function useMemoRegister(props: propsType) {
             alert("タグの最大設定可能数は5個です。");
             return;
         }
-        props.setMemoTagList([...props.memoTagList, newTag]);
+
+        props.setMemoTagList([...props.memoTagList, { label: newTag.label.trim(), value: "" }]);
     };
 
     /**

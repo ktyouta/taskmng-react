@@ -4,6 +4,7 @@ import { comboType, tagType } from "../../Common/Type/CommonType"
 export type memoListType = {
     [key: string]: string,
     id: string,
+    tagId: string,
     title: string,
     content: string,
     registerTime: string,
@@ -92,9 +93,15 @@ export type memoListResType = {
 //タグの型
 export type tagListType = {
     id: string,
-    name: string,
+    label: string,
     registerTime: string,
     updTime: string,
     userId: string,
     deleteFlg: string,
+}
+
+//登録用のメモリスト作成時の返り値の型
+export type retCreateAddMemoDataType = {
+    memoList: memoListType[],
+    newId: string,
 }

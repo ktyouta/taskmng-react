@@ -97,27 +97,5 @@
 		"userId": "f",
 		"deleteFlg": "0",
 		"status": "2"
-	},
-	{
-		"id": "MEMOID-10",
-		"title": "タグテスト",
-		"content": "タグテスト",
-		"registerTime": "2024/04/21",
-		"updTime": "2024/04/21",
-		"limitTime": "",
-		"userId": "f",
-		"deleteFlg": "0",
-		"status": "2"
-	},
-	{
-		"id": "MEMOID-11",
-		"title": "タグテスト",
-		"content": "tagtest",
-		"registerTime": "2024/04/21",
-		"updTime": "2024/04/21",
-		"limitTime": "",
-		"userId": "f",
-		"deleteFlg": "0",
-		"status": "2"
 	}
 ]

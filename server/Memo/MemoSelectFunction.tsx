@@ -245,6 +245,10 @@ export function getFilterdTag() {
 export function createTagNewId(tagList: tagListType[]) {
     //IDが最大のNOを取得
     let maxNo = tagList.reduce<number>((prev: number, current: tagListType) => {
+        let id = current.id;
+        if (!id) {
+            id = "1";
+        }
         let currentNm = parseInt(current.id.replace(`${PRE_TAG_ID}`, ""));
         return Math.max(prev, currentNm);
     }, 0);

@@ -3,7 +3,7 @@ import { runAddTaskHistory } from "../History/HistoryFunction";
 import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
-import { memoContentListType, memoListResType, memoListType, memoRegistReqType, memoSearchConditionListType, memoUpdReqType, tagListType } from "./Type/MemoType";
+import { memoContentListType, memoListResType, memoListType, memoRegistReqType, memoSearchConditionListType, memoUpdReqType, retCreateAddMemoDataType, tagListType } from "./Type/MemoType";
 import { convMemo, filterMemoQuery, getFilterdMemo, getFilterdSearchCondition, getFilterdUserStatusMemo, getMemoObj, getTagObj, joinSelectListMemoSearchCondition, joinUser } from "./MemoSelectFunction";
 import { MEMO_FILEPATH, TAG_FILEPATH } from "./Const/MemoConst";
 import { createAddMemoData, createAddMemoTagData } from "./MemoRegistFunction";
@@ -122,28 +122,7 @@ export function runAddMemo(res: any, req: any) {
     //リクエストボディ
     let body: memoRegistReqType = req.body;
 
-    //メモファイルの読み込み
-    let decodeFileData: memoListType[] = getMemoObj();
-
-    //登録用データの作成
-    let retObj = createAddMemoData(decodeFileData, body, authResult);
-
-    //メモが登録されていない
-    if (!retObj || retObj.length === 0) {
-        return res
-            .status(400)
-            .json({ errMessage: "メモの登録に失敗しました。" });
-    }
-
-    //データを登録
-    let errMessage = overWriteData(MEMO_FILEPATH, JSON.stringify(retObj, null, '\t'));
-
-    //登録更新削除に失敗
-    if (errMessage) {
-        return res
-            .status(400)
-            .json({ errMessage });
-    }
+    let errMessage = "";
 
     //タグの登録
     //タグファイルの読み込み
@@ -153,7 +132,7 @@ export function runAddMemo(res: any, req: any) {
     decodeTagFileData = createAddMemoTagData(decodeTagFileData, body, authResult);
 
     //データを登録
-    errMessage = overWriteData(TAG_FILEPATH, JSON.stringify(retObj, null, '\t'));
+    errMessage = overWriteData(TAG_FILEPATH, JSON.stringify(decodeTagFileData, null, '\t'));
 
     //登録更新削除に失敗
     if (errMessage) {
@@ -162,6 +141,28 @@ export function runAddMemo(res: any, req: any) {
             .json({ errMessage });
     }
 
+    //メモファイルの読み込み
+    let decodeFileData: memoListType[] = getMemoObj();
+
+    //登録用データの作成
+    let retObj: retCreateAddMemoDataType = createAddMemoData(decodeFileData, decodeTagFileData, body, authResult);
+
+    //メモが登録されていない
+    if (!retObj || retObj.memoList.length === 0) {
+        return res
+            .status(400)
+            .json({ errMessage: "メモの登録に失敗しました。" });
+    }
+
+    //データを登録
+    errMessage = overWriteData(MEMO_FILEPATH, JSON.stringify(retObj.memoList, null, '\t'));
+
+    //登録更新削除に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
 
     //正常終了
     return res
