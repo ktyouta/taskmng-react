@@ -5,6 +5,7 @@ import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMu
 import { memoUpdReqType, viewMemoType } from "../Type/MemoType";
 import useMemoEditCommon from "./useMemoEditCommon";
 import { MEMO_STATUS } from "../Const/MemoConst";
+import { tagType } from "../../Common/TagsComponent";
 
 
 //引数の型
@@ -18,6 +19,7 @@ type propsType = {
     initMemoContent: string | undefined,
     setMemoTitle: React.Dispatch<React.SetStateAction<string>>,
     setMemoContent: React.Dispatch<React.SetStateAction<string>>,
+    memoTagList: tagType[],
 }
 
 
@@ -81,7 +83,8 @@ function useMemoEdit(props: propsType) {
         let body: memoUpdReqType = {
             title: props.memoTitle,
             content: props.memoContent,
-            status: MEMO_STATUS.regist
+            status: MEMO_STATUS.regist,
+            tagList: props.memoTagList,
         }
         //リクエストボディを作成
         updMutation.mutate(body);

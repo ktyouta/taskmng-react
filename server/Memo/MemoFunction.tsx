@@ -208,11 +208,30 @@ export function runUpdMemo(res: any, req: any, updMemoId: string) {
     //リクエストボディ
     let body: memoUpdReqType = req.body;
 
+    let errMessage = "";
+
+    //タグの登録
+    //タグファイルの読み込み
+    let decodeTagFileData: tagListType[] = getTagObj();
+
+    //タグ登録用データの作成
+    decodeTagFileData = createAddMemoTagData(decodeTagFileData, body, authResult);
+
+    //データを登録
+    errMessage = overWriteData(TAG_FILEPATH, JSON.stringify(decodeTagFileData, null, '\t'));
+
+    //登録更新削除に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
     //メモファイルの読み込み
     let decodeFileData: memoListType[] = getMemoObj();
 
     //更新用データの作成
-    let retObj = createUpdMemoData(decodeFileData, body, updMemoId, authResult);
+    let retObj = createUpdMemoData(decodeFileData, body, updMemoId, decodeTagFileData, authResult);
 
     //エラー
     if (retObj.errMessage) {
@@ -222,7 +241,7 @@ export function runUpdMemo(res: any, req: any, updMemoId: string) {
     }
 
     //データを登録
-    let errMessage = overWriteData(MEMO_FILEPATH, JSON.stringify(retObj.memoList, null, '\t'));
+    errMessage = overWriteData(MEMO_FILEPATH, JSON.stringify(retObj.memoList, null, '\t'));
 
     //更新に失敗
     if (errMessage) {

@@ -128,4 +128,5 @@ export type memoUpdReqType = {
     title: string,
     content: string,
     status: string,
+    tagList: tagType[]
 }
