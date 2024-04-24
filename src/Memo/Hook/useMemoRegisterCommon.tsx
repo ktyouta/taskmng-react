@@ -165,6 +165,14 @@ function useMemoRegister(props: propsType) {
      * タグの追加イベント
      */
     const addTag = (newTag: tagType) => {
+        //同名のタグは設定不可
+        if (props.memoTagList.find((element) => {
+            return element.label === newTag.label;
+        })) {
+            alert("同名のタグは設定できません。");
+            return;
+        }
+
         if (props.memoTagList.length >= TAG_MAX_SETTINGNUM) {
             alert("タグの最大設定可能数は5個です。");
             return;

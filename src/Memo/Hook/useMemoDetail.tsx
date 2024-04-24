@@ -5,7 +5,7 @@ import { apiMemoDetailType, memoListType } from "../Type/MemoType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { useSetAtom } from "jotai";
 import { detailRoutingIdAtom } from "../Atom/MemoAtom";
-import { DUMMY_ID } from "../Const/MemoConst";
+import { DUMMY_ID, TAG_MAX_SETTINGNUM } from "../Const/MemoConst";
 import { VIEW_MODE } from "../../Common/Const/CommonConst";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import { userInfoAtom } from "../../Content/Hook/useContentLogic";
@@ -91,6 +91,18 @@ function useMemoDetail(props: propsType) {
      * タグの追加イベント
      */
     const addTag = (newTag: tagType) => {
+        //同名のタグは設定不可
+        if (memoTagList.find((element) => {
+            return element.label === newTag.label;
+        })) {
+            alert("同名のタグは設定できません。");
+            return;
+        }
+
+        if (memoTagList.length >= TAG_MAX_SETTINGNUM) {
+            alert("タグの最大設定可能数は5個です。");
+            return;
+        }
         setMemoTagList([...memoTagList, newTag]);
     };
 

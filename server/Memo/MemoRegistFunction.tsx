@@ -3,6 +3,7 @@ import { authInfoType } from "../Auth/Type/AuthType";
 import { memoListType, memoRegistReqType, retCreateAddMemoDataType, tagListType } from "./Type/MemoType";
 import { createMemoNewId, createTagNewId } from "./MemoSelectFunction";
 import { FLG } from "../Common/Const/CommonConst";
+import { tagType } from "../Common/Type/CommonType";
 
 
 /**
@@ -75,6 +76,16 @@ export function createAddMemoTagData(fileDataObj: tagListType[], body: memoRegis
     //現在日付を取得
     const nowDate = getNowDate();
     let tagList = body.tagList;
+
+    //タグの重複削除
+    tagList = tagList.reduce((prev: tagType[], current) => {
+        if (prev.some((element2) => {
+            return element2.value === current.value;
+        })) {
+            return prev;
+        }
+        return [...prev, current];
+    }, []);
 
     tagList.forEach((element) => {
         let tag = fileDataObj.find((element1) => {
