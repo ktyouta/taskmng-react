@@ -4,7 +4,7 @@ import { SnackbarComponent } from '../Common/SnackbarComponent';
 import DynamicForm from '../Common/DynamicForm';
 import { refInfoType } from '../Common/Type/CommonType';
 import styled from 'styled-components';
-import { editDisplayMemoType } from './Type/MemoType';
+import { editDisplayMemoType, tagListResType } from './Type/MemoType';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import BaseInputComponent from '../Common/BaseInputComponent';
@@ -30,6 +30,7 @@ type propsType = {
     memoTagList: tagType[],
     addTag: (newTag: tagType) => void,
     deleteTag: (tagIndex: number) => void,
+    tagSuggestList: tagListResType[],
 }
 
 //入力欄
@@ -82,7 +83,7 @@ function MemoEditForm(props: propsType) {
                 height='7%'
                 width='90%'
                 tagList={props.memoTagList}
-                suggestions={[]}
+                suggestions={props.tagSuggestList}
                 addTag={props.addTag}
                 deleteTag={props.deleteTag}
             />

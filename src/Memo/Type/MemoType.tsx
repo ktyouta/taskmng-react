@@ -130,3 +130,9 @@ export type memoUpdReqType = {
     status: string,
     tagList: tagType[]
 }
+
+//レスポンスのタグの型
+export type tagListResType = {
+    value: string,
+    label: string,
+}

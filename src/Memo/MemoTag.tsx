@@ -34,7 +34,7 @@ function MemoTag(props: propsType) {
             width={props.width}
         >
             <TagsComponent
-                suggestions={[]}
+                suggestions={props.suggestions}
                 tagList={props.tagList}
                 addTag={props.addTag}
                 deleteTag={props.deleteTag}

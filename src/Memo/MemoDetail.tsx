@@ -39,7 +39,8 @@ function MemoDetail(props: propsType) {
         isMatchUser,
         addTag,
         deleteTag,
-        memoTagList
+        memoTagList,
+        tagSuggestList,
     } = useMemoDetail({ ...props });
 
 
@@ -80,6 +81,7 @@ function MemoDetail(props: propsType) {
                                     addTag={addTag}
                                     deleteTag={deleteTag}
                                     memoTagList={memoTagList}
+                                    tagSuggestList={tagSuggestList}
                                 />
                             )
                         default:

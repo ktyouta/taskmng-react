@@ -24,6 +24,7 @@ import { readFile } from './Common/FileFunction';
 import { getSearchCondition, runUpdSearchConditionList } from './Setting/SearchCondition/SearchConditionFunction';
 import { JSONEXTENSION, MASTERFILEPATH } from './Common/Const/CommonConst';
 import { getMemoDetail, getMemoList, getMemoSearchConditionList, runAddMemo, runDelMemo, runUpdMemo } from './Memo/MemoFunction';
+import { getTagList } from './Tag/TagFunction';
 
 
 
@@ -216,6 +217,13 @@ app.get(ENV.MEMOSEARCHCONDITION, function (req, res) {
     getMemoSearchConditionList(res, req);
 });
 
+
+/**
+ * memosearchconditionにアクセスした際の動作
+ */
+app.get(ENV.TAGLIST, function (req, res) {
+    getTagList(res, req);
+});
 
 
 /**

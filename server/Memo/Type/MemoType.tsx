@@ -92,16 +92,6 @@ export type memoListResType = {
     userNm: string,
 }
 
-//タグの型
-export type tagListType = {
-    id: string,
-    label: string,
-    registerTime: string,
-    updTime: string,
-    userId: string,
-    deleteFlg: string,
-}
-
 //登録用のメモリスト作成時の返り値の型
 export type retCreateAddMemoDataType = {
     memoList: memoListType[],

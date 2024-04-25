@@ -3,10 +3,11 @@ import ENV from '../../env.json';
 import { bodyObj, buttonObjType, comboType, generalDataType, refInfoType } from "../../Common/Type/CommonType";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import { memoRegistReqType } from "../Type/MemoType";
+import { memoRegistReqType, tagListResType } from "../Type/MemoType";
 import { MEMO_STATUS, TAG_MAX_SETTINGNUM } from "../Const/MemoConst";
 import useMemoEditBase from "./useMemoEditBase";
 import { tagType } from "../../Common/TagsComponent";
+import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 
 
 //引数の型
@@ -18,6 +19,7 @@ type propsType = {
     setMemoContent: React.Dispatch<React.SetStateAction<string>>,
     memoTagList: tagType[],
     setMemoTagList: React.Dispatch<React.SetStateAction<tagType[]>>,
+    setTagSuggestList: React.Dispatch<React.SetStateAction<tagListResType[]>>,
 }
 
 
@@ -40,6 +42,15 @@ function useMemoRegister(props: propsType) {
         initMemoContent: ""
     });
 
+    //タグリストを取得
+    useQueryWrapper<tagListResType[]>(
+        {
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TAGLIST}`,
+            afSuccessFn: (data: tagListResType[]) => {
+                props.setTagSuggestList(data);
+            }
+        }
+    );
 
     //登録用フック
     const registerMutation = useMutationWrapper({

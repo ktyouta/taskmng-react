@@ -1,9 +1,10 @@
 import { getNowDate } from "../Common/Function";
 import { authInfoType } from "../Auth/Type/AuthType";
-import { memoListType, memoRegistReqType, retCreateAddMemoDataType, tagListType } from "./Type/MemoType";
+import { memoListType, memoRegistReqType, retCreateAddMemoDataType } from "./Type/MemoType";
 import { createMemoNewId, createTagNewId } from "./MemoSelectFunction";
 import { FLG } from "../Common/Const/CommonConst";
 import { tagType } from "../Common/Type/CommonType";
+import { tagListType } from "../Tag/Type/TagType";
 
 
 /**

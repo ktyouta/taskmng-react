@@ -6,7 +6,7 @@ import './css/MemoEdit.css';
 import MemoEditFooter from './MemoEditFooter';
 import MemoEditForm from './MemoEditForm';
 import { generalDataType } from '../Common/Type/CommonType';
-import { apiMemoDetailType, inputMemoSettingType, memoListType } from './Type/MemoType';
+import { apiMemoDetailType, inputMemoSettingType, memoListType, tagListResType } from './Type/MemoType';
 import { SnackbarComponent } from '../Common/SnackbarComponent';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
@@ -39,7 +39,8 @@ type propsType = {
   memoStatus: string | undefined,
   addTag: (newTag: tagType) => void,
   deleteTag: (tagIndex: number) => void,
-  memoTagList: tagType[]
+  memoTagList: tagType[],
+  tagSuggestList: tagListResType[],
 }
 
 
@@ -76,6 +77,7 @@ function MemoEdit(props: propsType) {
           addTag={props.addTag}
           deleteTag={props.deleteTag}
           memoTagList={props.memoTagList}
+          tagSuggestList={props.tagSuggestList}
         />
       </HeightDiv>
       <HeightDiv

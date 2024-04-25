@@ -3,7 +3,7 @@ import ENV from '../../env.json';
 import { bodyObj, buttonObjType, comboType, generalDataType, refInfoType } from "../../Common/Type/CommonType";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-import { memoRegistReqType } from "../Type/MemoType";
+import { memoRegistReqType, tagListResType } from "../Type/MemoType";
 import { MEMO_STATUS } from "../Const/MemoConst";
 import useMemoRegisterCommon from "./useMemoRegisterCommon";
 import { tagType } from "../../Common/TagsComponent";
@@ -28,6 +28,8 @@ function useMemoRegister(props: propsType) {
     const [memoContent, setMemoContent] = useState("");
     //メモタグリスト
     const [memoTagList, setMemoTagList] = useState<tagType[]>([]);
+    //タグのサジェスト用リスト
+    const [tagSuggestList, setTagSuggestList] = useState<tagListResType[]>([]);
 
     //登録関連の共通処理を取得
     const {
@@ -46,6 +48,7 @@ function useMemoRegister(props: propsType) {
         setMemoContent,
         memoTagList,
         setMemoTagList,
+        setTagSuggestList,
     });
 
     return {
@@ -77,6 +80,7 @@ function useMemoRegister(props: propsType) {
         addTag,
         deleteTag,
         memoTagList,
+        tagSuggestList,
     }
 }
 

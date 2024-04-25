@@ -1,6 +1,7 @@
 import { authInfoType } from "../Auth/Type/AuthType";
 import { getNowDate } from "../Common/Function";
-import { memoListType, memoUpdReqType, retCreateUpdMemoType, tagListType } from "./Type/MemoType";
+import { tagListType } from "../Tag/Type/TagType";
+import { memoListType, memoUpdReqType, retCreateUpdMemoType } from "./Type/MemoType";
 
 /**
  * 更新用データの作成

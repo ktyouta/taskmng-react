@@ -1,7 +1,7 @@
 import { createRef, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
 import ENV from '../../env.json';
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
-import { apiMemoDetailType, memoListType } from "../Type/MemoType";
+import { apiMemoDetailType, memoListType, tagListResType } from "../Type/MemoType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { useSetAtom } from "jotai";
 import { detailRoutingIdAtom } from "../Atom/MemoAtom";
@@ -38,6 +38,8 @@ function useMemoDetail(props: propsType) {
     const userInfo = useGlobalAtomValue(userInfoAtom);
     //メモタグリスト
     const [memoTagList, setMemoTagList] = useState<tagType[]>([]);
+    //タグのサジェスト用リスト
+    const [tagSuggestList, setTagSuggestList] = useState<tagListResType[]>([]);
 
 
     //詳細画面遷移時に更新用メモを取得
@@ -56,6 +58,17 @@ function useMemoDetail(props: propsType) {
             }
         }
     );
+
+    //タグリストを取得
+    useQueryWrapper<tagListResType[]>(
+        {
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TAGLIST}`,
+            afSuccessFn: (data: tagListResType[]) => {
+                setTagSuggestList(data);
+            }
+        }
+    );
+
 
     //メモのタイトルの初期値
     let initMemoTitle = useMemo(() => {
@@ -130,7 +143,8 @@ function useMemoDetail(props: propsType) {
         isMatchUser: userInfo?.userId === updMemo?.userId,
         addTag,
         deleteTag,
-        memoTagList
+        memoTagList,
+        tagSuggestList,
     }
 }
 

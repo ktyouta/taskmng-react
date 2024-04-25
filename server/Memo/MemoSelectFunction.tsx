@@ -1,5 +1,5 @@
-import { memoContentListType, memoListResType, memoListType, memoSearchConditionListType, tagListType } from "./Type/MemoType";
-import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_INPUTSETTING_FILEPATH, MEMO_SEARCHCONDITION_FILEPATH, MEMO_STATUS, PRE_MEMO_ID, PRE_TAG_ID, TAG_FILEPATH, USER_SEARCHCONDITION_ID } from "./Const/MemoConst";
+import { memoContentListType, memoListResType, memoListType, memoSearchConditionListType } from "./Type/MemoType";
+import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_INPUTSETTING_FILEPATH, MEMO_SEARCHCONDITION_FILEPATH, MEMO_STATUS, PRE_MEMO_ID, PRE_TAG_ID, USER_SEARCHCONDITION_ID } from "./Const/MemoConst";
 import { getFileJsonData, readFile } from "../Common/FileFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
 import { getUserInfoData } from "../Setting/User/UserSelectFunction";
@@ -9,6 +9,8 @@ import { getGeneralDataList } from "../General/GeneralSelectFunction";
 import { comboType, tagType } from "../Common/Type/CommonType";
 import { getFormatDate } from "../Common/Function";
 import { TAGFILENM } from "../Common/Const/CommonConst";
+import { tagListType } from "../Tag/Type/TagType";
+import { TAG_FILEPATH } from "../Tag/Const/TagConst";
 
 
 
@@ -225,32 +227,6 @@ export function joinSelectListMemoSearchCondition(searchConditionList: memoSearc
     userProperty.selectList = selectList;
 
     return searchConditionList;
-}
-
-
-/**
- * タグファイルからオブジェクトを取得
- */
-export function getTagObj(): tagListType[] {
-    //タスクファイルの読み込み
-    let fileData = readFile(TAG_FILEPATH);
-    return JSON.parse(fileData);
-}
-
-
-/**
- * 削除データをフィルターする
- */
-export function getFilterdTag() {
-    //タグファイルの読み込み
-    let decodeFileData: tagListType[] = getTagObj();
-
-    //削除フラグが1(削除済)のデータをフィルターする
-    decodeFileData = decodeFileData.filter((element) => {
-        return element.deleteFlg !== "1";
-    });
-
-    return decodeFileData;
 }
 
 
