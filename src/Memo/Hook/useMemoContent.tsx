@@ -48,6 +48,7 @@ function useMemoContent(props: propsType) {
                 <React.Fragment>
                     <TagButtonComponent
                         title={element.label}
+                        onclick={element.onClickTag}
                     />
                     <SpaceComponent
                         space={"1%"}

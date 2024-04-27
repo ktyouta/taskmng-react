@@ -46,14 +46,14 @@ export type memoContentSettingType = {
 
 //画面表示用のメモの型
 export type memoContentDisplayType = {
-    [key: string]: string | JSX.Element | undefined | memoListType | (() => void) | tagListResType[],
+    [key: string]: string | JSX.Element | undefined | memoListType | (() => void) | tagContentType[],
     id: string,
     title: string,
     content: memoListType,
     bgColor?: string,
     bdColor?: string,
     status?: string,
-    tagList: tagListResType[],
+    tagList: tagContentType[],
     onClickTitle: () => void,
 }
 
@@ -137,4 +137,9 @@ export type memoUpdReqType = {
 export type tagListResType = {
     value: string,
     label: string,
+}
+
+//コンテンツのタグの型
+export type tagContentType = tagListResType & {
+    onClickTag: () => void,
 }

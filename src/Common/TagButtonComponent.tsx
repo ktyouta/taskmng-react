@@ -11,11 +11,12 @@ type propsType = {
     spanStyle?: { [key: string]: string },
     width?: string,
     heght?: string,
+    isDispCross?: boolean,
 }
 
 
 //ボタンの基本スタイル
-const BaseButton = styled.button<{ width?: string, heght?: string }>`
+const BaseButton = styled.button<{ width?: string, heght?: string, isDispCross?: boolean, }>`
     width:${({ width }) => (width ?? "")};
     heght:${({ heght }) => (heght ?? "")};
     padding: .375rem .5rem;
@@ -24,15 +25,16 @@ const BaseButton = styled.button<{ width?: string, heght?: string }>`
     background: #b0e0e6;
     font-size: inherit;
     line-height: inherit;
+    cursor:pointer;
     &:after {
         content: "";
         display: inline-block;
-        width: .65rem;
-        height: .65rem;
-        clip-path: polygon(10% 0, 0 10%, 40% 50%, 0 90%, 10% 100%, 50% 60%, 90% 100%, 100% 90%, 60% 50%, 100% 10%, 90% 0, 50% 40%);
+        width: ${({ isDispCross }) => (isDispCross ? ".65rem" : "")};
+        height: ${({ isDispCross }) => (isDispCross ? ".65rem" : "")};
+        clip-path: ${({ isDispCross }) => (isDispCross ? "polygon(10% 0, 0 10%, 40% 50%, 0 90%, 10% 100%, 50% 60%, 90% 100%, 100% 90%, 60% 50%, 100% 10%, 90% 0, 50% 40%)" : "")};
         margin-left: .5rem;
         font-size: .875rem;
-        background-color: #7c7d86;
+        background-color: ${({ isDispCross }) => (isDispCross ? "#7c7d86" : "")};
     };
     &:hover {
         color: #fff;
@@ -53,6 +55,7 @@ const TagButtonComponent = (props: propsType) => {
             heght={props.heght}
             width={props.width}
             style={props.btnStyle}
+            onClick={props.onclick}
         >
             <TitleSpan
                 style={props.spanStyle}

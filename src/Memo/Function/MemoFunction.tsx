@@ -160,7 +160,12 @@ export function createMemoContentList(memoList: memoListType[], moveMemoDetail: 
             title: element.title,
             content: element,
             onClickTitle: () => { },
-            tagList: element.tagList,
+            tagList: element.tagList.map((element) => {
+                return {
+                    ...element,
+                    onClickTag: () => { },
+                }
+            })
         };
 
         //下書きの場合は背景色を変える
