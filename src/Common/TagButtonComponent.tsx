@@ -7,12 +7,17 @@ type propsType = {
     onclick?: () => void,
     onMouseEnter?: () => void,
     onMouseLeave?: () => void,
+    btnStyle?: { [key: string]: string },
+    spanStyle?: { [key: string]: string },
+    width?: string,
+    heght?: string,
 }
 
 
 //ボタンの基本スタイル
-const BaseButton = styled.button`
-    margin: 0 .25rem .25rem 0;
+const BaseButton = styled.button<{ width?: string, heght?: string }>`
+    width:${({ width }) => (width ?? "")};
+    heght:${({ heght }) => (heght ?? "")};
     padding: .375rem .5rem;
     border: 0;
     border-radius: 3px;
@@ -28,25 +33,32 @@ const BaseButton = styled.button`
         margin-left: .5rem;
         font-size: .875rem;
         background-color: #7c7d86;
+    };
+    &:hover {
+        color: #fff;
+        background-color: #4f46e5;
     }
 `;
 
 //spanの基本スタイル
 const TitleSpan = styled.span`
     margin: 0 .25rem .25rem 0;
-    padding: .375rem .5rem;
-    border: 0;
-    border-radius: 3px;
-    background: #b0e0e6;
-    font-size: inherit;
-    line-height: inherit;
+    background-color: inherit;
 `;
 
 
 const TagButtonComponent = (props: propsType) => {
     return (
-        <BaseButton>
-            <TitleSpan>{props.title}</TitleSpan>
+        <BaseButton
+            heght={props.heght}
+            width={props.width}
+            style={props.btnStyle}
+        >
+            <TitleSpan
+                style={props.spanStyle}
+            >
+                {props.title}
+            </TitleSpan>
         </BaseButton>
     )
 };
