@@ -160,6 +160,7 @@ export function createMemoContentList(memoList: memoListType[], moveMemoDetail: 
             title: element.title,
             content: element,
             onClickTitle: () => { },
+            tagList: element.tagList,
         };
 
         //下書きの場合は背景色を変える

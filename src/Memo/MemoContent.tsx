@@ -45,6 +45,18 @@ const ContentInfoDiv = styled.div<{ infoBgColor?: string }>`
     background-color: ${({ infoBgColor }) => (infoBgColor ?? "#cccccc")};
 `;
 
+//タグエリアのスタイル
+const ContentTagDiv = styled.div<{ infoBgColor?: string }>`
+    display: flex;
+    align-items: center;
+    height: auto;
+    min-height: 39px;
+    padding-left: 10px;
+    border-bottom: 1px solid;
+    border-color: #a9a9a9;
+    background-color: ${({ infoBgColor }) => (infoBgColor ?? "#cccccc")};
+`;
+
 //ステータスエリアのスタイル
 const StatusAreaDiv = styled.div`
     margin: 0 1% 0 auto;
@@ -62,7 +74,8 @@ function MemoContent(props: propsType) {
     console.log("MemoContent render");
 
     const {
-        contentList
+        contentList,
+        tagList,
     } = useMemoContent({ ...props });
 
     return (
@@ -76,6 +89,11 @@ function MemoContent(props: propsType) {
             >
                 {`${props.contentObj.title}`}
             </ContentTitleDiv>
+            <ContentTagDiv
+                infoBgColor={props.contentObj.bgColor}
+            >
+                {tagList}
+            </ContentTagDiv>
             <ContentInfoDiv
                 infoBgColor={props.contentObj.bgColor}
             >

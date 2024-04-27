@@ -3,7 +3,7 @@ import { bodyObj, comboType, inputType, refInfoType } from "../../Common/Type/Co
 
 //メモリストの型
 export type memoListType = {
-    [key: string]: string | undefined,
+    [key: string]: string | undefined | tagListResType[],
     id: string,
     registerTime: string,
     title: string,
@@ -13,6 +13,7 @@ export type memoListType = {
     userId: string,
     userNm: string,
     status: string,
+    tagList: tagListResType[],
 }
 
 //画面表示用メモリストの型
@@ -45,13 +46,14 @@ export type memoContentSettingType = {
 
 //画面表示用のメモの型
 export type memoContentDisplayType = {
-    [key: string]: string | JSX.Element | undefined | memoListType | (() => void),
+    [key: string]: string | JSX.Element | undefined | memoListType | (() => void) | tagListResType[],
     id: string,
     title: string,
     content: memoListType,
     bgColor?: string,
     bdColor?: string,
     status?: string,
+    tagList: tagListResType[],
     onClickTitle: () => void,
 }
 

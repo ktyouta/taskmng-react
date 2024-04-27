@@ -2,6 +2,7 @@ import { createRef, RefObject, useContext, useEffect, useMemo, useRef, useState 
 import { memoContentDisplayType, memoListType } from "../Type/MemoType";
 import React from "react";
 import SpaceComponent from "../../Common/SpaceComponent";
+import TagButtonComponent from "../../Common/TagButtonComponent";
 
 
 //引数の型
@@ -40,8 +41,25 @@ function useMemoContent(props: propsType) {
         )
     }, [props.contentObj]);
 
+    //タグのコンテンツリスト
+    let tagList = useMemo(() => {
+        return props.contentObj.tagList.map((element) => {
+            return (
+                <React.Fragment>
+                    <TagButtonComponent
+                        title={element.label}
+                    />
+                    <SpaceComponent
+                        space={"1%"}
+                    />
+                </React.Fragment>
+            )
+        });
+    }, [props.contentObj]);
+
     return {
-        contentList
+        contentList,
+        tagList,
     }
 }
 
