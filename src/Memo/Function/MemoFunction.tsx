@@ -147,7 +147,8 @@ export function createSearchDispCondition(memoSearchConditionList: memoSearchCon
  * @param moveMemoDetail 
  * @returns 
  */
-export function createMemoContentList(memoList: memoListType[], moveMemoDetail: (memoId: string) => void
+export function createMemoContentList(memoList: memoListType[], moveMemoDetail: (memoId: string) => void,
+    selectContentTag: (selectTag: tagListResType) => void
 ): memoContentDisplayType[] {
 
     let tmpDisplayMemoList: memoContentDisplayType[] = [];
@@ -165,7 +166,9 @@ export function createMemoContentList(memoList: memoListType[], moveMemoDetail: 
             tagList: element.tagList.map((element) => {
                 return {
                     ...element,
-                    onClickTag: () => { },
+                    onClickTag: () => {
+                        selectContentTag(element)
+                    },
                 }
             })
         };

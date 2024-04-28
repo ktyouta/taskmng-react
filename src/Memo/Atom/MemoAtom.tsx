@@ -16,4 +16,4 @@ export const orgMemoListAtom = atom<memoListType[] | undefined>(undefined);
 //画面表示用メモリスト
 export const memoListAtom = atom<memoListType[] | undefined>(undefined);
 //選択中のタグリスト
-export const selectedTagListAtom = atom<tagListResType[] | undefined>(undefined);
+export const selectedTagListAtom = atom<tagListResType[]>([]);

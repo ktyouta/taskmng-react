@@ -1,5 +1,5 @@
 import { createRef, ReactNode, RefObject, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { memoContentDisplayType, memoContentSettingType, memoListType } from "../Type/MemoType";
+import { memoContentDisplayType, memoContentSettingType, memoListType, tagListResType } from "../Type/MemoType";
 import React from "react";
 import MemoContent from "../MemoContent";
 import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
@@ -8,8 +8,8 @@ import CenterLoading from "../../Common/CenterLoading";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import ENV from '../../env.json';
 import { useNavigate } from "react-router-dom";
-import { useSetAtom } from "jotai";
-import { detailRoutingIdAtom } from "../Atom/MemoAtom";
+import { useAtom, useSetAtom } from "jotai";
+import { detailRoutingIdAtom, selectedTagListAtom } from "../Atom/MemoAtom";
 import { createMemoContentList } from "../Function/MemoFunction";
 
 
@@ -36,12 +36,21 @@ function useMemoList(props: propsType) {
     const navigate = useNavigate();
     //詳細画面へのルーティング用ID
     const setDetailRoutingId = useSetAtom(detailRoutingIdAtom);
+    //選択中のタグリスト
+    const [selectedTagList, setSelectedTagList] = useAtom(selectedTagListAtom);
+
 
     //メモの詳細画面に遷移する
     const moveMemoDetail = (memoId: string,) => {
         setDetailRoutingId(memoId);
         navigate(`${props.path}/${memoId}`);
     };
+
+
+    //コンテンツのタグの選択イベント
+    const selectContentTag = (selectTag: tagListResType) => {
+        setSelectedTagList([...selectedTagList, selectTag]);
+    }
 
 
     //メモのコンテンツリストのDOM
@@ -57,7 +66,7 @@ function useMemoList(props: propsType) {
         }
 
         //メモのコンテンツリスト
-        let memoContentList: memoContentDisplayType[] = createMemoContentList(props.memoList, moveMemoDetail);
+        let memoContentList: memoContentDisplayType[] = createMemoContentList(props.memoList, moveMemoDetail, selectContentTag);
 
         //メモデータから画面表示用domを作成
         return memoContentList.map((element, index) => {

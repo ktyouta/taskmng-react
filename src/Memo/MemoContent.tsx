@@ -40,7 +40,7 @@ const ContentInfoDiv = styled.div<{ infoBgColor?: string }>`
     align-items: center;
     height: auto;
     border-radius: 0px 0x 5px 5px;
-    min-height: 50px;
+    min-height: 42px;
     padding-left: 10px;
     background-color: ${({ infoBgColor }) => (infoBgColor ?? "#cccccc")};
 `;
