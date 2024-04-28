@@ -6,7 +6,7 @@ import { userInfoType } from '../Common/Type/CommonType';
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 import IconComponent from '../Common/IconComponent';
-
+import { IoPersonCircleOutline } from "react-icons/io5";
 
 
 //ヘッダーのスタイル
@@ -65,6 +65,17 @@ const ContentDiv = styled.div`
     }
 `;
 
+//アイコンクリック時の背景のスタイル
+const OverlayDiv = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; 
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 9; 
+`;
+
 //引数の型
 type propsType = {
   userInfo: userInfoType | undefined,
@@ -91,18 +102,10 @@ function Header(props: propsType) {
         {props.userInfo?.userName ? `ユーザー：${props.userInfo?.userName}` : ""}
       </UserNameDiv>
       <BtnDiv>
-        {
-          flag ?
-            <IconComponent
-              icon={IoMdClose}
-              onclick={offFlag}
-            />
-            :
-            <IconComponent
-              icon={AiOutlineMenu}
-              onclick={onFlag}
-            />
-        }
+        <IconComponent
+          icon={IoPersonCircleOutline}
+          onclick={flag ? offFlag : onFlag}
+        />
         <NavDiv
           isDisplay={flag}
         >
@@ -118,6 +121,13 @@ function Header(props: propsType) {
           </ContentDiv>
         </NavDiv>
       </BtnDiv>
+      {
+        flag &&
+        <OverlayDiv
+          onClick={offFlag}
+        >
+        </OverlayDiv>
+      }
     </HeaderDiv>
   );
 }
