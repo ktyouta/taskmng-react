@@ -26,9 +26,23 @@ const MemoSearchAreaDiv = styled.div`
     flex-wrap: wrap;
 `;
 
-const MemoSearchConditionAreaDiv = styled.dl`
+const MemoSearchConditionAreaDiv = styled.div`
+    width: 70%;
+    height:100%;
+`;
+
+const MemoSearchConditionAreaDl = styled.dl`
     display: flex;
     width: 70%;
+    height:50%;
+    align-items: center;
+    flex-wrap: wrap;
+`;
+
+const MemoSearchTagAreaDiv = styled.div`
+    display: flex;
+    width: 70%;
+    height:50%;
     align-items: center;
     flex-wrap: wrap;
 `;
@@ -52,6 +66,7 @@ function MemoSearch() {
         closeModal,
         memoSearchRefInfo,
         displaySearchConditionList,
+        displayTagList,
     } = useMemoSearch();
 
     return (
@@ -60,7 +75,12 @@ function MemoSearch() {
         >
             <MemoSearchAreaDiv>
                 <MemoSearchConditionAreaDiv>
-                    {displaySearchConditionList}
+                    <MemoSearchConditionAreaDl>
+                        {displaySearchConditionList}
+                    </MemoSearchConditionAreaDl>
+                    <MemoSearchTagAreaDiv>
+                        {displayTagList}
+                    </MemoSearchTagAreaDiv>
                 </MemoSearchConditionAreaDiv>
                 <MemoSearchButtonAreaDiv>
                     <ButtonComponent
@@ -85,6 +105,7 @@ function MemoSearch() {
                     />
                 </MemoSearchButtonAreaDiv>
             </MemoSearchAreaDiv>
+            {/* 検索条件設定モーダル */}
             <ModalComponent
                 modalIsOpen={isModalOpen}
                 closeModal={closeModal}

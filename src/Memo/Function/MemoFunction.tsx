@@ -4,6 +4,7 @@ import {
     memoContentDisplayType,
     memoListType,
     memoSearchConditionType,
+    tagListResType,
 } from "../Type/MemoType";
 import { ReactNode, createRef } from "react";
 import SpaceComponent from "../../Common/SpaceComponent";
@@ -14,6 +15,7 @@ import { tabType } from "../../Common/TabComponent";
 import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
 import MemoEditForm from "../MemoEditForm";
 import { COMP_STATUS, HOLD_STATUS, MEMO_STATUS, NOCOMP_STATUS, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, WORKING_STATUS } from "../Const/MemoConst";
+import TagButtonComponent from "../../Common/TagButtonComponent";
 
 
 //フッターのスタイル
@@ -184,4 +186,29 @@ export function createMemoContentList(memoList: memoListType[], moveMemoDetail: 
     });
 
     return tmpDisplayMemoList;
+}
+
+
+/**
+ * タグの表示用domを作成
+ * @param memoSearchConditionList 選択条件の設定リスト
+ * @param searchConditionObj 現在の選択条件
+ * @param generalDataList 
+ * @returns 
+ */
+export function createDisplayTagList(selectedTagList: tagListResType[]): ReactNode[] {
+
+    let tmpDisplayList: ReactNode[] = selectedTagList.map((element) => {
+        return (
+            <React.Fragment>
+                <TagButtonComponent
+                    title={element.label}
+                    onclick={() => { }}
+                />
+                <SpaceComponent space={"3%"} />
+            </React.Fragment>
+        );
+    });
+
+    return tmpDisplayList;
 }

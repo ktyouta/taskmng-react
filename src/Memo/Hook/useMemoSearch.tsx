@@ -7,7 +7,7 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
-import { memoSearchConditionType } from "../Type/MemoType";
+import { memoSearchConditionType, tagListResType } from "../Type/MemoType";
 import { refType } from "../../Common/BaseInputComponent";
 import useSwitch from "../../Common/Hook/useSwitch";
 import useGetGeneralDataList from "../../Common/Hook/useGetGeneralDataList";
@@ -15,8 +15,8 @@ import SpaceComponent from "../../Common/SpaceComponent";
 import React from "react";
 import { parseStrDate } from "../../Common/Function/Function";
 import useCreateDefaultMemoUrlCondition from "./useCreateDefaultMemoUrlCondition";
-import { createSearchDispCondition, createSearchRefArray } from "../Function/MemoFunction";
-import { memoListUrlAtom, memoSearchConditionObjAtom } from "../Atom/MemoAtom";
+import { createDisplayTagList, createSearchDispCondition, createSearchRefArray } from "../Function/MemoFunction";
+import { memoListUrlAtom, memoSearchConditionObjAtom, selectedTagListAtom } from "../Atom/MemoAtom";
 import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../Const/MemoConst";
 
 
@@ -36,6 +36,8 @@ function useMemoSearch() {
     const [memoSearchRefInfo, setMemoSearchRefInfo] = useState<refInfoType[]>([]);
     //検索条件用オブジェクト
     const [searchConditionObj, setSearchConditionObj] = useAtom(memoSearchConditionObjAtom);
+    //選択中のタグリスト
+    const [selectedTagList, setSelectedTagList] = useAtom(selectedTagListAtom);
 
     //検索条件の設定リスト
     const { data: memoSearchConditionList } = useQueryWrapper<memoSearchConditionType[]>({
@@ -59,6 +61,17 @@ function useMemoSearch() {
         //検索条件のdomを作成
         return createSearchDispCondition(memoSearchConditionList, searchConditionObj);
     }, [searchConditionObj, memoSearchConditionList]);
+
+
+    //選択中のタグ(画面表示用)
+    const displayTagList = useMemo(() => {
+        if (!selectedTagList) {
+            return;
+        }
+
+        //選択タグのdomを作成
+        return createDisplayTagList(selectedTagList);
+    }, [selectedTagList]);
 
 
     /**
@@ -136,6 +149,7 @@ function useMemoSearch() {
         closeModal,
         memoSearchRefInfo,
         displaySearchConditionList,
+        displayTagList,
     };
 }
 
