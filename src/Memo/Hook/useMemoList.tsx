@@ -86,7 +86,7 @@ function useMemoList(props: propsType) {
                 </React.Fragment>
             );
         });
-    }, [props.memoList]);
+    }, [props.memoList, selectedTagList]);
 
     return {
         memoContentListDom
