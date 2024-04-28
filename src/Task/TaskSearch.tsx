@@ -56,7 +56,7 @@ function TaskSearch() {
 
     return (
         <HeightDiv
-            height='18%'
+            height='17%'
         >
             <TaskSearchAreaDiv>
                 <TaskSearchConditionAreaDiv>

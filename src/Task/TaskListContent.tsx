@@ -56,7 +56,7 @@ function TaskListContent(props: propsType) {
 
     return (
         <HeightDiv
-            height='78%'
+            height='79%'
         >
             <DispLabel
                 width='93%'

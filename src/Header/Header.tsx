@@ -12,7 +12,7 @@ import IconComponent from '../Common/IconComponent';
 //ヘッダーのスタイル
 const HeaderDiv = styled.div`
   width: 100%;
-  height: 10vh;
+  height: 9vh;
   background-color: #f5f5f5;
   display: flex;
   align-items: center;
