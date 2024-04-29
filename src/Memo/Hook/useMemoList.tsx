@@ -8,8 +8,8 @@ import CenterLoading from "../../Common/CenterLoading";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import ENV from '../../env.json';
 import { useNavigate } from "react-router-dom";
-import { useAtom, useSetAtom } from "jotai";
-import { detailRoutingIdAtom, selectedTagListAtom } from "../Atom/MemoAtom";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { detailRoutingIdAtom, memoListUrlAtom, memoSearchConditionObjAtom, selectedTagListAtom } from "../Atom/MemoAtom";
 import { createMemoContentList } from "../Function/MemoFunction";
 
 
@@ -38,6 +38,10 @@ function useMemoList(props: propsType) {
     const setDetailRoutingId = useSetAtom(detailRoutingIdAtom);
     //選択中のタグリスト
     const [selectedTagList, setSelectedTagList] = useAtom(selectedTagListAtom);
+    //最後に選択したタグ
+    const selectTagLabel = useRef("");
+    //検索条件用オブジェクト
+    const searchConditionObj = useAtomValue(memoSearchConditionObjAtom);
 
 
     //メモの詳細画面に遷移する
@@ -49,6 +53,22 @@ function useMemoList(props: propsType) {
 
     //コンテンツのタグの選択イベント
     const selectContentTag = (selectTag: tagListResType) => {
+
+        //重複するタグは追加しない
+        if (selectedTagList.some((element) => {
+            return element.value === selectTag.value && element.label === selectTag.label;
+        })) {
+
+            if (selectTagLabel.current === selectTag.label) {
+                alert("同名のタグは選択できません。");
+                return;
+            }
+
+            selectTagLabel.current = selectTag.label;
+            return;
+        }
+
+        selectTagLabel.current = "";
         setSelectedTagList([...selectedTagList, selectTag]);
     }
 
@@ -86,6 +106,7 @@ function useMemoList(props: propsType) {
                 </React.Fragment>
             );
         });
+        //selectContentTag内でデータ更新後のselectedTagListを使用するために条件に追加
     }, [props.memoList, selectedTagList]);
 
     return {

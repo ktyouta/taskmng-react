@@ -54,6 +54,7 @@ const TagButtonComponent = (props: propsType) => {
         <BaseButton
             heght={props.heght}
             width={props.width}
+            isDispCross={props.isDispCross}
             style={props.btnStyle}
             onClick={props.onclick}
         >

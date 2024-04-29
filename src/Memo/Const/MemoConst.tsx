@@ -1,3 +1,5 @@
+import ENV from '../../env.json';
+
 //NotFound画面遷移用のダミーID
 export const DUMMY_ID = "ZZZ";
 //メモIDの接頭辞
@@ -38,3 +40,9 @@ export const MEMO_STATUS = {
 export const MEMO_DISPLAY_NUM = 25;
 //タグの最大設定個数
 export const TAG_MAX_SETTINGNUM = 5;
+//メモリストの検索用URL
+export const MEMO_SEARCH_URL = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MEMO}`;
+//メモの検索条件リストの取得用URL
+export const MEMO_SEARCHCONDITION_URL = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MEMOSEARCHCONDITION}`;
+//クエリストリングのキー（タグ）
+export const TAG_QUERY_KEY = "tag"

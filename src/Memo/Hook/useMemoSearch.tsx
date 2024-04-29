@@ -17,7 +17,7 @@ import { parseStrDate } from "../../Common/Function/Function";
 import useCreateDefaultMemoUrlCondition from "./useCreateDefaultMemoUrlCondition";
 import { createDisplayTagList, createSearchDispCondition, createSearchRefArray } from "../Function/MemoFunction";
 import { memoListUrlAtom, memoSearchConditionObjAtom, selectedTagListAtom } from "../Atom/MemoAtom";
-import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../Const/MemoConst";
+import { MEMO_SEARCHCONDITION_URL, MEMO_SEARCH_URL, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../Const/MemoConst";
 
 
 
@@ -29,7 +29,7 @@ import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITIO
 function useMemoSearch() {
 
     //メモリスト取得用URL
-    const setMemoListUrl = useSetAtom(memoListUrlAtom);
+    const [memoListUrl, setMemoListUrl] = useAtom(memoListUrlAtom);
     //モーダルの開閉用フラグ
     const { flag: isModalOpen, onFlag, offFlag } = useSwitch();
     //検索条件参照用リスト
@@ -41,7 +41,7 @@ function useMemoSearch() {
 
     //検索条件の設定リスト
     const { data: memoSearchConditionList } = useQueryWrapper<memoSearchConditionType[]>({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MEMOSEARCHCONDITION}`,
+        url: MEMO_SEARCHCONDITION_URL,
     });
 
     /**
@@ -63,6 +63,14 @@ function useMemoSearch() {
     }, [searchConditionObj, memoSearchConditionList]);
 
 
+    //タグ選択時にタグを削除する
+    const deleteTag = (selectTag: tagListResType) => {
+        setSelectedTagList(selectedTagList.filter((element) => {
+            return element.label !== selectTag.label && element.value !== selectTag.value
+        }));
+    };
+
+
     //選択中のタグ(画面表示用)
     const displayTagList = useMemo(() => {
         if (!selectedTagList) {
@@ -70,7 +78,7 @@ function useMemoSearch() {
         }
 
         //選択タグのdomを作成
-        return createDisplayTagList(selectedTagList);
+        return createDisplayTagList(selectedTagList, deleteTag);
     }, [selectedTagList]);
 
 
@@ -78,7 +86,7 @@ function useMemoSearch() {
      * 検索ボタン押下
      */
     function clickSearchBtn() {
-        let tmpUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MEMO}`;
+        let tmpUrl = MEMO_SEARCH_URL;
         let query = "?";
 
         //モーダル内の検索条件を取得

@@ -14,7 +14,7 @@ import styled from "styled-components";
 import { tabType } from "../../Common/TabComponent";
 import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
 import MemoEditForm from "../MemoEditForm";
-import { COMP_STATUS, HOLD_STATUS, MEMO_STATUS, NOCOMP_STATUS, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, WORKING_STATUS } from "../Const/MemoConst";
+import { COMP_STATUS, HOLD_STATUS, MEMO_SEARCH_URL, MEMO_STATUS, NOCOMP_STATUS, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, TAG_QUERY_KEY, WORKING_STATUS } from "../Const/MemoConst";
 import TagButtonComponent from "../../Common/TagButtonComponent";
 
 
@@ -199,14 +199,16 @@ export function createMemoContentList(memoList: memoListType[], moveMemoDetail: 
  * @param generalDataList 
  * @returns 
  */
-export function createDisplayTagList(selectedTagList: tagListResType[]): ReactNode[] {
+export function createDisplayTagList(selectedTagList: tagListResType[],
+    deleteTag: (selectTag: tagListResType) => void): ReactNode[] {
 
     let tmpDisplayList: ReactNode[] = selectedTagList.map((element) => {
         return (
             <React.Fragment>
                 <TagButtonComponent
                     title={element.label}
-                    onclick={() => { }}
+                    onclick={() => { deleteTag(element) }}
+                    isDispCross={true}
                 />
                 <SpaceComponent space={"3%"} />
             </React.Fragment>
@@ -214,4 +216,43 @@ export function createDisplayTagList(selectedTagList: tagListResType[]): ReactNo
     });
 
     return tmpDisplayList;
+}
+
+
+/**
+ * メモリスト検索用URLの作成
+ * @param selectedTagList 
+ * @param deleteTag 
+ * @returns 
+ */
+export function createMemoSearchUrl(searchConditionObj: {
+    [key: string]: string;
+}, selectedTagList: tagListResType[]) {
+
+    let tmpUrl = MEMO_SEARCH_URL;
+    let query = "?";
+
+    //クエリストリング用のリストを作成
+    let queryList = Object.keys(searchConditionObj).reduce((prev: string[], current: string) => {
+        if (!searchConditionObj[current]) {
+            return prev;
+        }
+        prev.push(`${current}=${searchConditionObj[current]}`);
+        return prev;
+    }, []);
+
+    if (queryList.length > 0 || selectedTagList.length > 0) {
+        tmpUrl += `${query}`;
+    }
+
+    if (queryList.length > 0) {
+        tmpUrl += `${queryList.join("&")}`;
+    }
+
+    //タグが選択されている場合
+    if (selectedTagList.length > 0) {
+        tmpUrl += `${TAG_QUERY_KEY}${selectedTagList.join(",")}`;
+    }
+
+    return tmpUrl;
 }
