@@ -15,7 +15,7 @@ import SpaceComponent from "../../Common/SpaceComponent";
 import React from "react";
 import { parseStrDate } from "../../Common/Function/Function";
 import useCreateDefaultMemoUrlCondition from "./useCreateDefaultMemoUrlCondition";
-import { createDisplayTagList, createSearchDispCondition, createSearchRefArray } from "../Function/MemoFunction";
+import { createDisplayTagList, createMemoSearchUrl, createSearchDispCondition, createSearchRefArray } from "../Function/MemoFunction";
 import { memoListUrlAtom, memoSearchConditionObjAtom, selectedTagListAtom } from "../Atom/MemoAtom";
 import { MEMO_SEARCHCONDITION_URL, MEMO_SEARCH_URL, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../Const/MemoConst";
 
@@ -38,6 +38,7 @@ function useMemoSearch() {
     const [searchConditionObj, setSearchConditionObj] = useAtom(memoSearchConditionObjAtom);
     //選択中のタグリスト
     const [selectedTagList, setSelectedTagList] = useAtom(selectedTagListAtom);
+
 
     //検索条件の設定リスト
     const { data: memoSearchConditionList } = useQueryWrapper<memoSearchConditionType[]>({
@@ -65,9 +66,12 @@ function useMemoSearch() {
 
     //タグ選択時にタグを削除する
     const deleteTag = (selectTag: tagListResType) => {
-        setSelectedTagList(selectedTagList.filter((element) => {
+        let tmpSelectedTagList = selectedTagList.filter((element) => {
             return element.label !== selectTag.label && element.value !== selectTag.value
-        }));
+        });
+
+        setMemoListUrl(createMemoSearchUrl(searchConditionObj, tmpSelectedTagList));
+        setSelectedTagList(tmpSelectedTagList);
     };
 
 
@@ -86,25 +90,8 @@ function useMemoSearch() {
      * 検索ボタン押下
      */
     function clickSearchBtn() {
-        let tmpUrl = MEMO_SEARCH_URL;
-        let query = "?";
-
-        //モーダル内の検索条件を取得
-        Object.keys(searchConditionObj).forEach((element) => {
-            //値が存在するプロパティをクエリストリングに設定
-            if (!searchConditionObj[element]) {
-                return;
-            }
-            if (query !== "?") {
-                query += "&";
-            }
-            query += `${element}=${searchConditionObj[element]}`;
-        });
-        if (query.length > 1) {
-            tmpUrl += query;
-        }
         //URLを更新
-        setMemoListUrl(tmpUrl);
+        setMemoListUrl(createMemoSearchUrl(searchConditionObj, selectedTagList));
     }
 
     /**

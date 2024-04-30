@@ -251,7 +251,8 @@ export function createMemoSearchUrl(searchConditionObj: {
 
     //タグが選択されている場合
     if (selectedTagList.length > 0) {
-        tmpUrl += `${TAG_QUERY_KEY}${selectedTagList.join(",")}`;
+        tmpUrl += queryList.length > 0 ? query : "";
+        tmpUrl += `${TAG_QUERY_KEY}=${selectedTagList.map((element) => `${element.value}`).join(",")}`;
     }
 
     return tmpUrl;

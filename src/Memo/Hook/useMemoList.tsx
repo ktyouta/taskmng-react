@@ -10,7 +10,7 @@ import ENV from '../../env.json';
 import { useNavigate } from "react-router-dom";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { detailRoutingIdAtom, memoListUrlAtom, memoSearchConditionObjAtom, selectedTagListAtom } from "../Atom/MemoAtom";
-import { createMemoContentList } from "../Function/MemoFunction";
+import { createMemoContentList, createMemoSearchUrl } from "../Function/MemoFunction";
 
 
 const MemoListLi = styled.li`
@@ -42,7 +42,8 @@ function useMemoList(props: propsType) {
     const selectTagLabel = useRef("");
     //検索条件用オブジェクト
     const searchConditionObj = useAtomValue(memoSearchConditionObjAtom);
-
+    //メモリスト取得用URL
+    const setMemoListUrl = useSetAtom(memoListUrlAtom);
 
     //メモの詳細画面に遷移する
     const moveMemoDetail = (memoId: string,) => {
@@ -69,7 +70,9 @@ function useMemoList(props: propsType) {
         }
 
         selectTagLabel.current = "";
-        setSelectedTagList([...selectedTagList, selectTag]);
+        let tmpSelectedTagList = [...selectedTagList, selectTag];
+        setMemoListUrl(createMemoSearchUrl(searchConditionObj, tmpSelectedTagList));
+        setSelectedTagList(tmpSelectedTagList);
     }
 
 
@@ -107,7 +110,7 @@ function useMemoList(props: propsType) {
             );
         });
         //selectContentTag内でデータ更新後のselectedTagListを使用するために条件に追加
-    }, [props.memoList, selectedTagList]);
+    }, [props.memoList, selectedTagList, searchConditionObj]);
 
     return {
         memoContentListDom
