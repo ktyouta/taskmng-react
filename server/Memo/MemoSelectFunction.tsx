@@ -188,6 +188,23 @@ export function filterMemoQuery(resMemoList: memoListResType[], query: any): mem
         });
     }
 
+    //タグで絞り込み
+    let tag = query.tag as string;
+    if (tag) {
+        let queryTagList = tag.split(",");
+        resMemoList = resMemoList.filter((element) => {
+            let memoTagList = element.tagId;
+
+            if (!memoTagList) {
+                return false;
+            }
+
+            return queryTagList.some((element1) => {
+                return memoTagList.includes(element1);
+            });
+        });
+    }
+
     //取得件数で絞り込み
     let getNum = query.num as number;
     if (getNum && !isNaN(Number(getNum))) {
