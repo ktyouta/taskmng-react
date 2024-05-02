@@ -33,20 +33,20 @@ export function getMemoList(res: any, req: any) {
     //メモファイルの読み込み
     let decodeFileData: memoListType[] = getFilterdMemo();
 
+    //タグファイルの読み込み
+    let decodeTagFileData: tagListType[] = getFilterdTag();
+
     //画面返却用の型に変換
     let resMemoList: memoListResType[] = convMemo(decodeFileData);
 
     //クエリストリングでフィルター
-    resMemoList = filterMemoQuery(resMemoList, queryStr);
+    resMemoList = filterMemoQuery(resMemoList, queryStr, decodeTagFileData);
 
     //メモデータのフィルター
     resMemoList = getFilterdUserStatusMemo(resMemoList, authResult);
 
     //ユーザーIDとユーザーを結合
     resMemoList = joinUser(resMemoList);
-
-    //タグファイルの読み込み
-    let decodeTagFileData: tagListType[] = getFilterdTag();
 
     //タグと結合
     resMemoList = joinMemoTag(resMemoList, decodeTagFileData);

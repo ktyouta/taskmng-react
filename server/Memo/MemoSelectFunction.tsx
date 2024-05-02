@@ -141,7 +141,8 @@ export function joinUser(decodeFileData: memoListResType[]): memoListResType[] {
 /**
  * メモリストをクエリストリングで絞り込む
  */
-export function filterMemoQuery(resMemoList: memoListResType[], query: any): memoListResType[] {
+export function filterMemoQuery(resMemoList: memoListResType[], query: any,
+    decodeTagFileData: tagListType[]): memoListResType[] {
 
     //メモ用の検索条件設定リストを取得
     let searchConditionList: memoSearchConditionListType[] = getMemoSearchConditionObj();
@@ -191,7 +192,19 @@ export function filterMemoQuery(resMemoList: memoListResType[], query: any): mem
     //タグで絞り込み
     let tag = query.tag as string;
     if (tag) {
+        //クエリストリングのラベルリストからIDリストを作成
         let queryTagList = tag.split(",");
+        let queryTagIdList: string[] = queryTagList.reduce((prev: string[], current) => {
+            let queryTag = decodeTagFileData.find((element1) => {
+                return element1.label === current;
+            });
+            if (!queryTag) {
+                return prev;
+            }
+
+            return [...prev, queryTag.id];
+        }, []);
+
         resMemoList = resMemoList.filter((element) => {
             let memoTagList = element.tagId;
 
@@ -199,7 +212,7 @@ export function filterMemoQuery(resMemoList: memoListResType[], query: any): mem
                 return false;
             }
 
-            return queryTagList.some((element1) => {
+            return queryTagIdList.some((element1) => {
                 return memoTagList.includes(element1);
             });
         });
