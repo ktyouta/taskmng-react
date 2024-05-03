@@ -36,6 +36,7 @@ const MainAreaDiv = styled(HeightDiv)`
 //入力欄のスタイル
 const InputAreaDiv = styled(HeightDiv)`
     margin-left: 5%;
+    overflow-y: auto;
 `;
 
 

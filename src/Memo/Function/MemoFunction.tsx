@@ -41,7 +41,8 @@ const MemoSearchAreaDt = styled.dt`
 export function createSearchRefArray(memoSearchConditionList: memoSearchConditionType[],
     searchConditionObj: {
         [key: string]: string;
-    }
+    },
+    selectedTagList: tagListResType[]
 ): refInfoType[] {
 
     let tmpSearchConditionRef: refInfoType[] = memoSearchConditionList.map((element) => {
@@ -52,6 +53,13 @@ export function createSearchRefArray(memoSearchConditionList: memoSearchConditio
                 tmpValue = value as string;
                 break;
             }
+        }
+
+        //タグ
+        if (element.id === TAG_QUERY_KEY) {
+            tmpValue = selectedTagList.map((element) => {
+                return element.label;
+            }).join(" ");
         }
 
         return {
@@ -65,6 +73,7 @@ export function createSearchRefArray(memoSearchConditionList: memoSearchConditio
             length: element.length,
             disabled: false,
             visible: !element.isHidden,
+            description: element.description
         }
     });
 

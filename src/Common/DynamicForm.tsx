@@ -175,6 +175,7 @@ function DynamicForm(props: propsType) {
                                 element.description &&
                                 <HorizonLabelItemComponent
                                     title={''}
+                                    width={props.titleWidth}
                                 >
                                     <DescriptionSpan>
                                         {element.description}
@@ -186,6 +187,7 @@ function DynamicForm(props: propsType) {
                                 element.errMessage &&
                                 <HorizonLabelItemComponent
                                     title={''}
+                                    width={props.titleWidth}
                                 >
                                     <ErrMessageSpan>
                                         {element.errMessage}

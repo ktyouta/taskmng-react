@@ -92,7 +92,7 @@ function MemoContent(props: propsType) {
             <ContentTagDiv
                 infoBgColor={props.contentObj.bgColor}
             >
-                {tagList}
+                タグ：{tagList}
             </ContentTagDiv>
             <ContentInfoDiv
                 infoBgColor={props.contentObj.bgColor}

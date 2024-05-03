@@ -37,7 +37,7 @@ export const MEMO_STATUS = {
     regist: "2",
 }
 //メモリストの画面表示件数
-export const MEMO_DISPLAY_NUM = 25;
+export const MEMO_DISPLAY_NUM = 10;
 //タグの最大設定個数
 export const TAG_MAX_SETTINGNUM = 5;
 //メモリストの検索用URL

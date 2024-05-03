@@ -37,6 +37,9 @@ const MemoSearchConditionAreaDl = styled.dl`
     height:50%;
     align-items: center;
     flex-wrap: wrap;
+    padding: 2% 0 0 0;
+    margin: 0;
+    box-sizing: border-box;
 `;
 
 const MemoSearchTagAreaDiv = styled.div`
@@ -78,6 +81,7 @@ function MemoSearch() {
                     <MemoSearchConditionAreaDl>
                         {displaySearchConditionList}
                     </MemoSearchConditionAreaDl>
+                    {/* 検索条件に指定されているタグリスト */}
                     <MemoSearchTagAreaDiv>
                         {displayTagList}
                     </MemoSearchTagAreaDiv>

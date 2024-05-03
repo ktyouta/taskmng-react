@@ -17,7 +17,7 @@ import { parseStrDate } from "../../Common/Function/Function";
 import useCreateDefaultMemoUrlCondition from "./useCreateDefaultMemoUrlCondition";
 import { createDisplayTagList, createMemoSearchUrl, createSearchDispCondition, createSearchRefArray } from "../Function/MemoFunction";
 import { memoListUrlAtom, memoSearchConditionObjAtom, selectedTagListAtom } from "../Atom/MemoAtom";
-import { MEMO_SEARCHCONDITION_URL, MEMO_SEARCH_URL, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../Const/MemoConst";
+import { MEMO_SEARCHCONDITION_URL, MEMO_SEARCH_URL, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY, TAG_QUERY_KEY } from "../Const/MemoConst";
 
 
 
@@ -29,7 +29,7 @@ import { MEMO_SEARCHCONDITION_URL, MEMO_SEARCH_URL, SEARCHCONDITION_KEY_CUSTOM, 
 function useMemoSearch() {
 
     //メモリスト取得用URL
-    const [memoListUrl, setMemoListUrl] = useAtom(memoListUrlAtom);
+    const setMemoListUrl = useSetAtom(memoListUrlAtom);
     //モーダルの開閉用フラグ
     const { flag: isModalOpen, onFlag, offFlag } = useSwitch();
     //検索条件参照用リスト
@@ -67,7 +67,7 @@ function useMemoSearch() {
     //タグ選択時にタグを削除する
     const deleteTag = (selectTag: tagListResType) => {
         let tmpSelectedTagList = selectedTagList.filter((element) => {
-            return element.label !== selectTag.label && element.value !== selectTag.value
+            return element.label !== selectTag.label;
         });
 
         setMemoListUrl(createMemoSearchUrl(searchConditionObj, tmpSelectedTagList));
@@ -113,7 +113,7 @@ function useMemoSearch() {
         }
 
         //検索条件の参照を作成
-        setMemoSearchRefInfo(createSearchRefArray(memoSearchConditionList, searchConditionObj));
+        setMemoSearchRefInfo(createSearchRefArray(memoSearchConditionList, searchConditionObj, selectedTagList));
         onFlag();
     }
 
@@ -130,8 +130,42 @@ function useMemoSearch() {
             if (!element.ref.current) {
                 return true;
             }
+            //タグは別のステートで管理しているためスキップ
+            if (element.id === TAG_QUERY_KEY) {
+                return true;
+            }
+
             tmpCondition[element.id] = element.ref.current.refValue;
         });
+
+        //タグ(検索条件)の入力値を取得
+        let tagInput = memoSearchRefInfo.find((element) => {
+            return element.id === TAG_QUERY_KEY;
+        });
+
+        //タグが入力されている場合はリストに変換してステートにセットする
+        if (tagInput && tagInput.ref.current && tagInput.ref.current.refValue.trim()) {
+            setSelectedTagList(tagInput.ref.current.refValue.split(" ").reduce((prev: tagListResType[], current: string) => {
+
+                //重複したラベルを省く
+                if (prev.some((element) => {
+                    return element.label === current;
+                })) {
+                    return prev;
+                }
+
+                //空文字を省く
+                if (!current.trim()) {
+                    return prev;
+                }
+
+                return [...prev, {
+                    label: current,
+                    value: ""
+                }];
+            }, []));
+        }
+
         setSearchConditionObj(tmpCondition);
         offFlag();
     }

@@ -27,7 +27,8 @@ export type memoSearchConditionListType = {
     deleteFlg: string,
     userId: string,
     listKey: string,
-    selectList: comboType[]
+    selectList: comboType[],
+    description: string,
 }
 
 //メモ検索条件リストの画面返却用の型

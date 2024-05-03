@@ -109,7 +109,7 @@ function useMemoList(props: propsType) {
                 </React.Fragment>
             );
         });
-        //selectContentTag内でデータ更新後のselectedTagListを使用するために条件に追加
+        //selectContentTag内でデータ更新後のselectedTagListとsearchConditionObjを使用するために条件に追加
     }, [props.memoList, selectedTagList, searchConditionObj]);
 
     return {

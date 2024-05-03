@@ -8,7 +8,8 @@
 		"registerTime": "2024/01/28",
 		"updTime": "2024/03/16",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"description":""
 	},
 	{
 		"id": "keyword",
@@ -19,7 +20,8 @@
 		"registerTime": "2024/01/28",
 		"updTime": "2024/03/16",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"description":""
 	},
 	{
 		"id": "title",
@@ -31,7 +33,8 @@
 		"registerTime": "2024/01/28",
 		"updTime": "2024/03/16",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"description":""
 	},
 	{
 		"id": "userId",
@@ -43,7 +46,8 @@
 		"registerTime": "2024/01/28",
 		"updTime": "2024/03/16",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"description":""
 	},
 	{
 		"id": "registerTime",
@@ -54,7 +58,8 @@
 		"registerTime": "2024/01/28",
 		"updTime": "2024/03/16",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"description":""
 	},
 	{
 		"id": "updTime",
@@ -65,6 +70,19 @@
 		"registerTime": "2024/01/28",
 		"updTime": "2024/03/16",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"description":""
+	},
+	{
+		"id": "tag",
+		"name": "タグ",
+		"type": "input",
+		"isHidden": false,
+		"value": "",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/03/16",
+		"deleteFlg": "0",
+		"userId": "f",
+		"description":"タグをスペース区切りで入力して下さい"
 	}
 ]

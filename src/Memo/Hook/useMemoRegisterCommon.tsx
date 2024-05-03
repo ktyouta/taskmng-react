@@ -185,7 +185,7 @@ function useMemoRegister(props: propsType) {
         }
 
         if (props.memoTagList.length >= TAG_MAX_SETTINGNUM) {
-            alert("タグの最大設定可能数は5個です。");
+            alert(`タグの最大設定可能数は${TAG_MAX_SETTINGNUM}個です。`);
             return;
         }
 

@@ -72,7 +72,7 @@ export type memoSearchConditionType = {
     length: number,
     value: string,
     isHidden: boolean,
-    attribute: string,
+    description: string,
 }
 
 //メモ編集画面の入力欄の設定
