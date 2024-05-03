@@ -27,6 +27,7 @@ function Memo(props: propsType) {
   const {
     detailRoutingId,
     backPageFunc,
+    memoListQueryParam,
   } = useMemo({ ...props });
 
   return (
@@ -35,7 +36,7 @@ function Memo(props: propsType) {
     >
       <Routes>
         <Route
-          path={MEMO_ROOT_PATH}
+          path={MEMO_ROOT_PATH || memoListQueryParam}
           element={
             <MemoMain
               path={props.path}

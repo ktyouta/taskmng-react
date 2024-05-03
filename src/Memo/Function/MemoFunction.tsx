@@ -16,6 +16,7 @@ import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
 import MemoEditForm from "../MemoEditForm";
 import { COMP_STATUS, HOLD_STATUS, MEMO_SEARCH_URL, MEMO_STATUS, NOCOMP_STATUS, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, TAG_QUERY_KEY, WORKING_STATUS } from "../Const/MemoConst";
 import TagButtonComponent from "../../Common/TagButtonComponent";
+import { stringify } from "querystring";
 
 
 //フッターのスタイル
@@ -265,4 +266,31 @@ export function createMemoSearchUrl(searchConditionObj: {
     }
 
     return tmpUrl;
+}
+
+
+/**
+ * クエリストリングからオブジェクトを作成
+ * @returns 
+ */
+export function getUrlQueryObj(queryStrParam: string) {
+    let queryStr = queryStrParam.slice(1);  // 文頭?を除外
+    let queries: { [key: string]: string } = {};
+
+    // クエリがない場合
+    if (!queryStr) {
+        return queries;
+    }
+
+    // クエリ文字列を & で分割して処理
+    queryStr.split('&').forEach((queryStr) => {
+        // = で分割してkey,valueをオブジェクトに格納
+        let queryArr = queryStr.split('=');
+        if (!queryArr || queryArr.length < 2) {
+            return;
+        }
+        queries[queryArr[0]] = queryArr[1];
+    });
+
+    return queries;
 }
