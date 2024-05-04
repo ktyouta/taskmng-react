@@ -5,9 +5,9 @@ import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import useCreateDefaultMemoUrlCondition from "./useCreateDefaultMemoUrlCondition";
 import { useNavigate } from "react-router-dom";
 import { memoSearchConditionType } from "../Type/MemoType";
-import { detailRoutingIdAtom, memoListQueryParamAtom, memoSearchConditionObjAtom, selectedTagListAtom } from "../Atom/MemoAtom";
-import { DUMMY_ID, PRE_MEMO_ID, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../Const/MemoConst";
-import { getUrlQueryObj } from "../Function/MemoFunction";
+import { detailRoutingIdAtom, memoListQueryParamAtom, memoListUrlAtom, memoSearchConditionObjAtom, selectedTagListAtom } from "../Atom/MemoAtom";
+import { DUMMY_ID, MEMO_SEARCHCONDITION_URL, MEMO_SEARCH_URL, PRE_MEMO_ID, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../Const/MemoConst";
+import { getUrlQueryObj, getUrlQueryTagList } from "../Function/MemoFunction";
 
 
 //引数の型
@@ -32,10 +32,12 @@ function useMemo(props: propsType) {
     const setSelectedTagList = useSetAtom(selectedTagListAtom);
     //一覧画面のルーティング用
     const [memoListQueryParam, setMemoListQueryParam] = useAtom(memoListQueryParamAtom);
+    //メモリスト取得用URL
+    const setMemoListUrl = useSetAtom(memoListUrlAtom);
 
     //検索条件リスト
     const { data: memoSearchConditionList } = useQueryWrapper<memoSearchConditionType[]>({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}${SEARCHCONDITION_QUERY_KEY}${SEARCHCONDITION_KEY_DEFAULT},${SEARCHCONDITION_KEY_CUSTOM}`,
+        url: MEMO_SEARCHCONDITION_URL,
     });
 
     /**
@@ -60,10 +62,12 @@ function useMemo(props: propsType) {
 
         //メモ一覧
         if (pathArray.length == 2) {
-            let query = window.location.search;
-            if (query.includes("?")) {
+            if (window.location.search.includes("?")) {
+                query = window.location.search;
                 //検索条件オブジェクトにデータをセット
                 setSearchConditionObj(getUrlQueryObj(query));
+                setSelectedTagList(getUrlQueryTagList(query));
+                setMemoListUrl(`${MEMO_SEARCH_URL}${query}`);
             }
         }
         //メモ詳細

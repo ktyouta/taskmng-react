@@ -289,8 +289,45 @@ export function getUrlQueryObj(queryStrParam: string) {
         if (!queryArr || queryArr.length < 2) {
             return;
         }
-        queries[queryArr[0]] = queryArr[1];
+
+        if (queryArr[0] === TAG_QUERY_KEY) {
+            return;
+        }
+        queries[queryArr[0]] = decodeURI(queryArr[1]);
     });
 
     return queries;
+}
+
+
+/**
+ * クエリストリングからタグリストを作成
+ * @returns 
+ */
+export function getUrlQueryTagList(queryStrParam: string): tagListResType[] {
+    let queries: tagListResType[] = [];
+
+    if (!queryStrParam) {
+        return queries;
+    }
+
+    let queryStr = queryStrParam.slice(1);  // 文頭?を除外
+    // クエリがない場合
+    if (!queryStr) {
+        return queries;
+    }
+
+    return queryStr.split('&').reduce((prev: tagListResType[], current: string) => {
+        if (current.startsWith(`${TAG_QUERY_KEY}=`)) {
+            let tagValue = current.substring(`${TAG_QUERY_KEY}=`.length);
+            prev.push(...tagValue.split(",").map((element) => {
+                return {
+                    label: element,
+                    value: "",
+                }
+            }))
+        }
+
+        return prev;
+    }, []);
 }
