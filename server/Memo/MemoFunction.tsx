@@ -4,7 +4,7 @@ import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
 import { memoContentListType, memoListResType, memoListType, memoRegistReqType, memoSearchConditionListType, memoUpdReqType, retCreateAddMemoDataType } from "./Type/MemoType";
-import { convMemo, convMemoDetail, filterMemoQuery, getFilterdMemo, getFilterdSearchCondition, getFilterdUserStatusMemo, getMemoObj, joinMemoDetailTag, joinMemoTag, joinSelectListMemoSearchCondition, joinUser } from "./MemoSelectFunction";
+import { convMemo, convMemoDetail, filterMemoQuery, getFilterdMemo, getFilterdSearchCondition, getFilterdUserStatusMemo, getMemoObj, joinMemoDetailTag, joinMemoTag, joinSelectListMemoSearchCondition, joinTagLabelMemoSearchCondition, joinUser } from "./MemoSelectFunction";
 import { MEMO_FILEPATH } from "./Const/MemoConst";
 import { createAddMemoData, createAddMemoTagData } from "./MemoRegistFunction";
 import { createUpdMemoData } from "./MemoUpdateFunction";
@@ -12,6 +12,7 @@ import { createDelMemoData } from "./MemoDeleteFunction";
 import { tagListType } from "../Tag/Type/TagType";
 import { TAG_FILEPATH } from "../Tag/Const/TagConst";
 import { getFilterdTag, getTagObj } from "../Tag/TagSelectFunction";
+import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 
 
 
@@ -113,8 +114,17 @@ export function getMemoSearchConditionList(res: any, req: any) {
     //メモ検索条件ファイルの読み込み
     let decodeFileData: memoSearchConditionListType[] = getFilterdSearchCondition();
 
-    //選択リストと結合する
-    let resMemoSearchConditionList: memoSearchConditionListType[] = joinSelectListMemoSearchCondition(decodeFileData);
+    //ユーザーリストの読み込み
+    let userList = getUserInfoData();
+
+    //タグファイルの読み込み
+    let decodeTagFileData: tagListType[] = getFilterdTag();
+
+    //ユーザーリストと結合する
+    let resMemoSearchConditionList: memoSearchConditionListType[] = joinSelectListMemoSearchCondition(decodeFileData, userList);
+
+    //タグラベルと結合する
+    resMemoSearchConditionList = joinTagLabelMemoSearchCondition(decodeFileData, decodeTagFileData);
 
     //該当データなし
     if (resMemoSearchConditionList.length === 0) {

@@ -68,7 +68,7 @@ export function createSearchRefArray(memoSearchConditionList: memoSearchConditio
             name: element.name,
             type: element.type,
             //キーに一致するデータが存在する場合はその値を表示
-            initValue: tmpValue ?? element.value,
+            initValue: tmpValue ?? "",
             selectList: element.selectList,
             ref: createRef(),
             length: element.length,

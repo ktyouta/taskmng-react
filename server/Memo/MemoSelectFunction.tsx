@@ -1,5 +1,5 @@
 import { memoContentListType, memoListResType, memoListType, memoSearchConditionListType } from "./Type/MemoType";
-import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_INPUTSETTING_FILEPATH, MEMO_SEARCHCONDITION_FILEPATH, MEMO_STATUS, PRE_MEMO_ID, PRE_TAG_ID, USER_SEARCHCONDITION_ID } from "./Const/MemoConst";
+import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_INPUTSETTING_FILEPATH, MEMO_SEARCHCONDITION_FILEPATH, MEMO_STATUS, PRE_MEMO_ID, PRE_TAG_ID, TAG_PROPERTY, USER_SEARCHCONDITION_ID } from "./Const/MemoConst";
 import { getFileJsonData, readFile } from "../Common/FileFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
 import { getUserInfoData } from "../Setting/User/UserSelectFunction";
@@ -11,6 +11,7 @@ import { getFormatDate } from "../Common/Function";
 import { TAGFILENM } from "../Common/Const/CommonConst";
 import { tagListType } from "../Tag/Type/TagType";
 import { TAG_FILEPATH } from "../Tag/Const/TagConst";
+import { userInfoType } from "../Setting/User/Type/UserType";
 
 
 
@@ -229,12 +230,11 @@ export function filterMemoQuery(resMemoList: memoListResType[], query: any,
 
 
 /**
- * 選択リストを結合
+ * ユーザーリストと結合
  */
-export function joinSelectListMemoSearchCondition(searchConditionList: memoSearchConditionListType[]): memoSearchConditionListType[] {
-
-    //ユーザーリストの読み込み
-    let userList = getUserInfoData();
+export function joinSelectListMemoSearchCondition(searchConditionList: memoSearchConditionListType[],
+    userList: userInfoType[]
+): memoSearchConditionListType[] {
 
     //ユーザープロパティの要素を取得
     let userProperty = searchConditionList.find((element) => {
@@ -255,6 +255,45 @@ export function joinSelectListMemoSearchCondition(searchConditionList: memoSearc
 
     //ユーザーリストをセット
     userProperty.selectList = selectList;
+
+    return searchConditionList;
+}
+
+
+/**
+ * タグラベルと結合
+ */
+export function joinTagLabelMemoSearchCondition(searchConditionList: memoSearchConditionListType[],
+    decodeTagFileData: tagListType[]
+): memoSearchConditionListType[] {
+
+    //タグプロパティの要素を取得
+    let tagProperty = searchConditionList.find((element) => {
+        return element.id === TAG_PROPERTY;
+    });
+
+    if (!tagProperty) {
+        return searchConditionList;
+    }
+
+    //タグの初期値(ID)
+    let tagIdValue = tagProperty.value;
+
+    if (!tagIdValue) {
+        return searchConditionList;
+    }
+
+    //タグラベルを初期値としてセット
+    tagProperty.value = tagIdValue.split(",").reduce((prev: string[], current: string) => {
+        let tagLabel = decodeTagFileData.find((element) => {
+            return element.id === current;
+        })?.label;
+        if (!tagLabel) {
+            return prev;
+        }
+
+        return [...prev, tagLabel]
+    }, []).join(",");
 
     return searchConditionList;
 }

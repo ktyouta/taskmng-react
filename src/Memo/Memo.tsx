@@ -35,6 +35,7 @@ function Memo(props: propsType) {
       height='100%'
     >
       <Routes>
+        {/* メモ一覧画面のルーティング */}
         <Route
           path={MEMO_ROOT_PATH || memoListQueryParam}
           element={

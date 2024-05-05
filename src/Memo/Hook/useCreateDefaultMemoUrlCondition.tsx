@@ -6,12 +6,18 @@ import { MEMO_SEARCH_URL, TAG_QUERY_KEY } from '../Const/MemoConst';
 import { useNavigate } from "react-router-dom";
 
 
+//引数の型
+type propsType = {
+    memoSearchConditionList: memoSearchConditionType[],
+    querySkipFlg?: boolean
+}
+
 /**
  * 検索条件設定リストから初期表示メモの取得用URLを作成するメソッドを返却
  * @param memoSearchConditionList メモの設定リスト
  * @returns 
  */
-function useCreateDefaultMemoUrlCondition(memoSearchConditionList: memoSearchConditionType[] | undefined) {
+function useCreateDefaultMemoUrlCondition() {
 
     //メモリスト取得用URL
     const setMemoListUrl = useSetAtom(memoListUrlAtom);
@@ -28,20 +34,17 @@ function useCreateDefaultMemoUrlCondition(memoSearchConditionList: memoSearchCon
     /**
      * 初期表示メモ取得用URLと検索条件オブジェクトの作成
      */
-    const createDefaultUrlCondition = () => {
+    const createDefaultUrlCondition = (props: propsType) => {
         //クエリパラメータが存在する場合はスキップ
-        if (window.location.search) {
-            return;
-        }
-        if (!memoSearchConditionList) {
+        if (window.location.search && props.querySkipFlg) {
             return;
         }
 
         let tmpCondition: { [key: string]: string } = {};
-        let tmpTagList: tagListResType[] = []
         let tmpUrl = MEMO_SEARCH_URL;
         let query = "?";
-        memoSearchConditionList.forEach((element) => {
+        let tagList: tagListResType[] = []
+        props.memoSearchConditionList.forEach((element) => {
             //値が存在するプロパティをクエリストリングに設定
             if (!element.value) {
                 return;
@@ -50,8 +53,20 @@ function useCreateDefaultMemoUrlCondition(memoSearchConditionList: memoSearchCon
                 query += "&";
             }
 
+            //タグ
+            if (element.id === TAG_QUERY_KEY) {
+                tagList = element.value.split(",").map((element1) => {
+                    return {
+                        label: element1,
+                        value: ""
+                    }
+                });
+            }
+            else {
+                tmpCondition[element.id] = element.value;
+            }
+
             query += `${element.id}=${element.value}`;
-            tmpCondition[element.id] = element.value;
         });
         if (query.length > 1) {
             tmpUrl += query;
@@ -63,7 +78,7 @@ function useCreateDefaultMemoUrlCondition(memoSearchConditionList: memoSearchCon
         navigate(query);
         //検索条件オブジェクトの作成
         setSearchConditionObj(tmpCondition);
-        setSelectedTagList([]);
+        setSelectedTagList(tagList);
     }
 
     return {

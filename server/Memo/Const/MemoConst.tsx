@@ -21,3 +21,5 @@ export const MEMO_STATUS = {
 export const USER_SEARCHCONDITION_ID = "userId";
 //タグIDの接頭辞
 export const PRE_TAG_ID = `TAGID-`;
+//タグプロパティ
+export const TAG_PROPERTY = "tag";

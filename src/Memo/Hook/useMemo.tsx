@@ -43,11 +43,14 @@ function useMemo(props: propsType) {
     /**
      * 初期表示メモ取得用URLと検索条件オブジェクトの作成
      */
-    const { createDefaultUrlCondition } = useCreateDefaultMemoUrlCondition(memoSearchConditionList);
+    const { createDefaultUrlCondition } = useCreateDefaultMemoUrlCondition();
 
     //初期表示メモ取得用URLと検索条件オブジェクトの作成
     useEffect(() => {
-        createDefaultUrlCondition();
+        if (!memoSearchConditionList) {
+            return;
+        }
+        createDefaultUrlCondition({ memoSearchConditionList, querySkipFlg: true });
     }, [memoSearchConditionList]);
 
     //詳細画面のURLを直打ちした際にルーディングを作成

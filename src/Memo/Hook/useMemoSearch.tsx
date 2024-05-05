@@ -48,7 +48,7 @@ function useMemoSearch() {
     /**
      * 初期表示メモ取得用URLと検索条件オブジェクトの作成
      */
-    const { createDefaultUrlCondition } = useCreateDefaultMemoUrlCondition(memoSearchConditionList);
+    const { createDefaultUrlCondition } = useCreateDefaultMemoUrlCondition();
 
     //現在の検索条件(画面表示用)
     const displaySearchConditionList = useMemo(() => {
@@ -98,7 +98,10 @@ function useMemoSearch() {
      * クリアボタン押下
      */
     function clickClearBtn() {
-        createDefaultUrlCondition();
+        if (!memoSearchConditionList) {
+            return;
+        }
+        createDefaultUrlCondition({ memoSearchConditionList });
     }
 
     /**
