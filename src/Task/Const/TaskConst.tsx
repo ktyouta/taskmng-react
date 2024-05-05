@@ -1,3 +1,5 @@
+import ENV from '../../env.json';
+
 //NotFound画面遷移用のダミーID
 export const DUMMY_ID = "ZZZ";
 //タスクIDの接頭辞
@@ -19,3 +21,7 @@ export const HOLD_STATUS = "3";
 export const WORKING_STATUS = "4";
 //タスクリストの画面表示件数
 export const TASK_DISPLAY_NUM = 25;
+//メモリストの検索用URL
+export const TASK_SEARCH_URL = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`;
+//タスク画面ルートパス
+export const TASK_ROOT_PATH = "/";

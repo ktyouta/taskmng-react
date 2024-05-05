@@ -5,8 +5,9 @@ import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
 import { useNavigate } from "react-router-dom";
 import { taskSearchConditionType } from "../Type/TaskType";
-import { detailRoutingIdAtom } from "../Atom/TaskAtom";
-import { DUMMY_ID, PRE_TASK_ID, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../Const/TaskConst";
+import { detailRoutingIdAtom, taskListQueryParamAtom, taskListUrlAtom, taskSearchConditionObjAtom } from "../Atom/TaskAtom";
+import { DUMMY_ID, PRE_TASK_ID, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY, TASK_SEARCH_URL } from "../Const/TaskConst";
+import { getUrlQueryObj } from "../Function/TaskFunction";
 
 
 //引数の型
@@ -25,6 +26,14 @@ function useTask(props: propsType) {
     const [detailRoutingId, setDetailRoutingId] = useAtom(detailRoutingIdAtom);
     //ルーティング用
     const navigate = useNavigate();
+    //一覧画面のルーティング用
+    const [taskListQueryParam, setTaskListQueryParam] = useAtom(taskListQueryParamAtom);
+    //メモリスト取得用URL
+    const setTaskListUrl = useSetAtom(taskListUrlAtom);
+    //検索条件用オブジェクト
+    const setSearchConditionObj = useSetAtom(taskSearchConditionObjAtom);
+
+
     //検索条件リスト
     const { data: taskSearchConditionList } = useQueryWrapper<taskSearchConditionType[]>({
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}${SEARCHCONDITION_QUERY_KEY}${SEARCHCONDITION_KEY_DEFAULT},${SEARCHCONDITION_KEY_CUSTOM}`,
@@ -33,27 +42,49 @@ function useTask(props: propsType) {
     /**
      * 初期表示タスク取得用URLと検索条件オブジェクトの作成
      */
-    const { createDefaultUrlCondition } = useCreateDefaultTaskUrlCondition(taskSearchConditionList);
+    const { createDefaultUrlCondition } = useCreateDefaultTaskUrlCondition();
 
     //初期表示タスク取得用URLと検索条件オブジェクトの作成
     useEffect(() => {
-        createDefaultUrlCondition();
+        if (!taskSearchConditionList) {
+            return;
+        }
+
+        createDefaultUrlCondition({ taskSearchConditionList, querySkipFlg: true });
     }, [taskSearchConditionList]);
+
 
     //詳細画面のURLを直打ちした際にルーディングを作成
     useEffect(() => {
         let pathArray = window.location.pathname.split("/");
-        if (pathArray.length !== 3) {
+        if (pathArray.length < 2) {
             return;
         }
-        //ID部分を取得
-        let taskId = pathArray[2];
-        //IDチェック
-        if (isNaN(Number(taskId.replace(PRE_TASK_ID, "")))) {
-            //ダミーをセット
-            taskId = DUMMY_ID;
+
+        let query = "";
+        let taskId = "";
+
+        //メモ一覧
+        if (pathArray.length == 2) {
+            if (window.location.search.includes("?")) {
+                query = window.location.search;
+                //検索条件オブジェクトにデータをセット
+                setSearchConditionObj(getUrlQueryObj(query));
+                setTaskListUrl(`${TASK_SEARCH_URL}${query}`);
+            }
         }
+        //タスク詳細
+        else if (pathArray.length == 3) {
+            //ID部分を取得
+            taskId = pathArray[2];
+            //IDチェック
+            if (isNaN(Number(taskId.replace(PRE_TASK_ID, "")))) {
+                taskId = DUMMY_ID;
+            }
+        }
+
         setDetailRoutingId(taskId);
+        setTaskListQueryParam(query);
     }, []);
 
     /**
@@ -66,6 +97,7 @@ function useTask(props: propsType) {
     return {
         detailRoutingId,
         backPageFunc,
+        taskListQueryParam,
     };
 }
 

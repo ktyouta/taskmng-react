@@ -1,7 +1,15 @@
 import ENV from '../../env.json';
 import { useSetAtom } from "jotai";
 import { taskSearchConditionType } from '../Type/TaskType';
-import { taskListUrlAtom, taskSearchConditionObjAtom } from '../Atom/TaskAtom';
+import { taskListQueryParamAtom, taskListUrlAtom, taskSearchConditionObjAtom } from '../Atom/TaskAtom';
+import { useNavigate } from "react-router-dom";
+
+
+//引数の型
+type propsType = {
+    taskSearchConditionList: taskSearchConditionType[],
+    querySkipFlg?: boolean
+}
 
 
 /**
@@ -9,24 +17,36 @@ import { taskListUrlAtom, taskSearchConditionObjAtom } from '../Atom/TaskAtom';
  * @param taskSearchConditionList タスクの設定リスト
  * @returns 
  */
-function useCreateDefaultTaskUrlCondition(taskSearchConditionList: taskSearchConditionType[] | undefined) {
+function useCreateDefaultTaskUrlCondition() {
 
     //タスクリスト取得用URL
     const setTaskListUrl = useSetAtom(taskListUrlAtom);
     //検索条件用オブジェクト
     const setSearchConditionObj = useSetAtom(taskSearchConditionObjAtom);
+    //一覧画面のルーティング用
+    const setTaskListQueryParam = useSetAtom(taskListQueryParamAtom);
+    //ルーティング用
+    const navigate = useNavigate();
+
 
     /**
      * 初期表示タスク取得用URLと検索条件オブジェクトの作成
      */
-    const createDefaultUrlCondition = () => {
-        if (!taskSearchConditionList) {
+    const createDefaultUrlCondition = (props: propsType) => {
+        //クエリパラメータが存在する場合はスキップ
+        if (window.location.search && props.querySkipFlg) {
             return;
         }
+
+        //詳細画面のURLが直打ちされた場合
+        if (window.location.pathname.split("/").length > 2) {
+            return;
+        }
+
         let tmpCondition: { [key: string]: string } = {};
         let tmpUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`;
         let query = "?";
-        taskSearchConditionList.forEach((element) => {
+        props.taskSearchConditionList.forEach((element) => {
             //値が存在するプロパティをクエリストリングに設定
             if (!element.value) {
                 return;
@@ -42,6 +62,8 @@ function useCreateDefaultTaskUrlCondition(taskSearchConditionList: taskSearchCon
         }
         //初期表示タスク取得用URLの作成
         setTaskListUrl(tmpUrl);
+        setTaskListQueryParam(tmpUrl);
+        navigate(query);
         //検索条件オブジェクトの作成
         setSearchConditionObj(tmpCondition);
     }

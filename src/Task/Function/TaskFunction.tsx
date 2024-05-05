@@ -826,3 +826,31 @@ export function createTabItems(taskSearchRefInfo: taskSearchConditionRefType) {
 
     return tmpTabItemList;
 }
+
+
+/**
+ * クエリストリングからオブジェクトを作成
+ * @returns 
+ */
+export function getUrlQueryObj(queryStrParam: string) {
+    let queryStr = queryStrParam.slice(1);  // 文頭?を除外
+    let queries: { [key: string]: string } = {};
+
+    // クエリがない場合
+    if (!queryStr) {
+        return queries;
+    }
+
+    // クエリ文字列を & で分割して処理
+    queryStr.split('&').forEach((queryStr) => {
+        // = で分割してkey,valueをオブジェクトに格納
+        let queryArr = queryStr.split('=');
+        if (!queryArr || queryArr.length < 2) {
+            return;
+        }
+
+        queries[queryArr[0]] = decodeURI(queryArr[1]);
+    });
+
+    return queries;
+}

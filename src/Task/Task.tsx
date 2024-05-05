@@ -12,7 +12,7 @@ import useTask from './Hook/useTask';
 import TaskDetail from './TaskDetail';
 import NotFoundComponent from '../NotFound/NotFoundComponent';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
-import { DUMMY_ID } from './Const/TaskConst';
+import { DUMMY_ID, TASK_ROOT_PATH } from './Const/TaskConst';
 
 
 type propsType = {
@@ -26,6 +26,7 @@ function Task(props: propsType) {
   const {
     detailRoutingId,
     backPageFunc,
+    taskListQueryParam,
   } = useTask({ ...props });
 
   return (
@@ -33,7 +34,13 @@ function Task(props: propsType) {
       height='100%'
     >
       <Routes>
-        <Route path="/" element={<TaskMain path={props.path} />} />
+        <Route
+          path={TASK_ROOT_PATH || taskListQueryParam}
+          element={
+            <TaskMain
+              path={props.path}
+            />}
+        />
         {/* タスク詳細画面のルーティング */}
         {
           detailRoutingId &&

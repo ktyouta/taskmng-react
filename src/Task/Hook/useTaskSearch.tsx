@@ -17,7 +17,7 @@ import React from "react";
 import { parseStrDate } from "../../Common/Function/Function";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
 import { createSearchDispCondition, createSearchRefArray } from "../Function/TaskFunction";
-import { taskListUrlAtom, taskSearchConditionObjAtom } from "../Atom/TaskAtom";
+import { taskListQueryParamAtom, taskListUrlAtom, taskSearchConditionObjAtom } from "../Atom/TaskAtom";
 import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../Const/TaskConst";
 
 
@@ -40,6 +40,11 @@ function useTaskSearch() {
     });
     //検索条件用オブジェクト
     const [searchConditionObj, setSearchConditionObj] = useAtom(taskSearchConditionObjAtom);
+    //一覧画面のルーティング用
+    const setTaskListQueryParam = useSetAtom(taskListQueryParamAtom);
+    //ルーティング用
+    const navigate = useNavigate();
+
 
     //検索条件の設定リスト
     const { data: taskSearchConditionList } = useQueryWrapper<taskSearchConditionType[]>({
@@ -49,7 +54,7 @@ function useTaskSearch() {
     /**
      * 初期表示タスク取得用URLと検索条件オブジェクトの作成
      */
-    const { createDefaultUrlCondition } = useCreateDefaultTaskUrlCondition(taskSearchConditionList);
+    const { createDefaultUrlCondition } = useCreateDefaultTaskUrlCondition();
 
     //現在の検索条件(画面表示用)
     const displaySearchConditionList = useMemo(() => {
@@ -88,13 +93,19 @@ function useTaskSearch() {
         }
         //URLを更新
         setTaskListUrl(tmpUrl);
+        setTaskListQueryParam(query);
+        navigate(query);
     }
 
     /**
      * クリアボタン押下
      */
     function clickClearBtn() {
-        createDefaultUrlCondition();
+        if (!taskSearchConditionList) {
+            return;
+        }
+
+        createDefaultUrlCondition({ taskSearchConditionList });
     }
 
     /**
