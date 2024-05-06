@@ -5,9 +5,10 @@ import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import useCreateDefaultMemoUrlCondition from "./useCreateDefaultMemoUrlCondition";
 import { useNavigate } from "react-router-dom";
 import { memoSearchConditionType } from "../Type/MemoType";
-import { detailRoutingIdAtom, memoListQueryParamAtom, memoListUrlAtom, memoSearchConditionObjAtom, selectedTagListAtom } from "../Atom/MemoAtom";
+import { detailRoutingIdAtom, memoListUrlAtom, memoSearchConditionObjAtom, selectedTagListAtom } from "../Atom/MemoAtom";
 import { DUMMY_ID, MEMO_SEARCHCONDITION_URL, MEMO_SEARCH_URL, PRE_MEMO_ID, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../Const/MemoConst";
-import { getUrlQueryObj, getUrlQueryTagList } from "../Function/MemoFunction";
+import { getUrlQueryMemo, getUrlQueryObj, getUrlQueryTagList } from "../Function/MemoFunction";
+import { createQuery, getUrlQuery } from "../../Common/Function/Function";
 
 
 //引数の型
@@ -27,11 +28,9 @@ function useMemo(props: propsType) {
     //ルーティング用
     const navigate = useNavigate();
     //検索条件用オブジェクト
-    const setSearchConditionObj = useSetAtom(memoSearchConditionObjAtom);
+    const [searchConditionObj, setSearchConditionObj] = useAtom(memoSearchConditionObjAtom);
     //選択中のタグリスト
-    const setSelectedTagList = useSetAtom(selectedTagListAtom);
-    //一覧画面のルーティング用
-    const [memoListQueryParam, setMemoListQueryParam] = useAtom(memoListQueryParamAtom);
+    const [selectedTagList, setSelectedTagList] = useAtom(selectedTagListAtom);
     //メモリスト取得用URL
     const setMemoListUrl = useSetAtom(memoListUrlAtom);
 
@@ -84,20 +83,18 @@ function useMemo(props: propsType) {
         }
 
         setDetailRoutingId(memoId);
-        setMemoListQueryParam(query);
     }, []);
 
     /**
      * 戻るボタン押下処理(閲覧モードに切り替え)
      */
     const backPageFunc = () => {
-        navigate(props.path);
+        navigate(`${props.path}${createQuery(getUrlQueryMemo(searchConditionObj, selectedTagList))}`);
     }
 
     return {
         detailRoutingId,
         backPageFunc,
-        memoListQueryParam,
     };
 }
 

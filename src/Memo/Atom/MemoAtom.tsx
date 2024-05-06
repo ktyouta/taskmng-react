@@ -17,5 +17,3 @@ export const orgMemoListAtom = atom<memoListType[] | undefined>(undefined);
 export const memoListAtom = atom<memoListType[] | undefined>(undefined);
 //選択中のタグリスト
 export const selectedTagListAtom = atom<tagListResType[]>([]);
-//メモリストのクエリ
-export const memoListQueryParamAtom = atom("");

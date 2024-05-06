@@ -13,11 +13,11 @@ import useSwitch from "../../Common/Hook/useSwitch";
 import useGetGeneralDataList from "../../Common/Hook/useGetGeneralDataList";
 import SpaceComponent from "../../Common/SpaceComponent";
 import React from "react";
-import { getUrlQuery, parseStrDate } from "../../Common/Function/Function";
+import { createQuery, getUrlQuery, parseStrDate } from "../../Common/Function/Function";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
 import { createSearchDispCondition, createSearchRefArray } from "../Function/TaskFunction";
 import { taskListUrlAtom, taskSearchConditionObjAtom } from "../Atom/TaskAtom";
-import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../Const/TaskConst";
+import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY, TASK_SEARCH_URL } from "../Const/TaskConst";
 
 
 
@@ -72,15 +72,11 @@ function useTaskSearch() {
      */
     function clickSearchBtn() {
         //モーダル内の検索条件を取得
-        let tmpUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`;
         let query = getUrlQuery(searchConditionObj);
 
-        if (query.length > 1) {
-            tmpUrl += query;
-        }
         //URLを更新
-        setTaskListUrl(tmpUrl);
-        navigate(query);
+        setTaskListUrl(`${TASK_SEARCH_URL}${createQuery(query)}`);
+        navigate(`${createQuery(query)}`);
     }
 
     /**

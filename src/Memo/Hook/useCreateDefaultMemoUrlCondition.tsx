@@ -1,7 +1,7 @@
 import ENV from '../../env.json';
 import { useAtom, useSetAtom } from "jotai";
 import { memoSearchConditionType, tagListResType } from '../Type/MemoType';
-import { memoListQueryParamAtom, memoListUrlAtom, memoSearchConditionObjAtom, selectedTagListAtom } from '../Atom/MemoAtom';
+import { memoListUrlAtom, memoSearchConditionObjAtom, selectedTagListAtom } from '../Atom/MemoAtom';
 import { MEMO_SEARCH_URL, TAG_QUERY_KEY } from '../Const/MemoConst';
 import { useNavigate } from "react-router-dom";
 
@@ -25,8 +25,6 @@ function useCreateDefaultMemoUrlCondition() {
     const setSearchConditionObj = useSetAtom(memoSearchConditionObjAtom);
     //選択中のタグリスト
     const setSelectedTagList = useSetAtom(selectedTagListAtom);
-    //一覧画面のルーティング用
-    const setMemoListQueryParam = useSetAtom(memoListQueryParamAtom);
     //ルーティング用
     const navigate = useNavigate();
 
@@ -37,6 +35,11 @@ function useCreateDefaultMemoUrlCondition() {
     const createDefaultUrlCondition = (props: propsType) => {
         //クエリパラメータが存在する場合はスキップ
         if (window.location.search && props.querySkipFlg) {
+            return;
+        }
+
+        //詳細画面のURLが直打ちされた場合
+        if (window.location.pathname.split("/").length > 2) {
             return;
         }
 
@@ -74,7 +77,6 @@ function useCreateDefaultMemoUrlCondition() {
 
         //初期表示メモ取得用URLの作成
         setMemoListUrl(tmpUrl);
-        setMemoListQueryParam(tmpUrl);
         navigate(query);
         //検索条件オブジェクトの作成
         setSearchConditionObj(tmpCondition);

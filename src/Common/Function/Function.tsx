@@ -100,7 +100,7 @@ export const getNowDate = (now: Date) => {
 export function getUrlQuery(searchConditionObj: {
     [key: string]: string;
 }) {
-    let query = "?";
+    let query = "";
 
     //モーダル内の検索条件を取得
     Object.keys(searchConditionObj).forEach((element) => {
@@ -108,11 +108,21 @@ export function getUrlQuery(searchConditionObj: {
         if (!searchConditionObj[element]) {
             return;
         }
-        if (query !== "?") {
+        if (query !== "") {
             query += "&";
         }
         query += `${element}=${searchConditionObj[element]}`;
     });
 
     return query;
+}
+
+
+/**
+ * クエリストリングを作成
+ * @returns 
+ */
+export function createQuery(query: string) {
+
+    return query.length > 0 ? `?${query}` : ``;
 }

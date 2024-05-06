@@ -8,7 +8,7 @@ import {
 } from "../Type/MemoType";
 import { ReactNode, createRef } from "react";
 import SpaceComponent from "../../Common/SpaceComponent";
-import { createRequestBody, getNowDate, parseStrDate, requestBodyInputCheck } from "../../Common/Function/Function";
+import { createRequestBody, getNowDate, getUrlQuery, parseStrDate, requestBodyInputCheck } from "../../Common/Function/Function";
 import ButtonComponent from "../../Common/ButtonComponent";
 import styled from "styled-components";
 import { tabType } from "../../Common/TabComponent";
@@ -330,4 +330,24 @@ export function getUrlQueryTagList(queryStrParam: string): tagListResType[] {
 
         return prev;
     }, []);
+}
+
+
+/**
+ * 検索オブジェクトからクエリストリングを作成
+ * @returns 
+ */
+export function getUrlQueryMemo(searchConditionObj: {
+    [key: string]: string;
+}, selectedTagList: tagListResType[]) {
+    let query = "";
+
+    //検索条件オブジェクト
+    query = getUrlQuery(searchConditionObj);
+
+    //タグ
+    let tagStr = selectedTagList.map((element) => `${element.label}`).join(",");
+    query += `${query.length > 0 && tagStr.length > 0 ? "&" : ""}${tagStr.length > 0 ? `${TAG_QUERY_KEY}=${tagStr}` : ``}`;
+
+    return query;
 }

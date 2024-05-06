@@ -8,7 +8,7 @@ import { taskSearchConditionType } from "../Type/TaskType";
 import { detailRoutingIdAtom, taskListUrlAtom, taskSearchConditionObjAtom } from "../Atom/TaskAtom";
 import { DUMMY_ID, PRE_TASK_ID, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY, TASK_SEARCH_URL } from "../Const/TaskConst";
 import { getUrlQueryObj } from "../Function/TaskFunction";
-import { getUrlQuery } from "../../Common/Function/Function";
+import { createQuery, getUrlQuery } from "../../Common/Function/Function";
 
 
 //引数の型
@@ -89,9 +89,7 @@ function useTask(props: propsType) {
      * 戻るボタン押下処理(閲覧モードに切り替え)
      */
     const backPageFunc = () => {
-        let query = getUrlQuery(searchConditionObj);
-
-        navigate(`${props.path}${query}`);
+        navigate(`${props.path}${createQuery(getUrlQuery(searchConditionObj))}`);
     }
 
     return {

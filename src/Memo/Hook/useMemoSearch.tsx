@@ -13,9 +13,9 @@ import useSwitch from "../../Common/Hook/useSwitch";
 import useGetGeneralDataList from "../../Common/Hook/useGetGeneralDataList";
 import SpaceComponent from "../../Common/SpaceComponent";
 import React from "react";
-import { parseStrDate } from "../../Common/Function/Function";
+import { createQuery, parseStrDate } from "../../Common/Function/Function";
 import useCreateDefaultMemoUrlCondition from "./useCreateDefaultMemoUrlCondition";
-import { createDisplayTagList, createMemoSearchUrl, createSearchDispCondition, createSearchRefArray } from "../Function/MemoFunction";
+import { createDisplayTagList, createMemoSearchUrl, createSearchDispCondition, createSearchRefArray, getUrlQueryMemo } from "../Function/MemoFunction";
 import { memoListUrlAtom, memoSearchConditionObjAtom, selectedTagListAtom } from "../Atom/MemoAtom";
 import { MEMO_SEARCHCONDITION_URL, MEMO_SEARCH_URL, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY, TAG_QUERY_KEY } from "../Const/MemoConst";
 
@@ -38,6 +38,8 @@ function useMemoSearch() {
     const [searchConditionObj, setSearchConditionObj] = useAtom(memoSearchConditionObjAtom);
     //選択中のタグリスト
     const [selectedTagList, setSelectedTagList] = useAtom(selectedTagListAtom);
+    //ルーティング用
+    const navigate = useNavigate();
 
 
     //検索条件の設定リスト
@@ -92,6 +94,7 @@ function useMemoSearch() {
     function clickSearchBtn() {
         //URLを更新
         setMemoListUrl(createMemoSearchUrl(searchConditionObj, selectedTagList));
+        navigate(`${createQuery(getUrlQueryMemo(searchConditionObj, selectedTagList))}`);
     }
 
     /**
