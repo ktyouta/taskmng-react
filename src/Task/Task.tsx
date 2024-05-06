@@ -26,7 +26,6 @@ function Task(props: propsType) {
   const {
     detailRoutingId,
     backPageFunc,
-    taskListQueryParam,
   } = useTask({ ...props });
 
   return (
@@ -35,7 +34,7 @@ function Task(props: propsType) {
     >
       <Routes>
         <Route
-          path={TASK_ROOT_PATH || taskListQueryParam}
+          path={TASK_ROOT_PATH}
           element={
             <TaskMain
               path={props.path}

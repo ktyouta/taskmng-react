@@ -91,3 +91,28 @@ export const getNowDate = (now: Date) => {
     const date = (now.getDate()).toString().padStart(2, "0");
     return `${year}${month}${date}`;
 };
+
+
+/**
+ * 検索オブジェクトからクエリストリングを作成
+ * @returns 
+ */
+export function getUrlQuery(searchConditionObj: {
+    [key: string]: string;
+}) {
+    let query = "?";
+
+    //モーダル内の検索条件を取得
+    Object.keys(searchConditionObj).forEach((element) => {
+        //値が存在するプロパティをクエリストリングに設定
+        if (!searchConditionObj[element]) {
+            return;
+        }
+        if (query !== "?") {
+            query += "&";
+        }
+        query += `${element}=${searchConditionObj[element]}`;
+    });
+
+    return query;
+}

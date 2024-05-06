@@ -6,7 +6,6 @@ import ENV from '../../env.json';
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
-import { masterDataListAtom } from "../../Main/Hook/useMainLogic";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import { taskSearchConditionRefType, taskSearchConditionType } from "../Type/TaskType";
 import { refType } from "../../Common/BaseInputComponent";
@@ -14,10 +13,10 @@ import useSwitch from "../../Common/Hook/useSwitch";
 import useGetGeneralDataList from "../../Common/Hook/useGetGeneralDataList";
 import SpaceComponent from "../../Common/SpaceComponent";
 import React from "react";
-import { parseStrDate } from "../../Common/Function/Function";
+import { getUrlQuery, parseStrDate } from "../../Common/Function/Function";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
 import { createSearchDispCondition, createSearchRefArray } from "../Function/TaskFunction";
-import { taskListQueryParamAtom, taskListUrlAtom, taskSearchConditionObjAtom } from "../Atom/TaskAtom";
+import { taskListUrlAtom, taskSearchConditionObjAtom } from "../Atom/TaskAtom";
 import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../Const/TaskConst";
 
 
@@ -40,8 +39,6 @@ function useTaskSearch() {
     });
     //検索条件用オブジェクト
     const [searchConditionObj, setSearchConditionObj] = useAtom(taskSearchConditionObjAtom);
-    //一覧画面のルーティング用
-    const setTaskListQueryParam = useSetAtom(taskListQueryParamAtom);
     //ルーティング用
     const navigate = useNavigate();
 
@@ -74,26 +71,15 @@ function useTaskSearch() {
      * 検索ボタン押下
      */
     function clickSearchBtn() {
-        let tmpUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`;
-        let query = "?";
-
         //モーダル内の検索条件を取得
-        Object.keys(searchConditionObj).forEach((element) => {
-            //値が存在するプロパティをクエリストリングに設定
-            if (!searchConditionObj[element]) {
-                return;
-            }
-            if (query !== "?") {
-                query += "&";
-            }
-            query += `${element}=${searchConditionObj[element]}`;
-        });
+        let tmpUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`;
+        let query = getUrlQuery(searchConditionObj);
+
         if (query.length > 1) {
             tmpUrl += query;
         }
         //URLを更新
         setTaskListUrl(tmpUrl);
-        setTaskListQueryParam(query);
         navigate(query);
     }
 

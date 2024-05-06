@@ -5,9 +5,10 @@ import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
 import { useNavigate } from "react-router-dom";
 import { taskSearchConditionType } from "../Type/TaskType";
-import { detailRoutingIdAtom, taskListQueryParamAtom, taskListUrlAtom, taskSearchConditionObjAtom } from "../Atom/TaskAtom";
+import { detailRoutingIdAtom, taskListUrlAtom, taskSearchConditionObjAtom } from "../Atom/TaskAtom";
 import { DUMMY_ID, PRE_TASK_ID, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY, TASK_SEARCH_URL } from "../Const/TaskConst";
 import { getUrlQueryObj } from "../Function/TaskFunction";
+import { getUrlQuery } from "../../Common/Function/Function";
 
 
 //引数の型
@@ -26,12 +27,10 @@ function useTask(props: propsType) {
     const [detailRoutingId, setDetailRoutingId] = useAtom(detailRoutingIdAtom);
     //ルーティング用
     const navigate = useNavigate();
-    //一覧画面のルーティング用
-    const [taskListQueryParam, setTaskListQueryParam] = useAtom(taskListQueryParamAtom);
     //メモリスト取得用URL
     const setTaskListUrl = useSetAtom(taskListUrlAtom);
     //検索条件用オブジェクト
-    const setSearchConditionObj = useSetAtom(taskSearchConditionObjAtom);
+    const [searchConditionObj, setSearchConditionObj] = useAtom(taskSearchConditionObjAtom);
 
 
     //検索条件リスト
@@ -84,20 +83,20 @@ function useTask(props: propsType) {
         }
 
         setDetailRoutingId(taskId);
-        setTaskListQueryParam(query);
     }, []);
 
     /**
      * 戻るボタン押下処理(閲覧モードに切り替え)
      */
     const backPageFunc = () => {
-        navigate(props.path);
+        let query = getUrlQuery(searchConditionObj);
+
+        navigate(`${props.path}${query}`);
     }
 
     return {
         detailRoutingId,
         backPageFunc,
-        taskListQueryParam,
     };
 }
 

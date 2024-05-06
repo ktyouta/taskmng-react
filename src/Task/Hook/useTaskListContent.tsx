@@ -6,7 +6,6 @@ import ENV from '../../env.json';
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
-import { masterDataListAtom } from "../../Main/Hook/useMainLogic";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import { displayTaskListType, taskContentDisplayType, taskContentSettingType, taskListType } from "../Type/TaskType";
 import { refType } from "../../Common/BaseInputComponent";

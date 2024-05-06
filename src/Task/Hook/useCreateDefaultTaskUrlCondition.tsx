@@ -1,7 +1,7 @@
 import ENV from '../../env.json';
 import { useSetAtom } from "jotai";
 import { taskSearchConditionType } from '../Type/TaskType';
-import { taskListQueryParamAtom, taskListUrlAtom, taskSearchConditionObjAtom } from '../Atom/TaskAtom';
+import { taskListUrlAtom, taskSearchConditionObjAtom } from '../Atom/TaskAtom';
 import { useNavigate } from "react-router-dom";
 
 
@@ -23,8 +23,6 @@ function useCreateDefaultTaskUrlCondition() {
     const setTaskListUrl = useSetAtom(taskListUrlAtom);
     //検索条件用オブジェクト
     const setSearchConditionObj = useSetAtom(taskSearchConditionObjAtom);
-    //一覧画面のルーティング用
-    const setTaskListQueryParam = useSetAtom(taskListQueryParamAtom);
     //ルーティング用
     const navigate = useNavigate();
 
@@ -62,7 +60,6 @@ function useCreateDefaultTaskUrlCondition() {
         }
         //初期表示タスク取得用URLの作成
         setTaskListUrl(tmpUrl);
-        setTaskListQueryParam(tmpUrl);
         navigate(query);
         //検索条件オブジェクトの作成
         setSearchConditionObj(tmpCondition);
