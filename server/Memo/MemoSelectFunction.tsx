@@ -220,7 +220,7 @@ export function filterMemoQuery(resMemoList: memoListResType[], query: any,
     }
 
     //取得件数で絞り込み
-    let getNum = query.num as number;
+    let getNum = query.limit as number;
     if (getNum && !isNaN(Number(getNum))) {
         resMemoList = resMemoList.slice(0, getNum);
     }

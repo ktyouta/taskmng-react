@@ -36,11 +36,6 @@ function useCreateDefaultTaskUrlCondition() {
             return;
         }
 
-        //詳細画面のURLが直打ちされた場合
-        if (window.location.pathname.split("/").length > 2) {
-            return;
-        }
-
         let tmpCondition: { [key: string]: string } = {};
         let tmpUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`;
         let query = "?";
@@ -60,9 +55,13 @@ function useCreateDefaultTaskUrlCondition() {
         }
         //初期表示タスク取得用URLの作成
         setTaskListUrl(tmpUrl);
-        navigate(query);
         //検索条件オブジェクトの作成
         setSearchConditionObj(tmpCondition);
+
+        //詳細画面のURLが直打ちされた場合はURLを変えない
+        if (window.location.pathname.split("/").length < 3) {
+            navigate(query);
+        }
     }
 
     return {

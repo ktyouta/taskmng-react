@@ -1,6 +1,6 @@
 [
 	{
-		"id": "num",
+		"id": "limit",
 		"name": "最大取得件数",
 		"type": "number",
 		"isHidden": false,

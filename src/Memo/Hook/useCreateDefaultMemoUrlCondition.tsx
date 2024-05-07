@@ -38,11 +38,6 @@ function useCreateDefaultMemoUrlCondition() {
             return;
         }
 
-        //詳細画面のURLが直打ちされた場合
-        if (window.location.pathname.split("/").length > 2) {
-            return;
-        }
-
         let tmpCondition: { [key: string]: string } = {};
         let tmpUrl = MEMO_SEARCH_URL;
         let query = "?";
@@ -77,10 +72,14 @@ function useCreateDefaultMemoUrlCondition() {
 
         //初期表示メモ取得用URLの作成
         setMemoListUrl(tmpUrl);
-        navigate(query);
         //検索条件オブジェクトの作成
         setSearchConditionObj(tmpCondition);
         setSelectedTagList(tagList);
+
+        //詳細画面のURLが直打ちされた場合はURLを変えない
+        if (window.location.pathname.split("/").length < 3) {
+            navigate(query);
+        }
     }
 
     return {

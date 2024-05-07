@@ -75,7 +75,7 @@ export function filterDefaultAttribute(decodeFileData: taskListType[], query: an
     }
 
     //取得件数で絞り込み
-    let getNum = query.num as number;
+    let getNum = query.limit as number;
     if (getNum && !isNaN(Number(getNum))) {
         decodeFileData = decodeFileData.slice(0, getNum);
     }
