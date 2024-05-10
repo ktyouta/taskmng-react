@@ -9,6 +9,10 @@ import { HeightDiv } from '../../Common/StyledComponent/CommonStyledComponent';
 import Loading from '../../Common/Loading';
 import CenterLoading from '../../Common/CenterLoading';
 import SettingSearchConditionMain from './SettingSearchConditionMain';
+import ComboComponent from '../../Common/ComboComponent';
+import useSettingSearchConditionTop from './Hook/useSettingSearchConditionTop';
+import React from 'react';
+import { DISP_MODE } from './Const/SettingSearchConditionConst';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -32,6 +36,12 @@ function SettingSearchConditionTop() {
 
     console.log("SettingSearchConditionTop render");
 
+    const {
+        comboList,
+        changeCombo,
+        dispMode
+    } = useSettingSearchConditionTop();
+
     return (
         <OuterDiv>
             <TitleDiv>
@@ -39,8 +49,30 @@ function SettingSearchConditionTop() {
                     title={`検索条件初期設定`}
                     width="100%"
                 />
+                <ComboComponent
+                    combo={comboList}
+                    onChange={changeCombo}
+                    initValue={dispMode}
+                />
             </TitleDiv>
-            <SettingSearchConditionMain />
+            {
+                (() => {
+                    switch (dispMode) {
+                        //タスク
+                        case DISP_MODE.task:
+                            return (
+                                <SettingSearchConditionMain />
+                            )
+                        //メモ
+                        case DISP_MODE.memo:
+                            return <></>
+                        default:
+                            return (
+                                <React.Fragment></React.Fragment>
+                            )
+                    }
+                })()
+            }
         </OuterDiv>
     );
 }

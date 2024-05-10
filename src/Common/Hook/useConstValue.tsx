@@ -2,7 +2,7 @@ import { useRef } from "react";
 
 
 type propsType<T> = {
-    initValu: T
+    initValue: T
 }
 
 /**
@@ -15,7 +15,7 @@ function useConstValue<T>(props: propsType<T>) {
 
     if (ref.current?.value === undefined) {
         ref.current = {
-            value: props.initValu
+            value: props.initValue
         };
     }
 
