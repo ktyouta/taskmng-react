@@ -54,6 +54,8 @@ function SettingSearchConditionTop() {
                     combo={comboList}
                     onChange={changeCombo}
                     initValue={dispMode}
+                    height='40px'
+                    width='240px'
                 />
             </TitleDiv>
             {

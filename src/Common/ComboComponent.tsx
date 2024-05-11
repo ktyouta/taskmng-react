@@ -10,6 +10,8 @@ type propsType = {
   initValue: string,
   disabled?: boolean,
   bgColor?: string,
+  height?: string,
+  width?: string,
 }
 
 //コンボボックスの型
@@ -26,12 +28,12 @@ export type refType = {
 
 
 //コンボボックスの基本スタイル
-const BaseSelect = styled.select<{ bgColor?: string, }>`
+const BaseSelect = styled.select<{ bgColor?: string, height?: string, width?: string }>`
   background-color:${({ bgColor }) => (bgColor ?? "")};
   text-align:center;
-  width: 300px;
+  width: ${({ width }) => (width ?? "300px")};
   min-width: 200px;
-  height:45px;
+  height:${({ height }) => (height ?? "45px")};
   min-height:30px;
   border-radius: 5px;
 `;
@@ -71,6 +73,8 @@ const ComboComponent = forwardRef<refType, propsType>((props, ref) => {
           value={selectValue}
           disabled={props.disabled}
           bgColor={props.bgColor}
+          height={props.height}
+          width={props.width}
         >
           {
             props.combo.map((element) => {

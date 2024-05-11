@@ -28,7 +28,10 @@ const BtnDiv = styled.div`
 const InputAreaDiv = styled(HeightDiv)`
     margin-left: 5%;
     overflow-y: auto;
+    padding-top: 2%;
+    box-sizing: border-box;
 `;
+
 
 
 function SettingSearchConditionMemoMain() {
@@ -55,19 +58,13 @@ function SettingSearchConditionMemoMain() {
 
     return (
         <React.Fragment>
-            <HeightDiv
+            <InputAreaDiv
                 height='75%'
             >
-                <InputAreaDiv
-                    height='85%'
-                >
-                    <DynamicForm
-                        refInfoArray={memoSearchRefInfo}
-                        titleWidth='20%'
-                        childWidth='59%'
-                    />
-                </InputAreaDiv>
-            </HeightDiv>
+                <DynamicForm
+                    refInfoArray={memoSearchRefInfo}
+                />
+            </InputAreaDiv>
             <BtnDiv>
                 <ButtonComponent
                     styleTypeNumber={backPageButtonObj.type}
