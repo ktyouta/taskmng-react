@@ -13,6 +13,7 @@ import ComboComponent from '../../Common/ComboComponent';
 import useSettingSearchConditionTop from './Hook/useSettingSearchConditionTop';
 import React from 'react';
 import { DISP_MODE } from './Const/SettingSearchConditionConst';
+import SettingSearchConditionMemoMain from './SettingSearchConditionMemoMain';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -65,7 +66,7 @@ function SettingSearchConditionTop() {
                             )
                         //メモ
                         case DISP_MODE.memo:
-                            return <></>
+                            return <SettingSearchConditionMemoMain />
                         default:
                             return (
                                 <React.Fragment></React.Fragment>

@@ -4,7 +4,7 @@ import { SnackbarComponent } from '../Common/SnackbarComponent';
 import DynamicForm from '../Common/DynamicForm';
 import { refInfoType } from '../Common/Type/CommonType';
 import styled from 'styled-components';
-import { editDisplayMemoType, tagListResType } from './Type/MemoType';
+import { tagListResType } from './Type/MemoType';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import BaseInputComponent from '../Common/BaseInputComponent';

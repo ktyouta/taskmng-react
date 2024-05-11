@@ -2,7 +2,6 @@ import React from 'react';
 import '../App.css';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import styled from 'styled-components';
-import { displayMemoType, viewMemoType } from './Type/MemoType';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from "remark-gfm";
 

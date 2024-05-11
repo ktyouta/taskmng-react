@@ -90,18 +90,6 @@ export type inputMemoSettingType = {
     isRequired?: boolean,
 }
 
-//画面表示用メモの型
-export type displayMemoType = {
-    default: viewMemoType[],
-    customAttribute: viewMemoType[],
-}
-
-//編集画面表示用メモの型
-export type editDisplayMemoType = {
-    default: refInfoType[],
-    customAttribute: refInfoType[],
-}
-
 
 //メモの登録リクエストの型
 export type memoRegistReqType = {
