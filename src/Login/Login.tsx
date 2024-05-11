@@ -7,6 +7,8 @@ import './css/Login.css'
 import VerticalLabellInputComponent from '../Common/VerticalLabellInputComponent';
 import SpaceComponent from '../Common/SpaceComponent';
 import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
+import LabelInputComponent from '../Common/LabelInputComponent';
+import BaseInputComponent from '../Common/BaseInputComponent';
 
 function Login() {
 
@@ -15,7 +17,6 @@ function Login() {
         userIdRef,
         userPasswordRef,
         clickLoginBtn,
-        clickClearBtn,
         handleKeyPress,
     } = useLoginLogic();
 
@@ -23,41 +24,38 @@ function Login() {
         <div className="login">
             <div className="login-area">
                 <div className="login-title-area">RLMNT</div>
-                <VerticalLabellInputComponent
-                    title={"ユーザーID"}
+                <BaseInputComponent
                     value={""}
                     length={100}
                     disabled={false}
                     ref={userIdRef}
-                    textWidth={"350px"}
+                    textWidth='100%'
                     onKeyDown={handleKeyPress}
+                    placeholder='UserID'
                 />
                 <VerticalSpaceComponent
-                    space={'15px'}
+                    space={'20px'}
                 />
-                <VerticalLabellInputComponent
-                    title={"パスワード"}
+                <BaseInputComponent
                     type={"password"}
                     value={""}
                     length={100}
                     disabled={false}
                     ref={userPasswordRef}
-                    textWidth={"350px"}
+                    textWidth='100%'
                     onKeyDown={handleKeyPress}
+                    placeholder='Password'
                 />
                 <div className="login-button-area">
                     <ButtonComponent
                         styleTypeNumber="RUN"
-                        title={"クリア"}
-                        onclick={clickClearBtn}
-                    />
-                    <SpaceComponent
-                        space={"12%"}
-                    />
-                    <ButtonComponent
-                        styleTypeNumber="RUN"
-                        title={"ログイン"}
+                        title={"Login"}
                         onclick={clickLoginBtn}
+                        style={{
+                            "borderRadius": "23px",
+                            "background": "black",
+                            "font-size": "1rem",
+                        }}
                     />
                 </div>
             </div>

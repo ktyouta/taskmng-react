@@ -1,14 +1,14 @@
 .login{
     width: 100%;
     height: 100vh;
-    background-color: #DDFFFF;
+    background-color: #dcdcdc;
 }
 
 .login-area{
     width: 25%;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 3%;
+    padding-top: 10%;
 }
 
 .login-area .input-main-area{
@@ -20,13 +20,13 @@
 }
 
 .login-button-area{
-    display: flex;
-    margin-top: 5%;
+    text-align: center;
+    margin-top: 9%;
 }
 
 .login-title-area{
     text-align: center;
     font-size: 30px;
     font-weight: bold;
-    margin-bottom: 12%;
+    margin-bottom: 10%;
 }
