@@ -38,6 +38,7 @@ function useLoginLogic() {
             });
             //エラーメッセージを表示
             alert(res.response.data.errMessage);
+            userPasswordRef.current?.clearValue();
         },
     });
 
