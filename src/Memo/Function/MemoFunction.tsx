@@ -235,11 +235,10 @@ export function createDisplayTagList(selectedTagList: tagListResType[],
  * @param deleteTag 
  * @returns 
  */
-export function createMemoSearchUrl(searchConditionObj: {
+export function createMemoSearchUrl(tmpUrl: string, searchConditionObj: {
     [key: string]: string;
 }, selectedTagList: tagListResType[]) {
 
-    let tmpUrl = MEMO_SEARCH_URL;
     let query = "?";
 
     //クエリストリング用のリストを作成

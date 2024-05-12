@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { detailRoutingIdAtom, memoListUrlAtom, memoSearchConditionObjAtom, selectedTagListAtom } from "../Atom/MemoAtom";
 import { createMemoContentList, createMemoSearchUrl } from "../Function/MemoFunction";
+import { MEMO_SEARCH_URL } from "../Const/MemoConst";
 
 
 const MemoListLi = styled.li`
@@ -71,8 +72,12 @@ function useMemoList(props: propsType) {
 
         selectTagLabel.current = "";
         let tmpSelectedTagList = [...selectedTagList, selectTag];
-        setMemoListUrl(createMemoSearchUrl(searchConditionObj, tmpSelectedTagList));
+
+        //クエリパラメータを作成
+        let query = createMemoSearchUrl("", searchConditionObj, tmpSelectedTagList)
+        setMemoListUrl(`${MEMO_SEARCH_URL}${query}`);
         setSelectedTagList(tmpSelectedTagList);
+        navigate(query);
     }
 
 

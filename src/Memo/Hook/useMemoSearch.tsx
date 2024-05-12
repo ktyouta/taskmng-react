@@ -72,8 +72,11 @@ function useMemoSearch() {
             return element.label !== selectTag.label;
         });
 
-        setMemoListUrl(createMemoSearchUrl(searchConditionObj, tmpSelectedTagList));
+        //クエリパラメータを作成
+        let query = createMemoSearchUrl("", searchConditionObj, tmpSelectedTagList)
+        setMemoListUrl(`${MEMO_SEARCH_URL}${query}`);
         setSelectedTagList(tmpSelectedTagList);
+        navigate(query);
     };
 
 
@@ -93,7 +96,7 @@ function useMemoSearch() {
      */
     function clickSearchBtn() {
         //URLを更新
-        setMemoListUrl(createMemoSearchUrl(searchConditionObj, selectedTagList));
+        setMemoListUrl(createMemoSearchUrl(MEMO_SEARCH_URL, searchConditionObj, selectedTagList));
         navigate(`${createQuery(getUrlQueryMemo(searchConditionObj, selectedTagList))}`);
     }
 

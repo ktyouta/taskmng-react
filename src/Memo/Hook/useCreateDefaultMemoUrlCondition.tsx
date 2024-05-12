@@ -41,7 +41,8 @@ function useCreateDefaultMemoUrlCondition() {
         let tmpCondition: { [key: string]: string } = {};
         let tmpUrl = MEMO_SEARCH_URL;
         let query = "?";
-        let tagList: tagListResType[] = []
+        let tagList: tagListResType[] = [];
+
         props.memoSearchConditionList.forEach((element) => {
             //値が存在するプロパティをクエリストリングに設定
             if (!element.value) {
