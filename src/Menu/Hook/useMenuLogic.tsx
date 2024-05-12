@@ -4,6 +4,16 @@ import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import React from 'react';
+import styled from 'styled-components';
+
+
+//選択中のメニューのスタイル
+const SelectedDiv = styled.div<{ bgColor?: string }>`
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-bottom: 1px solid #ffa500;
+`;
 
 
 function useMenuLogic() {
@@ -47,7 +57,12 @@ function useMenuLogic() {
             }
             return (
                 <li key={`${element.path}-${index}`} className={cssName}>
-                    <Link to={element.path} className="menu-link">{element.name}</Link>
+                    {
+                        element.name === selectedMenu ?
+                            <SelectedDiv >{element.name}</SelectedDiv>
+                            :
+                            <Link to={element.path} className="menu-link">{element.name}</Link>
+                    }
                 </li>
             )
         });

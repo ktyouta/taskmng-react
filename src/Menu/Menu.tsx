@@ -8,7 +8,8 @@ function Menu() {
 
   //メニューのビジネスロジック
   const {
-    menuList, } = useMenuLogic();
+    menuList,
+  } = useMenuLogic();
 
   return (
     <div className="menu">

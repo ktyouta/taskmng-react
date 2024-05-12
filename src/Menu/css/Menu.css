@@ -62,7 +62,7 @@ div.content {
   color: white;
 }
 
-.menu-ul .top-menu-li a{
+.menu-ul .top-menu-li{
   border-top: 1px solid #ffa500;
   /* border-top: 1px solid #808080; */
 }
