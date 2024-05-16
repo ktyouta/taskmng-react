@@ -22,9 +22,10 @@ const OuterDiv = styled.div<{ height?: string, width?: string }>`
 `;
 
 //説明文のスタイル
-const DescriptionSpan = styled.span`
+const DescriptionDiv = styled.div`
     font-size:15px;
     color:#ff8c00;
+    margin-top:1%;
 `;
 
 //エラーメッセージのスタイル
@@ -38,8 +39,8 @@ const RequiredSpan = styled.span`
     color: red;
 `;
 
-//外側のスタイル
-const OuterTable = styled.table<{ height?: string, width?: string }>`
+//内側のスタイル
+const InnerTable = styled.table<{ height?: string, width?: string }>`
     height: ${({ height }) => height};
     width: ${({ width }) => width};
     overflow-y: auto;
@@ -68,8 +69,11 @@ type propsType = {
     refInfoArray: refInfoType[],
     outerHeight?: string,
     outerWidth?: string,
-    titleWidth?: string,
+    titleTdWidth?: string,
+    inputTdWidth?: string,
     inputWidth?: string,
+    innerHeight?: string,
+    innerWidth?: string,
 }
 
 //数値変換
@@ -89,7 +93,9 @@ function DynamicFormComponent(props: propsType) {
             width={props.outerWidth ?? "100%"}
             height={props.outerHeight ?? "100%"}
         >
-            <OuterTable
+            <InnerTable
+                width={props.innerWidth ?? "100%"}
+                height={props.innerHeight ?? "100%"}
             >
                 {
                     props.refInfoArray.map((element, index) => {
@@ -102,12 +108,12 @@ function DynamicFormComponent(props: propsType) {
                         return (
                             <OuterTr>
                                 <OuterTd
-                                    width={props.titleWidth ?? "30%"}
+                                    width={props.titleTdWidth ?? "30%"}
                                 >
                                     {title}
                                 </OuterTd>
                                 <OuterTd
-                                    width={props.inputWidth ?? "70%"}
+                                    width={props.inputTdWidth ?? "70%"}
                                 >
                                     {
                                         (() => {
@@ -117,7 +123,7 @@ function DynamicFormComponent(props: propsType) {
                                                     return (
                                                         <LabelComponent
                                                             title={element.initValue}
-                                                            width='auto'
+                                                            width={props.inputWidth ?? 'auto'}
                                                         />
                                                     );
                                                 //テキストボックス
@@ -150,7 +156,7 @@ function DynamicFormComponent(props: propsType) {
                                                             selectedValue={element.initValue}
                                                             htmlForId={`dynamicformradio-${index}`}
                                                             disabled={element.disabled}
-                                                            width="auto"
+                                                            width={props.inputWidth ?? 'auto'}
                                                             ref={element.ref}
                                                         />
                                                     );
@@ -183,7 +189,7 @@ function DynamicFormComponent(props: propsType) {
                                                             htmlForId={`dynamicformcheckbox-${index}`}
                                                             disabled={element.disabled}
                                                             initValue={element.initValue}
-                                                            width="auto"
+                                                            width={props.inputWidth ?? 'auto'}
                                                             ref={element.ref}
                                                         />
                                                     )
@@ -203,14 +209,9 @@ function DynamicFormComponent(props: propsType) {
                                     {/* 項目の説明文 */}
                                     {
                                         element.description &&
-                                        <HorizonLabelItemComponent
-                                            title={''}
-                                            width={props.titleWidth}
-                                        >
-                                            <DescriptionSpan>
-                                                {element.description}
-                                            </DescriptionSpan>
-                                        </HorizonLabelItemComponent>
+                                        <DescriptionDiv>
+                                            {element.description}
+                                        </DescriptionDiv>
                                     }
                                     {/* エラーメッセージ */}
                                     {
@@ -224,7 +225,7 @@ function DynamicFormComponent(props: propsType) {
                         );
                     })
                 }
-            </OuterTable>
+            </InnerTable>
         </OuterDiv>
     );
 }
