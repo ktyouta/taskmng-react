@@ -20,6 +20,7 @@ type propsType = {
     disabled?: boolean,
     initValue: string,
     width?: string,
+    labelCheckboxGap?: string,
 }
 
 //参照の型
@@ -40,6 +41,7 @@ const OuterDiv = styled.div`
   display:flex;
   flex-wrap: wrap;
 `;
+
 
 //チェックボックスの選択値を取得
 function getCheckBoxValues(list: string[]) {
@@ -121,7 +123,7 @@ const LabelCheckBoxListComponent = forwardRef<refType, propsType>((props, ref) =
                             />
                             <SpaceComponent
                                 key={`labelcheckboxspace-${props.htmlForId ? `${props.htmlForId}-${element.value}` : element.value}`}
-                                space={'70px'}
+                                space={props.labelCheckboxGap ?? '5%'}
                             />
                         </React.Fragment>
                     );
