@@ -172,10 +172,13 @@ export function createCunstomAttributeRegistList(customAttribute: refInfoType[])
 
         //コンボボックスの場合は先頭に空文字を追加
         if (element.type === "select") {
-            element.selectList?.unshift({
-                value: "",
-                label: ""
-            });
+            element.selectList &&
+                element.selectList.length > 0 &&
+                element.selectList[0].value &&
+                element.selectList.unshift({
+                    value: "",
+                    label: ""
+                });
         }
 
         tmpEditCustomAttributeList.push({
