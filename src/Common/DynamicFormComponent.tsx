@@ -47,18 +47,9 @@ const InnerTable = styled.table<{ height?: string, width?: string }>`
     table-layout: fixed;
 `;
 
-//tbodyのスタイル
-const OuterTbody = styled.tbody`
-    
-`;
-
-//trのスタイル
-const OuterTr = styled.tr`
-    width:100%;
-`;
 
 //tdのスタイル
-const OuterTd = styled.td<{ height?: string, width?: string }>`
+const TableTd = styled.td<{ height?: string, width?: string }>`
     height: ${({ height }) => height};
     width: ${({ width }) => width};
     word-break:break-word;
@@ -106,13 +97,13 @@ function DynamicFormComponent(props: propsType) {
                             </React.Fragment>;
                         let bgColor = element.errMessage ? "#FA8072" : "";
                         return (
-                            <OuterTr>
-                                <OuterTd
+                            <tr>
+                                <TableTd
                                     width={props.titleTdWidth ?? "30%"}
                                 >
                                     {title}
-                                </OuterTd>
-                                <OuterTd
+                                </TableTd>
+                                <TableTd
                                     width={props.inputTdWidth ?? "70%"}
                                 >
                                     {
@@ -220,8 +211,8 @@ function DynamicFormComponent(props: propsType) {
                                             {element.errMessage}
                                         </ErrMessageSpan>
                                     }
-                                </OuterTd>
-                            </OuterTr>
+                                </TableTd>
+                            </tr>
                         );
                     })
                 }
