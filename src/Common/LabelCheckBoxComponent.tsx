@@ -4,6 +4,7 @@ import BaseInputComponent, { refType } from './BaseInputComponent';
 import LabelComponent from './LabelComponent';
 import RadioComponent from './RadioComponent';
 import CheckBoxComponent, { checkBoxRefType } from './CheckBoxComponent';
+import styled from 'styled-components';
 
 //引数の型
 type propsType = {
@@ -18,10 +19,18 @@ type propsType = {
     onChangeBl?: (e: boolean) => void,
 }
 
+//ラベルチェックボックスの基本スタイル
+const LabelCheckboxDiv = styled.div`
+  display:flex;
+  text-align: center;
+  width: auto;
+  align-items: center;
+`;
+
 const LabelCheckBoxComponent = forwardRef<checkBoxRefType, propsType>((props, ref) => {
 
     return (
-        <React.Fragment>
+        <LabelCheckboxDiv>
             <LabelComponent
                 {...props}
             />
@@ -29,7 +38,7 @@ const LabelCheckBoxComponent = forwardRef<checkBoxRefType, propsType>((props, re
                 {...props}
                 ref={ref}
             />
-        </React.Fragment>
+        </LabelCheckboxDiv>
     );
 })
 
