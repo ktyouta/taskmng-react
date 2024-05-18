@@ -250,11 +250,11 @@
 	{
 		"id": "ATTRIBUTEID-22",
 		"registerTime": "2024/03/11",
-		"updTime": "2024/03/11",
+		"updTime": "2024/05/18",
 		"userId": "f",
 		"deleteFlg": "0",
 		"name": "確認用2（テキスト→選択）",
-		"type": "select",
+		"type": "radio",
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-21",
 		"description": ""

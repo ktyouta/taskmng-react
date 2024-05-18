@@ -2,7 +2,16 @@ import React from 'react';
 import '../App.css';
 import RadioComponent from './RadioComponent';
 import LabelComponent from './LabelComponent';
+import styled from 'styled-components';
 
+
+//ラベルラジオボタンの基本スタイル
+const LabelRadioDiv = styled.div`
+  display:flex;
+  text-align: center;
+  width: auto;
+  align-items: center;
+`;
 
 //引数の型
 type propsType = {
@@ -20,16 +29,14 @@ type propsType = {
 function LabelRadioComponent(props: propsType) {
 
     return (
-        <React.Fragment>
-            <div>
-                <LabelComponent
-                    {...props}
-                />
-                <RadioComponent
-                    {...props}
-                />
-            </div>
-        </React.Fragment>
+        <LabelRadioDiv>
+            <LabelComponent
+                {...props}
+            />
+            <RadioComponent
+                {...props}
+            />
+        </LabelRadioDiv>
     );
 }
 
