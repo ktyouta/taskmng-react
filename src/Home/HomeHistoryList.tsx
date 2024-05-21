@@ -13,7 +13,7 @@ import ButtonComponent from '../Common/ButtonComponent';
 import Table from '../Common/Table';
 import HomeHistoryContent from './HomeHistoryContent';
 import useHomeHistory from './Hook/useHomeHistory';
-import HomeHistoryList from './HomeHistoryList';
+import { taskHistoryType } from './Type/HomeType';
 
 
 //外側のスタイル
@@ -26,34 +26,15 @@ const OuterDiv = styled.div<{ height: string, width: string }>`
     margin-right: auto;
 `;
 
-//履歴表示エリアのスタイル
-const WorkHistoryListUl = styled.ul`
-    text-align: left;
-    margin-left: 5%;
-    margin-right: 10%;
-`;
 
+//引数の型
+type propsType = {
+    taskList: taskHistoryType[]
+}
 
-function HomeHistory() {
+function HomeHistoryList(props: propsType) {
 
-    console.log("HomeHistory render");
-
-    //WorkHistoryのビジネスロジック
-    const {
-        isLoading,
-        isError,
-        taskList,
-    } = useHomeHistory();
-
-    //ローディング
-    if (isLoading) {
-        return <CenterLoading />;
-    }
-
-    //エラー
-    if (isError) {
-        return <WorkHistoryListUl>エラーが発生しました。</WorkHistoryListUl>;
-    }
+    console.log("HomeHistoryList render");
 
     return (
         <React.Fragment>
@@ -61,12 +42,16 @@ function HomeHistory() {
                 height="90%"
                 width="90%"
             >
-                <HomeHistoryList
-                    taskList={taskList}
-                />
+                {
+                    props.taskList && props.taskList.map((element) => {
+                        return <HomeHistoryContent
+                            taskHistory={element}
+                        />
+                    })
+                }
             </OuterDiv>
         </React.Fragment>
     );
 }
 
-export default HomeHistory;
+export default HomeHistoryList;
