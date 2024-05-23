@@ -10,3 +10,9 @@ export type taskHistoryType = {
     historyMessage: string,
     url: string,
 }
+
+//棒グラフ用のタスクリストの型
+export type barGraphTaskListType = {
+    month: string,
+    value: string,
+}

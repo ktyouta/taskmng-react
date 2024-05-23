@@ -13,7 +13,9 @@ import ButtonComponent from '../Common/ButtonComponent';
 import Table from '../Common/Table';
 import HomeHistoryContent from './HomeHistoryContent';
 import useHomeHistory from './Hook/useHomeHistory';
-import HomeHistoryList from './HomeHistoryList';
+import { taskHistoryType } from './Type/HomeType';
+import useHomeHistoryBarGraph from './Hook/useHomeHistoryBarGraph';
+import BarGraphComponent from '../Common/BarGraphComponent';
 
 
 //外側のスタイル
@@ -24,37 +26,22 @@ const OuterDiv = styled.div<{ height: string, width: string }>`
     overflow-x: hidden;
     margin-left: auto;
     margin-right: auto;
-    display:flex;
-`;
-
-//履歴表示エリアのスタイル
-const WorkHistoryListUl = styled.ul`
-    text-align: left;
-    margin-left: 5%;
-    margin-right: 10%;
 `;
 
 
-function HomeHistory() {
+//引数の型
+type propsType = {
+    taskList: taskHistoryType[]
+}
 
-    console.log("HomeHistory render");
 
-    //WorkHistoryのビジネスロジック
+function HomeHistoryBarGraph(props: propsType) {
+
+    console.log("HomeHistoryBarGraph render");
+
     const {
-        isLoading,
-        isError,
-        taskList,
-    } = useHomeHistory();
 
-    //ローディング
-    if (isLoading) {
-        return <CenterLoading />;
-    }
-
-    //エラー
-    if (isError) {
-        return <WorkHistoryListUl>エラーが発生しました。</WorkHistoryListUl>;
-    }
+    } = useHomeHistoryBarGraph({ ...props });
 
     return (
         <React.Fragment>
@@ -62,12 +49,19 @@ function HomeHistory() {
                 height="90%"
                 width="90%"
             >
-                <HomeHistoryList
-                    taskList={taskList}
+                <BarGraphComponent
+                    list={[]}
+                    xKey={'Month'}
+                    yKey={'num'}
+                    graphWidth={0}
+                    graphHeight={0}
+                    outerWidth={''}
+                    outerHeight={''}
+                    type={undefined}
                 />
             </OuterDiv>
         </React.Fragment>
     );
 }
 
-export default HomeHistory;
+export default HomeHistoryBarGraph;
