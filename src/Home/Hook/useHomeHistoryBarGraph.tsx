@@ -9,6 +9,7 @@ import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import { barGraphTaskListType, taskHistoryType } from '../Type/HomeType';
 import { createTaskHistory, createTaskHistoryTable } from '../Function/HomeFunction';
 import { tableType } from '../../Common/Table';
+import { generalDataType } from '../../Common/Type/CommonType';
 
 
 //引数の型
@@ -18,8 +19,24 @@ type propsType = {
 
 function useHomeHistoryBarGraph(props: propsType) {
 
-    //年度
+    //年の選択値
     const [selectYear, setSelectYear] = useState("");
+    //年のリスト
+    const [yearList, setYearList] = useState<generalDataType[]>();
+
+    //年のリストを取得
+    const {
+        isLoading,
+        isFetching,
+        isError
+    } = useQueryWrapper<generalDataType[]>(
+        {
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
+            afSuccessFn: (data: generalDataType[]) => {
+                setYearList(data);
+            }
+        }
+    );
 
     //棒グラフ用のリストに変換
     const barTaskList = useMemo(() => {
@@ -38,6 +55,11 @@ function useHomeHistoryBarGraph(props: propsType) {
             if (selectYear && selectYear !== updDateSpList[0]) {
                 return prev;
             }
+
+            [...prev, {
+                month: updDateSpList[1],
+                value: ""
+            }]
 
             return prev;
         }, []);
