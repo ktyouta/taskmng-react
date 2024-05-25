@@ -18,7 +18,7 @@ type propsType = {
     taskList: taskHistoryType[]
 }
 
-function useHomeHistoryBarGraph(props: propsType) {
+function useHomeHistoryLineGraph(props: propsType) {
 
     //年の選択値
     const [selectYear, setSelectYear] = useState("");
@@ -71,4 +71,4 @@ function useHomeHistoryBarGraph(props: propsType) {
     };
 }
 
-export default useHomeHistoryBarGraph;
+export default useHomeHistoryLineGraph;
