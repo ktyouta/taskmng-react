@@ -22,25 +22,31 @@ const OuterDiv = styled.div<{ height: string, width: string }>`
     height: ${({ height }) => (height)};
     overflow: auto;
     overflow-x: hidden;
-    margin-left: auto;
-    margin-right: auto;
 `;
 
+//内側のスタイル
+const InnerDiv = styled.div<{ height: string, width: string }>`
+    width: ${({ width }) => (width)};
+    height: ${({ height }) => (height)};
+`;
 
 //引数の型
 type propsType = {
     taskList: taskHistoryType[]
 }
 
-function HomeHistoryList(props: propsType) {
+function HomeHistoryContentList(props: propsType) {
 
     console.log("HomeHistoryList render");
 
     return (
-        <React.Fragment>
-            <OuterDiv
+        <OuterDiv
+            height="90%"
+            width="40%"
+        >
+            <InnerDiv
                 height="90%"
-                width="90%"
+                width="40%"
             >
                 {
                     props.taskList && props.taskList.map((element) => {
@@ -49,9 +55,9 @@ function HomeHistoryList(props: propsType) {
                         />
                     })
                 }
-            </OuterDiv>
-        </React.Fragment>
+            </InnerDiv>
+        </OuterDiv>
     );
 }
 
-export default HomeHistoryList;
+export default HomeHistoryContentList;

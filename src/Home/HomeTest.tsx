@@ -32,7 +32,7 @@ function HomeTest() {
         >
             <TitleDiv>
                 <LabelComponent
-                    title={<BoldSpan>作業履歴</BoldSpan>}
+                    title={<BoldSpan>プロジェクトホーム</BoldSpan>}
                 />
             </TitleDiv>
             <MainDiv>

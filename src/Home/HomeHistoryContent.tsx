@@ -22,7 +22,7 @@ const ContentTitleDiv = styled.div`
     overflow-wrap: break-word;
     font-size: 20px;
     padding-left: 10px;
-    background-color: #cccccc;
+    background-color: white;
     cursor:pointer;
     &:hover {
         color: blue;
@@ -38,7 +38,7 @@ const ContentInfoDiv = styled.div`
     border-radius: 0px 0x 5px 5px;
     min-height: 42px;
     padding-left: 10px;
-    background-color: #cccccc;
+    background-color: white;
 `;
 
 //タグエリアのスタイル
@@ -50,13 +50,9 @@ const ContentTagDiv = styled.div`
     padding-left: 10px;
     border-bottom: 1px solid;
     border-color: #a9a9a9;
-    background-color: #cccccc;
+    background-color: white;
 `;
 
-//ステータスエリアのスタイル
-const StatusAreaDiv = styled.div`
-    margin: 0 1% 0 auto;
-`;
 
 //引数の型
 type propsType = {
@@ -73,18 +69,19 @@ function HomeHistoryContent(props: propsType) {
             <ContentTitleDiv
                 onClick={() => { }}
             >
-
+                {
+                    `${props.taskHistory.userName}さんが${props.taskHistory.taskId}を${props.taskHistory.editType}`
+                }
             </ContentTitleDiv>
             <ContentTagDiv>
-                タグ：
+                {
+                    `${props.taskHistory.taskId} ${props.taskHistory.taskTitle}`
+                }
             </ContentTagDiv>
             <ContentInfoDiv>
-                {/* 内容 */}
-
-                {/* ステータス */}
-                <StatusAreaDiv>
-
-                </StatusAreaDiv>
+                {
+                    `作業日時：${props.taskHistory.time}`
+                }
             </ContentInfoDiv>
         </OuterDiv>
     );

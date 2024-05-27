@@ -26,8 +26,6 @@ const OuterDiv = styled.div<{ height: string, width: string }>`
     height: ${({ height }) => (height)};
     overflow: auto;
     overflow-x: hidden;
-    margin-left: auto;
-    margin-right: auto;
 `;
 
 
@@ -49,7 +47,7 @@ function HomeGraph(props: propsType) {
         <React.Fragment>
             <OuterDiv
                 height="90%"
-                width="90%"
+                width="40%"
             >
                 <HomeHistoryBarGraph
                     taskList={props.taskList}

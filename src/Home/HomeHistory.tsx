@@ -13,17 +13,14 @@ import ButtonComponent from '../Common/ButtonComponent';
 import Table from '../Common/Table';
 import HomeHistoryContent from './HomeHistoryContent';
 import useHomeHistory from './Hook/useHomeHistory';
-import HomeHistoryList from './HomeHistoryList';
+import HomeHistoryContentList from './HomeHistoryContentList';
+import HomeGraph from './HomeGraph';
 
 
 //外側のスタイル
 const OuterDiv = styled.div<{ height: string, width: string }>`
     width: ${({ width }) => (width)};
     height: ${({ height }) => (height)};
-    overflow: auto;
-    overflow-x: hidden;
-    margin-left: auto;
-    margin-right: auto;
     display:flex;
 `;
 
@@ -62,7 +59,10 @@ function HomeHistory() {
                 height="90%"
                 width="90%"
             >
-                <HomeHistoryList
+                <HomeHistoryContentList
+                    taskList={taskList}
+                />
+                <HomeGraph
                     taskList={taskList}
                 />
             </OuterDiv>
