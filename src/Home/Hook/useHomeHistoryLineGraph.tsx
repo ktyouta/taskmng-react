@@ -24,6 +24,8 @@ function useHomeHistoryLineGraph(props: propsType) {
     const [selectYear, setSelectYear] = useState("");
     //年のリスト
     const [yearList, setYearList] = useState<generalDataType[]>();
+    //状態区分
+    const [taskStatus, setTaskStatsu] = useState<string>("");
 
     //年のリストを取得
     const {
@@ -57,10 +59,17 @@ function useHomeHistoryLineGraph(props: propsType) {
                 return prev;
             }
 
-            [...prev, {
-                month: updDateSpList[1],
-                value: ""
-            }]
+            //月ごとに数を集計する
+            let monthData = prev.find((element) => element.month === updDateSpList[0]);
+            if (monthData) {
+                monthData.value++;
+            }
+            else {
+                [...prev, {
+                    month: updDateSpList[1],
+                    value: 1
+                }];
+            }
 
             return prev;
         }, []);

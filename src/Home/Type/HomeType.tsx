@@ -14,5 +14,5 @@ export type taskHistoryType = {
 //棒グラフ用のタスクリストの型
 export type barGraphTaskListType = {
     month: string,
-    value: string,
+    value: number,
 }

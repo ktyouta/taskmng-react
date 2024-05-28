@@ -18,6 +18,7 @@ import useHomeHistoryBarGraph from './Hook/useHomeHistoryBarGraph';
 import BarGraphComponent from '../Common/BarGraphComponent';
 import HomeHistoryBarGraph from './HomeHistoryBarGraph';
 import useHomeGraph from './Hook/useHomeGraph';
+import HomeHistoryLineGraph from './HomeHistoryLineGraph';
 
 
 //外側のスタイル
@@ -49,6 +50,9 @@ function HomeGraph(props: propsType) {
                 height="90%"
                 width="40%"
             >
+                <HomeHistoryLineGraph
+                    taskList={props.taskList}
+                />
                 <HomeHistoryBarGraph
                     taskList={props.taskList}
                 />
