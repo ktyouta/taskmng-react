@@ -41,7 +41,7 @@ function HomeGraph(props: propsType) {
     console.log("HomeGraph render");
 
     const {
-
+        taskGraphDatas
     } = useHomeGraph({ ...props });
 
     return (
@@ -51,7 +51,7 @@ function HomeGraph(props: propsType) {
                 width="40%"
             >
                 <HomeHistoryLineGraph
-                    taskList={props.taskList}
+                    taskGraphDatas={taskGraphDatas}
                 />
                 <HomeHistoryBarGraph
                     taskList={props.taskList}

@@ -40,7 +40,7 @@ function useHomeGraph(props: propsType) {
     );
 
     //棒グラフ用のリストに変換
-    const barTaskList = useMemo(() => {
+    const taskGraphDatas = useMemo(() => {
         if (!props.taskList) {
             return [];
         }
@@ -57,17 +57,17 @@ function useHomeGraph(props: propsType) {
                 return prev;
             }
 
-            [...prev, {
+            prev.push({
                 month: updDateSpList[1],
-                value: ""
-            }]
+                value: 1
+            });
 
             return prev;
         }, []);
     }, [props.taskList, selectYear]);
 
     return {
-        barTaskList
+        taskGraphDatas
     };
 }
 

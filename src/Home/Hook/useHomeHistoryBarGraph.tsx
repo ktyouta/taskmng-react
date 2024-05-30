@@ -57,10 +57,10 @@ function useHomeHistoryBarGraph(props: propsType) {
                 return prev;
             }
 
-            [...prev, {
+            prev.push({
                 month: updDateSpList[1],
-                value: ""
-            }]
+                value: 1
+            });
 
             return prev;
         }, []);

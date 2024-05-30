@@ -6,6 +6,7 @@ import HomeWorkHistory from './HomeWorkHistory';
 import { BoldSpan, HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import styled from 'styled-components';
 import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
+import HomeHistory from './HomeHistory';
 
 
 //履歴表示エリアのスタイル
@@ -39,7 +40,7 @@ function HomeTest() {
                 <VerticalSpaceComponent
                     space={'1%'}
                 />
-                <HomeWorkHistory />
+                <HomeHistory />
             </MainDiv>
         </HeightDiv>
     );
