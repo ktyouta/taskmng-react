@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 import { taskHistoryType } from './Type/HomeType';
+import { IoPersonCircleOutline } from 'react-icons/io5';
+import IconComponent from '../Common/IconComponent';
 
 
 //外側のスタイル
 const OuterDiv = styled.div`
-    border: 1px solid;
+    border: 2px solid;
     border-radius: 5px;
     min-height: 80px;
     height: auto;
@@ -15,7 +17,7 @@ const OuterDiv = styled.div`
 const ContentTitleDiv = styled.div`
     text-align: left;
     height: auto;
-    min-height: 30px;
+    min-height: 40px;
     border-bottom: 1px solid;
     border-color: #a9a9a9;
     border-radius: 5px 5px 0px 0px;
@@ -23,11 +25,7 @@ const ContentTitleDiv = styled.div`
     font-size: 20px;
     padding-left: 10px;
     background-color: white;
-    cursor:pointer;
-    &:hover {
-        color: blue;
-        text-decoration: underline;
-    }
+    padding-top:1%;
 `;
 
 //コンテンツのスタイル
@@ -53,6 +51,15 @@ const ContentTagDiv = styled.div`
     background-color: white;
 `;
 
+//IDのスタイル
+const IdSpan = styled.span`
+    cursor:pointer;
+    color: blue;
+    &:hover {
+        text-decoration: underline;
+    }
+`;
+
 
 //引数の型
 type propsType = {
@@ -69,13 +76,22 @@ function HomeHistoryContent(props: propsType) {
             <ContentTitleDiv
                 onClick={() => { }}
             >
+                <IconComponent
+                    icon={IoPersonCircleOutline} onclick={function (): void {
+                        throw new Error('Function not implemented.');
+                    }}
+                />
                 {
-                    `${props.taskHistory.userName}さんが${props.taskHistory.taskId}を${props.taskHistory.editType}`
+                    `${props.taskHistory.userName}さんが`
+                }
+                <IdSpan>{props.taskHistory.taskId}</IdSpan>
+                {
+                    `を${props.taskHistory.editType}`
                 }
             </ContentTitleDiv>
             <ContentTagDiv>
                 {
-                    `${props.taskHistory.taskId} ${props.taskHistory.taskTitle}`
+                    `${props.taskHistory.taskId}：${props.taskHistory.taskTitle}`
                 }
             </ContentTagDiv>
             <ContentInfoDiv>

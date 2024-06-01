@@ -9,11 +9,19 @@ import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
 import HomeHistory from './HomeHistory';
 
 
+//ホーム画面のスタイル
+const HomeDiv = styled.div<{ height: string | undefined }>`
+    height:${({ height }) => (height)};
+    background-color: #f5f5f5;
+`;
+
 //履歴表示エリアのスタイル
 const MainDiv = styled.div`
     padding-top: 2%;
     height: 90%;
     width: 100%;
+    box-sizing: border-box;
+    padding-left: 6%;
 `;
 
 //履歴表示エリアのスタイル
@@ -23,17 +31,23 @@ const TitleDiv = styled.div`
     padding-top: 3%;
 `;
 
+//タイトルのスタイル
+const TitleBoldSpan = styled(BoldSpan)`
+    font-size: 1.1rem;
+`;
+
+
 function HomeTest() {
 
     console.log("HomeTest render");
 
     return (
-        <HeightDiv
+        <HomeDiv
             height='93%'
         >
             <TitleDiv>
                 <LabelComponent
-                    title={<BoldSpan>プロジェクトホーム</BoldSpan>}
+                    title={<TitleBoldSpan>プロジェクトホーム</TitleBoldSpan>}
                 />
             </TitleDiv>
             <MainDiv>
@@ -42,7 +56,7 @@ function HomeTest() {
                 />
                 <HomeHistory />
             </MainDiv>
-        </HeightDiv>
+        </HomeDiv>
     );
 }
 

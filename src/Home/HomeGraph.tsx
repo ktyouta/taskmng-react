@@ -50,9 +50,9 @@ function HomeGraph(props: propsType) {
                 height="90%"
                 width="40%"
             >
-                <HomeHistoryLineGraph
+                {/* <HomeHistoryLineGraph
                     taskGraphDatas={taskGraphDatas}
-                />
+                /> */}
                 <HomeHistoryBarGraph
                     taskList={props.taskList}
                 />

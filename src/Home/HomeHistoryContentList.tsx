@@ -14,6 +14,7 @@ import Table from '../Common/Table';
 import HomeHistoryContent from './HomeHistoryContent';
 import useHomeHistory from './Hook/useHomeHistory';
 import { taskHistoryType } from './Type/HomeType';
+import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
 
 
 //外側のスタイル
@@ -41,18 +42,25 @@ function HomeHistoryContentList(props: propsType) {
 
     return (
         <OuterDiv
-            height="90%"
-            width="40%"
+            height="100%"
+            width="78%"
         >
             <InnerDiv
                 height="90%"
-                width="40%"
+                width="100%"
             >
                 {
                     props.taskList && props.taskList.map((element) => {
-                        return <HomeHistoryContent
-                            taskHistory={element}
-                        />
+                        return (
+                            <React.Fragment>
+                                <HomeHistoryContent
+                                    taskHistory={element}
+                                />
+                                <VerticalSpaceComponent
+                                    space={'2%'}
+                                />
+                            </React.Fragment>
+                        )
                     })
                 }
             </InnerDiv>
