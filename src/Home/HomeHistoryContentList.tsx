@@ -5,7 +5,7 @@ import LabelComponent from '../Common/LabelComponent';
 import Loading from '../Common/Loading';
 import useHomeWorkHistory from './Hook/useHomeWorkHistory';
 import styled from 'styled-components';
-import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import { BoldSpan, HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import ENV from '../env.json';
 import CenterLoading from '../Common/CenterLoading';
 import AccordionComponent from '../Common/AccordionComponent';
@@ -21,14 +21,24 @@ import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
 const OuterDiv = styled.div<{ height: string, width: string }>`
     width: ${({ width }) => (width)};
     height: ${({ height }) => (height)};
-    overflow: auto;
-    overflow-x: hidden;
 `;
 
 //内側のスタイル
 const InnerDiv = styled.div<{ height: string, width: string }>`
     width: ${({ width }) => (width)};
     height: ${({ height }) => (height)};
+    overflow: auto;
+    overflow-x: hidden;
+`;
+
+//履歴表示エリアのスタイル
+const TitleDiv = styled.div`
+    text-align: left;
+`;
+
+//タイトルのスタイル
+const TitleBoldSpan = styled(BoldSpan)`
+    font-size: 1.1rem;
 `;
 
 //引数の型
@@ -43,8 +53,19 @@ function HomeHistoryContentList(props: propsType) {
     return (
         <OuterDiv
             height="100%"
-            width="78%"
+            width="62%"
         >
+            <VerticalSpaceComponent
+                space='2%'
+            />
+            <TitleDiv>
+                <LabelComponent
+                    title={<TitleBoldSpan>プロジェクトホーム</TitleBoldSpan>}
+                />
+            </TitleDiv>
+            <VerticalSpaceComponent
+                space='4%'
+            />
             <InnerDiv
                 height="90%"
                 width="100%"

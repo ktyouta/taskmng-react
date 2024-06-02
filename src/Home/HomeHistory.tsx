@@ -56,8 +56,8 @@ function HomeHistory() {
     return (
         <React.Fragment>
             <OuterDiv
-                height="98%"
-                width="90%"
+                height="95%"
+                width="95%"
             >
                 <HomeHistoryContentList
                     taskList={taskList}

@@ -121,5 +121,17 @@
 		"userId": "f",
 		"deleteFlg": "0",
 		"status": "2"
+	},
+	{
+		"id": "MEMOID-12",
+		"tagId": "TAGID-6",
+		"title": "margin-top:x%が親要素の幅に影響を受ける",
+		"content": "margin-top:x%が親要素の幅に影響を受けるため注意\n",
+		"registerTime": "2024/06/02",
+		"updTime": "2024/06/02",
+		"limitTime": "",
+		"userId": "f",
+		"deleteFlg": "0",
+		"status": "2"
 	}
 ]

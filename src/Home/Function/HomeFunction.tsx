@@ -43,10 +43,10 @@ export function createTaskHistory(workHistoryList: taskHistoryType[])
      * タスク詳細のURLをクリップボードにコピー
      * @param url 
      */
-const copyUrlToClipboard = (url: string) => {
+export const copyUrlToClipboard = (url: string) => {
     navigator.clipboard.writeText(url)
         .then(function () {
-            alert("URLをコピーしました。");
+            alert("タスクのURLをコピーしました。");
         }, function (err) {
             alert("URLのコピーに失敗しました。");
         });

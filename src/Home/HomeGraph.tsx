@@ -5,7 +5,7 @@ import LabelComponent from '../Common/LabelComponent';
 import Loading from '../Common/Loading';
 import useHomeWorkHistory from './Hook/useHomeWorkHistory';
 import styled from 'styled-components';
-import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import { BoldSpan, HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import ENV from '../env.json';
 import CenterLoading from '../Common/CenterLoading';
 import AccordionComponent from '../Common/AccordionComponent';
@@ -19,16 +19,25 @@ import BarGraphComponent from '../Common/BarGraphComponent';
 import HomeHistoryBarGraph from './HomeHistoryBarGraph';
 import useHomeGraph from './Hook/useHomeGraph';
 import HomeHistoryLineGraph from './HomeHistoryLineGraph';
+import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
 
 
 //外側のスタイル
 const OuterDiv = styled.div<{ height: string, width: string }>`
     width: ${({ width }) => (width)};
     height: ${({ height }) => (height)};
-    overflow: auto;
-    overflow-x: hidden;
 `;
 
+//履歴表示エリアのスタイル
+const TitleDiv = styled.div`
+    text-align: left;
+    margin-left: 5%;
+`;
+
+//タイトルのスタイル
+const TitleBoldSpan = styled(BoldSpan)`
+    font-size: 1.1rem;
+`;
 
 //引数の型
 type propsType = {
@@ -45,19 +54,28 @@ function HomeGraph(props: propsType) {
     } = useHomeGraph({ ...props });
 
     return (
-        <React.Fragment>
-            <OuterDiv
-                height="90%"
-                width="40%"
-            >
-                {/* <HomeHistoryLineGraph
+        <OuterDiv
+            height="100%"
+            width="38%"
+        >
+            <VerticalSpaceComponent
+                space='2%'
+            />
+            <TitleDiv>
+                <LabelComponent
+                    title={<TitleBoldSpan>タスクチャート</TitleBoldSpan>}
+                />
+            </TitleDiv>
+            <VerticalSpaceComponent
+                space='4%'
+            />
+            {/* <HomeHistoryLineGraph
                     taskGraphDatas={taskGraphDatas}
                 /> */}
-                <HomeHistoryBarGraph
-                    taskList={props.taskList}
-                />
-            </OuterDiv>
-        </React.Fragment>
+            <HomeHistoryBarGraph
+                taskList={props.taskList}
+            />
+        </OuterDiv>
     );
 }
 

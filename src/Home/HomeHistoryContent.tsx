@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { taskHistoryType } from './Type/HomeType';
 import { IoPersonCircleOutline } from 'react-icons/io5';
 import IconComponent from '../Common/IconComponent';
+import { copyUrlToClipboard } from './Function/HomeFunction';
 
 
 //外側のスタイル
@@ -49,6 +50,7 @@ const ContentTagDiv = styled.div`
     border-bottom: 1px solid;
     border-color: #a9a9a9;
     background-color: white;
+    text-align: left;
 `;
 
 //IDのスタイル
@@ -77,14 +79,16 @@ function HomeHistoryContent(props: propsType) {
                 onClick={() => { }}
             >
                 <IconComponent
-                    icon={IoPersonCircleOutline} onclick={function (): void {
-                        throw new Error('Function not implemented.');
-                    }}
+                    icon={IoPersonCircleOutline} onclick={() => { }}
                 />
                 {
                     `${props.taskHistory.userName}さんが`
                 }
-                <IdSpan>{props.taskHistory.taskId}</IdSpan>
+                <IdSpan
+                    onClick={() => { copyUrlToClipboard(props.taskHistory.url) }}
+                >
+                    {props.taskHistory.taskId}
+                </IdSpan>
                 {
                     `を${props.taskHistory.editType}`
                 }

@@ -16,24 +16,12 @@ const HomeDiv = styled.div<{ height: string | undefined }>`
 `;
 
 //履歴表示エリアのスタイル
-const MainDiv = styled.div`
-    padding-top: 2%;
-    height: 90%;
+const MainDiv = styled.div<{ height: string | undefined }>`
+    padding-top: 1%;
+    height:${({ height }) => (height)};
     width: 100%;
     box-sizing: border-box;
     padding-left: 6%;
-`;
-
-//履歴表示エリアのスタイル
-const TitleDiv = styled.div`
-    text-align: left;
-    margin-left: 5%;
-    padding-top: 3%;
-`;
-
-//タイトルのスタイル
-const TitleBoldSpan = styled(BoldSpan)`
-    font-size: 1.1rem;
 `;
 
 
@@ -43,17 +31,11 @@ function HomeTest() {
 
     return (
         <HomeDiv
-            height='93%'
+            height='100%'
         >
-            <TitleDiv>
-                <LabelComponent
-                    title={<TitleBoldSpan>プロジェクトホーム</TitleBoldSpan>}
-                />
-            </TitleDiv>
-            <MainDiv>
-                <VerticalSpaceComponent
-                    space={'1%'}
-                />
+            <MainDiv
+                height='97%'
+            >
                 <HomeHistory />
             </MainDiv>
         </HomeDiv>
