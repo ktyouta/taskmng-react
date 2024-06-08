@@ -12,6 +12,10 @@ type propsType = {
   bgColor?: string,
   height?: string,
   width?: string,
+  minWidth?: string,
+  minHeight?: string,
+  selectStyle?: { [key: string]: string },
+  optionStyle?: { [key: string]: string },
 }
 
 //コンボボックスの型
@@ -28,13 +32,13 @@ export type refType = {
 
 
 //コンボボックスの基本スタイル
-const BaseSelect = styled.select<{ bgColor?: string, height?: string, width?: string }>`
+const BaseSelect = styled.select<{ bgColor?: string, height?: string, width?: string, minWidth?: string, minHeight?: string }>`
   background-color:${({ bgColor }) => (bgColor ?? "")};
   text-align:center;
   width: ${({ width }) => (width ?? "300px")};
-  min-width: 200px;
+  min-width: ${({ minWidth }) => (minWidth ?? "200px")};
   height:${({ height }) => (height ?? "45px")};
-  min-height:30px;
+  min-height:${({ minHeight }) => (minHeight ?? "30px")};
   border-radius: 5px;
 `;
 
@@ -75,6 +79,7 @@ const ComboComponent = forwardRef<refType, propsType>((props, ref) => {
           bgColor={props.bgColor}
           height={props.height}
           width={props.width}
+          style={props.selectStyle}
         >
           {
             props.combo.map((element) => {
@@ -82,6 +87,7 @@ const ComboComponent = forwardRef<refType, propsType>((props, ref) => {
                 <option
                   value={element.value}
                   key={`${element.value}-${element.label}`}
+                  style={props.optionStyle}
                 >
                   {element.label}
                 </option>
