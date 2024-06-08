@@ -17,6 +17,7 @@ import { barGraphTaskListType, taskHistoryType } from './Type/HomeType';
 import useHomeHistoryBarGraph from './Hook/useHomeHistoryBarGraph';
 import BarGraphComponent from '../Common/BarGraphComponent';
 import LineGraphComponent from '../Common/LineGraphComponent';
+import useHomeHistoryLineGraph from './Hook/useHomeHistoryLineGraph';
 
 
 //外側のスタイル
@@ -32,7 +33,8 @@ const OuterDiv = styled.div<{ height: string, width: string }>`
 
 //引数の型
 type propsType = {
-    taskGraphDatas: barGraphTaskListType[]
+    taskList: taskHistoryType[],
+    selectYear: string,
 }
 
 
@@ -41,8 +43,8 @@ function HomeHistoryLineGraph(props: propsType) {
     console.log("HomeHistoryLineGraph render");
 
     const {
-
-    } = HomeHistoryLineGraph({ ...props });
+        lineTaskList
+    } = useHomeHistoryLineGraph({ ...props });
 
     return (
         <React.Fragment>
@@ -51,13 +53,13 @@ function HomeHistoryLineGraph(props: propsType) {
                 width="90%"
             >
                 <LineGraphComponent
-                    list={props.taskGraphDatas}
-                    xKey={'Month'}
-                    yKey={'num'}
-                    graphWidth={0}
-                    graphHeight={0}
-                    outerWidth={''}
-                    outerHeight={''}
+                    list={lineTaskList}
+                    xKey={'month'}
+                    yKey={'value'}
+                    graphWidth={100}
+                    graphHeight={100}
+                    outerWidth={'100%'}
+                    outerHeight={'60%'}
                     type={undefined}
                 />
             </OuterDiv>

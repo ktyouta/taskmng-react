@@ -20,6 +20,7 @@ import HomeHistoryBarGraph from './HomeHistoryBarGraph';
 import useHomeGraph from './Hook/useHomeGraph';
 import HomeHistoryLineGraph from './HomeHistoryLineGraph';
 import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
+import ComboComponent from '../Common/ComboComponent';
 
 
 //外側のスタイル
@@ -50,13 +51,15 @@ function HomeGraph(props: propsType) {
     console.log("HomeGraph render");
 
     const {
-        taskGraphDatas
+        selectYear,
+        yearList,
+        setSelectYear
     } = useHomeGraph({ ...props });
 
     return (
         <OuterDiv
             height="100%"
-            width="38%"
+            width="42%"
         >
             <VerticalSpaceComponent
                 space='2%'
@@ -69,12 +72,21 @@ function HomeGraph(props: propsType) {
             <VerticalSpaceComponent
                 space='4%'
             />
-            {/* <HomeHistoryLineGraph
-                    taskGraphDatas={taskGraphDatas}
-                /> */}
-            <HomeHistoryBarGraph
-                taskList={props.taskList}
+            <ComboComponent
+                combo={yearList ?? []}
+                onChange={setSelectYear}
+                initValue={selectYear}
+                height='40px'
+                width='240px'
             />
+            年
+            <HomeHistoryLineGraph
+                taskList={props.taskList}
+                selectYear={selectYear}
+            />
+            {/* <HomeHistoryBarGraph
+                taskList={props.taskList}
+            /> */}
         </OuterDiv>
     );
 }

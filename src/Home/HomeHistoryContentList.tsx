@@ -53,7 +53,7 @@ function HomeHistoryContentList(props: propsType) {
     return (
         <OuterDiv
             height="100%"
-            width="62%"
+            width="58%"
         >
             <VerticalSpaceComponent
                 space='2%'
