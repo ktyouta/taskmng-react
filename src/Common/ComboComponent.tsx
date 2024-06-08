@@ -79,6 +79,8 @@ const ComboComponent = forwardRef<refType, propsType>((props, ref) => {
           bgColor={props.bgColor}
           height={props.height}
           width={props.width}
+          minHeight={props.minHeight}
+          minWidth={props.minWidth}
           style={props.selectStyle}
         >
           {

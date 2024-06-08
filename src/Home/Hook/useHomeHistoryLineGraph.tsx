@@ -53,12 +53,12 @@ function useHomeHistoryLineGraph(props: propsType) {
             //月ごとに数を集計する
             let monthData = prev.find((element) => element.month === taskDateM);
             if (monthData) {
-                monthData.value++;
+                monthData.登録更新削除数++;
             }
             else {
                 prev.push({
                     month: taskDateM,
-                    value: 1
+                    登録更新削除数: 1
                 });
             }
 
@@ -78,7 +78,7 @@ function useHomeHistoryLineGraph(props: propsType) {
             if (!monthData) {
                 taskTotalDatas.push({
                     month: `${i.toString()}`,
-                    value: 0
+                    登録更新削除数: 0
                 });
                 continue;
             }

@@ -21,6 +21,7 @@ import useHomeGraph from './Hook/useHomeGraph';
 import HomeHistoryLineGraph from './HomeHistoryLineGraph';
 import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
 import ComboComponent from '../Common/ComboComponent';
+import SpaceComponent from '../Common/SpaceComponent';
 
 
 //外側のスタイル
@@ -38,6 +39,13 @@ const TitleDiv = styled.div`
 //タイトルのスタイル
 const TitleBoldSpan = styled(BoldSpan)`
     font-size: 1.1rem;
+`;
+
+//コンボボックスエリアのスタイル
+const ComboDiv = styled.div`
+    display:flex;
+    align-items: center;
+    justify-content: center;
 `;
 
 //引数の型
@@ -72,14 +80,23 @@ function HomeGraph(props: propsType) {
             <VerticalSpaceComponent
                 space='4%'
             />
-            <ComboComponent
-                combo={yearList ?? []}
-                onChange={setSelectYear}
-                initValue={selectYear}
-                height='40px'
-                width='240px'
+            <ComboDiv>
+                <ComboComponent
+                    combo={yearList ?? []}
+                    onChange={setSelectYear}
+                    initValue={selectYear}
+                    height='40px'
+                    width='25%'
+                    minWidth='10px'
+                />
+                <SpaceComponent
+                    space='1%'
+                />
+                年
+            </ComboDiv>
+            <VerticalSpaceComponent
+                space='1%'
             />
-            年
             <HomeHistoryLineGraph
                 taskList={props.taskList}
                 selectYear={selectYear}

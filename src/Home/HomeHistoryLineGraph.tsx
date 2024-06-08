@@ -49,13 +49,13 @@ function HomeHistoryLineGraph(props: propsType) {
     return (
         <React.Fragment>
             <OuterDiv
-                height="90%"
+                height="89%"
                 width="90%"
             >
                 <LineGraphComponent
                     list={lineTaskList}
                     xKey={'month'}
-                    yKey={'value'}
+                    yKey={'登録更新削除数'}
                     graphWidth={100}
                     graphHeight={100}
                     outerWidth={'100%'}

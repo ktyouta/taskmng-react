@@ -59,7 +59,7 @@ function useHomeHistoryBarGraph(props: propsType) {
 
             prev.push({
                 month: updDateSpList[1],
-                value: 1
+                登録更新削除数: 1
             });
 
             return prev;

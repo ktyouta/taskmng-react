@@ -11,7 +11,7 @@ type propsType = {
 function SpaceComponent(props: propsType) {
 
   return (
-    <div style={{ width: props.space }}></div>
+    <div style={{ width: props.space, display: 'inline-block' }}></div>
   );
 }
 
