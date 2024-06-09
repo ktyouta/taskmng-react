@@ -150,3 +150,15 @@ export function createTaskUrl(decodeFileData: taskHistoryType[]) {
 
     return decodeFileData;
 }
+
+/**
+ * 履歴のIDを作成
+ */
+export function createTaskHistoryNewId(decodeFileData: addTaskHistoryType[]) {
+    //IDが最大のNOを取得
+    let maxNo = decodeFileData.reduce<number>((prev: number, current: addTaskHistoryType) => {
+        let currentNm = parseInt(current.id);
+        return Math.max(prev, currentNm);
+    }, 0);
+    return `${maxNo + 1}`;
+}

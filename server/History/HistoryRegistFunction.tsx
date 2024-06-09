@@ -1,5 +1,6 @@
 import { authInfoType } from "../Auth/Type/AuthType";
 import { getNowDate } from "../Common/Function";
+import { createTaskHistoryNewId } from "./HistorySelectFunction";
 import { addTaskHistoryType, taskHistoryType } from "./Type/HistoryType";
 
 
@@ -19,7 +20,8 @@ export function createAddTaskHistory(decodeFileData: addTaskHistoryType[], taskI
         userId: authResult.userInfo ? authResult.userInfo?.userId : "",
         taskId: taskId,
         editValue: editType,
-        deleteFlg: "0"
+        deleteFlg: "0",
+        id: createTaskHistoryNewId(decodeFileData),
     };
 
     decodeFileData.push(registData);

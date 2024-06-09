@@ -1,6 +1,7 @@
 
 //タスクの作業履歴の型
 export type taskHistoryType = {
+    id: string,
     time: string,
     userId: string,
     userName: string,
@@ -19,4 +20,5 @@ export type addTaskHistoryType = {
     taskId: string,
     editValue: string,
     deleteFlg: string,
+    id: string,
 }
