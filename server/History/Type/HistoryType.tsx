@@ -11,6 +11,8 @@ export type taskHistoryType = {
     editValue: string,
     deleteFlg: string,
     url: string,
+    priority: string,
+    status: string,
 }
 
 //登録時のタスクの作業履歴の型

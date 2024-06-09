@@ -16,6 +16,7 @@ import useHomeHistory from './Hook/useHomeHistory';
 import { taskHistoryType } from './Type/HomeType';
 import useHomeHistoryBarGraph from './Hook/useHomeHistoryBarGraph';
 import BarGraphComponent from '../Common/BarGraphComponent';
+import SideStackBarGraphComponent from '../Common/SideStackBarGraphComponent';
 
 
 //外側のスタイル
@@ -31,7 +32,8 @@ const OuterDiv = styled.div<{ height: string, width: string }>`
 
 //引数の型
 type propsType = {
-    taskList: taskHistoryType[]
+    taskList: taskHistoryType[],
+    selectYear: string,
 }
 
 
@@ -49,7 +51,7 @@ function HomeHistoryBarGraph(props: propsType) {
                 height="90%"
                 width="90%"
             >
-                <BarGraphComponent
+                <SideStackBarGraphComponent
                     list={[]}
                     xKey={'Month'}
                     yKey={'num'}

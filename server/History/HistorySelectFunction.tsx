@@ -40,20 +40,11 @@ export function getFilterdTaskHistory() {
 }
 
 /**
- * 汎用詳細/設定と紐づける
+ * 別ファイルのデータと紐づける
  */
-export function joinGeneralSetting(decodeFileData: taskHistoryType[]) {
-
-    //汎用詳細ファイルの読み込み
-    let decodeGeneralData: generalDetailType[] = getGeneralDataList();
-
-    //ユーザーファイルの読み込み
-    let userFileData = readFile(USERINFO_FILEPATH);
-    let decodeUserFileData: userInfoType[] = JSON.parse(userFileData);
-
-    //タスクファイルの読み込み
-    let taskFileData = readFile(TASK_FILEPATH);
-    let decodeTaskFileData: taskListType[] = JSON.parse(taskFileData);
+export function joinGeneralSetting(decodeFileData: taskHistoryType[], decodeTaskFileData: taskListType[],
+    decodeGeneralData: generalDetailType[], decodeUserFileData: userInfoType[]
+) {
 
     decodeFileData.forEach((element) => {
 
@@ -82,6 +73,8 @@ export function joinGeneralSetting(decodeFileData: taskHistoryType[]) {
 
         if (tmpTask) {
             element.taskTitle = tmpTask.title;
+            element.priority = tmpTask.priority;
+            element.status = tmpTask.status;
         }
     });
 

@@ -15,29 +15,11 @@ import { YEAR_ID } from '../Const/HomeConst';
 
 //引数の型
 type propsType = {
-    taskList: taskHistoryType[]
+    taskList: taskHistoryType[],
+    selectYear: string,
 }
 
 function useHomeHistoryBarGraph(props: propsType) {
-
-    //年の選択値
-    const [selectYear, setSelectYear] = useState("");
-    //年のリスト
-    const [yearList, setYearList] = useState<generalDataType[]>();
-
-    //年のリストを取得
-    const {
-        isLoading,
-        isFetching,
-        isError
-    } = useQueryWrapper<generalDataType[]>(
-        {
-            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}?id=${YEAR_ID}`,
-            afSuccessFn: (data: generalDataType[]) => {
-                setYearList(data);
-            }
-        }
-    );
 
     //棒グラフ用のリストに変換
     const barTaskList = useMemo(() => {
@@ -45,26 +27,73 @@ function useHomeHistoryBarGraph(props: propsType) {
             return [];
         }
 
-        //月ごとにまとめる
-        return props.taskList.reduce((prev: barGraphTaskListType[], current: taskHistoryType) => {
+        //月ごと集計する
+        let taskTotalDatas = props.taskList.reduce((prev: barGraphTaskListType[], current: taskHistoryType) => {
+
+            //作業日時を取得する
             let updDateSpList = current.time?.split("/");
             if (!updDateSpList || updDateSpList.length !== 3) {
                 return prev;
             }
 
             //選択した年度に一致しない
-            if (selectYear && selectYear !== updDateSpList[0]) {
+            if (props.selectYear && props.selectYear !== updDateSpList[0]) {
                 return prev;
             }
 
-            prev.push({
-                month: updDateSpList[1],
-                登録更新削除数: 1
-            });
+            let taskDateM = updDateSpList[1];
+            //月の形式チェック
+            if (!taskDateM || isNaN(Number(taskDateM))) {
+                return prev;
+            }
+
+            //月ごとに数を集計する
+            let monthData = prev.find((element) => element.month === taskDateM);
+            if (monthData) {
+                monthData.登録更新削除数++;
+            }
+            else {
+                prev.push({
+                    month: taskDateM,
+                    登録更新削除数: 1
+                });
+            }
 
             return prev;
         }, []);
-    }, [props.taskList, selectYear]);
+
+        for (let i = 1; i < 13; i++) {
+            let monthData = taskTotalDatas.find((element) => {
+                let month = element.month;
+                if (month.startsWith("0")) {
+                    month = month.slice(1);
+                }
+                return month === i.toString();
+            });
+
+            //月のデータが存在しない場合
+            if (!monthData) {
+                taskTotalDatas.push({
+                    month: `${i.toString()}`,
+                    登録更新削除数: 0
+                });
+                continue;
+            }
+
+            let month = monthData.month;
+            if (month.startsWith("0")) {
+                month = month.slice(1);
+            }
+            monthData.month = `${month.toString()}`;
+        }
+
+        //月でソートする
+        taskTotalDatas.sort((a, b) => {
+            return Number(a.month) - Number(b.month);
+        });
+
+        return taskTotalDatas;
+    }, [props.taskList, props.selectYear]);
 
     return {
         barTaskList

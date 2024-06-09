@@ -1,4 +1,4 @@
-import { getFileJsonData } from "../../Common/FileFunction";
+import { getFileJsonData, readFile } from "../../Common/FileFunction";
 import { generalDetailType } from "../../General/Type/GeneralType";
 import { GENERALDETAIL_FILEPATH } from "../DefaultAttribute/Const/DefaultAttributeConst";
 import { AUTH_ID, USERINFO_FILEPATH } from "./Const/UserConst";
@@ -6,12 +6,21 @@ import { userInfoType } from "./Type/UserType";
 
 
 /**
+ * ユーザーファイルからオブジェクトを取得
+ */
+export function getuserListObj(): userInfoType[] {
+    //ユーザーファイルの読み込み
+    let fileData = readFile(USERINFO_FILEPATH);
+    return JSON.parse(fileData);
+}
+
+/**
  * ユーザー情報を取得
  */
 export function getUserInfoData() {
 
     //カスタム属性の読み込み
-    let decodeFileData: userInfoType[] = getFileJsonData(USERINFO_FILEPATH);
+    let decodeFileData: userInfoType[] = getuserListObj();
 
     //削除済のデータをフィルターする
     decodeFileData = decodeFileData.filter((element) => {

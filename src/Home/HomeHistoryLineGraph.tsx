@@ -13,7 +13,7 @@ import ButtonComponent from '../Common/ButtonComponent';
 import Table from '../Common/Table';
 import HomeHistoryContent from './HomeHistoryContent';
 import useHomeHistory from './Hook/useHomeHistory';
-import { barGraphTaskListType, taskHistoryType } from './Type/HomeType';
+import { taskHistoryType } from './Type/HomeType';
 import useHomeHistoryBarGraph from './Hook/useHomeHistoryBarGraph';
 import BarGraphComponent from '../Common/BarGraphComponent';
 import LineGraphComponent from '../Common/LineGraphComponent';
@@ -61,6 +61,9 @@ function HomeHistoryLineGraph(props: propsType) {
                     outerWidth={'100%'}
                     outerHeight={'60%'}
                     type={undefined}
+                    xLabel='月'
+                    yLabel='作業件数'
+                    backgroundColor='white'
                 />
             </OuterDiv>
         </React.Fragment>

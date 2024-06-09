@@ -6,7 +6,7 @@ import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import { useAtomValue } from 'jotai';
 import { userInfoAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
-import { barGraphTaskListType, taskHistoryType } from '../Type/HomeType';
+import { lineGraphTaskListType, taskHistoryType } from '../Type/HomeType';
 import { createTaskHistory, createTaskHistoryTable } from '../Function/HomeFunction';
 import { tableType } from '../../Common/Table';
 import { generalDataType } from '../../Common/Type/CommonType';
@@ -21,17 +21,14 @@ type propsType = {
 
 function useHomeHistoryLineGraph(props: propsType) {
 
-    //状態区分
-    const [taskStatus, setTaskStatsu] = useState<string>("");
-
     //棒グラフ用のリストに変換
-    const lineTaskList: barGraphTaskListType[] = useMemo(() => {
+    const lineTaskList: lineGraphTaskListType[] = useMemo(() => {
         if (!props.taskList) {
             return [];
         }
 
         //月ごと集計する
-        let taskTotalDatas = props.taskList.reduce((prev: barGraphTaskListType[], current: taskHistoryType) => {
+        let taskTotalDatas = props.taskList.reduce((prev: lineGraphTaskListType[], current: taskHistoryType) => {
 
             //作業日時を取得する
             let updDateSpList = current.time?.split("/");

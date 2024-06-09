@@ -1,6 +1,12 @@
 import { authenticate } from "../Auth/AuthFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
 import { overWriteData } from "../Common/FileFunction";
+import { getGeneralDataList } from "../General/GeneralSelectFunction";
+import { generalDetailType } from "../General/Type/GeneralType";
+import { userInfoType } from "../Setting/User/Type/UserType";
+import { getUserInfoData, getuserListObj } from "../Setting/User/UserSelectFunction";
+import { getTaskObj } from "../Task/TaskSelectFunction";
+import { taskListType } from "../Task/Type/TaskType";
 import { TASK_HISTORY_PATH } from "./Const/HistoryConst";
 import { createAddTaskHistory } from "./HistoryRegistFunction";
 import { createHistoryMessage, createTaskUrl, getAddTaskHistoryObj, getFilterdTaskHistory, joinGeneralSetting } from "./HistorySelectFunction";
@@ -27,8 +33,17 @@ export function getTaskHistory(res: any, req: any) {
         return res.status(400).json({ errMessage: `作業履歴が存在しません。` });
     }
 
-    //汎用詳細と紐づける
-    decodeFileData = joinGeneralSetting(decodeFileData);
+    //タスクファイルの読み込み
+    let decodeTaskFileData: taskListType[] = getTaskObj();
+
+    //汎用詳細ファイルの読み込み
+    let decodeGeneralData: generalDetailType[] = getGeneralDataList();
+
+    //ユーザー情報の読み込み
+    let decodeUserFileData: userInfoType[] = getuserListObj();
+
+    //別ファイルのデータと紐づける
+    decodeFileData = joinGeneralSetting(decodeFileData, decodeTaskFileData, decodeGeneralData, decodeUserFileData);
 
     //履歴のメッセージを作成
     //decodeFileData = createHistoryMessage(decodeFileData);

@@ -6,7 +6,7 @@ import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import { useAtomValue } from 'jotai';
 import { userInfoAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
-import { barGraphTaskListType, taskHistoryType } from '../Type/HomeType';
+import { taskHistoryType } from '../Type/HomeType';
 import { createTaskHistory, createTaskHistoryTable } from '../Function/HomeFunction';
 import { tableType } from '../../Common/Table';
 import { generalDataType } from '../../Common/Type/CommonType';
@@ -34,7 +34,9 @@ function useHomeGraph(props: propsType) {
         {
             url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}?id=${YEAR_ID}`,
             afSuccessFn: (data: generalDataType[]) => {
-                setYearList(data);
+                setYearList(data.filter((element) => {
+                    return element.id === YEAR_ID;
+                }));
             }
         }
     );

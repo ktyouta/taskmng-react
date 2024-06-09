@@ -11,7 +11,13 @@ export type taskHistoryType = {
     url: string,
 }
 
-//グラフ用のタスクリストの型
+//折れ線グラフ用のタスクリストの型
+export type lineGraphTaskListType = {
+    month: string,
+    登録更新削除数: number,
+}
+
+//棒グラフ用のタスクリストの型
 export type barGraphTaskListType = {
     month: string,
     登録更新削除数: number,
