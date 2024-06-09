@@ -29,7 +29,10 @@ type propsType = {
     outerWidth: string,
     outerHeight: string,
     fillColor?: string,
-    type: "number" | "category" | undefined
+    type: "number" | "category" | undefined,
+    xLabel?: string,
+    yLabel?: string,
+    backgroundColor?: string,
 }
 
 
@@ -41,6 +44,7 @@ function LineGraphComponent(props: propsType) {
         <ResponsiveContainer
             width={props.outerWidth}
             height={props.outerHeight}
+
         >
             <LineChart
                 width={props.graphWidth}
@@ -48,18 +52,28 @@ function LineGraphComponent(props: propsType) {
                 data={props.list}
                 margin={props.marginObj}
             >
-                <CartesianGrid strokeDasharray="3 3" />
+                <CartesianGrid
+                    strokeDasharray="3 3"
+                    fill={props.backgroundColor ?? ""}
+                />
                 <XAxis
                     dataKey={props.xKey}
                     type={props.type}
+                    label={{
+                        value: props.xLabel, offset: -5, position: "insideBottomRight"
+                    }}
                 />
-                <YAxis />
+                <YAxis
+                    tickCount={8}
+                    label={{ value: props.yLabel, angle: -90, position: "insideLeft" }}
+                />
                 <Tooltip />
                 <Legend />
                 <Line
                     type="monotone"
                     dataKey={props.yKey}
                     stroke={props.strokeColor}
+                    strokeWidth={2}
                 />
             </LineChart>
         </ResponsiveContainer>
