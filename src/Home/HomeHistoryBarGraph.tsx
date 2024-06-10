@@ -42,7 +42,7 @@ function HomeHistoryBarGraph(props: propsType) {
     console.log("HomeHistoryBarGraph render");
 
     const {
-
+        barTaskList
     } = useHomeHistoryBarGraph({ ...props });
 
     return (
@@ -52,13 +52,13 @@ function HomeHistoryBarGraph(props: propsType) {
                 width="90%"
             >
                 <SideStackBarGraphComponent
-                    list={[]}
+                    list={barTaskList}
                     xKey={'Month'}
                     yKey={'num'}
-                    graphWidth={0}
-                    graphHeight={0}
-                    outerWidth={''}
-                    outerHeight={''}
+                    graphWidth={100}
+                    graphHeight={100}
+                    outerWidth={'100%'}
+                    outerHeight={'60%'}
                     type={undefined}
                 />
             </OuterDiv>

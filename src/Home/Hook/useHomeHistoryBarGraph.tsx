@@ -10,7 +10,7 @@ import { barGraphTaskListType, taskHistoryType } from '../Type/HomeType';
 import { createTaskHistory, createTaskHistoryTable } from '../Function/HomeFunction';
 import { tableType } from '../../Common/Table';
 import { generalDataType } from '../../Common/Type/CommonType';
-import { YEAR_ID } from '../Const/HomeConst';
+import { TASK_STATTUS_COMP, TASK_STATTUS_CORR, TASK_STATTUS_HOLD, TASK_STATTUS_NOCOMP, YEAR_ID } from '../Const/HomeConst';
 
 
 //引数の型
@@ -47,15 +47,35 @@ function useHomeHistoryBarGraph(props: propsType) {
                 return prev;
             }
 
+            //優先度
+            let priority = current.priority;
+
             //月ごとに数を集計する
             let monthData = prev.find((element) => element.month === taskDateM);
             if (monthData) {
-                monthData.登録更新削除数++;
+                switch (priority) {
+                    case TASK_STATTUS_NOCOMP:
+                        monthData.未対応++;
+                        break;
+                    case TASK_STATTUS_CORR:
+                        monthData.対応中++;
+                        break;
+                    case TASK_STATTUS_HOLD:
+                        monthData.保留++;
+                        break;
+                    case TASK_STATTUS_COMP:
+                        monthData.完了++;
+                        break;
+                }
             }
             else {
                 prev.push({
                     month: taskDateM,
-                    登録更新削除数: 1
+                    未対応: priority === TASK_STATTUS_NOCOMP ? 1 : 0,
+                    対応中: priority === TASK_STATTUS_CORR ? 1 : 0,
+                    保留: priority === TASK_STATTUS_HOLD ? 1 : 0,
+                    完了: priority === TASK_STATTUS_COMP ? 1 : 0,
+                    name: ''
                 });
             }
 
@@ -75,7 +95,11 @@ function useHomeHistoryBarGraph(props: propsType) {
             if (!monthData) {
                 taskTotalDatas.push({
                     month: `${i.toString()}`,
-                    登録更新削除数: 0
+                    未対応: 0,
+                    対応中: 0,
+                    保留: 0,
+                    完了: 0,
+                    name: ''
                 });
                 continue;
             }

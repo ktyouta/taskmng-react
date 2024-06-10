@@ -9,6 +9,8 @@ export type taskHistoryType = {
     editType: string,
     historyMessage: string,
     url: string,
+    status: string,
+    priority: string,
 }
 
 //折れ線グラフ用のタスクリストの型
@@ -19,6 +21,10 @@ export type lineGraphTaskListType = {
 
 //棒グラフ用のタスクリストの型
 export type barGraphTaskListType = {
+    name: string,
     month: string,
-    登録更新削除数: number,
+    未対応: number,
+    対応中: number,
+    保留: number,
+    完了: number,
 }

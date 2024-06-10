@@ -103,6 +103,7 @@ function HomeGraph(props: propsType) {
             />
             {/* <HomeHistoryBarGraph
                 taskList={props.taskList}
+                selectYear={selectYear}
             /> */}
         </OuterDiv>
     );
