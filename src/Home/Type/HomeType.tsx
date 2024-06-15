@@ -22,7 +22,6 @@ export type lineGraphTaskListType = {
 //棒グラフ用のタスクリストの型
 export type barGraphTaskListType = {
     name: string,
-    month: string,
     未対応: number,
     対応中: number,
     保留: number,

@@ -43,8 +43,8 @@ type propsType<T> = {
         bottom: number,
         left: number,
     },
-    graphWidth: number,
-    graphHeight: number,
+    graphWidth?: number,
+    graphHeight?: number,
     outerWidth: string,
     outerHeight: string,
     fillColors?: { [key: string]: string },
@@ -87,10 +87,13 @@ function SideStackBarGraphComponent<T extends listObjType>(props: propsType<T>) 
                 layout="vertical"
             >
                 <XAxis
-                    dataKey={props.xKey}  //Array型のデータの、X軸に表示したい値のキーを指定
+                    //dataKey={props.xKey}  //Array型のデータの、X軸に表示したい値のキーを指定
                     type="number"
                 />
-                <YAxis />
+                <YAxis
+                    dataKey="name"
+                    type="category"
+                />
                 <Tooltip />
                 <Legend />
                 <CartesianGrid //グラフのグリッドを指定

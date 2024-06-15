@@ -6,42 +6,39 @@ import HomeWorkHistory from './HomeWorkHistory';
 import { BoldSpan, HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import styled from 'styled-components';
 import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
+import HomeHistory from './HomeHistory';
 
+
+//ホーム画面のスタイル
+const HomeDiv = styled.div<{ height: string | undefined }>`
+    height:${({ height }) => (height)};
+    background-color: #f5f5f5;
+`;
 
 //履歴表示エリアのスタイル
-const MainDiv = styled.div`
-    padding-top: 2%;
-    height: 90%;
+const MainDiv = styled.div<{ height: string | undefined }>`
+    padding-top: 1%;
+    height:${({ height }) => (height)};
     width: 100%;
+    box-sizing: border-box;
+    padding-left: 6%;
 `;
 
-//履歴表示エリアのスタイル
-const TitleDiv = styled.div`
-    text-align: left;
-    margin-left: 5%;
-    padding-top: 3%;
-`;
 
 function Home() {
 
     console.log("Home render");
 
     return (
-        <HeightDiv
-            height='93%'
+        <HomeDiv
+            height='100%'
         >
-            <TitleDiv>
-                <LabelComponent
-                    title={<BoldSpan>作業履歴</BoldSpan>}
-                />
-            </TitleDiv>
-            <MainDiv>
-                <VerticalSpaceComponent
-                    space={'1%'}
-                />
-                <HomeWorkHistory />
+            <MainDiv
+                height='97%'
+            >
+                <HomeHistory />
             </MainDiv>
-        </HeightDiv>
+        </HomeDiv>
     );
 }
 

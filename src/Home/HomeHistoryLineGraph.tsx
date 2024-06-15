@@ -49,7 +49,7 @@ function HomeHistoryLineGraph(props: propsType) {
     return (
         <React.Fragment>
             <OuterDiv
-                height="89%"
+                height="50%"
                 width="90%"
             >
                 <LineGraphComponent
@@ -59,7 +59,7 @@ function HomeHistoryLineGraph(props: propsType) {
                     graphWidth={100}
                     graphHeight={100}
                     outerWidth={'100%'}
-                    outerHeight={'60%'}
+                    outerHeight={'90%'}
                     type={undefined}
                     xLabel='月'
                     yLabel='作業件数'

@@ -48,17 +48,17 @@ function HomeHistoryBarGraph(props: propsType) {
     return (
         <React.Fragment>
             <OuterDiv
-                height="90%"
-                width="90%"
+                height="35%"
+                width="100%"
             >
                 <SideStackBarGraphComponent
                     list={barTaskList}
-                    xKey={'Month'}
-                    yKey={'num'}
-                    graphWidth={100}
-                    graphHeight={100}
-                    outerWidth={'100%'}
-                    outerHeight={'60%'}
+                    xKey={'状態'}
+                    yKey={''}
+                    graphWidth={483}
+                    graphHeight={200}
+                    outerWidth={''}
+                    outerHeight={''}
                     type={undefined}
                 />
             </OuterDiv>

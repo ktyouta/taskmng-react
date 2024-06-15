@@ -81,6 +81,10 @@ function HomeGraph(props: propsType) {
                 space='4%'
             />
             <ComboDiv>
+                対象年
+                <SpaceComponent
+                    space='2%'
+                />
                 <ComboComponent
                     combo={yearList ?? []}
                     onChange={setSelectYear}
@@ -101,10 +105,10 @@ function HomeGraph(props: propsType) {
                 taskList={props.taskList}
                 selectYear={selectYear}
             />
-            {/* <HomeHistoryBarGraph
+            <HomeHistoryBarGraph
                 taskList={props.taskList}
                 selectYear={selectYear}
-            /> */}
+            />
         </OuterDiv>
     );
 }
