@@ -19,7 +19,7 @@ const OuterDiv = styled.div<{ height: string, width: string }>`
 //グラフカラーのリスト
 const fillColorList = [
     "#8884d8",
-    "#82ca9d",
+    "#00ff00",
     "#00bfff",
     "#ff00ff",
     "#dcdcdc",

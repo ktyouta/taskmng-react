@@ -17,6 +17,9 @@ import { taskHistoryType } from './Type/HomeType';
 import useHomeHistoryBarGraph from './Hook/useHomeHistoryBarGraph';
 import BarGraphComponent from '../Common/BarGraphComponent';
 import SideStackBarGraphComponent from '../Common/SideStackBarGraphComponent';
+import HomeStatusBarGraph from './HomeStatusBarGraph';
+import { BAR_GRAPH_MODE } from './Const/HomeConst';
+import HomePriorityBarGraph from './HomePriorityBarGraph';
 
 
 //外側のスタイル
@@ -34,6 +37,7 @@ const OuterDiv = styled.div<{ height: string, width: string }>`
 type propsType = {
     taskList: taskHistoryType[],
     selectYear: string,
+    selectState: string,
 }
 
 
@@ -41,26 +45,36 @@ function HomeHistoryBarGraph(props: propsType) {
 
     console.log("HomeHistoryBarGraph render");
 
-    const {
-        barTaskList
-    } = useHomeHistoryBarGraph({ ...props });
-
     return (
         <React.Fragment>
             <OuterDiv
                 height="35%"
                 width="100%"
             >
-                <SideStackBarGraphComponent
-                    list={barTaskList}
-                    xKey={'状態'}
-                    yKey={''}
-                    graphWidth={483}
-                    graphHeight={200}
-                    outerWidth={''}
-                    outerHeight={''}
-                    type={undefined}
-                />
+                {
+                    (() => {
+                        switch (props.selectState) {
+                            //状態
+                            case BAR_GRAPH_MODE.STATUS:
+                                return <HomeStatusBarGraph
+                                    taskList={props.taskList}
+                                    selectYear={props.selectYear}
+                                    selectState={props.selectState}
+                                />
+                            //優先度
+                            case BAR_GRAPH_MODE.PRIORITY:
+                                return <HomePriorityBarGraph
+                                    taskList={props.taskList}
+                                    selectYear={props.selectYear}
+                                    selectState={props.selectState}
+                                />
+                            default:
+                                return (
+                                    <React.Fragment></React.Fragment>
+                                )
+                        }
+                    })()
+                }
             </OuterDiv>
         </React.Fragment>
     );

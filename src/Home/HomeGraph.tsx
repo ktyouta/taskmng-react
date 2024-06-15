@@ -61,7 +61,10 @@ function HomeGraph(props: propsType) {
     const {
         selectYear,
         yearList,
-        setSelectYear
+        setSelectYear,
+        selectState,
+        setSelectState,
+        stateList
     } = useHomeGraph({ ...props });
 
     return (
@@ -97,6 +100,21 @@ function HomeGraph(props: propsType) {
                     space='1%'
                 />
                 年
+                <SpaceComponent
+                    space='4%'
+                />
+                ステータス
+                <SpaceComponent
+                    space='2%'
+                />
+                <ComboComponent
+                    combo={stateList ?? []}
+                    onChange={setSelectState}
+                    initValue={selectState}
+                    height='40px'
+                    width='25%'
+                    minWidth='10px'
+                />
             </ComboDiv>
             <VerticalSpaceComponent
                 space='1%'
@@ -108,6 +126,7 @@ function HomeGraph(props: propsType) {
             <HomeHistoryBarGraph
                 taskList={props.taskList}
                 selectYear={selectYear}
+                selectState={selectState}
             />
         </OuterDiv>
     );

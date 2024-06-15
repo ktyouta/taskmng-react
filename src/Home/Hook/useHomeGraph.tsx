@@ -10,7 +10,7 @@ import { taskHistoryType } from '../Type/HomeType';
 import { createTaskHistory, createTaskHistoryTable } from '../Function/HomeFunction';
 import { tableType } from '../../Common/Table';
 import { generalDataType } from '../../Common/Type/CommonType';
-import { YEAR_ID } from '../Const/HomeConst';
+import { MAX_YEAR, MIN_YEAR, STATUS_ID, YEAR_ID } from '../Const/HomeConst';
 
 
 //引数の型
@@ -24,19 +24,33 @@ function useHomeGraph(props: propsType) {
     const [selectYear, setSelectYear] = useState(new Date().getFullYear().toString());
     //年のリスト
     const [yearList, setYearList] = useState<generalDataType[]>();
+    //ステータスの選択値
+    const [selectState, setSelectState] = useState<string>("");
+    //ステータスのリスト
+    const [stateList, setStateList] = useState<generalDataType[]>();
 
-    //年のリストを取得
+    //汎用リストを取得
     const {
         isLoading,
         isFetching,
         isError
     } = useQueryWrapper<generalDataType[]>(
         {
-            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}?id=${YEAR_ID}`,
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
             afSuccessFn: (data: generalDataType[]) => {
+                //年のリストをセット
                 setYearList(data.filter((element) => {
-                    return element.id === YEAR_ID;
+                    return element.id === YEAR_ID && element.value >= MIN_YEAR && element.value <= MAX_YEAR;
                 }));
+
+                //ステータスのリストをセット
+                let stateList = data.filter((element) => {
+                    return element.id === STATUS_ID;
+                });
+                setStateList(stateList);
+
+                //ステータスの初期値をセット
+                setSelectState(stateList && stateList.length > 0 ? stateList[0].value : "");
             }
         }
     );
@@ -44,7 +58,10 @@ function useHomeGraph(props: propsType) {
     return {
         selectYear,
         yearList,
-        setSelectYear
+        setSelectYear,
+        selectState,
+        setSelectState,
+        stateList
     };
 }
 
