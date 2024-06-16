@@ -10,7 +10,7 @@ import { lineGraphTaskListType, taskHistoryType } from '../Type/HomeType';
 import { createTaskHistory, createTaskHistoryTable } from '../Function/HomeFunction';
 import { tableType } from '../../Common/Table';
 import { generalDataType } from '../../Common/Type/CommonType';
-import { YEAR_ID } from '../Const/HomeConst';
+import { EDIT_TYPE_ADD, EDIT_TYPE_DEL, EDIT_TYPE_UPD, YEAR_ID } from '../Const/HomeConst';
 
 
 //引数の型
@@ -47,15 +47,30 @@ function useHomeHistoryLineGraph(props: propsType) {
                 return prev;
             }
 
+            //編集タイプ
+            let editValue = current.editValue;
+
             //月ごとに数を集計する
-            let monthData = prev.find((element) => element.month === taskDateM);
+            let monthData = prev.find((element) => element.name === taskDateM);
             if (monthData) {
-                monthData.登録更新削除数++;
+                switch (editValue) {
+                    case EDIT_TYPE_ADD:
+                        monthData.登録数++;
+                        break;
+                    case EDIT_TYPE_UPD:
+                        monthData.更新数++;
+                        break;
+                    case EDIT_TYPE_DEL:
+                        monthData.削除数++;
+                        break;
+                }
             }
             else {
                 prev.push({
-                    month: taskDateM,
-                    登録更新削除数: 1
+                    name: taskDateM,
+                    登録数: editValue === EDIT_TYPE_ADD ? 1 : 0,
+                    更新数: editValue === EDIT_TYPE_UPD ? 1 : 0,
+                    削除数: editValue === EDIT_TYPE_DEL ? 1 : 0
                 });
             }
 
@@ -64,7 +79,7 @@ function useHomeHistoryLineGraph(props: propsType) {
 
         for (let i = 1; i < 13; i++) {
             let monthData = taskTotalDatas.find((element) => {
-                let month = element.month;
+                let month = element.name;
                 if (month.startsWith("0")) {
                     month = month.slice(1);
                 }
@@ -74,22 +89,24 @@ function useHomeHistoryLineGraph(props: propsType) {
             //月のデータが存在しない場合
             if (!monthData) {
                 taskTotalDatas.push({
-                    month: `${i.toString()}`,
-                    登録更新削除数: 0
+                    name: `${i.toString()}`,
+                    登録数: 0,
+                    更新数: 0,
+                    削除数: 0
                 });
                 continue;
             }
 
-            let month = monthData.month;
+            let month = monthData.name;
             if (month.startsWith("0")) {
                 month = month.slice(1);
             }
-            monthData.month = `${month.toString()}`;
+            monthData.name = `${month.toString()}`;
         }
 
         //月でソートする
         taskTotalDatas.sort((a, b) => {
-            return Number(a.month) - Number(b.month);
+            return Number(a.name) - Number(b.name);
         });
 
         return taskTotalDatas;

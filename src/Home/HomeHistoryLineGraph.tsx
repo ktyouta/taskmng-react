@@ -18,6 +18,7 @@ import useHomeHistoryBarGraph from './Hook/useHomeHistoryBarGraph';
 import BarGraphComponent from '../Common/BarGraphComponent';
 import LineGraphComponent from '../Common/LineGraphComponent';
 import useHomeHistoryLineGraph from './Hook/useHomeHistoryLineGraph';
+import MultiLineGraphComponent from '../Common/MultiLineGraphComponent';
 
 
 //外側のスタイル
@@ -52,10 +53,10 @@ function HomeHistoryLineGraph(props: propsType) {
                 height="50%"
                 width="90%"
             >
-                <LineGraphComponent
+                <MultiLineGraphComponent
                     list={lineTaskList}
-                    xKey={'month'}
-                    yKey={'登録更新削除数'}
+                    xKey={'name'}
+                    yKey={''}
                     graphWidth={100}
                     graphHeight={100}
                     outerWidth={'100%'}

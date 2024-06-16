@@ -27,3 +27,9 @@ export const TASK_PRIORITY_LOW = "3";
 export const TASK_PRIORITY_MID = "2";
 //タスク優先度(高)
 export const TASK_PRIORITY_HIGH = "1";
+//編集タイプ(登録)
+export const EDIT_TYPE_ADD = "1";
+//編集タイプ(更新)
+export const EDIT_TYPE_UPD = "2";
+//編集タイプ(削除)
+export const EDIT_TYPE_DEL = "3";

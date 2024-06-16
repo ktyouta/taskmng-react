@@ -14,10 +14,10 @@ import {
 
 //グラフカラーのリスト
 const fillColorList = [
-    "#8884d8",
-    "#82ca9d",
     "#00bfff",
+    "#00ff00",
     "#ff00ff",
+    "#8884d8",
     "#dcdcdc",
 ]
 
@@ -107,24 +107,15 @@ function MultiLineGraphComponent(props: propsType) {
                         }
 
                         return (
-                            <React.Fragment>
-                                <Line
-                                    type="monotone"
-                                    dataKey={element}
-                                    stroke={color}
-                                    strokeWidth={2}
-                                />
-                            </React.Fragment>
-
+                            <Line
+                                type="monotone"
+                                dataKey={element}
+                                stroke={color}
+                                strokeWidth={2}
+                            />
                         )
                     })
                 }
-                <Line
-                    type="monotone"
-                    dataKey={props.yKey}
-                    stroke={props.strokeColor}
-                    strokeWidth={2}
-                />
             </LineChart>
         </ResponsiveContainer>
     );
