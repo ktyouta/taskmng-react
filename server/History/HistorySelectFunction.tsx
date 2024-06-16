@@ -78,15 +78,17 @@ export function joinGeneralSetting(decodeFileData: taskHistoryType[], decodeTask
         }
     });
 
-    //日付で降順ソート
+    //日付/CRUDで降順ソート
     decodeFileData.sort((a, b) => {
-        if (a.time > b.time) {
-            return -1;
+        // 日付でソート
+        const dateComparison = b.time.localeCompare(a.time);
+        if (dateComparison !== 0) {
+            return dateComparison;
         }
-        else {
-            return 1;
-        }
-    })
+
+        // 日付が同じ場合、editValueでソート
+        return b.editValue.localeCompare(a.editValue);
+    });
 
     return decodeFileData;
 }
