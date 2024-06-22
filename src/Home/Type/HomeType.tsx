@@ -20,6 +20,7 @@ export type lineGraphTaskListType = {
     登録数: number,
     更新数: number,
     削除数: number,
+    総数: number,
 }
 
 //棒グラフ用のタスクリストの型(状態)

@@ -21,7 +21,7 @@ const MainDiv = styled.div<{ height: string | undefined }>`
     height:${({ height }) => (height)};
     width: 100%;
     box-sizing: border-box;
-    padding-left: 6%;
+    padding-left: 4%;
 `;
 
 

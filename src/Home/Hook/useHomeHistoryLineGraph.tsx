@@ -64,13 +64,15 @@ function useHomeHistoryLineGraph(props: propsType) {
                         monthData.削除数++;
                         break;
                 }
+                monthData.総数++;
             }
             else {
                 prev.push({
                     name: taskDateM,
                     登録数: editValue === EDIT_TYPE_ADD ? 1 : 0,
                     更新数: editValue === EDIT_TYPE_UPD ? 1 : 0,
-                    削除数: editValue === EDIT_TYPE_DEL ? 1 : 0
+                    削除数: editValue === EDIT_TYPE_DEL ? 1 : 0,
+                    総数: 1
                 });
             }
 
@@ -92,7 +94,8 @@ function useHomeHistoryLineGraph(props: propsType) {
                     name: `${i.toString()}`,
                     登録数: 0,
                     更新数: 0,
-                    削除数: 0
+                    削除数: 0,
+                    総数: 0
                 });
                 continue;
             }

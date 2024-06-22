@@ -18,7 +18,7 @@ const OuterDiv = styled.div`
 const ContentTitleDiv = styled.div`
     text-align: left;
     height: auto;
-    min-height: 40px;
+    min-height: 33px;
     border-bottom: 1px solid;
     border-color: #a9a9a9;
     border-radius: 5px 5px 0px 0px;
@@ -27,6 +27,7 @@ const ContentTitleDiv = styled.div`
     padding-left: 10px;
     background-color: white;
     padding-top:1%;
+    display: flex;
 `;
 
 //コンテンツのスタイル
@@ -79,7 +80,8 @@ function HomeHistoryContent(props: propsType) {
                 onClick={() => { }}
             >
                 <IconComponent
-                    icon={IoPersonCircleOutline} onclick={() => { }}
+                    icon={IoPersonCircleOutline}
+                    size='4%'
                 />
                 {
                     `${props.taskHistory.userName}さんが`

@@ -65,6 +65,12 @@ function HomeHistoryLineGraph(props: propsType) {
                     xLabel='月'
                     yLabel='作業件数'
                     backgroundColor='white'
+                    strokeSizeList={{
+                        総数: 3
+                    }}
+                    fillColors={{
+                        総数: '#9370db'
+                    }}
                 />
             </OuterDiv>
         </React.Fragment>

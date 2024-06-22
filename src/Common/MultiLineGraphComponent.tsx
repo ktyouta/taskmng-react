@@ -44,6 +44,7 @@ type propsType = {
     yLabel?: string,
     backgroundColor?: string,
     fillColors?: { [key: string]: string },
+    strokeSizeList?: { [key: string]: number },
 }
 
 
@@ -100,18 +101,22 @@ function MultiLineGraphComponent(props: propsType) {
                 <Legend />
                 {
                     dataKey.map((element, index) => {
+                        //折れ線の色
                         let color = fillColorList[index % fillColorList.length];
 
                         if (props.fillColors && Object.keys(props.fillColors).length > 0) {
                             color = props.fillColors[element] ?? color;
                         }
 
+                        //折れ線の太さ
+                        let strokeSize = props.strokeSizeList && props.strokeSizeList[element] ? props.strokeSizeList[element] : 2;
+
                         return (
                             <Line
                                 type="monotone"
                                 dataKey={element}
                                 stroke={color}
-                                strokeWidth={2}
+                                strokeWidth={strokeSize}
                             />
                         )
                     })
