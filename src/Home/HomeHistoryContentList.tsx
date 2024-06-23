@@ -43,7 +43,9 @@ const TitleBoldSpan = styled(BoldSpan)`
 
 //引数の型
 type propsType = {
-    taskList: taskHistoryType[]
+    taskList: taskHistoryType[],
+    height: string,
+    width: string,
 }
 
 function HomeHistoryContentList(props: propsType) {
@@ -52,8 +54,8 @@ function HomeHistoryContentList(props: propsType) {
 
     return (
         <OuterDiv
-            height="100%"
-            width="58%"
+            height={props.height}
+            width={props.width}
         >
             <VerticalSpaceComponent
                 space='2%'

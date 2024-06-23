@@ -14,7 +14,6 @@ import Table from '../Common/Table';
 import HomeHistoryContent from './HomeHistoryContent';
 import useHomeHistory from './Hook/useHomeHistory';
 import { taskHistoryType } from './Type/HomeType';
-import useHomeHistoryBarGraph from './Hook/useHomeHistoryBarGraph';
 import BarGraphComponent from '../Common/BarGraphComponent';
 import SideStackBarGraphComponent from '../Common/SideStackBarGraphComponent';
 import useHomeStatusBarGraph from './Hook/useHomeStatusBarGraph';
@@ -47,7 +46,7 @@ function HomePriorityBarGraph(props: propsType) {
             graphHeight={200}
             outerWidth={''}
             outerHeight={''}
-            type={undefined}
+            backgroundColor='white'
         />
     );
 }

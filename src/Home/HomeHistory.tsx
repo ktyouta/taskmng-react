@@ -31,8 +31,13 @@ const WorkHistoryListUl = styled.ul`
     margin-right: 10%;
 `;
 
+//引数の型
+type propsType = {
+    height: string,
+    width: string,
+}
 
-function HomeHistory() {
+function HomeHistory(props: propsType) {
 
     console.log("HomeHistory render");
 
@@ -56,14 +61,18 @@ function HomeHistory() {
     return (
         <React.Fragment>
             <OuterDiv
-                height="95%"
-                width="95%"
+                height={props.height}
+                width={props.width}
             >
                 <HomeHistoryContentList
                     taskList={taskList}
+                    height="100%"
+                    width="58%"
                 />
                 <HomeGraph
                     taskList={taskList}
+                    height="100%"
+                    width="42%"
                 />
             </OuterDiv>
         </React.Fragment>

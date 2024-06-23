@@ -14,7 +14,6 @@ import Table from '../Common/Table';
 import HomeHistoryContent from './HomeHistoryContent';
 import useHomeHistory from './Hook/useHomeHistory';
 import { taskHistoryType } from './Type/HomeType';
-import useHomeHistoryBarGraph from './Hook/useHomeHistoryBarGraph';
 import BarGraphComponent from '../Common/BarGraphComponent';
 import HomeHistoryBarGraph from './HomeHistoryBarGraph';
 import useHomeGraph from './Hook/useHomeGraph';
@@ -42,15 +41,18 @@ const TitleBoldSpan = styled(BoldSpan)`
 `;
 
 //コンボボックスエリアのスタイル
-const ComboDiv = styled.div`
+const ComboDiv = styled.div<{ height: string }>`
     display:flex;
     align-items: center;
     justify-content: center;
+    height: ${({ height }) => (height)};
 `;
 
 //引数の型
 type propsType = {
-    taskList: taskHistoryType[]
+    taskList: taskHistoryType[],
+    height: string,
+    width: string,
 }
 
 
@@ -69,8 +71,8 @@ function HomeGraph(props: propsType) {
 
     return (
         <OuterDiv
-            height="100%"
-            width="42%"
+            height={props.height}
+            width={props.width}
         >
             <VerticalSpaceComponent
                 space='2%'
@@ -83,7 +85,9 @@ function HomeGraph(props: propsType) {
             <VerticalSpaceComponent
                 space='4%'
             />
-            <ComboDiv>
+            <ComboDiv
+                height='7%'
+            >
                 対象年
                 <SpaceComponent
                     space='2%'
@@ -92,7 +96,7 @@ function HomeGraph(props: propsType) {
                     combo={yearList ?? []}
                     onChange={setSelectYear}
                     initValue={selectYear}
-                    height='40px'
+                    height='100%'
                     width='25%'
                     minWidth='10px'
                 />
@@ -111,22 +115,26 @@ function HomeGraph(props: propsType) {
                     combo={stateList ?? []}
                     onChange={setSelectState}
                     initValue={selectState}
-                    height='40px'
+                    height='100%'
                     width='25%'
                     minWidth='10px'
                 />
             </ComboDiv>
             <VerticalSpaceComponent
-                space='1%'
+                space='2%'
             />
             <HomeHistoryLineGraph
                 taskList={props.taskList}
                 selectYear={selectYear}
+                height="50%"
+                width="90%"
             />
             <HomeHistoryBarGraph
                 taskList={props.taskList}
                 selectYear={selectYear}
                 selectState={selectState}
+                height="35%"
+                width="100%"
             />
         </OuterDiv>
     );

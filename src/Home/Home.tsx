@@ -36,7 +36,10 @@ function Home() {
             <MainDiv
                 height='97%'
             >
-                <HomeHistory />
+                <HomeHistory
+                    height="95%"
+                    width="95%"
+                />
             </MainDiv>
         </HomeDiv>
     );

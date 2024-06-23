@@ -48,7 +48,8 @@ type propsType<T> = {
     outerWidth: string,
     outerHeight: string,
     fillColors?: { [key: string]: string },
-    type: "number" | "category" | undefined
+    type?: "number" | "category",
+    backgroundColor?: string,
 }
 
 
@@ -98,6 +99,7 @@ function SideStackBarGraphComponent<T extends listObjType>(props: propsType<T>) 
                 <Legend />
                 <CartesianGrid //グラフのグリッドを指定
                     stroke={props.strokeColor} //グリッド線の色を指定
+                    fill={props.backgroundColor ?? ""}
                 />
                 {
                     dataKey.map((element, index) => {

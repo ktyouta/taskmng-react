@@ -14,9 +14,6 @@ import Table from '../Common/Table';
 import HomeHistoryContent from './HomeHistoryContent';
 import useHomeHistory from './Hook/useHomeHistory';
 import { taskHistoryType } from './Type/HomeType';
-import useHomeHistoryBarGraph from './Hook/useHomeHistoryBarGraph';
-import BarGraphComponent from '../Common/BarGraphComponent';
-import LineGraphComponent from '../Common/LineGraphComponent';
 import useHomeHistoryLineGraph from './Hook/useHomeHistoryLineGraph';
 import MultiLineGraphComponent from '../Common/MultiLineGraphComponent';
 
@@ -36,6 +33,8 @@ const OuterDiv = styled.div<{ height: string, width: string }>`
 type propsType = {
     taskList: taskHistoryType[],
     selectYear: string,
+    height: string,
+    width: string,
 }
 
 
@@ -50,8 +49,8 @@ function HomeHistoryLineGraph(props: propsType) {
     return (
         <React.Fragment>
             <OuterDiv
-                height="50%"
-                width="90%"
+                height={props.height}
+                width={props.width}
             >
                 <MultiLineGraphComponent
                     list={lineTaskList}
@@ -61,7 +60,6 @@ function HomeHistoryLineGraph(props: propsType) {
                     graphHeight={100}
                     outerWidth={'100%'}
                     outerHeight={'90%'}
-                    type={undefined}
                     xLabel='月'
                     yLabel='作業件数'
                     backgroundColor='white'

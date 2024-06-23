@@ -14,7 +14,6 @@ import Table from '../Common/Table';
 import HomeHistoryContent from './HomeHistoryContent';
 import useHomeHistory from './Hook/useHomeHistory';
 import { taskHistoryType } from './Type/HomeType';
-import useHomeHistoryBarGraph from './Hook/useHomeHistoryBarGraph';
 import BarGraphComponent from '../Common/BarGraphComponent';
 import SideStackBarGraphComponent from '../Common/SideStackBarGraphComponent';
 import HomeStatusBarGraph from './HomeStatusBarGraph';
@@ -38,6 +37,8 @@ type propsType = {
     taskList: taskHistoryType[],
     selectYear: string,
     selectState: string,
+    height: string,
+    width: string,
 }
 
 
@@ -48,8 +49,8 @@ function HomeHistoryBarGraph(props: propsType) {
     return (
         <React.Fragment>
             <OuterDiv
-                height="35%"
-                width="100%"
+                height={props.height}
+                width={props.width}
             >
                 {
                     (() => {

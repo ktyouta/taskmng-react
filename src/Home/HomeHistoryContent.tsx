@@ -3,6 +3,8 @@ import { taskHistoryType } from './Type/HomeType';
 import { IoPersonCircleOutline } from 'react-icons/io5';
 import IconComponent from '../Common/IconComponent';
 import { copyUrlToClipboard } from './Function/HomeFunction';
+import { useNavigate } from "react-router-dom";
+import ENV from '../env.json';
 
 
 //外側のスタイル
@@ -73,6 +75,9 @@ function HomeHistoryContent(props: propsType) {
 
     console.log("HomeHistoryContent render");
 
+    //ルーティング用
+    const navigate = useNavigate();
+
     return (
         <OuterDiv>
             {/* タイトル */}
@@ -87,7 +92,9 @@ function HomeHistoryContent(props: propsType) {
                     `${props.taskHistory.userName}さんが`
                 }
                 <IdSpan
-                    onClick={() => { copyUrlToClipboard(props.taskHistory.url) }}
+                    onClick={() => {
+                        navigate(`${props.taskHistory.url}`.replace(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.LOCALPORT}/`, ""));
+                    }}
                 >
                     {props.taskHistory.taskId}
                 </IdSpan>

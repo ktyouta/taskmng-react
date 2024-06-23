@@ -39,7 +39,7 @@ type propsType = {
     outerWidth: string,
     outerHeight: string,
     fillColor?: string,
-    type: "number" | "category" | undefined,
+    type?: "number" | "category",
     xLabel?: string,
     yLabel?: string,
     backgroundColor?: string,
