@@ -132,3 +132,27 @@ export function createTaskHistoryTable(workHistoryList: taskHistoryType[])
         tableWidth: "96%",
     }
 }
+
+/**
+ * タスクを年でフィルターする
+ * @param orgTaskList 
+ * @param selectYear 
+ */
+export function filterTaskList(orgTaskList: taskHistoryType[], selectYear: string,) {
+    let tmpOrgTaskList: taskHistoryType[] = JSON.parse(JSON.stringify(orgTaskList));
+
+    return tmpOrgTaskList.filter((element) => {
+        //作業日時を取得する
+        let updDateSpList = element.time?.split("/");
+        if (!updDateSpList || updDateSpList.length !== 3) {
+            return false;
+        }
+
+        //選択した年度に一致しない
+        if (selectYear && selectYear !== updDateSpList[0]) {
+            return false;
+        }
+
+        return true;
+    });
+}

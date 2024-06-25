@@ -20,8 +20,6 @@ type propsType = {
 
 function useHomeGraph(props: propsType) {
 
-    //年の選択値
-    const [selectYear, setSelectYear] = useState(new Date().getFullYear().toString());
     //年のリスト
     const [yearList, setYearList] = useState<generalDataType[]>();
     //ステータスの選択値
@@ -56,9 +54,7 @@ function useHomeGraph(props: propsType) {
     );
 
     return {
-        selectYear,
         yearList,
-        setSelectYear,
         selectState,
         setSelectState,
         stateList

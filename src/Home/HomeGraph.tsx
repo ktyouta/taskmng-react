@@ -51,6 +51,10 @@ const ComboDiv = styled.div<{ height: string }>`
 //引数の型
 type propsType = {
     taskList: taskHistoryType[],
+    selectYear: string,
+    setSelectYear: React.Dispatch<React.SetStateAction<string>>,
+    orgTaskList: taskHistoryType[],
+    setOrgTaskList: React.Dispatch<React.SetStateAction<taskHistoryType[]>>,
     height: string,
     width: string,
 }
@@ -61,9 +65,7 @@ function HomeGraph(props: propsType) {
     console.log("HomeGraph render");
 
     const {
-        selectYear,
         yearList,
-        setSelectYear,
         selectState,
         setSelectState,
         stateList
@@ -94,8 +96,8 @@ function HomeGraph(props: propsType) {
                 />
                 <ComboComponent
                     combo={yearList ?? []}
-                    onChange={setSelectYear}
-                    initValue={selectYear}
+                    onChange={props.setSelectYear}
+                    initValue={props.selectYear}
                     height='100%'
                     width='25%'
                     minWidth='10px'
@@ -125,13 +127,13 @@ function HomeGraph(props: propsType) {
             />
             <HomeHistoryLineGraph
                 taskList={props.taskList}
-                selectYear={selectYear}
+                selectYear={props.selectYear}
                 height="50%"
                 width="90%"
             />
             <HomeHistoryBarGraph
                 taskList={props.taskList}
-                selectYear={selectYear}
+                selectYear={props.selectYear}
                 selectState={selectState}
                 height="35%"
                 width="100%"

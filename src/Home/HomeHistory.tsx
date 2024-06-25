@@ -46,6 +46,10 @@ function HomeHistory(props: propsType) {
         isLoading,
         isError,
         taskList,
+        selectYear,
+        setSelectYear,
+        orgTaskList,
+        setOrgTaskList,
     } = useHomeHistory();
 
     //ローディング
@@ -71,6 +75,10 @@ function HomeHistory(props: propsType) {
                 />
                 <HomeGraph
                     taskList={taskList}
+                    selectYear={selectYear}
+                    setSelectYear={setSelectYear}
+                    orgTaskList={orgTaskList}
+                    setOrgTaskList={setOrgTaskList}
                     height="100%"
                     width="42%"
                 />
