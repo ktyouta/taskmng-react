@@ -12,6 +12,7 @@ import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import { TabComponent } from '../Common/TabComponent';
 import DynamicForm from '../Common/DynamicForm';
+import DynamicFormComponent from '../Common/DynamicFormComponent';
 
 
 //引数の型
@@ -70,10 +71,8 @@ function MemoCondition(props: propsType) {
                 <InputAreaDiv
                     height='85%'
                 >
-                    <DynamicForm
+                    <DynamicFormComponent
                         refInfoArray={props.memoSearchRefInfo}
-                        titleWidth='20%'
-                        childWidth='59%'
                     />
                 </InputAreaDiv>
             </MainAreaDiv>
