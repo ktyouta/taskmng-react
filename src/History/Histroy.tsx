@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import logo from './logo.svg';
 import '../App.css';
 import LabelComponent from '../Common/LabelComponent';
-import HomeWorkHistory from './HomeWorkHistory';
+import HomeWorkHistory from './HistroyList';
 import { BoldSpan, HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import styled from 'styled-components';
 import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
@@ -22,9 +22,9 @@ const TitleDiv = styled.div`
     padding-top: 3%;
 `;
 
-function HomeTest() {
+function Histroy() {
 
-    console.log("Home render");
+    console.log("Histroy render");
 
     return (
         <HeightDiv
@@ -45,4 +45,4 @@ function HomeTest() {
     );
 }
 
-export default HomeTest;
+export default Histroy;

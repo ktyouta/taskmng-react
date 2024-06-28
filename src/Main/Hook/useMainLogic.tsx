@@ -18,6 +18,7 @@ import Task from '../../Task/Task';
 import Home from '../../Home/Home';
 import User from '../../User/User';
 import Memo from '../../Memo/Memo';
+import Histroy from '../../History/Histroy';
 
 
 //マスタのリスト(マスタメンテ画面のコンボ用)
@@ -80,6 +81,9 @@ const retComponent = (componentName: string, path: string, userInfo: userInfoTyp
                 userInfo={userInfo}
             />;
             break;
+        //作業履歴
+        case "History":
+            component = <Histroy />
     }
     return component;
 };

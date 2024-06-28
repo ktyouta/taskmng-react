@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import '../App.css';
 import LabelComponent from '../Common/LabelComponent';
 import Loading from '../Common/Loading';
-import useHomeWorkHistory from './Hook/useHomeWorkHistory';
+import useHomeWorkHistory from './Hook/useHistroyList';
 import styled from 'styled-components';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import ENV from '../env.json';
@@ -31,9 +31,9 @@ const WorkHistoryListUl = styled.ul`
 `;
 
 
-function HomeWorkHistory() {
+function HistroyList() {
 
-    console.log("HomeWorkHistory render");
+    console.log("HistroyList render");
 
     //WorkHistoryのビジネスロジック
     const {
@@ -69,4 +69,4 @@ function HomeWorkHistory() {
     );
 }
 
-export default HomeWorkHistory;
+export default HistroyList;

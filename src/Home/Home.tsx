@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import logo from './logo.svg';
 import '../App.css';
 import LabelComponent from '../Common/LabelComponent';
-import HomeWorkHistory from './HomeWorkHistory';
 import { BoldSpan, HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import styled from 'styled-components';
 import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';

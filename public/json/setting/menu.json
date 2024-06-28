@@ -9,7 +9,7 @@
 		"deleteFlg": "0",
 		"order": "1",
 		"registerTime": "",
-		"updTime": "2024/01/03",
+		"updTime": "2024/06/28",
 		"userId": "f"
 	},
 	{
@@ -22,7 +22,7 @@
 		"deleteFlg": "0",
 		"order": "2",
 		"registerTime": "",
-		"updTime": "2024/01/03",
+		"updTime": "2024/06/28",
 		"userId": "f"
 	},
 	{
@@ -35,7 +35,7 @@
 		"deleteFlg": "0",
 		"order": "3",
 		"registerTime": "",
-		"updTime": "2024/01/03",
+		"updTime": "2024/06/28",
 		"userId": "f"
 	},
 	{
@@ -48,7 +48,7 @@
 		"deleteFlg": "0",
 		"order": "4",
 		"registerTime": "",
-		"updTime": "2024/01/03",
+		"updTime": "2024/06/28",
 		"userId": "f"
 	},
 	{
@@ -61,8 +61,21 @@
 		"deleteFlg": "0",
 		"order": "5",
 		"registerTime": "2024/03/20",
-		"updTime": "2024/03/20",
+		"updTime": "2024/06/28",
 		"userId": "f"
+	},
+	{
+		"name": "作業履歴",
+		"path": "/history",
+		"componentName": "History",
+		"auth": "3",
+		"isHidden": "0",
+		"userId": "f",
+		"registerTime": "2023/12/30",
+		"updTime": "2024/06/28",
+		"deleteFlg": "0",
+		"id": "CATEGORY-9",
+		"order": "6"
 	},
 	{
 		"id": "CATEGORY-7",
@@ -72,9 +85,9 @@
 		"auth": "3",
 		"isHidden": "0",
 		"deleteFlg": "0",
-		"order": "6",
+		"order": "7",
 		"registerTime": "",
-		"updTime": "2024/01/03",
+		"updTime": "2024/06/28",
 		"userId": "f"
 	},
 	{
@@ -85,9 +98,9 @@
 		"isHidden": "1",
 		"userId": "f",
 		"registerTime": "2023/12/30",
-		"updTime": "2024/01/03",
+		"updTime": "2024/06/28",
 		"deleteFlg": "0",
 		"id": "CATEGORY-8",
-		"order": "7"
+		"order": "8"
 	}
 ]
