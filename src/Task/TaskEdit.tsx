@@ -15,6 +15,16 @@ import { BoldSpan, HeaderDiv, HeightDiv, VerticalFlowDiv } from '../Common/Style
 import LabelComponent from '../Common/LabelComponent';
 
 
+//カスタム属性の文言のスタイル
+export const CustomTitleDiv = styled.div`
+    margin-left: 15%;
+    padding-top: 2%;
+    padding-bottom: 1%;
+    text-align: left;
+    font-weight: bold;
+`;
+
+
 //引数の型
 type propsType = {
   updTaskId: string,
@@ -72,12 +82,9 @@ function TaskEdit(props: propsType) {
             refInfoArray.customAttribute &&
             refInfoArray.customAttribute.length > 0 &&
             <React.Fragment>
-              <HorizonLabelItemComponent
-                title={<BoldSpan>カスタム属性</BoldSpan>}
-                marginLt='15%'
-                width="20%"
-              >
-              </HorizonLabelItemComponent>
+              <CustomTitleDiv>
+                カスタム属性
+              </CustomTitleDiv>
               <TaskEditForm
                 refInfoArray={refInfoArray.customAttribute}
                 errMessage={errMessage}

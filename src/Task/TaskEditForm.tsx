@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { editDisplayTaskType } from './Type/TaskType';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
+import DynamicFormComponent from '../Common/DynamicFormComponent';
 
 
 //引数の型
@@ -39,7 +40,7 @@ function TaskEditForm(props: propsType) {
                 {
                     props.refInfoArray &&
                     props.refInfoArray.length > 0 &&
-                    <DynamicForm
+                    <DynamicFormComponent
                         refInfoArray={props.refInfoArray}
                     />
                 }

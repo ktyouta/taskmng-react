@@ -45,6 +45,7 @@ const TableTd = styled.td<{ height?: string, width?: string }>`
     height: ${({ height }) => height};
     width: ${({ width }) => width};
     word-break:break-word;
+    text-align: left;
 `;
 
 //marginのスタイル
