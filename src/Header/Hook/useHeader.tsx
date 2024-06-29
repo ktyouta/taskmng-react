@@ -57,8 +57,11 @@ function useHeader(props: propsType) {
         if (pathArray.length > 1) {
             pathArray.splice(0, 1);
             let mainPath = pathArray.join("/");
-            //現在のパスをローカルストレージに保存する
-            localStorage.setItem(NOWPATH_STRAGEKEY, `/${mainPath}`);
+
+            if (mainPath !== USER_PATH.replace('/', "")) {
+                //現在のパスをローカルストレージに保存する
+                localStorage.setItem(NOWPATH_STRAGEKEY, `/${mainPath}`);
+            }
         }
         offFlag();
         navigate(USER_PATH);

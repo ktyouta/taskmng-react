@@ -16,6 +16,8 @@ import SpaceComponent from '../../Common/SpaceComponent';
 import HorizontalComponent from '../../Common/HorizontalComponent';
 import ComboComponent from '../../Common/ComboComponent';
 import { editModeEnum } from '../Const/SettingConst';
+import useSettingUserEditMain from './Hook/useSettingUserEditMain';
+import { ADMIN_ID } from './Const/SettingUserConst';
 
 
 //外側のスタイル
@@ -53,6 +55,10 @@ type propsType = {
 function SettingUserEditMain(props: propsType) {
 
     console.log("SettingUserMain render");
+
+    const {
+        userInfo
+    } = useSettingUserEditMain();
 
     return (
         <OuterDiv
@@ -104,22 +110,25 @@ function SettingUserEditMain(props: propsType) {
                         />
                     }
                 </HorizonLabelItemComponent>
-                <HorizonLabelItemComponent
-                    title={'権限'}
-                    width='30%'
-                    position='left'
-                >
-                    {
-                        props.authList &&
-                        props.auth !== undefined &&
-                        <ComboComponent
-                            combo={props.authList}
-                            initValue={props.auth}
-                            disabled={false}
-                            onChange={props.setAuth}
-                        />
-                    }
-                </HorizonLabelItemComponent>
+                {
+                    userInfo && userInfo.auth === ADMIN_ID &&
+                    <HorizonLabelItemComponent
+                        title={'権限'}
+                        width='30%'
+                        position='left'
+                    >
+                        {
+                            props.authList &&
+                            props.auth !== undefined &&
+                            <ComboComponent
+                                combo={props.authList}
+                                initValue={props.auth}
+                                disabled={false}
+                                onChange={props.setAuth}
+                            />
+                        }
+                    </HorizonLabelItemComponent>
+                }
                 {
                     props.editMode === editModeEnum.update &&
                     <HorizonLabelItemComponent
