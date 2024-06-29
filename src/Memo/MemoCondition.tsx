@@ -11,7 +11,6 @@ import { BoldSpan, HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import { TabComponent } from '../Common/TabComponent';
-import DynamicForm from '../Common/DynamicForm';
 import DynamicFormComponent from '../Common/DynamicFormComponent';
 
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import '../App.css';
 import { refInfoType } from './Type/CommonType';
 import HorizonLabelItemComponent from './HorizonLabelItemComponent';
@@ -50,7 +50,7 @@ const TableTd = styled.td<{ height?: string, width?: string }>`
 
 //marginのスタイル
 const MargDiv = styled.div`
-    margin-top:3%;
+    margin-top:5%;
 `;
 
 
@@ -82,133 +82,153 @@ function DynamicFormComponent(props: propsType) {
             height={props.outerHeight ?? "100%"}
         >
             {
-                props.refInfoArray.map((element, index) => {
+                props.refInfoArray.reduce((prev: ReactNode[], element: refInfoType, index) => {
                     let title =
                         <React.Fragment>
                             {element.name}
                             {element.isRequired && <RequiredSpan>*</RequiredSpan>}
                         </React.Fragment>;
                     let bgColor = element.errMessage ? "#FA8072" : "";
-                    return (
-                        <tr>
-                            <TableTd
-                                width={props.titleTdWidth ?? "30%"}
-                            >
-                                {title}
-                            </TableTd>
-                            <TableTd
-                                width={props.inputTdWidth ?? "70%"}
-                            >
-                                {
-                                    (() => {
-                                        switch (element.type) {
-                                            //ラベル
-                                            case "label":
-                                                return (
-                                                    <LabelComponent
-                                                        title={element.initValue}
-                                                        width={props.inputWidth ?? 'auto'}
-                                                    />
-                                                );
-                                            //テキストボックス
-                                            case "input":
-                                                return (
-                                                    <BaseInputComponent
-                                                        value={element.initValue}
-                                                        length={element.length}
-                                                        disabled={element.disabled}
-                                                        bgColor={bgColor}
-                                                        ref={element.ref}
-                                                    />
-                                                );
-                                            //テキストエリア
-                                            case "textarea":
-                                                return (
-                                                    <LabelTextAreaComponent
-                                                        value={element.initValue}
-                                                        length={element.length}
-                                                        disabled={element.disabled}
-                                                        bgColor={bgColor}
-                                                        ref={element.ref}
-                                                    />
-                                                );
-                                            //ラジオボタン
-                                            case "radio":
-                                                return (
-                                                    element.selectList && <LabelRadioListComponent
-                                                        radioList={element.selectList}
-                                                        selectedValue={element.initValue}
-                                                        htmlForId={`dynamicformradio-${index}`}
-                                                        disabled={element.disabled}
-                                                        width={props.inputWidth ?? 'auto'}
-                                                        ref={element.ref}
-                                                    />
-                                                );
-                                            //デートピッカー(日付選択)
-                                            case "date":
-                                                return (
-                                                    <DatePickerComponent
-                                                        value={element.initValue}
-                                                        disabled={element.disabled}
-                                                        bgColor={bgColor}
-                                                        ref={element.ref}
-                                                    />
-                                                );
-                                            //コンボボックス
-                                            case "select":
-                                                return (
-                                                    element.selectList && <ComboComponent
-                                                        combo={element.selectList}
-                                                        initValue={element.initValue}
-                                                        disabled={element.disabled}
-                                                        bgColor={bgColor}
-                                                        ref={element.ref}
-                                                    />
-                                                )
-                                            //チェックボックス
-                                            case "checkbox":
-                                                return (
-                                                    element.selectList && <LabelCheckBoxListComponent
-                                                        checkBox={element.selectList}
-                                                        htmlForId={`dynamicformcheckbox-${index}`}
-                                                        disabled={element.disabled}
-                                                        initValue={element.initValue}
-                                                        width={props.inputWidth ?? 'auto'}
-                                                        ref={element.ref}
-                                                    />
-                                                )
-                                            //numberpicker
-                                            case "number":
-                                                return (
-                                                    <NumberPickerComponent
-                                                        disabled={element.disabled}
-                                                        value={parseNum(element.initValue)}
-                                                        bgColor={bgColor}
-                                                        ref={element.ref}
-                                                    />
-                                                )
-                                        }
-                                    })()
-                                }
-                                {/* 項目の説明文 */}
-                                {
-                                    element.description &&
-                                    <DescriptionDiv>
-                                        {element.description}
-                                    </DescriptionDiv>
-                                }
-                                {/* エラーメッセージ */}
-                                {
-                                    element.errMessage &&
-                                    <ErrMessageSpan>
-                                        {element.errMessage}
-                                    </ErrMessageSpan>
-                                }
-                                <MargDiv />
-                            </TableTd>
-                        </tr>
+
+                    // 非表示項目
+                    if (!element.visible) {
+                        return prev;
+                    }
+
+                    prev.push(
+                        <React.Fragment>
+                            <tr>
+                                <TableTd
+                                    width={props.titleTdWidth ?? "30%"}
+                                >
+                                    {title}
+                                </TableTd>
+                                <TableTd
+                                    width={props.inputTdWidth ?? "70%"}
+                                >
+                                    {
+                                        (() => {
+                                            switch (element.type) {
+                                                //ラベル
+                                                case "label":
+                                                    return (
+                                                        <LabelComponent
+                                                            title={element.initValue}
+                                                            width={props.inputWidth ?? 'auto'}
+                                                        />
+                                                    );
+                                                //テキストボックス
+                                                case "input":
+                                                    return (
+                                                        <BaseInputComponent
+                                                            value={element.initValue}
+                                                            length={element.length}
+                                                            disabled={element.disabled}
+                                                            bgColor={bgColor}
+                                                            ref={element.ref}
+                                                        />
+                                                    );
+                                                //テキストエリア
+                                                case "textarea":
+                                                    return (
+                                                        <LabelTextAreaComponent
+                                                            value={element.initValue}
+                                                            length={element.length}
+                                                            disabled={element.disabled}
+                                                            bgColor={bgColor}
+                                                            ref={element.ref}
+                                                        />
+                                                    );
+                                                //ラジオボタン
+                                                case "radio":
+                                                    return (
+                                                        element.selectList && <LabelRadioListComponent
+                                                            radioList={element.selectList}
+                                                            selectedValue={element.initValue}
+                                                            htmlForId={`dynamicformradio-${index}`}
+                                                            disabled={element.disabled}
+                                                            width={props.inputWidth ?? 'auto'}
+                                                            ref={element.ref}
+                                                        />
+                                                    );
+                                                //デートピッカー(日付選択)
+                                                case "date":
+                                                    return (
+                                                        <DatePickerComponent
+                                                            value={element.initValue}
+                                                            disabled={element.disabled}
+                                                            bgColor={bgColor}
+                                                            ref={element.ref}
+                                                        />
+                                                    );
+                                                //コンボボックス
+                                                case "select":
+                                                    return (
+                                                        element.selectList && <ComboComponent
+                                                            combo={element.selectList}
+                                                            initValue={element.initValue}
+                                                            disabled={element.disabled}
+                                                            bgColor={bgColor}
+                                                            ref={element.ref}
+                                                        />
+                                                    )
+                                                //チェックボックス
+                                                case "checkbox":
+                                                    return (
+                                                        element.selectList && <LabelCheckBoxListComponent
+                                                            checkBox={element.selectList}
+                                                            htmlForId={`dynamicformcheckbox-${index}`}
+                                                            disabled={element.disabled}
+                                                            initValue={element.initValue}
+                                                            width={props.inputWidth ?? 'auto'}
+                                                            ref={element.ref}
+                                                        />
+                                                    )
+                                                //numberpicker
+                                                case "number":
+                                                    return (
+                                                        <NumberPickerComponent
+                                                            disabled={element.disabled}
+                                                            value={parseNum(element.initValue)}
+                                                            bgColor={bgColor}
+                                                            ref={element.ref}
+                                                        />
+                                                    )
+                                            }
+                                        })()
+                                    }
+
+                                </TableTd>
+                            </tr>
+                            <tr>
+                                <TableTd
+                                    width={props.titleTdWidth ?? "30%"}
+                                >
+                                </TableTd>
+                                <TableTd
+                                    width={props.titleTdWidth ?? "30%"}
+                                >
+                                    {/* 項目の説明文 */}
+                                    {
+                                        element.description &&
+                                        <DescriptionDiv>
+                                            {element.description}
+                                        </DescriptionDiv>
+                                    }
+                                    {/* エラーメッセージ */}
+                                    {
+                                        element.errMessage &&
+                                        <ErrMessageSpan>
+                                            {element.errMessage}
+                                        </ErrMessageSpan>
+                                    }
+                                </TableTd>
+                            </tr>
+                            <MargDiv />
+                        </React.Fragment>
                     );
-                })
+                    return prev;
+                }, [])
             }
         </OuterTable>
     );
