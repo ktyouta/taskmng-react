@@ -12,7 +12,7 @@ import React from 'react';
 import useSettingSearchConditionMain from './Hook/useSettingSearchConditionMain';
 import WaitLoading from '../../Common/WaitLoading';
 import useSettingSearchConditionMemoMain from './Hook/useSettingSearchConditionMemoMain';
-import DynamicForm from '../../Common/DynamicForm';
+import DynamicFormComponent from '../../Common/DynamicFormComponent';
 
 
 //ボタンのスタイル
@@ -61,7 +61,7 @@ function SettingSearchConditionMemoMain() {
             <InputAreaDiv
                 height='75%'
             >
-                <DynamicForm
+                <DynamicFormComponent
                     refInfoArray={memoSearchRefInfo}
                 />
             </InputAreaDiv>
