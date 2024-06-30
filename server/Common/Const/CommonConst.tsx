@@ -8,6 +8,8 @@ export const SETTINGFILEPATH = `./public/json/setting/`;
 export const TRANSACTION = `./public/json/transaction/`;
 //JSON拡張子
 export const JSONEXTENSION = `.json`;
+//画像パス(スタンダード)
+export const IMAGEFILEPATH = `./public/img/`;
 
 //マスタテーブルファイル名
 export const MASTERTABLEFILENM = `samplemastertable`;
@@ -62,3 +64,6 @@ export const FLG = {
 
 //タグファイル名
 export const TAGFILENM = `memotag`;
+
+//画像ファイル名
+export const IMAGEFILENM = `image`;
