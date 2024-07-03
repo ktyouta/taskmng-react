@@ -8,8 +8,12 @@ export const SETTINGFILEPATH = `./public/json/setting/`;
 export const TRANSACTION = `./public/json/transaction/`;
 //JSON拡張子
 export const JSONEXTENSION = `.json`;
+//画像フォルダパス
+export const IMAGE_FOLDER_PATH = `./public/img/`;
 //画像パス(スタンダード)
-export const IMAGEFILEPATH = `./public/img/`;
+export const STANDARD_IMAGE_PATH = `Standard`;
+//画像パス(オリジナル)
+export const ORIGINAL_IMAGE_PATH = `Original`;
 
 //マスタテーブルファイル名
 export const MASTERTABLEFILENM = `samplemastertable`;

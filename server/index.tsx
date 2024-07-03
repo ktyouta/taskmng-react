@@ -25,6 +25,7 @@ import { getSearchCondition, runUpdSearchConditionList } from './Setting/SearchC
 import { JSONEXTENSION, MASTERFILEPATH } from './Common/Const/CommonConst';
 import { getMemoDetail, getMemoList, getMemoSearchConditionList, runAddMemo, runDelMemo, runUpdMemo } from './Memo/MemoFunction';
 import { getTagList } from './Tag/TagFunction';
+import { getImageList } from './Image/ImageFunction';
 
 
 
@@ -219,10 +220,17 @@ app.get(ENV.MEMOSEARCHCONDITION, function (req, res) {
 
 
 /**
- * memosearchconditionにアクセスした際の動作
+ * taglistにアクセスした際の動作
  */
 app.get(ENV.TAGLIST, function (req, res) {
     getTagList(res, req);
+});
+
+/**
+ * imagelistにアクセスした際の動作
+ */
+app.get(ENV.IMAGELIST, function (req, res) {
+    getImageList(res, req);
 });
 
 

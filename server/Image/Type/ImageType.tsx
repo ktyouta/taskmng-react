@@ -2,16 +2,16 @@
 export type imageListResType = {
     [key: string]: string,
     id: string,
-    name: string,
-    type: string,
+    imageName: string,
+    imageType: string,
     deleteFlg: string,
-    url: string,
+    imageUrl: string,
 }
 
 //画像リスト読み込み時の型
 export type imageListType = {
     id: string,
-    name: string,
-    type: string,
+    imageName: string,
+    imageType: string,
     deleteFlg: string
 }

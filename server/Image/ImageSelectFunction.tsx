@@ -1,5 +1,5 @@
 import { imageListResType, imageListType } from "./Type/ImageType";
-import { IMAGE_FILEPATH } from "./Const/ImageConst";
+import { IMAGE_FILEPATH, IMAGE_FOLDER_ORIGINAL, IMAGE_FOLDER_STAND, IMAGE_TYPE } from "./Const/ImageConst";
 import { getFileJsonData, readFile } from "../Common/FileFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
 import { getUserInfoData } from "../Setting/User/UserSelectFunction";
@@ -58,9 +58,23 @@ export function convImage(decodeFileData: imageListType[]): imageListResType[] {
  */
 export function convImageDetail(decodeFileData: imageListType): imageListResType {
 
+    let imageUrl = "";
+
+    //画像タイプからURLを作成
+    switch (decodeFileData.imageType) {
+        //スタンダード
+        case IMAGE_TYPE.standard:
+            imageUrl = `${IMAGE_FOLDER_STAND}/${decodeFileData.imageName}`;
+            break;
+        //オリジナル
+        case IMAGE_TYPE.original:
+            imageUrl = IMAGE_FOLDER_ORIGINAL;
+            break;
+    }
+
     //画面返却用の型に変換
     return (
-        { ...decodeFileData, url: "" }
+        { ...decodeFileData, imageUrl }
     );
 }
 
@@ -78,4 +92,21 @@ export function createImageNewId(tagList: tagListType[]) {
         return Math.max(prev, currentNm);
     }, 0);
     return `${maxNo + 1}`;
+}
+
+/**
+ * メモリストをクエリストリングで絞り込む
+ */
+export function filterImageQuery(resImageList: imageListResType[], query: any): imageListResType[] {
+
+    //画像タイプ
+    let imageType = query.imageType;
+
+    if (imageType !== IMAGE_TYPE.standard && imageType !== IMAGE_TYPE.original) {
+        return resImageList;
+    }
+
+    return resImageList.filter((element: imageListResType) => {
+        return element.imageType === imageType
+    });
 }

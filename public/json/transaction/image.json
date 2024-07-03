@@ -1,20 +1,20 @@
 [
     {
         "id":"1",
-        "name":"testimg1.png",
-        "type":"0",
+        "imageName":"testimg1.png",
+        "imageType":"0",
         "deleteFlg":"0"
     },
     {
         "id":"2",
-        "name":"testimg2.png",
-        "type":"0",
+        "imageName":"testimg2.png",
+        "imageType":"0",
         "deleteFlg":"0"
     },
     {
         "id":"3",
-        "name":"testimg3.png",
-        "type":"0",
+        "imageName":"testimg3.png",
+        "imageType":"0",
         "deleteFlg":"0"
     }
 ]

@@ -4,7 +4,7 @@ import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
 import { imageListResType, imageListType } from "./Type/ImageType";
-import { convImage, convImageDetail, getFilterdImage, getImageObj } from "./ImageSelectFunction";
+import { convImage, convImageDetail, filterImageQuery, getFilterdImage, getImageObj } from "./ImageSelectFunction";
 import { IMAGE_FILEPATH } from "./Const/ImageConst";
 import { tagListType } from "../Tag/Type/TagType";
 import { TAG_FILEPATH } from "../Tag/Const/TagConst";
@@ -28,14 +28,14 @@ export function getImageList(res: any, req: any) {
     //クエリストリング
     let queryStr = req.query;
 
-    //メモファイルの読み込み
+    //画像リストファイルの読み込み
     let decodeFileData: imageListType[] = getFilterdImage();
 
     //画面返却用の型に変換
     let resImageList: imageListResType[] = convImage(decodeFileData);
 
     //クエリストリングでフィルター
-    //resImageList = filterImageQuery(resImageList, queryStr, decodeTagFileData);
+    resImageList = filterImageQuery(resImageList, queryStr);
 
     //該当データなし
     if (resImageList.length === 0) {
