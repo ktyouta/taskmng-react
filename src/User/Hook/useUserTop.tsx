@@ -38,6 +38,8 @@ function useUserTop(props: propsType) {
         authList,
         runButtonObj,
         editMode,
+        userIcon,
+        setUserIcon,
     } = useSettingUserEdit({ ...props });
 
     //ルーティング用
@@ -76,6 +78,8 @@ function useUserTop(props: propsType) {
         } as buttonObjType,
         runButtonObj,
         editMode,
+        userIcon,
+        setUserIcon,
     }
 }
 

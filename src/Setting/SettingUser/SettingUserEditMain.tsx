@@ -49,6 +49,8 @@ type propsType = {
     registerTime: string,
     updTime: string,
     editMode: number,
+    userIcon: string | undefined,
+    setUserIcon: React.Dispatch<React.SetStateAction<string | undefined>>,
 }
 
 
@@ -149,6 +151,51 @@ function SettingUserEditMain(props: propsType) {
                         {props.updTime}
                     </HorizonLabelItemComponent>
                 }
+                <HorizonLabelItemComponent
+                    title={'アイコン'}
+                    width='30%'
+                    position='left'
+                >
+                    {
+                        props.userIcon !== undefined &&
+                        <BaseInputComponent
+                            value={props.userIcon}
+                            length={50}
+                            onChange={props.setUserIcon}
+                            textWidth='80%'
+                        />
+                    }
+                </HorizonLabelItemComponent>
+                <HorizonLabelItemComponent
+                    title={'アイコン'}
+                    width='30%'
+                    position='left'
+                >
+                    {
+                        props.userIcon !== undefined &&
+                        <BaseInputComponent
+                            value={props.userIcon}
+                            length={50}
+                            onChange={props.setUserIcon}
+                            textWidth='80%'
+                        />
+                    }
+                </HorizonLabelItemComponent>
+                <HorizonLabelItemComponent
+                    title={'アイコン'}
+                    width='30%'
+                    position='left'
+                >
+                    {
+                        props.userIcon !== undefined &&
+                        <BaseInputComponent
+                            value={props.userIcon}
+                            length={50}
+                            onChange={props.setUserIcon}
+                            textWidth='80%'
+                        />
+                    }
+                </HorizonLabelItemComponent>
             </MainDiv>
         </OuterDiv>
     );

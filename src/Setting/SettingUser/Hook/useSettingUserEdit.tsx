@@ -43,6 +43,8 @@ function useSettingUserEdit(props: propsType) {
     const [password, setPassword] = useState<string | undefined>();
     //権限
     const [auth, setAuth] = useState<string | undefined>();
+    //アイコン
+    const [userIcon, setUserIcon] = useState<string | undefined>();
 
     //編集画面遷移時に更新用データを取得
     const { data: updUser, isLoading: isLoadinGetuser } = useQueryWrapper<userType>(
@@ -58,6 +60,7 @@ function useSettingUserEdit(props: propsType) {
                 setUserName(data.userName);
                 setPassword(data.password);
                 setAuth(data.auth);
+                setUserIcon(data.userIcon);
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -309,6 +312,8 @@ function useSettingUserEdit(props: propsType) {
             onclick: editMode === editModeEnum.update ? updateAttribute : registeAttribute
         } as buttonObjType,
         editMode,
+        userIcon,
+        setUserIcon,
     }
 }
 

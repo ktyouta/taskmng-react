@@ -7,6 +7,7 @@ export type userType = {
     authNm: string,
     registerTime?: string,
     updTime?: string,
+    userIcon: string,
 }
 
 //登録更新時のユーザー情報の型
