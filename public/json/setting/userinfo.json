@@ -7,7 +7,7 @@
 		"deleteFlg": "0",
 		"registerTime": "",
 		"updTime": "",
-		"userIcon":""
+		"iconUrl":""
 	},
 	{
 		"userId": "user",
@@ -17,7 +17,7 @@
 		"deleteFlg": "0",
 		"registerTime": "",
 		"updTime": "",
-		"userIcon":""
+		"iconUrl":""
 	},
 	{
 		"userId": "public",
@@ -27,7 +27,7 @@
 		"deleteFlg": "0",
 		"registerTime": "",
 		"updTime": "",
-		"userIcon":""
+		"iconUrl":""
 	},
 	{
 		"userId": "a",
@@ -37,7 +37,7 @@
 		"deleteFlg": "0",
 		"registerTime": "",
 		"updTime": "",
-		"userIcon":""
+		"iconUrl":""
 	},
 	{
 		"userId": "testupd",
@@ -47,7 +47,7 @@
 		"registerTime": "2023/12/13",
 		"updTime": "2023/12/13",
 		"deleteFlg": "0",
-		"userIcon":""
+		"iconUrl":""
 	},
 	{
 		"userId": "test",
@@ -57,7 +57,7 @@
 		"registerTime": "2023/12/13",
 		"updTime": "2023/12/13",
 		"deleteFlg": "0",
-		"userIcon":""
+		"iconUrl":""
 	},
 	{
 		"userId": "f",
@@ -67,6 +67,6 @@
 		"registerTime": "2024/01/01",
 		"updTime": "2024/03/18",
 		"deleteFlg": "0",
-		"userIcon":""
+		"iconUrl":""
 	}
 ]

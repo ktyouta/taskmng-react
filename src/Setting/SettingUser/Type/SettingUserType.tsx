@@ -7,7 +7,7 @@ export type userType = {
     authNm: string,
     registerTime?: string,
     updTime?: string,
-    userIcon: string,
+    iconUrl: string,
 }
 
 //登録更新時のユーザー情報の型
@@ -18,4 +18,14 @@ export type updUserType = {
     auth: string,
     registerTime?: string,
     updTime?: string,
+}
+
+//APIから取得するアイコンリストの型
+export type imageListResType = {
+    [key: string]: string,
+    id: string,
+    imageName: string,
+    imageType: string,
+    deleteFlg: string,
+    iconUrl: string,
 }

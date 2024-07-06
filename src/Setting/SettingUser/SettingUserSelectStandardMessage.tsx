@@ -6,6 +6,7 @@ import BaseInputComponent from '../../Common/BaseInputComponent';
 import styled from 'styled-components';
 import useSettingUserSelectStandardMessage from './Hook/useSettingUserSelectStandardMessage';
 import ModalComponent from '../../Common/ModalComponent';
+import SettingUserSelectStandardIcon from './SettingUserSelectStandardIconList';
 
 
 //外側のスタイル
@@ -30,6 +31,8 @@ const TitleSpan = styled.span<{ isInactive: boolean }>`
 //引数の型
 type propsType = {
     isInactive: boolean,
+    iconUrl: string | undefined,
+    setIconUrl: React.Dispatch<React.SetStateAction<string | undefined>>,
 }
 
 function SettingUserSelectStandardMessage(props: propsType) {
@@ -53,11 +56,16 @@ function SettingUserSelectStandardMessage(props: propsType) {
             >
                 アイコンを選択する
             </TitleSpan>
+            {/* アイコン選択モーダル */}
             <ModalComponent
                 modalIsOpen={isModalOpen}
                 closeModal={offFlag}
             >
-                アイコン選択モーダル
+                <SettingUserSelectStandardIcon
+                    width='100%'
+                    height='100%'
+                    iconUrl={props.iconUrl}
+                    setIconUrl={props.setIconUrl} />
             </ModalComponent>
         </OuterDiv>
     );

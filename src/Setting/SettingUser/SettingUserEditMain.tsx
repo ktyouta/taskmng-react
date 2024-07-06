@@ -52,8 +52,8 @@ type propsType = {
     registerTime: string,
     updTime: string,
     editMode: number,
-    userIcon: string | undefined,
-    setUserIcon: React.Dispatch<React.SetStateAction<string | undefined>>,
+    iconUrl: string | undefined,
+    setIconUrl: React.Dispatch<React.SetStateAction<string | undefined>>,
     iconType: string | undefined,
     setIconType: React.Dispatch<React.SetStateAction<string | undefined>>,
 }
@@ -178,7 +178,8 @@ function SettingUserEditMain(props: propsType) {
                                 title={
                                     <SettingUserSelectStandardMessage
                                         isInactive={props.iconType !== SELECT_ICON_TYPE.STANDARD}
-                                    />
+                                        iconUrl={props.iconUrl}
+                                        setIconUrl={props.setIconUrl} />
                                 }
                                 value={SELECT_ICON_TYPE.STANDARD}
                                 selectedValue={props.iconType}

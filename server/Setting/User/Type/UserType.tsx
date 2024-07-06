@@ -8,6 +8,7 @@ export type userInfoType = {
     deleteFlg?: string,
     registerTime: string,
     updTime: string,
+    iconUrl: string,
 }
 
 //登録更新時のユーザー情報

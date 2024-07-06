@@ -5,7 +5,7 @@ export type imageListResType = {
     imageName: string,
     imageType: string,
     deleteFlg: string,
-    imageUrl: string,
+    iconUrl: string,
 }
 
 //画像リスト読み込み時の型

@@ -44,7 +44,7 @@ function useSettingUserEdit(props: propsType) {
     //権限
     const [auth, setAuth] = useState<string | undefined>();
     //アイコン
-    const [userIcon, setUserIcon] = useState<string | undefined>();
+    const [iconUrl, setIconUrl] = useState<string | undefined>();
     //アイコン選択
     const [iconType, setIconType] = useState<string | undefined>();
 
@@ -62,8 +62,8 @@ function useSettingUserEdit(props: propsType) {
                 setUserName(data.userName);
                 setPassword(data.password);
                 setAuth(data.auth);
-                setUserIcon(data.userIcon);
-                setIconType(data.userIcon ? SELECT_ICON_TYPE.NO_SELECT : SELECT_ICON_TYPE.STANDARD);
+                setIconUrl(data.iconUrl);
+                setIconType(data.iconUrl ? SELECT_ICON_TYPE.STANDARD : SELECT_ICON_TYPE.NO_SELECT);
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -315,8 +315,8 @@ function useSettingUserEdit(props: propsType) {
             onclick: editMode === editModeEnum.update ? updateAttribute : registeAttribute
         } as buttonObjType,
         editMode,
-        userIcon,
-        setUserIcon,
+        iconUrl,
+        setIconUrl,
         iconType,
         setIconType,
     }

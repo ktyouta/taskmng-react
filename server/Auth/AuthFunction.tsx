@@ -28,6 +28,7 @@ export function authenticate(cookie: string): authInfoType {
             auth: "",
             registerTime: "",
             updTime: "",
+            iconUrl: "",
         }
     };
     try {

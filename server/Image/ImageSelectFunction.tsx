@@ -58,23 +58,23 @@ export function convImage(decodeFileData: imageListType[]): imageListResType[] {
  */
 export function convImageDetail(decodeFileData: imageListType): imageListResType {
 
-    let imageUrl = "";
+    let iconUrl = "";
 
     //画像タイプからURLを作成
     switch (decodeFileData.imageType) {
         //スタンダード
         case IMAGE_TYPE.standard:
-            imageUrl = `${IMAGE_FOLDER_STAND}/${decodeFileData.imageName}`;
+            iconUrl = `${IMAGE_FOLDER_STAND}/${decodeFileData.imageName}`;
             break;
         //オリジナル
         case IMAGE_TYPE.original:
-            imageUrl = IMAGE_FOLDER_ORIGINAL;
+            iconUrl = IMAGE_FOLDER_ORIGINAL;
             break;
     }
 
     //画面返却用の型に変換
     return (
-        { ...decodeFileData, imageUrl }
+        { ...decodeFileData, iconUrl }
     );
 }
 

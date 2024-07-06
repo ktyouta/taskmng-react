@@ -47,8 +47,8 @@ function SettingUserEdit(props: propsType) {
     deleteButtonObj,
     runButtonObj,
     editMode,
-    userIcon,
-    setUserIcon,
+    iconUrl,
+    setIconUrl,
     iconType,
     setIconType,
   } = useSettingUserEdit({ ...props });
@@ -70,8 +70,8 @@ function SettingUserEdit(props: propsType) {
         registerTime={registerTime}
         updTime={updTime}
         editMode={editMode}
-        userIcon={userIcon}
-        setUserIcon={setUserIcon}
+        iconUrl={iconUrl}
+        setIconUrl={setIconUrl}
         iconType={iconType}
         setIconType={setIconType}
       />

@@ -38,8 +38,8 @@ function useUserTop(props: propsType) {
         authList,
         runButtonObj,
         editMode,
-        userIcon,
-        setUserIcon,
+        iconUrl,
+        setIconUrl,
         iconType,
         setIconType,
     } = useSettingUserEdit({ ...props });
@@ -80,8 +80,8 @@ function useUserTop(props: propsType) {
         } as buttonObjType,
         runButtonObj,
         editMode,
-        userIcon,
-        setUserIcon,
+        iconUrl,
+        setIconUrl,
         iconType,
         setIconType,
     }
