@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, ReactNode, useState } from 'react';
 import './css/HorizonLabelInputComponent.css';
 import styled from "styled-components";
 import LabelInputComponent from './LabelInputComponent';
@@ -6,7 +6,7 @@ import { refType } from './BaseInputComponent';
 
 //引数の型
 type propsType = {
-    title: string | JSX.Element,
+    title: ReactNode,
     width?: string,
     htmlForId?: string,
     key?: string,
@@ -15,7 +15,7 @@ type propsType = {
 
 //ラベルの基本スタイル
 const BaseLabel = styled.label<{ width?: string, color?: string, }>`
-  width: ${({ width }) => (width ?? "180px")};
+  width: ${({ width }) => (width ?? "auto")};
   color: ${({ color }) => (color ?? "")};
 `;
 

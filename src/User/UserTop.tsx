@@ -46,6 +46,8 @@ function UserTop(props: propsType) {
         editMode,
         userIcon,
         setUserIcon,
+        iconType,
+        setIconType,
     } = useUserTop({ ...props });
 
     return (
@@ -67,6 +69,8 @@ function UserTop(props: propsType) {
                 editMode={editMode}
                 userIcon={userIcon}
                 setUserIcon={setUserIcon}
+                iconType={iconType}
+                setIconType={setIconType}
             />
             <UserFooter
                 positiveButtonObj={positiveButtonObj}

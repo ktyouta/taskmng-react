@@ -38,6 +38,7 @@ function UserFooter(props: propsType) {
                     styleTypeNumber={props.positiveButtonObj.type}
                     title={props.positiveButtonObj.title}
                     onclick={props.positiveButtonObj.onclick}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             }
             <SpaceComponent
@@ -51,6 +52,7 @@ function UserFooter(props: propsType) {
                     styleTypeNumber={props.runButtonObj.type}
                     title={props.runButtonObj.title}
                     onclick={props.runButtonObj.onclick}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             }
         </OuterDiv>

@@ -11,7 +11,7 @@ import { buttonType } from "../../../Common/ButtonComponent";
 import { updUserType, userType } from "../Type/SettingUserType";
 import { editModeAtom, userIdAtom } from "../Atom/SettingUserAtom";
 import { editModeEnum } from "../../Const/SettingConst";
-import { AUTH_ID } from "../Const/SettingUserConst";
+import { AUTH_ID, SELECT_ICON_TYPE } from "../Const/SettingUserConst";
 
 
 //引数の型
@@ -45,6 +45,8 @@ function useSettingUserEdit(props: propsType) {
     const [auth, setAuth] = useState<string | undefined>();
     //アイコン
     const [userIcon, setUserIcon] = useState<string | undefined>();
+    //アイコン選択
+    const [iconType, setIconType] = useState<string | undefined>();
 
     //編集画面遷移時に更新用データを取得
     const { data: updUser, isLoading: isLoadinGetuser } = useQueryWrapper<userType>(
@@ -61,6 +63,7 @@ function useSettingUserEdit(props: propsType) {
                 setPassword(data.password);
                 setAuth(data.auth);
                 setUserIcon(data.userIcon);
+                setIconType(data.userIcon ? SELECT_ICON_TYPE.NO_SELECT : SELECT_ICON_TYPE.STANDARD);
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -314,6 +317,8 @@ function useSettingUserEdit(props: propsType) {
         editMode,
         userIcon,
         setUserIcon,
+        iconType,
+        setIconType,
     }
 }
 

@@ -17,7 +17,10 @@ import HorizontalComponent from '../../Common/HorizontalComponent';
 import ComboComponent from '../../Common/ComboComponent';
 import { editModeEnum } from '../Const/SettingConst';
 import useSettingUserEditMain from './Hook/useSettingUserEditMain';
-import { ADMIN_ID } from './Const/SettingUserConst';
+import { ADMIN_ID, SELECT_ICON_TYPE } from './Const/SettingUserConst';
+import RadioComponent from '../../Common/RadioComponent';
+import LabelRadioComponent from '../../Common/LabelRadioComponent';
+import SettingUserSelectStandardMessage from './SettingUserSelectStandardMessage';
 
 
 //外側のスタイル
@@ -51,6 +54,8 @@ type propsType = {
     editMode: number,
     userIcon: string | undefined,
     setUserIcon: React.Dispatch<React.SetStateAction<string | undefined>>,
+    iconType: string | undefined,
+    setIconType: React.Dispatch<React.SetStateAction<string | undefined>>,
 }
 
 
@@ -157,43 +162,31 @@ function SettingUserEditMain(props: propsType) {
                     position='left'
                 >
                     {
-                        props.userIcon !== undefined &&
-                        <BaseInputComponent
-                            value={props.userIcon}
-                            length={50}
-                            onChange={props.setUserIcon}
-                            textWidth='80%'
-                        />
-                    }
-                </HorizonLabelItemComponent>
-                <HorizonLabelItemComponent
-                    title={'アイコン'}
-                    width='30%'
-                    position='left'
-                >
-                    {
-                        props.userIcon !== undefined &&
-                        <BaseInputComponent
-                            value={props.userIcon}
-                            length={50}
-                            onChange={props.setUserIcon}
-                            textWidth='80%'
-                        />
-                    }
-                </HorizonLabelItemComponent>
-                <HorizonLabelItemComponent
-                    title={'アイコン'}
-                    width='30%'
-                    position='left'
-                >
-                    {
-                        props.userIcon !== undefined &&
-                        <BaseInputComponent
-                            value={props.userIcon}
-                            length={50}
-                            onChange={props.setUserIcon}
-                            textWidth='80%'
-                        />
+                        props.iconType !== undefined &&
+                        <React.Fragment>
+                            <LabelRadioComponent
+                                key={'noIconSelect'}
+                                title={'アイコンを設定しない'}
+                                value={SELECT_ICON_TYPE.NO_SELECT}
+                                selectedValue={props.iconType}
+                                htmlForId={'noIconSelect'}
+                                onChange={props.setIconType}
+                                isTitlePositionRight={true}
+                            />
+                            <LabelRadioComponent
+                                key={'standardIconSelect'}
+                                title={
+                                    <SettingUserSelectStandardMessage
+                                        isInactive={props.iconType !== SELECT_ICON_TYPE.STANDARD}
+                                    />
+                                }
+                                value={SELECT_ICON_TYPE.STANDARD}
+                                selectedValue={props.iconType}
+                                htmlForId={'standardIconSelect'}
+                                onChange={props.setIconType}
+                                isTitlePositionRight={true}
+                            />
+                        </React.Fragment>
                     }
                 </HorizonLabelItemComponent>
             </MainDiv>
