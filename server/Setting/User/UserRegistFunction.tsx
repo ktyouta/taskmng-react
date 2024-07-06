@@ -22,7 +22,8 @@ export function createAddUserData(fileDataObj: userInfoType[], req: any, authRes
         password: "",
         deleteFlg: "",
         registerTime: "",
-        updTime: ""
+        updTime: "",
+        iconUrl: ""
     };
     body = req.body;
     body.registerTime = nowDate;

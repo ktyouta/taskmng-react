@@ -20,4 +20,5 @@ export type updUserInfoType = {
     deleteFlg?: string,
     registerTime: string,
     updTime: string,
+    iconUrl: string,
 }
