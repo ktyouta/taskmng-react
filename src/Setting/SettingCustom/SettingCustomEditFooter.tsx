@@ -39,6 +39,7 @@ function SettingCustomEditFooter(props: propsType) {
                     styleTypeNumber={props.positiveButtonObj.type}
                     title={props.positiveButtonObj.title}
                     onclick={props.positiveButtonObj.onclick}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             }
             <SpaceComponent
@@ -52,6 +53,7 @@ function SettingCustomEditFooter(props: propsType) {
                     styleTypeNumber={props.deleteButtonObj.type}
                     title={props.deleteButtonObj.title}
                     onclick={props.deleteButtonObj.onclick}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             }
             <SpaceComponent
@@ -65,6 +67,7 @@ function SettingCustomEditFooter(props: propsType) {
                     styleTypeNumber={props.runButtonObj.type}
                     title={props.runButtonObj.title}
                     onclick={props.runButtonObj.onclick}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             }
         </OuterDiv>

@@ -52,6 +52,7 @@ function SettingUserTop(props: prospType) {
           styleTypeNumber="RUN"
           title={"ユーザーを追加"}
           onclick={createNewUser}
+          style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
         />
       </BtnDiv>
       <SettingUserTable

@@ -60,6 +60,7 @@ function SettingCategoryTop(props: prospType) {
           styleTypeNumber="RUN"
           title={"カテゴリを追加"}
           onclick={createNewCategory}
+          style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
         />
         <SpaceComponent
           space={'2%'}
@@ -68,6 +69,7 @@ function SettingCategoryTop(props: prospType) {
           styleTypeNumber="RUN"
           title={"表示順を更新"}
           onclick={changeCategoryOrder}
+          style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
         />
       </BtnDiv>
       <SettingCategoryTable

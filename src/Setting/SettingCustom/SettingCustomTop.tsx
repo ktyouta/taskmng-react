@@ -52,6 +52,7 @@ function SettingCustomTop(props: propsType) {
           styleTypeNumber="RUN"
           title={"カスタム属性を追加"}
           onclick={createNewCustomAttribute}
+          style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
         />
       </BtnDiv>
       <SettingCustomTable

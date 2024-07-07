@@ -59,6 +59,7 @@ function SettingSearchConditionMain() {
                     styleTypeNumber={backPageButtonObj.type}
                     title={backPageButtonObj.title}
                     onclick={backPageButtonObj.onclick ? backPageButtonObj.onclick : () => { }}
+                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem", "white-space": "nowrap" }}
                 />
             </BtnDiv>
             {/* ローディング */}
