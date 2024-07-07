@@ -10,7 +10,7 @@ import { jsx } from '@emotion/react';
 
 //引数の型
 type propsType = {
-    title: string | JSX.Element,
+    title: ReactNode,
     width?: string,
     children?: ReactNode,
     color?: string,
@@ -20,12 +20,13 @@ type propsType = {
     marginTp?: string,
     marginBt?: string,
     childWidth?: string,
+    outerHeight?: string,
 }
 
 //内部要素の位置の型
 type positionType = "left" | "center" | "right";
 
-const OuterDiv = styled.div<{ marginLt?: string, marginRt?: string, marginTp?: string, marginBt?: string }>`
+const OuterDiv = styled.div<{ marginLt?: string, marginRt?: string, marginTp?: string, marginBt?: string, outerHeight?: string }>`
     margin-left:${({ marginLt }) => (marginLt)};
     margin-right:${({ marginRt }) => (marginRt)};
     margin-top:${({ marginTp }) => (marginTp)};
@@ -34,6 +35,7 @@ const OuterDiv = styled.div<{ marginLt?: string, marginRt?: string, marginTp?: s
     padding-bottom: 1%;
     display: flex;
     align-items: center;
+    height:${({ outerHeight }) => (outerHeight)};
 `;
 
 const ElementDiv = styled.div<{ width?: string, color?: string, position?: positionType }>`

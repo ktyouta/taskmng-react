@@ -29,11 +29,17 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
     height: ${({ height }) => (height)};
 `;
 
+//入力欄のスタイル
 const MainDiv = styled.div`
     height: 85%;
     overflow-y: auto;
     padding-top:2%;
     padding-left: 2%;
+`;
+
+//選択アイコンのスタイル
+const SelectedIconDiv = styled.div`
+    
 `;
 
 //引数の型
@@ -157,7 +163,11 @@ function SettingUserEditMain(props: propsType) {
                     </HorizonLabelItemComponent>
                 }
                 <HorizonLabelItemComponent
-                    title={'アイコン'}
+                    title={
+                        <SelectedIconDiv>
+                            アイコン
+                        </SelectedIconDiv>
+                    }
                     width='30%'
                     position='left'
                 >

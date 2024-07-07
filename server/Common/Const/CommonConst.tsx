@@ -1,3 +1,7 @@
+import ENV from '../../../src/env.json';
+
+//サーバーURL
+export const SERVER_URL = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.LOCALPORT}`;
 //テスト用ファイルパス
 export const TESTFILEPATH = `./public/json/master/test.json`;
 //マスタファイルパス
@@ -9,11 +13,11 @@ export const TRANSACTION = `./public/json/transaction/`;
 //JSON拡張子
 export const JSONEXTENSION = `.json`;
 //画像フォルダパス
-export const IMAGE_FOLDER_PATH = `./public/img/`;
+export const IMAGE_FOLDER_PATH = `/img`;
 //画像パス(スタンダード)
-export const STANDARD_IMAGE_PATH = `Standard`;
+export const STANDARD_IMAGE_PATH = `/standard`;
 //画像パス(オリジナル)
-export const ORIGINAL_IMAGE_PATH = `Original`;
+export const ORIGINAL_IMAGE_PATH = `/original`;
 
 //マスタテーブルファイル名
 export const MASTERTABLEFILENM = `samplemastertable`;

@@ -16,12 +16,17 @@ const OuterDiv = styled.div<{ height: string | undefined, width: string | undefi
 `;
 
 //アイコンのスタイル
-const IconImg = styled.img<{ height: string | undefined, width: string | undefined, }>`
+const IconImg = styled.img<{ height: string | undefined, width: string | undefined, isSelected: boolean }>`
     width: ${({ width }) => (width)};
     height: ${({ height }) => (height)};
     border-radius: 50%;
     background-size: cover;
-    background-position: center; 
+    background-position: center;
+    cursor:pointer; 
+    &:hover {
+        outline: 4px solid #00bfff;
+    }
+    outline: ${({ isSelected }) => (isSelected ? "4px solid #ff00ff" : "")};
 `;
 
 
@@ -32,6 +37,7 @@ type propsType = {
     iconUrl: string,
     setIconUrl: React.Dispatch<React.SetStateAction<string | undefined>>,
     selectedIconUrl: string,
+    closeModal: () => void,
 }
 
 function SettingUserSelectStandardIcon(props: propsType) {
@@ -48,8 +54,9 @@ function SettingUserSelectStandardIcon(props: propsType) {
             height={props.height}
         >
             <IconImg
-                width={props.width}
-                height={props.height}
+                width='95%'
+                height='95%'
+                isSelected={props.iconUrl === props.selectedIconUrl}
                 src={props.iconUrl}
                 onClick={() => {
                     clickImg(props.iconUrl);

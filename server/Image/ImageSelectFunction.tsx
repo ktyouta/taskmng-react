@@ -8,7 +8,7 @@ import { generalDetailType } from "../General/Type/GeneralType";
 import { getGeneralDataList } from "../General/GeneralSelectFunction";
 import { comboType, tagType } from "../Common/Type/CommonType";
 import { getFormatDate } from "../Common/Function";
-import { TAGFILENM } from "../Common/Const/CommonConst";
+import { SERVER_URL, TAGFILENM } from "../Common/Const/CommonConst";
 import { tagListType } from "../Tag/Type/TagType";
 import { TAG_FILEPATH } from "../Tag/Const/TagConst";
 import { userInfoType } from "../Setting/User/Type/UserType";
@@ -64,11 +64,11 @@ export function convImageDetail(decodeFileData: imageListType): imageListResType
     switch (decodeFileData.imageType) {
         //スタンダード
         case IMAGE_TYPE.standard:
-            iconUrl = `${IMAGE_FOLDER_STAND}/${decodeFileData.imageName}`;
+            iconUrl = `${SERVER_URL}${IMAGE_FOLDER_STAND}/${decodeFileData.imageName}`;
             break;
         //オリジナル
         case IMAGE_TYPE.original:
-            iconUrl = IMAGE_FOLDER_ORIGINAL;
+            iconUrl = `${SERVER_URL}${IMAGE_FOLDER_ORIGINAL}/${decodeFileData.imageName}`;
             break;
     }
 

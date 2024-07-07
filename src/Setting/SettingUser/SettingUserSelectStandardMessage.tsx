@@ -6,7 +6,7 @@ import BaseInputComponent from '../../Common/BaseInputComponent';
 import styled from 'styled-components';
 import useSettingUserSelectStandardMessage from './Hook/useSettingUserSelectStandardMessage';
 import ModalComponent from '../../Common/ModalComponent';
-import SettingUserSelectStandardIcon from './SettingUserSelectStandardIconList';
+import SettingUserSelectStandardIconList from './SettingUserSelectStandardIconList';
 
 
 //外側のスタイル
@@ -61,11 +61,13 @@ function SettingUserSelectStandardMessage(props: propsType) {
                 modalIsOpen={isModalOpen}
                 closeModal={offFlag}
             >
-                <SettingUserSelectStandardIcon
+                <SettingUserSelectStandardIconList
                     width='100%'
                     height='100%'
                     iconUrl={props.iconUrl}
-                    setIconUrl={props.setIconUrl} />
+                    setIconUrl={props.setIconUrl}
+                    closeModal={offFlag}
+                />
             </ModalComponent>
         </OuterDiv>
     );

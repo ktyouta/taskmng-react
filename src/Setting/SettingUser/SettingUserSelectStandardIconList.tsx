@@ -8,6 +8,8 @@ import useSettingUserSelectStandardMessage from './Hook/useSettingUserSelectStan
 import ModalComponent from '../../Common/ModalComponent';
 import useSettingUserSelectStandardIcon from './Hook/useSettingUserSelectStandardIconList';
 import useSettingUserSelectStandardIconList from './Hook/useSettingUserSelectStandardIconList';
+import { imageListResType } from './Type/SettingUserType';
+import SettingUserSelectStandardIcon from './SettingUserSelectStandardIcon';
 
 
 //外側のスタイル
@@ -29,6 +31,14 @@ const TitleDiv = styled.div`
     align-items: center;
 `;
 
+//アイコンリストの外側のスタイル
+const IconOuterDiv = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+    padding-top: 2%;
+    box-sizing: border-box;
+`;
 
 //引数の型
 type propsType = {
@@ -36,6 +46,7 @@ type propsType = {
     height: string,
     iconUrl: string | undefined,
     setIconUrl: React.Dispatch<React.SetStateAction<string | undefined>>,
+    closeModal: () => void,
 }
 
 function SettingUserSelectStandardIconList(props: propsType) {
@@ -54,6 +65,21 @@ function SettingUserSelectStandardIconList(props: propsType) {
             <TitleDiv>
                 標準アイコン一覧
             </TitleDiv>
+            <IconOuterDiv>
+                {
+                    iconList && iconList.length > 0 &&
+                    iconList.map((element: imageListResType) => {
+                        return <SettingUserSelectStandardIcon
+                            width='12%'
+                            height='20%'
+                            iconUrl={element.iconUrl}
+                            setIconUrl={props.setIconUrl}
+                            selectedIconUrl={props.iconUrl ?? ""}
+                            closeModal={props.closeModal}
+                        />
+                    })
+                }
+            </IconOuterDiv>
         </OuterDiv>
     );
 }

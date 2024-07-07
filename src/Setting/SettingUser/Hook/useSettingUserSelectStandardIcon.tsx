@@ -13,13 +13,15 @@ import { ICON_LIST_URL } from "../Const/SettingUserConst";
 type prospType = {
     selectedIconUrl: string | undefined,
     setIconUrl: React.Dispatch<React.SetStateAction<string | undefined>>,
+    closeModal: () => void,
 }
 
 function useSettingUserSelectStandardIcon(props: prospType) {
 
     //画像のクリックイベント
     function clickImg(url: string,) {
-        console.log(`url:${url}`);
+        props.setIconUrl(url);
+        props.closeModal();
     }
 
     return {
