@@ -16,15 +16,21 @@ const OuterDiv = styled.div<{ height: string | undefined, width: string | undefi
 `;
 
 //アイコンのスタイル
-const IconImg = styled.img<{ height: string | undefined, width: string | undefined, isSelected: boolean }>`
+const IconImg = styled.img<{
+    height: string | undefined,
+    width: string | undefined,
+    isSelected: boolean,
+    isHoverLine?: boolean,
+    isPointer?: boolean,
+}>`
     width: ${({ width }) => (width)};
     height: ${({ height }) => (height)};
     border-radius: 50%;
     background-size: cover;
     background-position: center;
-    cursor:pointer; 
+    cursor:${({ isPointer }) => (isPointer ? "pointer" : "")}; 
     &:hover {
-        outline: 4px solid #00bfff;
+        outline: ${({ isHoverLine }) => (isHoverLine ? "4px solid #00bfff" : "")};
     }
     outline: ${({ isSelected }) => (isSelected ? "4px solid #ff00ff" : "")};
 `;
@@ -35,9 +41,9 @@ type propsType = {
     width: string,
     height: string,
     iconUrl: string,
-    setIconUrl: React.Dispatch<React.SetStateAction<string | undefined>>,
-    selectedIconUrl: string,
-    closeModal: () => void,
+    selectedIconUrl?: string,
+    clickIcon?: (e: string,) => void,
+    isHoverLine?: boolean,
 }
 
 function SettingUserSelectStandardIcon(props: propsType) {
@@ -57,6 +63,8 @@ function SettingUserSelectStandardIcon(props: propsType) {
                 width='95%'
                 height='95%'
                 isSelected={props.iconUrl === props.selectedIconUrl}
+                isHoverLine={props.isHoverLine}
+                isPointer={!!props.clickIcon}
                 src={props.iconUrl}
                 onClick={() => {
                     clickImg(props.iconUrl);

@@ -11,17 +11,16 @@ import { ICON_LIST_URL } from "../Const/SettingUserConst";
 
 //引数の型
 type prospType = {
-    selectedIconUrl: string | undefined,
-    setIconUrl: React.Dispatch<React.SetStateAction<string | undefined>>,
-    closeModal: () => void,
+    clickIcon?: (e: string,) => void,
 }
 
 function useSettingUserSelectStandardIcon(props: prospType) {
 
     //画像のクリックイベント
     function clickImg(url: string,) {
-        props.setIconUrl(url);
-        props.closeModal();
+        if (props.clickIcon) {
+            props.clickIcon(url);
+        }
     }
 
     return {

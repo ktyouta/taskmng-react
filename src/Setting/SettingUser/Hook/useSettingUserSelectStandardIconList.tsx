@@ -13,6 +13,7 @@ import { ICON_LIST_URL } from "../Const/SettingUserConst";
 type prospType = {
     iconUrl: string | undefined,
     setIconUrl: React.Dispatch<React.SetStateAction<string | undefined>>,
+    closeModal: () => void,
 }
 
 function useSettingUserSelectStandardIconList(props: prospType) {
@@ -30,8 +31,15 @@ function useSettingUserSelectStandardIconList(props: prospType) {
         }
     );
 
+    //アイコンのクリックイベント
+    function clickIcon(url: string,) {
+        props.setIconUrl(url);
+        props.closeModal();
+    }
+
     return {
-        iconList
+        iconList,
+        clickIcon
     }
 }
 

@@ -21,6 +21,7 @@ import { ADMIN_ID, SELECT_ICON_TYPE } from './Const/SettingUserConst';
 import RadioComponent from '../../Common/RadioComponent';
 import LabelRadioComponent from '../../Common/LabelRadioComponent';
 import SettingUserSelectStandardMessage from './SettingUserSelectStandardMessage';
+import SettingUserSelectStandardIcon from './SettingUserSelectStandardIcon';
 
 
 //外側のスタイル
@@ -166,6 +167,15 @@ function SettingUserEditMain(props: propsType) {
                     title={
                         <SelectedIconDiv>
                             アイコン
+                            {
+                                props.iconType !== undefined &&
+                                props.iconType !== SELECT_ICON_TYPE.NO_SELECT &&
+                                <SettingUserSelectStandardIcon
+                                    width='12%'
+                                    height='20%'
+                                    iconUrl={props.iconUrl ?? ""}
+                                />
+                            }
                         </SelectedIconDiv>
                     }
                     width='30%'

@@ -10,6 +10,7 @@ import useSettingUserSelectStandardIcon from './Hook/useSettingUserSelectStandar
 import useSettingUserSelectStandardIconList from './Hook/useSettingUserSelectStandardIconList';
 import { imageListResType } from './Type/SettingUserType';
 import SettingUserSelectStandardIcon from './SettingUserSelectStandardIcon';
+import Loading from '../../Common/Loading';
 
 
 //外側のスタイル
@@ -40,6 +41,12 @@ const IconOuterDiv = styled.div`
     box-sizing: border-box;
 `;
 
+//アイコンリストの外側のスタイル
+const NoIconOuterDiv = styled.div`
+    margin-left: 2%;
+    margin-top: 2%;
+`;
+
 //引数の型
 type propsType = {
     width: string,
@@ -54,8 +61,14 @@ function SettingUserSelectStandardIconList(props: propsType) {
     console.log("SettingUserSelectStandardIconList render");
 
     const {
-        iconList
+        iconList,
+        clickIcon
     } = useSettingUserSelectStandardIconList({ ...props });
+
+    //ローディング
+    if (!iconList) {
+        return <Loading height='50vh' />;
+    }
 
     return (
         <OuterDiv
@@ -65,21 +78,29 @@ function SettingUserSelectStandardIconList(props: propsType) {
             <TitleDiv>
                 標準アイコン一覧
             </TitleDiv>
-            <IconOuterDiv>
-                {
-                    iconList && iconList.length > 0 &&
-                    iconList.map((element: imageListResType) => {
-                        return <SettingUserSelectStandardIcon
-                            width='12%'
-                            height='20%'
-                            iconUrl={element.iconUrl}
-                            setIconUrl={props.setIconUrl}
-                            selectedIconUrl={props.iconUrl ?? ""}
-                            closeModal={props.closeModal}
-                        />
-                    })
-                }
-            </IconOuterDiv>
+            {
+                iconList && iconList.length > 0 ?
+                    <IconOuterDiv>
+                        {
+                            iconList && iconList.length > 0 &&
+                            iconList.map((element: imageListResType) => {
+                                return <SettingUserSelectStandardIcon
+                                    width='12%'
+                                    height='20%'
+                                    iconUrl={element.iconUrl}
+                                    selectedIconUrl={props.iconUrl ?? ""}
+                                    clickIcon={clickIcon}
+                                    isHoverLine={true}
+                                />
+                            })
+                        }
+                    </IconOuterDiv>
+                    :
+                    <NoIconOuterDiv>
+                        標準アイコンがありません
+                    </NoIconOuterDiv>
+            }
+
         </OuterDiv>
     );
 }
