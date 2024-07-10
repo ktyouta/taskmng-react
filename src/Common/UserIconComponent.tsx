@@ -1,12 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import logo from './logo.svg';
 import { useAtomValue } from 'jotai';
-import HorizonLabelItemComponent from '../../Common/HorizonLabelItemComponent';
-import BaseInputComponent from '../../Common/BaseInputComponent';
 import styled from 'styled-components';
-import useSettingUserSelectStandardMessage from './Hook/useSettingUserSelectStandardMessage';
-import ModalComponent from '../../Common/ModalComponent';
-import useSettingUserSelectStandardIcon from './Hook/useSettingUserSelectStandardIcon';
 
 
 //外側のスタイル
@@ -48,13 +43,16 @@ type propsType = {
     imgStyle?: { [key: string]: string, },
 }
 
-function SettingUserSelectStandardIcon(props: propsType) {
+//アイコンのクリックイベント
+function clickImg(url: string, clickIcon?: (e: string,) => void,) {
+    if (clickIcon) {
+        clickIcon(url);
+    }
+}
 
-    console.log("SettingUserSelectStandardIcon render");
+function UserIconComponent(props: propsType) {
 
-    const {
-        clickImg
-    } = useSettingUserSelectStandardIcon({ ...props });
+    console.log("UserIconComponent render");
 
     return (
         <OuterDiv
@@ -70,11 +68,11 @@ function SettingUserSelectStandardIcon(props: propsType) {
                 isPointer={!!props.clickIcon}
                 src={props.iconUrl}
                 onClick={() => {
-                    clickImg(props.iconUrl);
+                    clickImg(props.iconUrl, props.clickIcon);
                 }}
                 style={props.imgStyle}
             />
         </OuterDiv>
     );
 }
-export default SettingUserSelectStandardIcon;
+export default UserIconComponent;

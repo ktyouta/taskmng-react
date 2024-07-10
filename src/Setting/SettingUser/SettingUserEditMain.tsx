@@ -22,6 +22,7 @@ import RadioComponent from '../../Common/RadioComponent';
 import LabelRadioComponent from '../../Common/LabelRadioComponent';
 import SettingUserSelectStandardMessage from './SettingUserSelectStandardMessage';
 import SettingUserSelectStandardIcon from './SettingUserSelectStandardIcon';
+import UserIconComponent from '../../Common/UserIconComponent';
 
 
 //外側のスタイル
@@ -170,16 +171,19 @@ function SettingUserEditMain(props: propsType) {
                             {
                                 props.iconType !== undefined &&
                                 props.iconType !== SELECT_ICON_TYPE.NO_SELECT &&
-                                <SettingUserSelectStandardIcon
-                                    width='12%'
+                                props.iconUrl &&
+                                <UserIconComponent
+                                    width='25%'
                                     height='20%'
                                     iconUrl={props.iconUrl ?? ""}
+                                    outerStyle={{ "margin-left": "auto", "margin-right": "auto", "margin-top": "3%" }}
                                 />
                             }
                         </SelectedIconDiv>
                     }
                     width='30%'
                     position='left'
+                    outerHeight='20%'
                 >
                     {
                         props.iconType !== undefined &&

@@ -21,6 +21,7 @@ export function createUpdUserData(fileDataObj: userInfoType[], req: any, userId:
             element.password = req.body.password;
             element.auth = req.body.auth;
             element.updTime = nowDate;
+            element.iconUrl = req.body.iconUrl;
             return true
         }
     });

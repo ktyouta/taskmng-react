@@ -249,8 +249,7 @@ function useSettingUserEdit(props: propsType) {
             userName: "",
             password: "",
             auth: "",
-            registerTime: "",
-            updTime: ""
+            iconUrl: "",
         };
 
         //ID
@@ -277,6 +276,17 @@ function useSettingUserEdit(props: propsType) {
             return;
         }
         body.auth = auth;
+        //アイコン
+        if (iconType === SELECT_ICON_TYPE.NO_SELECT) {
+            body.iconUrl = "";
+        }
+        else if (!iconUrl) {
+            alert("アイコンを設定してください。");
+            return;
+        }
+        else {
+            body.iconUrl = iconUrl;
+        }
         return body;
     };
 

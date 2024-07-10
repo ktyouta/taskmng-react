@@ -11,6 +11,7 @@ import useSettingUserSelectStandardIconList from './Hook/useSettingUserSelectSta
 import { imageListResType } from './Type/SettingUserType';
 import SettingUserSelectStandardIcon from './SettingUserSelectStandardIcon';
 import Loading from '../../Common/Loading';
+import UserIconComponent from '../../Common/UserIconComponent';
 
 
 //外側のスタイル
@@ -84,7 +85,7 @@ function SettingUserSelectStandardIconList(props: propsType) {
                         {
                             iconList && iconList.length > 0 &&
                             iconList.map((element: imageListResType) => {
-                                return <SettingUserSelectStandardIcon
+                                return <UserIconComponent
                                     width='12%'
                                     height='20%'
                                     iconUrl={element.iconUrl}

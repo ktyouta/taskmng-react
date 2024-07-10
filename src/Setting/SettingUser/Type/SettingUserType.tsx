@@ -16,8 +16,7 @@ export type updUserType = {
     userName: string,
     password: string,
     auth: string,
-    registerTime?: string,
-    updTime?: string,
+    iconUrl: string,
 }
 
 //APIから取得するアイコンリストの型
