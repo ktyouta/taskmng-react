@@ -16,7 +16,7 @@ import useSwitch from '../../Common/Hook/useSwitch';
 
 //引数の型
 type propsType = {
-    userInfo: userInfoType | undefined,
+    userInfo?: userInfoType,
 }
 
 function useHeader(props: propsType) {

@@ -9,12 +9,13 @@ import useQueryAtom from './useQueryAtom';
 
 //認証チェックAPIのレスポンスの型
 type authResponseType = {
-    errMessage?: string | undefined,
+    errMessage?: string,
     userInfo?: {
-        userId?: string | undefined;
-        userName?: string | undefined;
-        auth?: string | undefined;
-    } | undefined;
+        userId?: string;
+        userName?: string;
+        auth?: string;
+        iconUrl?: string,
+    };
 }
 
 /**
@@ -26,7 +27,14 @@ function createUserInfo(data: authResponseType): resUserInfoType {
     let userId = data.userInfo?.userId as string;
     let userName = data?.userInfo?.userName as string;
     let auth = data?.userInfo?.auth as string;
-    return { userId: userId, userName: userName, auth: auth };
+    let iconUrl = data?.userInfo?.iconUrl as string;
+
+    return {
+        userId,
+        userName,
+        auth,
+        iconUrl,
+    };
 }
 
 

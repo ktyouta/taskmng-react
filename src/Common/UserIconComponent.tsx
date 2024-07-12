@@ -43,12 +43,6 @@ type propsType = {
     imgStyle?: { [key: string]: string, },
 }
 
-//アイコンのクリックイベント
-function clickImg(url: string, clickIcon?: (e: string,) => void,) {
-    if (clickIcon) {
-        clickIcon(url);
-    }
-}
 
 function UserIconComponent(props: propsType) {
 
@@ -68,7 +62,7 @@ function UserIconComponent(props: propsType) {
                 isPointer={!!props.clickIcon}
                 src={props.iconUrl}
                 onClick={() => {
-                    clickImg(props.iconUrl, props.clickIcon);
+                    if (props.clickIcon) props.clickIcon(props.iconUrl);
                 }}
                 style={props.imgStyle}
             />

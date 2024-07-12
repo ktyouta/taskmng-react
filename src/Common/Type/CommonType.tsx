@@ -48,6 +48,7 @@ export type resUserInfoType = {
     userId: string,
     userName: string,
     auth: string,
+    iconUrl: string,
 }
 
 //apiのレスポンス
@@ -69,6 +70,7 @@ export type userInfoType = {
     userId: string,
     userName: string,
     auth: string,
+    iconUrl: string,
 }
 
 //マスタのリスト

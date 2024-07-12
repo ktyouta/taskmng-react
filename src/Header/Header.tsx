@@ -7,6 +7,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 import IconComponent from '../Common/IconComponent';
 import { IoPersonCircleOutline } from "react-icons/io5";
+import UserIconComponent from '../Common/UserIconComponent';
 
 
 //ヘッダーのスタイル
@@ -28,7 +29,8 @@ const TitleSpan = styled.span`
 
 //ユーザー名のスタイル
 const UserNameDiv = styled.div`
-  margin: 0 2% 0 auto;
+  margin-right: 2%;
+  margin-left: 61%;
   font-size: 15px;
 `;
 
@@ -78,7 +80,7 @@ const OverlayDiv = styled.div`
 
 //引数の型
 type propsType = {
-  userInfo: userInfoType | undefined,
+  userInfo?: userInfoType,
 }
 
 function Header(props: propsType) {
@@ -102,10 +104,21 @@ function Header(props: propsType) {
         {props.userInfo?.userName ? `ユーザー：${props.userInfo?.userName}` : ""}
       </UserNameDiv>
       <BtnDiv>
-        <IconComponent
-          icon={IoPersonCircleOutline}
-          onclick={flag ? offFlag : onFlag}
-        />
+        {
+          props.userInfo?.iconUrl ?
+            <UserIconComponent
+              width='7%'
+              height='20%'
+              iconUrl={props.userInfo.iconUrl ?? ""}
+              clickIcon={flag ? offFlag : onFlag}
+              outerStyle={{ "margin-right": "5%" }}
+            />
+            :
+            <IconComponent
+              icon={IoPersonCircleOutline}
+              onclick={flag ? offFlag : onFlag}
+            />
+        }
         <NavDiv
           isDisplay={flag}
         >
