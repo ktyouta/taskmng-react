@@ -13,6 +13,7 @@ export type taskHistoryType = {
     url: string,
     priority: string,
     status: string,
+    iconUrl: string,
 }
 
 //登録時のタスクの作業履歴の型

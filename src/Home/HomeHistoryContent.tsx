@@ -5,6 +5,7 @@ import IconComponent from '../Common/IconComponent';
 import { copyUrlToClipboard } from './Function/HomeFunction';
 import { useNavigate } from "react-router-dom";
 import ENV from '../env.json';
+import UserIconComponent from '../Common/UserIconComponent';
 
 
 //外側のスタイル
@@ -84,10 +85,19 @@ function HomeHistoryContent(props: propsType) {
             <ContentTitleDiv
                 onClick={() => { }}
             >
-                <IconComponent
-                    icon={IoPersonCircleOutline}
-                    size='4%'
-                />
+                {
+                    props.taskHistory.iconUrl ?
+                        <UserIconComponent
+                            width='4%'
+                            height='4%'
+                            iconUrl={props.taskHistory.iconUrl}
+                        />
+                        :
+                        <IconComponent
+                            icon={IoPersonCircleOutline}
+                            size='4%'
+                        />
+                }
                 {
                     `${props.taskHistory.userName}さんが`
                 }

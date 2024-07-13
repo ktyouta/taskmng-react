@@ -44,7 +44,7 @@ export function getFilterdTaskHistory() {
  */
 export function joinGeneralSetting(decodeFileData: taskHistoryType[], decodeTaskFileData: taskListType[],
     decodeGeneralData: generalDetailType[], decodeUserFileData: userInfoType[]
-) {
+): taskHistoryType[] {
 
     decodeFileData.forEach((element) => {
 
@@ -64,6 +64,7 @@ export function joinGeneralSetting(decodeFileData: taskHistoryType[], decodeTask
 
         if (tmpUser) {
             element.userName = tmpUser.userName;
+            element.iconUrl = tmpUser.iconUrl;
         }
 
         //タスクの紐づけ
