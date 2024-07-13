@@ -67,6 +67,6 @@
 		"registerTime": "2024/01/01",
 		"updTime": "2024/07/13",
 		"deleteFlg": "0",
-		"iconUrl": ""
+		"iconUrl": "http://localhost:3000/img/standard/testimg1.png"
 	}
 ]

@@ -20,6 +20,7 @@ const HeaderDiv = styled.div`
   font-size: 30px;
   border-bottom: 1px solid #a9a9a9;
   box-sizing: border-box;
+  justify-content: space-between;
 `;
 
 //タイトルのスタイル
@@ -28,23 +29,30 @@ const TitleSpan = styled.span`
 `;
 
 //ユーザー名のスタイル
-const UserNameDiv = styled.div`
-  margin-right: 2%;
-  margin-left: 61%;
+const UserInfoMainDiv = styled.div`
   font-size: 15px;
+  margin-right: 1%;
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  width: 83%;
+  margin-left: auto;
 `;
 
 //ボタンのスタイル
-const BtnDiv = styled.div`
+const BtnDiv = styled.div<{ width: string }>`
+  margin-left: 2%;
   margin-right: 5%;
   position:relative;
+  align-items: center;
+  width:${({ width }) => (width)};
 `;
 
 //ナビゲーション
 const NavDiv = styled.div<{ isDisplay: boolean }>`
   position: absolute;
   top: 34px;
-  left: -55px;
+  left: -100px;
   font-size: 13px;
   width: 140px;
   height: auto;
@@ -78,6 +86,19 @@ const OverlayDiv = styled.div`
   z-index: 9; 
 `;
 
+//ユーザー情報エリアのスタイル
+const UserInfoOuterDiv = styled.div`
+  width:30%;
+  margin-right: 2%;
+`;
+
+//ユーザー名のスタイル
+const UserNameDiv = styled.div`
+  width:100%;
+  text-align: right;
+`;
+
+
 //引数の型
 type propsType = {
   userInfo?: userInfoType,
@@ -100,40 +121,49 @@ function Header(props: propsType) {
       <TitleSpan>
         {headerTile}
       </TitleSpan>
-      <UserNameDiv>
-        {props.userInfo?.userName ? `ユーザー：${props.userInfo?.userName}` : ""}
-      </UserNameDiv>
-      <BtnDiv>
-        {
-          props.userInfo?.iconUrl ?
-            <UserIconComponent
-              width='7%'
-              height='20%'
-              iconUrl={props.userInfo.iconUrl ?? ""}
-              clickIcon={flag ? offFlag : onFlag}
-              outerStyle={{ "margin-right": "5%" }}
-            />
-            :
-            <IconComponent
-              icon={IoPersonCircleOutline}
-              onclick={flag ? offFlag : onFlag}
-            />
-        }
-        <NavDiv
-          isDisplay={flag}
-        >
-          <ContentDiv
-            onClick={clickUserInfo}
+      <UserInfoOuterDiv>
+        <UserInfoMainDiv>
+          <UserNameDiv>
+            {props.userInfo?.userName ? `ユーザー：${props.userInfo?.userName}` : ""}
+          </UserNameDiv>
+          <BtnDiv
+            width={props.userInfo?.iconUrl ? '13%' : '11%'}
           >
-            ユーザー情報
-          </ContentDiv>
-          <ContentDiv
-            onClick={logout}
-          >
-            ログアウト
-          </ContentDiv>
-        </NavDiv>
-      </BtnDiv>
+            {
+              props.userInfo?.iconUrl ?
+                // ユーザーの設定アイコン
+                <UserIconComponent
+                  width='86%'
+                  height='20%'
+                  iconUrl={props.userInfo.iconUrl ?? ""}
+                  clickIcon={flag ? offFlag : onFlag}
+                  outerStyle={{ "margin-right": "5%" }}
+                />
+                :
+                // デフォルトアイコン
+                <IconComponent
+                  icon={IoPersonCircleOutline}
+                  onclick={flag ? offFlag : onFlag}
+                  size='100%'
+                />
+            }
+            <NavDiv
+              isDisplay={flag}
+            >
+              <ContentDiv
+                onClick={clickUserInfo}
+              >
+                ユーザー情報
+              </ContentDiv>
+              <ContentDiv
+                onClick={logout}
+              >
+                ログアウト
+              </ContentDiv>
+            </NavDiv>
+          </BtnDiv>
+        </UserInfoMainDiv>
+      </UserInfoOuterDiv>
       {
         flag &&
         <OverlayDiv
