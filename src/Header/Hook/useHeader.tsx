@@ -12,6 +12,7 @@ import { editModeEnum } from '../../Setting/Const/SettingConst';
 import { userInfoType } from '../../Common/Type/CommonType';
 import { LOGIN_PATH, NOWPATH_STRAGEKEY, USER_PATH } from '../Const/HeaderConst';
 import useSwitch from '../../Common/Hook/useSwitch';
+import { USERID_STRAGEKEY } from '../../Common/Const/CommonConst';
 
 
 //引数の型
@@ -63,6 +64,9 @@ function useHeader(props: propsType) {
                 localStorage.setItem(NOWPATH_STRAGEKEY, `/${mainPath}`);
             }
         }
+
+        //ユーザーIDをストレージに保持する
+        localStorage.setItem(USERID_STRAGEKEY, props.userInfo?.userId ?? "");
         offFlag();
         navigate(USER_PATH);
     };

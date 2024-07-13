@@ -6,6 +6,7 @@ import { copyUrlToClipboard } from './Function/HomeFunction';
 import { useNavigate } from "react-router-dom";
 import ENV from '../env.json';
 import UserIconComponent from '../Common/UserIconComponent';
+import useHomeHistoryContent from './Hook/useHomeHistoryContent';
 
 
 //外側のスタイル
@@ -79,6 +80,12 @@ function HomeHistoryContent(props: propsType) {
     //ルーティング用
     const navigate = useNavigate();
 
+    const {
+        clickIcon
+    } = useHomeHistoryContent({
+        userId: props.taskHistory.userId
+    });
+
     return (
         <OuterDiv>
             {/* タイトル */}
@@ -91,11 +98,13 @@ function HomeHistoryContent(props: propsType) {
                             width='4%'
                             height='4%'
                             iconUrl={props.taskHistory.iconUrl}
+                            clickIcon={clickIcon}
                         />
                         :
                         <IconComponent
                             icon={IoPersonCircleOutline}
                             size='4%'
+                            onclick={clickIcon}
                         />
                 }
                 {

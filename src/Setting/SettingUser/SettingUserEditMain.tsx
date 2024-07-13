@@ -64,6 +64,7 @@ type propsType = {
     setIconUrl: React.Dispatch<React.SetStateAction<string | undefined>>,
     iconType: string | undefined,
     setIconType: React.Dispatch<React.SetStateAction<string | undefined>>,
+    isEditable: boolean,
 }
 
 
@@ -80,21 +81,24 @@ function SettingUserEditMain(props: propsType) {
             height={props.outerHeight}
         >
             <MainDiv>
-                <HorizonLabelItemComponent
-                    title={'ユーザーID'}
-                    width='30%'
-                    position='left'
-                >
-                    {
-                        props.id !== undefined &&
-                        <BaseInputComponent
-                            value={props.id}
-                            length={50}
-                            onChange={props.setId}
-                            textWidth='80%'
-                        />
-                    }
-                </HorizonLabelItemComponent>
+                {
+                    props.isEditable &&
+                    <HorizonLabelItemComponent
+                        title={'ユーザーID'}
+                        width='30%'
+                        position='left'
+                    >
+                        {
+                            props.id !== undefined &&
+                            <BaseInputComponent
+                                value={props.id}
+                                length={50}
+                                onChange={props.setId}
+                                textWidth='80%'
+                            />
+                        }
+                    </HorizonLabelItemComponent>
+                }
                 <HorizonLabelItemComponent
                     title={'ユーザー名'}
                     width='30%'
@@ -102,29 +106,41 @@ function SettingUserEditMain(props: propsType) {
                 >
                     {
                         props.userName !== undefined &&
-                        <BaseInputComponent
-                            value={props.userName}
-                            length={50}
-                            onChange={props.setUserName}
-                            textWidth='80%'
-                        />
+                        <React.Fragment>
+                            {
+                                props.isEditable ?
+                                    <BaseInputComponent
+                                        value={props.userName}
+                                        length={50}
+                                        onChange={props.setUserName}
+                                        textWidth='80%'
+                                    />
+                                    :
+                                    <div>
+                                        {props.userName}
+                                    </div>
+                            }
+                        </React.Fragment>
                     }
                 </HorizonLabelItemComponent>
-                <HorizonLabelItemComponent
-                    title={'パスワード'}
-                    width='30%'
-                    position='left'
-                >
-                    {
-                        props.password !== undefined &&
-                        <BaseInputComponent
-                            value={props.password}
-                            length={50}
-                            onChange={props.setPassword}
-                            textWidth='80%'
-                        />
-                    }
-                </HorizonLabelItemComponent>
+                {
+                    props.isEditable &&
+                    <HorizonLabelItemComponent
+                        title={'パスワード'}
+                        width='30%'
+                        position='left'
+                    >
+                        {
+                            props.password !== undefined &&
+                            <BaseInputComponent
+                                value={props.password}
+                                length={50}
+                                onChange={props.setPassword}
+                                textWidth='80%'
+                            />
+                        }
+                    </HorizonLabelItemComponent>
+                }
                 {
                     userInfo && userInfo.auth === ADMIN_ID &&
                     <HorizonLabelItemComponent
@@ -186,6 +202,7 @@ function SettingUserEditMain(props: propsType) {
                     outerHeight='20%'
                 >
                     {
+                        props.isEditable &&
                         props.iconType !== undefined &&
                         <React.Fragment>
                             <LabelRadioComponent

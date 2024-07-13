@@ -18,7 +18,6 @@ const OuterDiv = styled.div`
 //引数の型
 type propsType = {
     path: string,
-    userInfo: userInfoType
 }
 
 
@@ -26,7 +25,7 @@ function User(props: propsType) {
 
     console.log("User render");
 
-    useUser({ ...props });
+    useUser();
 
     return (
         <OuterDiv>

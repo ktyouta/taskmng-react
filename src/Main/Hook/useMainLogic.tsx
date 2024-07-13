@@ -78,7 +78,6 @@ const retComponent = (componentName: string, path: string, userInfo: userInfoTyp
         case "User":
             component = <User
                 path={path}
-                userInfo={userInfo}
             />;
             break;
         //作業履歴

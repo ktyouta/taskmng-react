@@ -42,6 +42,7 @@ function useUserTop(props: propsType) {
         setIconUrl,
         iconType,
         setIconType,
+        isEditable,
     } = useSettingUserEdit({ ...props });
 
     //ルーティング用
@@ -84,6 +85,7 @@ function useUserTop(props: propsType) {
         setIconUrl,
         iconType,
         setIconType,
+        isEditable,
     }
 }
 

@@ -51,6 +51,7 @@ function SettingUserEdit(props: propsType) {
     setIconUrl,
     iconType,
     setIconType,
+    isEditable,
   } = useSettingUserEdit({ ...props });
 
   return (
@@ -74,6 +75,7 @@ function SettingUserEdit(props: propsType) {
         setIconUrl={setIconUrl}
         iconType={iconType}
         setIconType={setIconType}
+        isEditable={isEditable}
       />
       <SettingUserEditFooter
         positiveButtonObj={positiveButtonObj}

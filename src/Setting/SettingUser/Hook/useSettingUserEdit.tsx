@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { useNavigate } from "react-router-dom";
-import { createRef, useEffect, useMemo, useState } from "react";
+import { createRef, useEffect, useMemo, useRef, useState } from "react";
 import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrapper";
 import { inputRefType } from "../../Type/SettingType";
 import ENV from '../../../env.json';
@@ -12,6 +12,9 @@ import { updUserType, userType } from "../Type/SettingUserType";
 import { editModeAtom, userIdAtom } from "../Atom/SettingUserAtom";
 import { editModeEnum } from "../../Const/SettingConst";
 import { AUTH_ID, SELECT_ICON_TYPE } from "../Const/SettingUserConst";
+import { useGlobalAtomValue } from "../../../Common/Hook/useGlobalAtom";
+import { userInfoAtom } from "../../../Content/Hook/useContentLogic";
+import { USER_AUTH } from "../../../Common/Const/CommonConst";
 
 
 //引数の型
@@ -27,14 +30,16 @@ function useSettingUserEdit(props: propsType) {
     const navigate = useNavigate();
     //エラーメッセージ
     const [errMessage, setErrMessage] = useState("");
-    //カスタム属性のID
+    //ユーザーID
     const userId = useAtomValue(userIdAtom);
+    // ログインユーザー情報
+    const userInfo = useGlobalAtomValue(userInfoAtom);
+
     //汎用詳細リスト(形式選択)
     const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
     });
 
-    //カスタム属性のパラメータ
     //ID
     const [id, setId] = useState<string | undefined>();
     //名称
@@ -329,6 +334,7 @@ function useSettingUserEdit(props: propsType) {
         setIconUrl,
         iconType,
         setIconType,
+        isEditable: userId === userInfo?.userId || userInfo?.auth === USER_AUTH.ADMIN
     }
 }
 

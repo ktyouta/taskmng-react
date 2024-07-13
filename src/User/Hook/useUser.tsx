@@ -10,25 +10,35 @@ import { useEffect, useState } from 'react';
 import { editModeAtom, userIdAtom } from '../../Setting/SettingUser/Atom/SettingUserAtom';
 import { editModeEnum } from '../../Setting/Const/SettingConst';
 import { userInfoType } from '../../Common/Type/CommonType';
+import { NOWPATH_STRAGEKEY } from '../../Header/Const/HeaderConst';
 
 
-//引数の型
-type propsType = {
-    userInfo: userInfoType | undefined,
-}
-
-function useUser(props: propsType) {
+function useUser() {
 
     //編集モード
     const setEditMode = useSetAtom(editModeAtom);
     //ユーザーID
     const setUserId = useSetAtom(userIdAtom);
+    //ルーティング用
+    const navigate = useNavigate();
 
     useEffect(() => {
-        setUserId(props.userInfo?.userId ?? "");
+        //ローカルストレージからユーザーIDを取得する
+        let userId = localStorage.getItem(NOWPATH_STRAGEKEY);
+
+        if (!userId) {
+            //ローカルストレージから遷移前の画面のパスを取得する
+            let nowPath = localStorage.getItem(NOWPATH_STRAGEKEY);
+            if (!nowPath) {
+                return;
+            }
+            navigate(nowPath);
+            return;
+        }
+
+        setUserId(userId);
         setEditMode(editModeEnum.update);
     }, []);
-
 
 }
 
