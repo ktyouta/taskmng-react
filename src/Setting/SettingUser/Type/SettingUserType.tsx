@@ -22,9 +22,5 @@ export type updUserType = {
 //APIから取得するアイコンリストの型
 export type imageListResType = {
     [key: string]: string,
-    id: string,
-    imageName: string,
-    imageType: string,
-    deleteFlg: string,
     iconUrl: string,
 }

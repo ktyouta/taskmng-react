@@ -21,7 +21,6 @@ import { ADMIN_ID, SELECT_ICON_TYPE } from './Const/SettingUserConst';
 import RadioComponent from '../../Common/RadioComponent';
 import LabelRadioComponent from '../../Common/LabelRadioComponent';
 import SettingUserSelectStandardMessage from './SettingUserSelectStandardMessage';
-import SettingUserSelectStandardIcon from './SettingUserSelectStandardIcon';
 import UserIconComponent from '../../Common/UserIconComponent';
 
 

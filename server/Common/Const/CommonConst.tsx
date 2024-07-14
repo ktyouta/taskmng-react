@@ -2,6 +2,8 @@ import ENV from '../../../src/env.json';
 
 //サーバーURL
 export const SERVER_URL = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.LOCALPORT}`;
+//public
+export const PUBLIC = `./public`;
 //テスト用ファイルパス
 export const TESTFILEPATH = `./public/json/master/test.json`;
 //マスタファイルパス

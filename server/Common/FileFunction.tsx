@@ -55,7 +55,16 @@ export function decodeStr(str: string) {
  * ファイルデータを取得
  * @param filePath 
  */
-export function getFileJsonData<T>(filePath: string):T {
+export function getFileJsonData<T>(filePath: string): T {
     let content = readFile(filePath);
     return decodeStr(content);
+}
+
+/**
+ * 指定したディレクトリ内のファイル名を取得する
+ */
+export function getFileName(dirPath: string,) {
+    const files: string[] = fs.readdirSync(dirPath);
+
+    return files;
 }

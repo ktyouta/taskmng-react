@@ -9,7 +9,6 @@ import ModalComponent from '../../Common/ModalComponent';
 import useSettingUserSelectStandardIcon from './Hook/useSettingUserSelectStandardIconList';
 import useSettingUserSelectStandardIconList from './Hook/useSettingUserSelectStandardIconList';
 import { imageListResType } from './Type/SettingUserType';
-import SettingUserSelectStandardIcon from './SettingUserSelectStandardIcon';
 import Loading from '../../Common/Loading';
 import UserIconComponent from '../../Common/UserIconComponent';
 
