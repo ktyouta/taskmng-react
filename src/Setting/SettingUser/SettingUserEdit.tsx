@@ -82,6 +82,7 @@ function SettingUserEdit(props: propsType) {
         deleteButtonObj={deleteButtonObj}
         runButtonObj={runButtonObj}
         outerHeight={'15%'}
+        isEditable={isEditable}
       />
       {
         isLoadinGetuser && <CenterLoading />

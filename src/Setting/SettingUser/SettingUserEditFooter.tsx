@@ -2,6 +2,7 @@ import ButtonComponent, { buttonType } from '../../Common/ButtonComponent';
 import SpaceComponent from '../../Common/SpaceComponent';
 import styled from 'styled-components';
 import { buttonObjType } from '../../Common/Type/CommonType';
+import React from 'react';
 
 
 
@@ -11,6 +12,7 @@ type propsType = {
     deleteButtonObj: buttonObjType,
     runButtonObj: buttonObjType,
     outerHeight: string,
+    isEditable: boolean,
 }
 
 //外側のスタイル
@@ -42,34 +44,40 @@ function SettingUserEditFooter(props: propsType) {
                     style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             }
-            <SpaceComponent
-                space={"50%"}
-            />
             {
-                props.deleteButtonObj &&
-                props.deleteButtonObj.title &&
-                props.deleteButtonObj.onclick &&
-                <ButtonComponent
-                    styleTypeNumber={props.deleteButtonObj.type}
-                    title={props.deleteButtonObj.title}
-                    onclick={props.deleteButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
-                />
+                props.isEditable &&
+                <React.Fragment>
+                    <SpaceComponent
+                        space={"50%"}
+                    />
+                    {
+                        props.deleteButtonObj &&
+                        props.deleteButtonObj.title &&
+                        props.deleteButtonObj.onclick &&
+                        <ButtonComponent
+                            styleTypeNumber={props.deleteButtonObj.type}
+                            title={props.deleteButtonObj.title}
+                            onclick={props.deleteButtonObj.onclick}
+                            style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                        />
+                    }
+                    <SpaceComponent
+                        space={"5%"}
+                    />
+                    {
+                        props.runButtonObj &&
+                        props.runButtonObj.title &&
+                        props.runButtonObj.onclick &&
+                        <ButtonComponent
+                            styleTypeNumber={props.runButtonObj.type}
+                            title={props.runButtonObj.title}
+                            onclick={props.runButtonObj.onclick}
+                            style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                        />
+                    }
+                </React.Fragment>
             }
-            <SpaceComponent
-                space={"5%"}
-            />
-            {
-                props.runButtonObj &&
-                props.runButtonObj.title &&
-                props.runButtonObj.onclick &&
-                <ButtonComponent
-                    styleTypeNumber={props.runButtonObj.type}
-                    title={props.runButtonObj.title}
-                    onclick={props.runButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
-                />
-            }
+
         </OuterDiv>
     );
 }

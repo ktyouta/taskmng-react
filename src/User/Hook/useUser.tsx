@@ -10,7 +10,8 @@ import { useEffect, useState } from 'react';
 import { editModeAtom, userIdAtom } from '../../Setting/SettingUser/Atom/SettingUserAtom';
 import { editModeEnum } from '../../Setting/Const/SettingConst';
 import { userInfoType } from '../../Common/Type/CommonType';
-import { NOWPATH_STRAGEKEY } from '../../Header/Const/HeaderConst';
+import { HOME_PATH, NOWPATH_STRAGEKEY } from '../../Header/Const/HeaderConst';
+import { USERID_STRAGEKEY } from '../../Common/Const/CommonConst';
 
 
 function useUser() {
@@ -24,15 +25,16 @@ function useUser() {
 
     useEffect(() => {
         //ローカルストレージからユーザーIDを取得する
-        let userId = localStorage.getItem(NOWPATH_STRAGEKEY);
+        let userId = localStorage.getItem(USERID_STRAGEKEY);
 
         if (!userId) {
             //ローカルストレージから遷移前の画面のパスを取得する
             let nowPath = localStorage.getItem(NOWPATH_STRAGEKEY);
             if (!nowPath) {
-                return;
+                nowPath = HOME_PATH;
             }
             navigate(nowPath);
+            alert("ユーザー情報を取得できませんでした。");
             return;
         }
 

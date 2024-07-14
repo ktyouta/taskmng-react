@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { buttonObjType } from "../Common/Type/CommonType";
 import SpaceComponent from "../Common/SpaceComponent";
 import ButtonComponent from "../Common/ButtonComponent";
+import React from "react";
 
 
 
@@ -10,6 +11,7 @@ type propsType = {
     positiveButtonObj: buttonObjType,
     runButtonObj: buttonObjType,
     outerHeight: string,
+    isEditable: boolean,
 }
 
 //外側のスタイル
@@ -41,20 +43,26 @@ function UserFooter(props: propsType) {
                     style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
                 />
             }
-            <SpaceComponent
-                space={"65%"}
-            />
             {
-                props.runButtonObj &&
-                props.runButtonObj.title &&
-                props.runButtonObj.onclick &&
-                <ButtonComponent
-                    styleTypeNumber={props.runButtonObj.type}
-                    title={props.runButtonObj.title}
-                    onclick={props.runButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
-                />
+                props.isEditable &&
+                <React.Fragment>
+                    <SpaceComponent
+                        space={"65%"}
+                    />
+                    {
+                        props.runButtonObj &&
+                        props.runButtonObj.title &&
+                        props.runButtonObj.onclick &&
+                        <ButtonComponent
+                            styleTypeNumber={props.runButtonObj.type}
+                            title={props.runButtonObj.title}
+                            onclick={props.runButtonObj.onclick}
+                            style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                        />
+                    }
+                </React.Fragment>
             }
+
         </OuterDiv>
     );
 }

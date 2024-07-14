@@ -10,4 +10,4 @@ export const USER_AUTH = {
     ADMIN: "3",
 }
 //ローカルストレージに保存するキー（ユーザーID）
-export const USERID_STRAGEKEY = "nowPath";
+export const USERID_STRAGEKEY = "userId";

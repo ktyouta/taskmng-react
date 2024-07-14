@@ -78,6 +78,7 @@ function UserTop(props: propsType) {
                 positiveButtonObj={positiveButtonObj}
                 runButtonObj={runButtonObj}
                 outerHeight={'15%'}
+                isEditable={isEditable}
             />
             {
                 isLoadinGetuser && <CenterLoading />

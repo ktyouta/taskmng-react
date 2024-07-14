@@ -11,7 +11,7 @@ import { AUTH_ID } from "../../Setting/SettingUser/Const/SettingUserConst";
 import useMutationWrapper, { resType } from "../../Common/Hook/useMutationWrapper";
 import ENV from '../../env.json';
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
-import { NOWPATH_STRAGEKEY } from "../../Header/Const/HeaderConst";
+import { HOME_PATH, NOWPATH_STRAGEKEY } from "../../Header/Const/HeaderConst";
 import useSettingUserEdit from "../../Setting/SettingUser/Hook/useSettingUserEdit";
 
 
@@ -55,7 +55,8 @@ function useUserTop(props: propsType) {
         //ローカルストレージから遷移前の画面のパスを取得する
         let nowPath = localStorage.getItem(NOWPATH_STRAGEKEY);
         if (!nowPath) {
-            return;
+            //遷移前のパスが取得できなかった場合はホーム画面に遷移する
+            nowPath = HOME_PATH;
         }
         navigate(nowPath);
     }
