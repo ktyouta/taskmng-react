@@ -128,6 +128,20 @@
 		"updTime": "2024/01/21"
 	},
 	{
+		"id": "userName",
+		"name": "作成ユーザー",
+		"type": "label",
+		"length": 500,
+		"initValue": "",
+		"disabled": true,
+		"isNewCreateVisible": false,
+		"isHidden": false,
+		"isRequired": false,
+		"isSettingEditable": false,
+		"description": "",
+		"updTime": ""
+	},
+	{
 		"id": "customAttribute",
 		"name": "カスタム属性",
 		"type": "",

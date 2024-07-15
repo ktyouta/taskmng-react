@@ -12,7 +12,8 @@ export type taskListType = {
     userId: string,
     priority: string,
     status: string,
-    customAttribute?: customAttributeListType[]
+    customAttribute?: customAttributeListType[],
+    userName: string,
 }
 
 //画面表示用タスクリストの型

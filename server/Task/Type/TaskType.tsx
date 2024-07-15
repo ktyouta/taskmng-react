@@ -17,7 +17,7 @@ export type taskListType = {
 
 //画面返却用のタスク詳細の型
 export type taskDetailType = {
-    default: taskListType,
+    default: retDefaultTaskType,
     customAttribute: inputSettingType[]
 }
 
@@ -47,4 +47,9 @@ export type taskCustomAttributeSelectType = {
     updTime: string,
     deleteFlg: string,
     userId: string
+}
+
+//画面返却用のデフォルト属性の型
+export type retDefaultTaskType = taskListType & {
+    userName: string,
 }

@@ -2,10 +2,10 @@ import { getGeneralDetailData } from "../General/GeneralFunction";
 import { createDeleteCustomAttributeData, createDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
 import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
-import { createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
+import { convDefaultTask, createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
 import { runAddTaskHistory } from "../History/HistoryFunction";
 import { CREATE, CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, DELETE, TASK_FILEPATH, UPDATE } from "./Const/TaskConst";
-import { taskDetailType, taskListType } from "./Type/TaskType";
+import { retDefaultTaskType, taskDetailType, taskListType } from "./Type/TaskType";
 import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
@@ -64,7 +64,7 @@ export function getTaskDetail(res: any, req: any, id: string) {
     }
 
     //詳細を取得
-    let singleTaskData = decodeFileData.find((element) => { return element.id === id });
+    let singleTaskData: taskListType | undefined = decodeFileData.find((element) => { return element.id === id });
     if (!singleTaskData) {
         return res.status(400).json({ errMessage: `該当データがありません。` });
     }
@@ -75,8 +75,11 @@ export function getTaskDetail(res: any, req: any, id: string) {
     //カスタム属性の選択値を取得
     let selectedCustomAttributeList: inputSettingType[] = joinCustomAttribute(singleTaskData);
 
+    //デフォルト属性を画面返却用の型に変換
+    let retSingleTaskData: retDefaultTaskType = convDefaultTask(singleTaskData);
+
     let retTaskDetail: taskDetailType = {
-        default: singleTaskData,
+        default: retSingleTaskData,
         customAttribute: selectedCustomAttributeList
     };
 

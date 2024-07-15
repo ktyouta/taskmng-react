@@ -5,13 +5,15 @@ import { CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, CUSTOMATTRIBUTE_KEY_DEFAULT, PRE_
 import { categoryType } from "../Setting/Category/Type/CategoryType";
 import { getFilterdCategory } from "../Setting/Category/CategorySelectFunction";
 import ENV from '../../src/env.json';
-import { taskCustomAttributeSelectType, taskCustomAttributeSelectedType, taskListType } from "./Type/TaskType";
+import { retDefaultTaskType, taskCustomAttributeSelectType, taskCustomAttributeSelectedType, taskListType } from "./Type/TaskType";
 import { customAttributeListType, customAttributeType } from "../Setting/CustomAttribute/Type/CustomAttributeType";
 import { TASK_CATEGORY_ID } from "../Common/Const/CommonConst";
 import { comboType, inputSettingType } from "../Common/Type/CommonType";
 import { getFileJsonData, readFile } from "../Common/FileFunction";
 import { getFilterdSearchConditionList, getSearchConditionList } from "../Setting/SearchCondition/SearchConditionSelectFunction";
 import { searchConditionType } from "../Setting/SearchCondition/Type/SearchConditionType";
+import { userInfoType } from "../Setting/User/Type/UserType";
+import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 
 
 
@@ -271,4 +273,19 @@ export function createTaskDetailUrl(taskData: taskListType) {
     taskData.url = taskCategoryData ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.LOCALPORT}${taskCategoryData?.path}/${taskData.id}` : "";
 
     return taskData;
+}
+
+/**
+ * デフォルト属性を画面返却用の型に変換
+ */
+export function convDefaultTask(singleTaskData: taskListType): retDefaultTaskType {
+
+    //ユーザー情報の読み込み
+    let uesrList: userInfoType[] = getUserInfoData();
+
+    let userName = uesrList.find((element) => {
+        return element.userId === singleTaskData.userId;
+    })?.userName;
+
+    return { ...singleTaskData, userName: userName ?? "" }
 }

@@ -14,7 +14,7 @@ import TaskViewFooter from './TaskViewFooter';
 import TaskViewForm from './TaskViewForm';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
-import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import { HeaderDiv, HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 
 
 //外側のスタイル
@@ -23,11 +23,8 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
 `;
 
 //ヘッダー
-const HeaderDiv = styled.div`
-    height: 10%;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
+const TaskHeaderDiv = styled(HeaderDiv)`
+  margin-left:3%;
 `;
 
 //入力欄
@@ -76,11 +73,11 @@ function TaskView(props: propsType) {
       <OuterDiv
         height='85%'
       >
-        <HeaderDiv>
+        <TaskHeaderDiv>
           <LabelComponent
             title="タスク詳細"
           />
-        </HeaderDiv>
+        </TaskHeaderDiv>
         <MainAreaDiv>
           {/* デフォルト属性 */}
           <TaskViewForm
