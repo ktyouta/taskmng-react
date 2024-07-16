@@ -251,20 +251,39 @@ export function createUpdRefArray(taskSettingList: inputTaskSettingType[], updTa
         }
         let isVisible = true;
         let tmpSelectLits: comboType[] = [];
+
         //項目の表示非表示
         if (element.isHidden) {
             isVisible = false;
         }
+
         //リストキーが存在する(選択項目)
         if (element.listKey && generalDataList) {
             tmpSelectLits = generalDataList.filter((item) => {
                 return item.id === element.listKey;
             });
         }
+
+        //入力値の種類
+        let elementType = element.type
+
+        //他ユーザーが編集不可の項目
+        if (!element.isEditableOther) {
+            elementType = "label";
+
+            //選択リストの場合はlabelを取得する
+            if (tmpSelectLits && tmpSelectLits.length > 0) {
+
+                tmpValue = tmpSelectLits.find((element1) => {
+                    return element1.value === tmpValue;
+                })?.label;
+            }
+        }
+
         tmpRefInfoArray.push({
             id: element.id,
             name: element.name,
-            type: element.type,
+            type: elementType,
             length: element.length,
             //キーに一致するデータが存在する場合はその値を表示
             initValue: tmpValue ?? element.initValue,
@@ -273,7 +292,7 @@ export function createUpdRefArray(taskSettingList: inputTaskSettingType[], updTa
             visible: isVisible,
             selectList: tmpSelectLits,
             description: element.description,
-            isRequired: element.isRequired,
+            isRequired: element.isRequired && element.isEditableOther,
             ref: createRef(),
         });
     });

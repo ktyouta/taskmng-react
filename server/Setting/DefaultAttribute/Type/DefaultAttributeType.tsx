@@ -18,6 +18,7 @@ export type defaultAttributeType = {
     isNewCreateVisible: boolean,
     isHidden: boolean,
     initValue: string,
+    isEditableOther: boolean,
 }
 
 //デフォルト属性の更新時の型

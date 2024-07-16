@@ -2,7 +2,7 @@ import { bodyObj, comboType, inputAddMasterSettingType, inputMasterSettingType, 
 
 //タスクリストの型
 export type taskListType = {
-    [key: string]: string | customAttributeListType[] | undefined,
+    [key: string]: string | customAttributeListType[] | undefined | boolean,
     id: string,
     registerTime: string,
     title: string,
@@ -103,6 +103,7 @@ export type inputTaskSettingType = {
     listKey?: string,
     description?: string,
     isRequired?: boolean,
+    isEditableOther: boolean,
 }
 
 //画面表示用タスクの型
