@@ -1,5 +1,5 @@
 import React, { SetStateAction } from "react";
-import { bodyObj, comboType, generalDataType, refInfoType } from "../../Common/Type/CommonType";
+import { bodyObj, comboType, generalDataType, refInfoType, userInfoType } from "../../Common/Type/CommonType";
 import {
     apiTaskDetailType,
     customAttributeListType,
@@ -24,6 +24,7 @@ import { tabType } from "../../Common/TabComponent";
 import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
 import TaskEditForm from "../TaskEditForm";
 import { COMP_STATUS, HOLD_STATUS, NOCOMP_STATUS, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, WORKING_STATUS } from "../Const/TaskConst";
+import { USER_AUTH } from "../../Common/Const/CommonConst";
 
 
 //フッターのスタイル
@@ -224,7 +225,7 @@ export function createTaskCustomAttributeRequestBody(refInputArray: refInfoType[
  * @returns 
  */
 export function createUpdRefArray(taskSettingList: inputTaskSettingType[], updTask: apiTaskDetailType,
-    generalDataList: generalDataType[], customAttributeInputSetting: refInfoType[]
+    generalDataList: generalDataType[], customAttributeInputSetting: refInfoType[], userInfo: userInfoType
 ): editDisplayTaskType {
 
     let tmpRefInfoArray: refInfoType[] = [];
@@ -265,10 +266,12 @@ export function createUpdRefArray(taskSettingList: inputTaskSettingType[], updTa
         }
 
         //入力値の種類
-        let elementType = element.type
+        let elementType = element.type;
+        //編集可能フラグ
+        let isEditable = element.isEditableOther || userInfo.auth === USER_AUTH.ADMIN;
 
-        //他ユーザーが編集不可の項目
-        if (!element.isEditableOther) {
+        //他ユーザーが編集不可の項目(管理者ユーザーの場合は編集可能)
+        if (!isEditable) {
             elementType = "label";
 
             //選択リストの場合はlabelを取得する
@@ -292,7 +295,7 @@ export function createUpdRefArray(taskSettingList: inputTaskSettingType[], updTa
             visible: isVisible,
             selectList: tmpSelectLits,
             description: element.description,
-            isRequired: element.isRequired && element.isEditableOther,
+            isRequired: element.isRequired && isEditable,
             ref: createRef(),
         });
     });

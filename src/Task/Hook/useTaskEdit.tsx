@@ -10,6 +10,8 @@ import { buttonType } from "../../Common/ButtonComponent";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
 import { checkTaskRequest, createTaskRequestBody, createUpdRefArray } from "../Function/TaskFunction";
+import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
+import { userInfoAtom } from "../../Content/Hook/useContentLogic";
 
 
 //引数の型
@@ -34,6 +36,8 @@ function useTaskEdit(props: propsType) {
     const [refInfoArray, setRefInfoArray] = useState<editDisplayTaskType>();
     //スナックバーに表示する登録更新時のエラーメッセージ
     const [errMessage, setErrMessage] = useState("");
+    // ログインユーザー情報
+    const userInfo = useGlobalAtomValue(userInfoAtom);
 
     //カスタム属性入力設定リスト
     const { data: customAttributeInputSetting } = useQueryWrapper<refInfoType[]>({
@@ -54,10 +58,14 @@ function useTaskEdit(props: propsType) {
         if (!customAttributeInputSetting) {
             return;
         }
+        if (!userInfo) {
+            return;
+        }
 
         //入力欄の参照を作成
-        setRefInfoArray(createUpdRefArray(props.taskSettingList, props.updTask, props.generalDataList, customAttributeInputSetting));
-    }, [props.taskSettingList, props.updTask, props.generalDataList, customAttributeInputSetting]);
+        setRefInfoArray(createUpdRefArray(props.taskSettingList,
+            props.updTask, props.generalDataList, customAttributeInputSetting, userInfo));
+    }, [props.taskSettingList, props.updTask, props.generalDataList, customAttributeInputSetting, userInfo]);
 
     //更新用フック
     const updMutation = useMutationWrapper({
