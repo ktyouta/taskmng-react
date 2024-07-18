@@ -54,13 +54,15 @@ function useSettingDefaultEdit(props: propsType) {
     const [initValue, setInitValue] = useState<string | undefined>();
     //タイプが選択形式の場合のリスト
     const [selectTypeInitRef, setSelectTypeInitRef] = useState<initRefValueType | undefined>();
+    //他ユーザーの更新可能フラグ
+    const [isEditableOther, setIsEditableOther] = useState<boolean | undefined>();
 
     //編集画面遷移時に更新用デフォルト属性を取得
     const { data: updDefaultAttribute, isLoading: isLoadinGetDefaultAttribute } = useQueryWrapper<defaultAttributeType>(
         {
             url: defaultAttributeId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASKINPUTSETTING}/${defaultAttributeId}` : ``,
             //取得したデータをセット
-            afSuccessFn: (data) => {
+            afSuccessFn: (data: defaultAttributeType) => {
                 setErrMessage("");
                 if (!data) {
                     return;
@@ -72,6 +74,7 @@ function useSettingDefaultEdit(props: propsType) {
                 setIsHidden(data.isHidden);
                 setIsNewCreateVisible(data.isNewCreateVisible);
                 setLength(data.length);
+                setIsEditableOther(data.isEditableOther);
                 //選択リストを所持している場合
                 if (data.selectElementList && data.selectElementList.length > 0) {
                     let tmpRefArray: defaultAttributeInputRefType[] = [];
@@ -204,7 +207,8 @@ function useSettingDefaultEdit(props: propsType) {
             isHidden: false,
             length: 0,
             selectElementList: [],
-            initValue: ""
+            initValue: "",
+            isEditableOther: false,
         };
 
         //名称
@@ -220,7 +224,7 @@ function useSettingDefaultEdit(props: propsType) {
         }
 
         //必須
-        if (caRequired && !isHidden && isNewCreateVisible) {
+        if (caRequired && !isHidden && !isNewCreateVisible) {
             body.isRequired = caRequired;
         }
 
@@ -252,6 +256,11 @@ function useSettingDefaultEdit(props: propsType) {
         }
         else if (initValue) {
             body.initValue = initValue;
+        }
+
+        //他ユーザーによる編集可能フラグ
+        if (isEditableOther) {
+            body.isEditableOther = isEditableOther;
         }
 
         return body;
@@ -315,6 +324,8 @@ function useSettingDefaultEdit(props: propsType) {
         editMode,
         selectElementList,
         editSelectList,
+        isEditableOther,
+        setIsEditableOther,
     }
 }
 

@@ -103,7 +103,7 @@ export function runUpdDefaultAttribute(res: any, req: any, dfId: string) {
     let caDecodeFileData: defaultAttributeType[] = getFileJsonData(DEFAULT_ATTRIBUTE_FILEPATH);
 
     //存在チェック
-    let filterdCaData = caDecodeFileData.find((element) => {
+    let filterdCaData: defaultAttributeType | undefined = caDecodeFileData.find((element) => {
         return element.id === dfId;
     });
 
@@ -111,16 +111,24 @@ export function runUpdDefaultAttribute(res: any, req: any, dfId: string) {
     if (!filterdCaData) {
         return res
             .status(400)
-            .json({ errMessage: `更新データが存在しません。` });
+            .json({ errMessage: `更新対象のデータが存在しません。` });
+    }
+
+    //更新不可項目
+    if (!filterdCaData.isSettingEditable) {
+        return res
+            .status(400)
+            .json({ errMessage: `選択した項目は更新できません。` });
     }
 
     let updDefaultAttribute: defaultAttributeUpdType = req.body;
 
     //更新データの作成
-    let updCaData = createUpdDefaultAttribute(caDecodeFileData, updDefaultAttribute, dfId);
+    let updCaData: defaultAttributeType[] = createUpdDefaultAttribute(caDecodeFileData, updDefaultAttribute, dfId);
 
     //データを更新
     errMessage = overWriteData(DEFAULT_ATTRIBUTE_FILEPATH, JSON.stringify(updCaData, null, '\t'));
+
     //更新に失敗
     if (errMessage) {
         return res

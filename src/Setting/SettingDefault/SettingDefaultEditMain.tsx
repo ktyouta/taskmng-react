@@ -62,6 +62,8 @@ type propsType = {
     editMode: number,
     selectElementList: defaultAttributeInputRefType[] | undefined,
     editSelectList: (e: string, index: number) => void,
+    isEditableOther: boolean | undefined,
+    setIsEditableOther: React.Dispatch<React.SetStateAction<boolean | undefined>>,
 }
 
 
@@ -205,7 +207,7 @@ function SettingDefaultEditMain(props: propsType) {
                 }
                 {
                     !props.isHidden &&
-                    props.isNewCreateVisible &&
+                    !props.isNewCreateVisible &&
                     <HorizonLabelItemComponent
                         title={'属性の設定'}
                         width='30%'
@@ -252,8 +254,25 @@ function SettingDefaultEditMain(props: propsType) {
                             title={'新規作成時に非表示項目とする'}
                             value={''}
                             htmlForId={'isNewCreateVisibleItem'}
-                            initValue={!props.isNewCreateVisible}
+                            initValue={props.isNewCreateVisible}
                             onChangeBl={props.setIsNewCreateVisible}
+                            disabled={!props.isSettingEditable}
+                        />
+                    }
+                </HorizonLabelItemComponent>
+                <HorizonLabelItemComponent
+                    title={'他ユーザーによる編集可能設定'}
+                    width='30%'
+                    position='left'
+                >
+                    {
+                        props.isEditableOther !== undefined &&
+                        <LabelCheckBoxComponent
+                            title={'編集可能項目とする'}
+                            value={''}
+                            htmlForId={'isEditableOther'}
+                            initValue={props.isEditableOther}
+                            onChangeBl={props.setIsEditableOther}
                             disabled={!props.isSettingEditable}
                         />
                     }

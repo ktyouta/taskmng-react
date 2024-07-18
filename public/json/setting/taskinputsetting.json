@@ -12,7 +12,7 @@
 		"isSettingEditable": false,
 		"description": "",
 		"updTime": "",
-		"isEditableOther":false
+		"isEditableOther": false
 	},
 	{
 		"id": "title",
@@ -21,13 +21,13 @@
 		"length": 500,
 		"initValue": "",
 		"disabled": false,
-		"isNewCreateVisible": true,
+		"isNewCreateVisible": false,
 		"isHidden": false,
 		"isRequired": true,
 		"isSettingEditable": true,
 		"description": "",
-		"updTime": "2024/01/21",
-		"isEditableOther":false
+		"updTime": "2024/07/18",
+		"isEditableOther": false
 	},
 	{
 		"id": "content",
@@ -42,7 +42,7 @@
 		"description": "タスクの詳細について記入",
 		"isSettingEditable": true,
 		"updTime": "",
-		"isEditableOther":true
+		"isEditableOther": true
 	},
 	{
 		"id": "registerTime",
@@ -57,7 +57,7 @@
 		"isSettingEditable": false,
 		"description": "",
 		"updTime": "",
-		"isEditableOther":false
+		"isEditableOther": false
 	},
 	{
 		"id": "updTime",
@@ -72,7 +72,7 @@
 		"isSettingEditable": false,
 		"description": "",
 		"updTime": "",
-		"isEditableOther":false
+		"isEditableOther": false
 	},
 	{
 		"id": "limitTime",
@@ -87,7 +87,7 @@
 		"description": "タスクの処理期限",
 		"isSettingEditable": false,
 		"updTime": "",
-		"isEditableOther":true
+		"isEditableOther": true
 	},
 	{
 		"id": "userId",
@@ -102,7 +102,7 @@
 		"isSettingEditable": false,
 		"description": "",
 		"updTime": "",
-		"isEditableOther":false
+		"isEditableOther": false
 	},
 	{
 		"id": "priority",
@@ -118,7 +118,7 @@
 		"description": "タスクの優先度",
 		"isSettingEditable": true,
 		"updTime": "2024/01/21",
-		"isEditableOther":true
+		"isEditableOther": true
 	},
 	{
 		"id": "status",
@@ -134,7 +134,7 @@
 		"description": "タスクの状態",
 		"isSettingEditable": true,
 		"updTime": "2024/01/21",
-		"isEditableOther":true
+		"isEditableOther": true
 	},
 	{
 		"id": "userName",
@@ -149,7 +149,7 @@
 		"isSettingEditable": false,
 		"description": "",
 		"updTime": "",
-		"isEditableOther":false
+		"isEditableOther": false
 	},
 	{
 		"id": "customAttribute",
@@ -165,7 +165,7 @@
 		"description": "",
 		"isSettingEditable": false,
 		"updTime": "",
-		"isEditableOther":false
+		"isEditableOther": false
 	},
 	{
 		"id": "url",
@@ -180,6 +180,6 @@
 		"isSettingEditable": false,
 		"description": "",
 		"updTime": "",
-		"isEditableOther":false
+		"isEditableOther": false
 	}
 ]

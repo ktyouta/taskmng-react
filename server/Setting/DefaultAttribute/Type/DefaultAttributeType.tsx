@@ -19,6 +19,7 @@ export type defaultAttributeType = {
     isHidden: boolean,
     initValue: string,
     isEditableOther: boolean,
+    isSettingEditable: boolean,
 }
 
 //デフォルト属性の更新時の型
@@ -32,6 +33,7 @@ export type defaultAttributeUpdType = {
     length: number,
     selectElementList: selectListType[],
     initValue: string,
+    isEditableOther: boolean,
 }
 
 //選択リストの型

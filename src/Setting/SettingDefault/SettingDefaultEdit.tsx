@@ -57,6 +57,8 @@ function SettingDefaultEdit(props: propsType) {
     editMode,
     selectElementList,
     editSelectList,
+    isEditableOther,
+    setIsEditableOther,
   } = useSettingDefaultEdit({ ...props });
 
   return (
@@ -89,6 +91,8 @@ function SettingDefaultEdit(props: propsType) {
         setInitValue={setInitValue}
         selectTypeInitRef={selectTypeInitRef}
         editSelectList={editSelectList}
+        isEditableOther={isEditableOther}
+        setIsEditableOther={setIsEditableOther}
       />
       <SettingDefaultEditFooter
         positiveButtonObj={positiveButtonObj}
