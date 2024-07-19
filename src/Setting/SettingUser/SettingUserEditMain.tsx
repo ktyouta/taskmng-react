@@ -22,6 +22,8 @@ import RadioComponent from '../../Common/RadioComponent';
 import LabelRadioComponent from '../../Common/LabelRadioComponent';
 import SettingUserSelectStandardMessage from './SettingUserSelectStandardMessage';
 import UserIconComponent from '../../Common/UserIconComponent';
+import FileUploadComponent from '../../Common/FileUploadComponent';
+import SettingUserSelectOriginalMessage from './SettingUserSelectOriginalMessage';
 
 
 //外側のスタイル
@@ -36,6 +38,11 @@ const MainDiv = styled.div`
     overflow-y: auto;
     padding-top:2%;
     padding-left: 2%;
+`;
+
+//アイコン選択項目間のスタイル
+const MaringDiv = styled.div`
+    margin-top:1%;
 `;
 
 //選択アイコンのスタイル
@@ -212,7 +219,9 @@ function SettingUserEditMain(props: propsType) {
                                 htmlForId={'noIconSelect'}
                                 onChange={props.setIconType}
                                 isTitlePositionRight={true}
+                                gap='1%'
                             />
+                            <MaringDiv />
                             <LabelRadioComponent
                                 key={'standardIconSelect'}
                                 title={
@@ -226,6 +235,21 @@ function SettingUserEditMain(props: propsType) {
                                 htmlForId={'standardIconSelect'}
                                 onChange={props.setIconType}
                                 isTitlePositionRight={true}
+                                gap='1%'
+                            />
+                            <MaringDiv />
+                            <LabelRadioComponent
+                                key={'originalconSelect'}
+                                title={
+                                    <SettingUserSelectOriginalMessage />
+                                }
+                                value={SELECT_ICON_TYPE.ORIGINAL}
+                                selectedValue={props.iconType}
+                                htmlForId={'originalconSelect'}
+                                onChange={props.setIconType}
+                                isTitlePositionRight={true}
+                                width='100%'
+                                gap='1%'
                             />
                         </React.Fragment>
                     }

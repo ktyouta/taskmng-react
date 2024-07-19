@@ -6,11 +6,12 @@ import styled from 'styled-components';
 
 
 //ラベルラジオボタンの基本スタイル
-const LabelRadioDiv = styled.div`
+const LabelRadioDiv = styled.div<{ gap?: string, }>`
   display:flex;
   text-align: left;
   width: auto;
   align-items: center;
+  gap: ${({ gap }) => (gap ?? "")};
 `;
 
 //引数の型
@@ -24,13 +25,16 @@ type propsType = {
     width?: string,
     disabled?: boolean,
     isTitlePositionRight?: boolean,
+    gap?: string,
 }
 
 
 function LabelRadioComponent(props: propsType) {
 
     return (
-        <LabelRadioDiv>
+        <LabelRadioDiv
+            gap={props.gap}
+        >
             {
                 props.isTitlePositionRight ?
                     <React.Fragment>

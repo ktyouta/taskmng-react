@@ -43,7 +43,6 @@ const FileUploadComponent = forwardRef<refType, Props>((props, ref) => {
             type="file"
             accept="image/*"
             onChange={handleFileChange}
-            hidden
         />
     );
 }
