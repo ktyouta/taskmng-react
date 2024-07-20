@@ -52,6 +52,8 @@ function useSettingUserEdit(props: propsType) {
     const [iconUrl, setIconUrl] = useState<string | undefined>();
     //アイコン選択
     const [iconType, setIconType] = useState<string | undefined>();
+    //現在設定されているアイコン
+    const [orgIconUlr, setOrgIconUrl] = useState<string | undefined>();
 
     //編集画面遷移時に更新用データを取得
     const { data: updUser, isLoading: isLoadinGetuser } = useQueryWrapper<userType>(
@@ -67,8 +69,9 @@ function useSettingUserEdit(props: propsType) {
                 setUserName(data.userName);
                 setPassword(data.password);
                 setAuth(data.auth);
-                setIconUrl(data.iconUrl);
+                //setIconUrl(data.iconUrl);
                 setIconType(data.iconUrl ? SELECT_ICON_TYPE.STANDARD : SELECT_ICON_TYPE.NO_SELECT);
+                setOrgIconUrl(data.iconUrl);
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -334,7 +337,8 @@ function useSettingUserEdit(props: propsType) {
         setIconUrl,
         iconType,
         setIconType,
-        isEditable: userId === userInfo?.userId || userInfo?.auth === USER_AUTH.ADMIN
+        isEditable: userId === userInfo?.userId || userInfo?.auth === USER_AUTH.ADMIN,
+        orgIconUlr,
     }
 }
 

@@ -49,6 +49,7 @@ function UserTop(props: propsType) {
         iconType,
         setIconType,
         isEditable,
+        orgIconUlr,
     } = useUserTop({ ...props });
 
     return (
@@ -73,6 +74,7 @@ function UserTop(props: propsType) {
                 iconType={iconType}
                 setIconType={setIconType}
                 isEditable={isEditable}
+                orgIconUlr={orgIconUlr}
             />
             <UserFooter
                 positiveButtonObj={positiveButtonObj}

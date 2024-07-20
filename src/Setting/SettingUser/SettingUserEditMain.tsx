@@ -71,6 +71,7 @@ type propsType = {
     iconType: string | undefined,
     setIconType: React.Dispatch<React.SetStateAction<string | undefined>>,
     isEditable: boolean,
+    orgIconUlr: string | undefined,
 }
 
 
@@ -191,13 +192,11 @@ function SettingUserEditMain(props: propsType) {
                         <SelectedIconDiv>
                             アイコン
                             {
-                                props.iconType !== undefined &&
-                                props.iconType !== SELECT_ICON_TYPE.NO_SELECT &&
-                                props.iconUrl &&
+                                (props.iconUrl || props.orgIconUlr) &&
                                 <UserIconComponent
                                     width='25%'
                                     height='20%'
-                                    iconUrl={props.iconUrl ?? ""}
+                                    iconUrl={props.iconUrl ? props.iconUrl : props.orgIconUlr ?? ""}
                                     outerStyle={{ "margin-left": "auto", "margin-right": "auto", "margin-top": "3%" }}
                                 />
                             }
@@ -217,7 +216,10 @@ function SettingUserEditMain(props: propsType) {
                                 value={SELECT_ICON_TYPE.NO_SELECT}
                                 selectedValue={props.iconType}
                                 htmlForId={'noIconSelect'}
-                                onChange={props.setIconType}
+                                onChange={(e: string,) => {
+                                    props.setIconType(e);
+                                    props.setIconUrl("");
+                                }}
                                 isTitlePositionRight={true}
                                 gap='1%'
                             />
@@ -233,7 +235,10 @@ function SettingUserEditMain(props: propsType) {
                                 value={SELECT_ICON_TYPE.STANDARD}
                                 selectedValue={props.iconType}
                                 htmlForId={'standardIconSelect'}
-                                onChange={props.setIconType}
+                                onChange={(e: string,) => {
+                                    props.setIconType(e);
+                                    props.setIconUrl("");
+                                }}
                                 isTitlePositionRight={true}
                                 gap='1%'
                             />
@@ -241,12 +246,18 @@ function SettingUserEditMain(props: propsType) {
                             <LabelRadioComponent
                                 key={'originalconSelect'}
                                 title={
-                                    <SettingUserSelectOriginalMessage />
+                                    <SettingUserSelectOriginalMessage
+                                        isInactive={props.iconType !== SELECT_ICON_TYPE.ORIGINAL}
+                                        setIconUrl={props.setIconUrl}
+                                    />
                                 }
                                 value={SELECT_ICON_TYPE.ORIGINAL}
                                 selectedValue={props.iconType}
                                 htmlForId={'originalconSelect'}
-                                onChange={props.setIconType}
+                                onChange={(e: string,) => {
+                                    props.setIconType(e);
+                                    props.setIconUrl("");
+                                }}
                                 isTitlePositionRight={true}
                                 width='100%'
                                 gap='1%'
