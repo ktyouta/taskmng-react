@@ -52,8 +52,8 @@
     "eject": "react-scripts eject",
     "json-server": "json-server --port 3001 --watch db.json",
     "local": "run-p local:*",
-    "local:react": "react-scripts start",
-    "local:express": "./node_modules/.bin/ts-node server/index.tsx"
+    "local:react": "react-scripts start --openssl-legacy-provider",
+    "local:express": "npx ts-node server/index.tsx"
   },
   "eslintConfig": {
     "extends": [
