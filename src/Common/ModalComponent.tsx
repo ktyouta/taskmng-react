@@ -10,6 +10,10 @@ type propsType = {
     modalIsOpen: boolean,
     closeModal: () => void,
     children: ReactNode,
+    width?: string,
+    height?: string,
+    positionTop?: string,
+    positionLeft?: string,
 }
 
 function ModalComponent(props: propsType) {
@@ -22,13 +26,13 @@ function ModalComponent(props: propsType) {
             style={{
                 content: {
                     position: 'fixed',
-                    top: '5%',
-                    left: '15%',
+                    top: props.positionTop ?? '5%',
+                    left: props.positionLeft ?? '15%',
                     right: 'auto',
                     bottom: 'auto',
                     marginRight: '-50%',
-                    width: '70%',
-                    height: '85%',
+                    width: props.width ?? '70%',
+                    height: props.height ?? '85%',
                 }
             }}
             ariaHideApp={false}

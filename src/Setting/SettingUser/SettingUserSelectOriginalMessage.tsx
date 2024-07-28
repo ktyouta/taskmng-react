@@ -9,6 +9,7 @@ import ModalComponent from '../../Common/ModalComponent';
 import SettingUserSelectStandardIconList from './SettingUserSelectStandardIconList';
 import FileUploadComponent from '../../Common/FileUploadComponent';
 import useSettingUserSelectOriginalMessage from './Hook/useSettingUserSelectOriginalMessage';
+import CropperModalComponent from '../../Common/CropperModalComponent';
 
 
 //外側のスタイル
@@ -52,18 +53,12 @@ function SettingUserSelectOriginalMessage(props: propsType) {
             <TitleSpan
                 isInactive={props.isInactive}
             >
-                <FileUploadComponent
+                <CropperModalComponent />
+                {/* <FileUploadComponent
                     onChange={props.setIconUrl}
                     disabled={props.isInactive}
-                />
+                /> */}
             </TitleSpan>
-            {/* トリミング用モーダル */}
-            <ModalComponent
-                modalIsOpen={isModalOpen}
-                closeModal={offFlag}
-            >
-                test
-            </ModalComponent>
         </OuterDiv>
     );
 }

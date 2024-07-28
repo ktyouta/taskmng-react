@@ -14,8 +14,6 @@ type propsType = {
     zoom: number;
     setZoom: (zoom: number) => void;
     onCropComplete: (croppedArea: Area, croppedAreaPixels: Area) => void;
-    open: boolean;
-    onClose: () => void;
     imgSrc: string;
     showCroppedImage: () => void;
     onMediaLoaded: (mediaSize: MediaSize) => void;

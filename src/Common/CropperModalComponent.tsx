@@ -1,7 +1,10 @@
-import React, { useState, useCallback, forwardRef } from "react";
+import React, { useState, useCallback, forwardRef, useRef } from "react";
 import { Area, MediaSize } from "react-easy-crop";
-import "./styles.css";
 import CropperComponent from "./CropperComponent";
+import ButtonComponent from "./ButtonComponent";
+import ModalComponent from "./ModalComponent";
+import useSwitch from "./Hook/useSwitch";
+import styled from "styled-components";
 export const ASPECT_RATIO = 6 / 1;
 export const CROP_WIDTH = 400;
 
@@ -15,8 +18,16 @@ export type refType = {
 
 //引数の型
 type propsType = {
-
+    modalWidth?: string,
+    modalHeight?: string,
 }
+
+//ボタンの基本スタイル
+const ButtonStyle = styled.button<{ bgColor?: string }>`
+    color: white;
+    background-color: #00A0FF;
+    border-radius: 4px;
+`;
 
 /**
  * urlをもとにimage要素を作成
@@ -77,8 +88,6 @@ async function getCroppedImg(
 
 const CropperModalComponent = forwardRef<refType, propsType>((props, ref) => {
 
-    // Cropモーダルの開閉
-    const [isOpen, setIsOpen] = useState(false);
     // アップロードした画像URL
     const [imgSrc, setImgSrc] = useState("");
     // 画像の拡大縮小倍率
@@ -91,6 +100,10 @@ const CropperModalComponent = forwardRef<refType, propsType>((props, ref) => {
     const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>();
     // 切り取ったあとの画像URL
     const [croppedImgSrc, setCroppedImgSrc] = useState("");
+    // input type=fileの参照
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+    //モーダルの開閉用フラグ
+    const { flag: isModalOpen, onFlag, offFlag } = useSwitch();
 
 
     //テキストボックスの入力値を割り当てる
@@ -115,7 +128,7 @@ const CropperModalComponent = forwardRef<refType, propsType>((props, ref) => {
                 reader.addEventListener("load", () => {
                     if (reader.result) {
                         setImgSrc(reader.result.toString() || "");
-                        setIsOpen(true);
+                        onFlag();
                     }
                 });
                 reader.readAsDataURL(e.target.files[0]);
@@ -167,32 +180,44 @@ const CropperModalComponent = forwardRef<refType, propsType>((props, ref) => {
         }
     }, [croppedAreaPixels, imgSrc]);
 
+    const handleButtonClick = () => {
+        // input要素をクリックしてファイル選択ダイアログを開く
+        fileInputRef.current?.click();
+    };
+
     return (
         <div className="">
             <div className="file-upload-container">
-                Upload File
-                <input type="file" hidden onChange={onFileChange} />
+                <ButtonStyle className="button" onClick={handleButtonClick}>
+                    Upload File
+                    <input type="file" ref={fileInputRef} hidden onChange={onFileChange} />
+                </ButtonStyle>
             </div>
             <div className="img-container">
                 {croppedImgSrc ? (
                     <img src={croppedImgSrc} alt="Cropped" className="img" />
                 ) : (
-                    <div className="no-img">The cropped image is displayed here</div>
+                    <div className="no-img"></div>
                 )}
             </div>
-            <CropperComponent
-                crop={crop}
-                setCrop={setCrop}
-                zoom={zoom}
-                setZoom={setZoom}
-                onCropComplete={onCropComplete}
-                open={isOpen}
-                onClose={() => setIsOpen(false)}
-                imgSrc={imgSrc}
-                showCroppedImage={showCroppedImage}
-                onMediaLoaded={onMediaLoaded}
-                minZoom={minZoom}
-            />
+            <ModalComponent
+                modalIsOpen={isModalOpen}
+                closeModal={offFlag}
+                width={props.modalWidth}
+                height={props.modalHeight}
+            >
+                <CropperComponent
+                    crop={crop}
+                    setCrop={setCrop}
+                    zoom={zoom}
+                    setZoom={setZoom}
+                    onCropComplete={onCropComplete}
+                    imgSrc={imgSrc}
+                    showCroppedImage={showCroppedImage}
+                    onMediaLoaded={onMediaLoaded}
+                    minZoom={minZoom}
+                />
+            </ModalComponent>
         </div>
     );
 });
