@@ -10,6 +10,7 @@ import SettingUserSelectStandardIconList from './SettingUserSelectStandardIconLi
 import FileUploadComponent from '../../Common/FileUploadComponent';
 import useSettingUserSelectOriginalMessage from './Hook/useSettingUserSelectOriginalMessage';
 import CropperModalComponent from '../../Common/CropperModalComponent';
+import CropModalComponent from '../../Common/CropModalComponent';
 
 
 //外側のスタイル
@@ -53,7 +54,7 @@ function SettingUserSelectOriginalMessage(props: propsType) {
             <TitleSpan
                 isInactive={props.isInactive}
             >
-                <CropperModalComponent />
+                <CropModalComponent />
                 {/* <FileUploadComponent
                     onChange={props.setIconUrl}
                     disabled={props.isInactive}
