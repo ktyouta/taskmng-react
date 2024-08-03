@@ -1,7 +1,7 @@
 import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
 import { overWriteData } from "../../Common/FileFunction";
-import { USERINFO_FILEPATH } from "./Const/UserConst";
-import { userInfoType } from "./Type/UserType";
+import { SELECT_ICON_TYPE, USERINFO_FILEPATH } from "./Const/UserConst";
+import { registUserInfoType, updUserInfoType, userInfoType } from "./Type/UserType";
 import { createDeleteUserData } from "./UserDeleteFunction";
 import { createAddUserData, dubUserCheck } from "./UserRegistFunction";
 import { filterUserInfoDetail, getUserInfoData, joinAuthInfo } from "./UserSelectFunction";
@@ -83,8 +83,11 @@ export function runAddUser(res: any, req: any) {
             .json({ errMessage: dubErrMessage });
     }
 
+    //リクエストボディ
+    let requestBody: registUserInfoType = req.body;
+
     //登録用データの作成
-    let registData = createAddUserData(decodeFileData, req, authResult);
+    let registData = createAddUserData(decodeFileData, requestBody, authResult);
 
     //ユーザーが登録されていない
     if (!registData || !Array.isArray(registData) || registData.length === 0) {
@@ -189,8 +192,17 @@ export function runUpdUser(res: any, req: any, userId: string) {
             .json({ errMessage: `ユーザー情報が存在しません。` });
     }
 
+    //リクエストボディ
+    let requestBody: updUserInfoType = req.body;
+
+    if (!isCorrectIconType(requestBody.iconType)) {
+        return res
+            .status(400)
+            .json({ errMessage: `アイコン設定の選択値が不正です。` });
+    }
+
     //更新データの作成
-    let updData = createUpdUserData(decodeFileData, req, userId);
+    let updData = createUpdUserData(decodeFileData, requestBody, userId);
 
     //データを更新
     errMessage = overWriteData(USERINFO_FILEPATH, JSON.stringify(updData, null, '\t'));
@@ -206,4 +218,20 @@ export function runUpdUser(res: any, req: any, userId: string) {
     return res
         .status(200)
         .json({ errMessage: `更新が完了しました。` });
+}
+
+/**
+ * アイコンタイプのチェック
+ */
+export function isCorrectIconType(iconType?: string,) {
+
+    if (!iconType) {
+        return false;
+    }
+
+    return Object.keys(SELECT_ICON_TYPE).map((element) => {
+        return SELECT_ICON_TYPE[element];
+    }).some((element) => {
+        return element === iconType;
+    });
 }

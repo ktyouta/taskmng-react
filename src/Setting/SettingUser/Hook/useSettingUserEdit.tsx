@@ -15,6 +15,7 @@ import { AUTH_ID, SELECT_ICON_TYPE } from "../Const/SettingUserConst";
 import { useGlobalAtomValue } from "../../../Common/Hook/useGlobalAtom";
 import { userInfoAtom } from "../../../Content/Hook/useContentLogic";
 import { USER_AUTH } from "../../../Common/Const/CommonConst";
+import { isCorrectIconType } from "../Function/SettingUserFunction";
 
 
 //引数の型
@@ -69,9 +70,11 @@ function useSettingUserEdit(props: propsType) {
                 setUserName(data.userName);
                 setPassword(data.password);
                 setAuth(data.auth);
-                //setIconUrl(data.iconUrl);
                 setIconType(data.iconUrl ? SELECT_ICON_TYPE.STANDARD : SELECT_ICON_TYPE.NO_SELECT);
                 setOrgIconUrl(data.iconUrl);
+                if (data.iconUrl) {
+                    setIconUrl(data.iconUrl);
+                }
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -257,6 +260,7 @@ function useSettingUserEdit(props: propsType) {
             userName: "",
             password: "",
             auth: "",
+            iconType: iconType ?? "",
             iconUrl: "",
         };
 
@@ -266,35 +270,53 @@ function useSettingUserEdit(props: propsType) {
             return;
         }
         body.userId = id;
+
         //名称
         if (!userName) {
             alert("名称を入力してください");
             return;
         }
         body.userName = userName;
+
         //パスワード
         if (!password) {
             alert("パスワードを入力してください");
             return;
         }
         body.password = password;
+
         //権限
         if (!auth) {
             alert("権限を入力してください");
             return;
         }
         body.auth = auth;
+
         //アイコン
-        if (iconType === SELECT_ICON_TYPE.NO_SELECT) {
-            body.iconUrl = "";
-        }
-        else if (!iconUrl) {
-            alert("アイコンを設定してください。");
+        if (!isCorrectIconType(iconType)) {
+            alert("アイコン設定の選択値が不正です。");
             return;
         }
-        else {
-            body.iconUrl = iconUrl;
+
+        switch (iconType) {
+            case SELECT_ICON_TYPE.NO_SELECT:
+                break;
+            case SELECT_ICON_TYPE.STANDARD:
+                if (!iconUrl && !orgIconUlr) {
+                    alert("アイコンを設定してください。");
+                    return;
+                }
+                body.iconUrl = iconUrl ? iconUrl : orgIconUlr ? orgIconUlr : "";
+                break;
+            case SELECT_ICON_TYPE.ORIGINAL:
+                if (!iconUrl && !orgIconUlr) {
+                    alert("アイコンを設定してください。");
+                    return;
+                }
+                body.iconUrl = iconUrl ? iconUrl : orgIconUlr ? orgIconUlr : "";
+                break;
         }
+
         return body;
     };
 

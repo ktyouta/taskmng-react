@@ -11,7 +11,20 @@ export type userInfoType = {
     iconUrl: string,
 }
 
-//登録更新時のユーザー情報
+//登録時のユーザー情報
+export type registUserInfoType = {
+    userId: string,
+    userName: string,
+    password?: string,
+    auth: string,
+    deleteFlg?: string,
+    registerTime: string,
+    updTime: string,
+    iconUrl: string,
+    iconType: string,
+}
+
+//更新時のユーザー情報
 export type updUserInfoType = {
     userId: string,
     userName: string,
@@ -21,4 +34,5 @@ export type updUserInfoType = {
     registerTime: string,
     updTime: string,
     iconUrl: string,
+    iconType: string,
 }

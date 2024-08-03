@@ -12,7 +12,9 @@ export type refType = {
 
 //引数の型
 type propsType = {
-    fileData: File | undefined
+    fileData: File | undefined,
+    objectUrl: string,
+    setObjectUrl: React.Dispatch<React.SetStateAction<string>>
 }
 
 const CropComponent = forwardRef<refType, propsType>((props, ref) => {
@@ -20,19 +22,19 @@ const CropComponent = forwardRef<refType, propsType>((props, ref) => {
     //ファイル
     //const [fileData, setFileData] = useState<File | undefined>();
     //画像URL
-    const [objectUrl, setObjectUrl] = useState<string | undefined>();
+    //const [props.objectUrl, props.setObjectUrl] = useState<string | undefined>();
     //プロフィールイメージ
     const [profileImg, setProfileImg] = useState<string>("");
 
     //画像のURLを割り当てる
     React.useImperativeHandle(ref, () => ({
-        refValue: objectUrl,
+        refValue: props.objectUrl,
         clearValue: clearInput
     }));
 
     //URLのクリアイベント
     const clearInput = () => {
-        setObjectUrl("");
+        props.setObjectUrl("");
     };
 
     //Crop
@@ -46,17 +48,17 @@ const CropComponent = forwardRef<refType, propsType>((props, ref) => {
 
     //アップロードした画像のObjectUrlをステイトに保存する
     useEffect(() => {
-        if (props.fileData instanceof File) {
-            objectUrl && URL.revokeObjectURL(objectUrl);
-            setObjectUrl(URL.createObjectURL(props.fileData));
-        } else {
-            setObjectUrl(undefined);
-        }
+        // if (props.fileData instanceof File) {
+        //     props.objectUrl && URL.revokeObjectURL(props.objectUrl);
+        //     props.setObjectUrl(URL.createObjectURL(props.fileData));
+        // } else {
+        //     props.setObjectUrl("");
+        // }
     }, [props.fileData]);
 
     //切り取った画像のObjectUrlを作成し、ステイトに保存する
     const makeProfileImgObjectUrl = async () => {
-        if (objectUrl) {
+        if (props.objectUrl) {
             const canvas = document.createElement("canvas");
             canvas.width = crop.width ?? 0;
             canvas.height = crop.height ?? 0;
@@ -72,7 +74,7 @@ const CropComponent = forwardRef<refType, propsType>((props, ref) => {
             );
             ctx.clip();
 
-            const img = await loadImage(objectUrl);
+            const img = await loadImage(props.objectUrl);
 
             ctx.drawImage(
                 img,
@@ -119,7 +121,7 @@ const CropComponent = forwardRef<refType, propsType>((props, ref) => {
                 <button>切り取り</button>
             </form>
             <div>
-                {objectUrl && (
+                {props.objectUrl && (
                     <ReactCrop
                         crop={crop}
                         onChange={(c) => setCrop(c)}
@@ -127,7 +129,7 @@ const CropComponent = forwardRef<refType, propsType>((props, ref) => {
                         keepSelection={true}
                         aspect={1}
                     >
-                        <img src={objectUrl} alt="" style={{ width: "100%" }} />
+                        <img src={props.objectUrl} alt="" style={{ width: "30%", height: "30%" }} />
                     </ReactCrop>
                 )}
             </div>

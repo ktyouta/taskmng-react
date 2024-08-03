@@ -195,11 +195,23 @@ const CropModalComponent = forwardRef<refType, propsType>((props, ref) => {
         fileInputRef.current?.click();
     };
 
+    /**
+     * モーダルのクローズイベント
+     */
+    const closeModal = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+        }
+
+        //setImgSrc("");
+        offFlag();
+    }
+
     return (
         <div className="">
             <div className="file-upload-container">
                 <ButtonStyle className="button" onClick={handleButtonClick}>
-                    Upload File
+                    画像を選択する
                     <input type="file" ref={fileInputRef} hidden onChange={onFileChange} />
                 </ButtonStyle>
             </div>
@@ -212,12 +224,14 @@ const CropModalComponent = forwardRef<refType, propsType>((props, ref) => {
             </div>
             <ModalComponent
                 modalIsOpen={isModalOpen}
-                closeModal={offFlag}
+                closeModal={closeModal}
                 width={props.modalWidth}
                 height={props.modalHeight}
             >
                 <CropComponent
                     fileData={fileData}
+                    objectUrl={imgSrc}
+                    setObjectUrl={setImgSrc}
                 />
             </ModalComponent>
         </div>

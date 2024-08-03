@@ -1,5 +1,5 @@
 import { getNowDate } from "../../Common/Function";
-import { userInfoType } from "./Type/UserType";
+import { updUserInfoType, userInfoType } from "./Type/UserType";
 
 /**
  * 更新用データの作成
@@ -7,24 +7,26 @@ import { userInfoType } from "./Type/UserType";
  * @param stream 
  * @returns 
  */
-export function createUpdUserData(fileDataObj: userInfoType[], req: any, userId: string)
+export function createUpdUserData(fileDataObj: userInfoType[], requestBody: updUserInfoType, userId: string)
     : userInfoType[] {
 
     //現在日付を取得
     const nowDate = getNowDate();
 
-    fileDataObj.some((element) => {
-        //IDの一致するデータを更新
-        if (element.userId === userId) {
-            element.userId = req.body.userId;
-            element.userName = req.body.userName;
-            element.password = req.body.password;
-            element.auth = req.body.auth;
-            element.updTime = nowDate;
-            element.iconUrl = req.body.iconUrl;
-            return true
-        }
+    let userData = fileDataObj.find((element) => {
+        return element.userId === userId;
     });
+
+    if (!userData) {
+        return fileDataObj;
+    }
+
+    userData.userId = requestBody.userId;
+    userData.userName = requestBody.userName;
+    userData.password = requestBody.password;
+    userData.auth = requestBody.auth;
+    userData.updTime = nowDate;
+    userData.iconUrl = requestBody.iconUrl;
 
     return fileDataObj;
 }

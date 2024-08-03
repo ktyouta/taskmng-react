@@ -243,7 +243,7 @@ function SettingUserEditMain(props: propsType) {
                                 gap='1%'
                             />
                             <MaringDiv />
-                            <LabelRadioComponent
+                            {/* <LabelRadioComponent
                                 key={'originalconSelect'}
                                 title={
                                     <SettingUserSelectOriginalMessage
@@ -261,7 +261,7 @@ function SettingUserEditMain(props: propsType) {
                                 isTitlePositionRight={true}
                                 width='100%'
                                 gap='1%'
-                            />
+                            /> */}
                         </React.Fragment>
                     }
                 </HorizonLabelItemComponent>

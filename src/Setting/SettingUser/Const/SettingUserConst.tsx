@@ -5,7 +5,7 @@ export const AUTH_ID = "1";
 //管理者ID
 export const ADMIN_ID = "3";
 //アイコンタイプの選択値
-export const SELECT_ICON_TYPE = {
+export const SELECT_ICON_TYPE: { [key: string]: string } = {
     NO_SELECT: "1",
     STANDARD: "2",
     ORIGINAL: "3",

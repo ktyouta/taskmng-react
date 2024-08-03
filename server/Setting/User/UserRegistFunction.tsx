@@ -1,6 +1,6 @@
 import { authInfoType } from "../../Auth/Type/AuthType";
 import { getNowDate } from "../../Common/Function";
-import { updUserInfoType, userInfoType } from "./Type/UserType";
+import { registUserInfoType, updUserInfoType, userInfoType } from "./Type/UserType";
 
 /**
  * 登録用データの作成
@@ -8,14 +8,14 @@ import { updUserInfoType, userInfoType } from "./Type/UserType";
  * @param stream 
  * @returns 
  */
-export function createAddUserData(fileDataObj: userInfoType[], req: any, authResult: authInfoType)
+export function createAddUserData(fileDataObj: userInfoType[], requestBody: registUserInfoType, authResult: authInfoType)
     : userInfoType[] {
 
     //現在日付を取得
     const nowDate = getNowDate();
 
     //リクエストボディ
-    let body: updUserInfoType = {
+    let body: userInfoType = {
         userId: "",
         userName: "",
         auth: "",
@@ -25,7 +25,7 @@ export function createAddUserData(fileDataObj: userInfoType[], req: any, authRes
         updTime: "",
         iconUrl: ""
     };
-    body = req.body;
+    body = requestBody;
     body.registerTime = nowDate;
     body.updTime = nowDate;
     body.deleteFlg = "0";

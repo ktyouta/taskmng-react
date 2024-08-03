@@ -11,6 +11,7 @@ import FileUploadComponent from '../../Common/FileUploadComponent';
 import useSettingUserSelectOriginalMessage from './Hook/useSettingUserSelectOriginalMessage';
 import CropperModalComponent from '../../Common/CropperModalComponent';
 import CropModalComponent from '../../Common/CropModalComponent';
+import { InputProfilePicture } from '../../Common/InputProfilePicture';
 
 
 //外側のスタイル
@@ -49,12 +50,13 @@ function SettingUserSelectOriginalMessage(props: propsType) {
     return (
         <OuterDiv>
             <TitleDiv>
-                画像をアップロードする
+                オリジナルの画像
             </TitleDiv>
             <TitleSpan
                 isInactive={props.isInactive}
             >
-                <CropModalComponent />
+                <InputProfilePicture />
+                {/*<CropModalComponent />*/}
                 {/* <FileUploadComponent
                     onChange={props.setIconUrl}
                     disabled={props.isInactive}
