@@ -11,3 +11,9 @@ export const USER_AUTH = {
 }
 //ローカルストレージに保存するキー（ユーザーID）
 export const USERID_STRAGEKEY = "userId";
+//z-index設定用
+export const Z_INDEX_PARAM = {
+    WAITLOADING: 1000,
+    HEADOVERLAY: 2000,
+    HEADNAV: 2001,
+}

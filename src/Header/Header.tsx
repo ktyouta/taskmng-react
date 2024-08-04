@@ -8,6 +8,7 @@ import { IoMdClose } from "react-icons/io";
 import IconComponent from '../Common/IconComponent';
 import { IoPersonCircleOutline } from "react-icons/io5";
 import UserIconComponent from '../Common/UserIconComponent';
+import { Z_INDEX_PARAM } from '../Common/Const/CommonConst';
 
 
 //ヘッダーのスタイル
@@ -62,7 +63,7 @@ const NavDiv = styled.div<{ isDisplay: boolean }>`
   border: 1px solid #a9a9a9;
   display: ${({ isDisplay }) => (isDisplay ? "block" : "none")};
   border-radius: 6px;
-  z-index:10;
+  z-index:${Z_INDEX_PARAM.HEADNAV};
   box-sizing: border-box;
 `;
 
@@ -83,7 +84,7 @@ const OverlayDiv = styled.div`
   width: 100%;
   height: 100%; 
   background-color: rgba(0, 0, 0, 0);
-  z-index: 9; 
+  z-index: ${Z_INDEX_PARAM.HEADOVERLAY}; 
 `;
 
 //ユーザー情報エリアのスタイル

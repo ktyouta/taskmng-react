@@ -92,7 +92,10 @@ function UserTop(props: propsType) {
             {/* ユーザー情報更新時ローディング */}
             {
                 isUpdLoading &&
-                <WaitLoading />
+                <WaitLoading
+                    top='9%'
+                    left='15%'
+                />
             }
         </OuterDiv>
 
