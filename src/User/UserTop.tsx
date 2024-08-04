@@ -7,6 +7,7 @@ import useSettingUserEdit from '../Setting/SettingUser/Hook/useSettingUserEdit';
 import SettingUserEditMain from '../Setting/SettingUser/SettingUserEditMain';
 import CenterLoading from '../Common/CenterLoading';
 import useUserTop from './Hook/useUserTop';
+import WaitLoading from '../Common/WaitLoading';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -50,6 +51,7 @@ function UserTop(props: propsType) {
         setIconType,
         isEditable,
         orgIconUlr,
+        isUpdLoading,
     } = useUserTop({ ...props });
 
     return (
@@ -82,8 +84,15 @@ function UserTop(props: propsType) {
                 outerHeight={'15%'}
                 isEditable={isEditable}
             />
+            {/* ユーザー情報取得時ローディング */}
             {
-                isLoadinGetuser && <CenterLoading />
+                isLoadinGetuser &&
+                <CenterLoading />
+            }
+            {/* ユーザー情報更新時ローディング */}
+            {
+                isUpdLoading &&
+                <WaitLoading />
             }
         </OuterDiv>
 

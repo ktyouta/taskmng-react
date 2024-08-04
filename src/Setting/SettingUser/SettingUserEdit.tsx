@@ -9,6 +9,7 @@ import SettingUserEditMain from '../SettingUser/SettingUserEditMain';
 import SettingUserEditFooter from '../SettingUser/SettingUserEditFooter';
 import Loading from '../../Common/Loading';
 import CenterLoading from '../../Common/CenterLoading';
+import WaitLoading from '../../Common/WaitLoading';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -53,6 +54,7 @@ function SettingUserEdit(props: propsType) {
     setIconType,
     isEditable,
     orgIconUlr,
+    isUpdLoading,
   } = useSettingUserEdit({ ...props });
 
   return (
@@ -86,8 +88,15 @@ function SettingUserEdit(props: propsType) {
         outerHeight={'15%'}
         isEditable={isEditable}
       />
+      {/* ユーザー情報取得時ローディング */}
       {
-        isLoadinGetuser && <CenterLoading />
+        isLoadinGetuser &&
+        <CenterLoading />
+      }
+      {/* ユーザー情報更新時ローディング */}
+      {
+        isUpdLoading &&
+        <WaitLoading />
       }
     </OuterDiv>
 

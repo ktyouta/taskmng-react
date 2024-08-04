@@ -192,11 +192,11 @@ function SettingUserEditMain(props: propsType) {
                         <SelectedIconDiv>
                             アイコン
                             {
-                                (props.iconUrl || props.orgIconUlr) &&
+                                props.iconUrl &&
                                 <UserIconComponent
                                     width='25%'
                                     height='20%'
-                                    iconUrl={props.iconUrl ? props.iconUrl : props.orgIconUlr ?? ""}
+                                    iconUrl={props.iconUrl}
                                     outerStyle={{ "margin-left": "auto", "margin-right": "auto", "margin-top": "3%" }}
                                 />
                             }
@@ -237,7 +237,7 @@ function SettingUserEditMain(props: propsType) {
                                 htmlForId={'standardIconSelect'}
                                 onChange={(e: string,) => {
                                     props.setIconType(e);
-                                    props.setIconUrl("");
+                                    props.setIconUrl(props.orgIconUlr);
                                 }}
                                 isTitlePositionRight={true}
                                 gap='1%'

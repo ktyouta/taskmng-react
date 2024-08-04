@@ -361,6 +361,7 @@ function useSettingUserEdit(props: propsType) {
         setIconType,
         isEditable: userId === userInfo?.userId || userInfo?.auth === USER_AUTH.ADMIN,
         orgIconUlr,
+        isUpdLoading: registMutation.isLoading || updMutation.isLoading || delMutation.isLoading,
     }
 }
 
