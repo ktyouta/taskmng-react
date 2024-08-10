@@ -11,12 +11,14 @@ type propsType = {
     htmlForId?: string,
     key?: string,
     color?: string,
+    height?: string,
 }
 
 //ラベルの基本スタイル
-const BaseLabel = styled.label<{ width?: string, color?: string, }>`
+const BaseLabel = styled.label<{ width?: string, color?: string, height?: string, }>`
   width: ${({ width }) => (width ?? "auto")};
   color: ${({ color }) => (color ?? "")};
+  height: ${({ height }) => (height ?? "100%")};
 `;
 
 const LabelComponent = (props: propsType) => {

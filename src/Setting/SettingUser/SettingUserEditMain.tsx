@@ -198,7 +198,7 @@ function SettingUserEditMain(props: propsType) {
                                 props.userDatas.iconUrl &&
                                 <UserIconComponent
                                     width='25%'
-                                    height='20%'
+                                    height='68%'
                                     iconUrl={props.userDatas.iconUrl}
                                     outerStyle={{ "margin-left": "auto", "margin-right": "auto", "margin-top": "3%" }}
                                 />
@@ -207,7 +207,7 @@ function SettingUserEditMain(props: propsType) {
                     }
                     width='30%'
                     position='left'
-                    outerHeight='20%'
+                    outerHeight='28%'
                 >
                     {
                         props.isEditable &&

@@ -21,6 +21,7 @@ type propsType = {
     marginBt?: string,
     childWidth?: string,
     outerHeight?: string,
+    childHeight?: string,
 }
 
 //内部要素の位置の型
@@ -38,9 +39,10 @@ const OuterDiv = styled.div<{ marginLt?: string, marginRt?: string, marginTp?: s
     height:${({ outerHeight }) => (outerHeight)};
 `;
 
-const ElementDiv = styled.div<{ width?: string, color?: string, position?: positionType }>`
+const ElementDiv = styled.div<{ width?: string, color?: string, position?: positionType, height?: string, }>`
     width:${({ width }) => (width)};
     text-align:${({ position }) => (position)};
+    height:${({ height }) => (height)};
 `;
 
 /**
@@ -81,6 +83,7 @@ function HorizonLabelItemComponent(props: propsType) {
             marginRt={props.marginRt}
             marginTp={props.marginTp}
             marginBt={props.marginBt}
+            outerHeight={props.outerHeight}
         >
             <LabelComponent
                 {...props}
@@ -88,6 +91,7 @@ function HorizonLabelItemComponent(props: propsType) {
             <ElementDiv
                 width={props.childWidth ?? sliceWidthStr(props.width)}
                 position={props.position}
+                height={props.childHeight}
             >
                 {props.children}
             </ElementDiv>
