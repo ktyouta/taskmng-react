@@ -24,27 +24,17 @@ function useUserTop(props: propsType) {
 
     const {
         userId,
-        id,
-        setId,
-        userName,
-        setUserName,
-        password,
-        setPassword,
-        auth,
-        setAuth,
         registerTime,
         updTime,
+        orgIconUrl,
         isLoadinGetuser,
         authList,
         runButtonObj,
         editMode,
-        iconUrl,
-        setIconUrl,
-        iconType,
-        setIconType,
         isEditable,
-        orgIconUlr,
         isUpdLoading,
+        userDatas,
+        userDatasDisptch,
     } = useSettingUserEdit({ ...props });
 
     //ルーティング用
@@ -65,16 +55,9 @@ function useUserTop(props: propsType) {
 
     return {
         userId,
-        id,
-        setId,
-        userName,
-        setUserName,
-        password,
-        setPassword,
         authList,
-        auth,
-        setAuth,
         registerTime,
+        orgIconUrl,
         updTime,
         isLoadinGetuser,
         positiveButtonObj: {
@@ -84,13 +67,10 @@ function useUserTop(props: propsType) {
         } as buttonObjType,
         runButtonObj,
         editMode,
-        iconUrl,
-        setIconUrl,
-        iconType,
-        setIconType,
         isEditable,
-        orgIconUlr,
         isUpdLoading,
+        userDatas,
+        userDatasDisptch,
     }
 }
 

@@ -9,6 +9,7 @@ export type userInfoType = {
     registerTime: string,
     updTime: string,
     iconUrl: string,
+    iconType: string,
 }
 
 //登録時のユーザー情報

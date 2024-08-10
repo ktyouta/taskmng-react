@@ -1,6 +1,6 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { useNavigate } from "react-router-dom";
-import { createRef, useEffect, useMemo, useRef, useState } from "react";
+import { createRef, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrapper";
 import { inputRefType } from "../../Type/SettingType";
 import ENV from '../../../env.json';
@@ -8,14 +8,15 @@ import useMutationWrapper, { resType } from "../../../Common/Hook/useMutationWra
 import { buttonObjType, generalDataType, refInfoType } from "../../../Common/Type/CommonType";
 import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
-import { updUserType, userType } from "../Type/SettingUserType";
+import { updUserType, userInputType, userType } from "../Type/SettingUserType";
 import { editModeAtom, userIdAtom } from "../Atom/SettingUserAtom";
 import { editModeEnum } from "../../Const/SettingConst";
-import { AUTH_ID, SELECT_ICON_TYPE } from "../Const/SettingUserConst";
+import { AUTH_ID, SELECT_ICON_TYPE, USERINFO_ACTION_TYPE } from "../Const/SettingUserConst";
 import { useGlobalAtomValue } from "../../../Common/Hook/useGlobalAtom";
 import { userInfoAtom } from "../../../Content/Hook/useContentLogic";
 import { USER_AUTH } from "../../../Common/Const/CommonConst";
-import { isCorrectIconType } from "../Function/SettingUserFunction";
+import { isCorrectIconType, updateUserData } from "../Function/SettingUserFunction";
+import { HOME_PATH, NOWPATH_STRAGEKEY } from "../../../Header/Const/HeaderConst";
 
 
 //引数の型
@@ -29,8 +30,6 @@ function useSettingUserEdit(props: propsType) {
     const editMode = useAtomValue(editModeAtom);
     //ルーティング用
     const navigate = useNavigate();
-    //エラーメッセージ
-    const [errMessage, setErrMessage] = useState("");
     //ユーザーID
     const userId = useAtomValue(userIdAtom);
     // ログインユーザー情報
@@ -41,20 +40,8 @@ function useSettingUserEdit(props: propsType) {
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
     });
 
-    //ID
-    const [id, setId] = useState<string | undefined>();
-    //名称
-    const [userName, setUserName] = useState<string | undefined>();
-    //パスワード
-    const [password, setPassword] = useState<string | undefined>();
-    //権限
-    const [auth, setAuth] = useState<string | undefined>();
-    //アイコン
-    const [iconUrl, setIconUrl] = useState<string | undefined>();
-    //アイコン選択
-    const [iconType, setIconType] = useState<string | undefined>();
-    //現在設定されているアイコン
-    const [orgIconUlr, setOrgIconUrl] = useState<string | undefined>();
+    //入力欄のユーザー情報
+    const [userDatas, userDatasDisptch] = useReducer(updateUserData, {});
 
     //編集画面遷移時に更新用データを取得
     const { data: updUser, isLoading: isLoadinGetuser } = useQueryWrapper<userType>(
@@ -62,23 +49,32 @@ function useSettingUserEdit(props: propsType) {
             url: userId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGUSER}/${userId}` : ``,
             //取得したデータをセット
             afSuccessFn: (data) => {
-                setErrMessage("");
                 if (!data) {
                     return;
                 }
-                setId(data.userId);
-                setUserName(data.userName);
-                setPassword(data.password);
-                setAuth(data.auth);
-                setIconType(data.iconUrl ? SELECT_ICON_TYPE.STANDARD : SELECT_ICON_TYPE.NO_SELECT);
-                setOrgIconUrl(data.iconUrl);
+
+                userDatasDisptch({ type: USERINFO_ACTION_TYPE.ID, payload: data.userId });
+                userDatasDisptch({ type: USERINFO_ACTION_TYPE.NAME, payload: data.userName });
+                userDatasDisptch({ type: USERINFO_ACTION_TYPE.PASS, payload: data.password });
+                userDatasDisptch({ type: USERINFO_ACTION_TYPE.AUTH, payload: data.auth });
+                userDatasDisptch({ type: USERINFO_ACTION_TYPE.ICON_TYPE, payload: data.iconType });
+
                 if (data.iconUrl) {
-                    setIconUrl(data.iconUrl);
+                    userDatasDisptch({ type: USERINFO_ACTION_TYPE.ICON_URL, payload: data.iconUrl });
                 }
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
-                setErrMessage(tmp.response.data.errMessage);
+                alert(tmp.response.data.errMessage);
+
+                //ローカルストレージから遷移前の画面のパスを取得する
+                let nowPath = localStorage.getItem(NOWPATH_STRAGEKEY);
+                if (!nowPath) {
+                    nowPath = HOME_PATH;
+                }
+
+                navigate(nowPath);
+                return;
             }
         }
     );
@@ -91,6 +87,11 @@ function useSettingUserEdit(props: propsType) {
     //更新日
     let updTime = useMemo(() => {
         return updUser && updUser.updTime ? updUser.updTime : "";
+    }, [updUser]);
+
+    //現在ユーザー情報に設定されているアイコンのURL
+    let orgIconUrl = useMemo(() => {
+        return updUser && updUser.iconUrl ? updUser.iconUrl : "";
     }, [updUser]);
 
     //権限リスト
@@ -106,7 +107,7 @@ function useSettingUserEdit(props: propsType) {
 
         //新規登録の場合は先頭の値をセット
         if (editMode === editModeEnum.create && tmp.length > 0) {
-            setAuth(tmp[0].value);
+            userDatasDisptch({ type: "auth", payload: tmp[0].value });
         }
         return tmp;
     }, [generalDataList]);
@@ -115,10 +116,10 @@ function useSettingUserEdit(props: propsType) {
     useEffect(() => {
         //新規登録
         if (editMode === editModeEnum.create) {
-            setUserName("");
-            setPassword("");
-            setId("");
-            setAuth("");
+            userDatasDisptch({ type: "userName", payload: "" });
+            userDatasDisptch({ type: "password", payload: "" });
+            userDatasDisptch({ type: "userId", payload: "" });
+            userDatasDisptch({ type: "auth", payload: "" });
             return;
         }
     }, []);
@@ -174,7 +175,7 @@ function useSettingUserEdit(props: propsType) {
         //失敗後の処理
         afErrorFn: (res: errResType) => {
             //エラーメッセージを表示
-            setErrMessage(res.response.data.errMessage);
+            alert(res.response.data.errMessage);
         },
     });
 
@@ -260,60 +261,60 @@ function useSettingUserEdit(props: propsType) {
             userName: "",
             password: "",
             auth: "",
-            iconType: iconType ?? "",
+            iconType: userDatas.iconType ?? "",
             iconUrl: "",
         };
 
         //ID
-        if (!id) {
+        if (!userDatas.userId) {
             alert("IDを入力してください");
             return;
         }
-        body.userId = id;
+        body.userId = userId;
 
         //名称
-        if (!userName) {
+        if (!userDatas.userName) {
             alert("名称を入力してください");
             return;
         }
-        body.userName = userName;
+        body.userName = userDatas.userName;
 
         //パスワード
-        if (!password) {
+        if (!userDatas.password) {
             alert("パスワードを入力してください");
             return;
         }
-        body.password = password;
+        body.password = userDatas.password;
 
         //権限
-        if (!auth) {
+        if (!userDatas.auth) {
             alert("権限を入力してください");
             return;
         }
-        body.auth = auth;
+        body.auth = userDatas.auth;
 
         //アイコン
-        if (!isCorrectIconType(iconType)) {
+        if (!isCorrectIconType(userDatas.iconType)) {
             alert("アイコン設定の選択値が不正です。");
             return;
         }
 
-        switch (iconType) {
+        switch (userDatas.iconType) {
             case SELECT_ICON_TYPE.NO_SELECT:
                 break;
             case SELECT_ICON_TYPE.STANDARD:
-                if (!iconUrl && !orgIconUlr) {
+                if (!userDatas.iconUrl && !orgIconUrl) {
                     alert("アイコンを設定してください。");
                     return;
                 }
-                body.iconUrl = iconUrl ? iconUrl : orgIconUlr ? orgIconUlr : "";
+                body.iconUrl = userDatas.iconUrl ? userDatas.iconUrl : orgIconUrl ? orgIconUrl : "";
                 break;
             case SELECT_ICON_TYPE.ORIGINAL:
-                if (!iconUrl && !orgIconUlr) {
+                if (!userDatas.iconUrl && !orgIconUrl) {
                     alert("アイコンを設定してください。");
                     return;
                 }
-                body.iconUrl = iconUrl ? iconUrl : orgIconUlr ? orgIconUlr : "";
+                body.iconUrl = userDatas.iconUrl ? userDatas.iconUrl : orgIconUrl ? orgIconUrl : "";
                 break;
         }
 
@@ -321,17 +322,10 @@ function useSettingUserEdit(props: propsType) {
     };
 
     return {
-        userId,
-        id,
-        setId,
-        userName,
-        setUserName,
-        password,
-        setPassword,
         authList,
-        auth,
-        setAuth,
+        userId,
         registerTime,
+        orgIconUrl,
         updTime,
         isLoadinGetuser,
         backPage,
@@ -355,13 +349,10 @@ function useSettingUserEdit(props: propsType) {
             onclick: editMode === editModeEnum.update ? updateAttribute : registeAttribute
         } as buttonObjType,
         editMode,
-        iconUrl,
-        setIconUrl,
-        iconType,
-        setIconType,
         isEditable: userId === userInfo?.userId || userInfo?.auth === USER_AUTH.ADMIN,
-        orgIconUlr,
         isUpdLoading: registMutation.isLoading || updMutation.isLoading || delMutation.isLoading,
+        userDatas,
+        userDatasDisptch,
     }
 }
 

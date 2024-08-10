@@ -27,6 +27,7 @@ export function createUpdUserData(fileDataObj: userInfoType[], requestBody: updU
     userData.auth = requestBody.auth;
     userData.updTime = nowDate;
     userData.iconUrl = requestBody.iconUrl;
+    userData.iconType = requestBody.iconType;
 
     return fileDataObj;
 }

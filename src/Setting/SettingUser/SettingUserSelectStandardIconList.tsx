@@ -52,7 +52,7 @@ type propsType = {
     width: string,
     height: string,
     iconUrl: string | undefined,
-    setIconUrl: React.Dispatch<React.SetStateAction<string | undefined>>,
+    setIconUrl: (e: string) => void,
     closeModal: () => void,
 }
 

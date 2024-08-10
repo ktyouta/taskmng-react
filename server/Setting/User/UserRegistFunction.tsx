@@ -23,7 +23,8 @@ export function createAddUserData(fileDataObj: userInfoType[], requestBody: regi
         deleteFlg: "",
         registerTime: "",
         updTime: "",
-        iconUrl: ""
+        iconUrl: "",
+        iconType: "",
     };
     body = requestBody;
     body.registerTime = nowDate;

@@ -31,55 +31,33 @@ function SettingUserEdit(props: propsType) {
   console.log("SettingUserEdit render");
 
   const {
-    userId,
-    id,
-    setId,
-    userName,
-    setUserName,
-    password,
-    setPassword,
-    auth,
-    setAuth,
     registerTime,
     updTime,
+    orgIconUrl,
     isLoadinGetuser,
     authList,
     positiveButtonObj,
     deleteButtonObj,
     runButtonObj,
     editMode,
-    iconUrl,
-    setIconUrl,
-    iconType,
-    setIconType,
     isEditable,
-    orgIconUlr,
     isUpdLoading,
+    userDatas,
+    userDatasDisptch,
   } = useSettingUserEdit({ ...props });
 
   return (
     <OuterDiv>
       <SettingUserEditMain
         outerHeight={'85%'}
-        userId={userId}
-        id={id}
-        setId={setId}
-        userName={userName}
-        setUserName={setUserName}
-        password={password}
-        setPassword={setPassword}
         authList={authList}
-        auth={auth}
-        setAuth={setAuth}
         registerTime={registerTime}
         updTime={updTime}
+        orgIconUrl={orgIconUrl}
         editMode={editMode}
-        iconUrl={iconUrl}
-        setIconUrl={setIconUrl}
-        iconType={iconType}
-        setIconType={setIconType}
         isEditable={isEditable}
-        orgIconUlr={orgIconUlr}
+        userDatas={userDatas}
+        userDatasDisptch={userDatasDisptch}
       />
       <SettingUserEditFooter
         positiveButtonObj={positiveButtonObj}

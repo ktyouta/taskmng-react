@@ -12,7 +12,7 @@ import { ICON_LIST_URL } from "../Const/SettingUserConst";
 //引数の型
 type prospType = {
     iconUrl: string | undefined,
-    setIconUrl: React.Dispatch<React.SetStateAction<string | undefined>>,
+    setIconUrl: (e: string) => void,
     closeModal: () => void,
 }
 
@@ -39,7 +39,8 @@ function useSettingUserSelectStandardIconList(props: prospType) {
 
     return {
         iconList,
-        clickIcon
+        clickIcon,
+        isLoading
     }
 }
 

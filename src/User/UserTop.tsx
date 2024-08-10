@@ -29,54 +29,32 @@ function UserTop(props: propsType) {
     console.log("UserTop render");
 
     const {
-        userId,
-        id,
-        setId,
-        userName,
-        setUserName,
-        password,
-        setPassword,
-        auth,
-        setAuth,
         registerTime,
         updTime,
+        orgIconUrl,
         isLoadinGetuser,
         authList,
         positiveButtonObj,
         runButtonObj,
         editMode,
-        iconUrl,
-        setIconUrl,
-        iconType,
-        setIconType,
         isEditable,
-        orgIconUlr,
         isUpdLoading,
+        userDatas,
+        userDatasDisptch,
     } = useUserTop({ ...props });
 
     return (
         <OuterDiv>
             <SettingUserEditMain
                 outerHeight={'85%'}
-                userId={userId}
-                id={id}
-                setId={setId}
-                userName={userName}
-                setUserName={setUserName}
-                password={password}
-                setPassword={setPassword}
                 authList={authList}
-                auth={auth}
-                setAuth={setAuth}
                 registerTime={registerTime}
                 updTime={updTime}
+                orgIconUrl={orgIconUrl}
                 editMode={editMode}
-                iconUrl={iconUrl}
-                setIconUrl={setIconUrl}
-                iconType={iconType}
-                setIconType={setIconType}
                 isEditable={isEditable}
-                orgIconUlr={orgIconUlr}
+                userDatas={userDatas}
+                userDatasDisptch={userDatasDisptch}
             />
             <UserFooter
                 positiveButtonObj={positiveButtonObj}

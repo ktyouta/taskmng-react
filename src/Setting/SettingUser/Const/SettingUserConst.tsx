@@ -12,3 +12,12 @@ export const SELECT_ICON_TYPE: { [key: string]: string } = {
 }
 //アイコンリスト取得用URL
 export const ICON_LIST_URL = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.IMAGELIST}`;
+//ユーザー情報のuseReducer用プロパティ
+export const USERINFO_ACTION_TYPE = {
+    ID: "userId",
+    NAME: "userName",
+    PASS: "password",
+    AUTH: "auth",
+    ICON_TYPE: "iconType",
+    ICON_URL: "iconUrl",
+}

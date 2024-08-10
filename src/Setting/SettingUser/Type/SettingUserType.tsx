@@ -1,5 +1,6 @@
 //ユーザー情報の型
 export type userType = {
+    [key: string]: string | undefined,
     userId: string,
     userName: string,
     password: string,
@@ -8,6 +9,7 @@ export type userType = {
     registerTime?: string,
     updTime?: string,
     iconUrl: string,
+    iconType: string,
 }
 
 //登録更新時のユーザー情報の型
@@ -24,4 +26,14 @@ export type updUserType = {
 export type imageListResType = {
     [key: string]: string,
     iconUrl: string,
+}
+
+//ユーザー情報の入力欄の型
+export type userInputType = {
+    userId?: string,
+    userName?: string,
+    password?: string,
+    auth?: string,
+    iconUrl?: string,
+    iconType?: string,
 }

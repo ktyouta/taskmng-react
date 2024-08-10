@@ -17,13 +17,14 @@ import HorizontalComponent from '../../Common/HorizontalComponent';
 import ComboComponent from '../../Common/ComboComponent';
 import { editModeEnum } from '../Const/SettingConst';
 import useSettingUserEditMain from './Hook/useSettingUserEditMain';
-import { ADMIN_ID, SELECT_ICON_TYPE } from './Const/SettingUserConst';
+import { ADMIN_ID, SELECT_ICON_TYPE, USERINFO_ACTION_TYPE } from './Const/SettingUserConst';
 import RadioComponent from '../../Common/RadioComponent';
 import LabelRadioComponent from '../../Common/LabelRadioComponent';
 import SettingUserSelectStandardMessage from './SettingUserSelectStandardMessage';
 import UserIconComponent from '../../Common/UserIconComponent';
 import FileUploadComponent from '../../Common/FileUploadComponent';
 import SettingUserSelectOriginalMessage from './SettingUserSelectOriginalMessage';
+import { userInputType } from './Type/SettingUserType';
 
 
 //外側のスタイル
@@ -53,25 +54,18 @@ const SelectedIconDiv = styled.div`
 //引数の型
 type propsType = {
     outerHeight: string | undefined,
-    userId: string | undefined,
-    id: string | undefined,
-    setId: React.Dispatch<React.SetStateAction<string | undefined>>,
-    userName: string | undefined,
-    setUserName: React.Dispatch<React.SetStateAction<string | undefined>>,
-    password: string | undefined,
-    setPassword: React.Dispatch<React.SetStateAction<string | undefined>>,
     authList: radioType[] | undefined,
-    auth: string | undefined,
-    setAuth: React.Dispatch<React.SetStateAction<string | undefined>>,
     registerTime: string,
     updTime: string,
+    orgIconUrl: string,
     editMode: number,
-    iconUrl: string | undefined,
-    setIconUrl: React.Dispatch<React.SetStateAction<string | undefined>>,
-    iconType: string | undefined,
-    setIconType: React.Dispatch<React.SetStateAction<string | undefined>>,
     isEditable: boolean,
-    orgIconUlr: string | undefined,
+    userDatas: userInputType,
+    userDatasDisptch: React.Dispatch<{
+        type: string;
+        payload?: string;
+    }>
+
 }
 
 
@@ -96,11 +90,13 @@ function SettingUserEditMain(props: propsType) {
                         position='left'
                     >
                         {
-                            props.id !== undefined &&
+                            props.userDatas.userId !== undefined &&
                             <BaseInputComponent
-                                value={props.id}
+                                value={props.userDatas.userId}
                                 length={50}
-                                onChange={props.setId}
+                                onChange={(e) => {
+                                    props.userDatasDisptch({ type: USERINFO_ACTION_TYPE.ID, payload: e });
+                                }}
                                 textWidth='80%'
                             />
                         }
@@ -112,19 +108,21 @@ function SettingUserEditMain(props: propsType) {
                     position='left'
                 >
                     {
-                        props.userName !== undefined &&
+                        props.userDatas.userName !== undefined &&
                         <React.Fragment>
                             {
                                 props.isEditable ?
                                     <BaseInputComponent
-                                        value={props.userName}
+                                        value={props.userDatas.userName}
                                         length={50}
-                                        onChange={props.setUserName}
+                                        onChange={(e) => {
+                                            props.userDatasDisptch({ type: USERINFO_ACTION_TYPE.NAME, payload: e });
+                                        }}
                                         textWidth='80%'
                                     />
                                     :
                                     <div>
-                                        {props.userName}
+                                        {props.userDatas.userName}
                                     </div>
                             }
                         </React.Fragment>
@@ -138,11 +136,13 @@ function SettingUserEditMain(props: propsType) {
                         position='left'
                     >
                         {
-                            props.password !== undefined &&
+                            props.userDatas.password !== undefined &&
                             <BaseInputComponent
-                                value={props.password}
+                                value={props.userDatas.password}
                                 length={50}
-                                onChange={props.setPassword}
+                                onChange={(e) => {
+                                    props.userDatasDisptch({ type: USERINFO_ACTION_TYPE.PASS, payload: e });
+                                }}
                                 textWidth='80%'
                             />
                         }
@@ -157,12 +157,15 @@ function SettingUserEditMain(props: propsType) {
                     >
                         {
                             props.authList &&
-                            props.auth !== undefined &&
+                            props.userDatas !== undefined &&
+                            props.userDatas.auth !== undefined &&
                             <ComboComponent
                                 combo={props.authList}
-                                initValue={props.auth}
+                                initValue={props.userDatas.auth}
                                 disabled={false}
-                                onChange={props.setAuth}
+                                onChange={(e) => {
+                                    props.userDatasDisptch({ type: USERINFO_ACTION_TYPE.AUTH, payload: e });
+                                }}
                             />
                         }
                     </HorizonLabelItemComponent>
@@ -192,11 +195,11 @@ function SettingUserEditMain(props: propsType) {
                         <SelectedIconDiv>
                             アイコン
                             {
-                                props.iconUrl &&
+                                props.userDatas.iconUrl &&
                                 <UserIconComponent
                                     width='25%'
                                     height='20%'
-                                    iconUrl={props.iconUrl}
+                                    iconUrl={props.userDatas.iconUrl}
                                     outerStyle={{ "margin-left": "auto", "margin-right": "auto", "margin-top": "3%" }}
                                 />
                             }
@@ -208,17 +211,17 @@ function SettingUserEditMain(props: propsType) {
                 >
                     {
                         props.isEditable &&
-                        props.iconType !== undefined &&
+                        props.userDatas.iconType !== undefined &&
                         <React.Fragment>
                             <LabelRadioComponent
                                 key={'noIconSelect'}
                                 title={'アイコンを設定しない'}
                                 value={SELECT_ICON_TYPE.NO_SELECT}
-                                selectedValue={props.iconType}
+                                selectedValue={props.userDatas.iconType}
                                 htmlForId={'noIconSelect'}
                                 onChange={(e: string,) => {
-                                    props.setIconType(e);
-                                    props.setIconUrl("");
+                                    props.userDatasDisptch({ type: USERINFO_ACTION_TYPE.ICON_TYPE, payload: e });
+                                    props.userDatasDisptch({ type: USERINFO_ACTION_TYPE.ICON_URL, payload: "" });
                                 }}
                                 isTitlePositionRight={true}
                                 gap='1%'
@@ -228,16 +231,18 @@ function SettingUserEditMain(props: propsType) {
                                 key={'standardIconSelect'}
                                 title={
                                     <SettingUserSelectStandardMessage
-                                        isInactive={props.iconType !== SELECT_ICON_TYPE.STANDARD}
-                                        iconUrl={props.iconUrl}
-                                        setIconUrl={props.setIconUrl} />
+                                        isInactive={props.userDatas.iconType !== SELECT_ICON_TYPE.STANDARD}
+                                        iconUrl={props.userDatas.iconUrl}
+                                        setIconUrl={(e) => {
+                                            props.userDatasDisptch({ type: USERINFO_ACTION_TYPE.ICON_URL, payload: e });
+                                        }} />
                                 }
                                 value={SELECT_ICON_TYPE.STANDARD}
-                                selectedValue={props.iconType}
+                                selectedValue={props.userDatas.iconType}
                                 htmlForId={'standardIconSelect'}
                                 onChange={(e: string,) => {
-                                    props.setIconType(e);
-                                    props.setIconUrl(props.orgIconUlr);
+                                    props.userDatasDisptch({ type: USERINFO_ACTION_TYPE.ICON_TYPE, payload: e });
+                                    props.userDatasDisptch({ type: USERINFO_ACTION_TYPE.ICON_URL, payload: props.orgIconUrl });
                                 }}
                                 isTitlePositionRight={true}
                                 gap='1%'

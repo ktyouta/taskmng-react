@@ -32,7 +32,7 @@ const TitleSpan = styled.span<{ isInactive: boolean }>`
 type propsType = {
     isInactive: boolean,
     iconUrl: string | undefined,
-    setIconUrl: React.Dispatch<React.SetStateAction<string | undefined>>,
+    setIconUrl: (e: string) => void,
 }
 
 function SettingUserSelectStandardMessage(props: propsType) {
