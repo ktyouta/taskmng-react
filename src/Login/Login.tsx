@@ -54,7 +54,7 @@ function Login() {
                         style={{
                             "borderRadius": "23px",
                             "background": "black",
-                            "font-size": "1rem",
+                            "fontSize": "1rem",
                         }}
                     />
                 </div>
