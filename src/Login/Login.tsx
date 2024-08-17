@@ -12,6 +12,8 @@ import BaseInputComponent from '../Common/BaseInputComponent';
 
 function Login() {
 
+    console.log("Login render");
+
     //ログインのビジネスロジック
     const {
         userIdRef,

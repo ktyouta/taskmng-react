@@ -1,7 +1,10 @@
 import { HttpResponse, http } from "msw";
 
-export const handlers = [
+export const LoginFormHandlers = [
     http.post("https://XXXXXXX/signin", async ({ request }) => {
+
+        console.log("LoginFormHandlers is called");
+
         const { mail, password } = (await request.json()) as {
             mail?: string;
             password?: string;

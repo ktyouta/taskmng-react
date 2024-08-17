@@ -10,6 +10,7 @@ export const LoginForm: FC = () => {
     } | null>(null);
 
     const submit = async () => {
+        console.log("testsubmit is called");
         const response = await fetch("https://XXXXXXX/signin", {
             method: "POST",
             body: JSON.stringify({ mail, password }),

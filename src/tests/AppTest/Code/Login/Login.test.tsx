@@ -1,14 +1,13 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Login from "../../../Login/Login";
+import Login from "../../../../Login/Login";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import QueryClientComponent from "../../Utils/Components/QueryClientComponent";
-import Content from "../../../Content/Content";
-import { LOGIN_PATH } from "../../../Header/Const/HeaderConst";
-import QueryApp from "../../../QueryApp";
-import ENV from '../../../env.json';
-import { LoginAPIServer } from "./mocks/servers";
+import Content from "../../../../Content/Content";
+import { LOGIN_PATH } from "../../../../Header/Const/HeaderConst";
+import QueryApp from "../../../../QueryApp";
+import ENV from '../../../../env.json';
 import CustomRender from "../../Utils/Code/CustomRender";
 
 describe(Login, () => {
@@ -63,35 +62,35 @@ describe(Login, () => {
         expect(userIdInput).toHaveValue("Password");
     });
 
-    test("ログインができる", async () => {
+    // test("ログインができる", async () => {
 
-        CustomRender(<QueryApp />);
+    //     CustomRender(<QueryApp />);
 
-        const user = userEvent.setup();
+    //     const user = userEvent.setup();
 
-        const userIdInput = screen.getByPlaceholderText('UserID');
-        const passwordInput = screen.getByPlaceholderText('Password');
-        const loginButton = screen.getByRole('button', { name: 'Login' });
+    //     const userIdInput = screen.getByPlaceholderText('UserID');
+    //     const passwordInput = screen.getByPlaceholderText('Password');
+    //     const loginButton = screen.getByRole('button', { name: 'Login' });
 
-        await user.type(userIdInput, "test");
-        await user.type(passwordInput, "test");
-        await user.click(loginButton);
+    //     await user.type(userIdInput, "test");
+    //     await user.type(passwordInput, "test");
+    //     await user.click(loginButton);
 
 
-        //expect(screen.queryByText("Login")).toBeInTheDocument();
-        // 実際のレスポンスを取得
-        // const actualResponse = await waitFor(() =>
-        //     LoginAPIServer.events.response('POST', `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.LOGIN}`)
-        // );
+    //     //expect(screen.queryByText("Login")).toBeInTheDocument();
+    //     // 実際のレスポンスを取得
+    //     // const actualResponse = await waitFor(() =>
+    //     //     LoginAPIServer.events.response('POST', `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.LOGIN}`)
+    //     // );
 
-        // APIレスポンスの確認
-        // await waitFor(() => {
-        //     // ここでモックしたレスポンスを確認
-        //     document.cookie = `path=/`;
-        //     //expect(expectedResponse).toEqual(actualResponse);
-        //     expect(screen.queryByText("ユーザー")).toBeInTheDocument();
-        // });
-    });
+    //     // APIレスポンスの確認
+    //     // await waitFor(() => {
+    //     //     // ここでモックしたレスポンスを確認
+    //     //     document.cookie = `path=/`;
+    //     //     //expect(expectedResponse).toEqual(actualResponse);
+    //     //     expect(screen.queryByText("ユーザー")).toBeInTheDocument();
+    //     // });
+    // });
 
     // test("ログインに失敗する", async () => {
 

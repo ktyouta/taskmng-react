@@ -51,6 +51,8 @@ const useQueryWrapper = <
         POST: postQuery,
     }
 
+    console.log(`${props.url} is called`);
+
     return useQuery<TData, unknown, RData>(
         props.queryKey ?? [props.url],
         props.method ? queryList[props.method] : queryList["GET"],

@@ -3,8 +3,10 @@ import { expect } from 'vitest';
 import '@testing-library/jest-dom';
 import "@testing-library/jest-dom/vitest";
 import { cleanup } from "@testing-library/react";
-import { APIServer } from './src/tests/Test/Code/LoginForm/mocks/servers';
-import { LoginAPIServer } from './src/tests/Code/Login/mocks/servers';
+import { SampleTestAPIServerList } from './src/tests/SampleTest/servers';
+import { APIServerList } from './src/tests/AppTest/servers';
+import { setupServer } from 'msw/node';
+import { HttpHandler } from 'msw';
 
 
 // runs a cleanup after each test case (e.g. clearing jsdom)
@@ -12,17 +14,26 @@ afterEach(() => {
     cleanup();
 });
 
+const HttpHandlerSampleList: HttpHandler[] = SampleTestAPIServerList.reduce((prev, current) => {
+    return [...prev, ...current];
+}, []);
+
+const AppHandlerSampleList: HttpHandler[] = APIServerList.reduce((prev, current) => {
+    return [...prev, ...current];
+}, []);
+
+
 beforeAll(() => {
-    APIServer.listen();
-    LoginAPIServer.listen();
+
+    setupServer(...HttpHandlerSampleList, ...AppHandlerSampleList).listen();
 });
 
 afterAll(() => {
-    APIServer.listen();
-    LoginAPIServer.listen();
+
+    setupServer(...HttpHandlerSampleList, ...AppHandlerSampleList).listen();
 });
 
 afterEach(() => {
-    APIServer.listen();
-    LoginAPIServer.listen();
+
+    setupServer(...HttpHandlerSampleList, ...AppHandlerSampleList).listen();
 });
