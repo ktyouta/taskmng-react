@@ -4,8 +4,6 @@ import ENV from '../../../../env.json';
 export const HomeHandlers = [
     http.get(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASKHISTORY}`, async ({ request }) => {
 
-        console.log("HomeHandlers is called");
-
         return HttpResponse.json(
             [
                 {

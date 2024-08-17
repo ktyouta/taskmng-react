@@ -2,9 +2,7 @@ import { HttpResponse, http } from "msw";
 import ENV from '../../../../env.json';
 
 export const GeneralHandlers = [
-    http.post(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`, async ({ request }) => {
-
-        console.log("GeneralHandlers is called");
+    http.get(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`, async ({ request }) => {
 
         return HttpResponse.json(
             [

@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Login from "../../../../Login/Login";
 import { MemoryRouter } from "react-router-dom";
@@ -9,29 +9,56 @@ import { LOGIN_PATH } from "../../../../Header/Const/HeaderConst";
 import QueryApp from "../../../../QueryApp";
 import ENV from '../../../../env.json';
 import CustomRender from "../../Utils/Code/CustomRender";
+import { vi } from "vitest";
+import { clearCookies } from "../../Utils/Function/UtilsFunction";
 
-describe(Login, () => {
 
-    test("ログインフォームが表示されている", async () => {
+describe('コンポーネントのレンダリングチェック', () => {
+
+    test('Loginコンポーネントのレンダリングが実行される', () => {
+
+        // console.logのモックを作成
+        const logSpy = vi.spyOn(console, 'log');
+
+        CustomRender(<QueryApp />);
+
+        expect(logSpy).toHaveBeenCalledWith('Login render');
+
+        // スパイしたconsole.logを元に戻す
+        logSpy.mockRestore();
+
+    });
+
+});
+
+
+describe('ログイン画面チェック', () => {
+
+    test("RLMNTが表示されている", async () => {
 
         CustomRender(<QueryApp />);
 
         expect(screen.getByText("RLMNT")).toBeInTheDocument();
+    });
 
-        expect(screen.getByRole("textbox")).toBeTruthy();
-        expect(screen.getByRole("button")).toBeTruthy();
+    test("ユーザーIDの入力欄が存在する", async () => {
+
+        CustomRender(<QueryApp />);
 
         // 最初の入力フィールド（UserID）が表示されているか確認
         const userIdInput = screen.getByPlaceholderText('UserID');
-        expect(userIdInput).toBeInTheDocument();
-        expect(userIdInput).toHaveAttribute('maxlength', '100');
-        expect(userIdInput).not.toBeDisabled();
 
-        // 2番目の入力フィールド（Password）が表示されているか確認
-        const passwordInput = screen.getByPlaceholderText('Password');
-        expect(passwordInput).toBeInTheDocument();
-        expect(passwordInput).toHaveAttribute('maxlength', '100');
-        expect(passwordInput).not.toBeDisabled();
+        expect(userIdInput).toBeInTheDocument();
+    });
+
+    test("パスワードの入力欄が存在する", async () => {
+
+        CustomRender(<QueryApp />);
+
+        // 最初の入力フィールド（Password）が表示されているか確認
+        const userIdInput = screen.getByPlaceholderText('Password');
+
+        expect(userIdInput).toBeInTheDocument();
     });
 
     test("タイトルがLoginのボタンが存在する", async () => {
@@ -40,7 +67,29 @@ describe(Login, () => {
 
         const loginButton = screen.getByRole('button', { name: 'Login' });
         expect(loginButton).toBeInTheDocument();
-    })
+    });
+
+    test('ユーザーIDの入力欄にmaxlength:100が設定されていること', () => {
+
+        CustomRender(<QueryApp />);
+
+        const userIdInput = screen.getByPlaceholderText('UserID');
+        expect(userIdInput).toHaveAttribute('maxlength', '100');
+        expect(userIdInput).not.toBeDisabled();
+    });
+
+    test('パスワードの入力欄にmaxlength:100が設定されていること', () => {
+
+        CustomRender(<QueryApp />);
+
+        const userIdInput = screen.getByPlaceholderText('Password');
+        expect(userIdInput).toHaveAttribute('maxlength', '100');
+        expect(userIdInput).not.toBeDisabled();
+    });
+});
+
+
+describe('ログイン画面のフォームチェック', () => {
 
     test("IDが入力できる", async () => {
 
@@ -61,54 +110,58 @@ describe(Login, () => {
         await user.type(userIdInput, "Password");
         expect(userIdInput).toHaveValue("Password");
     });
-
-    // test("ログインができる", async () => {
-
-    //     CustomRender(<QueryApp />);
-
-    //     const user = userEvent.setup();
-
-    //     const userIdInput = screen.getByPlaceholderText('UserID');
-    //     const passwordInput = screen.getByPlaceholderText('Password');
-    //     const loginButton = screen.getByRole('button', { name: 'Login' });
-
-    //     await user.type(userIdInput, "test");
-    //     await user.type(passwordInput, "test");
-    //     await user.click(loginButton);
+});
 
 
-    //     //expect(screen.queryByText("Login")).toBeInTheDocument();
-    //     // 実際のレスポンスを取得
-    //     // const actualResponse = await waitFor(() =>
-    //     //     LoginAPIServer.events.response('POST', `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.LOGIN}`)
-    //     // );
+describe('ログインチェック', () => {
+    test("ログイン成功", async () => {
 
-    //     // APIレスポンスの確認
-    //     // await waitFor(() => {
-    //     //     // ここでモックしたレスポンスを確認
-    //     //     document.cookie = `path=/`;
-    //     //     //expect(expectedResponse).toEqual(actualResponse);
-    //     //     expect(screen.queryByText("ユーザー")).toBeInTheDocument();
-    //     // });
-    // });
+        // console.logのモックを作成
+        const logSpy = vi.spyOn(console, 'log');
 
-    // test("ログインに失敗する", async () => {
+        CustomRender(<QueryApp />);
 
-    //     render(
-    //         <QueryClientComponent>
-    //             <Login />
-    //         </QueryClientComponent>
-    //     );
-    //     const user = userEvent.setup();
+        const user = userEvent.setup();
 
-    //     const mailForm = screen.getByLabelText("メールアドレス");
-    //     const passwordForm = screen.getByLabelText("パスワード");
-    //     const sendButton = screen.getByRole("button");
+        const userIdInput = screen.getByPlaceholderText('UserID');
+        const passwordInput = screen.getByPlaceholderText('Password');
+        const loginButton = screen.getByRole('button', { name: 'Login' });
 
-    //     await user.type(mailForm, "fail@example.com");
-    //     await user.type(passwordForm, "userTest1234");
-    //     await user.click(sendButton);
+        await user.type(userIdInput, "test");
+        await user.type(passwordInput, "test");
+        await user.click(loginButton);
 
-    //     expect(screen.queryByText("Welcome testUser !")).not.toBeInTheDocument();
-    // });
+        // console.logが特定のメッセージで呼び出されたことを確認
+        expect(logSpy).toHaveBeenCalledWith('Home render');
+
+        // スパイしたconsole.logを元に戻す
+        logSpy.mockRestore();
+    });
+
+    test("ログインに失敗", async () => {
+
+        // クッキーをリセット
+        clearCookies();
+
+        // console.logのモックを作成
+        const logSpy = vi.spyOn(console, 'log');
+
+        CustomRender(<QueryApp />);
+
+        const user = userEvent.setup();
+
+        const userIdInput = screen.getByPlaceholderText('UserID');
+        const passwordInput = screen.getByPlaceholderText('Password');
+        const loginButton = screen.getByRole('button', { name: 'Login' });
+
+        await user.type(userIdInput, "testfail");
+        await user.type(passwordInput, "testfail");
+        await user.click(loginButton);
+
+        // console.logが特定のメッセージで呼び出されたことを確認
+        expect(logSpy).not.toHaveBeenCalledWith('Home render');
+
+        // スパイしたconsole.logを元に戻す
+        logSpy.mockRestore();
+    });
 });

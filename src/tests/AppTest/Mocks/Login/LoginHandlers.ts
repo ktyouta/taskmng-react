@@ -8,8 +8,6 @@ export const LoginHandlers = [
             password?: string;
         };
 
-        console.log("request:" + request);
-
         if (userId === "test" && password === "test") {
             return HttpResponse.json(
                 {

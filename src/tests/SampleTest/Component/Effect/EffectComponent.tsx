@@ -6,7 +6,6 @@ export function EffectComponent() {
     const [data, setData] = useState("");
 
     const submit = async () => {
-        console.log("testsubmit is called");
         const response = await fetch("https://XXXXXXX/effectcomponent", {
             method: "POST",
             body: JSON.stringify({ data }),

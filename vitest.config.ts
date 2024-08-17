@@ -13,5 +13,6 @@ export default defineConfig({
      * {@link https://vitest.dev/guide/in-source.html}
      */
     includeSource: ['src/**/*.{ts,tsx}'],
+    exclude: ['**/node_modules/**', 'src/tests/SampleTest/**/*.{ts,tsx}']
   },
 })
