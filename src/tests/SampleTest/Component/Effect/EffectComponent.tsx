@@ -11,10 +11,6 @@ export function EffectComponent() {
             body: JSON.stringify({ data }),
         });
         const body = await response.json();
-        console.log("EffectComponent body:" + body);
-        Object.keys(body).forEach((element) => {
-            console.log(`body[${element}]:${body[element]}`);
-        });
         body && setData(body.id);
     };
 

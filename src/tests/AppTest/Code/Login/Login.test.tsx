@@ -32,7 +32,7 @@ describe('コンポーネントのレンダリングチェック', () => {
 });
 
 
-describe('ログイン画面チェック', () => {
+describe('ログイン画面の表示チェック', () => {
 
     test("RLMNTが表示されている", async () => {
 
@@ -114,7 +114,7 @@ describe('ログイン画面のフォームチェック', () => {
 
 
 describe('ログインチェック', () => {
-    test("ログイン成功", async () => {
+    test("ログイン成功時にホーム画面に遷移すること", async () => {
 
         // console.logのモックを作成
         const logSpy = vi.spyOn(console, 'log');
@@ -138,7 +138,7 @@ describe('ログインチェック', () => {
         logSpy.mockRestore();
     });
 
-    test("ログインに失敗", async () => {
+    test("ログイン失敗時にホーム画面に遷移しないこと", async () => {
 
         // クッキーをリセット
         clearCookies();

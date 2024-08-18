@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
+import LoginedComponent from "./LoginedComponent";
 
 //引数の型
 type propsType = {

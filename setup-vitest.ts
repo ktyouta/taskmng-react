@@ -9,10 +9,19 @@ import { setupServer } from 'msw/node';
 import { HttpHandler } from 'msw';
 
 
+beforeAll(() => {
+    global.ResizeObserver = class {
+        observe() { }
+        unobserve() { }
+        disconnect() { }
+    };
+});
+
 // runs a cleanup after each test case (e.g. clearing jsdom)
 afterEach(() => {
     cleanup();
 });
+
 
 const HttpHandlerSampleList: HttpHandler[] = SampleTestAPIServerList.reduce((prev, current) => {
     return [...prev, ...current];
@@ -36,4 +45,5 @@ afterAll(() => {
 afterEach(() => {
 
     setupServer(...HttpHandlerSampleList, ...AppHandlerSampleList).listen();
+
 });

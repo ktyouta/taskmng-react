@@ -10,15 +10,34 @@ import QueryApp from "../../../../QueryApp";
 import ENV from '../../../../env.json';
 import CustomRender from "../../Utils/Code/CustomRender";
 import Home from "../../../../Home/Home";
+import { vi } from "vitest";
+import LoginedRender from "../../Utils/Code/LoginedRender";
 
-describe(Home, () => {
 
-    test("ホーム画面が表示されている", async () => {
+describe('コンポーネントのレンダリングチェック', () => {
+    test('Homeコンポーネントのレンダリングが実行される', () => {
+
+        // console.logのモックを作成
+        const logSpy = vi.spyOn(console, 'log');
 
         CustomRender(<Home />);
 
+        expect(logSpy).toHaveBeenCalledWith('Home render');
+
+        // スパイしたconsole.logを元に戻す
+        logSpy.mockRestore();
+    });
+});
+
+
+describe('ホーム画面チェック', () => {
+
+    test("ホーム画面が表示されている", async () => {
+
+        LoginedRender(<Home />);
+
         await waitFor(() => {
-            expect(screen.getByText("ホーム")).toBeInTheDocument();
+            expect(screen.getByText("プロジェクトホーム")).toBeInTheDocument();
         });
 
     });

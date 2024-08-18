@@ -4,8 +4,6 @@ import ENV from '../../../../env.json';
 export const AuthHandlers = [
     http.post(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.AUTH}`, async ({ request }) => {
 
-        console.log("AuthAPI is called");
-
         return HttpResponse.json(
             {
                 errMessage: "",
