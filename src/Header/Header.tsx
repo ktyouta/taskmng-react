@@ -102,10 +102,12 @@ const UserNameDiv = styled.div`
 
 //引数の型
 type propsType = {
-  userInfo?: userInfoType,
+  userInfo: userInfoType,
 }
 
 function Header(props: propsType) {
+
+  console.log("Header render");
 
   //ヘッダのビジネスロジック
   const {

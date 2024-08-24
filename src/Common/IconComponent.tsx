@@ -10,6 +10,8 @@ type propsType = {
 
 function IconComponent(props: propsType) {
 
+    console.log("IconComponent render");
+
     const Icon = props.icon;
 
     return (

@@ -3,10 +3,17 @@ import { useGlobalAtom } from "../../../../Common/Hook/useGlobalAtom";
 import { userInfoType } from "../../../../Common/Type/CommonType";
 import { clientMenuListAtom, userInfoAtom } from "../../../../Content/Hook/useContentLogic";
 
+//引数の型
 type propsType = {
     children: ReactNode
 }
 
+/**
+ * ログイン時にAPIから取得するデータを保持するコンポーネント
+ * ログイン後のコンポーネントに対してテストする際に使用する
+ * @param props 
+ * @returns 
+ */
 function LoginedComponent(props: propsType) {
 
     // ユーザー情報
