@@ -90,7 +90,11 @@ function HomeGraph(props: propsType) {
             <ComboDiv
                 height='7%'
             >
-                対象年
+                <label
+                    htmlFor="vitestHomeTargetYearComb"
+                >
+                    対象年
+                </label>
                 <SpaceComponent
                     space='2%'
                 />
@@ -101,15 +105,22 @@ function HomeGraph(props: propsType) {
                     height='100%'
                     width='25%'
                     minWidth='10px'
+                    id="vitestHomeTargetYearComb"
                 />
                 <SpaceComponent
                     space='1%'
                 />
-                年
+                <span>
+                    年
+                </span>
                 <SpaceComponent
                     space='4%'
                 />
-                ステータス
+                <label
+                    htmlFor="vitestHomeStatusComb"
+                >
+                    ステータス
+                </label>
                 <SpaceComponent
                     space='2%'
                 />
@@ -120,6 +131,7 @@ function HomeGraph(props: propsType) {
                     height='100%'
                     width='25%'
                     minWidth='10px'
+                    id='vitestHomeStatusComb'
                 />
             </ComboDiv>
             <VerticalSpaceComponent

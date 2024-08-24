@@ -50,7 +50,7 @@ type propsType = {
 
 function HomeHistoryContentList(props: propsType) {
 
-    console.log("HomeHistoryList render");
+    console.log("HomeHistoryContentList render");
 
     return (
         <OuterDiv
@@ -73,18 +73,25 @@ function HomeHistoryContentList(props: propsType) {
                 width="100%"
             >
                 {
-                    props.taskList && props.taskList.map((element) => {
-                        return (
-                            <React.Fragment>
-                                <HomeHistoryContent
-                                    taskHistory={element}
-                                />
-                                <VerticalSpaceComponent
-                                    space={'2%'}
-                                />
-                            </React.Fragment>
-                        )
-                    })
+                    props.taskList &&
+                        props.taskList.length > 0
+                        ?
+                        props.taskList.map((element) => {
+                            return (
+                                <React.Fragment>
+                                    <HomeHistoryContent
+                                        taskHistory={element}
+                                    />
+                                    <VerticalSpaceComponent
+                                        space={'2%'}
+                                    />
+                                </React.Fragment>
+                            )
+                        })
+                        :
+                        <div>
+                            対象年のデータが存在しません。
+                        </div>
                 }
             </InnerDiv>
         </OuterDiv>

@@ -16,6 +16,7 @@ type propsType = {
   minHeight?: string,
   selectStyle?: { [key: string]: string },
   optionStyle?: { [key: string]: string },
+  id?: string,
 }
 
 //コンボボックスの型
@@ -82,6 +83,7 @@ const ComboComponent = forwardRef<refType, propsType>((props, ref) => {
           minHeight={props.minHeight}
           minWidth={props.minWidth}
           style={props.selectStyle}
+          id={props.id}
         >
           {
             props.combo.map((element) => {
