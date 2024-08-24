@@ -4,29 +4,11 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Header from "../../../../Header/Header";
 import LoginedComponent from "../../Utils/Components/LoginedComponent";
 import LoginedRender from "../../Utils/Code/LoginedRender";
+import { TestHeader } from "../../Utils/Components/TestHeader";
+import { noIconUserInfo, userInfo } from "../../Mocks/TestDatas";
+import { HeadNaviTestId, IconComponentDataTestId, UserIconComponentDataTestId } from "../../Utils/DataTestId";
+import userEvent from "@testing-library/user-event";
 
-
-//テストログインユーザー情報
-const userInfo = {
-    userId: "f",
-    userName: "テスト管理者",
-    auth: "3",
-    iconUrl: "http://localhost:3000/img/standard/testimg1.png",
-}
-
-//テストログインユーザー情報(アイコン未設定)
-const noIconUserInfo = {
-    userId: "f",
-    userName: "テスト管理者",
-    auth: "3",
-    iconUrl: "",
-}
-
-function TestHeader() {
-    return <Header
-        userInfo={userInfo}
-    />
-}
 
 describe('コンポーネントのレンダリングチェック', () => {
 
@@ -45,7 +27,6 @@ describe('コンポーネントのレンダリングチェック', () => {
 
     test('アイコン未設定ユーザーの場合にデフォルトのアイコンが表示されること', async () => {
 
-        // console.logのモックを作成
         const logSpy = vi.spyOn(console, 'log');
 
         CustomRender(<Header userInfo={noIconUserInfo} />);
@@ -54,13 +35,11 @@ describe('コンポーネントのレンダリングチェック', () => {
             expect(logSpy).toHaveBeenCalledWith('IconComponent render');
         });
 
-        // スパイしたconsole.logを元に戻す
         logSpy.mockRestore();
     });
 
-    test('アイコンが設定されている場合に設定アイコンが表示されること', async () => {
+    test('アイコンが設定されている場合にユーザーの設定アイコンが表示されること', async () => {
 
-        // console.logのモックを作成
         const logSpy = vi.spyOn(console, 'log');
 
         CustomRender(<TestHeader />);
@@ -69,7 +48,6 @@ describe('コンポーネントのレンダリングチェック', () => {
             expect(logSpy).toHaveBeenCalledWith('UserIconComponent render');
         });
 
-        // スパイしたconsole.logを元に戻す
         logSpy.mockRestore();
     });
 
@@ -100,3 +78,51 @@ describe('ヘッダの表示チェック', () => {
         });
     });
 });
+
+
+describe("アイコン押下チェック", () => {
+
+    test('デフォルトアイコン押下時にナビゲーションが表示されること', async () => {
+
+        LoginedRender(
+            <Header userInfo={noIconUserInfo} />
+        );
+
+        //デフォルトアイコン要素を取得
+        const defultIconElement = screen.getByTestId(IconComponentDataTestId);
+
+        //ナビゲーション要素を取得
+        const naviElement = screen.getByTestId(HeadNaviTestId);
+
+        //初期状態では非表示であることを確認
+        expect(naviElement).toHaveStyle({ display: 'none' });
+
+        //デフォルトアイコンをクリック
+        await userEvent.click(defultIconElement);
+
+        //クリック後に表示されることを確認
+        expect(naviElement).toHaveStyle({ display: 'block' });
+    });
+
+    test('ユーザー設定アイコン押下時にナビゲーションが表示されること', async () => {
+
+        LoginedRender(
+            <TestHeader />
+        );
+
+        //ユーザーアイコン要素を取得
+        const userIconElement = screen.getByTestId(UserIconComponentDataTestId);
+
+        //ナビゲーション要素を取得
+        const naviElement = screen.getByTestId(HeadNaviTestId);
+
+        //初期状態では非表示であることを確認
+        expect(naviElement).toHaveStyle({ display: 'none' });
+
+        //ユーザーアイコンをクリック
+        await userEvent.click(userIconElement);
+
+        //クリック後に表示されることを確認
+        expect(naviElement).toHaveStyle({ display: 'block' });
+    });
+})

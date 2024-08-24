@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import logo from './logo.svg';
 import { useAtomValue } from 'jotai';
 import styled from 'styled-components';
+import { UserIconComponentDataTestId } from '../tests/AppTest/Utils/DataTestId';
 
 
 //外側のスタイル
@@ -65,6 +66,7 @@ function UserIconComponent(props: propsType) {
                     if (props.clickIcon) props.clickIcon(props.iconUrl);
                 }}
                 style={props.imgStyle}
+                data-testid={UserIconComponentDataTestId}
             />
         </OuterDiv>
     );

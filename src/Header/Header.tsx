@@ -9,6 +9,7 @@ import IconComponent from '../Common/IconComponent';
 import { IoPersonCircleOutline } from "react-icons/io5";
 import UserIconComponent from '../Common/UserIconComponent';
 import { Z_INDEX_PARAM } from '../Common/Const/CommonConst';
+import { HeadNaviTestId } from '../tests/AppTest/Utils/DataTestId';
 
 
 //ヘッダーのスタイル
@@ -152,6 +153,7 @@ function Header(props: propsType) {
             }
             <NavDiv
               isDisplay={flag}
+              data-testid={HeadNaviTestId}
             >
               <ContentDiv
                 onClick={clickUserInfo}

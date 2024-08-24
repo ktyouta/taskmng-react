@@ -1,4 +1,5 @@
 import { IconType } from 'react-icons';
+import { IconComponentDataTestId } from '../tests/AppTest/Utils/DataTestId';
 
 //引数の型
 type propsType = {
@@ -19,6 +20,7 @@ function IconComponent(props: propsType) {
             onClick={props.onclick}
             style={{ cursor: 'pointer', color: props.bgColor ?? '' }}
             size={props.size}
+            data-testid={IconComponentDataTestId}
         />
     );
 }
