@@ -9,7 +9,7 @@ import IconComponent from '../Common/IconComponent';
 import { IoPersonCircleOutline } from "react-icons/io5";
 import UserIconComponent from '../Common/UserIconComponent';
 import { Z_INDEX_PARAM } from '../Common/Const/CommonConst';
-import { HeadNaviTestId } from '../tests/AppTest/Utils/DataTestId';
+import { HeadNaviTestId, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId } from '../tests/AppTest/Utils/DataTestId';
 
 
 //ヘッダーのスタイル
@@ -157,11 +157,13 @@ function Header(props: propsType) {
             >
               <ContentDiv
                 onClick={clickUserInfo}
+                data-testid={NaviUserInfoTestId}
               >
                 ユーザー情報
               </ContentDiv>
               <ContentDiv
                 onClick={logout}
+                data-testid={NaviLogoutTestId}
               >
                 ログアウト
               </ContentDiv>
@@ -173,6 +175,7 @@ function Header(props: propsType) {
         flag &&
         <OverlayDiv
           onClick={offFlag}
+          data-testid={NaviBackgroundDivTestId}
         >
         </OverlayDiv>
       }

@@ -1,7 +1,9 @@
 import React, { ReactNode, useEffect } from "react";
-import { useGlobalAtom } from "../../../../Common/Hook/useGlobalAtom";
+import { useGlobalAtom, useSetGlobalAtom } from "../../../../Common/Hook/useGlobalAtom";
 import { userInfoType } from "../../../../Common/Type/CommonType";
 import { clientMenuListAtom, userInfoAtom } from "../../../../Content/Hook/useContentLogic";
+import ENV from "../../../../env.json";
+import { useCookies } from "react-cookie";
 
 //引数の型
 type propsType = {
@@ -16,13 +18,19 @@ type propsType = {
  */
 function LoginedComponent(props: propsType) {
 
+    //認証クッキー
+    const [cookie, setCookie, removeCookie] = useCookies();
     // ユーザー情報
-    const [userInfo, setUserInfoAtom] = useGlobalAtom<userInfoType | undefined>(userInfoAtom);
+    const setUserInfoAtom = useSetGlobalAtom<userInfoType | undefined>(userInfoAtom);
     //クライアント用メニューリスト
-    const [clientMenuList, setClientMenuList] = useGlobalAtom(clientMenuListAtom);
+    const setClientMenuList = useSetGlobalAtom(clientMenuListAtom);
 
     useEffect(() => {
 
+        //cookieを設定
+        setCookie(ENV.AUTHENTICATION.cookie, "testtoken", { path: '/' });
+
+        //ユーザー情報を設定
         setUserInfoAtom({
             userId: "f",
             userName: "テスト管理者",
@@ -30,6 +38,7 @@ function LoginedComponent(props: propsType) {
             iconUrl: "http://localhost:3000/img/standard/testimg1.png"
         });
 
+        //カテゴリ情報を設定
         setClientMenuList([
             {
                 id: "CATEGORY-1",

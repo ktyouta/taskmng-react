@@ -21,3 +21,8 @@ export const useGlobalAtom = <T,>(atom: PrimitiveAtom<T> & WithInitialValue<T>) 
 export const useGlobalAtomValue = <T,>(atom: PrimitiveAtom<T> & WithInitialValue<T>) => {
     return useAtomValue(atom, { store: getDefaultStore() });
 }
+
+//セッターのみ返却
+export const useSetGlobalAtom = <T,>(atom: PrimitiveAtom<T> & WithInitialValue<T>) => {
+    return useSetAtom(atom, { store: getDefaultStore() });
+}

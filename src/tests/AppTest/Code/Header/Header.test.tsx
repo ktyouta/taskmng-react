@@ -6,8 +6,9 @@ import LoginedComponent from "../../Utils/Components/LoginedComponent";
 import LoginedRender from "../../Utils/Code/LoginedRender";
 import { TestHeader } from "../../Utils/Components/TestHeader";
 import { noIconUserInfo, userInfo } from "../../Mocks/TestDatas";
-import { HeadNaviTestId, IconComponentDataTestId, UserIconComponentDataTestId } from "../../Utils/DataTestId";
+import { HeadNaviTestId, IconComponentDataTestId, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, UserIconComponentDataTestId } from "../../Utils/DataTestId";
 import userEvent from "@testing-library/user-event";
+import QueryApp from "../../../../QueryApp";
 
 
 describe('コンポーネントのレンダリングチェック', () => {
@@ -80,7 +81,30 @@ describe('ヘッダの表示チェック', () => {
 });
 
 
-describe("アイコン押下チェック", () => {
+describe("ナビゲーション表示チェック", () => {
+
+    test("ユーザー情報が表示されていること", async () => {
+
+        LoginedRender(<TestHeader />);
+
+        await waitFor(() => {
+            expect(screen.getByText("ユーザー情報")).toBeInTheDocument();
+        });
+    });
+
+    test("ログアウトが表示されていること", async () => {
+
+        LoginedRender(<TestHeader />);
+
+        await waitFor(() => {
+            expect(screen.getByText("ログアウト")).toBeInTheDocument();
+        });
+    });
+
+});
+
+
+describe("ナビゲーションの開閉チェック", () => {
 
     test('デフォルトアイコン押下時にナビゲーションが表示されること', async () => {
 
@@ -90,7 +114,6 @@ describe("アイコン押下チェック", () => {
 
         //デフォルトアイコン要素を取得
         const defultIconElement = screen.getByTestId(IconComponentDataTestId);
-
         //ナビゲーション要素を取得
         const naviElement = screen.getByTestId(HeadNaviTestId);
 
@@ -112,7 +135,6 @@ describe("アイコン押下チェック", () => {
 
         //ユーザーアイコン要素を取得
         const userIconElement = screen.getByTestId(UserIconComponentDataTestId);
-
         //ナビゲーション要素を取得
         const naviElement = screen.getByTestId(HeadNaviTestId);
 
@@ -125,4 +147,91 @@ describe("アイコン押下チェック", () => {
         //クリック後に表示されることを確認
         expect(naviElement).toHaveStyle({ display: 'block' });
     });
-})
+
+    test('ナビゲーション表示後に背景をクリックでナビゲーションが閉じること', async () => {
+
+        LoginedRender(<TestHeader />);
+
+        //アイコン要素を取得
+        const userIconElement = screen.getByTestId(UserIconComponentDataTestId);
+        //ナビゲーション要素を取得
+        const naviElement = screen.getByTestId(HeadNaviTestId);
+
+        //初期状態では非表示であることを確認
+        expect(naviElement).toHaveStyle({ display: 'none' });
+
+        //アイコンをクリック
+        await userEvent.click(userIconElement);
+
+        //クリック後に表示されることを確認
+        expect(naviElement).toHaveStyle({ display: 'block' });
+
+        //ナビゲーション表示後に背景要素を取得
+        const backgroundElement = screen.getByTestId(NaviBackgroundDivTestId);
+
+        //背景要素をクリック後にナビゲーションが閉じることを確認
+        await userEvent.click(backgroundElement);
+        expect(naviElement).toHaveStyle({ display: 'none' });
+    });
+});
+
+
+describe("ナビゲーションメニューの選択チェック", () => {
+
+    test("ユーザー情報をクリックでユーザー情報画面に遷移すること", async () => {
+
+        //ヘッダコンポーネント単体ではテスト不可のためQueryAppをレンダリング
+        LoginedRender(<QueryApp />);
+
+        //アイコン要素を取得
+        const userIconElement = screen.getByTestId(UserIconComponentDataTestId);
+        //ナビゲーション要素を取得
+        const naviElement = screen.getByTestId(HeadNaviTestId);
+        //ナビゲーションのユーザー情報を取得
+        const userInfoElement = screen.getByTestId(NaviUserInfoTestId);
+
+        //初期状態では非表示であることを確認
+        expect(naviElement).toHaveStyle({ display: 'none' });
+
+        //アイコンをクリック
+        await userEvent.click(userIconElement);
+
+        //クリック後に表示されることを確認
+        expect(naviElement).toHaveStyle({ display: 'block' });
+
+        //ユーザー情報をクリック
+        await userEvent.click(userInfoElement);
+
+        //ユーザー情報画面が表示されることを確認
+        expect(screen.getByText("ユーザーID")).toBeInTheDocument();
+
+    });
+
+    test("ログアウトをクリックでログイン画面に遷移すること", async () => {
+
+        //ヘッダコンポーネント単体ではテスト不可のためQueryAppをレンダリング
+        LoginedRender(<QueryApp />);
+
+        //アイコン要素を取得
+        const userIconElement = screen.getByTestId(UserIconComponentDataTestId);
+        //ナビゲーション要素を取得
+        const naviElement = screen.getByTestId(HeadNaviTestId);
+        //ナビゲーションのログアウトを取得
+        const logoutElement = screen.getByTestId(NaviLogoutTestId);
+
+        //初期状態では非表示であることを確認
+        expect(naviElement).toHaveStyle({ display: 'none' });
+
+        //アイコンをクリック
+        await userEvent.click(userIconElement);
+
+        //クリック後に表示されることを確認
+        expect(naviElement).toHaveStyle({ display: 'block' });
+        //ログアウトをクリック
+        await userEvent.click(logoutElement);
+
+        //ログイン画面が表示されることを確認
+        expect(screen.getByText("RLMNT")).toBeInTheDocument();
+
+    });
+});
