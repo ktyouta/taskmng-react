@@ -1,0 +1,98 @@
+要素取得関連
+
+
+/*
+  Vitest Query Methods Documentation
+*/
+
+// 1. getByText()
+// 説明: DOM内で指定されたテキストを持つ要素を取得します。存在しない場合はエラーを投げます。
+const element = screen.getByText('表示されているテキスト');
+// 部分一致: 正規表現を使用して部分一致を確認できます。
+const element = screen.getByText(/部分一致のテキスト/);
+
+
+
+// 2. queryByText()
+// 説明: DOM内で指定されたテキストを持つ要素を取得します。存在しない場合は `null` を返します（エラーは投げません）。
+const element = screen.queryByText('存在しないテキスト');
+// 部分一致: 正規表現を使用して部分一致を確認できます。
+const element = screen.queryByText(/部分一致のテキスト/);
+
+
+
+// 3. findByText()
+// 説明: 非同期で指定されたテキストを持つ要素を探し、見つかった場合に返します。見つからない場合はタイムアウトしてエラーを投げます。
+const element = await screen.findByText('非同期に表示されるテキスト');
+
+
+
+// 4. getByRole()
+// 説明: 特定の役割（role）を持つ要素を取得します。例えば、ボタン要素を取得する場合などに使用します。
+const buttonElement = screen.getByRole('button', { name: 'ボタンのテキスト' });
+
+
+
+// 5. queryByRole()
+// 説明: 特定の役割（role）を持つ要素を取得します。存在しない場合は `null` を返します。
+const buttonElement = screen.queryByRole('button', { name: 'ボタンのテキスト' });
+
+
+
+// 6. findByRole()
+// 説明: 非同期で特定の役割を持つ要素を探し、見つかった場合に返します。
+const buttonElement = await screen.findByRole('button', { name: 'ボタンのテキスト' });
+
+
+
+// 7. getByLabelText()
+// 説明: <label> 要素のテキストを基に、そのラベルに関連付けられたフォーム要素（inputやtextareaなど）を取得します。
+const inputElement = screen.getByLabelText('ラベルのテキスト');
+
+
+
+// 8. queryByLabelText()
+// 説明: <label> 要素のテキストを基に、そのラベルに関連付けられたフォーム要素を取得します。存在しない場合は `null` を返します。
+const inputElement = screen.queryByLabelText('ラベルのテキスト');
+
+
+
+// 9. findByLabelText()
+// 説明: 非同期でラベルに関連付けられたフォーム要素を探し、見つかった場合に返します。
+const inputElement = await screen.findByLabelText('ラベルのテキスト');
+
+
+
+// 10. getByPlaceholderText()
+// 説明: placeholder 属性を基にフォーム要素（inputやtextareaなど）を取得します。
+const inputElement = screen.getByPlaceholderText('プレースホルダーのテキスト');
+
+
+
+// 11. queryByPlaceholderText()
+// 説明: placeholder 属性を基にフォーム要素を取得します。存在しない場合は `null` を返します。
+const inputElement = screen.queryByPlaceholderText('プレースホルダーのテキスト');
+
+
+
+// 12. findByPlaceholderText()
+// 説明: 非同期で placeholder 属性を基にフォーム要素を探し、見つかった場合に返します。
+const inputElement = await screen.findByPlaceholderText('プレースホルダーのテキスト');
+
+
+
+// 13. getByTestId()
+// 説明: data-testid 属性を基に要素を取得します。テスト専用に設定された識別子で要素をターゲットにできます。
+const element = screen.getByTestId('test-id');
+
+
+
+// 14. queryByTestId()
+// 説明: data-testid 属性を基に要素を取得します。存在しない場合は `null` を返します。
+const element = screen.queryByTestId('test-id');
+
+
+
+// 15. findByTestId()
+// 説明: 非同期で data-testid 属性を基に要素を探し、見つかった場合に返します。
+const element = await screen.findByTestId('test-id');

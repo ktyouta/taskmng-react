@@ -1,0 +1,134 @@
+vitest(React)導入
+
+
+1. プロジェクトを作成
+
+2. プロジェクト配下で以下のコマンドを実行
+・npm install -D vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event @types/testing-library__user-event
+・npm install @vitest/coverage-v8
+→カバレッジ表示用
+・npm install -D vitest msw
+→APIモック用
+
+
+
+■vitestについて
+テストツール。
+vitest run の基本的な挙動
+テストファイルの検索:
+
+Vitest は、プロジェクト内のテストファイルを自動的に検索します。通常、.test.ts や .spec.ts などのファイル名、または tests ディレクトリ内のファイルが対象になります。vitest.config.ts で設定を変更することも可能です。
+テストの実行:
+
+見つかったテストファイルを順番に実行します。各テストスイート（describe ブロック）やテストケース（it または test ブロック）が実行され、その結果が集計されます。
+テストの結果表示:
+
+テストが成功したか失敗したかに応じて、結果がコンソールに表示されます。各テストケースの結果が表示され、全体の成功率や失敗したテストの詳細も報告されます。
+カバレッジの報告（オプション）:
+
+vitest run を実行する際に --coverage フラグを追加すると、テストカバレッジ（コードがどれだけテストでカバーされているか）が報告されます。
+カバレッジの結果は、レポートとして出力され、HTML 形式などで詳細を確認できる場合があります。
+エラーハンドリング:
+
+テストが失敗した場合、その原因となったエラーの詳細が表示されます。これにはスタックトレースや、どの行でエラーが発生したかの情報が含まれます。
+非同期テストのサポート:
+
+非同期のテストもサポートしており、async 関数や Promise を返すテストも正しく処理されます。テストが完了するまで待機してから次のテストに進みます。
+
+
+
+
+
+
+
+
+■参考
+1. https://qiita.com/na2na/items/1dc75176fd37273465cd
+
+2. https://github.com/na2na-p/training-vitest/blob/main/setup-vitest.ts
+
+3. https://qiita.com/Qiitakumin/items/914602de042e029ba7f4
+
+4. React×TypeScriptではじめるVitest
+https://zenn.dev/bs_kansai/articles/b79d97a8f921d6
+
+
+
+上記で失敗した際は、以下参照
+1. @testing-library/jest-dom v5 から v6 へのアップデートによる自動テストエラーの解決方法
+https://qiita.com/Yasushi-Mo/items/6d1d4321ce348b113b3b
+※setup.tsに修正を実施
+
+
+
+
+
+
+■webpack環境でのvitest導入
+
+■手順
+1. npm install -D vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event @types/testing-library__user-event
+上記コマンドを実行
+
+2. @types/nodeのバージョンが原因で失敗したので、npm install @types/node@latestでバージョンを更新
+（更新前のバージョン： @types/node@16.18.11）
+
+3. 再度1.のコマンドを実行
+（インストールに成功）
+
+4. npm install @vitest/coverage-v8
+上記コマンドを実行
+
+5. npm install -D vitest msw
+上記コマンドを実行
+
+6. srcフォルダ配下にtestsフォルダを作成する
+（vitestは実行時にtestsフォルダ配下のtest.ts,spec.tsファイルを見る）
+
+7. プロジェクト配下に、vitest.config.tsファイルを置く
+※https://github.com/ktyouta/roguelikemnt-react/commit/ddca28a9ea20125d85f324f156f24181e490c66a参照
+
+8. vitest.config.tsの「import react from '@vitejs/plugin-react-swc'」でエラーが発生
+
+9. vitest.config.tsのpluginプロパティを削除
+
+10. tests配下にテスト用のコンポーネントフォルダを作成
+
+11. プロジェクト配下に、setup-vitest.tsファイルを置く
+※https://github.com/ktyouta/roguelikemnt-react/commit/ddca28a9ea20125d85f324f156f24181e490c66a参照
+
+12. package.jsonのspriptプロパティに、以下を追加
+   "vitest": "vitest",
+    "vitestrun": "vitest --run",
+    "testart": "npm run vitestrun && npm start"
+
+13. App.test.tsを削除
+
+14. npm run vitestを実行
+
+
+■参考
+1. Vite は使ってないけど Jest を Vitest に移行する
+https://zenn.dev/sa2knight/articles/migrating_vitest_from_jest
+
+
+
+
+
+
+
+
+
+■Reactでvitestを書く
+
+
+■参考
+①VitestでReactのテストを書いてみる
+https://zenn.dev/collabostyle/articles/15883dcd38c9ff
+
+②【React】フロントエンドのテストコードを書いてみよう【Vitest】
+https://www.geekfeed.co.jp/geekblog/react-vitest
+
+
+
+

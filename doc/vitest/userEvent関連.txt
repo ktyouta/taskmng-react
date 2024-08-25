@@ -1,0 +1,61 @@
+userEvent関連
+
+
+/*
+  userEvent Documentation
+*/
+
+// userEvent.setup()
+// 説明: userEventのインスタンスを作成します。これにより、ユーザーの操作をシミュレートできます。
+const user = userEvent.setup();
+※フォームの入力等を行う際は必要となる
+
+
+
+// userEvent.click()
+// 説明: 要素がクリックされる操作をシミュレートします。
+await user.click(element);
+
+
+
+// userEvent.type()
+// 説明: テキスト入力をシミュレートします。入力速度もオプションで指定できます。
+await user.type(inputElement, 'テキスト', { delay: 100 });
+
+
+
+// userEvent.selectOptions()
+// 説明: ドロップダウンメニューからオプションを選択する操作をシミュレートします。
+await user.selectOptions(selectElement, 'optionValue');
+
+
+
+// userEvent.clear()
+// 説明: 入力フィールドをクリアする操作をシミュレートします。
+await user.clear(inputElement);
+
+
+
+// userEvent.hover()
+// 説明: 要素にホバーする操作をシミュレートします。
+await user.hover(element);
+
+
+
+// userEvent.unhover()
+// 説明: 要素からホバーを解除する操作をシミュレートします。
+await user.unhover(element);
+
+
+
+// userEvent.tab()
+// 説明: タブキーを押してフォーカスを次の要素に移動する操作をシミュレートします。
+await user.tab();
+
+
+
+// userEvent.keyboard()
+// 説明: 特定のキー入力をシミュレートします。複雑なキー操作も可能です。
+await user.keyboard('{Enter}'); // Enterキーを押す
+await user.keyboard('Hello{Shift>}{ArrowLeft}{ArrowLeft}{/Shift}'); // "Hello"と入力後、Shift+矢印キーで文字選択
+

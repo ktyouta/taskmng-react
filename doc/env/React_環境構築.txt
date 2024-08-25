@@ -1,0 +1,20 @@
+React + Typescript環境構築(vite)
+
+
+1. インストールしたいフォルダに移動
+
+2. npm create vite@latest
+
+3. Project name: › vite-projectに対してプロジェクト名を入力する
+
+4.フレームワークを選択（Reactを選択）
+
+5. 言語を選択（Typescript + SWCを選択）
+
+6. 作成したプロジェクト配下に移動して、npm installを実行する
+
+※プロジェクトの実行コマンド
+npm run dev
+
+参考
+https://monotein.com/blog/react-vite-how-to-use

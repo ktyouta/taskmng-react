@@ -1,0 +1,6 @@
+create-react-appからviteへの移行
+
+
+■参考
+①create-react-appで作成したアプリケーションをviteに移行する
+https://qiita.com/takiguchi-yu/items/21f0c81b2c5ad198f7c1

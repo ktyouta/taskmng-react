@@ -1,0 +1,71 @@
+excpetの判定関連
+
+
+/*
+  Vitest Matcher and userEvent Documentation
+*/
+
+
+// 1. toBeInTheDocument
+// 説明: 要素がDOM内に存在することを確認します。
+expect(element).toBeInTheDocument();
+
+
+
+// 2. toBeVisible
+// 説明: 要素が表示されていることを確認します。
+expect(element).toBeVisible();
+
+
+
+// 3. toHaveTextContent
+// 説明: 要素が特定のテキストを含んでいることを確認します。部分一致も可能です。
+expect(element).toHaveTextContent('特定のテキスト');
+
+
+
+// 4. toHaveAttribute
+// 説明: 要素が特定の属性を持っているか、または属性が特定の値を持っているかを確認します。
+expect(element).toHaveAttribute('type', 'button');
+
+
+
+// 5. toBeDisabled
+// 説明: 要素が無効化されていることを確認します。
+expect(element).toBeDisabled();
+
+
+
+// 6. toBeEnabled
+// 説明: 要素が有効であることを確認します。
+expect(element).toBeEnabled();
+
+
+
+// 7. toBeEmptyDOMElement
+// 説明: 要素が子要素を持たない（空である）ことを確認します。
+expect(element).toBeEmptyDOMElement();
+
+
+
+// 8. toHaveClass
+// 説明: 要素が特定のクラスを持っているかどうかを確認します。
+expect(element).toHaveClass('active');
+
+
+
+// 9. toHaveStyle
+// 説明: 要素に特定のスタイルが適用されていることを確認します。
+expect(element).toHaveStyle('display: none');
+
+
+
+// 10. toBeChecked
+// 説明: チェックボックスやラジオボタンが選択されていることを確認します。
+expect(checkbox).toBeChecked();
+
+
+
+// 11. toHaveFocus
+// 説明: 要素がフォーカスされていることを確認します。
+expect(inputElement).toHaveFocus();

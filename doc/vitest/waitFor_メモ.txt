@@ -1,0 +1,43 @@
+waitForメモ
+
+
+import { render, screen, waitFor } from '@testing-library/react';
+
+// 例: 非同期処理の結果を待つ
+test('非同期処理の結果が表示されることを確認する', async () => {
+  render(<MyComponent />);
+
+  // 初期状態で非同期処理の結果が表示されないことを確認
+  expect(screen.queryByText('Loading complete')).not.toBeInTheDocument();
+
+  // 非同期処理が完了するのを待つ
+  await waitFor(() => {
+    // 非同期処理が完了し、テキストが表示されることを確認
+    expect(screen.getByText('Loading complete')).toBeInTheDocument();
+  });
+});
+
+
+// 例: 非同期での条件チェックのタイムアウト設定
+test('非同期処理が指定時間内に完了することを確認する', async () => {
+  render(<MyComponent />);
+
+  // タイムアウトを指定して waitFor を使う
+  await waitFor(
+    () => {
+      expect(screen.getByText('Data loaded')).toBeInTheDocument();
+    },
+    { timeout: 5000 } // タイムアウトを 5000ms に設定
+  );
+});
+
+
+// 例: 非同期処理中の条件チェック
+test('条件が満たされるまで待つ', async () => {
+  render(<MyComponent />);
+
+  // 非同期処理が完了し、テキストが表示されるのを待つ
+  await waitFor(() => {
+    expect(screen.getByText('Success message')).toBeInTheDocument();
+  });
+});

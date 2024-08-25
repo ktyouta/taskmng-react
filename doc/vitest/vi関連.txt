@@ -1,0 +1,54 @@
+メソッドのモック関連
+
+
+import { vi } from 'vitest';
+
+// コンソールログの呼び出しをスパイする例
+test('コンソールログの呼び出しをスパイする', () => {
+  // console.log をスパイする
+  const logSpy = vi.spyOn(console, 'log');
+
+  console.log('テストログ');
+
+  // console.log が 'テストログ' という引数で呼び出されたことを確認
+  expect(logSpy).toHaveBeenCalledWith('テストログ');
+
+  // スパイした console.log を元に戻す
+  logSpy.mockRestore();
+});
+
+
+
+// メソッドの戻り値をモックする例
+test('メソッドの戻り値をモックする', () => {
+  const myObject = {
+    getValue: () => '実際の値'
+  };
+
+  // getValue メソッドをスパイし、モックする
+  const getValueSpy = vi.spyOn(myObject, 'getValue').mockReturnValue('モックされた値');
+
+  // メソッドがモックされた値を返すことを確認
+  expect(myObject.getValue()).toBe('モックされた値');
+
+  // スパイしたメソッドを元に戻す
+  getValueSpy.mockRestore();
+});
+
+
+
+// メソッドの実装をカスタマイズする例
+test('メソッドの実装をカスタマイズする', () => {
+  const myObject = {
+    getValue: () => '実際の値'
+  };
+
+  // getValue メソッドをスパイし、カスタム実装を設定する
+  const getValueSpy = vi.spyOn(myObject, 'getValue').mockImplementation(() => 'カスタム値');
+
+  // メソッドがカスタム値を返すことを確認
+  expect(myObject.getValue()).toBe('カスタム値');
+
+  // スパイしたメソッドを元に戻す
+  getValueSpy.mockRestore();
+});
