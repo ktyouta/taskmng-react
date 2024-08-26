@@ -11,6 +11,9 @@ import userEvent from "@testing-library/user-event";
 import QueryApp from "../../../../QueryApp";
 
 
+/**
+ * ヘッダーのテストコード
+ */
 describe('コンポーネントのレンダリングチェック', () => {
 
     test('Headerコンポーネントのレンダリングが実行される', () => {

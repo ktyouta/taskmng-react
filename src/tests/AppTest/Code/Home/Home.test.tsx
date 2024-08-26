@@ -14,6 +14,9 @@ import { vi } from "vitest";
 import LoginedRender from "../../Utils/Code/LoginedRender";
 
 
+/**
+ * ホーム画面のテストコード
+ */
 describe('コンポーネントのレンダリングチェック', () => {
 
 

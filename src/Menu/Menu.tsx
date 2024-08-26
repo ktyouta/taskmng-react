@@ -6,6 +6,8 @@ import useMenuLogic from './Hook/useMenuLogic';
 
 function Menu() {
 
+  console.log("Menu render");
+
   //メニューのビジネスロジック
   const {
     menuList,

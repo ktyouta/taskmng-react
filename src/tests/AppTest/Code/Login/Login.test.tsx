@@ -13,6 +13,9 @@ import { vi } from "vitest";
 import { clearCookies } from "../../Utils/Function/UtilsFunction";
 
 
+/**
+ * ログイン画面のテストコード
+ */
 describe('コンポーネントのレンダリングチェック', () => {
 
     test('Loginコンポーネントのレンダリングが実行される', () => {
