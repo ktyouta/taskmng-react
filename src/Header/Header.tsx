@@ -113,6 +113,7 @@ function Header(props: propsType) {
   //ヘッダのビジネスロジック
   const {
     headerTile,
+    headerId,
     logout,
     flag,
     clickUserInfo,
@@ -122,7 +123,9 @@ function Header(props: propsType) {
 
   return (
     <HeaderDiv>
-      <TitleSpan>
+      <TitleSpan
+        data-testid={headerId}
+      >
         {headerTile}
       </TitleSpan>
       <UserInfoOuterDiv>

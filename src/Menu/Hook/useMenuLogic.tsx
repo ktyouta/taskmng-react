@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import styled from 'styled-components';
+import { filterCategoryInfo } from '../Function/MenuFunction';
 
 
 //選択中のメニューのスタイル
@@ -36,19 +37,15 @@ function useMenuLogic() {
         }
         let cnt = 0;
         const userAuth = parseInt(userInfo.auth);
-        tmpMenuList = menu.map((element, index) => {
-            //ログインユーザーの権限でルーティングを切り替える
-            if (parseInt(element.auth) > userAuth) {
-                return <React.Fragment />;
-            }
-            //非表示メニュー
-            if (element.isHidden === "1") {
-                return <React.Fragment />;
-            }
-            cnt++;
+
+        //取得したカテゴリをユーザーの権限とプロパティでフィルターする
+        let filterMenuList = filterCategoryInfo(menu, userAuth);
+
+        tmpMenuList = filterMenuList.map((element, index) => {
+
             let cssName = "";
             //先頭のli
-            if (cnt === 1) {
+            if (index === 0) {
                 cssName = "top-menu-li ";
             }
             //選択中のメニューを強調
@@ -59,9 +56,19 @@ function useMenuLogic() {
                 <li key={`${element.path}-${index}`} className={cssName}>
                     {
                         element.name === selectedMenu ?
-                            <SelectedDiv >{element.name}</SelectedDiv>
+                            <SelectedDiv
+                                data-testid={element.id}
+                            >
+                                {element.name}
+                            </SelectedDiv>
                             :
-                            <Link to={element.path} className="menu-link">{element.name}</Link>
+                            <Link
+                                to={element.path}
+                                className="menu-link"
+                                data-testid={element.id}
+                            >
+                                {element.name}
+                            </Link>
                     }
                 </li>
             )

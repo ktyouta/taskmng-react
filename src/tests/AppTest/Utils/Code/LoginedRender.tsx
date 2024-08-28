@@ -10,13 +10,18 @@ import useLoginLogic from "../../../../Login/Hook/useLoginLogic";
 import useContentLogic from "../../../../Content/Hook/useContentLogic";
 import ENV from '../../../../env.json';
 import LoginedComponent from "../Components/LoginedComponent";
+import { MemoryHistory } from "history";
 
+//引数の型
+type propsType = {
+    initialEntries?: string[],
+}
 
-function LoginedRender(children: ReactNode, initialEntries?: string[]) {
+function LoginedRender(children: ReactNode, props?: propsType) {
 
     return render(
         <QueryClientComponent
-            initialEntries={initialEntries}
+            initialEntries={props?.initialEntries}
         >
             <LoginedComponent>
                 {children}

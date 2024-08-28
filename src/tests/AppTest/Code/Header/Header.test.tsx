@@ -9,6 +9,7 @@ import { noIconUserInfo, userInfo } from "../../Mocks/TestDatas";
 import { HeadNaviTestId, IconComponentDataTestId, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, UserIconComponentDataTestId } from "../../Utils/DataTestId";
 import userEvent from "@testing-library/user-event";
 import QueryApp from "../../../../QueryApp";
+import { APP_TITLE } from "../../../../Title";
 
 
 /**
@@ -234,7 +235,7 @@ describe("ナビゲーションメニューの選択チェック", () => {
         await userEvent.click(logoutElement);
 
         //ログイン画面が表示されることを確認
-        expect(screen.getByText("RLMNT")).toBeInTheDocument();
+        expect(screen.getByText(APP_TITLE)).toBeInTheDocument();
 
     });
 });

@@ -26,7 +26,7 @@ function useHeader(props: propsType) {
     const menu = useGlobalAtomValue(clientMenuListAtom);
 
     //ヘッダタイトル
-    const [headerTile] = useGetViewName({ menu });
+    const [headerTile, headerId] = useGetViewName({ menu });
     //認証クッキー
     const [cookie, , removeCookie] = useCookies();
     //ルーティング用
@@ -73,6 +73,7 @@ function useHeader(props: propsType) {
 
     return {
         headerTile,
+        headerId,
         logout,
         flag,
         clickUserInfo,

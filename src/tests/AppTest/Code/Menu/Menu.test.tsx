@@ -10,7 +10,10 @@ import { HeadNaviTestId, IconComponentDataTestId, NaviBackgroundDivTestId, NaviL
 import userEvent from "@testing-library/user-event";
 import QueryApp from "../../../../QueryApp";
 import Menu from "../../../../Menu/Menu";
-
+import { filterCategoryInfo } from "../../../../Menu/Function/MenuFunction";
+import { menuListType } from "../../../../Common/Type/CommonType";
+import { MemoryRouter } from "react-router-dom";
+import { createMemoryHistory } from 'history';
 
 
 /**
@@ -47,20 +50,53 @@ describe('メニューの表示チェック', () => {
             //テストユーザーの権限を取得
             let testUserAuth = parseInt(authInfo.userInfo.auth);
 
-            //name要素が表示されていることの確認
-            categoryInfo.forEach((element) => {
+            //権限とプロパティでフィルターする
+            let filteredCategoryInfo: menuListType[] = filterCategoryInfo(categoryInfo, testUserAuth);
 
-                //ログインユーザーの権限でルーティングを切り替える
-                if (parseInt(element.auth) > testUserAuth) {
-                    return;
-                }
-                //非表示メニュー
-                if (element.isHidden === "1") {
-                    return;
-                }
+            //name要素が表示されていることの確認
+            filteredCategoryInfo.forEach((element) => {
 
                 expect(screen.getByText(element.name)).toBeInTheDocument();
             });
         });
+    });
+});
+
+
+describe("メニューの選択チェック", () => {
+    test("メニュー選択時にヘッダのタイトルが変更されること", async () => {
+
+        //メニューコンポーネント単体ではテスト不可のためQueryAppをレンダリング
+        LoginedRender(
+            <Menu />
+        );
+
+        //ユーザーイベントをセットアップ
+        const user = userEvent.setup();
+        //テストユーザーの権限を取得
+        let testUserAuth = parseInt(authInfo.userInfo.auth);
+        //権限とプロパティでフィルターする
+        let filteredCategoryInfo: menuListType[] = filterCategoryInfo(categoryInfo, testUserAuth);
+
+        //表示可能カテゴリが存在しない場合
+        if (!filteredCategoryInfo || filteredCategoryInfo.length === 0) {
+            fail("表示可能カテゴリが存在しません。");
+        }
+
+        await Promise.all(
+            filteredCategoryInfo.map(async (element) => {
+
+                // testidをからリンク要素を取得
+                const linkElement = screen.getByTestId(element.id);
+
+                // リンク押下
+                await user.click(linkElement);
+
+                //ヘッダのタイトルが変更されることを確認
+                await waitFor(() => {
+                    expect(screen.getByTestId(element.id).textContent).toBe(element.name);
+                });
+            })
+        );
     });
 });

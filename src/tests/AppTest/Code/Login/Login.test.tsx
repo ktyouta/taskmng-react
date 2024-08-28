@@ -11,6 +11,7 @@ import ENV from '../../../../env.json';
 import CustomRender from "../../Utils/Code/CustomRender";
 import { vi } from "vitest";
 import { clearCookies } from "../../Utils/Function/UtilsFunction";
+import { APP_TITLE } from "../../../../Title";
 
 
 /**
@@ -41,7 +42,7 @@ describe('ログイン画面の表示チェック', () => {
 
         CustomRender(<QueryApp />);
 
-        expect(screen.getByText("RLMNT")).toBeInTheDocument();
+        expect(screen.getByText(APP_TITLE)).toBeInTheDocument();
     });
 
     test("ユーザーIDの入力欄が存在する", async () => {

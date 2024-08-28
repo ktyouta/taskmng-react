@@ -9,6 +9,7 @@ import SpaceComponent from '../Common/SpaceComponent';
 import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
 import LabelInputComponent from '../Common/LabelInputComponent';
 import BaseInputComponent from '../Common/BaseInputComponent';
+import { APP_TITLE } from '../Title';
 
 function Login() {
 
@@ -25,7 +26,7 @@ function Login() {
     return (
         <div className="login">
             <div className="login-area">
-                <div className="login-title-area">RLMNT</div>
+                <div className="login-title-area">{APP_TITLE}</div>
                 <BaseInputComponent
                     value={""}
                     length={100}

@@ -17,6 +17,8 @@ function useGetViewName(props: propsType) {
 
     //メニュー名
     const [selectedMenu, setSelectedMenu] = useState("");
+    //メニューID(vitest用)
+    const [selectedMenuId, setSelectedMenuId] = useState("");
 
     //メニューの変更
     const changeSelectedMenu = () => {
@@ -31,6 +33,7 @@ function useGetViewName(props: propsType) {
                 //urlが一致する場合にヘッダタイトルを変更
                 if (element.path === mainPath) {
                     setSelectedMenu(element.name);
+                    setSelectedMenuId(element.id);
                     return;
                 }
             })
@@ -46,7 +49,7 @@ function useGetViewName(props: propsType) {
     }, [props.menu]);
 
     return (
-        [selectedMenu]
+        [selectedMenu, selectedMenuId]
     );
 }
 
