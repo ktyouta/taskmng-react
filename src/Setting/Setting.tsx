@@ -11,6 +11,7 @@ import SettingMain from './SettingMain';
 //引数の型
 type propsType = {
   path: string,
+  testId: string,
 }
 
 function Setting(props: propsType) {
@@ -18,7 +19,10 @@ function Setting(props: propsType) {
   console.log("setting render");
 
   return (
-    <div className="setting">
+    <div
+      className="setting"
+      data-testid={props.testId}
+    >
       <SettingMenu
         width='15%'
         path={props.path}

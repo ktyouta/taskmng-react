@@ -18,6 +18,7 @@ import MemoRegister from './MemoRegister';
 
 type propsType = {
   path: string,
+  testId: string,
 }
 
 function Memo(props: propsType) {
@@ -32,6 +33,7 @@ function Memo(props: propsType) {
   return (
     <HeightDiv
       height='100%'
+      data-testid={props.testId}
     >
       <Routes>
         {/* メモ一覧画面のルーティング */}

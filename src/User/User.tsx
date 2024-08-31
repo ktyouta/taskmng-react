@@ -18,6 +18,7 @@ const OuterDiv = styled.div`
 //引数の型
 type propsType = {
     path: string,
+    testId: string,
 }
 
 
@@ -28,7 +29,9 @@ function User(props: propsType) {
     useUser();
 
     return (
-        <OuterDiv>
+        <OuterDiv
+            data-testid={props.testId}
+        >
             <Routes>
                 <Route
                     path="/"

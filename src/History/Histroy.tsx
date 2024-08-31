@@ -22,13 +22,18 @@ const TitleDiv = styled.div`
     padding-top: 3%;
 `;
 
-function Histroy() {
+type propsType = {
+    testId: string,
+}
+
+function Histroy(props: propsType) {
 
     console.log("Histroy render");
 
     return (
         <HeightDiv
             height='93%'
+            data-testid={props.testId}
         >
             <TitleDiv>
                 <LabelComponent

@@ -29,7 +29,11 @@ export const selectedDataElementsAtom = atom<{ [key: string]: string }>({});
 export const editModeAtom = atom(editModeEnum.noselect);
 
 
-function Master() {
+type propsType = {
+  testId: string,
+}
+
+function Master(props: propsType) {
 
   console.log("master render");
   //編集モード
@@ -39,7 +43,10 @@ function Master() {
   useMasterLogic();
 
   return (
-    <div className="master">
+    <div
+      className="master"
+      data-testid={`${props.testId}`}
+    >
       <Routes>
         <Route path="/" element={<MasterTop />} />
         <Route path="edit" element={editMode === editModeEnum.noselect ? <Navigate to="/master" /> : <MasterEdit />} />

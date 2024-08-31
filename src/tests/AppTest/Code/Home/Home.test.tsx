@@ -12,6 +12,7 @@ import CustomRender from "../../Utils/Code/CustomRender";
 import Home from "../../../../Home/Home";
 import { vi } from "vitest";
 import LoginedRender from "../../Utils/Code/LoginedRender";
+import { TestHome } from "../../Utils/Components/TestHome";
 
 
 /**
@@ -25,7 +26,7 @@ describe('コンポーネントのレンダリングチェック', () => {
         // console.logのモックを作成
         const logSpy = vi.spyOn(console, 'log');
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         expect(logSpy).toHaveBeenCalledWith('Home render');
 
@@ -37,7 +38,7 @@ describe('コンポーネントのレンダリングチェック', () => {
 
         const logSpy = vi.spyOn(console, 'log');
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         expect(logSpy).toHaveBeenCalledWith('HomeHistory render');
 
@@ -48,7 +49,7 @@ describe('コンポーネントのレンダリングチェック', () => {
 
         const logSpy = vi.spyOn(console, 'log');
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
             expect(logSpy).toHaveBeenCalledWith('HomeHistoryContentList render');
@@ -61,7 +62,7 @@ describe('コンポーネントのレンダリングチェック', () => {
 
         const logSpy = vi.spyOn(console, 'log');
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
             expect(logSpy).toHaveBeenCalledWith('HomeGraph render');
@@ -74,7 +75,7 @@ describe('コンポーネントのレンダリングチェック', () => {
 
         const logSpy = vi.spyOn(console, 'log');
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
             expect(logSpy).toHaveBeenCalledWith('HomeHistoryLineGraph render');
@@ -87,7 +88,7 @@ describe('コンポーネントのレンダリングチェック', () => {
 
         const logSpy = vi.spyOn(console, 'log');
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
             expect(logSpy).toHaveBeenCalledWith('HomeHistoryContent render');
@@ -101,7 +102,7 @@ describe('コンポーネントのレンダリングチェック', () => {
         // console.logのモックを作成
         const logSpy = vi.spyOn(console, 'log');
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
             expect(logSpy).toHaveBeenCalledWith('HomeStatusBarGraph render');
@@ -118,7 +119,7 @@ describe('ホーム画面の表示チェック', () => {
 
     test("プロジェクトホームが表示されている", async () => {
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
             expect(screen.getByText("プロジェクトホーム")).toBeInTheDocument();
@@ -127,7 +128,7 @@ describe('ホーム画面の表示チェック', () => {
 
     test("タスクチャートが表示されている", async () => {
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
             expect(screen.getByText("タスクチャート")).toBeInTheDocument();
@@ -136,7 +137,7 @@ describe('ホーム画面の表示チェック', () => {
 
     test("対象年が存在する", async () => {
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
 
@@ -146,7 +147,7 @@ describe('ホーム画面の表示チェック', () => {
 
     test("ステータスが存在する", async () => {
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
 
@@ -156,7 +157,7 @@ describe('ホーム画面の表示チェック', () => {
 
     test("年が存在する", async () => {
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
 
@@ -166,7 +167,7 @@ describe('ホーム画面の表示チェック', () => {
 
     test("対象年のコンボボックスが存在する", async () => {
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
 
@@ -180,7 +181,7 @@ describe('ホーム画面の表示チェック', () => {
 
     test("ステータスのコンボボックスが存在する", async () => {
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
 
@@ -200,7 +201,7 @@ describe("コンボボックス(ステータス)の切り替えチェック", ()
 
         const logSpy = vi.spyOn(console, 'log');
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
             // コンボボックスを取得
@@ -221,7 +222,7 @@ describe("コンボボックス(ステータス)の切り替えチェック", ()
 
         const logSpy = vi.spyOn(console, 'log');
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
             // コンボボックスを取得
@@ -247,7 +248,7 @@ describe("コンボボックス(対象年)の切り替えチェック", () => {
 
             const logSpy = vi.spyOn(console, 'log');
 
-            CustomRender(<Home />);
+            CustomRender(<TestHome />);
 
             await waitFor(() => {
                 // コンボボックスを取得
@@ -268,7 +269,7 @@ describe("コンボボックス(対象年)の切り替えチェック", () => {
 
         const logSpy = vi.spyOn(console, 'log');
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
             // コンボボックスを取得
@@ -289,7 +290,7 @@ describe("コンボボックス(対象年)の切り替えチェック", () => {
 
         const logSpy = vi.spyOn(console, 'log');
 
-        CustomRender(<Home />);
+        CustomRender(<TestHome />);
 
         await waitFor(() => {
             // コンボボックスを取得

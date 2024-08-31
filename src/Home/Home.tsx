@@ -23,14 +23,18 @@ const MainDiv = styled.div<{ height: string | undefined }>`
     padding-left: 4%;
 `;
 
+type propsType = {
+    testId: string,
+}
 
-function Home() {
+function Home(props: propsType) {
 
     console.log("Home render");
 
     return (
         <HomeDiv
             height='100%'
+            data-testid={`${props.testId}`}
         >
             <MainDiv
                 height='97%'

@@ -17,6 +17,7 @@ import { DUMMY_ID, TASK_ROOT_PATH } from './Const/TaskConst';
 
 type propsType = {
   path: string,
+  testId: string,
 }
 
 function Task(props: propsType) {
@@ -31,6 +32,7 @@ function Task(props: propsType) {
   return (
     <HeightDiv
       height='100%'
+      data-testid={props.testId}
     >
       <Routes>
         <Route

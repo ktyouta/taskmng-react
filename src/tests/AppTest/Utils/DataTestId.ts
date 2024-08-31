@@ -16,3 +16,5 @@ export const NaviLogoutTestId = "NaviLogoutTestId";
 export const MenuTestIdPrefix = "MenuTestIdPrefix-";
 //ヘッダのテストIDの接頭辞
 export const HeaderTestIdPrefix = "HeaderTestIdPrefix-";
+//画面のテストIDの接頭辞
+export const ScreenTestIdPrefix = "ScreenTestIdPrefix-";

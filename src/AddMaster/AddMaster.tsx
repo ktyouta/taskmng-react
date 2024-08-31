@@ -14,8 +14,11 @@ export const summaryInputBodyAtom = atom<{ [key: string]: string }>({});
 //データ追加画面の入力値
 export const addDataInputBodyAtom = atom<{ [key: string]: string }>({});
 
+type propsType = {
+    testId: string,
+}
 
-function AddMaster() {
+function AddMaster(props: propsType) {
 
     console.log("AddMaster render");
 
@@ -23,10 +26,13 @@ function AddMaster() {
     const { inputsSettingList } = useAddMaster();
 
     return (
-        <div className="addmaster">
+        <div
+            className="addmaster"
+            data-testid={props.testId}
+        >
             <Routes>
-                <Route path="/" element={<AddMasterSummary addMasterSummarySetting={inputsSettingList?inputsSettingList.addMasterSummarySetting:undefined} />} />
-                <Route path="data" element={inputsSettingList ? <AddMasterData inputMasterSetting={inputsSettingList.inputMasterSetting}  /> : <Navigate to="/addmaster" />} />
+                <Route path="/" element={<AddMasterSummary addMasterSummarySetting={inputsSettingList ? inputsSettingList.addMasterSummarySetting : undefined} />} />
+                <Route path="data" element={inputsSettingList ? <AddMasterData inputMasterSetting={inputsSettingList.inputMasterSetting} /> : <Navigate to="/addmaster" />} />
             </Routes>
         </div>
     );

@@ -5,7 +5,7 @@ import useCheckAuth from '../../Common/Hook/useCheckAuth';
 import Top from '../../Top/Top';
 import Master from '../../Master/Master';
 import Setting from '../../Setting/Setting';
-import { generalDataType, jsxObjType, masterDataListType, resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
+import { generalDataType, jsxObjType, masterDataListType, menuListType, resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
 import { Route } from "react-router-dom";
 import NotFoundComponent from '../../NotFound/NotFoundComponent';
 import { Provider, atom, useAtom, useAtomValue } from 'jotai';
@@ -19,6 +19,7 @@ import User from '../../User/User';
 import Memo from '../../Memo/Memo';
 import Histroy from '../../History/Histroy';
 import { clientMenuListAtom, userInfoAtom } from '../../Content/Atom/ContentAtom';
+import { ScreenTestIdPrefix } from '../../tests/AppTest/Utils/DataTestId';
 
 
 //マスタのリスト(マスタメンテ画面のコンボ用)
@@ -39,51 +40,67 @@ function createMasterDataListInfo(data: { mastertable: masterDataListType[] }): 
  * @param url 
  * @returns 
  */
-const retComponent = (componentName: string, path: string, userInfo: userInfoType) => {
+const retComponent = (element: menuListType) => {
+
     let component = <React.Fragment />;
+    let componentName = element.componentName;
+    let path = element.path;
+    let testId = `${ScreenTestIdPrefix}${element.id}`
+
     switch (componentName) {
         //ホーム
         case "Home":
-            component = <Home />;
+            component = <Home
+                testId={`${testId}`}
+            />;
             break;
         // case "Top":
         //     Component = <Top />;
         //     break;
         //マスタ編集
         case "Master":
-            component = <Master />;
+            component = <Master
+                testId={`${testId}`} />;
             break;
         //新規マスタ追加
         case "AddMaster":
-            component = <AddMaster />;
+            component = <AddMaster
+                testId={`${testId}`} />;
             break;
         //タスク
         case "Task":
             component = <Task
                 path={path}
+                testId={`${testId}`}
             />;
             break;
         //メモ
         case "Memo":
             component = <Memo
                 path={path}
+                testId={`${testId}`}
             />;
             break;
         //設定
         case "Setting":
             component = <Setting
-                path={path} />;
+                path={path}
+                testId={`${testId}`} />;
             break;
         //ユーザーメニュー
         case "User":
             component = <User
                 path={path}
+                testId={`${testId}`}
             />;
             break;
         //作業履歴
         case "History":
-            component = <Histroy />
+            component = <Histroy
+                testId={`${testId}`}
+            />
     }
+
     return component;
 };
 
@@ -121,8 +138,11 @@ function useMainLogic() {
         if (!userInfo) {
             return;
         }
+
+        //ユーザー権限
         let userAuth = parseInt(userInfo.auth);
-        tmpComponentList = menu.map((element) => {
+
+        tmpComponentList = menu.map((element: menuListType) => {
             //ログインユーザーの権限でルーティングを切り替える
             if (parseInt(element.auth) > userAuth) {
                 return <React.Fragment />;
@@ -133,7 +153,7 @@ function useMainLogic() {
             // }
 
             //ルーティングの設定
-            let component = retComponent(element.componentName, element.path, userInfo);
+            let component = retComponent(element);
             return <Route key={componentPath} path={componentPath} element={<Provider>{component}</Provider>} />
         });
 

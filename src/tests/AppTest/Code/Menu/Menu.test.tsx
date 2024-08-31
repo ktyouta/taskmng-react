@@ -6,7 +6,7 @@ import LoginedComponent from "../../Utils/Components/LoginedComponent";
 import LoginedRender from "../../Utils/Code/LoginedRender";
 import { TestHeader } from "../../Utils/Components/TestHeader";
 import { authInfo, categoryInfo, noIconUserInfo, userInfo } from "../../Mocks/TestDatas";
-import { HeaderTestIdPrefix, HeadNaviTestId, IconComponentDataTestId, MenuTestIdPrefix, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, UserIconComponentDataTestId } from "../../Utils/DataTestId";
+import { HeaderTestIdPrefix, HeadNaviTestId, IconComponentDataTestId, MenuTestIdPrefix, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, ScreenTestIdPrefix, UserIconComponentDataTestId } from "../../Utils/DataTestId";
 import userEvent from "@testing-library/user-event";
 import QueryApp from "../../../../QueryApp";
 import Menu from "../../../../Menu/Menu";
@@ -65,83 +65,43 @@ describe('メニューの表示チェック', () => {
 });
 
 
-// describe("メニューの選択チェック", () => {
+describe("メニューの選択チェック", async () => {
 
-//     test("メニュー選択時にヘッダのタイトルが変更されること", async () => {
+    //ユーザーイベント
+    const user = userEvent.setup();
+    //テストユーザーの権限
+    let testUserAuth = parseInt(authInfo.userInfo.auth);
+    //権限とプロパティでフィルターする
+    let filteredCategoryInfo: menuListType[] = filterCategoryInfo(categoryInfo, testUserAuth);
 
-//         //メニューコンポーネント単体ではテスト不可のためQueryAppをレンダリング
-//         LoginedRender(<QueryApp />);
+    //表示可能カテゴリが存在しない場合
+    if (!filteredCategoryInfo || filteredCategoryInfo.length === 0) {
+        fail("表示可能カテゴリが存在しません。設定を確認してください。");
+    }
 
-//         //ユーザーイベントをセットアップ
-//         const user = userEvent.setup();
-//         //テストユーザーの権限を取得
-//         let testUserAuth = parseInt(authInfo.userInfo.auth);
-//         //権限とプロパティでフィルターする
-//         let filteredCategoryInfo: menuListType[] = filterCategoryInfo(categoryInfo, testUserAuth);
+    await Promise.all(
+        filteredCategoryInfo.map(async (element, index) => {
 
-//         //表示可能カテゴリが存在しない場合
-//         if (!filteredCategoryInfo || filteredCategoryInfo.length === 0) {
-//             fail("表示可能カテゴリが存在しません。");
-//         }
+            if (index === 0) {
+                return;
+            }
 
-//         await Promise.all(
-//             filteredCategoryInfo.map(async (element, index) => {
+            test(`メニューの${element.name}を選択した際に、${element.name}画面に遷移すること`, async () => {
 
-//                 if (index === 0) {
-//                     return;
-//                 }
+                LoginedRender(<QueryApp />);
 
-//                 //testidをからリンク要素を取得
-//                 const linkElement = screen.getByTestId(`${MenuTestIdPrefix}${element.id}`);
+                //testidをからリンク要素を取得
+                const linkElement = screen.getByTestId(`${MenuTestIdPrefix}${element.id}`);
 
-//                 //リンク押下
-//                 await user.click(linkElement);
+                //リンク押下
+                await user.click(linkElement);
 
-//                 //ヘッダのタイトルが変更されることを確認
-//                 await waitFor(() => {
-//                     expect(screen.getByTestId(`${HeaderTestIdPrefix}${element.id}`).textContent).toBe(element.name);
-//                 });
-//             })
-//         );
-//     });
+                //選択したメニューの画面が表示されることを確認する
+                await waitFor(() => {
+                    expect(screen.getByTestId(`${ScreenTestIdPrefix}${element.id}`)).toBeInTheDocument();
+                });
+            });
+        })
+    );
 
-//     test("選択したメニューのスタイルが変わること", async () => {
-
-//         LoginedRender(<QueryApp />);
-
-//         //ユーザーイベントをセットアップ
-//         const user = userEvent.setup();
-//         //テストユーザーの権限を取得
-//         let testUserAuth = parseInt(authInfo.userInfo.auth);
-//         //権限とプロパティでフィルターする
-//         let filteredCategoryInfo: menuListType[] = filterCategoryInfo(categoryInfo, testUserAuth);
-
-//         //表示可能カテゴリが存在しない場合
-//         if (!filteredCategoryInfo || filteredCategoryInfo.length === 0) {
-//             fail("表示可能カテゴリが存在しません。");
-//         }
-
-//         await Promise.all(
-//             filteredCategoryInfo.map(async (element, index) => {
-
-//                 if (index === 0) {
-//                     return;
-//                 }
-
-//                 //testidをからリンク要素を取得
-//                 const linkElement = screen.getByTestId(`${MenuTestIdPrefix}${element.id}`);
-
-//                 //未選択状態のスタイルであることを確認
-//                 //expect(linkElement).toHaveStyle({ color: '#000000' });
-
-//                 //リンク押下
-//                 await user.click(linkElement);
-
-//                 //選択したメニューのスタイルが変わったことを確認する
-//                 await waitFor(() => {
-//                     expect(linkElement).toHaveStyle({ color: 'rgb(255, 255, 255)' });
-//                 });
-//             })
-//         );
-//     });
-// });
+});
