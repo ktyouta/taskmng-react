@@ -7,7 +7,7 @@ import { userType } from "../Type/SettingUserType";
 import { editModeAtom, userIdAtom } from "../Atom/SettingUserAtom";
 import { editModeEnum } from "../../Const/SettingConst";
 import { useGlobalAtomValue } from "../../../Common/Hook/useGlobalAtom";
-import { userInfoAtom } from "../../../Content/Hook/useContentLogic";
+import { userInfoAtom } from "../../../Content/Atom/ContentAtom";
 
 
 function useSettingUserEditMain() {

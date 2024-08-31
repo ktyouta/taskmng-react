@@ -12,3 +12,7 @@ export const NaviBackgroundDivTestId = "NaviBackgroundDivTestId";
 export const NaviUserInfoTestId = "NaviUserInfoTestId";
 //ナビゲーションのログアウトのテストID
 export const NaviLogoutTestId = "NaviLogoutTestId";
+//メニューのテストIDの接頭辞
+export const MenuTestIdPrefix = "MenuTestIdPrefix-";
+//ヘッダのテストIDの接頭辞
+export const HeaderTestIdPrefix = "HeaderTestIdPrefix-";

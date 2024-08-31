@@ -13,10 +13,10 @@ import { editModeAtom, userIdAtom } from "../Atom/SettingUserAtom";
 import { editModeEnum } from "../../Const/SettingConst";
 import { AUTH_ID, SELECT_ICON_TYPE, USERINFO_ACTION_TYPE } from "../Const/SettingUserConst";
 import { useGlobalAtomValue } from "../../../Common/Hook/useGlobalAtom";
-import { userInfoAtom } from "../../../Content/Hook/useContentLogic";
 import { USER_AUTH } from "../../../Common/Const/CommonConst";
 import { isCorrectIconType, updateUserData } from "../Function/SettingUserFunction";
 import { HOME_PATH, NOWPATH_STRAGEKEY } from "../../../Header/Const/HeaderConst";
+import { userInfoAtom } from "../../../Content/Atom/ContentAtom";
 
 
 //引数の型

@@ -4,7 +4,6 @@ import useFetchJsonData from '../../Common/Hook/useFetchJsonData';
 import ENV from '../../env.json';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import { useAtomValue } from 'jotai';
-import { userInfoAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import { barGraphTaskPriorityListType, barGraphTaskStatusListType, taskHistoryType } from '../Type/HomeType';
 import { createTaskHistory, createTaskHistoryTable } from '../Function/HomeFunction';

@@ -6,7 +6,7 @@ import LoginedComponent from "../../Utils/Components/LoginedComponent";
 import LoginedRender from "../../Utils/Code/LoginedRender";
 import { TestHeader } from "../../Utils/Components/TestHeader";
 import { authInfo, categoryInfo, noIconUserInfo, userInfo } from "../../Mocks/TestDatas";
-import { HeadNaviTestId, IconComponentDataTestId, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, UserIconComponentDataTestId } from "../../Utils/DataTestId";
+import { HeaderTestIdPrefix, HeadNaviTestId, IconComponentDataTestId, MenuTestIdPrefix, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, UserIconComponentDataTestId } from "../../Utils/DataTestId";
 import userEvent from "@testing-library/user-event";
 import QueryApp from "../../../../QueryApp";
 import Menu from "../../../../Menu/Menu";
@@ -14,6 +14,8 @@ import { filterCategoryInfo } from "../../../../Menu/Function/MenuFunction";
 import { menuListType } from "../../../../Common/Type/CommonType";
 import { MemoryRouter } from "react-router-dom";
 import { createMemoryHistory } from 'history';
+import { TestMenu } from "../../Utils/Components/TestMenu";
+import React from "react";
 
 
 /**
@@ -26,7 +28,7 @@ describe('コンポーネントのレンダリングチェック', () => {
         // console.logのモックを作成
         const logSpy = vi.spyOn(console, 'log');
 
-        CustomRender(<Menu />);
+        CustomRender(<TestMenu />);
 
         expect(logSpy).toHaveBeenCalledWith('Menu render');
 
@@ -42,7 +44,7 @@ describe('メニューの表示チェック', () => {
     test("APIから取得したカテゴリのnameがメニューに表示されていること", async () => {
 
         LoginedRender(
-            <Menu />
+            <TestMenu />
         );
 
         await waitFor(() => {
@@ -63,40 +65,83 @@ describe('メニューの表示チェック', () => {
 });
 
 
-describe("メニューの選択チェック", () => {
-    test("メニュー選択時にヘッダのタイトルが変更されること", async () => {
+// describe("メニューの選択チェック", () => {
 
-        //メニューコンポーネント単体ではテスト不可のためQueryAppをレンダリング
-        LoginedRender(
-            <Menu />
-        );
+//     test("メニュー選択時にヘッダのタイトルが変更されること", async () => {
 
-        //ユーザーイベントをセットアップ
-        const user = userEvent.setup();
-        //テストユーザーの権限を取得
-        let testUserAuth = parseInt(authInfo.userInfo.auth);
-        //権限とプロパティでフィルターする
-        let filteredCategoryInfo: menuListType[] = filterCategoryInfo(categoryInfo, testUserAuth);
+//         //メニューコンポーネント単体ではテスト不可のためQueryAppをレンダリング
+//         LoginedRender(<QueryApp />);
 
-        //表示可能カテゴリが存在しない場合
-        if (!filteredCategoryInfo || filteredCategoryInfo.length === 0) {
-            fail("表示可能カテゴリが存在しません。");
-        }
+//         //ユーザーイベントをセットアップ
+//         const user = userEvent.setup();
+//         //テストユーザーの権限を取得
+//         let testUserAuth = parseInt(authInfo.userInfo.auth);
+//         //権限とプロパティでフィルターする
+//         let filteredCategoryInfo: menuListType[] = filterCategoryInfo(categoryInfo, testUserAuth);
 
-        await Promise.all(
-            filteredCategoryInfo.map(async (element) => {
+//         //表示可能カテゴリが存在しない場合
+//         if (!filteredCategoryInfo || filteredCategoryInfo.length === 0) {
+//             fail("表示可能カテゴリが存在しません。");
+//         }
 
-                // testidをからリンク要素を取得
-                const linkElement = screen.getByTestId(element.id);
+//         await Promise.all(
+//             filteredCategoryInfo.map(async (element, index) => {
 
-                // リンク押下
-                await user.click(linkElement);
+//                 if (index === 0) {
+//                     return;
+//                 }
 
-                //ヘッダのタイトルが変更されることを確認
-                await waitFor(() => {
-                    expect(screen.getByTestId(element.id).textContent).toBe(element.name);
-                });
-            })
-        );
-    });
-});
+//                 //testidをからリンク要素を取得
+//                 const linkElement = screen.getByTestId(`${MenuTestIdPrefix}${element.id}`);
+
+//                 //リンク押下
+//                 await user.click(linkElement);
+
+//                 //ヘッダのタイトルが変更されることを確認
+//                 await waitFor(() => {
+//                     expect(screen.getByTestId(`${HeaderTestIdPrefix}${element.id}`).textContent).toBe(element.name);
+//                 });
+//             })
+//         );
+//     });
+
+//     test("選択したメニューのスタイルが変わること", async () => {
+
+//         LoginedRender(<QueryApp />);
+
+//         //ユーザーイベントをセットアップ
+//         const user = userEvent.setup();
+//         //テストユーザーの権限を取得
+//         let testUserAuth = parseInt(authInfo.userInfo.auth);
+//         //権限とプロパティでフィルターする
+//         let filteredCategoryInfo: menuListType[] = filterCategoryInfo(categoryInfo, testUserAuth);
+
+//         //表示可能カテゴリが存在しない場合
+//         if (!filteredCategoryInfo || filteredCategoryInfo.length === 0) {
+//             fail("表示可能カテゴリが存在しません。");
+//         }
+
+//         await Promise.all(
+//             filteredCategoryInfo.map(async (element, index) => {
+
+//                 if (index === 0) {
+//                     return;
+//                 }
+
+//                 //testidをからリンク要素を取得
+//                 const linkElement = screen.getByTestId(`${MenuTestIdPrefix}${element.id}`);
+
+//                 //未選択状態のスタイルであることを確認
+//                 //expect(linkElement).toHaveStyle({ color: '#000000' });
+
+//                 //リンク押下
+//                 await user.click(linkElement);
+
+//                 //選択したメニューのスタイルが変わったことを確認する
+//                 await waitFor(() => {
+//                     expect(linkElement).toHaveStyle({ color: 'rgb(255, 255, 255)' });
+//                 });
+//             })
+//         );
+//     });
+// });

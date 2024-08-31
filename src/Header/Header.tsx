@@ -104,6 +104,8 @@ const UserNameDiv = styled.div`
 //引数の型
 type propsType = {
   userInfo: userInfoType,
+  headerTitle: string,
+  headerId: string,
 }
 
 function Header(props: propsType) {
@@ -112,8 +114,6 @@ function Header(props: propsType) {
 
   //ヘッダのビジネスロジック
   const {
-    headerTile,
-    headerId,
     logout,
     flag,
     clickUserInfo,
@@ -124,9 +124,9 @@ function Header(props: propsType) {
   return (
     <HeaderDiv>
       <TitleSpan
-        data-testid={headerId}
+        data-testid={props.headerId}
       >
-        {headerTile}
+        {props.headerTitle}
       </TitleSpan>
       <UserInfoOuterDiv>
         <UserInfoMainDiv>

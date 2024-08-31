@@ -1,9 +1,9 @@
 import React, { ReactNode, useEffect } from "react";
 import { useGlobalAtom, useSetGlobalAtom } from "../../../../Common/Hook/useGlobalAtom";
 import { userInfoType } from "../../../../Common/Type/CommonType";
-import { clientMenuListAtom, userInfoAtom } from "../../../../Content/Hook/useContentLogic";
 import ENV from "../../../../env.json";
 import { useCookies } from "react-cookie";
+import { clientMenuListAtom, userInfoAtom } from "../../../../Content/Atom/ContentAtom";
 
 //引数の型
 type propsType = {

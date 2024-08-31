@@ -14,7 +14,11 @@ function Content() {
     console.log(`Content render`);
 
     //Contentのビジネスロジック
-    const { clientMenuList, userInfo } = useContentLogic();
+    const {
+        clientMenuList,
+        userInfo,
+        headerTitle,
+        headerId } = useContentLogic();
 
     //データが取得できるまでローディングを表示
     if (!userInfo || !clientMenuList || clientMenuList.length < 1) {
@@ -23,10 +27,14 @@ function Content() {
 
     return (
         <div className="App">
-            <Menu />
+            <Menu
+                selectedMenu={headerTitle}
+            />
             <div className='App-maincontent-area'>
                 <Header
                     userInfo={userInfo}
+                    headerTitle={headerTitle}
+                    headerId={headerId}
                 />
                 <Main />
             </div>

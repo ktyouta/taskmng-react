@@ -4,7 +4,6 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import ENV from '../../env.json';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { clientMenuListAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtom, useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import { useState } from 'react';
 import { editModeAtom, userIdAtom } from '../../Setting/SettingUser/Atom/SettingUserAtom';
@@ -13,6 +12,7 @@ import { userInfoType } from '../../Common/Type/CommonType';
 import { LOGIN_PATH, NOWPATH_STRAGEKEY, USER_PATH } from '../Const/HeaderConst';
 import useSwitch from '../../Common/Hook/useSwitch';
 import { USERID_STRAGEKEY } from '../../Common/Const/CommonConst';
+import { clientMenuListAtom } from '../../Content/Atom/ContentAtom';
 
 
 //引数の型
@@ -22,11 +22,6 @@ type propsType = {
 
 function useHeader(props: propsType) {
 
-    //クライアント用メニューリスト
-    const menu = useGlobalAtomValue(clientMenuListAtom);
-
-    //ヘッダタイトル
-    const [headerTile, headerId] = useGetViewName({ menu });
     //認証クッキー
     const [cookie, , removeCookie] = useCookies();
     //ルーティング用
@@ -72,8 +67,6 @@ function useHeader(props: propsType) {
     };
 
     return {
-        headerTile,
-        headerId,
         logout,
         flag,
         clickUserInfo,

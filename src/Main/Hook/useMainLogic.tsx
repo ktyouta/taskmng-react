@@ -9,7 +9,6 @@ import { generalDataType, jsxObjType, masterDataListType, resUserInfoType, userI
 import { Route } from "react-router-dom";
 import NotFoundComponent from '../../NotFound/NotFoundComponent';
 import { Provider, atom, useAtom, useAtomValue } from 'jotai';
-import { clientMenuListAtom, userInfoAtom } from '../../Content/Hook/useContentLogic';
 import useQueryAtomValue from '../../Common/Hook/useQueryAtomValue';
 import { useGlobalAtom, useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
@@ -19,6 +18,7 @@ import Home from '../../Home/Home';
 import User from '../../User/User';
 import Memo from '../../Memo/Memo';
 import Histroy from '../../History/Histroy';
+import { clientMenuListAtom, userInfoAtom } from '../../Content/Atom/ContentAtom';
 
 
 //マスタのリスト(マスタメンテ画面のコンボ用)

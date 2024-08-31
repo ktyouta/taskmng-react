@@ -5,12 +5,10 @@ import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import { atom, useAtom } from 'jotai';
 import { menuListType, resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
 import { useGlobalAtom } from '../../Common/Hook/useGlobalAtom';
+import useGetViewName from '../../Common/Hook/useGetViewName';
+import { clientMenuListAtom, userInfoAtom } from '../Atom/ContentAtom';
 
 
-//ユーザー情報ATOM
-export const userInfoAtom = atom<userInfoType | undefined>(undefined);
-//メニューATOM
-export const clientMenuListAtom = atom<menuListType[]>([]);
 
 function useContentLogic() {
 
@@ -27,6 +25,8 @@ function useContentLogic() {
     const [userInfo, setUserInfoAtom] = useGlobalAtom(userInfoAtom);
     //クライアント用メニューリスト
     const [clientMenuList, setClientMenuList] = useGlobalAtom(clientMenuListAtom);
+    //ヘッダタイトル
+    const [headerTitle, headerId] = useGetViewName({ menu: clientMenuList });
 
     //ユーザー情報をセット
     useEffect(() => {
@@ -51,7 +51,12 @@ function useContentLogic() {
         setClientMenuList(tmpMenuList);
     }, [menuList, userInfo]);
 
-    return { clientMenuList, userInfo }
+    return {
+        clientMenuList,
+        userInfo,
+        headerTitle,
+        headerId,
+    }
 }
 
 export default useContentLogic;

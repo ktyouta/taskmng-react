@@ -1,5 +1,3 @@
-import useGetViewName from '../../Common/Hook/useGetViewName';
-import { clientMenuListAtom, userInfoAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import { useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';

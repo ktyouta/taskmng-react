@@ -4,7 +4,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Header from "../../../../Header/Header";
 import LoginedComponent from "../../Utils/Components/LoginedComponent";
 import LoginedRender from "../../Utils/Code/LoginedRender";
-import { TestHeader } from "../../Utils/Components/TestHeader";
+import { NoIconTestHeader, TestHeader } from "../../Utils/Components/TestHeader";
 import { noIconUserInfo, userInfo } from "../../Mocks/TestDatas";
 import { HeadNaviTestId, IconComponentDataTestId, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, UserIconComponentDataTestId } from "../../Utils/DataTestId";
 import userEvent from "@testing-library/user-event";
@@ -34,7 +34,7 @@ describe('コンポーネントのレンダリングチェック', () => {
 
         const logSpy = vi.spyOn(console, 'log');
 
-        CustomRender(<Header userInfo={noIconUserInfo} />);
+        CustomRender(<NoIconTestHeader />);
 
         await waitFor(() => {
             expect(logSpy).toHaveBeenCalledWith('IconComponent render');
@@ -113,7 +113,7 @@ describe("ナビゲーションの開閉チェック", () => {
     test('デフォルトアイコン押下時にナビゲーションが表示されること', async () => {
 
         LoginedRender(
-            <Header userInfo={noIconUserInfo} />
+            <NoIconTestHeader />
         );
 
         //デフォルトアイコン要素を取得

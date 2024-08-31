@@ -1,11 +1,12 @@
 import useGetViewName from '../../Common/Hook/useGetViewName';
-import { clientMenuListAtom, userInfoAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import styled from 'styled-components';
 import { filterCategoryInfo } from '../Function/MenuFunction';
+import { MenuTestIdPrefix } from '../../tests/AppTest/Utils/DataTestId';
+import { clientMenuListAtom, userInfoAtom } from '../../Content/Atom/ContentAtom';
 
 
 //選択中のメニューのスタイル
@@ -16,13 +17,15 @@ const SelectedDiv = styled.div<{ bgColor?: string }>`
     border-bottom: 1px solid #ffa500;
 `;
 
+//引数の型
+type propsType = {
+    selectedMenu: string,
+}
 
-function useMenuLogic() {
+function useMenuLogic(props: propsType) {
 
     //クライアント用メニューリスト
     const menu = useGlobalAtomValue(clientMenuListAtom);
-    //メニュー名
-    const [selectedMenu] = useGetViewName({ menu });
     //ユーザー情報
     const userInfo = useGlobalAtomValue(userInfoAtom);
 
@@ -35,7 +38,7 @@ function useMenuLogic() {
         if (!userInfo) {
             return;
         }
-        let cnt = 0;
+
         const userAuth = parseInt(userInfo.auth);
 
         //取得したカテゴリをユーザーの権限とプロパティでフィルターする
@@ -49,15 +52,18 @@ function useMenuLogic() {
                 cssName = "top-menu-li ";
             }
             //選択中のメニューを強調
-            if (element.name === selectedMenu) {
+            if (element.name === props.selectedMenu) {
                 cssName += "selected";
             }
             return (
-                <li key={`${element.path}-${index}`} className={cssName}>
+                <li
+                    key={`${element.path}-${index}`}
+                    className={cssName}
+                >
                     {
-                        element.name === selectedMenu ?
+                        element.name === props.selectedMenu ?
                             <SelectedDiv
-                                data-testid={element.id}
+                                data-testid={`${MenuTestIdPrefix}${element.id}`}
                             >
                                 {element.name}
                             </SelectedDiv>
@@ -65,7 +71,7 @@ function useMenuLogic() {
                             <Link
                                 to={element.path}
                                 className="menu-link"
-                                data-testid={element.id}
+                                data-testid={`${MenuTestIdPrefix}${element.id}`}
                             >
                                 {element.name}
                             </Link>
@@ -75,9 +81,9 @@ function useMenuLogic() {
         });
 
         return tmpMenuList;
-    }, [menu, selectedMenu, userInfo]);
+    }, [menu, props.selectedMenu, userInfo]);
 
-    return { menu, selectedMenu, menuList };
+    return { menu, menuList };
 }
 
 export default useMenuLogic;

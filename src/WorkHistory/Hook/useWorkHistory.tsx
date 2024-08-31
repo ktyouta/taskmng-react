@@ -4,9 +4,9 @@ import useFetchJsonData from '../../Common/Hook/useFetchJsonData';
 import ENV from '../../env.json';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import { useAtomValue } from 'jotai';
-import { userInfoAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import { workHistoryType } from '../Type/WorkHistoryType';
+import { userInfoAtom } from '../../Content/Atom/ContentAtom';
 
 
 function useWorkHistory() {

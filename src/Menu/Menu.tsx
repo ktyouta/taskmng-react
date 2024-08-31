@@ -3,15 +3,19 @@ import './css/Menu.css';
 import { Link } from 'react-router-dom';
 import useMenuLogic from './Hook/useMenuLogic';
 
+//引数の型
+type propsType = {
+  selectedMenu: string,
+}
 
-function Menu() {
+function Menu(props: propsType) {
 
   console.log("Menu render");
 
   //メニューのビジネスロジック
   const {
     menuList,
-  } = useMenuLogic();
+  } = useMenuLogic({ ...props });
 
   return (
     <div className="menu">

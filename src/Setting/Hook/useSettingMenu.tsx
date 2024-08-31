@@ -1,4 +1,3 @@
-import { clientMenuListAtom, userInfoAtom } from '../../Content/Hook/useContentLogic';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
@@ -7,6 +6,7 @@ import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import ENV from '../../env.json';
 import useGetSettingViewName from './useGetSettingViewName';
 import { menuListType } from '../../Common/Type/CommonType';
+import { userInfoAtom } from '../../Content/Atom/ContentAtom';
 
 
 //引数の型

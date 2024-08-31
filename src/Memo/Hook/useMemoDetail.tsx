@@ -8,8 +8,8 @@ import { detailRoutingIdAtom } from "../Atom/MemoAtom";
 import { DUMMY_ID, TAG_MAX_SETTINGNUM } from "../Const/MemoConst";
 import { VIEW_MODE } from "../../Common/Const/CommonConst";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
-import { userInfoAtom } from "../../Content/Hook/useContentLogic";
 import { tagType } from "../../Common/TagsComponent";
+import { userInfoAtom } from "../../Content/Atom/ContentAtom";
 
 
 //引数の型

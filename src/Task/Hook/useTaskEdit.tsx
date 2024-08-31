@@ -11,7 +11,7 @@ import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
 import { checkTaskRequest, createTaskRequestBody, createUpdRefArray } from "../Function/TaskFunction";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
-import { userInfoAtom } from "../../Content/Hook/useContentLogic";
+import { userInfoAtom } from "../../Content/Atom/ContentAtom";
 
 
 //引数の型

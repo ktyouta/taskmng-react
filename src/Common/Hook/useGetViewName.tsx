@@ -2,18 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { JsxElement } from 'typescript';
 import useChangeUrlFunction from './useChangeUrlFunction';
 import { menuListType } from '../Type/CommonType';
+import { HeaderTestIdPrefix } from '../../tests/AppTest/Utils/DataTestId';
 
-
+//引数の型
 type propsType = {
     menu: menuListType[] | undefined,
 }
+
+//戻り値の型
+type retType = string[]
 
 /**
  * URLが変化した際に画面名(大機能)を返却
  * @param url 
  * @returns 
  */
-function useGetViewName(props: propsType) {
+function useGetViewName(props: propsType): retType {
 
     //メニュー名
     const [selectedMenu, setSelectedMenu] = useState("");
@@ -33,7 +37,7 @@ function useGetViewName(props: propsType) {
                 //urlが一致する場合にヘッダタイトルを変更
                 if (element.path === mainPath) {
                     setSelectedMenu(element.name);
-                    setSelectedMenuId(element.id);
+                    setSelectedMenuId(`${HeaderTestIdPrefix}${element.id}`);
                     return;
                 }
             })
@@ -49,7 +53,10 @@ function useGetViewName(props: propsType) {
     }, [props.menu]);
 
     return (
-        [selectedMenu, selectedMenuId]
+        [
+            selectedMenu,
+            selectedMenuId,
+        ]
     );
 }
 
