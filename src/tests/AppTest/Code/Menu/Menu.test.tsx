@@ -79,29 +79,23 @@ describe("メニューの選択チェック", async () => {
         fail("表示可能カテゴリが存在しません。設定を確認してください。");
     }
 
-    await Promise.all(
-        filteredCategoryInfo.map(async (element, index) => {
+    filteredCategoryInfo.forEach((element: menuListType) => {
 
-            if (index === 0) {
-                return;
-            }
+        test(`メニューの${element.name}を選択した際に、${element.name}画面に遷移すること`, async () => {
 
-            test(`メニューの${element.name}を選択した際に、${element.name}画面に遷移すること`, async () => {
+            LoginedRender(<QueryApp />);
 
-                LoginedRender(<QueryApp />);
+            //testidをからリンク要素を取得
+            const linkElement = screen.getByTestId(`${MenuTestIdPrefix}${element.id}`);
 
-                //testidをからリンク要素を取得
-                const linkElement = screen.getByTestId(`${MenuTestIdPrefix}${element.id}`);
+            //リンク押下
+            await user.click(linkElement);
 
-                //リンク押下
-                await user.click(linkElement);
-
-                //選択したメニューの画面が表示されることを確認する
-                await waitFor(() => {
-                    expect(screen.getByTestId(`${ScreenTestIdPrefix}${element.id}`)).toBeInTheDocument();
-                });
+            //選択したメニューの画面が表示されることを確認する
+            await waitFor(() => {
+                expect(screen.getByTestId(`${ScreenTestIdPrefix}${element.id}`)).toBeInTheDocument();
             });
-        })
-    );
+        });
+    });
 
 });
