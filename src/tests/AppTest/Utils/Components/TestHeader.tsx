@@ -6,12 +6,17 @@ export function TestHeader() {
         userInfo={userInfo}
         headerTitle="ホーム"
         headerId="headerTestId"
+        isOpenMenu={true}
+        switchMenu={() => { }}
     />
 }
 
 export function NoIconTestHeader() {
-    return <Header userInfo={noIconUserInfo}
+    return <Header
+        userInfo={noIconUserInfo}
         headerTitle="ホーム"
         headerId="headerTestId"
+        isOpenMenu={true}
+        switchMenu={() => { }}
     />
 }

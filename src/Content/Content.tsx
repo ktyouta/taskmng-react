@@ -7,6 +7,27 @@ import { resUserInfoType } from '../Common/Type/CommonType';
 import React from 'react';
 import Loading from '../Common/Loading';
 import CenterLoading from '../Common/CenterLoading';
+import styled from 'styled-components';
+
+
+//アプリケーション全体のスタイル
+const AppDiv = styled.div`
+  text-align: center;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  align-items: left;
+  justify-content: left;
+  color: #282c34;
+`;
+
+//メインコンテンツエリアのスタイル
+const ContentAreaDiv = styled.div<{ isOpenMenu: boolean }>`
+  height: 100vh;
+  width:${({ isOpenMenu }) => (isOpenMenu ? "85%" : "100%")};
+  transition: 0.5s ease;
+`;
 
 
 function Content() {
@@ -18,7 +39,9 @@ function Content() {
         clientMenuList,
         userInfo,
         headerTitle,
-        headerId } = useContentLogic();
+        headerId,
+        isOpenMenu,
+        switchMenu } = useContentLogic();
 
     //データが取得できるまでローディングを表示
     if (!userInfo || !clientMenuList || clientMenuList.length < 1) {
@@ -26,19 +49,25 @@ function Content() {
     }
 
     return (
-        <div className="App">
+        <AppDiv>
             <Menu
                 selectedMenu={headerTitle}
+                isOpenMenu={isOpenMenu}
+                switchMenu={switchMenu}
             />
-            <div className='App-maincontent-area'>
+            <ContentAreaDiv
+                isOpenMenu={isOpenMenu}
+            >
                 <Header
                     userInfo={userInfo}
                     headerTitle={headerTitle}
                     headerId={headerId}
+                    isOpenMenu={isOpenMenu}
+                    switchMenu={switchMenu}
                 />
                 <Main />
-            </div>
-        </div>
+            </ContentAreaDiv>
+        </AppDiv>
     );
 }
 

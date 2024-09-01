@@ -14,6 +14,15 @@ function useContentLogic() {
 
     //認証チェック
     const { info } = useCheckAuth();
+    //メニューの開閉フラグ
+    const [isOpenMenu, setIsOpenMenu] = useState(true);
+    // ユーザー情報
+    const [userInfo, setUserInfoAtom] = useGlobalAtom(userInfoAtom);
+    //クライアント用メニューリスト
+    const [clientMenuList, setClientMenuList] = useGlobalAtom(clientMenuListAtom);
+    //ヘッダタイトル
+    const [headerTitle, headerId] = useGetViewName({ menu: clientMenuList });
+
     //メニューのリスト
     const { data: menuList } = useQueryWrapper<menuListType[]>(
         {
@@ -21,12 +30,12 @@ function useContentLogic() {
         }
     );
 
-    // ユーザー情報
-    const [userInfo, setUserInfoAtom] = useGlobalAtom(userInfoAtom);
-    //クライアント用メニューリスト
-    const [clientMenuList, setClientMenuList] = useGlobalAtom(clientMenuListAtom);
-    //ヘッダタイトル
-    const [headerTitle, headerId] = useGetViewName({ menu: clientMenuList });
+    /**
+     * メニューの開閉
+     */
+    function switchMenu() {
+        setIsOpenMenu(!isOpenMenu);
+    }
 
     //ユーザー情報をセット
     useEffect(() => {
@@ -56,6 +65,8 @@ function useContentLogic() {
         userInfo,
         headerTitle,
         headerId,
+        isOpenMenu,
+        switchMenu,
     }
 }
 

@@ -10,6 +10,7 @@ import { IoPersonCircleOutline } from "react-icons/io5";
 import UserIconComponent from '../Common/UserIconComponent';
 import { Z_INDEX_PARAM } from '../Common/Const/CommonConst';
 import { HeadNaviTestId, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId } from '../tests/AppTest/Utils/DataTestId';
+import { RxHamburgerMenu } from "react-icons/rx";
 
 
 //ヘッダーのスタイル
@@ -100,12 +101,28 @@ const UserNameDiv = styled.div`
   text-align: right;
 `;
 
+//メニュー展開用のスタイル
+const BurgerIconDiv = styled.div`
+  margin-right: 8%;
+`;
+
+//タイトルエリアのスタイル
+const TitleAreaDiv = styled.div`
+  padding-left: 2%;
+  width: auto;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+`;
 
 //引数の型
 type propsType = {
   userInfo: userInfoType,
   headerTitle: string,
   headerId: string,
+  isOpenMenu: boolean,
+  switchMenu: () => void
 }
 
 function Header(props: propsType) {
@@ -123,11 +140,22 @@ function Header(props: propsType) {
 
   return (
     <HeaderDiv>
-      <TitleSpan
-        data-testid={props.headerId}
-      >
-        {props.headerTitle}
-      </TitleSpan>
+      <TitleAreaDiv>
+        {
+          !props.isOpenMenu &&
+          <BurgerIconDiv>
+            <IconComponent
+              icon={RxHamburgerMenu}
+              onclick={props.switchMenu}
+            />
+          </BurgerIconDiv>
+        }
+        <TitleSpan
+          data-testid={props.headerId}
+        >
+          {props.headerTitle}
+        </TitleSpan>
+      </TitleAreaDiv>
       <UserInfoOuterDiv>
         <UserInfoMainDiv>
           <UserNameDiv>
