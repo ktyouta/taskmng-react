@@ -18,3 +18,7 @@ export const MenuTestIdPrefix = "MenuTestIdPrefix-";
 export const HeaderTestIdPrefix = "HeaderTestIdPrefix-";
 //画面のテストIDの接頭辞
 export const ScreenTestIdPrefix = "ScreenTestIdPrefix-";
+//メニューエリアのテストID
+export const MenuAreaTestId = "MenuAreaTestId";
+//メニュークローズアイコンのテストID
+export const MenuCloseIconTestId = "MenuCloseIconTestId";

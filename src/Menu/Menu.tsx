@@ -5,6 +5,7 @@ import useMenuLogic from './Hook/useMenuLogic';
 import IconComponent from '../Common/IconComponent';
 import { RxCross1 } from "react-icons/rx";
 import styled from 'styled-components';
+import { MenuAreaTestId, MenuCloseIconTestId } from '../tests/AppTest/Utils/DataTestId';
 
 //引数の型
 type propsType = {
@@ -37,7 +38,7 @@ const MenuDiv = styled.div<{ isOpenMenu: boolean }>`
   padding: 0px;
   border: 1px solid #808080;
   transition: 0.5s ease;
-  ${({ isOpenMenu }) => (isOpenMenu ? "" : "-webkit-transform: translateX(-100%)")};
+  ${({ isOpenMenu }) => (isOpenMenu ? "" : "transform: translateX(-100%)")};
 `;
 
 
@@ -53,6 +54,7 @@ function Menu(props: propsType) {
   return (
     <MenuDiv
       isOpenMenu={props.isOpenMenu}
+      data-testid={MenuAreaTestId}
     >
       <CloseIconAreaDiv>
         {
@@ -60,6 +62,7 @@ function Menu(props: propsType) {
           <IconComponent
             icon={RxCross1}
             onclick={props.switchMenu}
+            data-testid={MenuCloseIconTestId}
           />
         }
       </CloseIconAreaDiv>

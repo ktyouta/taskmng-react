@@ -14,7 +14,7 @@ import styled from 'styled-components';
 const AppDiv = styled.div`
   text-align: center;
   display: flex;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   min-height: 100vh;
   align-items: left;

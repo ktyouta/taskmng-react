@@ -7,6 +7,7 @@ type propsType = {
     onclick?: () => void,
     bgColor?: string,
     size?: string,
+    dataTestId?: string
 }
 
 function IconComponent(props: propsType) {
@@ -20,7 +21,7 @@ function IconComponent(props: propsType) {
             onClick={props.onclick}
             style={{ cursor: 'pointer', color: props.bgColor ?? '' }}
             size={props.size}
-            data-testid={IconComponentDataTestId}
+            data-testid={props.dataTestId ?? IconComponentDataTestId}
         />
     );
 }

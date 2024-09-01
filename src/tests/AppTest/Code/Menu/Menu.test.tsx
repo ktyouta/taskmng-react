@@ -6,7 +6,7 @@ import LoginedComponent from "../../Utils/Components/LoginedComponent";
 import LoginedRender from "../../Utils/Code/LoginedRender";
 import { TestHeader } from "../../Utils/Components/TestHeader";
 import { authInfo, categoryInfo, noIconUserInfo, userInfo } from "../../Mocks/TestDatas";
-import { HeaderTestIdPrefix, HeadNaviTestId, IconComponentDataTestId, MenuTestIdPrefix, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, ScreenTestIdPrefix, UserIconComponentDataTestId } from "../../Utils/DataTestId";
+import { HeaderTestIdPrefix, HeadNaviTestId, IconComponentDataTestId, MenuAreaTestId, MenuCloseIconTestId, MenuTestIdPrefix, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, ScreenTestIdPrefix, UserIconComponentDataTestId } from "../../Utils/DataTestId";
 import userEvent from "@testing-library/user-event";
 import QueryApp from "../../../../QueryApp";
 import Menu from "../../../../Menu/Menu";
@@ -98,4 +98,28 @@ describe("メニューの選択チェック", async () => {
         });
     });
 
+});
+
+
+describe("ハンバーガーメニューの開閉チェック", () => {
+
+    test("メニューのクローズアイコン押下時にメニューが閉じること", async () => {
+
+        LoginedRender(<QueryApp />);
+
+        //メニューエリア要素を取得
+        const MenuAreaElement = screen.getByTestId(MenuAreaTestId);
+        //メニューのクローズアイコン要素を取得
+        const MenuCloseElement = screen.getByTestId(IconComponentDataTestId);
+
+        //初期状態では非表示であることを確認
+        expect(MenuAreaElement).not.toHaveStyle({ transform: 'translateX(-100%)' });
+
+        //アイコンをクリック
+        await userEvent.click(MenuCloseElement);
+
+        await waitFor(() => {
+            expect(MenuAreaElement).toHaveStyle({ transform: 'translateX(-100%)' });
+        });
+    });
 });
