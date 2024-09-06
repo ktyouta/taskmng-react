@@ -22,3 +22,5 @@ export const ScreenTestIdPrefix = "ScreenTestIdPrefix-";
 export const MenuAreaTestId = "MenuAreaTestId";
 //メニュークローズアイコンのテストID
 export const MenuCloseIconTestId = "MenuCloseIconTestId";
+//メニューオープンアイコンのテストID
+export const MenuOpenIconTestId = "MenuOpenIconTestId";

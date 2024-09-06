@@ -112,13 +112,15 @@ describe("ハンバーガーメニューの開閉チェック", () => {
         //メニューのクローズアイコン要素を取得
         const MenuCloseElement = screen.getByTestId(IconComponentDataTestId);
 
-        //初期状態では非表示であることを確認
+        //初期状態でメニューが表示されていることを確認
         expect(MenuAreaElement).not.toHaveStyle({ transform: 'translateX(-100%)' });
 
         //アイコンをクリック
         await userEvent.click(MenuCloseElement);
 
         await waitFor(() => {
+
+            //メニューが閉じることを確認
             expect(MenuAreaElement).toHaveStyle({ transform: 'translateX(-100%)' });
         });
     });

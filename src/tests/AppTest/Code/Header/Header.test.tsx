@@ -6,7 +6,7 @@ import LoginedComponent from "../../Utils/Components/LoginedComponent";
 import LoginedRender from "../../Utils/Code/LoginedRender";
 import { NoIconTestHeader, TestHeader } from "../../Utils/Components/TestHeader";
 import { noIconUserInfo, userInfo } from "../../Mocks/TestDatas";
-import { HeadNaviTestId, IconComponentDataTestId, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, UserIconComponentDataTestId } from "../../Utils/DataTestId";
+import { HeadNaviTestId, IconComponentDataTestId, MenuAreaTestId, MenuOpenIconTestId, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, UserIconComponentDataTestId } from "../../Utils/DataTestId";
 import userEvent from "@testing-library/user-event";
 import QueryApp from "../../../../QueryApp";
 import { APP_TITLE } from "../../../../Title";
@@ -237,5 +237,45 @@ describe("ナビゲーションメニューの選択チェック", () => {
         //ログイン画面が表示されることを確認
         expect(screen.getByText(APP_TITLE)).toBeInTheDocument();
 
+    });
+});
+
+
+describe("ハンバーガーメニューの開閉チェック", () => {
+
+    test("メニュの開閉が正常にできること", async () => {
+        LoginedRender(<QueryApp />);
+
+        //メニューエリア要素を取得
+        const MenuAreaElement = screen.getByTestId(MenuAreaTestId);
+        //メニューのクローズアイコン要素を取得
+        const MenuCloseElement = screen.getByTestId(IconComponentDataTestId);
+
+        //初期状態でメニューが表示されていることを確認
+        expect(MenuAreaElement).not.toHaveStyle({ transform: 'translateX(-100%)' });
+
+        //クローズ用アイコンをクリック
+        await userEvent.click(MenuCloseElement);
+
+        await waitFor(async () => {
+
+            //メニューが閉じることを確認
+            expect(MenuAreaElement).toHaveStyle({ transform: 'translateX(-100%)' });
+
+            //ヘッダのメニューオープン用アイコンを取得
+            const MenuOpenIconElement = screen.getByTestId(MenuOpenIconTestId);
+
+            //メニューオープン用アイコンが存在することを確認
+            expect(MenuOpenIconElement).toBeInTheDocument();
+
+            //オープン用アイコンをクリック
+            await userEvent.click(MenuOpenIconElement);
+
+            await waitFor(async () => {
+
+                //メニューが表示されていることを確認
+                expect(MenuAreaElement).not.toHaveStyle({ transform: 'translateX(-100%)' });
+            });
+        });
     });
 });
