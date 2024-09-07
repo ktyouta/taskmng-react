@@ -1,9 +1,9 @@
 import Menu from "../../../../Menu/Menu";
 import Task from "../../../../Task/Task";
-import { getCategoryComponentList } from "../../Utils/Function/UtilsFunction";
-
+import { getCategoryComponent } from "../../Utils/Function/UtilsFunction";
+import { CATEGORY_ID_TASK } from "../../Common/Const/Const";
 
 export function TestTask() {
 
-    return getCategoryComponentList("CATEGORY-5");
+    return getCategoryComponent(CATEGORY_ID_TASK);
 }

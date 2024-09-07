@@ -1,10 +1,9 @@
 import Home from "../../../../Home/Home";
-import Menu from "../../../../Menu/Menu";
-
+import { CATEGORY_ID_HOME } from "../../Common/Const/Const";
+import { getCategoryComponent } from "../../Utils/Function/UtilsFunction";
 
 
 export function TestHome() {
-    return <Home
-        testId={""}
-    />
+
+    return getCategoryComponent(CATEGORY_ID_HOME);
 }

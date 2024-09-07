@@ -20,7 +20,7 @@ export function clearCookies() {
 /**
  * カテゴリIDからコンポーネントを取得する
  */
-export function getCategoryComponentList(categoryId: string) {
+export function getCategoryComponent(categoryId: string) {
 
     let category = CATEGORY_INFO.find((element: menuListType) => {
         //パラメータのIDからカテゴリ情報を取得
