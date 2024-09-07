@@ -12,6 +12,7 @@ import CustomRender from "../../Utils/Code/CustomRender";
 import { vi } from "vitest";
 import { clearCookies } from "../../Utils/Function/UtilsFunction";
 import { APP_TITLE } from "../../../../Title";
+import { loginFailInfo, loginInfo } from "../../Mocks/TestDatas";
 
 
 /**
@@ -131,8 +132,8 @@ describe('ログインチェック', () => {
         const passwordInput = screen.getByPlaceholderText('Password');
         const loginButton = screen.getByRole('button', { name: 'Login' });
 
-        await user.type(userIdInput, "test");
-        await user.type(passwordInput, "test");
+        await user.type(userIdInput, loginInfo.userId);
+        await user.type(passwordInput, loginInfo.password);
         await user.click(loginButton);
 
         // console.logが特定のメッセージで呼び出されたことを確認
@@ -158,8 +159,8 @@ describe('ログインチェック', () => {
         const passwordInput = screen.getByPlaceholderText('Password');
         const loginButton = screen.getByRole('button', { name: 'Login' });
 
-        await user.type(userIdInput, "testfail");
-        await user.type(passwordInput, "testfail");
+        await user.type(userIdInput, loginFailInfo.userId);
+        await user.type(passwordInput, loginFailInfo.password);
         await user.click(loginButton);
 
         // console.logが特定のメッセージで呼び出されたことを確認

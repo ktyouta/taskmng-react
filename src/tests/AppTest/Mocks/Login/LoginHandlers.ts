@@ -1,6 +1,6 @@
 import { HttpResponse, http } from "msw";
 import ENV from '../../../../env.json';
-import { loginInfo } from "../TestDatas";
+import { loginInfo, loginInfoResponse } from "../TestDatas";
 
 export const LoginHandlers = [
     http.post(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.LOGIN}`, async ({ request }) => {
@@ -9,9 +9,9 @@ export const LoginHandlers = [
             password?: string;
         };
 
-        if (userId === "test" && password === "test") {
+        if (userId === loginInfo.userId && password === loginInfo.password) {
 
-            return HttpResponse.json(loginInfo);
+            return HttpResponse.json(loginInfoResponse);
         } else {
 
             return HttpResponse.json(null, { status: 404 });

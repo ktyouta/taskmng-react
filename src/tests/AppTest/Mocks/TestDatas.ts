@@ -510,8 +510,8 @@ export const taskHistory = [
     },
 ];
 
-//テスト用ログイン情報
-export const loginInfo = {
+//テスト用ログインレスポンス
+export const loginInfoResponse = {
     errMessage: "",
     token: "token",
     userInfo: {
@@ -533,4 +533,16 @@ export const noIconUserInfo = {
     userName: "テスト管理者",
     auth: "3",
     iconUrl: "",
+};
+
+//テスト用ログイン情報
+export const loginInfo = {
+    userId: "f",
+    password: "f",
+};
+
+//テスト用ログイン情報(失敗)
+export const loginFailInfo = {
+    userId: "testfail",
+    password: "testfail",
 };
