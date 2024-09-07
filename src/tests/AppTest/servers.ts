@@ -1,11 +1,14 @@
 import { setupServer } from "msw/node";
-import { AuthHandlers } from "./Mocks/Auth/AuthHandlers";
-import { LoginHandlers } from "./Mocks/Login/LoginHandlers";
-import { HomeHandlers } from "./Mocks/Home/HomeHandlers";
-import { GeneralHandlers } from "./Mocks/Common/GeneralHandlers";
-import { CategoryHandlers } from "./Mocks/Common/CategoryHandlers";
-import { MastertableHandlers } from "./Mocks/Common/MastertableHandlers";
+import { AuthHandlers } from "./Common/Mocks/AuthHandlers";
+import { LoginHandlers } from "./Login/Mocks/LoginHandlers";
+import { HomeHandlers } from "./Home/Mocks/HomeHandlers";
+import { GeneralHandlers } from "./Common/Mocks/GeneralHandlers";
+import { CategoryHandlers } from "./Common/Mocks/CategoryHandlers";
+import { MastertableHandlers } from "./Common/Mocks/MastertableHandlers";
 
+/**
+ * Mocks内のハンドラー設定
+ */
 export const APIServerList = [
     AuthHandlers,
     LoginHandlers,

@@ -3,16 +3,16 @@ import userEvent from "@testing-library/user-event";
 import Login from "../../../../Login/Login";
 import { MemoryRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
-import QueryClientComponent from "../../Utils/Components/QueryClientComponent";
+import QueryClientComponent from "../../Common/Components/QueryClientComponent";
 import Content from "../../../../Content/Content";
 import { LOGIN_PATH } from "../../../../Header/Const/HeaderConst";
 import QueryApp from "../../../../QueryApp";
 import ENV from '../../../../env.json';
-import CustomRender from "../../Utils/Code/CustomRender";
+import CustomRender from "../../Common/Code/CustomRender";
 import Home from "../../../../Home/Home";
 import { vi } from "vitest";
-import LoginedRender from "../../Utils/Code/LoginedRender";
-import { TestHome } from "../../Utils/Components/TestHome";
+import LoginedRender from "../../Common/Code/LoginedRender";
+import { TestHome } from "../Components/TestHome";
 
 
 /**

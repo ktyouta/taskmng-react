@@ -9,7 +9,7 @@ import IconComponent from '../Common/IconComponent';
 import { IoPersonCircleOutline } from "react-icons/io5";
 import UserIconComponent from '../Common/UserIconComponent';
 import { Z_INDEX_PARAM } from '../Common/Const/CommonConst';
-import { HeadNaviTestId, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, MenuOpenIconTestId } from '../tests/AppTest/Utils/DataTestId';
+import { HeadNaviTestId, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, MenuOpenIconTestId } from '../tests/AppTest/DataTestId';
 import { RxHamburgerMenu } from "react-icons/rx";
 
 

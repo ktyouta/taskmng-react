@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import styled from 'styled-components';
 import { filterCategoryInfo } from '../Function/MenuFunction';
-import { MenuTestIdPrefix } from '../../tests/AppTest/Utils/DataTestId';
+import { MenuTestIdPrefix } from '../../tests/AppTest/DataTestId';
 import { clientMenuListAtom, userInfoAtom } from '../../Content/Atom/ContentAtom';
 
 

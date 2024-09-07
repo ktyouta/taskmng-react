@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { JsxElement } from 'typescript';
 import useChangeUrlFunction from './useChangeUrlFunction';
 import { menuListType } from '../Type/CommonType';
-import { HeaderTestIdPrefix } from '../../tests/AppTest/Utils/DataTestId';
+import { HeaderTestIdPrefix } from '../../tests/AppTest/DataTestId';
 
 //引数の型
 type propsType = {

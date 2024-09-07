@@ -19,7 +19,7 @@ import User from '../../User/User';
 import Memo from '../../Memo/Memo';
 import Histroy from '../../History/Histroy';
 import { clientMenuListAtom, userInfoAtom } from '../../Content/Atom/ContentAtom';
-import { ScreenTestIdPrefix } from '../../tests/AppTest/Utils/DataTestId';
+import { ScreenTestIdPrefix } from '../../tests/AppTest/DataTestId';
 
 
 //マスタのリスト(マスタメンテ画面のコンボ用)

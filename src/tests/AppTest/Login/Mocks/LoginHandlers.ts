@@ -1,6 +1,6 @@
 import { HttpResponse, http } from "msw";
 import ENV from '../../../../env.json';
-import { loginInfo, loginInfoResponse } from "../TestDatas";
+import { loginInfo, loginInfoResponse } from "../../TestDatas";
 
 export const LoginHandlers = [
     http.post(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.LOGIN}`, async ({ request }) => {

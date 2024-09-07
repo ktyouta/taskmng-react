@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import logo from './logo.svg';
 import { useAtomValue } from 'jotai';
 import styled from 'styled-components';
-import { UserIconComponentDataTestId } from '../tests/AppTest/Utils/DataTestId';
+import { UserIconComponentDataTestId } from '../tests/AppTest/DataTestId';
 
 
 //外側のスタイル

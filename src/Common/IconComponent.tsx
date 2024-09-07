@@ -1,5 +1,5 @@
 import { IconType } from 'react-icons';
-import { IconComponentDataTestId } from '../tests/AppTest/Utils/DataTestId';
+import { IconComponentDataTestId } from '../tests/AppTest/DataTestId';
 
 //引数の型
 type propsType = {

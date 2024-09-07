@@ -1,12 +1,12 @@
 import { vi } from "vitest";
-import CustomRender from "../../Utils/Code/CustomRender";
+import CustomRender from "../../Common/Code/CustomRender";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Header from "../../../../Header/Header";
-import LoginedComponent from "../../Utils/Components/LoginedComponent";
-import LoginedRender from "../../Utils/Code/LoginedRender";
-import { TestHeader } from "../../Utils/Components/TestHeader";
-import { authInfo, categoryInfo, noIconUserInfo, userInfo } from "../../Mocks/TestDatas";
-import { HeaderTestIdPrefix, HeadNaviTestId, IconComponentDataTestId, MenuAreaTestId, MenuCloseIconTestId, MenuTestIdPrefix, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, ScreenTestIdPrefix, UserIconComponentDataTestId } from "../../Utils/DataTestId";
+import LoginedComponent from "../../Common/Components/LoginedComponent";
+import LoginedRender from "../../Common/Code/LoginedRender";
+import { TestHeader } from "../../Header/Components/TestHeader";
+import { authInfo, categoryInfo, noIconUserInfo, userInfo } from "../../TestDatas";
+import { HeaderTestIdPrefix, HeadNaviTestId, IconComponentDataTestId, MenuAreaTestId, MenuCloseIconTestId, MenuTestIdPrefix, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, ScreenTestIdPrefix, UserIconComponentDataTestId } from "../../DataTestId";
 import userEvent from "@testing-library/user-event";
 import QueryApp from "../../../../QueryApp";
 import Menu from "../../../../Menu/Menu";
@@ -14,7 +14,7 @@ import { filterCategoryInfo } from "../../../../Menu/Function/MenuFunction";
 import { menuListType } from "../../../../Common/Type/CommonType";
 import { MemoryRouter } from "react-router-dom";
 import { createMemoryHistory } from 'history';
-import { TestMenu } from "../../Utils/Components/TestMenu";
+import { TestMenu } from "../Components/TestMenu";
 import React from "react";
 
 

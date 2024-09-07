@@ -1,12 +1,12 @@
 import { vi } from "vitest";
-import CustomRender from "../../Utils/Code/CustomRender";
+import CustomRender from "../../Common/Code/CustomRender";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Header from "../../../../Header/Header";
-import LoginedComponent from "../../Utils/Components/LoginedComponent";
-import LoginedRender from "../../Utils/Code/LoginedRender";
-import { NoIconTestHeader, TestHeader } from "../../Utils/Components/TestHeader";
-import { noIconUserInfo, userInfo } from "../../Mocks/TestDatas";
-import { HeadNaviTestId, IconComponentDataTestId, MenuAreaTestId, MenuOpenIconTestId, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, UserIconComponentDataTestId } from "../../Utils/DataTestId";
+import LoginedComponent from "../../Common/Components/LoginedComponent";
+import LoginedRender from "../../Common/Code/LoginedRender";
+import { NoIconTestHeader, TestHeader } from "../Components/TestHeader";
+import { noIconUserInfo, userInfo } from "../../TestDatas";
+import { HeadNaviTestId, IconComponentDataTestId, MenuAreaTestId, MenuOpenIconTestId, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, UserIconComponentDataTestId } from "../../DataTestId";
 import userEvent from "@testing-library/user-event";
 import QueryApp from "../../../../QueryApp";
 import { APP_TITLE } from "../../../../Title";

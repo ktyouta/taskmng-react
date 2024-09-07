@@ -1,5 +1,5 @@
 import Header from "../../../../Header/Header";
-import { noIconUserInfo, userInfo } from "../../Mocks/TestDatas";
+import { noIconUserInfo, userInfo } from "../../TestDatas";
 
 export function TestHeader() {
     return <Header

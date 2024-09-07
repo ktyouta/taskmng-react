@@ -5,7 +5,7 @@ import useMenuLogic from './Hook/useMenuLogic';
 import IconComponent from '../Common/IconComponent';
 import { RxCross1 } from "react-icons/rx";
 import styled from 'styled-components';
-import { MenuAreaTestId, MenuCloseIconTestId } from '../tests/AppTest/Utils/DataTestId';
+import { MenuAreaTestId, MenuCloseIconTestId } from '../tests/AppTest/DataTestId';
 
 //引数の型
 type propsType = {

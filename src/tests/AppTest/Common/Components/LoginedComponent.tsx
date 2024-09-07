@@ -4,7 +4,7 @@ import { userInfoType } from "../../../../Common/Type/CommonType";
 import ENV from "../../../../env.json";
 import { useCookies } from "react-cookie";
 import { clientMenuListAtom, userInfoAtom } from "../../../../Content/Atom/ContentAtom";
-import { categoryInfo, userInfo } from "../../Mocks/TestDatas";
+import { categoryInfo, userInfo } from "../../TestDatas";
 
 //引数の型
 type propsType = {
