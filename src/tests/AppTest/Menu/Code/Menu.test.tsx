@@ -5,7 +5,7 @@ import Header from "../../../../Header/Header";
 import LoginedComponent from "../../Common/Components/LoginedComponent";
 import LoginedRender from "../../Common/Code/LoginedRender";
 import { TestHeader } from "../../Header/Components/TestHeader";
-import { authInfo, categoryInfo, noIconUserInfo, userInfo } from "../../TestDatas";
+import { authInfo } from "../../TestDatas";
 import { HeaderTestIdPrefix, HeadNaviTestId, IconComponentDataTestId, MenuAreaTestId, MenuCloseIconTestId, MenuTestIdPrefix, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, ScreenTestIdPrefix, UserIconComponentDataTestId } from "../../DataTestId";
 import userEvent from "@testing-library/user-event";
 import QueryApp from "../../../../QueryApp";
@@ -16,6 +16,7 @@ import { MemoryRouter } from "react-router-dom";
 import { createMemoryHistory } from 'history';
 import { TestMenu } from "../Components/TestMenu";
 import React from "react";
+import CATEGORY_INFO from '../../../../../public/json/setting/menu.json';
 
 
 /**
@@ -53,7 +54,7 @@ describe('メニューの表示チェック', () => {
             let testUserAuth = parseInt(authInfo.userInfo.auth);
 
             //権限とプロパティでフィルターする
-            let filteredCategoryInfo: menuListType[] = filterCategoryInfo(categoryInfo, testUserAuth);
+            let filteredCategoryInfo: menuListType[] = filterCategoryInfo(CATEGORY_INFO, testUserAuth);
 
             //name要素が表示されていることの確認
             filteredCategoryInfo.forEach((element) => {
@@ -72,7 +73,7 @@ describe("メニューの選択チェック", async () => {
     //テストユーザーの権限
     let testUserAuth = parseInt(authInfo.userInfo.auth);
     //権限とプロパティでフィルターする
-    let filteredCategoryInfo: menuListType[] = filterCategoryInfo(categoryInfo, testUserAuth);
+    let filteredCategoryInfo: menuListType[] = filterCategoryInfo(CATEGORY_INFO, testUserAuth);
 
     //表示可能カテゴリが存在しない場合
     if (!filteredCategoryInfo || filteredCategoryInfo.length === 0) {

@@ -4,7 +4,8 @@ import { userInfoType } from "../../../../Common/Type/CommonType";
 import ENV from "../../../../env.json";
 import { useCookies } from "react-cookie";
 import { clientMenuListAtom, userInfoAtom } from "../../../../Content/Atom/ContentAtom";
-import { categoryInfo, userInfo } from "../../TestDatas";
+import { userInfo } from "../../TestDatas";
+import CATEGORY_INFO from '../../../../../public/json/setting/menu.json';
 
 //引数の型
 type propsType = {
@@ -35,7 +36,7 @@ function LoginedComponent(props: propsType) {
         setUserInfoAtom(userInfo);
 
         //カテゴリ情報を設定
-        setClientMenuList(categoryInfo);
+        setClientMenuList(CATEGORY_INFO);
 
     }, []);
 
