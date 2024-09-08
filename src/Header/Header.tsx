@@ -173,7 +173,7 @@ function Header(props: propsType) {
                   height='20%'
                   iconUrl={props.userInfo.iconUrl ?? ""}
                   clickIcon={flag ? offFlag : onFlag}
-                  outerStyle={{ "margin-right": "5%" }}
+                  outerStyle={{ "marginRight": "5%" }}
                 />
                 :
                 // デフォルトアイコン

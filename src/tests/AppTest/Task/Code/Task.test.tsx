@@ -2,6 +2,7 @@ import { vi } from "vitest";
 import CustomRender from "../../Common/Code/CustomRender";
 import { TestTask } from "../Components/TestTask";
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import LoginedRender from "../../Common/Code/LoginedRender";
 
 
 /**
@@ -27,7 +28,7 @@ describe('コンポーネントのレンダリングチェック', () => {
 
 describe('タスク画面の表示チェック', () => {
 
-    test('リセットボタンが存在する', () => {
+    test('リセットボタンが存在すること', () => {
 
         CustomRender(<TestTask />);
 
@@ -37,7 +38,7 @@ describe('タスク画面の表示チェック', () => {
         expect(resetBtn).toBeInTheDocument();
     });
 
-    test("検索条件設定ボタンが存在する", () => {
+    test("検索条件設定ボタンが存在すること", () => {
 
         CustomRender(<TestTask />);
 
@@ -47,7 +48,7 @@ describe('タスク画面の表示チェック', () => {
         expect(searchSettingBtn).toBeInTheDocument();
     });
 
-    test("検索ボタンが存在する", () => {
+    test("検索ボタンが存在すること", () => {
 
         CustomRender(<TestTask />);
 
@@ -57,7 +58,7 @@ describe('タスク画面の表示チェック', () => {
         expect(searchBtn).toBeInTheDocument();
     });
 
-    test("タスク作成ボタンが存在する", () => {
+    test("タスク作成ボタンが存在すること", () => {
 
         CustomRender(<TestTask />);
 
@@ -67,10 +68,26 @@ describe('タスク画面の表示チェック', () => {
         expect(taskCreateBtn).toBeInTheDocument();
     });
 
-    // test("検索結果が存在する", async () => {
+    test("検索結果が存在すること", async () => {
 
-    //     CustomRender(<TestTask />);
+        LoginedRender(<TestTask />);
 
-    //     expect(screen.getByText("検索結果：")).toBeInTheDocument();
+        await waitFor(() => {
+
+            expect(screen.getByText(/検索結果：/)).toBeInTheDocument();
+        });
+    });
+
+    // test("コンテンツ内に詳細ボタンが存在すること", async () => {
+
+    //     LoginedRender(<TestTask />);
+
+    //     await waitFor(() => {
+
+    //         //詳細ボタンを取得
+    //         const taskCreateBtn = screen.getByRole('button', { name: '詳細' });
+
+    //         expect(taskCreateBtn).toBeInTheDocument();
+    //     });
     // });
 });

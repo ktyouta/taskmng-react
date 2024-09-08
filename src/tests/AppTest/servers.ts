@@ -5,6 +5,8 @@ import { HomeHandlers } from "./Home/Mocks/HomeHandlers";
 import { GeneralHandlers } from "./Common/Mocks/GeneralHandlers";
 import { CategoryHandlers } from "./Common/Mocks/CategoryHandlers";
 import { MastertableHandlers } from "./Common/Mocks/MastertableHandlers";
+import { TaskHandlers } from "./Task/Mocks/TaskHandlers";
+import { SearchconditionHandlers } from "./Task/Mocks/SearchconditionHandllers";
 
 /**
  * Mocks内のハンドラー設定
@@ -16,4 +18,6 @@ export const APIServerList = [
     GeneralHandlers,
     CategoryHandlers,
     MastertableHandlers,
+    SearchconditionHandlers,
+    TaskHandlers
 ];

@@ -32,6 +32,20 @@ function TaskList(props: propsType) {
         taskContentList
     } = useTaskList({ ...props });
 
+    //タスクリスト表示までのローディング
+    if (props.isLoading) {
+        return <CenterLoading />;
+    }
+
+    if (!props.displayTaskList) {
+        return <CenterLoading />;
+    }
+
+    //検索結果が0件
+    if (props.displayTaskList.length === 0) {
+        return <div>検索結果がありません。</div>;
+    }
+
     return (
         <VerticalFlowDiv
             height='100%'

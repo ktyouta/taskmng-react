@@ -38,22 +38,9 @@ function useTaskList(props: propsType) {
 
     //タスクのコンテンツリスト
     let taskContentList: ReactNode = useMemo(() => {
-        //タスクリスト表示までのローディング
-        if (props.isLoading) {
-            return <CenterLoading />;
-        }
-
-        if (!props.displayTaskList) {
-            return <CenterLoading />;
-        }
-
-        //検索結果が0件
-        if (props.displayTaskList.length === 0) {
-            return <div>検索結果がありません。</div>;
-        }
 
         //タスクデータから画面表示用domを作成
-        return props.displayTaskList.map((element, index) => {
+        return props.displayTaskList?.map((element, index) => {
             let id = element.id as string;
             return (
                 <React.Fragment key={`tasklist-${id}-${index}`}>
