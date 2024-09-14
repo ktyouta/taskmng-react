@@ -1,6 +1,6 @@
 import { HttpResponse, http } from "msw";
 import ENV from '../../../../env.json';
-import { loginInfo, loginInfoResponse, searchcontionDatas } from "../../TestDatas";
+import { searchcontionDatas } from "../Data/TestDatas";
 
 export const SearchconditionHandlers = [
     http.get(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}`, async ({ request }) => {

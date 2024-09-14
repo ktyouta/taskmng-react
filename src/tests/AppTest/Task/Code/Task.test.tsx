@@ -116,33 +116,26 @@ describe("モーダル表示チェック", () => {
 
         LoginedRender(<TestTask />);
 
+        let taskDetailBtn = null;
+
         await waitFor(async () => {
 
             //詳細ボタンを取得
             const taskDetailBtns = screen.getAllByRole('button', { name: '詳細' });
+            taskDetailBtn = taskDetailBtns[0];
+        });
 
-            //詳細ボタンが1つ以上あることを確認
-            expect(taskDetailBtns.length).toBeGreaterThan(0);
+        if (!taskDetailBtn) {
+            fail("詳細ボタンの取得に失敗しました。");
+        }
+        const user = userEvent.setup();
 
-            const taskDetailBtn = taskDetailBtns[0];
-            const user = userEvent.setup();
+        //詳細ボタンを押下
+        await user.click(taskDetailBtn);
 
-            //詳細ボタンを押下
-            await user.click(taskDetailBtn);
+        await waitFor(() => {
 
-            // await waitFor(() => {
-            //     //expect(screen.getByText("タスク詳細")).toBeInTheDocument();
-
-            //     // console.logのモックを作成
-            //     const logSpy = vi.spyOn(console, 'log');
-
-            //     CustomRender(<TestTask />);
-
-            //     expect(logSpy).toHaveBeenCalledWith('TaskDetail render');
-
-            //     // スパイしたconsole.logを元に戻す
-            //     logSpy.mockRestore();
-            // });
+            expect(screen.getByText('タスク詳細')).toBeInTheDocument();
         });
     });
 });

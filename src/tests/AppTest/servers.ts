@@ -8,6 +8,8 @@ import { MastertableHandlers } from "./Common/Mocks/MastertableHandlers";
 import { TaskHandlers } from "./Task/Mocks/TaskHandlers";
 import { SearchconditionHandlers } from "./Task/Mocks/SearchconditionHandllers";
 import { TaskContentSettingHandlers } from "./Task/Mocks/TaskContentSettingHandler";
+import { TaskDetailHandlers } from "./Task/Mocks/TaskDetailHandlers";
+import { TaskInputSettingHandlers } from "./Task/Mocks/TaskInputSettingHandlers";
 
 /**
  * Mocks内のハンドラー設定
@@ -21,5 +23,7 @@ export const APIServerList = [
     MastertableHandlers,
     SearchconditionHandlers,
     TaskHandlers,
-    TaskContentSettingHandlers
+    TaskContentSettingHandlers,
+    TaskDetailHandlers,
+    TaskInputSettingHandlers
 ];
