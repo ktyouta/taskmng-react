@@ -35,6 +35,7 @@ function Login() {
                     textWidth='100%'
                     onKeyDown={handleKeyPress}
                     placeholder='UserID'
+                    autoComplete={true}
                 />
                 <VerticalSpaceComponent
                     space={'20px'}

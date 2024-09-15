@@ -460,3 +460,18 @@ export const testTaskDetail = {
         userName: "管理者"
     }
 }
+
+//カスタム属性の入力設定
+export const testCustormAttributeSetting = [
+    {
+        description: "サンプル属性の説明",
+        disabled: false,
+        id: "ATTRIBUTEID-1",
+        isRequired: false,
+        name: "サンプル属性",
+        selectList: [],
+        type: "input",
+        value: "",
+        visible: true,
+    }
+]

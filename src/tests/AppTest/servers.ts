@@ -10,6 +10,7 @@ import { SearchconditionHandlers } from "./Task/Mocks/SearchconditionHandllers";
 import { TaskContentSettingHandlers } from "./Task/Mocks/TaskContentSettingHandler";
 import { TaskDetailHandlers } from "./Task/Mocks/TaskDetailHandlers";
 import { TaskInputSettingHandlers } from "./Task/Mocks/TaskInputSettingHandlers";
+import { CustomAttributeInputSettingHandler } from "./Task/Mocks/CustomAttributeInputSettingHandler";
 
 /**
  * Mocks内のハンドラー設定
@@ -25,5 +26,6 @@ export const APIServerList = [
     TaskHandlers,
     TaskContentSettingHandlers,
     TaskDetailHandlers,
-    TaskInputSettingHandlers
+    TaskInputSettingHandlers,
+    CustomAttributeInputSettingHandler,
 ];

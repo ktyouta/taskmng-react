@@ -14,6 +14,7 @@ type propsType = {
     onChange?: (e: string) => void,
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void,
     placeholder?: string,
+    autoComplete?: boolean,
 }
 
 //参照の型
@@ -77,6 +78,7 @@ const BaseInputComponent = forwardRef<refType, propsType>((props, ref) => {
             disabled={props.disabled}
             onKeyDown={inputEnterKey}
             placeholder={props.placeholder}
+            autoComplete={props.autoComplete ? "on" : "off"}
         />
     );
 })

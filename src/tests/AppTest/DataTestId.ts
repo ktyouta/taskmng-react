@@ -24,3 +24,7 @@ export const MenuAreaTestId = "MenuAreaTestId";
 export const MenuCloseIconTestId = "MenuCloseIconTestId";
 //メニューオープンアイコンのテストID
 export const MenuOpenIconTestId = "MenuOpenIconTestId";
+//タスク詳細画面(閲覧)のテストID
+export const TaskViewTestId = "TaskViewTestId";
+//タスク詳細画面(編集)のテストID
+export const TaskEditTestId = "TaskEditTestId";

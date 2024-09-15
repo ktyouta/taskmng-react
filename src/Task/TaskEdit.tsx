@@ -13,6 +13,7 @@ import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import styled from 'styled-components';
 import { BoldSpan, HeaderDiv, HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import LabelComponent from '../Common/LabelComponent';
+import { TaskEditTestId } from '../tests/AppTest/DataTestId';
 
 
 //カスタム属性の文言のスタイル
@@ -62,6 +63,7 @@ function TaskEdit(props: propsType) {
   return (
     <HeightDiv
       height='100%'
+      data-testid={TaskEditTestId}
     >
       <HeightDiv
         height='85%'

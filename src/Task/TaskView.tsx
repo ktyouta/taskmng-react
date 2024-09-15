@@ -15,6 +15,7 @@ import TaskViewForm from './TaskViewForm';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import { HeaderDiv, HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import { TaskViewTestId } from '../tests/AppTest/DataTestId';
 
 
 //外側のスタイル
@@ -69,6 +70,7 @@ function TaskView(props: propsType) {
   return (
     <HeightDiv
       height='100%'
+      data-testid={TaskViewTestId}
     >
       <OuterDiv
         height='85%'

@@ -5,6 +5,7 @@ import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import LoginedRender from "../../Common/Code/LoginedRender";
 import { PRE_TASK_ID } from "../../../../Task/Const/TaskConst";
 import userEvent from "@testing-library/user-event";
+import { TaskEditTestId, TaskViewTestId } from "../../DataTestId";
 
 
 /**
@@ -110,15 +111,23 @@ describe('タスク画面の表示チェック', () => {
 });
 
 
-describe("モーダル表示チェック", () => {
+describe("タスク詳細モーダル表示チェック", () => {
 
-    test("詳細ボタン押下時にタスク詳細モーダルが表示されること", async () => {
+    /**
+     * 以下の操作を確認
+     * 1.詳細ボタン押下でタスク詳細モーダルが閲覧モードで開くことを確認
+     * 2.編集ボタン押下で編集モードに切り替わることを確認
+     * 3.戻るボタン押下で閲覧モードのに切り替わることを確認
+     * 4.閉じるボタン押下でタスク詳細モーダルが閉じることを確認
+     */
+    test("タスク詳細モーダルの開閉と編集モードへの切り替えができること", async () => {
 
         LoginedRender(<TestTask />);
 
         let taskDetailBtn = null;
+        const user = userEvent.setup();
 
-        await waitFor(async () => {
+        await waitFor(() => {
 
             //詳細ボタンを取得
             const taskDetailBtns = screen.getAllByRole('button', { name: '詳細' });
@@ -128,14 +137,54 @@ describe("モーダル表示チェック", () => {
         if (!taskDetailBtn) {
             fail("詳細ボタンの取得に失敗しました。");
         }
-        const user = userEvent.setup();
 
         //詳細ボタンを押下
         await user.click(taskDetailBtn);
 
         await waitFor(() => {
 
-            expect(screen.getByText('タスク詳細')).toBeInTheDocument();
+            const taskViewElement = screen.getByTestId(TaskViewTestId);
+            //タスク詳細モーダルが閲覧モードで表示されることを確認
+            expect(taskViewElement).toBeInTheDocument();
+        });
+
+        //編集ボタンを取得
+        const editBtn = screen.getByRole('button', { name: '編集' });
+        expect(editBtn).toBeInTheDocument();
+        //編集ボタン押下
+        await user.click(editBtn);
+
+        await waitFor(() => {
+
+            const taskEditElement = screen.getByTestId(TaskEditTestId);
+            //タスク編集モードが表示されることを確認
+            expect(taskEditElement).toBeInTheDocument();
+        });
+
+        //戻るボタンを取得
+        const backBtn = screen.getByRole('button', { name: '戻る' });
+        expect(backBtn).toBeInTheDocument();
+        //戻るボタンを押下
+        await user.click(backBtn);
+
+        await waitFor(() => {
+
+            const taskViewElement = screen.getByTestId(TaskViewTestId);
+            //タスク詳細モーダルが閲覧モードに戻ることを確認
+            expect(taskViewElement).toBeInTheDocument();
+        });
+
+        //閉じるボタンを取得
+        const closeBtn = screen.getByRole('button', { name: '閉じる' });
+        expect(closeBtn).toBeInTheDocument();
+        //閉じるボタン押下
+        await user.click(closeBtn);
+
+        await waitFor(() => {
+
+            const taskViewElement = screen.queryByTestId(TaskViewTestId);
+            //タスク詳細モーダルが閉じることを確認
+            expect(taskViewElement).not.toBeInTheDocument();
         });
     });
 });
