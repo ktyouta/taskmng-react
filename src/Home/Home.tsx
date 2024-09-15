@@ -20,7 +20,7 @@ const MainDiv = styled.div<{ height: string | undefined }>`
     height:${({ height }) => (height)};
     width: 100%;
     box-sizing: border-box;
-    padding-left: 4%;
+    padding-left: 3.5%;
 `;
 
 type propsType = {

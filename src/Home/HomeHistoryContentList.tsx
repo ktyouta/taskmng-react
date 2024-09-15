@@ -29,6 +29,8 @@ const InnerDiv = styled.div<{ height: string, width: string }>`
     height: ${({ height }) => (height)};
     overflow: auto;
     overflow-x: hidden;
+    padding: 1%;
+    box-sizing: border-box;
 `;
 
 //履歴表示エリアのスタイル

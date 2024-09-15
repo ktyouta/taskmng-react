@@ -11,11 +11,11 @@ import useHomeHistoryContent from './Hook/useHomeHistoryContent';
 
 //外側のスタイル
 const OuterDiv = styled.div`
-    border: 2px solid;
+    outline: 3px solid;
     border-radius: 5px;
     min-height: 80px;
     height: auto;
-    border-color: #c0c0c0;
+    outline-color: #b0c4de;
 `;
 
 //タイトルのスタイル
