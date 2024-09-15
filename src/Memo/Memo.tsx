@@ -14,8 +14,16 @@ import NotFoundComponent from '../NotFound/NotFoundComponent';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import { DUMMY_ID, MEMO_EDIT_PATH, MEMO_ROOT_PATH } from './Const/MemoConst';
 import MemoRegister from './MemoRegister';
+import styled from 'styled-components';
 
 
+//メモ画面のスタイル
+const MemoDiv = styled.div<{ height: string | undefined }>`
+    height:${({ height }) => (height)};
+    background-color: #f5f5f5;
+`;
+
+//引数の型
 type propsType = {
   path: string,
   testId: string,
@@ -31,7 +39,7 @@ function Memo(props: propsType) {
   } = useMemo({ ...props });
 
   return (
-    <HeightDiv
+    <MemoDiv
       height='100%'
       data-testid={props.testId}
     >
@@ -85,7 +93,7 @@ function Memo(props: propsType) {
           </React.Fragment>
         }
       </Routes>
-    </HeightDiv>
+    </MemoDiv>
   );
 }
 

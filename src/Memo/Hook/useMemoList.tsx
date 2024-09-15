@@ -109,7 +109,7 @@ function useMemoList(props: propsType) {
                     </MemoListLi>
                     <VerticalSpaceComponent
                         key={`verticalspace-${id}`}
-                        space='2%'
+                        space='4%'
                     />
                 </React.Fragment>
             );

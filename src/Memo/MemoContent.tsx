@@ -8,11 +8,11 @@ import useMemoContent from './Hook/useMemoContent';
 
 //外側のスタイル
 const OuterDiv = styled.div<{ bdColor?: string }>`
-    border: 1px solid;
+    outline: 3px solid;
     border-radius: 5px;
     min-height: 80px;
     height: auto;
-    border-color: ${({ bdColor }) => (bdColor ?? "#c0c0c0")};
+    outline-color: ${({ bdColor }) => (bdColor ?? "#b0c4de")};
 `;
 
 //タイトルのスタイル
@@ -26,7 +26,7 @@ const ContentTitleDiv = styled.div<{ titleBgColor?: string }>`
     overflow-wrap: break-word;
     font-size: 20px;
     padding-left: 10px;
-    background-color: ${({ titleBgColor }) => (titleBgColor ?? "#cccccc")};
+    background-color: ${({ titleBgColor }) => (titleBgColor ?? "white")};
     cursor:pointer;
     &:hover {
         color: blue;
@@ -42,7 +42,7 @@ const ContentInfoDiv = styled.div<{ infoBgColor?: string }>`
     border-radius: 0px 0x 5px 5px;
     min-height: 42px;
     padding-left: 10px;
-    background-color: ${({ infoBgColor }) => (infoBgColor ?? "#cccccc")};
+    background-color: ${({ infoBgColor }) => (infoBgColor ?? "white")};
 `;
 
 //タグエリアのスタイル
@@ -54,7 +54,7 @@ const ContentTagDiv = styled.div<{ infoBgColor?: string }>`
     padding-left: 10px;
     border-bottom: 1px solid;
     border-color: #a9a9a9;
-    background-color: ${({ infoBgColor }) => (infoBgColor ?? "#cccccc")};
+    background-color: ${({ infoBgColor }) => (infoBgColor ?? "white")};
 `;
 
 //ステータスエリアのスタイル
@@ -92,7 +92,7 @@ function MemoContent(props: propsType) {
             <ContentTagDiv
                 infoBgColor={props.contentObj.bgColor}
             >
-                タグ：{tagList}
+                タグ：{tagList && tagList.length > 0 ? tagList : "未設定"}
             </ContentTagDiv>
             <ContentInfoDiv
                 infoBgColor={props.contentObj.bgColor}
