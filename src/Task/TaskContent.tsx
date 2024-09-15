@@ -4,15 +4,16 @@ import SpaceComponent from '../Common/SpaceComponent';
 import { displayTaskListType, taskContentDisplayType } from './Type/TaskType';
 import React from 'react';
 import useTaskContent from './Hook/useTaskContent';
+import { DEFAULT_STATUS_BACKCOLOR, DEFAULT_STATUS_BODERCOLOR } from './Const/TaskConst';
 
 
 //外側のスタイル
 const OuterDiv = styled.div<{ bdColor?: string }>`
-    border: 1px solid;
+    outline: 2px solid;
     border-radius: 5px;
     min-height: 65px;
     height: auto;
-    border-color: ${({ bdColor }) => (bdColor ?? "#c0c0c0")};
+    outline-color: ${({ bdColor }) => (bdColor ?? DEFAULT_STATUS_BODERCOLOR)};
 `;
 
 //タイトルのスタイル
@@ -21,12 +22,12 @@ const ContentTitleDiv = styled.div<{ titleBgColor?: string }>`
     height: auto;
     min-height: 30px;
     border-bottom: 1px solid;
-    border-color: #a9a9a9;
+    border-color: #888888;
     border-radius: 5px 5px 0px 0px;
     overflow-wrap: break-word;
     font-size: 20px;
     padding-left: 10px;
-    background-color: ${({ titleBgColor }) => (titleBgColor ?? "#d3d3d3")};
+    background-color: ${({ titleBgColor }) => (titleBgColor ?? DEFAULT_STATUS_BACKCOLOR)};
     cursor:pointer;
     &:hover {
         color: blue;
@@ -42,7 +43,7 @@ const ContentInfoDiv = styled.div<{ infoBgColor?: string }>`
     border-radius: 0px 0x 5px 5px;
     min-height: 30px;
     padding-left: 10px;
-    background-color: ${({ infoBgColor }) => (infoBgColor ?? "#dcdcdc")};
+    background-color: ${({ infoBgColor }) => (infoBgColor ?? DEFAULT_STATUS_BACKCOLOR)};
 `;
 
 //ボタンエリアのスタイル

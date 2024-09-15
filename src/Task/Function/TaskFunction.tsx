@@ -23,7 +23,7 @@ import styled from "styled-components";
 import { tabType } from "../../Common/TabComponent";
 import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
 import TaskEditForm from "../TaskEditForm";
-import { COMP_STATUS, HOLD_STATUS, NOCOMP_STATUS, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, WORKING_STATUS } from "../Const/TaskConst";
+import { COMP_STATUS, COMP_STATUS_BACKCOLOR, COMP_STATUS_BODERCOLOR, DEFAULT_STATUS_BACKCOLOR, DEFAULT_STATUS_BODERCOLOR, HOLD_STATUS, HOLD_STATUS_BACKCOLOR, HOLD_STATUS_BODERCOLOR, NOCOMP_STATUS, NOCOMP_STATUS_BACKCOLOR, NOCOMP_STATUS_BODERCOLOR, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, WORKING_STATUS, WORKING_STATUS_BACKCOLOR, WORKING_STATUS_BODERCOLOR } from "../Const/TaskConst";
 import { USER_AUTH } from "../../Common/Const/CommonConst";
 
 
@@ -593,17 +593,17 @@ export function createTaskContentList(taskList: taskListType[], generalDataList:
                 switch (status) {
                     //未対応
                     case NOCOMP_STATUS:
-                        displayTaskObj.bdColor = "#CD5C5C";
-                        displayTaskObj.titleBgColor = "#F08080";
-                        displayTaskObj.infoBgColor = "#FA8072";
-                        bgButtonColor = "#FA8072";
+                        displayTaskObj.bdColor = NOCOMP_STATUS_BODERCOLOR;
+                        displayTaskObj.titleBgColor = NOCOMP_STATUS_BACKCOLOR;
+                        displayTaskObj.infoBgColor = NOCOMP_STATUS_BACKCOLOR;
+                        bgButtonColor = NOCOMP_STATUS_BACKCOLOR;
                         break;
                     //保留
                     case HOLD_STATUS:
-                        displayTaskObj.bdColor = "#FFFF00";
-                        displayTaskObj.titleBgColor = "#FFFF66";
-                        displayTaskObj.infoBgColor = "#FFFF66";
-                        bgButtonColor = "#FFFF66";
+                        displayTaskObj.bdColor = HOLD_STATUS_BODERCOLOR;
+                        displayTaskObj.titleBgColor = HOLD_STATUS_BACKCOLOR;
+                        displayTaskObj.infoBgColor = HOLD_STATUS_BACKCOLOR;
+                        bgButtonColor = HOLD_STATUS_BACKCOLOR;
                         break;
                     default:
                         break;
@@ -611,17 +611,17 @@ export function createTaskContentList(taskList: taskListType[], generalDataList:
             }
             //完了したタスク
             if (status === COMP_STATUS) {
-                displayTaskObj.bdColor = "#808080";
-                displayTaskObj.titleBgColor = "#808080";
-                displayTaskObj.infoBgColor = "#808080";
-                bgButtonColor = "#808080";
+                displayTaskObj.bdColor = COMP_STATUS_BODERCOLOR;
+                displayTaskObj.titleBgColor = COMP_STATUS_BACKCOLOR;
+                displayTaskObj.infoBgColor = COMP_STATUS_BACKCOLOR;
+                bgButtonColor = COMP_STATUS_BACKCOLOR;
             }
             //対応中
             else if (status === WORKING_STATUS) {
-                displayTaskObj.bdColor = "#33FFFF";
-                displayTaskObj.titleBgColor = "#66FFFF";
-                displayTaskObj.infoBgColor = "#66FFCC";
-                bgButtonColor = "#66FFCC";
+                displayTaskObj.bdColor = WORKING_STATUS_BODERCOLOR;
+                displayTaskObj.titleBgColor = WORKING_STATUS_BACKCOLOR;
+                displayTaskObj.infoBgColor = WORKING_STATUS_BACKCOLOR;
+                bgButtonColor = WORKING_STATUS_BACKCOLOR;
             }
         }
 
@@ -690,7 +690,7 @@ export function createTaskContentList(taskList: taskListType[], generalDataList:
         //編集ボタン
         displayTaskObj["editButton"] = <ButtonComponent
             styleTypeNumber={"BASE"}
-            bgColor={bgButtonColor}
+            bgColor={bgButtonColor ?? DEFAULT_STATUS_BACKCOLOR}
             title={"詳細"}
             onclick={() => { openModal(element.id); }}
             style={{ "borderRadius": "15px", "fontSize": "0.9rem" }}
