@@ -11,7 +11,9 @@ import UserIconComponent from '../Common/UserIconComponent';
 import { Z_INDEX_PARAM } from '../Common/Const/CommonConst';
 import { HeadNaviTestId, NaviBackgroundDivTestId, NaviLogoutTestId, NaviUserInfoTestId, MenuOpenIconTestId } from '../tests/AppTest/DataTestId';
 import { RxHamburgerMenu } from "react-icons/rx";
-
+import { FaRegBell } from "react-icons/fa";
+import React from 'react';
+import ModalComponent from '../Common/ModalComponent';
 
 //ヘッダーのスタイル
 const HeaderDiv = styled.div`
@@ -38,8 +40,7 @@ const UserInfoMainDiv = styled.div`
   display: flex;
   white-space: nowrap;
   align-items: center;
-  width: 83%;
-  margin-left: auto;
+  width: 85%;
 `;
 
 //ボタンのスタイル
@@ -91,13 +92,15 @@ const OverlayDiv = styled.div`
 
 //ユーザー情報エリアのスタイル
 const UserInfoOuterDiv = styled.div`
-  width:30%;
-  margin-right: 2%;
+  width:21%;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 `;
 
 //ユーザー名のスタイル
 const UserNameDiv = styled.div`
-  width:100%;
+  width:80%;
   text-align: right;
 `;
 
@@ -114,6 +117,25 @@ const TitleAreaDiv = styled.div`
   justify-content: center;
   align-items: center;
   white-space: nowrap;
+`;
+
+//通知アイコンエリアのスタイル
+const NotificationAreaDiv = styled.div`
+  position: relative;
+  width:12%;
+`;
+
+//通知バッジのスタイル
+const NotificationBadgeSpan = styled.span`
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: #FF0066;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
 `;
 
 //引数の型
@@ -135,7 +157,11 @@ function Header(props: propsType) {
     flag,
     clickUserInfo,
     onFlag,
-    offFlag
+    offFlag,
+    workHistoryObj,
+    isOpenModal,
+    openModal,
+    closeModal,
   } = useHeader({ ...props });
 
   return (
@@ -158,6 +184,24 @@ function Header(props: propsType) {
         </TitleSpan>
       </TitleAreaDiv>
       <UserInfoOuterDiv>
+        {
+          workHistoryObj &&
+          //通知アイコン
+          <NotificationAreaDiv>
+            <IconComponent
+              icon={FaRegBell}
+              onclick={isOpenModal ? closeModal : openModal}
+              size='60%'
+            />
+            {
+              //未読件数
+              workHistoryObj.historyListPreDiffLen > 0 &&
+              <NotificationBadgeSpan>
+                {workHistoryObj.historyListPreDiffLen}
+              </NotificationBadgeSpan>
+            }
+          </NotificationAreaDiv>
+        }
         <UserInfoMainDiv>
           <UserNameDiv>
             {props.userInfo?.userName ? `ユーザー：${props.userInfo?.userName}` : ""}
@@ -211,6 +255,13 @@ function Header(props: propsType) {
         >
         </OverlayDiv>
       }
+      {/* 通知用モーダル */}
+      <ModalComponent
+        modalIsOpen={isOpenModal}
+        closeModal={closeModal}
+      >
+        実装中
+      </ModalComponent>
     </HeaderDiv>
   );
 }

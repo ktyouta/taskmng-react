@@ -5,14 +5,17 @@ import { useNavigate } from "react-router-dom";
 import ENV from '../../env.json';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useGlobalAtom, useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { editModeAtom, userIdAtom } from '../../Setting/SettingUser/Atom/SettingUserAtom';
 import { editModeEnum } from '../../Setting/Const/SettingConst';
 import { userInfoType } from '../../Common/Type/CommonType';
-import { LOGIN_PATH, NOWPATH_STRAGEKEY, USER_PATH } from '../Const/HeaderConst';
+import { GET_WORKHISTORY_INTERVAL, LOGIN_PATH, NOWPATH_STRAGEKEY, REACTQUERY_GETWORKHISTORY_KEY, USER_PATH } from '../Const/HeaderConst';
 import useSwitch from '../../Common/Hook/useSwitch';
 import { USERID_STRAGEKEY } from '../../Common/Const/CommonConst';
 import { clientMenuListAtom } from '../../Content/Atom/ContentAtom';
+import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
+import { taskHistoryType } from '../../Home/Type/HomeType';
+import { workHistoryObjType } from '../Type/HeaderType';
 
 
 //引数の型
@@ -28,6 +31,47 @@ function useHeader(props: propsType) {
     const navigate = useNavigate();
     //ナビゲーション表示フラグ
     const { flag, onFlag, offFlag } = useSwitch();
+    //作業履歴保持用
+    const [workHistoryObj, setWorkHistoryObj] = useState<workHistoryObjType>();
+    //作業履歴モーダル表示フラグ
+    const { flag: isOpenModal, onFlag: openModal, offFlag: closeModal } = useSwitch();
+
+    //作業履歴リストを取得
+    const {
+        isLoading,
+        isFetching,
+        isError,
+        refetch,
+    } = useQueryWrapper<taskHistoryType[]>(
+        {
+            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASKHISTORY}`,
+            queryKey: [REACTQUERY_GETWORKHISTORY_KEY],
+            afSuccessFn: (data: taskHistoryType[]) => {
+
+                if (!workHistoryObj) {
+                    setWorkHistoryObj({
+                        workHistoryList: data,
+                        historyListPreDiffLen: 0
+                    });
+                }
+
+                let tmpWorkHistoryObj: workHistoryObjType = JSON.parse(JSON.stringify(workHistoryObj));
+                let preDiffLen = 0;
+
+                //前回取得分の作業リストとの差分を取得する
+                preDiffLen = data.length - tmpWorkHistoryObj.workHistoryList.length;
+
+                if (preDiffLen < 0) {
+                    preDiffLen = 0;
+                }
+
+                setWorkHistoryObj({
+                    workHistoryList: data,
+                    historyListPreDiffLen: preDiffLen
+                });
+            }
+        }
+    );
 
     /**
      * ログアウト
@@ -66,12 +110,26 @@ function useHeader(props: propsType) {
         navigate(USER_PATH);
     };
 
+    //定期的に作業履歴を取得
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            refetch();
+        }, GET_WORKHISTORY_INTERVAL);
+
+        // コンポーネントのアンマウント時にIntervalをクリア
+        return () => clearInterval(intervalId);
+    }, []);
+
     return {
         logout,
         flag,
         clickUserInfo,
         onFlag,
-        offFlag
+        offFlag,
+        workHistoryObj,
+        isOpenModal,
+        openModal,
+        closeModal,
     };
 }
 
