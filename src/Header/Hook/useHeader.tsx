@@ -16,6 +16,7 @@ import { clientMenuListAtom } from '../../Content/Atom/ContentAtom';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import { taskHistoryType } from '../../Home/Type/HomeType';
 import { workHistoryObjType } from '../Type/HeaderType';
+import { objectDeepCopy } from '../../Common/Function/Function';
 
 
 //引数の型
@@ -48,15 +49,20 @@ function useHeader(props: propsType) {
             queryKey: [REACTQUERY_GETWORKHISTORY_KEY],
             afSuccessFn: (data: taskHistoryType[]) => {
 
+                //初回読み込み時
                 if (!workHistoryObj) {
+
                     setWorkHistoryObj({
                         workHistoryList: data,
                         historyListPreDiffLen: 0
                     });
+                    return;
                 }
 
-                let tmpWorkHistoryObj: workHistoryObjType = JSON.parse(JSON.stringify(workHistoryObj));
+                let tmpWorkHistoryObj: workHistoryObjType = objectDeepCopy(workHistoryObj);
                 let preDiffLen = 0;
+                //現在通知アイコンに表示されている数字
+                let nowDiff = tmpWorkHistoryObj.historyListPreDiffLen;
 
                 //前回取得分の作業リストとの差分を取得する
                 preDiffLen = data.length - tmpWorkHistoryObj.workHistoryList.length;
@@ -67,7 +73,7 @@ function useHeader(props: propsType) {
 
                 setWorkHistoryObj({
                     workHistoryList: data,
-                    historyListPreDiffLen: preDiffLen
+                    historyListPreDiffLen: nowDiff + preDiffLen
                 });
             }
         }
@@ -110,6 +116,25 @@ function useHeader(props: propsType) {
         navigate(USER_PATH);
     };
 
+    /**
+     * 通知モーダルのオープン
+     */
+    const openNoticeModal = () => {
+
+        if (!workHistoryObj) {
+            return;
+        }
+
+        let tmpWorkHistoryObj: workHistoryObjType = objectDeepCopy(workHistoryObj);
+
+        setWorkHistoryObj({
+            workHistoryList: tmpWorkHistoryObj.workHistoryList,
+            historyListPreDiffLen: 0
+        });
+
+        openModal();
+    };
+
     //定期的に作業履歴を取得
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -128,7 +153,7 @@ function useHeader(props: propsType) {
         offFlag,
         workHistoryObj,
         isOpenModal,
-        openModal,
+        openNoticeModal,
         closeModal,
     };
 }

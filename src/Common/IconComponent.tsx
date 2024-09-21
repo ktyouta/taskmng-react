@@ -20,7 +20,7 @@ function IconComponent(props: propsType) {
     return (
         <Icon
             onClick={props.onclick}
-            style={{ cursor: 'pointer', color: props.bgColor ?? '', ...props.style }}
+            style={{ cursor: !!props.onclick ? 'pointer' : '', color: props.bgColor ?? '', ...props.style }}
             size={props.size}
             data-testid={props.dataTestId ?? IconComponentDataTestId}
         />

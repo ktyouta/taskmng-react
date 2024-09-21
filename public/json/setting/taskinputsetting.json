@@ -21,7 +21,7 @@
 		"length": 500,
 		"initValue": "",
 		"disabled": false,
-		"isNewCreateVisible": false,
+		"isNewCreateVisible": true,
 		"isHidden": false,
 		"isRequired": true,
 		"isSettingEditable": true,

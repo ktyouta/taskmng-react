@@ -14,6 +14,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { FaRegBell } from "react-icons/fa";
 import React from 'react';
 import ModalComponent from '../Common/ModalComponent';
+import HeaderNotice from './HeaderNotice';
 
 //ヘッダーのスタイル
 const HeaderDiv = styled.div`
@@ -160,7 +161,7 @@ function Header(props: propsType) {
     offFlag,
     workHistoryObj,
     isOpenModal,
-    openModal,
+    openNoticeModal,
     closeModal,
   } = useHeader({ ...props });
 
@@ -190,7 +191,7 @@ function Header(props: propsType) {
           <NotificationAreaDiv>
             <IconComponent
               icon={FaRegBell}
-              onclick={isOpenModal ? closeModal : openModal}
+              onclick={isOpenModal ? closeModal : openNoticeModal}
               size='60%'
             />
             {
@@ -256,12 +257,21 @@ function Header(props: propsType) {
         </OverlayDiv>
       }
       {/* 通知用モーダル */}
-      <ModalComponent
-        modalIsOpen={isOpenModal}
-        closeModal={closeModal}
-      >
-        実装中
-      </ModalComponent>
+      {
+        workHistoryObj &&
+        <ModalComponent
+          modalIsOpen={isOpenModal}
+          closeModal={closeModal}
+          width='50%'
+          positionLeft='24%'
+        >
+          <HeaderNotice
+            closeModal={closeModal}
+            workHistoryList={workHistoryObj.workHistoryList}
+          />
+        </ModalComponent>
+      }
+
     </HeaderDiv>
   );
 }

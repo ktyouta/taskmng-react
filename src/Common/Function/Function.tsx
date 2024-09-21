@@ -126,3 +126,12 @@ export function createQuery(query: string) {
 
     return query.length > 0 ? `?${query}` : ``;
 }
+
+/**
+ * オブジェクトのディープコピー
+ * @param arg 
+ * @returns 
+ */
+export function objectDeepCopy<T>(arg: T): T {
+    return JSON.parse(JSON.stringify(arg));
+}
