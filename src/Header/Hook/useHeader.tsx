@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 import ENV from '../../env.json';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useGlobalAtom, useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { editModeAtom, userIdAtom } from '../../Setting/SettingUser/Atom/SettingUserAtom';
 import { editModeEnum } from '../../Setting/Const/SettingConst';
 import { userInfoType } from '../../Common/Type/CommonType';
-import { GET_WORKHISTORY_INTERVAL, LOGIN_PATH, NOWPATH_STRAGEKEY, REACTQUERY_GETWORKHISTORY_KEY, USER_PATH } from '../Const/HeaderConst';
+import { GET_WORKHISTORY_INTERVAL, LOGIN_PATH, NOWPATH_STRAGEKEY, REACTQUERY_GETWORKHISTORY_KEY, UNREAD_NUM_CONNECT, UNREAD_NUM_KEY, USER_PATH } from '../Const/HeaderConst';
 import useSwitch from '../../Common/Hook/useSwitch';
 import { USERID_STRAGEKEY } from '../../Common/Const/CommonConst';
 import { clientMenuListAtom } from '../../Content/Atom/ContentAtom';
@@ -17,6 +17,7 @@ import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import { taskHistoryType } from '../../Home/Type/HomeType';
 import { workHistoryObjType } from '../Type/HeaderType';
 import { objectDeepCopy } from '../../Common/Function/Function';
+import { getUnReadNumInfo, setUnreadCount } from '../Function/HeaderFunction';
 
 
 //引数の型
@@ -49,31 +50,36 @@ function useHeader(props: propsType) {
             queryKey: [REACTQUERY_GETWORKHISTORY_KEY],
             afSuccessFn: (data: taskHistoryType[]) => {
 
-                //初回読み込み時
-                if (!workHistoryObj) {
+                //ローカルストレージから未読件数情報をリスト取得する
+                let nowDiffInfoArr = getUnReadNumInfo();
 
-                    setWorkHistoryObj({
-                        workHistoryList: data,
-                        historyListPreDiffLen: 0
-                    });
-                    return;
-                }
-
-                let tmpWorkHistoryObj: workHistoryObjType = objectDeepCopy(workHistoryObj);
+                //ローカルストレージに保存された未読件数
+                let nowDiff = nowDiffInfoArr.nowDiff;
+                //ローカルストレージに保存されたデータ件数
+                let nowListLen = nowDiffInfoArr.nowListLen;
+                //前回データ取得時との差分
                 let preDiffLen = 0;
-                //現在通知アイコンに表示されている数字
-                let nowDiff = tmpWorkHistoryObj.historyListPreDiffLen;
 
                 //前回取得分の作業リストとの差分を取得する
-                preDiffLen = data.length - tmpWorkHistoryObj.workHistoryList.length;
+                preDiffLen = data.length - nowListLen;
+                //データ取得後の差分
+                let latestDiff = nowDiff + (preDiffLen > 0 ? preDiffLen : 0);
+                //今回取得したデータ件数
+                let latestDataLen = data.length;
+                //未読件数情報
+                let latestUnReadInfo = `${latestDiff}${UNREAD_NUM_CONNECT}${latestDataLen}`;
 
-                if (preDiffLen < 0) {
-                    preDiffLen = 0;
+                //未読件数情報をローカルストレージに保存する
+                setUnreadCount(latestUnReadInfo);
+
+                //差分なし
+                if (preDiffLen <= 0 && workHistoryObj) {
+                    return;
                 }
 
                 setWorkHistoryObj({
                     workHistoryList: data,
-                    historyListPreDiffLen: nowDiff + preDiffLen
+                    historyListPreDiffLen: latestDiff
                 });
             }
         }
@@ -125,14 +131,35 @@ function useHeader(props: propsType) {
             return;
         }
 
-        let tmpWorkHistoryObj: workHistoryObjType = objectDeepCopy(workHistoryObj);
+        const unReadNum = 0;
+
+        //未読件数を0件でローカルストレージに保存する
+        setUnreadCount(`${unReadNum}-${workHistoryObj.workHistoryList.length}`);
 
         setWorkHistoryObj({
-            workHistoryList: tmpWorkHistoryObj.workHistoryList,
-            historyListPreDiffLen: 0
+            workHistoryList: workHistoryObj.workHistoryList,
+            historyListPreDiffLen: unReadNum
         });
 
         openModal();
+    };
+
+    /**
+     * 通知モーダルのクローズ
+     */
+    const closeNoticeModal = () => {
+
+        if (!workHistoryObj) {
+            closeModal();
+            return;
+        }
+
+        const unReadNum = 0;
+
+        //未読件数を0件でローカルストレージに保存する
+        setUnreadCount(`${unReadNum}-${workHistoryObj?.workHistoryList.length}`);
+
+        closeModal();
     };
 
     //定期的に作業履歴を取得
@@ -154,7 +181,7 @@ function useHeader(props: propsType) {
         workHistoryObj,
         isOpenModal,
         openNoticeModal,
-        closeModal,
+        closeNoticeModal,
     };
 }
 

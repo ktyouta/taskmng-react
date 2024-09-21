@@ -129,8 +129,8 @@ const NotificationAreaDiv = styled.div`
 //通知バッジのスタイル
 const NotificationBadgeSpan = styled.span`
   position: absolute;
-  top: -5px;
-  right: -10px;
+  top: -9px;
+  right: -8px;
   background-color: #FF0066;
   color: white;
   padding: 4px 8px;
@@ -162,7 +162,7 @@ function Header(props: propsType) {
     workHistoryObj,
     isOpenModal,
     openNoticeModal,
-    closeModal,
+    closeNoticeModal,
   } = useHeader({ ...props });
 
   return (
@@ -191,7 +191,7 @@ function Header(props: propsType) {
           <NotificationAreaDiv>
             <IconComponent
               icon={FaRegBell}
-              onclick={isOpenModal ? closeModal : openNoticeModal}
+              onclick={isOpenModal ? closeNoticeModal : openNoticeModal}
               size='60%'
             />
             {
@@ -261,12 +261,12 @@ function Header(props: propsType) {
         workHistoryObj &&
         <ModalComponent
           modalIsOpen={isOpenModal}
-          closeModal={closeModal}
+          closeModal={closeNoticeModal}
           width='50%'
           positionLeft='24%'
         >
           <HeaderNotice
-            closeModal={closeModal}
+            closeModal={closeNoticeModal}
             workHistoryList={workHistoryObj.workHistoryList}
           />
         </ModalComponent>
