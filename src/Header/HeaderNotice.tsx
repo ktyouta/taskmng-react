@@ -65,6 +65,7 @@ function HeaderNotice(props: propsType) {
                         ?
                         <HeaderContentArea
                             workHistoryList={props.workHistoryList}
+                            closeModal={props.closeModal}
                         />
                         :
                         "お知らせが存在しません。"

@@ -14,6 +14,7 @@ export type taskHistoryType = {
     priority: string,
     status: string,
     iconUrl: string,
+    taskDelFlg: string,
 }
 
 //登録時のタスクの作業履歴の型

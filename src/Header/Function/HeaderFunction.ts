@@ -1,5 +1,6 @@
+import { taskHistoryType } from "../../Home/Type/HomeType";
 import { UNREAD_NUM_CONNECT, UNREAD_NUM_KEY } from "../Const/HeaderConst";
-import { unReadObjType } from "../Type/HeaderType";
+import { localSaveUnReadObjType, unReadObjType } from "../Type/HeaderType";
 
 /**
  * 未読件数をローカルストレージに保存する
@@ -41,7 +42,37 @@ export function getUnReadNumInfo(): unReadObjType {
     }
 
     return {
-        nowDiff: parseInt(nowDiffInfoArr[0]),
-        nowListLen: parseInt(nowDiffInfoArr[1])
+        diff: parseInt(nowDiffInfoArr[0]),
+        listLen: parseInt(nowDiffInfoArr[1]),
     };
+}
+
+/**
+ * 取得したデータから未読件数情報を作成する
+ */
+export function createNewUnReadInfo(
+    nowDiffInfoArr: unReadObjType, data: taskHistoryType[]): localSaveUnReadObjType {
+
+    //ローカルストレージに保存された未読件数
+    let nowDiff = nowDiffInfoArr.diff;
+    //ローカルストレージに保存されたデータ件数
+    let nowListLen = nowDiffInfoArr.listLen;
+    //前回データ取得時との差分
+    let preDiffLen = 0;
+
+    //前回取得分の作業リストとの差分を取得する
+    preDiffLen = data.length - nowListLen;
+    //前回差分が1件以上かつローカルストレージに保存されたデータ件数が1件以上の場合
+    let isPreDiffLenZero = preDiffLen > 0 && nowListLen > 0;
+    //データ取得後の差分
+    let latestDiff = nowDiff + (isPreDiffLenZero ? preDiffLen : 0);
+    //今回取得したデータ件数
+    let latestDataLen = data.length;
+
+    return {
+        diff: latestDiff,
+        listLen: latestDataLen,
+        unReadInfo: `${latestDiff}${UNREAD_NUM_CONNECT}${latestDataLen}`,
+        preDiff: preDiffLen
+    }
 }

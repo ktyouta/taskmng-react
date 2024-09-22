@@ -3,6 +3,7 @@ import { taskHistoryType } from '../Home/Type/HomeType';
 import HeaderContent from './HeaderContent';
 import React from 'react';
 import VerticalSpaceComponent from '../Common/VerticalSpaceComponent';
+import { popoverClasses } from '@mui/material';
 
 //最上位のスタイル
 const OuterDiv = styled.div`
@@ -17,6 +18,7 @@ const OuterDiv = styled.div`
 //引数の型
 type propsType = {
   workHistoryList: taskHistoryType[],
+  closeModal: () => void,
 }
 
 
@@ -32,6 +34,7 @@ function HeaderContentArea(props: propsType) {
             <React.Fragment>
               <HeaderContent
                 workHistory={element}
+                closeModal={props.closeModal}
               />
               <VerticalSpaceComponent
                 space={'2%'}

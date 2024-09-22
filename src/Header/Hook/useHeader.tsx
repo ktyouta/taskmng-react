@@ -17,7 +17,7 @@ import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import { taskHistoryType } from '../../Home/Type/HomeType';
 import { workHistoryObjType } from '../Type/HeaderType';
 import { objectDeepCopy } from '../../Common/Function/Function';
-import { getUnReadNumInfo, setUnreadCount } from '../Function/HeaderFunction';
+import { createNewUnReadInfo, getUnReadNumInfo, setUnreadCount } from '../Function/HeaderFunction';
 
 
 //引数の型
@@ -53,33 +53,20 @@ function useHeader(props: propsType) {
                 //ローカルストレージから未読件数情報をリスト取得する
                 let nowDiffInfoArr = getUnReadNumInfo();
 
-                //ローカルストレージに保存された未読件数
-                let nowDiff = nowDiffInfoArr.nowDiff;
-                //ローカルストレージに保存されたデータ件数
-                let nowListLen = nowDiffInfoArr.nowListLen;
-                //前回データ取得時との差分
-                let preDiffLen = 0;
-
-                //前回取得分の作業リストとの差分を取得する
-                preDiffLen = data.length - nowListLen;
-                //データ取得後の差分
-                let latestDiff = nowDiff + (preDiffLen > 0 ? preDiffLen : 0);
-                //今回取得したデータ件数
-                let latestDataLen = data.length;
-                //未読件数情報
-                let latestUnReadInfo = `${latestDiff}${UNREAD_NUM_CONNECT}${latestDataLen}`;
+                //新たに保存する未読件数情報を作成する
+                let latestUnReadInfo = createNewUnReadInfo(nowDiffInfoArr, data);
 
                 //未読件数情報をローカルストレージに保存する
-                setUnreadCount(latestUnReadInfo);
+                setUnreadCount(latestUnReadInfo.unReadInfo);
 
                 //差分なし
-                if (preDiffLen <= 0 && workHistoryObj) {
+                if (latestUnReadInfo.preDiff <= 0 && workHistoryObj) {
                     return;
                 }
 
                 setWorkHistoryObj({
                     workHistoryList: data,
-                    historyListPreDiffLen: latestDiff
+                    historyListPreDiffLen: latestUnReadInfo.diff
                 });
             }
         }

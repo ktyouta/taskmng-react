@@ -16,3 +16,5 @@ export const REACTQUERY_GETWORKHISTORY_KEY = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.
 export const UNREAD_NUM_KEY = "UNREAD_NUM_KEY";
 //未読通知件数のローカルストレージ用ハイフン
 export const UNREAD_NUM_CONNECT = "-";
+//削除フラグ
+export const DELETE_ON = "1";

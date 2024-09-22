@@ -14,6 +14,7 @@ export type taskHistoryType = {
     priority: string,
     iconUrl: string,
     userId: string,
+    taskDelFlg: string,
 }
 
 //折れ線グラフ用のタスクリストの型

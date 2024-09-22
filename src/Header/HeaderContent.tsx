@@ -5,13 +5,15 @@ import IconComponent from '../Common/IconComponent';
 import { IoPersonCircleOutline } from 'react-icons/io5';
 import { useNavigate } from "react-router-dom";
 import ENV from '../env.json';
+import { DELETE_ON } from './Const/HeaderConst';
+import useHeaderContent from './Hook/useHeaderContent';
 
 
 //外側のスタイル
 const OuterDiv = styled.div`
     outline: 3px solid;
     border-radius: 5px;
-    min-height: 80px;
+    min-height: 72px;
     height: auto;
     outline-color: #b0c4de;
 `;
@@ -24,6 +26,7 @@ const ContentTitleDiv = styled.div`
   padding-left: 2%;
   padding-top: 1%;
   display:flex;
+  position:relative;
 `;
 
 //コンテンツの日付のスタイル
@@ -44,9 +47,31 @@ const IdSpan = styled.span`
     }
 `;
 
+//タイトル
+const TitleNavDiv = styled.div<{ isDisplay: boolean }>`
+    position: absolute;
+    top: 33px;
+    font-size: 13px;
+    height: auto;
+    min-height: 24px;
+    background-color: white;
+    outline: 1px solid #b0c4de;
+    display: ${({ isDisplay }) => (isDisplay ? "block" : "none")};
+    z-index: 10;
+    width: auto;
+    position: absolute;
+    left: 180px;
+    box-sizing: border-box;
+    padding: 1%;
+    color: black;
+    border-radius: 5px;
+`;
+
+
 //引数の型
 type propsType = {
     workHistory: taskHistoryType,
+    closeModal: () => void,
 }
 
 
@@ -54,8 +79,12 @@ function HeaderContent(props: propsType) {
 
     console.log("HeaderContent render");
 
-    //ルーティング用
-    const navigate = useNavigate();
+    const {
+        hoverId,
+        clickId,
+        onId,
+        leaveId
+    } = useHeaderContent({ ...props });
 
     return (
         <OuterDiv>
@@ -77,12 +106,17 @@ function HeaderContent(props: propsType) {
                     `${props.workHistory.userName}さんが`
                 }
                 <IdSpan
-                    onClick={() => {
-                        navigate(`${props.workHistory.url}`.replace(`${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.LOCALPORT}/`, ""));
-                    }}
+                    onClick={clickId}
+                    onMouseEnter={onId}
+                    onMouseLeave={leaveId}
                 >
                     {props.workHistory.taskId}
                 </IdSpan>
+                <TitleNavDiv
+                    isDisplay={props.workHistory.taskId === hoverId}
+                >
+                    {`タイトル：${props.workHistory.taskTitle}`}
+                </TitleNavDiv>
                 {
                     `を${props.workHistory.editType}`
                 }

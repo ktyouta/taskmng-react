@@ -3,7 +3,7 @@ import ENV from '../../env.json';
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import useCreateDefaultTaskUrlCondition from "./useCreateDefaultTaskUrlCondition";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { taskSearchConditionType } from "../Type/TaskType";
 import { detailRoutingIdAtom, taskListUrlAtom, taskSearchConditionObjAtom } from "../Atom/TaskAtom";
 import { DUMMY_ID, PRE_TASK_ID, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY, TASK_SEARCH_URL } from "../Const/TaskConst";
@@ -31,7 +31,8 @@ function useTask(props: propsType) {
     const setTaskListUrl = useSetAtom(taskListUrlAtom);
     //検索条件用オブジェクト
     const [searchConditionObj, setSearchConditionObj] = useAtom(taskSearchConditionObjAtom);
-
+    //ロケーションオブジェクト
+    const location = useLocation();
 
     //検索条件リスト
     const { data: taskSearchConditionList } = useQueryWrapper<taskSearchConditionType[]>({
@@ -83,7 +84,7 @@ function useTask(props: propsType) {
         }
 
         setDetailRoutingId(taskId);
-    }, []);
+    }, [location]);
 
     /**
      * 戻るボタン押下処理(閲覧モードに切り替え)

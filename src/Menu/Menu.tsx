@@ -6,6 +6,7 @@ import IconComponent from '../Common/IconComponent';
 import { RxCross1 } from "react-icons/rx";
 import styled from 'styled-components';
 import { MenuAreaTestId, MenuCloseIconTestId } from '../tests/AppTest/DataTestId';
+import { IoIosArrowBack } from "react-icons/io";
 
 //引数の型
 type propsType = {
@@ -60,7 +61,7 @@ function Menu(props: propsType) {
         {
           props.isOpenMenu &&
           <IconComponent
-            icon={RxCross1}
+            icon={IoIosArrowBack}
             onclick={props.switchMenu}
             data-testid={MenuCloseIconTestId}
           />

@@ -76,6 +76,7 @@ export function joinGeneralSetting(decodeFileData: taskHistoryType[], decodeTask
             element.taskTitle = tmpTask.title;
             element.priority = tmpTask.priority;
             element.status = tmpTask.status;
+            element.taskDelFlg = tmpTask.deleteFlg;
         }
     });
 
