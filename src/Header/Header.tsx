@@ -175,6 +175,9 @@ function Header(props: propsType) {
               icon={RxHamburgerMenu}
               onclick={props.switchMenu}
               dataTestId={MenuOpenIconTestId}
+              style={{
+                "width": "0.7em", "height": "0.9em"
+              }}
             />
           </BurgerIconDiv>
         }
