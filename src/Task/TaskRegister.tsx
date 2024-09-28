@@ -89,7 +89,7 @@ function TaskRegister(props: propsType) {
           backPageButtonObj={backPageButtonObj}
           negativeButtonObj={negativeButtonObj}
           positiveButtonObj={positiveButtonObj}
-          outerHeight='15%'
+          outerHeight='100%'
         />
       </HeightDiv>
       {/* ローディング */}

@@ -41,11 +41,21 @@ function TaskEditFooter(props: propsType) {
                     styleTypeNumber={props.backPageButtonObj.type}
                     title={props.backPageButtonObj.title}
                     onclick={props.backPageButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "borderRadius": "10px",
+                        "fontWeight": "bold",
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "43%",
+                        "box-shadow": "0 1px 5px 0 rgba(45, 54, 65, 0.75)",
+                        "border": "none",
+                        "background": "linear-gradient(to right, #29323c, #485563, #2b5876)",
+                        "color": "white",
+                    }}
                 />
             }
             <SpaceComponent
-                space={"45%"}
+                space={"31%"}
             />
             {
                 props.negativeButtonObj &&
@@ -55,7 +65,16 @@ function TaskEditFooter(props: propsType) {
                     styleTypeNumber={props.negativeButtonObj.type}
                     title={props.negativeButtonObj.title}
                     onclick={props.negativeButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "borderRadius": "10px",
+                        "fontWeight": "bold",
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "43%",
+                        "background": "linear-gradient(to right, #3f86ed, #25aae1)",
+                        "border": "none",
+                        "box-shadow": "0 1px 7px 0 rgba(49, 196, 190, 0.55)",
+                    }}
                 />
             }
             <SpaceComponent
@@ -69,7 +88,16 @@ function TaskEditFooter(props: propsType) {
                     styleTypeNumber={props.positiveButtonObj.type}
                     title={props.positiveButtonObj.title}
                     onclick={props.positiveButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "borderRadius": "10px",
+                        "fontWeight": "bold",
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "43%",
+                        "background": "linear-gradient(to right, #3f86ed, #25aae1)",
+                        "border": "none",
+                        "box-shadow": "0 1px 7px 0 rgba(49, 196, 190, 0.55)",
+                    }}
                 />
             }
             <SpaceComponent
@@ -84,7 +112,16 @@ function TaskEditFooter(props: propsType) {
                     styleTypeNumber={props.deleteButtomObj.type}
                     title={props.deleteButtomObj.title}
                     onclick={props.deleteButtomObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "borderRadius": "10px",
+                        "fontWeight": "bold",
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "43%",
+                        "background": "linear-gradient(to right, #eb3941, #e2373f)",
+                        "box-shadow": "0 1px 7px rgba(242, 97, 103, 0.4)",
+                        "border": "none"
+                    }}
                 />
             }
         </OuterDiv>

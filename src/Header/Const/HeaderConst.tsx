@@ -18,3 +18,7 @@ export const UNREAD_NUM_KEY = "UNREAD_NUM_KEY";
 export const UNREAD_NUM_CONNECT = "-";
 //削除フラグ
 export const DELETE_ON = "1";
+//未読件数0件
+export const UN_READ_NUM_ZERO = "0";
+//データ件数0件
+export const DATALIST_LEN_ZERO = "0";

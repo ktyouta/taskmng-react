@@ -1,5 +1,5 @@
 import { taskHistoryType } from "../../Home/Type/HomeType";
-import { UNREAD_NUM_CONNECT, UNREAD_NUM_KEY } from "../Const/HeaderConst";
+import { DATALIST_LEN_ZERO, UN_READ_NUM_ZERO, UNREAD_NUM_CONNECT, UNREAD_NUM_KEY } from "../Const/HeaderConst";
 import { localSaveUnReadObjType, unReadObjType } from "../Type/HeaderType";
 
 /**
@@ -16,7 +16,7 @@ export function setUnreadCount(num: string) {
 export function getUnReadNumInfo(): unReadObjType {
 
     //未読件数情報初期化用
-    const INIT_NOWDIFF_INFO = `0${UNREAD_NUM_CONNECT}0`;
+    const INIT_NOWDIFF_INFO = `${UN_READ_NUM_ZERO}${UNREAD_NUM_CONNECT}${DATALIST_LEN_ZERO}`;
 
     //ローカルストレージから未読件数情報を取得する
     let nowDiffInfo = localStorage.getItem(UNREAD_NUM_KEY);

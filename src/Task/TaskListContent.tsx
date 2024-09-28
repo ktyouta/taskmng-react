@@ -23,6 +23,12 @@ const DispLabel = styled(WidthDiv)`
     text-align: right;
 `;
 
+//外側のスタイル
+const ContentListOuterDiv = styled(HeightDiv)`
+    padding-right: 3%;
+    box-sizing: border-box;
+`;
+
 //引数の型
 type propsType = {
     path: string,
@@ -40,6 +46,7 @@ function TaskListContent(props: propsType) {
         updTaskId,
         isLoading,
         orgTaskList,
+        detailHoverId,
     } = useTaskListContent({ ...props });
 
     //該当データが存在しない
@@ -55,11 +62,11 @@ function TaskListContent(props: propsType) {
     }
 
     return (
-        <HeightDiv
+        <ContentListOuterDiv
             height='79%'
         >
             <DispLabel
-                width='93%'
+                width='97%'
             >
                 <LabelComponent
                     title={orgTaskList ? `検索結果：${orgTaskList.length}件` : ``}
@@ -69,6 +76,7 @@ function TaskListContent(props: propsType) {
             <TaskList
                 displayTaskList={displayTaskList}
                 isLoading={isLoading}
+                detailHoverId={detailHoverId}
             />
             {/* タスク詳細表示用モーダル */}
             <ModalComponent
@@ -81,7 +89,7 @@ function TaskListContent(props: propsType) {
                     backBtnTitle="閉じる"
                 />
             </ModalComponent>
-        </HeightDiv>
+        </ContentListOuterDiv>
     );
 }
 

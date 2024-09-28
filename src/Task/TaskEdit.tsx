@@ -114,7 +114,7 @@ function TaskEdit(props: propsType) {
           negativeButtonObj={negativeButtonObj}
           deleteButtomObj={deleteButtonObj}
           positiveButtonObj={positiveButtonObj}
-          outerHeight='15%'
+          outerHeight='100%'
         />
       </HeightDiv>
       {/* ローディング */}

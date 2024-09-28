@@ -52,6 +52,8 @@ function useTaskListContent(props: propsType) {
     const [orgTaskList, setOrgTaskList] = useAtom(orgTaskListAtom);
     //タスク一覧
     const [taskList, setTaskList] = useAtom(taskListAtom);
+    //アイコンホバーメッセージ表示用
+    const [detailHoverId, setDetailHoverId] = useState("");
 
     //タスクリストを取得
     const { isLoading } = useQueryWrapper<taskListType[]>(
@@ -90,6 +92,20 @@ function useTaskListContent(props: propsType) {
         navigate(`${props.path}/${taskId}`);
     };
 
+    /**
+     * アイコンのホバーイベント
+     */
+    const onIcon = (id: string) => {
+        setDetailHoverId(id);
+    }
+
+    /**
+     * アイコンからカーソルを外した際の処理
+     */
+    const leaveIcon = () => {
+        setDetailHoverId("");
+    };
+
     //取得したタスクリストを画面表示用に変換
     const displayTaskList = useMemo(() => {
         //タスクリスト
@@ -106,7 +122,15 @@ function useTaskListContent(props: propsType) {
         }
 
         //コンテンツリストを作成
-        return createTaskContentList(taskList, generalDataList, taskContentSetting, openModal, moveTaskDetail);
+        return createTaskContentList(
+            taskList,
+            generalDataList,
+            taskContentSetting,
+            openModal,
+            moveTaskDetail,
+            onIcon,
+            leaveIcon
+        );
     }, [taskList, generalDataList, taskContentSetting]);
 
     return {
@@ -117,6 +141,7 @@ function useTaskListContent(props: propsType) {
         updTaskId,
         isLoading,
         orgTaskList,
+        detailHoverId,
     };
 }
 

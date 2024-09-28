@@ -19,13 +19,15 @@ import CenterLoading from "../../Common/CenterLoading";
 
 const TaskListLi = styled.li`
     list-style: none;
-    padding: 0% 5% 0% 2%
+    padding: 0% 1% 0% 2%;
+    height: 18%;
 `;
 
 //引数の型
 type propsType = {
     displayTaskList: taskContentDisplayType[] | null,
     isLoading: boolean,
+    detailHoverId: string,
 }
 
 
@@ -40,7 +42,7 @@ function useTaskList(props: propsType) {
     let taskContentList: ReactNode = useMemo(() => {
 
         //タスクデータから画面表示用domを作成
-        return props.displayTaskList?.map((element, index) => {
+        return props.displayTaskList?.map((element: taskContentDisplayType, index) => {
             let id = element.id as string;
             return (
                 <React.Fragment key={`tasklist-${id}-${index}`}>
@@ -48,6 +50,7 @@ function useTaskList(props: propsType) {
                         <TaskContent
                             key={`content-${id}`}
                             contentObj={element}
+                            detailHoverId={props.detailHoverId}
                         />
                     </TaskListLi>
                     <VerticalSpaceComponent
@@ -57,7 +60,7 @@ function useTaskList(props: propsType) {
                 </React.Fragment>
             );
         });
-    }, [props.displayTaskList]);
+    }, [props.displayTaskList, props.detailHoverId]);
 
     return {
         taskContentList

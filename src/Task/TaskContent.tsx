@@ -14,12 +14,13 @@ const OuterDiv = styled.div<{ bdColor?: string }>`
     min-height: 65px;
     height: auto;
     outline-color: ${({ bdColor }) => (bdColor ?? DEFAULT_STATUS_BODERCOLOR)};
+    height: 100%;
 `;
 
 //タイトルのスタイル
 const ContentTitleDiv = styled.div<{ titleBgColor?: string }>`
     text-align: left;
-    height: auto;
+    height: 40%;
     min-height: 30px;
     border-bottom: 1px solid;
     border-color: #888888;
@@ -39,7 +40,7 @@ const ContentTitleDiv = styled.div<{ titleBgColor?: string }>`
 const ContentInfoDiv = styled.div<{ infoBgColor?: string }>`
     display: flex;
     align-items: center;
-    height: auto;
+    height: 60%;
     border-radius: 0px 0x 5px 5px;
     min-height: 30px;
     padding-left: 10px;
@@ -49,11 +50,37 @@ const ContentInfoDiv = styled.div<{ infoBgColor?: string }>`
 //ボタンエリアのスタイル
 const ButtonAreaDiv = styled.div`
     margin: 0 0 0 auto;
+    position:relative;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+//ナビゲーションのスタイル
+const DetailNavDiv = styled.div<{ isDisplay: boolean }>`
+    position: absolute;
+    top: 39px;
+    font-size: 13px;
+    height: 79%;
+    min-height: 24px;
+    background-color: white;
+    outline: 1px solid #b0c4de;
+    display: ${({ isDisplay }) => (isDisplay ? "block" : "none")};
+    z-index: 10;
+    width: auto;
+    position: absolute;
+    left: -107px;
+    box-sizing: border-box;
+    padding: 15%;
+    color: black;
+    border-radius: 5px;
 `;
 
 //引数の型
 type propsType = {
-    contentObj: taskContentDisplayType
+    contentObj: taskContentDisplayType,
+    detailHoverId: string,
 }
 
 
@@ -84,6 +111,11 @@ function TaskContent(props: propsType) {
                 {/* モーダル表示ボタン */}
                 <ButtonAreaDiv>
                     {props.contentObj.editButton}
+                    <DetailNavDiv
+                        isDisplay={props.detailHoverId === props.contentObj.id}
+                    >
+                        詳細をモーダルで表示
+                    </DetailNavDiv>
                 </ButtonAreaDiv>
             </ContentInfoDiv>
         </OuterDiv>

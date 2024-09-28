@@ -21,6 +21,7 @@ const TaskListUl = styled.ul`
 type propsType = {
     displayTaskList: taskContentDisplayType[] | null,
     isLoading: boolean,
+    detailHoverId: string,
 }
 
 

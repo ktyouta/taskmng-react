@@ -26,7 +26,8 @@ const CloseIconAreaDiv = styled.div`
 
 //メニューのスタイル
 const MenuDiv = styled.div<{ isOpenMenu: boolean }>`
-    background: linear-gradient(to bottom, rgba(0, 0, 255, 0.75), rgba(0, 0, 255, 0.53) 64%, rgba(0, 0, 255, 0.85));  width:${({ isOpenMenu }) => (isOpenMenu ? "15%" : "0%")};
+  background: linear-gradient(to bottom, #3f86ed, #4481eb, #04befe, #3f86ed);  
+  width:${({ isOpenMenu }) => (isOpenMenu ? "15%" : "0%")};
   text-align: center;
   font-size: 100%;
   font-weight: bold;

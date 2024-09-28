@@ -72,7 +72,7 @@ function TaskCondition(props: propsType) {
                 <TaskConditionFooter
                     backPageButtonObj={backPageButtonObj}
                     negativeButtonObj={negativeButtonObj}
-                    outerHeight='15%'
+                    outerHeight='100%'
                 />
             </HeightDiv>
         </HeightDiv>

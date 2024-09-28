@@ -25,7 +25,8 @@ import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
 import TaskEditForm from "../TaskEditForm";
 import { COMP_STATUS, COMP_STATUS_BACKCOLOR, COMP_STATUS_BODERCOLOR, DEFAULT_STATUS_BACKCOLOR, DEFAULT_STATUS_BODERCOLOR, HOLD_STATUS, HOLD_STATUS_BACKCOLOR, HOLD_STATUS_BODERCOLOR, NOCOMP_STATUS, NOCOMP_STATUS_BACKCOLOR, NOCOMP_STATUS_BODERCOLOR, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, WORKING_STATUS, WORKING_STATUS_BACKCOLOR, WORKING_STATUS_BODERCOLOR } from "../Const/TaskConst";
 import { USER_AUTH } from "../../Common/Const/CommonConst";
-
+import { IoNewspaperOutline } from "react-icons/io5";
+import IconComponent from "../../Common/IconComponent";
 
 //フッターのスタイル
 const TaskConditionItemDiv = styled.div`
@@ -556,7 +557,9 @@ export function createSearchDispCondition(taskSearchConditionList: taskSearchCon
  */
 export function createTaskContentList(taskList: taskListType[], generalDataList: generalDataType[],
     taskContentSetting: taskContentSettingType[], openModal: (id: string) => void,
-    moveTaskDetail: (taskId: string) => void
+    moveTaskDetail: (taskId: string) => void,
+    onIcon: (id: string) => void,
+    leaveIcon: () => void
 ): taskContentDisplayType[] {
 
     let tmpDisplayTaskList: taskContentDisplayType[] = [];
@@ -687,14 +690,17 @@ export function createTaskContentList(taskList: taskListType[], generalDataList:
             moveTaskDetail(displayTaskObj.id);
         };
 
-        //編集ボタン
-        displayTaskObj["editButton"] = <ButtonComponent
-            styleTypeNumber={"BASE"}
-            bgColor={bgButtonColor ?? DEFAULT_STATUS_BACKCOLOR}
-            title={"詳細"}
+        //詳細モーダル表示用アイコン
+        displayTaskObj["editButton"] = <IconComponent
+            icon={IoNewspaperOutline}
             onclick={() => { openModal(element.id); }}
-            style={{ "borderRadius": "15px", "fontSize": "0.9rem" }}
-        />;
+            style={{
+                "width": "2.7em",
+                "height": "2em"
+            }}
+            onMouseEnter={() => { onIcon(displayTaskObj.id) }}
+            onMouseLeave={leaveIcon}
+        />
 
         tmpDisplayTaskList.push(displayTaskObj);
     });

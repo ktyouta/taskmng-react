@@ -14,7 +14,7 @@ const OuterDiv = styled.div`
 const TitleDiv = styled.div`
   width: 100%;
   height: 7%;
-  background-color: #3399FF;
+  background: linear-gradient(to right, #3f86ed, #4481eb, #04befe, #3f86ed);
   box-sizing: border-box;
   display: flex;
   align-items: center;

@@ -9,6 +9,8 @@ type propsType = {
     size?: string,
     dataTestId?: string,
     style?: { [key: string]: string },
+    onMouseEnter?: () => void,
+    onMouseLeave?: () => void,
 }
 
 function IconComponent(props: propsType) {
@@ -23,6 +25,8 @@ function IconComponent(props: propsType) {
             style={{ cursor: !!props.onclick ? 'pointer' : '', color: props.bgColor ?? '', ...props.style }}
             size={props.size}
             data-testid={props.dataTestId ?? IconComponentDataTestId}
+            onMouseEnter={props.onMouseEnter}
+            onMouseLeave={props.onMouseLeave}
         />
     );
 }
