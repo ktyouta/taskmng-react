@@ -54,20 +54,15 @@ function TaskFooter() {
                     />
                 </PagenateDiv>
                 <ButtonComponent
-                    styleTypeNumber="PRIMARY"
+                    styleTypeNumber="GRAD_GREEN"
                     title={"タスク作成"}
                     onclick={onFlag}
                     style={{
-                        "borderRadius": "10px",
-                        "fontWeight": "bold",
                         "fontSize": "0.9rem",
                         "position": "absolute",
                         "left": "84%",
                         "width": "10%",
                         "height": "39%",
-                        "background": "linear-gradient(to right, #0ba360, #2bb673)",
-                        "box-shadow": "0 1px 7px 0 rgba(23, 168, 108, 0.75)",
-                        "border": "none"
                     }}
                 />
             </TaskFooterDiv>

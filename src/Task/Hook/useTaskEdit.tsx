@@ -175,22 +175,22 @@ function useTaskEdit(props: propsType) {
         isUpDelLoading: updMutation.isLoading || delMutation.isLoading,
         backPageButtonObj: {
             title: `戻る`,
-            type: `BASE`,
+            type: `GRAD_GRAY`,
             onclick: backPageButtonFunc
         } as buttonObjType,
         negativeButtonObj: {
             title: `元に戻す`,
-            type: `RUN`,
+            type: `GRAD_BLUE`,
             onclick: refInfoArray && refInfoArray.default.length > 0 ? clearButtonFunc : undefined
         } as buttonObjType,
         deleteButtonObj: {
             title: `削除`,
-            type: `DANGER`,
+            type: `GRAD_RED`,
             onclick: refInfoArray && refInfoArray.default.length > 0 ? deleteTask : undefined
         } as buttonObjType,
         positiveButtonObj: {
             title: `更新`,
-            type: `RUN`,
+            type: `GRAD_BLUE`,
             onclick: refInfoArray && refInfoArray.default.length > 0 ? update : undefined
         } as buttonObjType,
         errMessage,

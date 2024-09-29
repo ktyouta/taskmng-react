@@ -13,7 +13,16 @@ type propsType = {
 }
 
 //ボタンの種類
-export type buttonType = "BASE" | "PRIMARY" | "DANGER" | "RUN" | "LOGOUT";
+export type buttonType =
+  "BASE" |
+  "PRIMARY" |
+  "DANGER" |
+  "RUN" |
+  "LOGOUT" |
+  "GRAD_BLUE" |
+  "GRAD_GREEN" |
+  "GRAD_RED" |
+  "GRAD_GRAY";
 
 //ボタンの基本スタイル
 const BaseButton = styled.button<{ bgColor?: string }>`
@@ -52,6 +61,66 @@ const ButtonLogout = styled(BaseButton)`
   border: 2px solid #1e90ff;
 `;
 
+//水色(グラデーション)のボタン
+const GradBlueButton = styled(BaseButton)`
+  border-radius: 10px;
+  background: linear-gradient(to right, #3f86ed, #25aae1, #25aae1, #3f86ed);
+  border: none;
+  box-shadow: 0 1px 7px 0 rgba(49, 196, 190, 0.55);
+  color: white;
+  font-weight: bold;
+  background-size: 200%;
+  &:hover {
+    background-position: 100%;
+    transition: all .4s ease-in-out;
+  }
+`;
+
+//緑色(グラデーション)のボタン
+const GradGreenButton = styled(BaseButton)`
+  border-radius: 10px;
+  background: linear-gradient(to right, #0ba360, #2bb673, #2bb673, #0ba360);
+  box-shadow: 0 1px 7px 0 rgba(23, 168, 108, 0.75);
+  border: none;
+  color: white;
+  font-weight: bold;
+  background-size: 200%;
+  &:hover {
+    background-position: 100%;
+    transition: all .4s ease-in-out;
+  }
+`;
+
+//赤色(グラデーション)のボタン
+const GradRedButton = styled(BaseButton)`
+  border-radius: 10px;
+  background: linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f);
+  box-shadow: 0 1px 7px rgba(242, 97, 103, 0.4);
+  border: none;
+  color: white;
+  font-weight: bold;
+  background-size: 200%;
+  &:hover {
+    background-position: 100%;
+    transition: all .4s ease-in-out;
+  }
+`;
+
+//灰色(グラデーション)のボタン
+const GradGrayButton = styled(BaseButton)`
+  border-radius: 10px;
+  box-shadow: 0 1px 5px 0 rgba(45, 54, 65, 0.75);
+  border: none;
+  background: linear-gradient(to right, #29323c, #485563, #2b5876, #29323c);
+  color: white;
+  font-weight: bold;
+  background-size: 200%;
+  &:hover {
+    background-position: 100%;
+    transition: all .4s ease-in-out;
+  }
+`;
+
 //ボタンのリスト
 const buttonStyleLists = {
   BASE: BaseButton,
@@ -59,6 +128,10 @@ const buttonStyleLists = {
   DANGER: ButtonDanger,
   RUN: ButtonRun,
   LOGOUT: ButtonLogout,
+  GRAD_BLUE: GradBlueButton,
+  GRAD_GREEN: GradGreenButton,
+  GRAD_RED: GradRedButton,
+  GRAD_GRAY: GradGrayButton,
 }
 
 const ButtonComponent = (props: propsType) => {

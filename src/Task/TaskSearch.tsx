@@ -64,52 +64,35 @@ function TaskSearch() {
                 </TaskSearchConditionAreaDiv>
                 <TaskSearchButtonAreaDiv>
                     <ButtonComponent
-                        styleTypeNumber="BASE"
+                        styleTypeNumber="GRAD_GRAY"
                         title={"リセット"}
                         onclick={clickClearBtn}
                         style={{
-                            "borderRadius": "10px",
-                            "fontWeight": "bold",
                             "fontSize": "0.9rem",
                             "height": "42%",
                             "width": "38%",
-                            "box-shadow": "0 1px 5px 0 rgba(45, 54, 65, 0.75)",
-                            "border": "none",
-                            "background": "linear-gradient(to right, #29323c, #485563, #2b5876)",
-                            "color": "white",
                         }}
                     />
                     <SpaceComponent space={"2%"} />
                     <ButtonComponent
-                        styleTypeNumber="BASE"
+                        styleTypeNumber="GRAD_GRAY"
                         title={"検索条件設定"}
                         onclick={openModal}
                         style={{
-                            "borderRadius": "10px",
-                            "fontWeight": "bold",
                             "fontSize": "0.9rem",
                             "height": "42%",
                             "width": "38%",
-                            "box-shadow": "0 1px 5px 0 rgba(45, 54, 65, 0.75)",
-                            "border": "none",
-                            "background": "linear-gradient(to right, #29323c, #485563, #2b5876)",
-                            "color": "white",
                         }}
                     />
                     <SpaceComponent space={"2%"} />
                     <ButtonComponent
-                        styleTypeNumber="RUN"
+                        styleTypeNumber="GRAD_BLUE"
                         title={"検索"}
                         onclick={clickSearchBtn}
                         style={{
-                            "borderRadius": "10px",
-                            "fontWeight": "bold",
                             "fontSize": "0.9rem",
                             "height": "42%",
                             "width": "38%",
-                            "background": "linear-gradient(to right, #3f86ed, #25aae1)",
-                            "border": "none",
-                            "box-shadow": "0 1px 7px 0 rgba(49, 196, 190, 0.55)",
                         }}
                     />
                 </TaskSearchButtonAreaDiv>

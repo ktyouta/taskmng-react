@@ -64,12 +64,12 @@ function useTaskCondition(props: propsType) {
     return {
         negativeButtonObj: {
             title: `元に戻す`,
-            type: `RUN`,
+            type: `GRAD_BLUE`,
             onclick: props.taskSearchRefInfo && props.taskSearchRefInfo.default.length > 0 ? clearButtonFunc : undefined
         } as buttonObjType,
         backPageButtonObj: {
             title: `閉じる`,
-            type: `BASE`,
+            type: `GRAD_GRAY`,
             onclick: backPageButtonFunc
         } as buttonObjType,
         searchConditionComponent,

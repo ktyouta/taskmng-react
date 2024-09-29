@@ -134,17 +134,17 @@ function useTaskRegister(props: propsType) {
         isUpDelLoading: registerMutation.isLoading,
         backPageButtonObj: {
             title: `閉じる`,
-            type: `BASE`,
+            type: `GRAD_GRAY`,
             onclick: backPageButtonFunc
         } as buttonObjType,
         negativeButtonObj: {
             title: `元に戻す`,
-            type: `RUN`,
+            type: `GRAD_BLUE`,
             onclick: refInfoArray && refInfoArray.default && refInfoArray.customAttribute ? clearButtonFunc : undefined
         } as buttonObjType,
         positiveButtonObj: {
             title: `登録`,
-            type: `RUN`,
+            type: `GRAD_BLUE`,
             onclick: refInfoArray && refInfoArray.default && refInfoArray.customAttribute ? create : undefined
         } as buttonObjType,
         errMessage,

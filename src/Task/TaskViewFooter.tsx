@@ -40,15 +40,10 @@ function TaskViewFooter(props: propsType) {
                     title={props.backPageButtonObj.title}
                     onclick={props.backPageButtonObj.onclick}
                     style={{
-                        "borderRadius": "10px",
                         "fontWeight": "bold",
                         "fontSize": "0.9rem",
                         "width": "12%",
                         "height": "43%",
-                        "box-shadow": "0 1px 5px 0 rgba(45, 54, 65, 0.75)",
-                        "border": "none",
-                        "background": "linear-gradient(to right, #29323c, #485563, #2b5876)",
-                        "color": "white",
                     }}
                 />
             }
@@ -64,14 +59,10 @@ function TaskViewFooter(props: propsType) {
                     title={props.positiveButtonObj.title}
                     onclick={props.positiveButtonObj.onclick}
                     style={{
-                        "borderRadius": "10px",
                         "fontWeight": "bold",
                         "fontSize": "0.9rem",
                         "width": "12%",
                         "height": "43%",
-                        "background": "linear-gradient(to right, #3f86ed, #25aae1)",
-                        "border": "none",
-                        "box-shadow": "0 1px 7px 0 rgba(49, 196, 190, 0.55)",
                     }}
                 />
             }
