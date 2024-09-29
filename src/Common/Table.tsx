@@ -27,6 +27,10 @@ export type tableType = {
 //引数の型
 type propsType = {
     tableDatas: tableType,
+    tableStyle?: { [key: string]: string },
+    thStyle?: { [key: string]: string },
+    trStyle?: { [key: string]: string },
+    tdStyle?: { [key: string]: string },
 }
 
 
@@ -80,9 +84,11 @@ function Table(props: propsType) {
             <TableTable
                 height={props.tableDatas.tableHeight}
                 width={props.tableDatas.tableWidth}
+                style={props.tableStyle}
             >
                 <thead>
                     <TableHeadTr
+                        style={props.trStyle}
                     >
                         {
                             props.tableDatas.tableHead.map((element, i) => {
@@ -93,6 +99,7 @@ function Table(props: propsType) {
                                         key={`th-${tmpTime}-${i}`}
                                         onClick={() => { }}
                                         width={element.width}
+                                        style={props.thStyle}
                                     >
                                         {element.content}
                                     </TableTh>
@@ -110,6 +117,7 @@ function Table(props: propsType) {
                             return (
                                 <TableBodyTr
                                     key={trKey}
+                                    style={props.trStyle}
                                 >
                                     {
                                         element.map((item, j) => {
@@ -119,6 +127,7 @@ function Table(props: propsType) {
                                             return (
                                                 <TableTd
                                                     key={tdKey}
+                                                    style={props.tdStyle}
                                                 >
                                                     {item.content}
                                                 </TableTd>

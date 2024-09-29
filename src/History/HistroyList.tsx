@@ -62,6 +62,7 @@ function HistroyList() {
                     tableWorkHistoryList &&
                     <Table
                         tableDatas={tableWorkHistoryList}
+                        tdStyle={{ "text-align": "center" }}
                     />
                 }
             </OuterDiv>

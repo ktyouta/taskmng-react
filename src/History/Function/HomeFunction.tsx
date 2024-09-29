@@ -116,9 +116,13 @@ export function createTaskHistoryTable(workHistoryList: taskHistoryType[])
         });
         tableTrBody.push({
             content: <ButtonComponent
-                styleTypeNumber="BASE"
+                styleTypeNumber="GRAD_GRAY"
                 title={"URLをコピー"}
                 onclick={() => { copyUrlToClipboard(element.url) }}
+                style={{
+                    "fontSize": "0.8rem",
+                    "height": "65%",
+                }}
             />,
         });
 
