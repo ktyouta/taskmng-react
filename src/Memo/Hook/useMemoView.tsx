@@ -28,12 +28,12 @@ function useMemoView(props: propsType) {
     return {
         backPageButtonObj: {
             title: props.backBtnTitle ?? `戻る`,
-            type: `BASE`,
+            type: `GRAD_GRAY`,
             onclick: props.closeFn ? backPageButtonFunc : undefined
         } as buttonObjType,
         positiveButtonObj: {
             title: `編集`,
-            type: `RUN`,
+            type: `GRAD_BLUE`,
             onclick: props.openEditPage
         } as buttonObjType,
     }

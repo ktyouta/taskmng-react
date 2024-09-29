@@ -29,7 +29,7 @@ function MemoConditionFooter(props: propsType) {
             height={props.outerHeight}
         >
             <SpaceComponent
-                space={"10%"}
+                space={"9%"}
             />
             {
                 props.backPageButtonObj &&
@@ -39,11 +39,15 @@ function MemoConditionFooter(props: propsType) {
                     styleTypeNumber={props.backPageButtonObj.type}
                     title={props.backPageButtonObj.title}
                     onclick={props.backPageButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "height": "42%",
+                        "width": "12%",
+                    }}
                 />
             }
             <SpaceComponent
-                space={"60%"}
+                space={"57%"}
             />
             {
                 props.negativeButtonObj &&
@@ -53,7 +57,11 @@ function MemoConditionFooter(props: propsType) {
                     styleTypeNumber={props.negativeButtonObj.type}
                     title={props.negativeButtonObj.title}
                     onclick={props.negativeButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "height": "42%",
+                        "width": "12%",
+                    }}
                 />
             }
         </OuterDiv>

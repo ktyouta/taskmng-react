@@ -81,7 +81,7 @@ function MemoCondition(props: propsType) {
                 <MemoConditionFooter
                     backPageButtonObj={backPageButtonObj}
                     negativeButtonObj={negativeButtonObj}
-                    outerHeight='15%'
+                    outerHeight='100%'
                 />
             </HeightDiv>
         </HeightDiv>

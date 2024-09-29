@@ -19,6 +19,8 @@ type propsType = {
 const OuterDiv = styled.div<{ height: string | undefined }>`
     height:${({ height }) => (height)};
     display:flex;
+    box-sizing: border-box;
+    padding-top: 1%;
 `;
 
 
@@ -41,11 +43,15 @@ function MemoRegisterFooter(props: propsType) {
                     styleTypeNumber={props.backPageButtonObj.type}
                     title={props.backPageButtonObj.title}
                     onclick={props.backPageButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "71%",
+                    }}
                 />
             }
             <SpaceComponent
-                space="50%"
+                space="33%"
             />
             {
                 props.clearButtonObj &&
@@ -55,7 +61,11 @@ function MemoRegisterFooter(props: propsType) {
                     styleTypeNumber={props.clearButtonObj.type}
                     title={props.clearButtonObj.title}
                     onclick={props.clearButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "71%",
+                    }}
                 />
             }
             <SpaceComponent
@@ -69,7 +79,11 @@ function MemoRegisterFooter(props: propsType) {
                     styleTypeNumber={props.saveButtonObj.type}
                     title={props.saveButtonObj.title}
                     onclick={props.saveButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "71%",
+                    }}
                 />
             }
             <SpaceComponent
@@ -83,7 +97,11 @@ function MemoRegisterFooter(props: propsType) {
                     styleTypeNumber={props.positiveButtonObj.type}
                     title={props.positiveButtonObj.title}
                     onclick={props.positiveButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "71%",
+                    }}
                 />
             }
         </OuterDiv>

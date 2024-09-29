@@ -95,22 +95,22 @@ function useMemoEdit(props: propsType) {
         isUpDelLoading: updMutation.isLoading || delLoading,
         backPageButtonObj: {
             title: `戻る`,
-            type: `BASE`,
+            type: `GRAD_GRAY`,
             onclick: backPageButtonFunc
         } as buttonObjType,
         negativeButtonObj: {
             title: `元に戻す`,
-            type: `RUN`,
+            type: `GRAD_BLUE`,
             onclick: clearButtonFunc
         } as buttonObjType,
         deleteButtonObj: {
             title: `削除`,
-            type: `DANGER`,
+            type: `GRAD_RED`,
             onclick: deleteMemo
         } as buttonObjType,
         positiveButtonObj: {
             title: `更新`,
-            type: `RUN`,
+            type: `GRAD_BLUE`,
             onclick: update
         } as buttonObjType,
     }

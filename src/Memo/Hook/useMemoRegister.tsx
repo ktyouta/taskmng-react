@@ -55,22 +55,22 @@ function useMemoRegister(props: propsType) {
         isRegistLoading,
         backPageButtonObj: {
             title: `戻る`,
-            type: `BASE`,
+            type: `GRAD_GRAY`,
             onclick: backPageButtonFunc
         } as buttonObjType,
         positiveButtonObj: {
             title: `登録`,
-            type: `RUN`,
+            type: `GRAD_BLUE`,
             onclick: create
         } as buttonObjType,
         saveButtonObj: {
             title: `下書き保存`,
-            type: `RUN`,
+            type: `GRAD_BLUE`,
             onclick: save
         } as buttonObjType,
         clearButtonObj: {
             title: `元に戻す`,
-            type: `RUN`,
+            type: `GRAD_BLUE`,
             onclick: clearButtonFunc
         } as buttonObjType,
         memoTitle,

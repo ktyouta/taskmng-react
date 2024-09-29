@@ -19,6 +19,8 @@ type propsType = {
 const OuterDiv = styled.div<{ height: string | undefined }>`
     height:${({ height }) => (height)};
     display:flex;
+    box-sizing: border-box;
+    padding-top: 1%;
 `;
 
 
@@ -41,11 +43,15 @@ function MemoEditFooter(props: propsType) {
                     styleTypeNumber={props.backPageButtonObj.type}
                     title={props.backPageButtonObj.title}
                     onclick={props.backPageButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "53%",
+                    }}
                 />
             }
             <SpaceComponent
-                space={"48%"}
+                space={"32%"}
             />
             {
                 props.negativeButtonObj &&
@@ -55,7 +61,11 @@ function MemoEditFooter(props: propsType) {
                     styleTypeNumber={props.negativeButtonObj.type}
                     title={props.negativeButtonObj.title}
                     onclick={props.negativeButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "53%",
+                    }}
                 />
             }
             <SpaceComponent
@@ -69,7 +79,11 @@ function MemoEditFooter(props: propsType) {
                     styleTypeNumber={props.positiveButtonObj.type}
                     title={props.positiveButtonObj.title}
                     onclick={props.positiveButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "53%",
+                    }}
                 />
             }
             <SpaceComponent
@@ -84,7 +98,11 @@ function MemoEditFooter(props: propsType) {
                     styleTypeNumber={props.deleteButtomObj.type}
                     title={props.deleteButtomObj.title}
                     onclick={props.deleteButtomObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "53%",
+                    }}
                 />
             }
         </OuterDiv>

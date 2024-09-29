@@ -27,7 +27,7 @@ const MemoSearchAreaDiv = styled.div`
 `;
 
 const MemoSearchConditionAreaDiv = styled.div`
-    width: 70%;
+    width: 67%;
     height:100%;
 `;
 
@@ -53,7 +53,7 @@ const MemoSearchTagAreaDiv = styled.div`
 const MemoSearchButtonAreaDiv = styled.div`
     height: 100%;
     display: flex;
-    width: 30%;
+    width: 32%;
     align-items: center;
 `;
 
@@ -88,24 +88,36 @@ function MemoSearch() {
                 </MemoSearchConditionAreaDiv>
                 <MemoSearchButtonAreaDiv>
                     <ButtonComponent
-                        styleTypeNumber="BASE"
+                        styleTypeNumber="GRAD_GRAY"
                         title={"リセット"}
                         onclick={clickClearBtn}
-                        style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                        style={{
+                            "fontSize": "0.9rem",
+                            "height": "39%",
+                            "width": "50%",
+                        }}
                     />
-                    <SpaceComponent space={"1%"} />
+                    <SpaceComponent space={"2%"} />
                     <ButtonComponent
-                        styleTypeNumber="BASE"
+                        styleTypeNumber="GRAD_GRAY"
                         title={"検索条件設定"}
                         onclick={openModal}
-                        style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                        style={{
+                            "fontSize": "0.9rem",
+                            "height": "39%",
+                            "width": "50%",
+                        }}
                     />
-                    <SpaceComponent space={"1%"} />
+                    <SpaceComponent space={"2%"} />
                     <ButtonComponent
-                        styleTypeNumber="RUN"
+                        styleTypeNumber="GRAD_BLUE"
                         title={"検索"}
                         onclick={clickSearchBtn}
-                        style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                        style={{
+                            "fontSize": "0.9rem",
+                            "height": "39%",
+                            "width": "50%",
+                        }}
                     />
                 </MemoSearchButtonAreaDiv>
             </MemoSearchAreaDiv>

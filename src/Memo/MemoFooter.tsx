@@ -57,15 +57,15 @@ function MemoFooter(props: propsType) {
                     />
                 </PagenateDiv>
                 <ButtonComponent
-                    styleTypeNumber="PRIMARY"
+                    styleTypeNumber="GRAD_GREEN"
                     title={"メモ作成"}
                     onclick={clickCreateBtn}
                     style={{
-                        "borderRadius": "15px",
-                        "fontWeight": "bold",
                         "fontSize": "0.9rem",
                         "position": "absolute",
-                        "left": "86%"
+                        "left": "84%",
+                        "width": "10%",
+                        "height": "39%",
                     }}
                 />
             </MemoFooterDiv>
