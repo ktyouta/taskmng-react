@@ -16,10 +16,17 @@ const OuterDiv = styled.div<{ height: string, width: string }>`
     overflow-x: hidden;
     margin-left: auto;
     margin-right: auto;
+    box-sizing:box-border;
+    padding-top:1%;
+`;
+
+//TDのスタイル
+const TdSt = styled.td`
+  text-align:center;
 `;
 
 //IDのスタイル
-const IdTd = styled.td<{ titleBgColor?: string }>`
+const IdTd = styled(TdSt)`
     cursor:pointer;
     color: blue;
     text-decoration: underline;
@@ -85,12 +92,12 @@ function SettingUserTable(props: propsType) {
                     >
                       {element.userId}
                     </IdTd>
-                    <td>
+                    <TdSt>
                       {element.userName}
-                    </td>
-                    <td>
+                    </TdSt>
+                    <TdSt>
                       {element.authNm}
-                    </td>
+                    </TdSt>
                   </tr>
                 );
               })

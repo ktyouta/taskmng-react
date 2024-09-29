@@ -93,7 +93,7 @@ function useSettingSearchConditionMain() {
     return {
         backPageButtonObj: {
             title: `初期設定を更新`,
-            type: `RUN`,
+            type: `GRAD_BLUE`,
             onclick: updButtonFunc
         } as buttonObjType,
         searchConditionComponent,

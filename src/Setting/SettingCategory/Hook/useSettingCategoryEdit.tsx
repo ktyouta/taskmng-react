@@ -315,17 +315,17 @@ function useSettingCategoryEdit(props: propsType) {
         buttonTitle,
         positiveButtonObj: {
             title: '戻る',
-            type: "BASE",
+            type: "GRAD_GRAY",
             onclick: backPage
         } as buttonObjType,
         deleteButtonObj: {
             title: "削除",
-            type: "DANGER",
+            type: "GRAD_RED",
             onclick: editMode === editModeEnum.update ? deleteCategory : undefined
         } as buttonObjType,
         runButtonObj: {
             title: buttonTitle,
-            type: "RUN",
+            type: "GRAD_BLUE",
             onclick: editMode === editModeEnum.update ? updateCategory : registeCategory
         } as buttonObjType,
         editMode,

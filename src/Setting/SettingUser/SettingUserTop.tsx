@@ -3,6 +3,7 @@ import ButtonComponent from '../../Common/ButtonComponent';
 import LabelComponent from '../../Common/LabelComponent';
 import useSettingUserTop from '../SettingUser/Hook/useSettingUserTop';
 import SettingUserTable from '../SettingUser/SettingUserTable';
+import SpaceComponent from '../../Common/SpaceComponent';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -15,17 +16,18 @@ const OuterDiv = styled.div`
 
 //ボタンのスタイル
 const BtnDiv = styled.div`
-    width: 40%;
-    margin-top:1%;
-    margin-bottom:1%;
+    width: 100%;
+    margin-top:3%;
+    height: 8%;
 `;
 
 //タイトルのスタイル
 const TitleDiv = styled.div`
     height: 7%;
     font-size: 20px;
-    display: flex;
-    align-items: center;
+    text-align: center;
+    padding-top: 1%;
+    box-sizing: border-box;
 `;
 
 //引数の型
@@ -48,15 +50,22 @@ function SettingUserTop(props: prospType) {
         />
       </TitleDiv>
       <BtnDiv>
+        <SpaceComponent
+          space={'14%'}
+        />
         <ButtonComponent
-          styleTypeNumber="RUN"
+          styleTypeNumber="GRAD_BLUE"
           title={"ユーザーを追加"}
           onclick={createNewUser}
-          style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+          style={{
+            "fontSize": "0.9rem",
+            "height": "74%",
+            "width": "14%",
+          }}
         />
       </BtnDiv>
       <SettingUserTable
-        height='70%'
+        height='75%'
         width='85%'
         path={props.path}
       />

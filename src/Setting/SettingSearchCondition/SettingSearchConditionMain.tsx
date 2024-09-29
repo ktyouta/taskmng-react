@@ -15,11 +15,20 @@ import WaitLoading from '../../Common/WaitLoading';
 
 //ボタンのスタイル
 const BtnDiv = styled.div`
-    margin-left: 75%;
-    width: 10%;
+    width: 100%;
     margin-top:1%;
     margin-bottom:1%;
     display:flex;
+    height:8%;
+`;
+
+//入力欄のスタイル
+const InputAreaDiv = styled(HeightDiv)`
+    overflow-y: auto;
+    padding-top: 2%;
+    box-sizing: border-box;
+    padding-left: 2%;
+    padding-right: 2%;
 `;
 
 
@@ -47,19 +56,26 @@ function SettingSearchConditionMain() {
 
     return (
         <React.Fragment>
-            <HeightDiv
+            <InputAreaDiv
                 height='75%'
             >
                 <TaskSearchConditionTab
                     searchConditionComponent={searchConditionComponent}
                 />
-            </HeightDiv>
+            </InputAreaDiv>
             <BtnDiv>
+                <SpaceComponent
+                    space={'80%'}
+                />
                 <ButtonComponent
                     styleTypeNumber={backPageButtonObj.type}
                     title={backPageButtonObj.title}
                     onclick={backPageButtonObj.onclick ? backPageButtonObj.onclick : () => { }}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem", "white-space": "nowrap" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "height": "78%",
+                        "width": "13%",
+                    }}
                 />
             </BtnDiv>
             {/* ローディング */}

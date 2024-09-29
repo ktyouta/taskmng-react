@@ -22,6 +22,8 @@ type propsType = {
     childWidth?: string,
     outerHeight?: string,
     childHeight?: string,
+    outerStyle?: { [key: string]: string },
+    elementStyle?: { [key: string]: string }
 }
 
 //内部要素の位置の型
@@ -84,6 +86,7 @@ function HorizonLabelItemComponent(props: propsType) {
             marginTp={props.marginTp}
             marginBt={props.marginBt}
             outerHeight={props.outerHeight}
+            style={props.outerStyle}
         >
             <LabelComponent
                 {...props}
@@ -92,6 +95,7 @@ function HorizonLabelItemComponent(props: propsType) {
                 width={props.childWidth ?? sliceWidthStr(props.width)}
                 position={props.position}
                 height={props.childHeight}
+                style={props.elementStyle}
             >
                 {props.children}
             </ElementDiv>

@@ -38,7 +38,8 @@ const MainDiv = styled.div`
     height: 85%;
     overflow-y: auto;
     padding-top:2%;
-    padding-left: 2%;
+    padding-left: 8%;
+    box-sizing: border-box;
 `;
 
 //アイコン選択項目間のスタイル

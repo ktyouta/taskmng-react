@@ -3,7 +3,6 @@ import SettingDefaultTable from './SettingDefaultTable';
 import ButtonComponent from '../../Common/ButtonComponent';
 import LabelComponent from '../../Common/LabelComponent';
 import VerticalSpaceComponent from '../../Common/VerticalSpaceComponent';
-//import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
 //外側のスタイル
@@ -13,19 +12,13 @@ const OuterDiv = styled.div`
     min-height: 100%;
 `;
 
-//ボタンのスタイル
-const BtnDiv = styled.div`
-    width: 40%;
-    margin-top:1%;
-    margin-bottom:1%;
-`;
-
 //タイトルのスタイル
 const TitleDiv = styled.div`
     height: 7%;
     font-size: 20px;
-    display: flex;
-    align-items: center;
+    text-align: center;
+    padding-top: 1%;
+    box-sizing: border-box;
 `;
 
 //引数の型

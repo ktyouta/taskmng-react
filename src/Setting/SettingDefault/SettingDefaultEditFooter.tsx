@@ -29,7 +29,7 @@ function SettingDefaultEditFooter(props: propsType) {
             height={props.outerHeight}
         >
             <SpaceComponent
-                space={"10%"}
+                space={"9%"}
             />
             {
                 props.positiveButtonObj &&
@@ -39,11 +39,15 @@ function SettingDefaultEditFooter(props: propsType) {
                     styleTypeNumber={props.positiveButtonObj.type}
                     title={props.positiveButtonObj.title}
                     onclick={props.positiveButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "height": "42%",
+                        "width": "16%",
+                    }}
                 />
             }
             <SpaceComponent
-                space={"60%"}
+                space={"50%"}
             />
             {
                 props.isSettingEditable &&
@@ -54,7 +58,11 @@ function SettingDefaultEditFooter(props: propsType) {
                     styleTypeNumber={props.runButtonObj.type}
                     title={props.runButtonObj.title}
                     onclick={props.runButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "height": "42%",
+                        "width": "16%",
+                    }}
                 />
             }
         </OuterDiv>

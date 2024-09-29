@@ -30,7 +30,8 @@ const MainDiv = styled.div`
     height: 85%;
     overflow-y: auto;
     padding-top:2%;
-    padding-left: 2%;
+    box-sizing: border-box;
+    padding-left: 11%;
 `;
 
 //引数の型

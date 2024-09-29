@@ -18,20 +18,26 @@ const OuterDiv = styled.div<{ height: string, width: string }>`
     overflow-x: hidden;
     margin-left: auto;
     margin-right: auto;
+    box-sizing: border-box;
+    padding-top: 1%;
+`;
+
+//TDのスタイル
+const TdSt = styled.td`
+  text-align:center;
+`;
+
+//td(numberpicker部分)のスタイル
+const NmTd = styled(TdSt)`
+    width:20%;
 `;
 
 //IDのスタイル
-const IdTd = styled.td<{ titleBgColor?: string }>`
+const IdTd = styled(TdSt)`
     cursor:pointer;
     color: blue;
     text-decoration: underline;
 `;
-
-//td(numberpicker部分)のスタイル
-const NmTd = styled.td`
-    width:20%;
-`;
-
 
 //引数の型
 type propsType = {
@@ -96,9 +102,9 @@ function SettingCategoryTable(props: propsType) {
                     >
                       {element.path}
                     </IdTd>
-                    <td>
+                    <TdSt>
                       {element.name}
-                    </td>
+                    </TdSt>
                     <NmTd>
                       {
                         <NumberPickerComponent
@@ -107,7 +113,7 @@ function SettingCategoryTable(props: propsType) {
                         />
                       }
                     </NmTd>
-                    <td>
+                    <TdSt>
                       {
                         (() => {
                           switch (element.isHidden) {
@@ -118,7 +124,7 @@ function SettingCategoryTable(props: propsType) {
                           }
                         })()
                       }
-                    </td>
+                    </TdSt>
                   </tr>
                 );
               })

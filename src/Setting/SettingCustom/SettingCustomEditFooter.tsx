@@ -29,7 +29,7 @@ function SettingCustomEditFooter(props: propsType) {
             height={props.outerHeight}
         >
             <SpaceComponent
-                space={"10%"}
+                space={"8%"}
             />
             {
                 props.positiveButtonObj &&
@@ -39,25 +39,15 @@ function SettingCustomEditFooter(props: propsType) {
                     styleTypeNumber={props.positiveButtonObj.type}
                     title={props.positiveButtonObj.title}
                     onclick={props.positiveButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "height": "42%",
+                        "width": "14%",
+                    }}
                 />
             }
             <SpaceComponent
-                space={"50%"}
-            />
-            {
-                props.deleteButtonObj &&
-                props.deleteButtonObj.title &&
-                props.deleteButtonObj.onclick &&
-                <ButtonComponent
-                    styleTypeNumber={props.deleteButtonObj.type}
-                    title={props.deleteButtonObj.title}
-                    onclick={props.deleteButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
-                />
-            }
-            <SpaceComponent
-                space={"5%"}
+                space={"36%"}
             />
             {
                 props.runButtonObj &&
@@ -67,7 +57,29 @@ function SettingCustomEditFooter(props: propsType) {
                     styleTypeNumber={props.runButtonObj.type}
                     title={props.runButtonObj.title}
                     onclick={props.runButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "height": "42%",
+                        "width": "14%",
+                    }}
+                />
+            }
+            <SpaceComponent
+                space={"5%"}
+            />
+            {
+                props.deleteButtonObj &&
+                props.deleteButtonObj.title &&
+                props.deleteButtonObj.onclick &&
+                <ButtonComponent
+                    styleTypeNumber={props.deleteButtonObj.type}
+                    title={props.deleteButtonObj.title}
+                    onclick={props.deleteButtonObj.onclick}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "height": "42%",
+                        "width": "14%",
+                    }}
                 />
             }
         </OuterDiv>

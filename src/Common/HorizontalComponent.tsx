@@ -6,6 +6,7 @@ import styled from "styled-components";
 //引数の型
 type propsType = {
     children: ReactNode,
+    style?: { [key: string]: string }
 }
 
 //外側のスタイル
@@ -17,7 +18,9 @@ const OuterDiv = styled.div`
 function HorizontalComponent(props: propsType) {
 
     return (
-        <OuterDiv>
+        <OuterDiv
+            style={props.style}
+        >
             {props.children}
         </OuterDiv>
     );

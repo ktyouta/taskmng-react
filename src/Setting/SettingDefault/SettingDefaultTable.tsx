@@ -20,8 +20,13 @@ const OuterDiv = styled.div<{ height: string, width: string }>`
     margin-right: auto;
 `;
 
+//TDのスタイル
+const TdSt = styled.td`
+  text-align:center;
+`;
+
 //IDのスタイル
-const IdTd = styled.td<{ titleBgColor?: string }>`
+const IdTd = styled(TdSt)`
     cursor:pointer;
     color: blue;
     text-decoration: underline;
@@ -84,9 +89,9 @@ function SettingDefaultTable(props: propsType) {
                     >
                       {element.id}
                     </IdTd>
-                    <td>
+                    <TdSt>
                       {element.name}
-                    </td>
+                    </TdSt>
                   </tr>
                 );
               })

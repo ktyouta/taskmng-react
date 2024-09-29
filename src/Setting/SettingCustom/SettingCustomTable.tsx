@@ -18,10 +18,17 @@ const OuterDiv = styled.div<{ height: string, width: string }>`
     overflow-x: hidden;
     margin-left: auto;
     margin-right: auto;
+    box-sizing: border-box;
+    padding-top: 1%;
+`;
+
+//TDのスタイル
+const TdSt = styled.td`
+  text-align:center;
 `;
 
 //IDのスタイル
-const IdTd = styled.td<{ titleBgColor?: string }>`
+const IdTd = styled(TdSt)`
     cursor:pointer;
     color: blue;
     text-decoration: underline;
@@ -84,9 +91,9 @@ function SettingCustomTable(props: propsType) {
                     >
                       {element.id}
                     </IdTd>
-                    <td>
+                    <TdSt>
                       {element.name}
-                    </td>
+                    </TdSt>
                   </tr>
                 );
               })

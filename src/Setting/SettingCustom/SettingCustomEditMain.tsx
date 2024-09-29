@@ -27,7 +27,8 @@ const MainDiv = styled.div`
     height: 85%;
     overflow-y: auto;
     padding-top:2%;
-    padding-left: 2%;
+    padding-left: 8%;
+    box-sizing: border-box;
 `;
 
 //引数の型
@@ -151,20 +152,40 @@ function SettingCustomEditMain(props: propsType) {
                                             title={''}
                                             width='30%'
                                             position='left'
+                                            outerStyle={{
+                                                "height": "11%"
+                                            }}
+                                            elementStyle={{
+                                                "height": "100%"
+                                            }}
                                         >
-                                            <HorizontalComponent>
+                                            <HorizontalComponent
+                                                style={{
+                                                    "height": "100%"
+                                                }}
+                                            >
                                                 <ButtonComponent
-                                                    styleTypeNumber="RUN"
+                                                    styleTypeNumber="GRAD_BLUE"
                                                     title={"選択項目を追加"}
                                                     onclick={props.addSelectElement}
+                                                    style={{
+                                                        "fontSize": "0.9rem",
+                                                        "height": "80%",
+                                                        "width": "20%",
+                                                    }}
                                                 />
                                                 <SpaceComponent
                                                     space={"1%"}
                                                 />
                                                 <ButtonComponent
-                                                    styleTypeNumber="DANGER"
+                                                    styleTypeNumber="GRAD_RED"
                                                     title={"選択項目を削除"}
                                                     onclick={props.deleteSelectElement}
+                                                    style={{
+                                                        "fontSize": "0.9rem",
+                                                        "height": "80%",
+                                                        "width": "20%",
+                                                    }}
                                                 />
                                             </HorizontalComponent>
                                         </HorizonLabelItemComponent>

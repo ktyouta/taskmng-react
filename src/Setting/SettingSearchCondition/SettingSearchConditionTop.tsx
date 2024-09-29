@@ -30,6 +30,10 @@ const TitleDiv = styled.div`
     font-size: 20px;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
+    padding-left: 2%;
+    padding-top: 1%;
+    padding-right: 1%;
 `;
 
 

@@ -311,12 +311,12 @@ function useSettingDefaultEdit(props: propsType) {
         typeValue,
         positiveButtonObj: {
             title: '戻る',
-            type: "BASE",
+            type: "GRAD_GRAY",
             onclick: backPage
         } as buttonObjType,
         runButtonObj: {
             title: "更新",
-            type: "RUN",
+            type: "GRAD_BLUE",
             onclick: updateAttribute
         } as buttonObjType,
         registerTime,

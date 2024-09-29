@@ -12,7 +12,6 @@ import styled from 'styled-components';
 
 //アプリケーション全体のスタイル
 const AppDiv = styled.div`
-  text-align: center;
   display: flex;
   width: 100vw;
   height: 100vh;
