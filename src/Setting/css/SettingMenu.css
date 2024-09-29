@@ -1,6 +1,5 @@
 .sidemenu {
     /* background-color: #9370db; */
-    background-color: #c0c0c0;
     width: 100%;
     text-align: center;
     font-size: 100%;
@@ -14,6 +13,7 @@
     padding: 0px;
     /* border: 1px solid #ffa500; */
     height: 100%;
+    background-image: linear-gradient(to bottom, #667eea, #A3A1FF, #667eea);
 }
 
 .sidemenu-ul {
@@ -22,7 +22,6 @@
     padding: 0;
     width: 100%;
     /* background-color: #9370db; */
-    background-color: #c0c0c0;
     position: relative;
     overflow: auto;
     /* padding-top: 19%; */
@@ -33,7 +32,7 @@ ul.sidemenu-ul li a {
     color: #000000;
     padding: 8px 16px;
     text-decoration: none;
-    border-bottom: 1px solid #696969;
+    border-bottom: 1px solid #ffa500;
     /* border-bottom: 1px solid #808080; */
 }
 
