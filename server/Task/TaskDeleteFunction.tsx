@@ -1,3 +1,4 @@
+import { FLG } from "../Common/Const/CommonConst";
 import { getNowDate } from "../Common/Function";
 import { getGeneralDetailData } from "../General/GeneralFunction";
 import { getCustomAttributeTaskObj } from "./TaskSelectFunction";
@@ -11,30 +12,22 @@ import { taskCustomAttributeSelectType, taskListType } from "./Type/TaskType";
  * @param stream 
  * @returns 
  */
-export function createDeleteTaskData(fileDataObj: taskListType[], body: taskListType, delTaskId: string)
+export function createDeleteTaskData(fileDataObj: taskListType[], delTaskId: string)
     : taskListType[] {
 
-    //現在日付を取得
-    const nowDate = getNowDate();
-
-    fileDataObj.some((element) => {
-        //IDの一致するデータを削除
-        if (element.id === delTaskId) {
-            Object.keys(element).forEach((item) => {
-                //更新日時
-                if (item === `updTime`) {
-                    element[item] = nowDate;
-                    return true;
-                }
-                //削除フラグを立てる
-                if (item === `deleteFlg`) {
-                    element[item] = "1";
-                    return true;
-                }
-            });
-            return true;
-        }
+    //IDの一致するタスクを取得
+    let deleteTask = fileDataObj.find((element) => {
+        return element.id === delTaskId;
     });
+
+    if (!deleteTask) {
+        return fileDataObj;
+    }
+
+    //削除フラグをオンにする
+    deleteTask.updTime = getNowDate();
+    deleteTask.deleteFlg = FLG.on;
+
     return fileDataObj;
 }
 
@@ -44,21 +37,49 @@ export function createDeleteTaskData(fileDataObj: taskListType[], body: taskList
  * @param stream 
  * @returns 
  */
-export function createDeleteCustomAttributeData(delTaskId: string)
+export function createDeleteCustomAttributeData(customDecodeFileDatas: taskCustomAttributeSelectType[], delTaskId: string)
     : taskCustomAttributeSelectType[] {
-
-    //現在日付を取得
-    const nowDate = getNowDate();
-
-    //タスクのカスタム属性の選択値ファイルの読み込み
-    let customDecodeFileDatas: taskCustomAttributeSelectType[] = getCustomAttributeTaskObj();
 
     customDecodeFileDatas.forEach((element) => {
         //IDの一致するデータを削除
         if (element.taskId === delTaskId) {
-            element.deleteFlg = "1";
-            element.updTime = nowDate;
+            element.deleteFlg = FLG.on;
+            element.updTime = getNowDate();
         }
     });
+    return customDecodeFileDatas;
+}
+
+/**
+ * 複数削除用データの作成
+ * @param filePath 
+ * @param stream 
+ * @returns 
+ */
+export function createMultiDeleteTaskData(fileDataObj: taskListType[], deleteTaskIdList: string[])
+    : taskListType[] {
+
+    deleteTaskIdList.forEach((element: string) => {
+
+        createDeleteTaskData(fileDataObj, element);
+    });
+
+    return fileDataObj;
+}
+
+/**
+ * カスタム属性の複数削除用データの作成
+ * @param filePath 
+ * @param stream 
+ * @returns 
+ */
+export function createMultiDeleteCustomAttributeData(customDecodeFileDatas: taskCustomAttributeSelectType[], deleteTaskIdList: string[])
+    : taskCustomAttributeSelectType[] {
+
+    deleteTaskIdList.forEach((element) => {
+
+        createDeleteCustomAttributeData(customDecodeFileDatas, element);
+    });
+
     return customDecodeFileDatas;
 }

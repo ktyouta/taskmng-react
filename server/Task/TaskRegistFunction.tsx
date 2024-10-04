@@ -1,6 +1,5 @@
 import { getGeneralDetailData } from "../General/GeneralFunction";
 import { createTaskNewId, getCustomAttributeTaskObj } from "./TaskSelectFunction";
-import { runAddTaskHistory } from "../History/HistoryFunction";
 import { getNowDate } from "../Common/Function";
 import { PRE_TASK_ID } from "./Const/TaskConst";
 import { retCreateAddTaskType, taskCustomAttributeSelectType, taskListType } from "./Type/TaskType";

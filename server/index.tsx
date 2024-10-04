@@ -4,7 +4,7 @@ import { config } from './ApiConfig';
 import { createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterData/MasterDataFunction';
 import { runAddMaster } from './AddMasterData/AddMasterDataFunction';
 import { getGeneralData, getGeneralDetailData } from './General/GeneralFunction';
-import { getTaskDetail, getTaskList, runAddTask, runDeleteTask, runUpdTask } from './Task/TaskFunction';
+import { getTaskDetail, getTaskList, runAddTask, runDeleteTask, runMultiDeleteTask, runUpdTask } from './Task/TaskFunction';
 import {
     getCustomAttribute,
     getCustomAttributeDetail,
@@ -409,4 +409,11 @@ app.delete(`${ENV.CATEGORY}/:param`, function (req, res) {
  */
 app.delete(`${ENV.MEMO}/:param`, function (req, res) {
     runDelMemo(res, req, req.params.param);
+});
+
+/**
+ * タスクの複数削除
+ */
+app.post(ENV.MEMO, function (req, res) {
+    runMultiDeleteTask(res, req);
 });

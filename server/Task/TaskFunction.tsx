@@ -1,11 +1,11 @@
 import { getGeneralDetailData } from "../General/GeneralFunction";
-import { createDeleteCustomAttributeData, createDeleteTaskData } from "./TaskDeleteFunction";
+import { createDeleteCustomAttributeData, createDeleteTaskData, createMultiDeleteCustomAttributeData, createMultiDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
 import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
 import { convDefaultTask, createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
-import { runAddTaskHistory } from "../History/HistoryFunction";
+import { runAddMultiTaskHistory, runAddTaskHistory } from "../History/HistoryFunction";
 import { CREATE, CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, DELETE, TASK_FILEPATH, UPDATE } from "./Const/TaskConst";
-import { retDefaultTaskType, taskDetailType, taskListType } from "./Type/TaskType";
+import { multiDeleteTaskReqType, retDefaultTaskType, taskCustomAttributeSelectType, taskDetailType, taskListType } from "./Type/TaskType";
 import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
@@ -236,7 +236,7 @@ export function runDeleteTask(res: any, req: any, delTaskId: string) {
     let decodeFileData: taskListType[] = getTaskObj();
 
     //削除用データの作成
-    let registData = createDeleteTaskData(decodeFileData, req.body, delTaskId);
+    let registData = createDeleteTaskData(decodeFileData, delTaskId);
 
     //データを登録
     let errMessage = overWriteData(TASK_FILEPATH, JSON.stringify(registData, null, '\t'));
@@ -248,8 +248,77 @@ export function runDeleteTask(res: any, req: any, delTaskId: string) {
             .json({ errMessage });
     }
 
+    //タスクのカスタム属性の選択値ファイルの読み込み
+    let customDecodeFileDatas: taskCustomAttributeSelectType[] = getCustomAttributeTaskObj();
+
     //カスタム属性の削除用データを作成
-    let delCustomData = createDeleteCustomAttributeData(delTaskId);
+    customDecodeFileDatas = createDeleteCustomAttributeData(customDecodeFileDatas, delTaskId);
+
+    //データを登録
+    let customErrMessage = overWriteData(CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, JSON.stringify(customDecodeFileDatas, null, '\t'));
+
+    //登録更新削除に失敗
+    if (customErrMessage) {
+        return res
+            .status(400)
+            .json({ customErrMessage });
+    }
+
+    //作業履歴の登録
+    let historyErrMessage = runAddTaskHistory(authResult, delTaskId, DELETE);
+
+    //作業履歴の登録に失敗
+    if (historyErrMessage) {
+        return res
+            .status(400)
+            .json({ historyErrMessage });
+    }
+
+    //正常終了
+    return res
+        .status(200)
+        .json({ errMessage: `削除が完了しました。` });
+}
+
+/**
+ * タスクの複数削除
+ */
+export function runMultiDeleteTask(res: any, req: any) {
+
+    //認証権限チェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //リクエストボディ
+    let reqBody: multiDeleteTaskReqType = req.body;
+    //削除対象のタスクIDリスト
+    let deleteTaskList: string[] = reqBody.taskIdList;
+
+    //タスクファイルの読み込み
+    let decodeFileData: taskListType[] = getTaskObj();
+
+    //削除用データの作成
+    let registData = createMultiDeleteTaskData(decodeFileData, deleteTaskList);
+
+    //データを登録
+    let errMessage = overWriteData(TASK_FILEPATH, JSON.stringify(registData, null, '\t'));
+
+    //登録更新削除に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
+    //タスクのカスタム属性の選択値ファイルの読み込み
+    let customDecodeFileDatas: taskCustomAttributeSelectType[] = getCustomAttributeTaskObj();
+
+    //カスタム属性の削除用データを作成
+    let delCustomData = createMultiDeleteCustomAttributeData(customDecodeFileDatas, deleteTaskList);
 
     //データを登録
     let customErrMessage = overWriteData(CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, JSON.stringify(delCustomData, null, '\t'));
@@ -262,7 +331,7 @@ export function runDeleteTask(res: any, req: any, delTaskId: string) {
     }
 
     //作業履歴の登録
-    let historyErrMessage = runAddTaskHistory(authResult, delTaskId, DELETE);
+    let historyErrMessage = runAddMultiTaskHistory(authResult, deleteTaskList, DELETE);
 
     //作業履歴の登録に失敗
     if (historyErrMessage) {

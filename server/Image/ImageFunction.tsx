@@ -1,5 +1,4 @@
 import { getGeneralDetailData } from "../General/GeneralFunction";
-import { runAddTaskHistory } from "../History/HistoryFunction";
 import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";

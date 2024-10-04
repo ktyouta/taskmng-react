@@ -74,3 +74,26 @@ export function runAddTaskHistory(authResult: authInfoType, taskId: string, edit
 
     return errMessage;
 }
+
+/**
+ * タスクの作業履歴の複数登録
+ */
+export function runAddMultiTaskHistory(authResult: authInfoType, taskIdList: string[], editType: string) {
+
+    //タスクの作業履歴オブジェクトの取得
+    let decodeFileData: addTaskHistoryType[] = getAddTaskHistoryObj();
+
+    taskIdList.forEach((element) => {
+
+        createAddTaskHistory(decodeFileData, element, editType, authResult);
+    });
+
+    //データを登録
+    let errMessage = overWriteData(TASK_HISTORY_PATH, JSON.stringify(decodeFileData, null, '\t'));
+
+    if (errMessage) {
+        return "作業履歴の登録に失敗しました。"
+    }
+
+    return errMessage;
+}

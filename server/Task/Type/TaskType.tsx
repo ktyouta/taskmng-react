@@ -53,3 +53,8 @@ export type taskCustomAttributeSelectType = {
 export type retDefaultTaskType = taskListType & {
     userName: string,
 }
+
+//複数削除時のリクエストボディ
+export type multiDeleteTaskReqType = {
+    taskIdList: string[]
+}
