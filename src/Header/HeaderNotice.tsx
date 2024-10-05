@@ -22,6 +22,7 @@ const TitleDiv = styled.div`
   font-weight: bold;
   padding-left: 1%;
   border-radius: 9px;
+  position:relative;
 `;
 
 //コンテンツエリアのスタイル
@@ -52,10 +53,10 @@ function HeaderNotice(props: propsType) {
                     icon={RxCross1}
                     onclick={props.closeModal}
                     style={{
-                        "margin-left": "auto",
                         "text-align": "right",
-                        "width": "10%",
                         "height": "40%",
+                        "position": "absolute",
+                        "right": "3%",
                     }}
                 />
             </TitleDiv>
