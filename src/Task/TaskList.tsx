@@ -11,9 +11,16 @@ import Loading from '../Common/Loading';
 import CenterLoading from '../Common/CenterLoading';
 
 
+//タスクコンテンツ表示UL
 const TaskListUl = styled.ul`
-    padding-left: 0;
     height: 93%;
+`;
+
+//検索結果0件の表示スタイル
+const NoResultListDiv = styled.div`
+    padding-left: 7%;
+    padding-top: 2%;
+    box-sizing:border-box;
 `;
 
 
@@ -44,7 +51,11 @@ function TaskList(props: propsType) {
 
     //検索結果が0件
     if (props.displayTaskList.length === 0) {
-        return <div>検索結果がありません。</div>;
+        return (
+            <NoResultListDiv>
+                上記の検索条件に該当するタスクが存在しません。
+            </NoResultListDiv>
+        );
     }
 
     return (
