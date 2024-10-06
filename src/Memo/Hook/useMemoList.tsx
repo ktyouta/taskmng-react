@@ -19,6 +19,12 @@ const MemoListLi = styled.li`
     padding: 0% 5% 0% 2%
 `;
 
+//検索結果0件の表示スタイル
+const NoResultListDiv = styled.div`
+    padding-left: 7%;
+    box-sizing:border-box;
+`;
+
 //引数の型
 type propsType = {
     path: string,
@@ -90,7 +96,11 @@ function useMemoList(props: propsType) {
 
         //検索結果が0件
         if (props.memoList.length === 0) {
-            return <div>検索結果がありません。</div>;
+            return (
+                <NoResultListDiv>
+                    上記の検索条件に該当するメモが存在しません。
+                </NoResultListDiv>
+            );
         }
 
         //メモのコンテンツリスト
