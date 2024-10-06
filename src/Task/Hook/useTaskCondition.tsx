@@ -50,7 +50,7 @@ function useTaskCondition(props: propsType) {
      * 入力値の初期化
      */
     const clearButtonFunc = () => {
-        if (!window.confirm("入力を元に戻しますか？")) {
+        if (!window.confirm("検索条件を元に戻しますか？")) {
             return;
         }
         //入力を初期化する
@@ -63,16 +63,17 @@ function useTaskCondition(props: propsType) {
 
     return {
         negativeButtonObj: {
-            title: `元に戻す`,
+            title: `条件を設定して閉じる`,
             type: `GRAD_BLUE`,
-            onclick: props.taskSearchRefInfo && props.taskSearchRefInfo.default.length > 0 ? clearButtonFunc : undefined
-        } as buttonObjType,
-        backPageButtonObj: {
-            title: `閉じる`,
-            type: `GRAD_GRAY`,
             onclick: backPageButtonFunc
         } as buttonObjType,
+        backPageButtonObj: {
+            title: `リセット`,
+            type: `GRAD_GRAY`,
+            onclick: props.taskSearchRefInfo && props.taskSearchRefInfo.default.length > 0 ? clearButtonFunc : undefined
+        } as buttonObjType,
         searchConditionComponent,
+        backPageButtonFunc,
     }
 }
 

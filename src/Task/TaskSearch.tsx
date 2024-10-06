@@ -49,9 +49,10 @@ function TaskSearch() {
         clickClearBtn,
         isModalOpen,
         openModal,
-        closeModal,
+        closeModalSetCondition,
         taskSearchRefInfo,
         displaySearchConditionList,
+        closeModal,
     } = useTaskSearch();
 
     return (
@@ -103,7 +104,8 @@ function TaskSearch() {
             >
                 <TaskCondition
                     taskSearchRefInfo={taskSearchRefInfo}
-                    closeFn={closeModal}
+                    closeFn={closeModalSetCondition}
+                    closeModal={closeModal}
                 />
             </ModalComponent>
         </HeightDiv>

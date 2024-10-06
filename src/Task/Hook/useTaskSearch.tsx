@@ -109,7 +109,7 @@ function useTaskSearch() {
     /**
      * モーダルクローズイベント
      */
-    function closeModal() {
+    function closeModalSetCondition() {
         if (!taskSearchRefInfo) {
             offFlag();
         }
@@ -127,14 +127,22 @@ function useTaskSearch() {
         offFlag();
     }
 
+    /**
+     * 検索条件モーダルを閉じる
+     */
+    function closeModal() {
+        offFlag();
+    }
+
     return {
         clickSearchBtn,
         clickClearBtn,
         isModalOpen,
         openModal,
-        closeModal,
+        closeModalSetCondition,
         taskSearchRefInfo,
         displaySearchConditionList,
+        closeModal,
     };
 }
 

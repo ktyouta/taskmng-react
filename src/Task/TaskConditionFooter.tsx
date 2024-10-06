@@ -42,7 +42,7 @@ function TaskConditionFooter(props: propsType) {
                     style={{
                         "fontSize": "0.9rem",
                         "width": "12%",
-                        "height": "43%",
+                        "height": "61%",
                     }}
                 />
             }
@@ -59,8 +59,10 @@ function TaskConditionFooter(props: propsType) {
                     onclick={props.negativeButtonObj.onclick}
                     style={{
                         "fontSize": "0.9rem",
-                        "width": "12%",
-                        "height": "43%",
+                        "width": "auto",
+                        "height": "61%",
+                        "box-sizing": "border-box",
+                        "padding": "1%"
                     }}
                 />
             }
