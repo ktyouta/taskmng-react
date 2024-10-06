@@ -66,10 +66,11 @@ function MemoSearch() {
         clickClearBtn,
         isModalOpen,
         openModal,
-        closeModal,
+        closeModalSetCondition,
         memoSearchRefInfo,
         displaySearchConditionList,
         displayTagList,
+        closeModal
     } = useMemoSearch();
 
     return (
@@ -97,7 +98,7 @@ function MemoSearch() {
                             "width": "50%",
                         }}
                     />
-                    <SpaceComponent space={"2%"} />
+                    <SpaceComponent space={"3%"} />
                     <ButtonComponent
                         styleTypeNumber="GRAD_GRAY"
                         title={"検索条件設定"}
@@ -108,7 +109,7 @@ function MemoSearch() {
                             "width": "50%",
                         }}
                     />
-                    <SpaceComponent space={"2%"} />
+                    <SpaceComponent space={"3%"} />
                     <ButtonComponent
                         styleTypeNumber="GRAD_BLUE"
                         title={"検索"}
@@ -128,7 +129,8 @@ function MemoSearch() {
             >
                 <MemoCondition
                     memoSearchRefInfo={memoSearchRefInfo}
-                    closeFn={closeModal}
+                    closeFn={closeModalSetCondition}
+                    closeModal={closeModal}
                 />
             </ModalComponent>
         </HeightDiv>

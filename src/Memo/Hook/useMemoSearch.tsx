@@ -127,9 +127,9 @@ function useMemoSearch() {
     }
 
     /**
-     * モーダルクローズイベント
+     * 検索条件をセットしてモーダルを閉じる
      */
-    function closeModal() {
+    function closeModalSetCondition() {
         if (!memoSearchRefInfo) {
             offFlag();
         }
@@ -179,15 +179,23 @@ function useMemoSearch() {
         offFlag();
     }
 
+    /**
+     * モーダルのクローズイベント
+     */
+    function closeModal() {
+        offFlag();
+    }
+
     return {
         clickSearchBtn,
         clickClearBtn,
         isModalOpen,
         openModal,
-        closeModal,
+        closeModalSetCondition,
         memoSearchRefInfo,
         displaySearchConditionList,
         displayTagList,
+        closeModal,
     };
 }
 

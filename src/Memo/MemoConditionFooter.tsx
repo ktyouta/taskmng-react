@@ -60,7 +60,9 @@ function MemoConditionFooter(props: propsType) {
                     style={{
                         "fontSize": "0.9rem",
                         "height": "42%",
-                        "width": "12%",
+                        "width": "auto",
+                        "box-sizing": "border-box",
+                        "padding": "1%"
                     }}
                 />
             }

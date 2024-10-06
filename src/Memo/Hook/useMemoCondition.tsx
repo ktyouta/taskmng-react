@@ -38,14 +38,14 @@ function useMemoCondition(props: propsType) {
 
     return {
         negativeButtonObj: {
-            title: `元に戻す`,
+            title: `条件を設定して閉じる`,
             type: `GRAD_BLUE`,
-            onclick: props.memoSearchRefInfo && props.memoSearchRefInfo.length > 0 ? clearButtonFunc : undefined
+            onclick: backPageButtonFunc
         } as buttonObjType,
         backPageButtonObj: {
-            title: `閉じる`,
+            title: `リセット`,
             type: `GRAD_GRAY`,
-            onclick: backPageButtonFunc
+            onclick: props.memoSearchRefInfo && props.memoSearchRefInfo.length > 0 ? clearButtonFunc : undefined
         } as buttonObjType,
     }
 }
