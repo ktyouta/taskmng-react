@@ -14,6 +14,8 @@ export type taskListType = {
     status: string,
     customAttribute?: customAttributeListType[],
     userName: string,
+    statusLabel: string,
+    priorityLabel: string,
 }
 
 //画面表示用タスクリストの型
@@ -46,14 +48,11 @@ export type taskContentSettingType = {
 
 //画面表示用のタスクの型
 export type taskContentDisplayType = {
-    [key: string]: string | JSX.Element | undefined | { label: string, value: string, }[] | (() => void),
-    id: string,
-    title: string,
     bdColor: string | undefined,
     titleBgColor: string | undefined,
     infoBgColor: string | undefined,
     editButton: JSX.Element,
-    content: { label: string, value: string, }[],
+    taskContent: taskListType,
     onClickTitle: () => void,
 }
 

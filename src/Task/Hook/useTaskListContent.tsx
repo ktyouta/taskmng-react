@@ -124,8 +124,6 @@ function useTaskListContent(props: propsType) {
         //コンテンツリストを作成
         return createTaskContentList(
             taskList,
-            generalDataList,
-            taskContentSetting,
             openModal,
             moveTaskDetail,
             onIcon,

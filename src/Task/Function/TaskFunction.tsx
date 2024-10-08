@@ -17,7 +17,7 @@ import {
 } from "../Type/TaskType";
 import { ReactNode, createRef } from "react";
 import SpaceComponent from "../../Common/SpaceComponent";
-import { createRequestBody, getNowDate, parseStrDate, requestBodyInputCheck } from "../../Common/Function/Function";
+import { createRequestBody, getNowDate, parseStrDate, requestBodyInputCheck, objectDeepCopy } from "../../Common/Function/Function";
 import ButtonComponent from "../../Common/ButtonComponent";
 import styled from "styled-components";
 import { tabType } from "../../Common/TabComponent";
@@ -549,14 +549,12 @@ export function createSearchDispCondition(taskSearchConditionList: taskSearchCon
 /**
  * タスクのコンテンツリストを作成
  * @param taskList 
- * @param generalDataList 
- * @param taskContentSetting 
  * @param openModal 
  * @param moveTaskDetail 
  * @returns 
  */
-export function createTaskContentList(taskList: taskListType[], generalDataList: generalDataType[],
-    taskContentSetting: taskContentSettingType[], openModal: (id: string) => void,
+export function createTaskContentList(taskList: taskListType[],
+    openModal: (id: string) => void,
     moveTaskDetail: (taskId: string) => void,
     onIcon: (id: string) => void,
     leaveIcon: () => void
@@ -566,19 +564,17 @@ export function createTaskContentList(taskList: taskListType[], generalDataList:
     //現在日時
     const nowDate = getNowDate(new Date());
     //タスクのディープコピー
-    const tmpTaskList: taskListType[] = JSON.parse(JSON.stringify(taskList));
+    const tmpTaskList: taskListType[] = objectDeepCopy(taskList);
 
     //設定値をもとに画面に表示する項目を作成
-    tmpTaskList.forEach(element => {
+    tmpTaskList.forEach((element: taskListType) => {
         //画面表示用タスク
         let displayTaskObj: taskContentDisplayType = {
-            id: "",
-            title: "",
             bdColor: undefined,
             titleBgColor: undefined,
             infoBgColor: undefined,
             editButton: <></>,
-            content: [],
+            taskContent: element,
             onClickTitle: () => { },
         };
 
@@ -588,7 +584,8 @@ export function createTaskContentList(taskList: taskListType[], generalDataList:
         //期限
         let limitTime = element["limitTime"];
         //背景色の設定
-        let bgButtonColor: string | undefined = undefined;
+        let bgButtonColor;
+
         //ステータスとタスクが存在する場合
         if (status) {
             //期限切れのタスク
@@ -628,77 +625,20 @@ export function createTaskContentList(taskList: taskListType[], generalDataList:
             }
         }
 
-        //画面に表示するオブジェクトを作成
-        taskContentSetting.forEach((item) => {
-            //タスクリスト内に設定に一致するプロパティが存在しない場合は画面に表示しない
-            if (!element[item.id]) {
-                return;
-            }
-            //ID
-            if (item.id === "id") {
-                displayTaskObj.id = element[item.id];
-                return;
-            }
-            //タイトル
-            if (item.id === "title") {
-                displayTaskObj.title = element[item.id];
-                return;
-            }
-            //非表示項目
-            if (item.isHidden) {
-                return;
-            }
-
-            //選択項目
-            if (item.listKey) {
-                //汎用詳細リストからリストキーに一致する要素を抽出する
-                let selectList = generalDataList.filter((list) => {
-                    return list.id === item.listKey;
-                });
-                let isMatchPriority = false;
-                selectList.some((list) => {
-                    //値の一致する名称を取得
-                    if (list.value === element[item.id]) {
-                        element[item.id] = list.label;
-                        return isMatchPriority = true;
-                    }
-                });
-                //結合できなかった要素は画面に表示しない
-                if (!isMatchPriority) {
-                    return;
-                }
-            }
-
-            if ((typeof element[item.id]) !== "string") {
-                return;
-            }
-
-            let tmp = element[item.id] as string;
-            //日付項目
-            if (item.type === "date") {
-                tmp = parseStrDate(tmp);
-            }
-            //コンテンツにデータを追加
-            displayTaskObj.content.push({
-                label: item.name,
-                value: tmp
-            });
-        });
-
         //タイトルクリック時に詳細画面に遷移する
         displayTaskObj.onClickTitle = () => {
-            moveTaskDetail(displayTaskObj.id);
+            moveTaskDetail(element.id);
         };
 
         //詳細モーダル表示用アイコン
-        displayTaskObj["editButton"] = <IconComponent
+        displayTaskObj.editButton = <IconComponent
             icon={IoNewspaperOutline}
             onclick={() => { openModal(element.id); }}
             style={{
                 "width": "2.7em",
                 "height": "2em"
             }}
-            onMouseEnter={() => { onIcon(displayTaskObj.id) }}
+            onMouseEnter={() => { onIcon(element.id) }}
             onMouseLeave={leaveIcon}
         />
 

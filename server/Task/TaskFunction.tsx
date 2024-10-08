@@ -5,10 +5,13 @@ import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFun
 import { convDefaultTask, createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
 import { runAddMultiTaskHistory, runAddTaskHistory } from "../History/HistoryFunction";
 import { CREATE, CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, DELETE, TASK_FILEPATH, UPDATE } from "./Const/TaskConst";
-import { multiDeleteTaskReqType, retDefaultTaskType, taskCustomAttributeSelectType, taskDetailType, taskListType } from "./Type/TaskType";
+import { multiDeleteTaskReqType, resTaskListType, retDefaultTaskType, taskCustomAttributeSelectType, taskDetailType, taskListType } from "./Type/TaskType";
 import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
+import { getGeneralDataList, getGeneralDetailDataList } from "../General/GeneralSelectFunction";
+import { userInfoType } from "../Setting/User/Type/UserType";
+import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 
 
 
@@ -39,9 +42,9 @@ export function getTaskList(res: any, req: any) {
     }
 
     //優先度およびステータスの紐づけを行う
-    //let joinTaskData: taskListType[] = joinTask(decodeFileData);
+    let resTaskList: resTaskListType[] = joinTask(decodeFileData);
 
-    return res.status(200).json(decodeFileData);
+    return res.status(200).json(resTaskList);
 }
 
 /**
@@ -349,37 +352,49 @@ export function runMultiDeleteTask(res: any, req: any) {
 /**
  * タスクのjoinを行う
  */
-// function joinTask(decodeFileData: taskListType[]) {
-//     //汎用詳細データを取得
-//     //タスク優先度リスト
-//     let taskPriorityList = getGeneralDetailData("2");
+function joinTask(decodeFileData: taskListType[]): resTaskListType[] {
 
-//     //タスクステータスリスト
-//     let taskStatusList = getGeneralDetailData("3");
+    //汎用詳細データを取得
+    //汎用詳細ファイルの読み込み
+    let generalList = getGeneralDataList();
+    //タスク優先度リスト
+    let taskPriorityList = getGeneralDetailDataList(generalList, "2");
+    //タスクステータスリスト
+    let taskStatusList = getGeneralDetailDataList(generalList, "3");
+    //ユーザー情報の読み込み
+    let userInfoList: userInfoType[] = getUserInfoData();
 
-//     //優先度およびステータスの紐づけを行う
-//     let joinTaskData: taskListType[] = [];
-//     decodeFileData.forEach((element) => {
-//         let isMatchPriority = false;
-//         let isMatchStatus = false;
-//         taskPriorityList.some((item) => {
-//             //優先度が一致
-//             if (element.priority === item.value) {
-//                 element.priority = item.label;
-//                 return isMatchPriority = true;
-//             }
-//         });
-//         taskStatusList.some((item) => {
-//             //ステータスが一致
-//             if (element.status === item.value) {
-//                 element.status = item.label;
-//                 return isMatchStatus = true;
-//             }
-//         });
-//         //優先度とステータスの結合に成功したデータのみクライアントに返却する
-//         if (isMatchPriority && isMatchStatus) {
-//             joinTaskData.push(element);
-//         }
-//     });
-//     return joinTaskData;
-// }
+    //優先度およびステータスの紐づけを行う
+    let joinTaskData: resTaskListType[] = [];
+
+    decodeFileData.forEach((element: taskListType) => {
+
+        //優先度が一致
+        let taskPriorityObj = taskPriorityList.find((item) => {
+            return item.value === element.priority;
+        });
+
+        //ステータスが一致
+        let taskStatusObj = taskStatusList.find((item) => {
+            return item.value === element.status;
+        });
+
+        //ユーザーIDが一致
+        let userInfoObj = userInfoList.find((item) => {
+            return item.userId === element.userId;
+        });
+
+        //優先度、ステータス、ユーザーIDの結合に成功したデータのみクライアントに返却する
+        if (taskPriorityObj && taskStatusObj) {
+
+            //ラベルをセット
+            joinTaskData.push({
+                ...element,
+                priorityLabel: taskPriorityObj.label,
+                statusLabel: taskStatusObj.label,
+                userName: userInfoObj ? userInfoObj.userName : undefined
+            });
+        }
+    });
+    return joinTaskData;
+}

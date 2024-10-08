@@ -28,18 +28,65 @@ function useTaskContent(props: propsType) {
 
     //タスクのコンテンツリスト
     let contentList = useMemo(() => {
-        return props.contentObj.content.map((element) => {
-            return (
-                <React.Fragment key={`${element.label}-${element.value}-${props.contentObj.id}`}>
-                    <div>
-                        {`${element.label}：${element.value}`}
-                    </div>
-                    <SpaceComponent
-                        space='2%'
-                    />
-                </React.Fragment>
-            )
-        });
+        return (
+            <React.Fragment key={`${props.contentObj.taskContent.id}`}>
+                {
+                    props.contentObj.taskContent.registerTime &&
+                    <React.Fragment>
+                        <div>
+                            {`登録日：${props.contentObj.taskContent.registerTime}`}
+                        </div>
+                        <SpaceComponent
+                            space='2%'
+                        />
+                    </React.Fragment>
+                }
+                {
+                    props.contentObj.taskContent.updTime &&
+                    <React.Fragment>
+                        <div>
+                            {`更新日：${props.contentObj.taskContent.updTime}`}
+                        </div>
+                        <SpaceComponent
+                            space='2%'
+                        />
+                    </React.Fragment>
+                }
+                {
+                    props.contentObj.taskContent.statusLabel &&
+                    <React.Fragment>
+                        <div>
+                            {`ステータス：${props.contentObj.taskContent.statusLabel}`}
+                        </div>
+                        <SpaceComponent
+                            space='2%'
+                        />
+                    </React.Fragment>
+                }
+                {
+                    props.contentObj.taskContent.priorityLabel &&
+                    <React.Fragment>
+                        <div>
+                            {`優先度：${props.contentObj.taskContent.priorityLabel}`}
+                        </div>
+                        <SpaceComponent
+                            space='2%'
+                        />
+                    </React.Fragment>
+                }
+                {
+                    props.contentObj.taskContent.userName &&
+                    <React.Fragment>
+                        <div>
+                            {`作成ユーザー：${props.contentObj.taskContent.userName}`}
+                        </div>
+                        <SpaceComponent
+                            space='2%'
+                        />
+                    </React.Fragment>
+                }
+            </React.Fragment>
+        )
     }, [props.contentObj]);
 
     return {

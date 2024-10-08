@@ -13,6 +13,7 @@ import CenterLoading from '../Common/CenterLoading';
 
 //タスクコンテンツ表示UL
 const TaskListUl = styled.ul`
+    padding-left:0;
     height: 93%;
 `;
 

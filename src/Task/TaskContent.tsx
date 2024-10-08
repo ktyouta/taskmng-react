@@ -101,7 +101,7 @@ function TaskContent(props: propsType) {
                 titleBgColor={props.contentObj.titleBgColor}
                 onClick={props.contentObj.onClickTitle}
             >
-                {`${props.contentObj.id}：${props.contentObj.title}`}
+                {`${props.contentObj.taskContent.id}：${props.contentObj.taskContent.title}`}
             </ContentTitleDiv>
             <ContentInfoDiv
                 infoBgColor={props.contentObj.infoBgColor}
@@ -112,7 +112,7 @@ function TaskContent(props: propsType) {
                 <ButtonAreaDiv>
                     {props.contentObj.editButton}
                     <DetailNavDiv
-                        isDisplay={props.detailHoverId === props.contentObj.id}
+                        isDisplay={props.detailHoverId === props.contentObj.taskContent.id}
                     >
                         詳細をモーダルで表示
                     </DetailNavDiv>

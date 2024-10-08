@@ -58,3 +58,21 @@ export type retDefaultTaskType = taskListType & {
 export type multiDeleteTaskReqType = {
     taskIdList: string[]
 }
+
+//レスポンス用のタスク一覧の型
+export type resTaskListType = {
+    [key: string]: string | undefined,
+    id: string,
+    title: string,
+    content: string,
+    registerTime: string,
+    updTime: string,
+    limitTime: string,
+    userId: string,
+    priority: string,
+    status: string,
+    deleteFlg: string,
+    statusLabel: string,
+    priorityLabel: string,
+    userName?: string,
+}

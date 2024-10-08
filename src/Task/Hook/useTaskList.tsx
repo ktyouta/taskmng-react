@@ -43,7 +43,7 @@ function useTaskList(props: propsType) {
 
         //タスクデータから画面表示用domを作成
         return props.displayTaskList?.map((element: taskContentDisplayType, index) => {
-            let id = element.id as string;
+            let id = element.taskContent.id as string;
             return (
                 <React.Fragment key={`tasklist-${id}-${index}`}>
                     <TaskListLi key={`li-${id}`}>
