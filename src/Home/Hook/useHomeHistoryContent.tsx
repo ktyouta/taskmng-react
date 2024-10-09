@@ -12,6 +12,7 @@ import { userIdAtom } from '../../Setting/SettingUser/Atom/SettingUserAtom';
 import { NOWPATH_STRAGEKEY, USER_PATH } from '../../Header/Const/HeaderConst';
 import { useNavigate } from "react-router-dom";
 import { USERID_STRAGEKEY } from '../../Common/Const/CommonConst';
+import { moveUserInfo } from '../../Common/Function/Function';
 
 
 //引数の型
@@ -26,21 +27,8 @@ function useHomeHistoryContent(props: propsType) {
 
     //ユーザーアイコンのクリックイベント
     function clickIcon() {
-        //現在のパスを保持する
-        let pathArray = window.location.pathname.split("/");
-        if (pathArray.length > 1) {
-            pathArray.splice(0, 1);
-            let mainPath = pathArray.join("/");
 
-            if (mainPath !== USER_PATH.replace('/', "")) {
-                //現在のパスをローカルストレージに保存する
-                localStorage.setItem(NOWPATH_STRAGEKEY, `/${mainPath}`);
-            }
-        }
-
-        //ユーザーIDをストレージに保持する
-        localStorage.setItem(USERID_STRAGEKEY, props.userId);
-        navigate(USER_PATH);
+        moveUserInfo(props.userId, navigate);
     }
 
     return {

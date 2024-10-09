@@ -1,5 +1,8 @@
 import axios from 'axios';
 import { apiResponseType, bodyObj, refInfoType, refInputCheckType } from '../Type/CommonType';
+import { NOWPATH_STRAGEKEY, USER_PATH } from '../../Header/Const/HeaderConst';
+import { USERID_STRAGEKEY } from '../Const/CommonConst';
+import { NavigateFunction } from 'react-router-dom';
 
 //jsonファイルにデータを登録する
 export const createJsonData = (url: string, name: bodyObj) => {
@@ -134,4 +137,26 @@ export function createQuery(query: string) {
  */
 export function objectDeepCopy<T>(arg: T): T {
     return JSON.parse(JSON.stringify(arg));
+}
+
+
+/**
+ * ユーザー情報画面に遷移する
+ */
+export function moveUserInfo(userId: string, navigate: NavigateFunction) {
+    //現在のパスを保持する
+    let pathArray = window.location.pathname.split("/");
+    if (pathArray.length > 1) {
+        pathArray.splice(0, 1);
+        let mainPath = pathArray.join("/");
+
+        if (mainPath !== USER_PATH.replace('/', "")) {
+            //現在のパスをローカルストレージに保存する
+            localStorage.setItem(NOWPATH_STRAGEKEY, `/${mainPath}`);
+        }
+    }
+
+    //ユーザーIDをストレージに保持する
+    localStorage.setItem(USERID_STRAGEKEY, userId);
+    navigate(USER_PATH);
 }

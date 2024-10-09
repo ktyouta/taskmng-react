@@ -7,10 +7,12 @@ import useQueryClientWrapper from "../../Common/Hook/useQueryClientWrapper";
 import { taskContentDisplayType, taskListType } from "../Type/TaskType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
-import { createRequestBody } from "../../Common/Function/Function";
+import { createRequestBody, moveUserInfo } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
 import React from "react";
 import SpaceComponent from "../../Common/SpaceComponent";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 
 //引数の型
@@ -18,6 +20,14 @@ type propsType = {
     contentObj: taskContentDisplayType
 }
 
+//ユーザー名のスタイル
+const UserNameSpan = styled.span<{ titleBgColor?: string }>`
+    cursor:pointer;
+    &:hover {
+        color: blue;
+        text-decoration: underline;
+    }
+`;
 
 /**
  * useTaskConditionコンポーネントのビジネスロジック
@@ -25,6 +35,15 @@ type propsType = {
  * @returns 
  */
 function useTaskContent(props: propsType) {
+
+    //ルーティング用
+    const navigate = useNavigate();
+
+    //ユーザー名のクリックイベント
+    function clickUserNm() {
+
+        moveUserInfo(props.contentObj.taskContent.userId, navigate);
+    }
 
     //タスクのコンテンツリスト
     let contentList = useMemo(() => {
@@ -78,7 +97,7 @@ function useTaskContent(props: propsType) {
                     props.contentObj.taskContent.userName &&
                     <React.Fragment>
                         <div>
-                            {`作成ユーザー：${props.contentObj.taskContent.userName}`}
+                            作成ユーザー：<UserNameSpan onClick={clickUserNm}>{`${props.contentObj.taskContent.userName}`}</UserNameSpan>
                         </div>
                         <SpaceComponent
                             space='2%'

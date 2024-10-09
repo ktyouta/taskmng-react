@@ -583,8 +583,6 @@ export function createTaskContentList(taskList: taskListType[],
         let status = element["status"];
         //期限
         let limitTime = element["limitTime"];
-        //背景色の設定
-        let bgButtonColor;
 
         //ステータスとタスクが存在する場合
         if (status) {
@@ -596,14 +594,12 @@ export function createTaskContentList(taskList: taskListType[],
                         displayTaskObj.bdColor = NOCOMP_STATUS_BODERCOLOR;
                         displayTaskObj.titleBgColor = NOCOMP_STATUS_BACKCOLOR;
                         displayTaskObj.infoBgColor = NOCOMP_STATUS_BACKCOLOR;
-                        bgButtonColor = NOCOMP_STATUS_BACKCOLOR;
                         break;
                     //保留
                     case HOLD_STATUS:
                         displayTaskObj.bdColor = HOLD_STATUS_BODERCOLOR;
                         displayTaskObj.titleBgColor = HOLD_STATUS_BACKCOLOR;
                         displayTaskObj.infoBgColor = HOLD_STATUS_BACKCOLOR;
-                        bgButtonColor = HOLD_STATUS_BACKCOLOR;
                         break;
                     default:
                         break;
@@ -614,14 +610,12 @@ export function createTaskContentList(taskList: taskListType[],
                 displayTaskObj.bdColor = COMP_STATUS_BODERCOLOR;
                 displayTaskObj.titleBgColor = COMP_STATUS_BACKCOLOR;
                 displayTaskObj.infoBgColor = COMP_STATUS_BACKCOLOR;
-                bgButtonColor = COMP_STATUS_BACKCOLOR;
             }
             //対応中
             else if (status === WORKING_STATUS) {
                 displayTaskObj.bdColor = WORKING_STATUS_BODERCOLOR;
                 displayTaskObj.titleBgColor = WORKING_STATUS_BACKCOLOR;
                 displayTaskObj.infoBgColor = WORKING_STATUS_BACKCOLOR;
-                bgButtonColor = WORKING_STATUS_BACKCOLOR;
             }
         }
 
