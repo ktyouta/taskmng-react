@@ -21,14 +21,10 @@ const TaskFooterDiv = styled.div`
     display: flex;
     align-items: center;
     height: 15%;
-    padding: 0% 0% 0% 2%;
     position:relative;
-`;
-
-//ページネーションのスタイル
-const PagenateDiv = styled.div`
-    position: absolute;
-    left: 32%;
+    padding-right: 5%;
+    box-sizing: border-box;
+    justify-content: center;
 `;
 
 
@@ -47,12 +43,10 @@ function TaskFooter() {
     return (
         <React.Fragment>
             <TaskFooterDiv>
-                <PagenateDiv>
-                    <PagenatetionComponent
-                        changePage={changePage}
-                        totalPage={pageNum}
-                    />
-                </PagenateDiv>
+                <PagenatetionComponent
+                    changePage={changePage}
+                    totalPage={pageNum}
+                />
                 <ButtonComponent
                     styleTypeNumber="GRAD_GREEN"
                     title={"タスク作成"}
