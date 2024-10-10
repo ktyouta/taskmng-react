@@ -107,7 +107,7 @@
 	{
 		"id": "priority",
 		"name": "優先度",
-		"type": "radio",
+		"type": "select",
 		"length": 500,
 		"initValue": "1",
 		"disabled": false,

@@ -72,7 +72,7 @@ export type resTaskListType = {
     priority: string,
     status: string,
     deleteFlg: string,
-    statusLabel: string,
-    priorityLabel: string,
+    statusLabel?: string,
+    priorityLabel?: string,
     userName?: string,
 }

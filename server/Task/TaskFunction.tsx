@@ -354,7 +354,6 @@ export function runMultiDeleteTask(res: any, req: any) {
  */
 function joinTask(decodeFileData: taskListType[]): resTaskListType[] {
 
-    //汎用詳細データを取得
     //汎用詳細ファイルの読み込み
     let generalList = getGeneralDataList();
     //タスク優先度リスト
@@ -368,6 +367,10 @@ function joinTask(decodeFileData: taskListType[]): resTaskListType[] {
     let joinTaskData: resTaskListType[] = [];
 
     decodeFileData.forEach((element: taskListType) => {
+
+        let priorityLabel;
+        let statusLabel;
+        let userName;
 
         //優先度が一致
         let taskPriorityObj = taskPriorityList.find((item) => {
@@ -384,17 +387,28 @@ function joinTask(decodeFileData: taskListType[]): resTaskListType[] {
             return item.userId === element.userId;
         });
 
-        //優先度、ステータス、ユーザーIDの結合に成功したデータのみクライアントに返却する
+        //優先度
         if (taskPriorityObj && taskStatusObj) {
-
-            //ラベルをセット
-            joinTaskData.push({
-                ...element,
-                priorityLabel: taskPriorityObj.label,
-                statusLabel: taskStatusObj.label,
-                userName: userInfoObj ? userInfoObj.userName : undefined
-            });
+            priorityLabel = taskPriorityObj.label;
         }
+
+        //ステータス
+        if (taskStatusObj) {
+            statusLabel = taskStatusObj.label;
+        }
+
+        //ユーザー情報
+        if (userInfoObj) {
+            userName = userInfoObj.userName;
+        }
+
+        //ラベルをセット
+        joinTaskData.push({
+            ...element,
+            priorityLabel: priorityLabel,
+            statusLabel: statusLabel,
+            userName: userName
+        });
     });
     return joinTaskData;
 }
