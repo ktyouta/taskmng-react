@@ -56,14 +56,14 @@ const BtnDiv = styled.div<{ width: string }>`
 //ナビゲーション
 const NavDiv = styled.div<{ isDisplay: boolean }>`
   position: absolute;
-  top: 34px;
-  left: -100px;
-  font-size: 13px;
-  width: 140px;
+  top: 38px;
+  left: -235px;
+  font-size: 15px;
+  width: 240px;
   height: auto;
-  min-height: 95px;
+  min-height: 169px;
   background-color: white;
-  padding-top: 8px;
+  padding-top: 14px;
   border: 1px solid #a9a9a9;
   display: ${({ isDisplay }) => (isDisplay ? "block" : "none")};
   border-radius: 6px;
@@ -78,6 +78,11 @@ const ContentDiv = styled.div`
         color: blue;
         text-decoration: underline;
     }
+    min-height: 29px;
+    padding-left: 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
 `;
 
 //アイコンクリック時の背景のスタイル
