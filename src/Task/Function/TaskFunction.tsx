@@ -23,8 +23,8 @@ import styled from "styled-components";
 import { tabType } from "../../Common/TabComponent";
 import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
 import TaskEditForm from "../TaskEditForm";
-import { COMP_STATUS, COMP_STATUS_BACKCOLOR, COMP_STATUS_BODERCOLOR, DEFAULT_STATUS_BACKCOLOR, DEFAULT_STATUS_BODERCOLOR, HOLD_STATUS, HOLD_STATUS_BACKCOLOR, HOLD_STATUS_BODERCOLOR, NOCOMP_STATUS, NOCOMP_STATUS_BACKCOLOR, NOCOMP_STATUS_BODERCOLOR, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, WORKING_STATUS, WORKING_STATUS_BACKCOLOR, WORKING_STATUS_BODERCOLOR } from "../Const/TaskConst";
-import { USER_AUTH } from "../../Common/Const/CommonConst";
+import { COMP_STATUS, COMP_STATUS_BACKCOLOR, COMP_STATUS_BODERCOLOR, DEFAULT_STATUS_BACKCOLOR, DEFAULT_STATUS_BODERCOLOR, DELETE_BBACKCOLOR, DELETE_BODERCOLOR, HOLD_STATUS, HOLD_STATUS_BACKCOLOR, HOLD_STATUS_BODERCOLOR, NOCOMP_STATUS, NOCOMP_STATUS_BACKCOLOR, NOCOMP_STATUS_BODERCOLOR, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, WORKING_STATUS, WORKING_STATUS_BACKCOLOR, WORKING_STATUS_BODERCOLOR } from "../Const/TaskConst";
+import { FLG, USER_AUTH } from "../../Common/Const/CommonConst";
 import { IoNewspaperOutline } from "react-icons/io5";
 import IconComponent from "../../Common/IconComponent";
 
@@ -584,7 +584,7 @@ export function createTaskContentList(taskList: taskListType[],
         //期限
         let limitTime = element["limitTime"];
 
-        //ステータスとタスクが存在する場合
+        //ステータスが存在する場合
         if (status) {
             //期限切れのタスク
             if (limitTime && limitTime < nowDate) {
@@ -617,6 +617,13 @@ export function createTaskContentList(taskList: taskListType[],
                 displayTaskObj.titleBgColor = WORKING_STATUS_BACKCOLOR;
                 displayTaskObj.infoBgColor = WORKING_STATUS_BACKCOLOR;
             }
+        }
+
+        //削除済みタスク
+        if (element.deleteFlg === FLG.ON) {
+            displayTaskObj.bdColor = DELETE_BODERCOLOR;
+            displayTaskObj.titleBgColor = DELETE_BBACKCOLOR;
+            displayTaskObj.infoBgColor = DELETE_BBACKCOLOR;
         }
 
         //タイトルクリック時に詳細画面に遷移する

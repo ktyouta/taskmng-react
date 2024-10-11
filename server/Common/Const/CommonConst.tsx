@@ -68,8 +68,8 @@ export const TASK_CATEGORY_ID = "CATEGORY-5";
 
 //フラグ
 export const FLG = {
-    off: "0",
-    on: "1",
+    OFF: "0",
+    ON: "1",
 }
 
 //タグファイル名

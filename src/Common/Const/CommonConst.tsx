@@ -17,3 +17,8 @@ export const Z_INDEX_PARAM = {
     HEADOVERLAY: 2000,
     HEADNAV: 2001,
 }
+//フラグ
+export const FLG = {
+    OFF: "0",
+    ON: "1",
+}

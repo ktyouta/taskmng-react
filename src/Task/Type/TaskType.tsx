@@ -16,6 +16,7 @@ export type taskListType = {
     userName?: string,
     statusLabel?: string,
     priorityLabel?: string,
+    deleteFlg: string,
 }
 
 //画面表示用タスクリストの型

@@ -2,7 +2,7 @@ import { getGeneralDetailData } from "../General/GeneralFunction";
 import { createDeleteCustomAttributeData, createDeleteTaskData, createMultiDeleteCustomAttributeData, createMultiDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
 import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
-import { convDefaultTask, createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, joinCustomAttribute } from "./TaskSelectFunction";
+import { convDefaultTask, createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, getTasksByUserAuth, joinCustomAttribute } from "./TaskSelectFunction";
 import { runAddMultiTaskHistory, runAddTaskHistory } from "../History/HistoryFunction";
 import { CREATE, CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, DELETE, TASK_FILEPATH, UPDATE } from "./Const/TaskConst";
 import { multiDeleteTaskReqType, resTaskListType, retDefaultTaskType, taskCustomAttributeSelectType, taskDetailType, taskListType } from "./Type/TaskType";
@@ -26,8 +26,13 @@ export function getTaskList(res: any, req: any) {
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
     }
+
+    //ユーザーの権限
+    let userAuth = authResult.userInfo?.auth;
+
     //タスクファイルの読み込み
-    let decodeFileData: taskListType[] = getFilterdTask();
+    let decodeFileData: taskListType[] = getTasksByUserAuth(userAuth);
+    //クエリパラメータ
     let queryStr = req.query;
 
     //クエリストリングでフィルター(デフォルト属性)
@@ -58,8 +63,12 @@ export function getTaskDetail(res: any, req: any, id: string) {
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
     }
+
+    //ユーザーの権限
+    let userAuth = authResult.userInfo?.auth;
+
     //タスクファイルの読み込み
-    let decodeFileData: taskListType[] = getFilterdTask();
+    let decodeFileData: taskListType[] = getTasksByUserAuth(userAuth);
 
     //該当データなし
     if (decodeFileData.length === 0) {

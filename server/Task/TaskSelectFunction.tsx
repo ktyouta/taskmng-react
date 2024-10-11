@@ -14,6 +14,7 @@ import { getFilterdSearchConditionList, getSearchConditionList } from "../Settin
 import { searchConditionType } from "../Setting/SearchCondition/Type/SearchConditionType";
 import { userInfoType } from "../Setting/User/Type/UserType";
 import { getUserInfoData } from "../Setting/User/UserSelectFunction";
+import { USER_AUTH } from "../Auth/Const/AuthConst";
 
 
 
@@ -288,4 +289,32 @@ export function convDefaultTask(singleTaskData: taskListType): retDefaultTaskTyp
     })?.userName;
 
     return { ...singleTaskData, userName: userName ?? "" }
+}
+
+/**
+ * ユーザーの権限に応じてタスクを取得する
+ */
+export function getTasksByUserAuth(userAuth?: string): taskListType[] {
+
+    let taskList: taskListType[] = [];
+
+    switch (userAuth) {
+        //一般ユーザー
+        case USER_AUTH.PUBLIC:
+            taskList = getFilterdTask();
+            break;
+        //専用ユーザー
+        case USER_AUTH.EXCLUSIVE:
+            taskList = getFilterdTask();
+            break;
+        //管理者
+        case USER_AUTH.ADMIN:
+            taskList = getTaskObj();
+            break;
+        default:
+            taskList = getFilterdTask();
+            break;
+    }
+
+    return taskList;
 }

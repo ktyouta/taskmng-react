@@ -45,3 +45,7 @@ export const WORKING_STATUS_BODERCOLOR = "#33FFFF";
 export const DEFAULT_STATUS_BACKCOLOR = "#EEEEEE";
 //コンテンツのボーダーカラー(未対応)
 export const DEFAULT_STATUS_BODERCOLOR = "#c0c0c0";
+//コンテンツの背景色(削除済み)
+export const DELETE_BBACKCOLOR = "#a9a9a9";
+//コンテンツのボーダーカラー(削除済み)
+export const DELETE_BODERCOLOR = "#333333";

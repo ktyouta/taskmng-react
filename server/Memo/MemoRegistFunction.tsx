@@ -55,7 +55,7 @@ export function createAddMemoData(fileDataObj: memoListType[], tagDataObj: tagLi
     newMemo.registerTime = nowDate;
     newMemo.updTime = nowDate;
     newMemo.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
-    newMemo.deleteFlg = FLG.off;
+    newMemo.deleteFlg = FLG.OFF;
     fileDataObj.push(newMemo);
 
     return {

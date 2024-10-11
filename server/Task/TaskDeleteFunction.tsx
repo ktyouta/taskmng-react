@@ -26,7 +26,7 @@ export function createDeleteTaskData(fileDataObj: taskListType[], delTaskId: str
 
     //削除フラグをオンにする
     deleteTask.updTime = getNowDate();
-    deleteTask.deleteFlg = FLG.on;
+    deleteTask.deleteFlg = FLG.ON;
 
     return fileDataObj;
 }
@@ -43,7 +43,7 @@ export function createDeleteCustomAttributeData(customDecodeFileDatas: taskCusto
     customDecodeFileDatas.forEach((element) => {
         //IDの一致するデータを削除
         if (element.taskId === delTaskId) {
-            element.deleteFlg = FLG.on;
+            element.deleteFlg = FLG.ON;
             element.updTime = getNowDate();
         }
     });
