@@ -8,6 +8,7 @@ import { getFileJsonData, overWriteData } from "../../Common/FileFunction";
 import { searchConditionType } from "../SearchCondition/Type/SearchConditionType";
 import { ATTRIBUTE_KEY_CUSTOM } from "../SearchCondition/Const/SearchConditionConst";
 import { createUpdSearchCondition } from "../SearchCondition/SearchConditionUpdateFunction";
+import { USER_AUTH } from "../../Auth/Const/AuthConst";
 
 
 /**
@@ -231,7 +232,8 @@ export function callCreateUpdSearchCondition(
         registerTime: "",
         updTime: "",
         deleteFlg: "",
-        userId: ""
+        userId: "",
+        auth: USER_AUTH.PUBLIC
     };
 
     //更新用データの作成

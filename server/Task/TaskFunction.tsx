@@ -36,10 +36,10 @@ export function getTaskList(res: any, req: any) {
     let queryStr = req.query;
 
     //クエリストリングでフィルター(デフォルト属性)
-    decodeFileData = filterDefaultAttribute(decodeFileData, queryStr);
+    decodeFileData = filterDefaultAttribute(decodeFileData, queryStr, userAuth);
 
     //クエリストリングでフィルター(カスタム属性)
-    decodeFileData = filterCustomAttribute(decodeFileData, queryStr);
+    decodeFileData = filterCustomAttribute(decodeFileData, queryStr, userAuth);
 
     //該当データなし
     if (decodeFileData.length === 0) {

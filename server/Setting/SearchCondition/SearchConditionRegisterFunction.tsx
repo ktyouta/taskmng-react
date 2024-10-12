@@ -1,3 +1,4 @@
+import { USER_AUTH } from "../../Auth/Const/AuthConst";
 import { authInfoType } from "../../Auth/Type/AuthType";
 import { getNowDate } from "../../Common/Function";
 import { searchConditionType } from "./Type/SearchConditionType";
@@ -22,7 +23,8 @@ export function createAddSearchCondition(searchConditionList: searchConditionTyp
         registerTime: "",
         updTime: "",
         deleteFlg: "",
-        userId: ""
+        userId: "",
+        auth: USER_AUTH.PUBLIC
     };
 
     registData = body;

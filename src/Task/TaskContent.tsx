@@ -51,11 +51,6 @@ const ContentTitleDiv = styled.div`
 const DeleteAreaDiv = styled.div<{ titleBgColor?: string }>`
     height: 100%;
     overflow-wrap: break-word;
-    cursor:pointer;
-    &:hover {
-        color: blue;
-        text-decoration: underline;
-    }
     width:10%;
     box-sizing: border-box;
     padding-right: 1%;
@@ -157,9 +152,7 @@ function TaskContent(props: propsType) {
                     {
                         props.contentObj.taskContent.registerTime &&
                         <React.Fragment>
-                            <div>
-                                {`登録日：${props.contentObj.taskContent.registerTime}`}
-                            </div>
+                            {`登録日：${props.contentObj.taskContent.registerTime}`}
                             <SpaceComponent
                                 space='2%'
                             />
@@ -168,9 +161,7 @@ function TaskContent(props: propsType) {
                     {
                         props.contentObj.taskContent.updTime &&
                         <React.Fragment>
-                            <div>
-                                {`更新日：${props.contentObj.taskContent.updTime}`}
-                            </div>
+                            {`更新日：${props.contentObj.taskContent.updTime}`}
                             <SpaceComponent
                                 space='2%'
                             />
@@ -179,9 +170,7 @@ function TaskContent(props: propsType) {
                     {
                         props.contentObj.taskContent.statusLabel &&
                         <React.Fragment>
-                            <div>
-                                {`ステータス：${props.contentObj.taskContent.statusLabel}`}
-                            </div>
+                            {`ステータス：${props.contentObj.taskContent.statusLabel}`}
                             <SpaceComponent
                                 space='2%'
                             />
@@ -190,9 +179,7 @@ function TaskContent(props: propsType) {
                     {
                         props.contentObj.taskContent.priorityLabel &&
                         <React.Fragment>
-                            <div>
-                                {`優先度：${props.contentObj.taskContent.priorityLabel}`}
-                            </div>
+                            {`優先度：${props.contentObj.taskContent.priorityLabel}`}
                             <SpaceComponent
                                 space='2%'
                             />
@@ -201,9 +188,7 @@ function TaskContent(props: propsType) {
                     {
                         props.contentObj.taskContent.userName &&
                         <React.Fragment>
-                            <div>
-                                作成ユーザー：<UserNameSpan onClick={clickUserNm}>{`${props.contentObj.taskContent.userName}`}</UserNameSpan>
-                            </div>
+                            作成ユーザー：<UserNameSpan onClick={clickUserNm}>{`${props.contentObj.taskContent.userName}`}</UserNameSpan>
                             <SpaceComponent
                                 space='2%'
                             />

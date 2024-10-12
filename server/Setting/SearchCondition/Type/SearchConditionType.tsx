@@ -11,7 +11,8 @@ export type searchConditionType = {
     registerTime: string,
     updTime: string,
     deleteFlg: string,
-    userId: string
+    userId: string,
+    auth: string,
 }
 
 //検索条件の画面返却用の型

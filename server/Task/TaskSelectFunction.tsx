@@ -45,19 +45,33 @@ export function getFilterdTask() {
 /**
  * タスクリストをクエリストリングで絞り込む
  */
-export function filterDefaultAttribute(decodeFileData: taskListType[], query: any) {
+export function filterDefaultAttribute(decodeFileData: taskListType[], query: any, userAuth?: string) {
 
     //タスク用の検索条件設定リストを取得
     let searchConditionList: searchConditionType[] = getSearchConditionList();
     let taskConditionList: searchConditionType[] = getFilterdSearchConditionList(searchConditionList, SEARCHCONDITION_KEY_DEFAULT);
 
+    //ユーザー権限が存在しない場合は一般権限をセット
+    let convUserAuth = userAuth ?? USER_AUTH.PUBLIC;
+
     //検索条件で絞り込み
-    taskConditionList.forEach((element) => {
+    taskConditionList.forEach((element: searchConditionType) => {
         let value = query[element.id] as string;
+
+        //クエリパラメータにセットされていない場合
         if (!value) {
             return;
         }
-        decodeFileData = decodeFileData.filter((item) => {
+
+        //権限不足の場合
+        if (Number.isNaN(element.auth) ||
+            Number.isNaN(convUserAuth) ||
+            parseInt(convUserAuth) < parseInt(element.auth)
+        ) {
+            return;
+        }
+
+        decodeFileData = decodeFileData.filter((item: taskListType) => {
             if (!(element.id in item)) {
                 return true;
             }
@@ -89,7 +103,7 @@ export function filterDefaultAttribute(decodeFileData: taskListType[], query: an
 /**
  * タスクリストをカスタム属性のクエリストリングで絞り込む
  */
-export function filterCustomAttribute(taskList: taskListType[], query: any) {
+export function filterCustomAttribute(taskList: taskListType[], query: any, userAuth?: string) {
 
     //タスク用の検索条件設定リストを取得
     let searchConditionList: searchConditionType[] = getSearchConditionList();
@@ -98,13 +112,24 @@ export function filterCustomAttribute(taskList: taskListType[], query: any) {
     //カスタム属性の選択値リスト
     let taskCustomAttributeList = getCustomAttributeTaskObj();
 
-    customAttributeConditionList.forEach((element) => {
+    //ユーザー権限が存在しない場合は一般権限をセット
+    let convUserAuth = userAuth ?? USER_AUTH.PUBLIC;
+
+    customAttributeConditionList.forEach((element: searchConditionType) => {
         let customAttributeId = element.id;
         //クエリストリングの値を取得
         let value = query[customAttributeId] as string;
 
         //クエリストリングにセットされていないキーはチェックしない
         if (!value) {
+            return;
+        }
+
+        //権限不足の場合
+        if (Number.isNaN(element.auth) ||
+            Number.isNaN(convUserAuth) ||
+            parseInt(convUserAuth) < parseInt(element.auth)
+        ) {
             return;
         }
 

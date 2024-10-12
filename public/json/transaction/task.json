@@ -235,7 +235,8 @@
 		"updTime": "20230515",
 		"userId": "",
 		"status": "3",
-		"id": "TASKID-20"
+		"id": "TASKID-20",
+		"deleteFlg": "0"
 	},
 	{
 		"title": "削除テスト",
@@ -258,7 +259,8 @@
 		"updTime": "20230515",
 		"userId": "",
 		"status": "3",
-		"id": "TASKID-22"
+		"id": "TASKID-22",
+		"deleteFlg": "1"
 	},
 	{
 		"title": "deletetest",
@@ -713,7 +715,8 @@
 		"limitTime": "20231127",
 		"userId": "a",
 		"priority": "1",
-		"status": "1"
+		"status": "1",
+		"deleteFlg": "0"
 	},
 	{
 		"id": "TASKID-61",
@@ -724,7 +727,8 @@
 		"limitTime": "",
 		"userId": "a",
 		"priority": "1",
-		"status": "1"
+		"status": "1",
+		"deleteFlg": "0"
 	},
 	{
 		"id": "TASKID-62",

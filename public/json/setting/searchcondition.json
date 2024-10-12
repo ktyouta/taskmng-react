@@ -7,9 +7,10 @@
 		"value": "250",
 		"attribute": "default",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "keyword",
@@ -19,9 +20,10 @@
 		"value": "",
 		"attribute": "default",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "title",
@@ -32,9 +34,10 @@
 		"value": "",
 		"attribute": "default",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "priority",
@@ -45,9 +48,10 @@
 		"value": "1,2",
 		"attribute": "default",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "status",
@@ -58,9 +62,10 @@
 		"value": "",
 		"attribute": "default",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "limitTime",
@@ -70,9 +75,24 @@
 		"value": "",
 		"attribute": "default",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
+	},
+	{
+		"id": "deleteFlg",
+		"name": "削除状態",
+		"type": "checkbox",
+		"listKey": "8",
+		"isHidden": false,
+		"value": "0,1",
+		"attribute": "default",
+		"registerTime": "2024/10/12",
+		"updTime": "2024/10/12",
+		"deleteFlg": "0",
+		"userId": "f",
+		"auth": "3"
 	},
 	{
 		"id": "ATTRIBUTEID-1",
@@ -82,9 +102,10 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-2",
@@ -94,9 +115,10 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-3",
@@ -108,7 +130,8 @@
 		"registerTime": "2024/01/28",
 		"updTime": "2024/01/28",
 		"deleteFlg": "1",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-4",
@@ -120,7 +143,8 @@
 		"registerTime": "2024/01/28",
 		"updTime": "2024/01/28",
 		"deleteFlg": "1",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-5",
@@ -130,9 +154,10 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-6",
@@ -144,7 +169,8 @@
 		"registerTime": "2024/01/28",
 		"updTime": "2024/01/28",
 		"deleteFlg": "1",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-7",
@@ -154,9 +180,10 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-8",
@@ -166,9 +193,10 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-9",
@@ -178,9 +206,10 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-10",
@@ -190,9 +219,10 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-11",
@@ -202,9 +232,10 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-12",
@@ -214,9 +245,10 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-13",
@@ -226,9 +258,10 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-14",
@@ -240,7 +273,8 @@
 		"registerTime": "2024/02/17",
 		"updTime": "2024/02/17",
 		"deleteFlg": "1",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-15",
@@ -252,7 +286,8 @@
 		"registerTime": "2024/02/17",
 		"updTime": "2024/02/17",
 		"deleteFlg": "1",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-16",
@@ -264,7 +299,8 @@
 		"registerTime": "2024/02/17",
 		"updTime": "2024/02/17",
 		"deleteFlg": "1",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-17",
@@ -274,9 +310,10 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/03/10",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-18",
@@ -286,9 +323,10 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/03/10",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-19",
@@ -298,9 +336,10 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/03/10",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-20",
@@ -310,9 +349,10 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/03/10",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-21",
@@ -322,9 +362,10 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/03/11",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-22",
@@ -334,8 +375,9 @@
 		"value": "",
 		"attribute": "custom",
 		"registerTime": "2024/03/11",
-		"updTime": "2024/03/16",
+		"updTime": "2024/10/12",
 		"deleteFlg": "0",
-		"userId": "f"
+		"userId": "f",
+		"auth": "1"
 	}
 ]
