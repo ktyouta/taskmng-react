@@ -3,7 +3,7 @@ import { authInfoType } from "../../Auth/Type/AuthType";
 import { overWriteData } from "../../Common/FileFunction";
 import { SEARCHCONDITION_FILE_PATH, SEARCHCONDITION_QUERYLRY } from "./Const/SearchConditionConst";
 import { createAddSearchCondition } from "./SearchConditionRegisterFunction";
-import { getFilterdSearchConditionList, getSearchConditionList, getSearchConditionObj, joinSelectListSearchCondition } from "./SearchConditionSelectFunction";
+import { filterdQueryParamSearchCondition, filterSearchConditionByUserAuth, getFilterdSearchConditionList, getSearchConditionList, getSearchConditionObj, joinSelectListSearchCondition } from "./SearchConditionSelectFunction";
 import { createUpdSearchCondition, createUpdSearchConditionList } from "./SearchConditionUpdateFunction";
 import { retSearchConditionType, searchConditionType, settingSearchConditionUpdReqType } from "./Type/SearchConditionType";
 
@@ -20,30 +20,22 @@ export function getSearchCondition(res: any, req: any) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    //ユーザーの権限
+    let userAuth = authResult.userInfo?.auth;
+
     //検索設定ファイルの読み込み
     let searchConditionList: searchConditionType[] = getSearchConditionList();
+
+    //ユーザー権限でフィルター
+    searchConditionList = filterSearchConditionByUserAuth(searchConditionList, userAuth);
 
     //該当データなし
     if (searchConditionList.length === 0) {
         return res.status(400).json({ errMessage: `検索条件が存在しません。` });
     }
 
-    //クエリストリング
-    let queryStr = req.query[SEARCHCONDITION_QUERYLRY];
-    let tmpSearchConditionList: searchConditionType[] = [];
-    let retSearchConditionList: searchConditionType[] = queryStr ? [] : searchConditionList;
-
-    //クエリストリングが設定されている場合は絞り込む
-    if (queryStr && queryStr.split(",").length > 0) {
-        let queryArr = queryStr.split(",");
-        tmpSearchConditionList = JSON.parse(JSON.stringify(searchConditionList));
-
-        //クエリストリングに一致する検索条件設定を取得して結合
-        queryArr.forEach((element: string) => {
-            let tmp = getFilterdSearchConditionList(tmpSearchConditionList, element);
-            retSearchConditionList = [...retSearchConditionList, ...tmp];
-        });
-    }
+    //クエリパラメータでデータをフィルターする
+    let retSearchConditionList = filterdQueryParamSearchCondition(searchConditionList, req.query[SEARCHCONDITION_QUERYLRY]);
 
     //選択リストを結合
     let joinedSearchConditionList: retSearchConditionType[] = joinSelectListSearchCondition(retSearchConditionList);

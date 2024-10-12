@@ -1,3 +1,4 @@
+import { USER_AUTH } from "../../Auth/Const/AuthConst";
 import { readFile } from "../../Common/FileFunction";
 import { comboType } from "../../Common/Type/CommonType";
 import { getGeneralDataList } from "../../General/GeneralSelectFunction";
@@ -101,4 +102,45 @@ export function joinSelectListSearchCondition(searchConditionList: searchConditi
     }, []);
 
     return retSearchConditionList;
+}
+
+
+/**
+ * クエリパラメータで検索条件を絞り込む
+ */
+export function filterdQueryParamSearchCondition(searchConditionList: searchConditionType[], queryStr: string) {
+
+    let tmpSearchConditionList: searchConditionType[] = [];
+    let retSearchConditionList: searchConditionType[] = queryStr ? [] : searchConditionList;
+
+    //クエリストリングが設定されている場合は絞り込む
+    if (queryStr && queryStr.split(",").length > 0) {
+        let queryArr = queryStr.split(",");
+        tmpSearchConditionList = JSON.parse(JSON.stringify(searchConditionList));
+
+        //クエリストリングに一致する検索条件設定を取得して結合
+        queryArr.forEach((element: string) => {
+            let tmp = getFilterdSearchConditionList(tmpSearchConditionList, element);
+            retSearchConditionList = [...retSearchConditionList, ...tmp];
+        });
+    }
+
+    return retSearchConditionList;
+}
+
+
+/**
+ * ユーザーの権限に応じて検索条件をフィルターする
+ */
+export function filterSearchConditionByUserAuth(searchConditionList: searchConditionType[],
+    userAuth?: string): searchConditionType[] {
+
+    //ユーザー権限が存在しない場合は一般権限をセット
+    let convUserAuth = userAuth ?? USER_AUTH.PUBLIC;
+
+    return searchConditionList.filter((element: searchConditionType) => {
+
+        //権限チェック
+        return !Number.isNaN(element.auth) && !Number.isNaN(convUserAuth) && parseInt(convUserAuth) >= parseInt(element.auth);
+    });
 }
