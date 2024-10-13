@@ -19,20 +19,17 @@ import { TaskViewTestId } from '../tests/AppTest/DataTestId';
 
 
 //外側のスタイル
-const OuterDiv = styled.div<{ height: string | undefined }>`
+const OuterDiv = styled.div<{ height?: string, width?: string }>`
     height:${({ height }) => (height)};
-`;
-
-//ヘッダー
-const TaskHeaderDiv = styled(HeaderDiv)`
-  margin-left:3%;
+    width:${({ width }) => (width)};
 `;
 
 //入力欄
-const MainAreaDiv = styled.div`
-    height: 85%;
+const MainAreaDiv = styled.div<{ height: string }>`
+    height:${({ height }) => (height)};
     overflow-y: auto;
-    margin-left: 15%;
+    padding-left: 15%;
+    box-sizing:box-border;
 `;
 
 //太文字のスタイル
@@ -40,6 +37,11 @@ const BoldSpan = styled.span`
     font-weight: bold;
 `;
 
+//フォームのスタイル
+const FormDiv = styled.div<{ height?: string, width?: string }>`
+    height:${({ height }) => (height)};
+    width:${({ width }) => (width)};
+`;
 
 //引数の型
 type propsType = {
@@ -68,19 +70,17 @@ function TaskView(props: propsType) {
   }
 
   return (
-    <HeightDiv
+    <OuterDiv
       height='100%'
+      width='100%'
       data-testid={TaskViewTestId}
     >
-      <OuterDiv
+      <FormDiv
         height='85%'
       >
-        <TaskHeaderDiv>
-          <LabelComponent
-            title="タスク詳細"
-          />
-        </TaskHeaderDiv>
-        <MainAreaDiv>
+        <MainAreaDiv
+          height='89%'
+        >
           {/* デフォルト属性 */}
           <TaskViewForm
             viewTaskList={viewTask.default}
@@ -102,13 +102,13 @@ function TaskView(props: propsType) {
             </React.Fragment>
           }
         </MainAreaDiv>
-      </OuterDiv>
+      </FormDiv>
       <TaskViewFooter
         backPageButtonObj={backPageButtonObj}
         positiveButtonObj={positiveButtonObj}
         outerHeight='15%'
       />
-    </HeightDiv>
+    </OuterDiv>
   );
 }
 

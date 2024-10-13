@@ -25,11 +25,6 @@ export const CustomTitleDiv = styled.div`
     font-weight: bold;
 `;
 
-//ヘッダー
-const TaskHeaderDiv = styled(HeaderDiv)`
-  margin-left:3%;
-`;
-
 //引数の型
 type propsType = {
   updTaskId: string,
@@ -68,13 +63,8 @@ function TaskEdit(props: propsType) {
       <HeightDiv
         height='85%'
       >
-        <TaskHeaderDiv>
-          <LabelComponent
-            title="タスク編集"
-          />
-        </TaskHeaderDiv>
         <VerticalFlowDiv
-          height='85%'
+          height='89%'
         >
           {/* デフォルト属性 */}
           <TaskEditForm

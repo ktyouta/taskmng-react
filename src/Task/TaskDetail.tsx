@@ -10,6 +10,8 @@ import useTaskDetail from './Hook/useTaskDetail';
 import TaskView from './TaskView';
 import TaskEdit from './TaskEdit';
 import { VIEW_MODE } from '../Common/Const/CommonConst';
+import { HeaderDiv, HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import styled from 'styled-components';
 
 
 //引数の型
@@ -18,6 +20,27 @@ type propsType = {
     closeFn?: () => void,
     backBtnTitle?: string,
 }
+
+//ヘッダー
+const TaskHeaderDiv = styled(HeaderDiv) <{ height: string | undefined }>`
+  padding-left:3%;
+  padding-top:1%;
+  height:${({ height }) => (height)};
+  box-sizing:border-box;
+`;
+
+//フォーム
+const TaskFormAreaDiv = styled.div<{ height: string | undefined }>`
+  height:${({ height }) => (height)};
+  box-sizing:border-box;
+  padding-top:1%;
+`;
+
+//外側のスタイル
+const OuterDiv = styled.div<{ height?: string, width?: string }>`
+    height:${({ height }) => (height)};
+    width:${({ width }) => (width)};
+`;
 
 
 function TaskDetail(props: propsType) {
@@ -33,44 +56,55 @@ function TaskDetail(props: propsType) {
         openEditPage,
     } = useTaskDetail({ ...props });
 
-
     return (
-        <React.Fragment>
-            {
-                (() => {
-                    switch (viewMode) {
-                        //閲覧
-                        case VIEW_MODE.view:
-                            return (
-                                <TaskView
-                                    taskSettingList={taskSettingList}
-                                    generalDataList={generalDataList}
-                                    updTask={updTask}
-                                    openEditPage={openEditPage}
-                                    closeFn={props.closeFn}
-                                    backBtnTitle={props.backBtnTitle}
-                                />
-                            )
-                        //編集
-                        case VIEW_MODE.edit:
-                            return (
-                                <TaskEdit
-                                    updTaskId={props.updTaskId}
-                                    taskSettingList={taskSettingList}
-                                    generalDataList={generalDataList}
-                                    updTask={updTask}
-                                    backFn={openViewPage}
-                                    closeFn={props.closeFn}
-                                />
-                            )
-                        default:
-                            return (
-                                <React.Fragment></React.Fragment>
-                            )
-                    }
-                })()
-            }
-        </React.Fragment>
+        <OuterDiv
+            height='100%'
+        >
+            <TaskHeaderDiv
+                height='8%'
+            >
+                タスク詳細
+            </TaskHeaderDiv>
+            <TaskFormAreaDiv
+                height='92%'
+            >
+                {
+                    (() => {
+                        switch (viewMode) {
+                            //閲覧
+                            case VIEW_MODE.view:
+                                return (
+                                    <TaskView
+                                        taskSettingList={taskSettingList}
+                                        generalDataList={generalDataList}
+                                        updTask={updTask}
+                                        openEditPage={openEditPage}
+                                        closeFn={props.closeFn}
+                                        backBtnTitle={props.backBtnTitle}
+                                    />
+                                )
+                            //編集
+                            case VIEW_MODE.edit:
+                                return (
+                                    <TaskEdit
+                                        updTaskId={props.updTaskId}
+                                        taskSettingList={taskSettingList}
+                                        generalDataList={generalDataList}
+                                        updTask={updTask}
+                                        backFn={openViewPage}
+                                        closeFn={props.closeFn}
+                                    />
+                                )
+                            default:
+                                return (
+                                    <React.Fragment></React.Fragment>
+                                )
+                        }
+                    })()
+                }
+            </TaskFormAreaDiv>
+
+        </OuterDiv>
     );
 }
 
