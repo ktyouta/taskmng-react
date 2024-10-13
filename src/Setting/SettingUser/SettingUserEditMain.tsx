@@ -35,7 +35,7 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
 
 //入力欄のスタイル
 const MainDiv = styled.div`
-    height: 85%;
+    height: 90%;
     overflow-y: auto;
     padding-top:2%;
     padding-left: 8%;

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-//import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 import { Routes, Route, Navigate } from "react-router-dom";
 import SettingUserEdit from '../Setting/SettingUser/SettingUserEdit';
 import useUser from './Hook/useUser';

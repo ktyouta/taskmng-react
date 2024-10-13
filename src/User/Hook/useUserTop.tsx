@@ -62,7 +62,7 @@ function useUserTop(props: propsType) {
         isLoadinGetuser,
         positiveButtonObj: {
             title: '戻る',
-            type: "BASE",
+            type: "GRAD_GRAY",
             onclick: backPage
         } as buttonObjType,
         runButtonObj,

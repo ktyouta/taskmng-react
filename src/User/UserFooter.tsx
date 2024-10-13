@@ -40,14 +40,19 @@ function UserFooter(props: propsType) {
                     styleTypeNumber={props.positiveButtonObj.type}
                     title={props.positiveButtonObj.title}
                     onclick={props.positiveButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontWeight": "bold",
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "43%",
+                    }}
                 />
             }
             {
                 props.isEditable &&
                 <React.Fragment>
                     <SpaceComponent
-                        space={"65%"}
+                        space={"59%"}
                     />
                     {
                         props.runButtonObj &&
@@ -57,7 +62,12 @@ function UserFooter(props: propsType) {
                             styleTypeNumber={props.runButtonObj.type}
                             title={props.runButtonObj.title}
                             onclick={props.runButtonObj.onclick}
-                            style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                            style={{
+                                "fontWeight": "bold",
+                                "fontSize": "0.9rem",
+                                "width": "12%",
+                                "height": "43%",
+                            }}
                         />
                     }
                 </React.Fragment>
