@@ -37,9 +37,10 @@ type checkBoxRefInfoType = {
 }
 
 //チェックボックスリストの基本スタイル
-const OuterDiv = styled.div`
+const OuterDiv = styled.div<{ gap?: string }>`
   display:flex;
   flex-wrap: wrap;
+  gap:${({ gap }) => (gap ?? "3%")};
 `;
 
 
@@ -104,7 +105,9 @@ const LabelCheckBoxListComponent = forwardRef<refType, propsType>((props, ref) =
     };
 
     return (
-        <OuterDiv>
+        <OuterDiv
+            gap={props.labelCheckboxGap}
+        >
             {
                 checkBoxRefList && checkBoxRefList.length > 0 && checkBoxRefList.map((element, index) => {
                     let tmpTime = new Date().getTime();
@@ -120,10 +123,6 @@ const LabelCheckBoxListComponent = forwardRef<refType, propsType>((props, ref) =
                                 onChange={changeCheckBox}
                                 initValue={getInitValue(element.value, props.initValue ? props.initValue.split(",") : [])}
                                 ref={element.ref}
-                            />
-                            <SpaceComponent
-                                key={`labelcheckboxspace-${props.htmlForId ? `${props.htmlForId}-${element.value}` : element.value}`}
-                                space={props.labelCheckboxGap ?? '5%'}
                             />
                         </React.Fragment>
                     );
