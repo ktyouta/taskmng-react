@@ -81,6 +81,21 @@
 		"auth": "1"
 	},
 	{
+		"id": "userId",
+		"name": "作成ユーザー",
+		"type": "checkbox",
+		"listKey": "",
+		"isHidden": false,
+		"value": "",
+		"attribute": "default",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/03/16",
+		"deleteFlg": "0",
+		"userId": "f",
+		"description":"",
+		"auth":"1"
+	},
+	{
 		"id": "deleteFlg",
 		"name": "削除状態",
 		"type": "checkbox",

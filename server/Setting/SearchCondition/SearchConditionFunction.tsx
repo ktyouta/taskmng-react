@@ -3,7 +3,7 @@ import { authInfoType } from "../../Auth/Type/AuthType";
 import { overWriteData } from "../../Common/FileFunction";
 import { SEARCHCONDITION_FILE_PATH, SEARCHCONDITION_QUERYLRY } from "./Const/SearchConditionConst";
 import { createAddSearchCondition } from "./SearchConditionRegisterFunction";
-import { filterdQueryParamSearchCondition, filterSearchConditionByUserAuth, getFilterdSearchConditionList, getSearchConditionList, getSearchConditionObj, joinSelectListSearchCondition } from "./SearchConditionSelectFunction";
+import { filterdQueryParamSearchCondition, filterSearchConditionByUserAuth, getFilterdSearchConditionList, getSearchConditionList, getSearchConditionObj, joinSelectListSearchCondition, joinSelectListTaskSearchCondition } from "./SearchConditionSelectFunction";
 import { createUpdSearchCondition, createUpdSearchConditionList } from "./SearchConditionUpdateFunction";
 import { retSearchConditionType, searchConditionType, settingSearchConditionUpdReqType } from "./Type/SearchConditionType";
 
@@ -29,16 +29,19 @@ export function getSearchCondition(res: any, req: any) {
     //ユーザー権限でフィルター
     searchConditionList = filterSearchConditionByUserAuth(searchConditionList, userAuth);
 
-    //該当データなし
-    if (searchConditionList.length === 0) {
-        return res.status(400).json({ errMessage: `検索条件が存在しません。` });
-    }
-
     //クエリパラメータでデータをフィルターする
     let retSearchConditionList = filterdQueryParamSearchCondition(searchConditionList, req.query[SEARCHCONDITION_QUERYLRY]);
 
     //選択リストを結合
     let joinedSearchConditionList: retSearchConditionType[] = joinSelectListSearchCondition(retSearchConditionList);
+
+    //ユーザーリストと結合
+    joinedSearchConditionList = joinSelectListTaskSearchCondition(joinedSearchConditionList);
+
+    //該当データなし
+    if (joinedSearchConditionList.length === 0) {
+        return res.status(400).json({ errMessage: `検索条件が存在しません。` });
+    }
 
     return res.status(200).json(joinedSearchConditionList);
 }

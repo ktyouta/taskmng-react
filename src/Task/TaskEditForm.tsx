@@ -23,7 +23,8 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
 
 //入力欄
 const MainAreaDiv = styled.div`
-    margin-left: 15%;
+    box-sizing: border-box;
+    padding-left: 15%;
 `;
 
 function TaskEditForm(props: propsType) {

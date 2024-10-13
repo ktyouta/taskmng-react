@@ -2,8 +2,11 @@ import { USER_AUTH } from "../../Auth/Const/AuthConst";
 import { readFile } from "../../Common/FileFunction";
 import { comboType } from "../../Common/Type/CommonType";
 import { getGeneralDataList } from "../../General/GeneralSelectFunction";
+import { USER_SEARCHCONDITION_ID } from "../../Memo/Const/MemoConst";
 import { getCustomAttributeData, getCustomAttributeListData } from "../CustomAttribute/CustomAttributeSelectFunction";
 import { customAttributeListType, customAttributeType } from "../CustomAttribute/Type/CustomAttributeType";
+import { userInfoType } from "../User/Type/UserType";
+import { getUserInfoData } from "../User/UserSelectFunction";
 import { SEARCHCONDITION_FILE_PATH } from "./Const/SearchConditionConst";
 import { retSearchConditionType, searchConditionType } from "./Type/SearchConditionType";
 
@@ -143,4 +146,36 @@ export function filterSearchConditionByUserAuth(searchConditionList: searchCondi
         //権限チェック
         return !Number.isNaN(element.auth) && !Number.isNaN(convUserAuth) && parseInt(convUserAuth) >= parseInt(element.auth);
     });
+}
+
+/**
+ * ユーザーリストと結合
+ */
+export function joinSelectListTaskSearchCondition(searchConditionList: retSearchConditionType[],
+): retSearchConditionType[] {
+
+    //ユーザーリストの読み込み
+    let userList = getUserInfoData();
+
+    //ユーザープロパティの要素を取得
+    let userProperty = searchConditionList.find((element) => {
+        return element.id === USER_SEARCHCONDITION_ID;
+    });
+
+    if (!userProperty) {
+        return searchConditionList;
+    }
+
+    //ユーザーリストと結合
+    let selectList: comboType[] = userList.map((element) => {
+        return {
+            label: element.userName,
+            value: element.userId,
+        }
+    });
+
+    //ユーザーリストをセット
+    userProperty.selectList = selectList;
+
+    return searchConditionList;
 }
