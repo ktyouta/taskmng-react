@@ -14,7 +14,6 @@ import TaskViewFooter from './TaskViewFooter';
 import TaskViewForm from './TaskViewForm';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
-import { HeaderDiv, HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import { TaskViewTestId } from '../tests/AppTest/DataTestId';
 
 
@@ -29,7 +28,7 @@ const MainAreaDiv = styled.div<{ height: string }>`
     height:${({ height }) => (height)};
     overflow-y: auto;
     padding-left: 15%;
-    box-sizing:box-border;
+    box-sizing:border-box;
 `;
 
 //太文字のスタイル

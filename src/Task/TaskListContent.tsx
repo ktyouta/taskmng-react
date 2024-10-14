@@ -11,6 +11,7 @@ import LabelComponent from '../Common/LabelComponent';
 import TaskDetail from './TaskDetail';
 import { HeightDiv, WidthDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import styled from 'styled-components';
+import TaskDetailModal from './TaskDetailModal';
 
 
 //エラーメッセージエリア
@@ -83,7 +84,7 @@ function TaskListContent(props: propsType) {
                 modalIsOpen={isModalOpen}
                 closeModal={offFlag}
             >
-                <TaskDetail
+                <TaskDetailModal
                     updTaskId={updTaskId}
                     closeFn={offFlag}
                     backBtnTitle="閉じる"

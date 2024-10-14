@@ -11,7 +11,7 @@ import { SnackbarComponent } from '../Common/SnackbarComponent';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import styled from 'styled-components';
-import { BoldSpan, HeaderDiv, HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import { HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import LabelComponent from '../Common/LabelComponent';
 import { TaskEditTestId } from '../tests/AppTest/DataTestId';
 
