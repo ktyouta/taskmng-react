@@ -47,7 +47,10 @@ function SettingCustomEdit(props: propsType) {
     registerTime,
     updTime,
     editMode,
-    customAttributeId
+    customAttributeId,
+    authList,
+    caAuth,
+    setCaAuth,
   } = useSettingCustomEdit({ ...props });
 
   return (
@@ -70,6 +73,9 @@ function SettingCustomEdit(props: propsType) {
         updTime={updTime}
         editMode={editMode}
         customAttributeId={customAttributeId}
+        authList={authList}
+        caAuth={caAuth}
+        setCaAuth={setCaAuth}
       />
       <SettingCustomEditFooter
         positiveButtonObj={positiveButtonObj}

@@ -15,6 +15,7 @@ import BaseTextAreaComponent from '../../Common/BaseTextAreaComponent';
 import SpaceComponent from '../../Common/SpaceComponent';
 import HorizontalComponent from '../../Common/HorizontalComponent';
 import { editModeEnum } from '../Const/SettingConst';
+import ComboComponent from '../../Common/ComboComponent';
 
 
 //外側のスタイル
@@ -50,6 +51,9 @@ type propsType = {
     updTime: string,
     editMode: number,
     customAttributeId: string,
+    authList: radioType[] | undefined,
+    caAuth: string | undefined,
+    setCaAuth: React.Dispatch<React.SetStateAction<string | undefined>>,
 }
 
 
@@ -189,7 +193,6 @@ function SettingCustomEditMain(props: propsType) {
                                                 />
                                             </HorizontalComponent>
                                         </HorizonLabelItemComponent>
-
                                         <HorizonLabelItemComponent
                                             title={'選択項目'}
                                             width='30%'
@@ -222,6 +225,22 @@ function SettingCustomEditMain(props: propsType) {
                         }
                     })()
 
+                }
+                {
+                    props.authList &&
+                    props.authList.length > 1 &&
+                    props.caAuth !== undefined &&
+                    <HorizonLabelItemComponent
+                        title={'権限'}
+                        width='30%'
+                        position='left'
+                    >
+                        <ComboComponent
+                            combo={props.authList}
+                            initValue={props.caAuth}
+                            onChange={props.setCaAuth}
+                        />
+                    </HorizonLabelItemComponent>
                 }
                 {
                     props.editMode === editModeEnum.update &&

@@ -22,6 +22,7 @@ export type resClientCustomAttributeType = {
     updTime: string,
     userId: string,
     description: string,
+    auth: string,
 }
 
 //カスタム属性選択リストの型

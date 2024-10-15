@@ -11,6 +11,10 @@ import { buttonType } from "../../../Common/ButtonComponent";
 import { customAttributeType, resClientCustomAttributeType, selectElementListType, updCustomAttributeType } from "../Type/SettingCustomType";
 import { customAttributeIdAtom, editModeAtom } from "../Atom/SettingCustomAtom";
 import { editModeEnum } from "../../Const/SettingConst";
+import { GENERAL_DETAIL_AUTH_ID, GENERAL_DETAIL_CUSTOMTYPELIST_ID } from "../Const/SettingCustomConst";
+import { USER_AUTH } from "../../../Common/Const/CommonConst";
+import { useGlobalAtomValue } from "../../../Common/Hook/useGlobalAtom";
+import { userInfoAtom } from "../../../Content/Atom/ContentAtom";
 
 
 //引数の型
@@ -49,13 +53,17 @@ function useSettingCustomEdit(props: propsType) {
     }]);
     //カスタム属性の初期選択リスト
     const [initSelectList, setInitSelectList] = useState<selectElementListType[]>([]);
+    //カスタム属性の権限
+    const [caAuth, setCaAuth] = useState<string | undefined>();
+    // ログインユーザー情報
+    const userInfo = useGlobalAtomValue(userInfoAtom);
 
     //編集画面遷移時に更新用タスクを取得
     const { data: updCustomAttribute, isLoading: isLoadinGetCustomAttribute } = useQueryWrapper<resClientCustomAttributeType>(
         {
             url: customAttributeId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CUSTOMATTRIBUTE}/${customAttributeId}` : ``,
             //取得したデータをセット
-            afSuccessFn: (data) => {
+            afSuccessFn: (data: resClientCustomAttributeType) => {
                 setErrMessage("");
                 if (!data) {
                     return;
@@ -64,6 +72,7 @@ function useSettingCustomEdit(props: propsType) {
                 setCaDescription(data.description);
                 setCaType(data.type);
                 setCaRequired(data.required);
+                setCaAuth(data.auth);
                 //選択リストを所持している場合
                 if (data.selectElementList && data.selectElementList.length > 0) {
                     let tmpRefArray: inputRefType[] = [];
@@ -124,16 +133,51 @@ function useSettingCustomEdit(props: propsType) {
 
     //カスタム属性の形式リスト
     const caSelectList = useMemo(() => {
+
         if (!generalDataList) {
             return;
         }
+
         let tmp: radioType[] = generalDataList.filter((element) => {
-            return element.id === "4";
+            return element.id === GENERAL_DETAIL_CUSTOMTYPELIST_ID;
         }).map((element) => {
             return { label: element.label, value: element.value }
         });
+
         return tmp;
     }, [generalDataList]);
+
+    //権限リスト
+    const authList = useMemo(() => {
+
+        if (!generalDataList) {
+            return;
+        }
+
+        if (!userInfo) {
+            return;
+        }
+
+        //ユーザー権限
+        let userAuth = userInfo.auth;
+
+        if (Number.isNaN(userAuth) || Number.isNaN(USER_AUTH.PUBLIC)) {
+            return;
+        }
+
+        //ユーザーの権限が一般の場合は権限のリストを表示しない
+        if (parseInt(userAuth) > parseInt(USER_AUTH.PUBLIC)) {
+            return;
+        }
+
+        let tmp: radioType[] = generalDataList.filter((element) => {
+            return element.id === GENERAL_DETAIL_AUTH_ID;
+        }).map((element) => {
+            return { label: element.label, value: element.value }
+        });
+
+        return tmp;
+    }, [generalDataList, userInfo]);
 
     //初期値セット
     useEffect(() => {
@@ -143,6 +187,9 @@ function useSettingCustomEdit(props: propsType) {
             setCaDescription("");
             setCaType("");
             setCaRequired(false);
+            if (!Number.isNaN(USER_AUTH.PUBLIC)) {
+                setCaAuth(USER_AUTH.PUBLIC);
+            }
             return;
         }
     }, []);
@@ -376,6 +423,9 @@ function useSettingCustomEdit(props: propsType) {
         updTime,
         editMode,
         customAttributeId,
+        authList,
+        caAuth,
+        setCaAuth,
     }
 }
 
