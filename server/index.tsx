@@ -101,7 +101,7 @@ app.get(`${ENV.GENERALDETAIL}`, function (req, res) {
  * generaldetailにアクセスした際の動作(パスパラメータあり)
  */
 app.get(`${ENV.GENERALDETAIL}/:param`, function (req, res) {
-    getGeneralDetailData(req, res, req.params.param)
+    getGeneralDetailData(req, res)
 });
 
 

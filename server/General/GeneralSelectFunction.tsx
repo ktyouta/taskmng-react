@@ -17,10 +17,19 @@ export function getGeneralDataList() {
 /**
  * 汎用詳細データを取得
  */
-export function getGeneralDetailDataList(decodeGeneralDetailFileData: generalDetailType[], id: string) {
-    //汎用詳細ファイルの読み込み
-    let filterdGeneralDetail = decodeGeneralDetailFileData.filter((element) => {
-        return element.id === id;
+export function getGeneralDetailDataList(
+    decodeGeneralDetailFileData: generalDetailType[],
+    id: string) {
+
+    let idArry = id.split(",");
+    let filterdGeneralDetail: generalDetailType[] = [];
+
+    idArry.forEach((element: string,) => {
+
+        filterdGeneralDetail = [...filterdGeneralDetail, ...decodeGeneralDetailFileData.filter((item) => {
+            return item.id === element;
+        })];
     });
+
     return filterdGeneralDetail;
 }
