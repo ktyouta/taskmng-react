@@ -166,7 +166,7 @@ function useSettingCustomEdit(props: propsType) {
         }
 
         //ユーザーの権限が一般の場合は権限のリストを表示しない
-        if (parseInt(userAuth) > parseInt(USER_AUTH.PUBLIC)) {
+        if (parseInt(userAuth) <= parseInt(USER_AUTH.PUBLIC)) {
             return;
         }
 
@@ -187,9 +187,7 @@ function useSettingCustomEdit(props: propsType) {
             setCaDescription("");
             setCaType("");
             setCaRequired(false);
-            if (!Number.isNaN(USER_AUTH.PUBLIC)) {
-                setCaAuth(USER_AUTH.PUBLIC);
-            }
+            setCaAuth(USER_AUTH.PUBLIC);
             return;
         }
     }, []);
@@ -332,7 +330,8 @@ function useSettingCustomEdit(props: propsType) {
             description: "",
             type: "",
             required: false,
-            selectElementList: []
+            selectElementList: [],
+            auth: "",
         };
 
         //名称
@@ -381,6 +380,15 @@ function useSettingCustomEdit(props: propsType) {
                 return;
             }
         }
+
+        //権限
+        if (caAuth) {
+            body.auth = caAuth;
+        }
+        else {
+            body.auth = USER_AUTH.PUBLIC;
+        }
+
         body.selectElementList = selectList;
         return body;
     };

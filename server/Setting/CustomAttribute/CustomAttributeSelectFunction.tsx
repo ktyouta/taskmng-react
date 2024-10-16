@@ -1,5 +1,7 @@
 import { getFileJsonData } from "../../Common/FileFunction";
 import { comboType, inputSettingType } from "../../Common/Type/CommonType";
+import { getSearchConditionList } from "../SearchCondition/SearchConditionSelectFunction";
+import { searchConditionType } from "../SearchCondition/Type/SearchConditionType";
 import { CUSTOM_ATTRIBUTE_FILEPATH, CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, PRE_CUSTOMATTRIBUTELIST_ID, PRE_CUSTOMATTRIBUTE_ID } from "./Const/CustomAttributeConst";
 import { customAttributeListType, customAttributeType, resClientCustomAttributeType, selectElementListType } from "./Type/CustomAttributeType";
 
@@ -59,7 +61,8 @@ export function convertCustomAttribute(singleCustomAttributeData: customAttribut
         userId: "",
         deleteFlg: "",
         description: "",
-        length: ""
+        length: "",
+        auth: ""
     }
 
     Object.keys(clientCustomAttributeObj).forEach((key) => {
@@ -191,4 +194,23 @@ export function createCustomAttributeSelectListNewNo(calDecodeFileData: customAt
             return Math.max(prev, currentNm);
         }, 0);
     return `${PRE_CUSTOMATTRIBUTELIST_ID}${maxNo + 1}`;
+}
+
+/**
+ * カスタム属性の権限を取得する
+ * @param decodeFileData カスタム属性リスト
+ * @returns 
+ */
+export function getCustomAttributeAuth(singleCustomAttributeData: resClientCustomAttributeType)
+    : resClientCustomAttributeType {
+
+    //検索設定ファイルの読み込み
+    let searchConditionList: searchConditionType[] = getSearchConditionList();
+
+    //検索設定ファイルから権限を取得
+    singleCustomAttributeData.auth = searchConditionList.find((element) => {
+        return element.id === singleCustomAttributeData.id;
+    })?.auth ?? "";
+
+    return singleCustomAttributeData;
 }

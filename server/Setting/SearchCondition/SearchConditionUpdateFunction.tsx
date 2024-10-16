@@ -25,6 +25,7 @@ export function createUpdSearchCondition(searchConditionList: searchConditionTyp
     updData.name = body.name;
     updData.type = body.type;
     updData.value = body.value;
+    updData.auth = body.auth;
     updData.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
     updData.updTime = nowDate;
     updData.deleteFlg = "0";

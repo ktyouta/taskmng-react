@@ -258,5 +258,18 @@
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-21",
 		"description": ""
+	},
+	{
+		"id": "ATTRIBUTEID-23",
+		"registerTime": "2024/10/16",
+		"updTime": "2024/10/16",
+		"userId": "f",
+		"deleteFlg": "0",
+		"name": "権限テスト",
+		"type": "input",
+		"required": false,
+		"selectElementListId": "",
+		"description": "",
+		"length": "200"
 	}
 ]

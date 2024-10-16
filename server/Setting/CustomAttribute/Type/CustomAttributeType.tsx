@@ -68,6 +68,7 @@ export type reqClientCustomAttributeType = {
     deleteFlg: string,
     description: string,
     length: string,
+    auth: string,
 }
 
 //画面に返却するカスタム属性の型
@@ -84,4 +85,5 @@ export type resClientCustomAttributeType = {
     userId: string,
     description: string,
     length: string,
+    auth: string,
 }

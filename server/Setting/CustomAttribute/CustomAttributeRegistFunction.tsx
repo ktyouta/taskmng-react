@@ -213,7 +213,7 @@ export function callCreateAddSearchCondition(
         updTime: "",
         deleteFlg: "",
         userId: "",
-        auth: USER_AUTH.PUBLIC
+        auth: body.auth
     };
 
     //登録用データの作成

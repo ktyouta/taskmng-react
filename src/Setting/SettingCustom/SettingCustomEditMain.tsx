@@ -169,9 +169,9 @@ function SettingCustomEditMain(props: propsType) {
                                                 }}
                                             >
                                                 <ButtonComponent
-                                                    styleTypeNumber="GRAD_BLUE"
-                                                    title={"選択項目を追加"}
-                                                    onclick={props.addSelectElement}
+                                                    styleTypeNumber="GRAD_RED"
+                                                    title={"選択項目を削除"}
+                                                    onclick={props.deleteSelectElement}
                                                     style={{
                                                         "fontSize": "0.9rem",
                                                         "height": "80%",
@@ -182,9 +182,9 @@ function SettingCustomEditMain(props: propsType) {
                                                     space={"1%"}
                                                 />
                                                 <ButtonComponent
-                                                    styleTypeNumber="GRAD_RED"
-                                                    title={"選択項目を削除"}
-                                                    onclick={props.deleteSelectElement}
+                                                    styleTypeNumber="GRAD_BLUE"
+                                                    title={"選択項目を追加"}
+                                                    onclick={props.addSelectElement}
                                                     style={{
                                                         "fontSize": "0.9rem",
                                                         "height": "80%",

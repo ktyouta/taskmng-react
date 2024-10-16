@@ -1,9 +1,9 @@
 import { callCreateAddSearchCondition, createAddCustomAttribute, createAddCustomAttributeList, runCreateSelectList } from "./CustomAttributeRegistFunction";
 import { callCreateDelSearchCondition, createDeleteCustomAttribute, createDeleteCustomAttributeList, runDeleteSelectList } from "./CustomAttributeDeleteFunction";
 import { callCreateUpdSearchCondition, createUpdCustomAttribute, createUpdCustomAttributeList, runUpdSelectList } from "./CustomAttributeUpdateFunction";
-import { convertCustomAttribute, getCustomAttributeData, getCustomAttributeListData, joinCustomAttributeList, joinCustomAttributeSelectList } from "./CustomAttributeSelectFunction";
+import { convertCustomAttribute, getCustomAttributeAuth, getCustomAttributeData, getCustomAttributeListData, joinCustomAttributeList, joinCustomAttributeSelectList } from "./CustomAttributeSelectFunction";
 import { CUSTOM_ATTRIBUTE_FILEPATH } from "./Const/CustomAttributeConst";
-import { customAttributeListType, customAttributeType, reqClientCustomAttributeType, selectElementListType } from "./Type/CustomAttributeType";
+import { customAttributeListType, customAttributeType, reqClientCustomAttributeType, resClientCustomAttributeType, selectElementListType } from "./Type/CustomAttributeType";
 import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
 import { getFileJsonData, overWriteData } from "../../Common/FileFunction";
 import { searchConditionType } from "../SearchCondition/Type/SearchConditionType";
@@ -66,10 +66,13 @@ export function getCustomAttributeDetail(res: any, req: any, id: string) {
     }
 
     //画面返却用に型変換
-    let resClientCustomAttribute = convertCustomAttribute(singleCustomAttributeData);
+    let resClientCustomAttribute: resClientCustomAttributeType = convertCustomAttribute(singleCustomAttributeData);
 
     //選択リストを結合する
     resClientCustomAttribute = joinCustomAttributeSelectList(resClientCustomAttribute);
+
+    //検索条件から権限を取得する
+    resClientCustomAttribute = getCustomAttributeAuth(resClientCustomAttribute);
 
     return res.status(200).json(resClientCustomAttribute);
 }

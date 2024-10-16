@@ -50,13 +50,13 @@ function SettingCustomEditFooter(props: propsType) {
                 space={"36%"}
             />
             {
-                props.runButtonObj &&
-                props.runButtonObj.title &&
-                props.runButtonObj.onclick &&
+                props.deleteButtonObj &&
+                props.deleteButtonObj.title &&
+                props.deleteButtonObj.onclick &&
                 <ButtonComponent
-                    styleTypeNumber={props.runButtonObj.type}
-                    title={props.runButtonObj.title}
-                    onclick={props.runButtonObj.onclick}
+                    styleTypeNumber={props.deleteButtonObj.type}
+                    title={props.deleteButtonObj.title}
+                    onclick={props.deleteButtonObj.onclick}
                     style={{
                         "fontSize": "0.9rem",
                         "height": "42%",
@@ -68,13 +68,13 @@ function SettingCustomEditFooter(props: propsType) {
                 space={"5%"}
             />
             {
-                props.deleteButtonObj &&
-                props.deleteButtonObj.title &&
-                props.deleteButtonObj.onclick &&
+                props.runButtonObj &&
+                props.runButtonObj.title &&
+                props.runButtonObj.onclick &&
                 <ButtonComponent
-                    styleTypeNumber={props.deleteButtonObj.type}
-                    title={props.deleteButtonObj.title}
-                    onclick={props.deleteButtonObj.onclick}
+                    styleTypeNumber={props.runButtonObj.type}
+                    title={props.runButtonObj.title}
+                    onclick={props.runButtonObj.onclick}
                     style={{
                         "fontSize": "0.9rem",
                         "height": "42%",

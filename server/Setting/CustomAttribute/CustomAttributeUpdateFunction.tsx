@@ -1,7 +1,7 @@
 import { createCustomAttributeSelectListNewId, createCustomAttributeSelectListNewNo } from "./CustomAttributeSelectFunction";
 import { customAttributeListType, customAttributeType, registSelectListRetType, reqClientCustomAttributeType, retCreateUpdCustomAttributeType, selectElementListType } from "./Type/CustomAttributeType";
 import { getNowDate } from "../../Common/Function";
-import { CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH } from "./Const/CustomAttributeConst";
+import { CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, INPUT_LENGTH, TEXTAREA_LENGTH } from "./Const/CustomAttributeConst";
 import { createAddCustomAttributeList } from "./CustomAttributeRegistFunction";
 import { authInfoType } from "../../Auth/Type/AuthType";
 import { getFileJsonData, overWriteData } from "../../Common/FileFunction";
@@ -51,12 +51,21 @@ export function createUpdCustomAttribute(fileDataObj: customAttributeType[], bod
     const nowDate = getNowDate();
 
     updData.name = body.name.trim();
-    updData.length = body.length;
     updData.description = body.description;
     updData.required = body.required;
     updData.type = body.type;
     updData.updTime = nowDate;
     updData.userId = authResult.userInfo ? authResult.userInfo?.userId : "";
+
+    //フォーマットがinputまたはtextareaの場合は、maxlengthをセット
+    switch (body.type) {
+        case "input":
+            updData.length = INPUT_LENGTH;
+            break;
+        case "textarea":
+            updData.length = TEXTAREA_LENGTH;
+            break;
+    }
 
     //選択リストIDの更新
     if (body.selectElementList && body.selectElementList.length > 0) {
@@ -233,7 +242,7 @@ export function callCreateUpdSearchCondition(
         updTime: "",
         deleteFlg: "",
         userId: "",
-        auth: USER_AUTH.PUBLIC
+        auth: body.auth,
     };
 
     //更新用データの作成

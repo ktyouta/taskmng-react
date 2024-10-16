@@ -39,4 +39,5 @@ export type updCustomAttributeType = {
     type: string,
     required: boolean,
     selectElementList: selectElementListType[],
+    auth: string,
 }

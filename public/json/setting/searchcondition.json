@@ -92,8 +92,8 @@
 		"updTime": "2024/03/16",
 		"deleteFlg": "0",
 		"userId": "f",
-		"description":"",
-		"auth":"1"
+		"description": "",
+		"auth": "1"
 	},
 	{
 		"id": "deleteFlg",
@@ -394,5 +394,18 @@
 		"deleteFlg": "0",
 		"userId": "f",
 		"auth": "1"
+	},
+	{
+		"id": "ATTRIBUTEID-23",
+		"name": "権限テスト",
+		"type": "input",
+		"listKey": "",
+		"value": "",
+		"attribute": "custom",
+		"registerTime": "2024/10/16",
+		"updTime": "2024/10/16",
+		"deleteFlg": "0",
+		"userId": "f",
+		"auth": "3"
 	}
 ]
