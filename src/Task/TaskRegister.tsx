@@ -10,6 +10,8 @@ import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import styled from 'styled-components';
 import LabelComponent from '../Common/LabelComponent';
 import { BoldSpan, HeaderDiv, HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import IconComponent from '../Common/IconComponent';
+import { RxCross1 } from 'react-icons/rx';
 
 
 //引数の型
@@ -17,6 +19,35 @@ type propsType = {
   closeFn?: () => void,
 }
 
+//ヘッダータイトルのスタイル
+const HeaderTitleDiv = styled.div`
+  width: 100%;
+  height: 76%;
+  background: linear-gradient(to right, #3f86ed, #4481eb, #04befe, #3f86ed);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  padding-left: 1%;
+  border-radius: 9px;
+  position:relative;
+`;
+
+//ヘッダー
+const TaskHeaderDiv = styled(HeaderDiv) <{ height: string | undefined }>`
+  padding-left:1%;
+  height:${({ height }) => (height)};
+  box-sizing:border-box;
+  font-size:18px;
+`;
+
+//フォーム
+const TaskFormAreaDiv = styled.div<{ height: string | undefined }>`
+  height:${({ height }) => (height)};
+  box-sizing:border-box;
+  padding-top:4%;
+`;
 
 function TaskRegister(props: propsType) {
 
@@ -39,14 +70,25 @@ function TaskRegister(props: propsType) {
     <HeightDiv
       height='100%'
     >
-      <HeightDiv
-        height='85%'
+      <TaskHeaderDiv
+        height='8%'
       >
-        <HeaderDiv>
-          <LabelComponent
-            title="タスク作成"
+        <HeaderTitleDiv>
+          タスク作成
+          <IconComponent
+            icon={RxCross1}
+            onclick={props.closeFn}
+            style={{
+              "text-align": "right",
+              "position": "absolute",
+              "right": "2%",
+            }}
           />
-        </HeaderDiv>
+        </HeaderTitleDiv>
+      </TaskHeaderDiv>
+      <TaskFormAreaDiv
+        height='77%'
+      >
         <VerticalFlowDiv
           height='85%'
         >
@@ -81,7 +123,7 @@ function TaskRegister(props: propsType) {
             </React.Fragment>
           }
         </VerticalFlowDiv>
-      </HeightDiv>
+      </TaskFormAreaDiv>
       <HeightDiv
         height='15%'
       >
