@@ -1,3 +1,5 @@
+import { USER_AUTH } from "../../Auth/Const/AuthConst";
+import { authInfoType } from "../../Auth/Type/AuthType";
 import { getFileJsonData } from "../../Common/FileFunction";
 import { comboType, inputSettingType } from "../../Common/Type/CommonType";
 import { getSearchConditionList } from "../SearchCondition/SearchConditionSelectFunction";
@@ -213,4 +215,23 @@ export function getCustomAttributeAuth(singleCustomAttributeData: resClientCusto
     })?.auth ?? "";
 
     return singleCustomAttributeData;
+}
+
+/**
+ * カスタム属性のリストを権限でフィルターする
+ */
+export function getCustomAttributeByUserAuth(
+    customAttributeList: customAttributeType[],
+    filterdSearchConditionList: searchConditionType[]
+) {
+
+    return customAttributeList.filter((element) => {
+
+        //権限でフィルターした検索条件リストに存在する入力項目を取得する
+        let elementAuth = filterdSearchConditionList.find((item) => {
+            return item.id === element.id;
+        });
+
+        return elementAuth;
+    });
 }

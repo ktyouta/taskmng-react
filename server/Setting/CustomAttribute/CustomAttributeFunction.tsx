@@ -1,14 +1,16 @@
 import { callCreateAddSearchCondition, createAddCustomAttribute, createAddCustomAttributeList, runCreateSelectList } from "./CustomAttributeRegistFunction";
 import { callCreateDelSearchCondition, createDeleteCustomAttribute, createDeleteCustomAttributeList, runDeleteSelectList } from "./CustomAttributeDeleteFunction";
 import { callCreateUpdSearchCondition, createUpdCustomAttribute, createUpdCustomAttributeList, runUpdSelectList } from "./CustomAttributeUpdateFunction";
-import { convertCustomAttribute, getCustomAttributeAuth, getCustomAttributeData, getCustomAttributeListData, joinCustomAttributeList, joinCustomAttributeSelectList } from "./CustomAttributeSelectFunction";
+import { convertCustomAttribute, getCustomAttributeAuth, getCustomAttributeByUserAuth, getCustomAttributeData, getCustomAttributeListData, joinCustomAttributeList, joinCustomAttributeSelectList } from "./CustomAttributeSelectFunction";
 import { CUSTOM_ATTRIBUTE_FILEPATH } from "./Const/CustomAttributeConst";
 import { customAttributeListType, customAttributeType, reqClientCustomAttributeType, resClientCustomAttributeType, selectElementListType } from "./Type/CustomAttributeType";
 import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
 import { getFileJsonData, overWriteData } from "../../Common/FileFunction";
 import { searchConditionType } from "../SearchCondition/Type/SearchConditionType";
-import { getSearchConditionObj } from "../SearchCondition/SearchConditionSelectFunction";
+import { filterSearchConditionByUserAuth, getSearchConditionList, getSearchConditionObj } from "../SearchCondition/SearchConditionSelectFunction";
 import { SEARCHCONDITION_FILE_PATH } from "../SearchCondition/Const/SearchConditionConst";
+import { inputSettingType } from "../../Common/Type/CommonType";
+import { authInfoType } from "../../Auth/Type/AuthType";
 
 
 
@@ -83,13 +85,15 @@ export function getCustomAttributeDetail(res: any, req: any, id: string) {
  */
 export function getCustomAttributeInputSetting(res: any, req: any) {
     //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
     }
 
+    //ユーザー権限
+    let userAuth = authResult.userInfo?.auth;
     //カスタム属性の読み込み
     let customAttributeList: customAttributeType[] = getCustomAttributeData();
 
@@ -98,11 +102,20 @@ export function getCustomAttributeInputSetting(res: any, req: any) {
         return res.status(400).json({ errMessage: `カスタム属性が登録されていません。` });
     }
 
+    //検索設定ファイルの読み込み
+    let searchConditionList: searchConditionType[] = getSearchConditionList();
+
+    //ユーザー権限でフィルター
+    let filterdSearchConditionList = filterSearchConditionByUserAuth(searchConditionList, userAuth);
+
+    //権限でフィルターする
+    customAttributeList = getCustomAttributeByUserAuth(customAttributeList, filterdSearchConditionList);
+
     //カスタム属性選択リストの読み込み
-    let customAttributeSelectList = getCustomAttributeListData();
+    let customAttributeSelectList: customAttributeListType[] = getCustomAttributeListData();
 
     //選択リストと結合する
-    let retCustomAttributeList = joinCustomAttributeList(customAttributeList, customAttributeSelectList);
+    let retCustomAttributeList: inputSettingType[] = joinCustomAttributeList(customAttributeList, customAttributeSelectList);
 
     return res.status(200).json(retCustomAttributeList);
 }

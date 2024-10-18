@@ -4,6 +4,7 @@ import { userInfoType } from '../Setting/User/Type/UserType';
 import { authInfoType } from './Type/AuthType';
 import { USERINFO_FILEPATH } from '../Setting/User/Const/UserConst';
 import { readFile } from '../Common/FileFunction';
+import { USER_AUTH } from './Const/AuthConst';
 
 
 const jwt = require('jsonwebtoken');
@@ -128,7 +129,7 @@ export function checkUpdAuth(cookie: any): authInfoType {
     }
 
     //ファイルの更新権限チェック
-    if (!authResult || !authResult.userInfo || parseInt(authResult.userInfo.auth) < 2) {
+    if (!authResult || !authResult.userInfo || parseInt(authResult.userInfo.auth) < parseInt(USER_AUTH.PUBLIC)) {
         return { status: 400, errMessage: `権限がありません。` };
     }
 
