@@ -19,6 +19,14 @@ type propsType = {
 const OuterDiv = styled.div<{ height: string | undefined }>`
     height:${({ height }) => (height)};
     display:flex;
+    box-sizing: border-box;
+    padding-left: 7%;
+    padding-right: 4%;
+`;
+
+//ボタン間隔
+const SpaceDiv = styled.div`
+    flex:1;
 `;
 
 
@@ -30,9 +38,6 @@ function SettingUserEditFooter(props: propsType) {
         <OuterDiv
             height={props.outerHeight}
         >
-            <SpaceComponent
-                space={"7%"}
-            />
             {
                 props.positiveButtonObj &&
                 props.positiveButtonObj.title &&
@@ -48,12 +53,10 @@ function SettingUserEditFooter(props: propsType) {
                     }}
                 />
             }
+            <SpaceDiv />
             {
                 props.isEditable &&
                 <React.Fragment>
-                    <SpaceComponent
-                        space={"38%"}
-                    />
                     {
                         props.runButtonObj &&
                         props.runButtonObj.title &&
