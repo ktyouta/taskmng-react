@@ -12,6 +12,8 @@ import useGetTaskInputSetting from "./useGetTaskInputSetting";
 import { checkTaskRequest, createTaskRequestBody, createUpdRefArray } from "../Function/TaskFunction";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import { userInfoAtom } from "../../Content/Atom/ContentAtom";
+import { USER_AUTH } from "../../Common/Const/CommonConst";
+import { CREATE_TASK_USER_KEY } from "../Const/TaskConst";
 
 
 //引数の型
@@ -66,6 +68,49 @@ function useTaskEdit(props: propsType) {
         setRefInfoArray(createUpdRefArray(props.taskSettingList,
             props.updTask, props.generalDataList, customAttributeInputSetting, userInfo));
     }, [props.taskSettingList, props.updTask, props.generalDataList, customAttributeInputSetting, userInfo]);
+
+
+    //タスク削除フラグ
+    const isTaskDeletable = useMemo(() => {
+
+        if (!props.updTask) {
+            return false;
+        }
+
+        if (!userInfo) {
+            return false;
+        }
+
+        //ユーザーID
+        let userId = userInfo.userId;
+        //ユーザー権限
+        let userAuth = userInfo.auth;
+
+        //ユーザー権限の設定不備
+        if (Number.isNaN(userAuth)) {
+            return false;
+        }
+
+        //タスク作成ユーザーのID
+        let taskCreateUserId = props.updTask.default[CREATE_TASK_USER_KEY];
+
+        //権限ごとにフラグを返却
+        switch (userAuth) {
+            //一般
+            case USER_AUTH.PUBLIC:
+                return userId === taskCreateUserId;
+            //専用
+            case USER_AUTH.MASTER:
+                return userId === taskCreateUserId;
+            //管理者
+            case USER_AUTH.ADMIN:
+                return true;
+            default:
+                return false;
+        }
+
+    }, [props.updTask, userInfo]);
+
 
     //更新用フック
     const updMutation = useMutationWrapper({
@@ -194,6 +239,7 @@ function useTaskEdit(props: propsType) {
             onclick: refInfoArray && refInfoArray.default.length > 0 ? update : undefined
         } as buttonObjType,
         errMessage,
+        isTaskDeletable,
     }
 }
 

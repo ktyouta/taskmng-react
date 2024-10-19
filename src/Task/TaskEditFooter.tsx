@@ -12,13 +12,21 @@ type propsType = {
     deleteButtomObj: buttonObjType,
     negativeButtonObj: buttonObjType,
     positiveButtonObj: buttonObjType,
-    outerHeight: string,
+    isTaskDeletable: boolean,
 }
 
 //外側のスタイル
-const OuterDiv = styled.div<{ height: string | undefined }>`
-    height:${({ height }) => (height)};
+const OuterDiv = styled.div`
+    height:100%;
     display:flex;
+    box-sizing: border-box;
+    padding-left: 7%;
+    padding-right: 4%;
+`;
+
+//ボタン間隔
+const SpaceDiv = styled.div`
+    flex:1;
 `;
 
 
@@ -27,12 +35,7 @@ function TaskEditFooter(props: propsType) {
     console.log("TaskEditFooter render");
 
     return (
-        <OuterDiv
-            height={props.outerHeight}
-        >
-            <SpaceComponent
-                space={"10%"}
-            />
+        <OuterDiv>
             {
                 props.backPageButtonObj &&
                 props.backPageButtonObj.title &&
@@ -48,9 +51,7 @@ function TaskEditFooter(props: propsType) {
                     }}
                 />
             }
-            <SpaceComponent
-                space={"31%"}
-            />
+            <SpaceDiv />
             {
                 props.negativeButtonObj &&
                 props.negativeButtonObj.title &&
@@ -88,6 +89,7 @@ function TaskEditFooter(props: propsType) {
                 space={"3%"}
             />
             {
+                props.isTaskDeletable &&
                 props.deleteButtomObj &&
                 props.deleteButtomObj.title &&
                 props.deleteButtomObj.onclick &&

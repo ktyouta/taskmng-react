@@ -1,6 +1,9 @@
+import { USER_AUTH } from "../Auth/Const/AuthConst";
+import { authInfoType } from "../Auth/Type/AuthType";
 import { FLG } from "../Common/Const/CommonConst";
 import { getNowDate } from "../Common/Function";
 import { getGeneralDetailData } from "../General/GeneralFunction";
+import { NO_AUTH_MESSAGE } from "./Const/TaskConst";
 import { getCustomAttributeTaskObj } from "./TaskSelectFunction";
 import { taskCustomAttributeSelectType, taskListType } from "./Type/TaskType";
 
@@ -82,4 +85,35 @@ export function createMultiDeleteCustomAttributeData(customDecodeFileDatas: task
     });
 
     return customDecodeFileDatas;
+}
+
+/**
+ * 削除可能チェック
+ */
+export function checkDeletable(delTask: taskListType, authResult: authInfoType) {
+
+    //タスク作成ユーザー
+    let createTaskUserId = delTask.userId;
+    //ユーザーID
+    let userId = authResult.userInfo?.userId;
+    //ユーザー権限
+    let userAuth = authResult.userInfo?.auth;
+    //エラーメッセージ
+    let errMessage = "";
+
+    switch (userAuth) {
+        //一般
+        case USER_AUTH.PUBLIC:
+            errMessage = createTaskUserId === userId ? "" : NO_AUTH_MESSAGE;
+            break;
+        //専用
+        case USER_AUTH.EXCLUSIVE:
+            errMessage = createTaskUserId === userId ? "" : NO_AUTH_MESSAGE;
+            break;
+        //管理者
+        case USER_AUTH.ADMIN:
+            break;
+    }
+
+    return errMessage;
 }

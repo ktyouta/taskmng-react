@@ -18,3 +18,5 @@ export const TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH = `${TRANSACTION}${CUSTOM
 export const SEARCHCONDITION_KEY_DEFAULT = "default";
 //カスタム属性用の検索条件取得キー
 export const CUSTOMATTRIBUTE_KEY_DEFAULT = "custom";
+//出力エラー内容(削除権限なし)
+export const NO_AUTH_MESSAGE = "タスクの削除権限がありません。";

@@ -114,7 +114,7 @@ export type displayTaskType = {
 
 //APIから取得するタスク詳細の型
 export type apiTaskDetailType = {
-    default: viewTaskType[],
+    default: taskListType,
     customAttribute: customAttributeListType[],
 }
 

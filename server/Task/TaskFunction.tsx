@@ -1,5 +1,5 @@
 import { getGeneralDetailData } from "../General/GeneralFunction";
-import { createDeleteCustomAttributeData, createDeleteTaskData, createMultiDeleteCustomAttributeData, createMultiDeleteTaskData } from "./TaskDeleteFunction";
+import { checkDeletable, createDeleteCustomAttributeData, createDeleteTaskData, createMultiDeleteCustomAttributeData, createMultiDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
 import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
 import { convDefaultTask, createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, getTasksByUserAuth, joinCustomAttribute } from "./TaskSelectFunction";
@@ -241,17 +241,39 @@ export function runDeleteTask(res: any, req: any, delTaskId: string) {
     if (!delTaskId) {
         return res
             .status(400)
-            .json({ errMessage: `パラメータが不正です。` });
+            .json({ errMessage: `パスパラメータが不正です。` });
     }
 
     //タスクファイルの読み込み
     let decodeFileData: taskListType[] = getTaskObj();
 
+    //削除対象のタスクを取得
+    let delTask = decodeFileData.find((element) => {
+        return element.id === delTaskId;
+    });
+
+    //削除対象のタスクが存在しない
+    if (!delTask) {
+        return res
+            .status(400)
+            .json({ errMessage: `削除対象のタスクが存在しません。` });
+    }
+
+    //削除可能チェック
+    let errMessage = checkDeletable(delTask, authResult);
+
+    //登録更新削除に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
     //削除用データの作成
     let registData = createDeleteTaskData(decodeFileData, delTaskId);
 
     //データを登録
-    let errMessage = overWriteData(TASK_FILEPATH, JSON.stringify(registData, null, '\t'));
+    errMessage = overWriteData(TASK_FILEPATH, JSON.stringify(registData, null, '\t'));
 
     //登録更新削除に失敗
     if (errMessage) {

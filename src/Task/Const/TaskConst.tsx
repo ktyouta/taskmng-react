@@ -49,3 +49,5 @@ export const DEFAULT_STATUS_BODERCOLOR = "#c0c0c0";
 export const DELETE_BBACKCOLOR = "#a9a9a9";
 //コンテンツのボーダーカラー(削除済み)
 export const DELETE_BODERCOLOR = "#333333";
+//タスク作成ユーザーのキー
+export const CREATE_TASK_USER_KEY = "userId";

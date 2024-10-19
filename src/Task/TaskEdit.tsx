@@ -47,7 +47,8 @@ function TaskEdit(props: propsType) {
     negativeButtonObj,
     positiveButtonObj,
     deleteButtonObj,
-    errMessage, } = useTaskEdit({ ...props });
+    errMessage,
+    isTaskDeletable, } = useTaskEdit({ ...props });
 
 
   //ローディング
@@ -104,7 +105,7 @@ function TaskEdit(props: propsType) {
           negativeButtonObj={negativeButtonObj}
           deleteButtomObj={deleteButtonObj}
           positiveButtonObj={positiveButtonObj}
-          outerHeight='100%'
+          isTaskDeletable={isTaskDeletable}
         />
       </HeightDiv>
       {/* ローディング */}
