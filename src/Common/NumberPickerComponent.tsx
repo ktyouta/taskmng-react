@@ -55,7 +55,7 @@ const NumberPickerComponent = forwardRef<refType, propsType>((props, ref) => {
             onChange={value => { onChange(value) }}
             disabled={props.disabled}
             min={0}
-            style={{ backgroundColor: props.bgColor ?? "" }}
+            style={{ backgroundColor: props.bgColor ?? "", position: "static" }}
         />
     );
 })

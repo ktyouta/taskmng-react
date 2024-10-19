@@ -17,6 +17,14 @@ type propsType = {
 const OuterDiv = styled.div<{ height: string | undefined }>`
     height:${({ height }) => (height)};
     display:flex;
+    box-sizing: border-box;
+    padding-left: 7%;
+    padding-right: 4%;
+`;
+
+//ボタン間隔
+const SpaceDiv = styled.div`
+    flex:1;
 `;
 
 
@@ -28,9 +36,6 @@ function SettingCategoryEditFooter(props: propsType) {
         <OuterDiv
             height={props.outerHeight}
         >
-            <SpaceComponent
-                space={"8%"}
-            />
             {
                 props.positiveButtonObj &&
                 props.positiveButtonObj.title &&
@@ -42,13 +47,11 @@ function SettingCategoryEditFooter(props: propsType) {
                     style={{
                         "fontSize": "0.9rem",
                         "height": "42%",
-                        "width": "14%",
+                        "width": "16%",
                     }}
                 />
             }
-            <SpaceComponent
-                space={"38%"}
-            />
+            <SpaceDiv />
             {
                 props.runButtonObj &&
                 props.runButtonObj.title &&
@@ -60,7 +63,7 @@ function SettingCategoryEditFooter(props: propsType) {
                     style={{
                         "fontSize": "0.9rem",
                         "height": "42%",
-                        "width": "14%",
+                        "width": "16%",
                     }}
                 />
             }
@@ -78,7 +81,7 @@ function SettingCategoryEditFooter(props: propsType) {
                     style={{
                         "fontSize": "0.9rem",
                         "height": "42%",
-                        "width": "14%",
+                        "width": "16%",
                     }}
                 />
             }
