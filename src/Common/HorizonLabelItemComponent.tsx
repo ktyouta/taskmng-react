@@ -45,6 +45,9 @@ const ElementDiv = styled.div<{ width?: string, color?: string, position?: posit
     width:${({ width }) => (width)};
     text-align:${({ position }) => (position)};
     height:${({ height }) => (height)};
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+    padding-left: 5%;
 `;
 
 /**

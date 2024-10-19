@@ -29,6 +29,7 @@ const MainAreaDiv = styled.div<{ height: string }>`
     overflow-y: auto;
     padding-left: 15%;
     box-sizing:border-box;
+    padding-right: 2%;
 `;
 
 //太文字のスタイル

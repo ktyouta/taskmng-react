@@ -17,11 +17,6 @@ import styled from "styled-components";
 import HorizonLabelItemComponent from "../../Common/HorizonLabelItemComponent";
 
 
-//表示欄のスタイル
-const ValueSpan = styled.span`
-    width:80%
-`;
-
 //引数の型
 type propsType = {
     viewTaskList: viewTaskType[],
@@ -44,9 +39,7 @@ function useTaskViewForm(props: propsType) {
                     width="20%"
                     key={`dynamicform-${index}`}
                 >
-                    <ValueSpan>
-                        {element.value}
-                    </ValueSpan>
+                    {element.value}
                 </HorizonLabelItemComponent>
             );
         });
