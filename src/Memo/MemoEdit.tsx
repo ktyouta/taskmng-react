@@ -7,7 +7,6 @@ import MemoEditFooter from './MemoEditFooter';
 import MemoEditForm from './MemoEditForm';
 import { generalDataType } from '../Common/Type/CommonType';
 import { apiMemoDetailType, inputMemoSettingType, memoListType, tagListResType } from './Type/MemoType';
-import { SnackbarComponent } from '../Common/SnackbarComponent';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import styled from 'styled-components';

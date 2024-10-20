@@ -28,7 +28,7 @@ function useTaskRegister(props: propsType) {
     //入力参照用リスト
     const [refInfoArray, setRefInfoArray] = useState<editDisplayTaskType>();
     //スナックバーに表示する登録更新時のエラーメッセージ
-    const [errMessage, setErrMessage] = useState("");
+    const [errMessage, setErrMessage] = useState<string>();
 
     //入力欄設定リスト
     const { taskSettingList } = useGetTaskInputSetting();

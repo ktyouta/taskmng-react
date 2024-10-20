@@ -1,6 +1,5 @@
 import '../App.css';
 import LabelComponent from '../Common/LabelComponent';
-import { SnackbarComponent } from '../Common/SnackbarComponent';
 import { refInfoType } from '../Common/Type/CommonType';
 import styled from 'styled-components';
 import { editDisplayTaskType } from './Type/TaskType';
@@ -12,7 +11,6 @@ import DynamicFormComponent from '../Common/DynamicFormComponent';
 //引数の型
 type propsType = {
     refInfoArray: refInfoType[] | undefined,
-    errMessage: string,
     outerHeight: string,
 }
 

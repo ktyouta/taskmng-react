@@ -12,6 +12,9 @@ import LabelComponent from '../Common/LabelComponent';
 import { BoldSpan, HeaderDiv, HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import IconComponent from '../Common/IconComponent';
 import { RxCross1 } from 'react-icons/rx';
+import { SnackbarComponent } from '../Common/SnackbarComponent';
+import { TASK_SNACKBAR_INNER_STYLE, TASK_SNACKBAR_OUTER_STYLE } from './Const/TaskConst';
+import TaskErrMessage from './TaskErrMessage';
 
 
 //引数の型
@@ -99,7 +102,6 @@ function TaskRegister(props: propsType) {
             refInfoArray.default.length > 0 &&
             <TaskEditForm
               refInfoArray={refInfoArray.default}
-              errMessage={errMessage}
               outerHeight='auto'
             />
           }
@@ -117,11 +119,14 @@ function TaskRegister(props: propsType) {
               </HorizonLabelItemComponent>
               <TaskEditForm
                 refInfoArray={refInfoArray.customAttribute}
-                errMessage={errMessage}
                 outerHeight='auto'
               />
             </React.Fragment>
           }
+          {/* エラーメッセージ用スナックバー */}
+          <TaskErrMessage
+            errMessage={errMessage}
+          />
         </VerticalFlowDiv>
       </TaskFormAreaDiv>
       <HeightDiv

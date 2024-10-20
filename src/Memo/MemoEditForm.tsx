@@ -1,6 +1,5 @@
 import '../App.css';
 import LabelComponent from '../Common/LabelComponent';
-import { SnackbarComponent } from '../Common/SnackbarComponent';
 import { refInfoType } from '../Common/Type/CommonType';
 import styled from 'styled-components';
 import { tagListResType } from './Type/MemoType';

@@ -771,7 +771,6 @@ export function createTabItems(taskSearchRefInfo: taskSearchConditionRefType) {
                 />
                 <TaskEditForm
                     refInfoArray={taskSearchRefInfo[objKey]}
-                    errMessage={""}
                     outerHeight='auto'
                 />
             </React.Fragment>

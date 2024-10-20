@@ -14,6 +14,8 @@ import styled from 'styled-components';
 import { HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import LabelComponent from '../Common/LabelComponent';
 import { TaskEditTestId } from '../tests/AppTest/DataTestId';
+import { TASK_SNACKBAR_INNER_STYLE, TASK_SNACKBAR_OUTER_STYLE } from './Const/TaskConst';
+import TaskErrMessage from './TaskErrMessage';
 
 
 //カスタム属性の文言のスタイル
@@ -70,7 +72,6 @@ function TaskEdit(props: propsType) {
           {/* デフォルト属性 */}
           <TaskEditForm
             refInfoArray={refInfoArray.default}
-            errMessage={errMessage}
             outerHeight='auto'
           />
           {/* カスタム属性 */}
@@ -84,16 +85,13 @@ function TaskEdit(props: propsType) {
               </CustomTitleDiv>
               <TaskEditForm
                 refInfoArray={refInfoArray.customAttribute}
-                errMessage={errMessage}
                 outerHeight='auto'
               />
             </React.Fragment>
           }
           {/* エラーメッセージ用スナックバー */}
-          <SnackbarComponent
-            open={!!errMessage}
-            message={errMessage}
-            severity='error'
+          <TaskErrMessage
+            errMessage={errMessage}
           />
         </VerticalFlowDiv>
       </HeightDiv>

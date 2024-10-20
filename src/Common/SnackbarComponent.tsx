@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Snackbar } from '@mui/material'
 import MuiAlert, { AlertColor, AlertProps } from '@mui/material/Alert'
+import { useEffect } from 'react'
 
 /** スナックバーの表示をカスタマイズ */
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
@@ -8,34 +9,43 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 })
 
 //引数の型
-type props = {
+type propsType = {
     open: boolean
     message: string
     severity?: AlertColor
-    onClose?: () => void
+    onClose?: () => void,
+    outerStyle?: { [key: string]: string },
+    innerStyle?: { [key: string]: string },
+    noFocus?: boolean,
 }
 
 
-export const SnackbarComponent: React.FC<props> = ({
-    open, message, severity = 'info', onClose
-}) => {
+export const SnackbarComponent: React.FC<propsType> = (props) => {
+
+    const focusRef = React.useRef<HTMLElement>(null);
+
+    //コンポーネント表示時にスクロールする
+    useEffect(() => {
+        if (!props.noFocus && focusRef.current) {
+            focusRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, []);
+
     return (
         <Snackbar
-            open={open}
-            onClose={onClose}
-            style={{ position: "initial" }}
+            open={props.open}
+            onClose={props.onClose}
+            style={{ position: "initial", ...props.outerStyle }}
+            ref={focusRef}
         >
             <Alert
-                severity={severity}
+                severity={props.severity}
                 style={{
-                    width: "50vw",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    marginBottom: "2%",
                     overflowWrap: "break-word",
-                    textAlign:"left"
+                    textAlign: "left",
+                    ...props.innerStyle,
                 }}>
-                {message}
+                {props.message}
             </Alert>
         </Snackbar>
     )

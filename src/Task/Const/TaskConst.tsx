@@ -51,3 +51,12 @@ export const DELETE_BBACKCOLOR = "#a9a9a9";
 export const DELETE_BODERCOLOR = "#333333";
 //タスク作成ユーザーのキー
 export const CREATE_TASK_USER_KEY = "userId";
+//SnackBarのスタイル(外側)
+export const TASK_SNACKBAR_OUTER_STYLE = {
+    "paddingLeft": "13%",
+    "boxSizing": "border-box"
+};
+//SnackBarのスタイル(内側)
+export const TASK_SNACKBAR_INNER_STYLE = {
+    "width": "89%",
+};
