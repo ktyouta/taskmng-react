@@ -9,10 +9,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { editModeAtom, userIdAtom } from '../../Setting/SettingUser/Atom/SettingUserAtom';
 import { editModeEnum } from '../../Setting/Const/SettingConst';
 import { userInfoType } from '../../Common/Type/CommonType';
-import { GET_WORKHISTORY_INTERVAL, LOGIN_PATH, NOWPATH_STRAGEKEY, REACTQUERY_GETWORKHISTORY_KEY, UNREAD_NUM_CONNECT, UNREAD_NUM_KEY, USER_PATH } from '../Const/HeaderConst';
+import { GET_WORKHISTORY_INTERVAL, LOGIN_PATH, NOWPATH_STRAGEKEY, REACTQUERY_GETWORKHISTORY_KEY, USER_PATH } from '../Const/HeaderConst';
 import useSwitch from '../../Common/Hook/useSwitch';
 import { USERID_STRAGEKEY } from '../../Common/Const/CommonConst';
-import { clientMenuListAtom } from '../../Content/Atom/ContentAtom';
+import { clientMenuListAtom, userInfoAtom } from '../../Content/Atom/ContentAtom';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import { taskHistoryType } from '../../Home/Type/HomeType';
 import { workHistoryObjType } from '../Type/HeaderType';
@@ -37,6 +37,8 @@ function useHeader(props: propsType) {
     const [workHistoryObj, setWorkHistoryObj] = useState<workHistoryObjType>();
     //作業履歴モーダル表示フラグ
     const { flag: isOpenModal, onFlag: openModal, offFlag: closeModal } = useSwitch();
+    //ユーザー情報
+    const userInfo = useGlobalAtomValue(userInfoAtom);
 
     //作業履歴リストを取得
     const {
@@ -50,14 +52,25 @@ function useHeader(props: propsType) {
             queryKey: [REACTQUERY_GETWORKHISTORY_KEY],
             afSuccessFn: (data: taskHistoryType[]) => {
 
+                if (!data) {
+                    return;
+                }
+
+                if (!userInfo) {
+                    return;
+                }
+
+                //ユーザーID
+                let userId = userInfo.userId;
+
                 //ローカルストレージから未読件数情報をリスト取得する
-                let nowDiffInfoArr = getUnReadNumInfo();
+                let nowDiffInfoArr = getUnReadNumInfo(userId);
 
                 //新たに保存する未読件数情報を作成する
                 let latestUnReadInfo = createNewUnReadInfo(nowDiffInfoArr, data);
 
                 //未読件数情報をローカルストレージに保存する
-                setUnreadCount(latestUnReadInfo.unReadInfo);
+                setUnreadCount(latestUnReadInfo.unReadInfo, userInfo.userId);
 
                 //差分なし
                 if (latestUnReadInfo.preDiff <= 0 && workHistoryObj) {
@@ -71,6 +84,43 @@ function useHeader(props: propsType) {
             }
         }
     );
+
+
+    //通知件数を取得
+    // useEffect(() => {
+
+    //     if (!workHistory) {
+    //         return;
+    //     }
+
+    //     if (!userInfo) {
+    //         return;
+    //     }
+
+    //     //ユーザーID
+    //     let userId = userInfo.userId;
+
+    //     //ローカルストレージから未読件数情報をリスト取得する
+    //     let nowDiffInfoArr = getUnReadNumInfo(userId);
+
+    //     //新たに保存する未読件数情報を作成する
+    //     let latestUnReadInfo = createNewUnReadInfo(nowDiffInfoArr, workHistory);
+
+    //     //未読件数情報をローカルストレージに保存する
+    //     setUnreadCount(latestUnReadInfo.unReadInfo, userInfo.userId);
+
+    //     //差分なし
+    //     if (latestUnReadInfo.preDiff <= 0 && workHistoryObj) {
+    //         return;
+    //     }
+
+    //     setWorkHistoryObj({
+    //         workHistoryList: workHistory,
+    //         historyListPreDiffLen: latestUnReadInfo.diff
+    //     });
+
+    // }, [workHistory, userInfo]);
+
 
     /**
      * ログアウト
@@ -118,10 +168,14 @@ function useHeader(props: propsType) {
             return;
         }
 
+        if (!userInfo) {
+            return;
+        }
+
         const unReadNum = 0;
 
         //未読件数を0件でローカルストレージに保存する
-        setUnreadCount(`${unReadNum}-${workHistoryObj.workHistoryList.length}`);
+        setUnreadCount(`${unReadNum}-${workHistoryObj.workHistoryList.length}`, userInfo.userId);
 
         setWorkHistoryObj({
             workHistoryList: workHistoryObj.workHistoryList,
@@ -141,10 +195,14 @@ function useHeader(props: propsType) {
             return;
         }
 
+        if (!userInfo) {
+            return;
+        }
+
         const unReadNum = 0;
 
         //未読件数を0件でローカルストレージに保存する
-        setUnreadCount(`${unReadNum}-${workHistoryObj?.workHistoryList.length}`);
+        setUnreadCount(`${unReadNum}-${workHistoryObj?.workHistoryList.length}`, userInfo.userId);
 
         closeModal();
     };

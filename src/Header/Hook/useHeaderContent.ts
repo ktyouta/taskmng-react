@@ -9,7 +9,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { editModeAtom, userIdAtom } from '../../Setting/SettingUser/Atom/SettingUserAtom';
 import { editModeEnum } from '../../Setting/Const/SettingConst';
 import { userInfoType } from '../../Common/Type/CommonType';
-import { DELETE_ON, GET_WORKHISTORY_INTERVAL, LOGIN_PATH, NOWPATH_STRAGEKEY, REACTQUERY_GETWORKHISTORY_KEY, UNREAD_NUM_CONNECT, UNREAD_NUM_KEY, USER_PATH } from '../Const/HeaderConst';
+import { DELETE_ON, } from '../Const/HeaderConst';
 import useSwitch from '../../Common/Hook/useSwitch';
 import { USERID_STRAGEKEY } from '../../Common/Const/CommonConst';
 import { clientMenuListAtom } from '../../Content/Atom/ContentAtom';

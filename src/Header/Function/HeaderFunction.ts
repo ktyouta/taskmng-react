@@ -5,21 +5,21 @@ import { localSaveUnReadObjType, unReadObjType } from "../Type/HeaderType";
 /**
  * 未読件数をローカルストレージに保存する
  */
-export function setUnreadCount(num: string) {
+export function setUnreadCount(num: string, userId: string) {
 
-    localStorage.setItem(UNREAD_NUM_KEY, num);
+    localStorage.setItem(`${UNREAD_NUM_KEY}-${userId}`, num);
 }
 
 /**
  * ローカルストレージから未読件数情報を取得してリストで返却
  */
-export function getUnReadNumInfo(): unReadObjType {
+export function getUnReadNumInfo(userId: string): unReadObjType {
 
     //未読件数情報初期化用
     const INIT_NOWDIFF_INFO = `${UN_READ_NUM_ZERO}${UNREAD_NUM_CONNECT}${DATALIST_LEN_ZERO}`;
 
     //ローカルストレージから未読件数情報を取得する
-    let nowDiffInfo = localStorage.getItem(UNREAD_NUM_KEY);
+    let nowDiffInfo = localStorage.getItem(`${UNREAD_NUM_KEY}-${userId}`);
 
     if (!nowDiffInfo) {
         nowDiffInfo = INIT_NOWDIFF_INFO;
