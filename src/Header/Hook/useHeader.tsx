@@ -4,7 +4,7 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import ENV from '../../env.json';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { useGlobalAtom, useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
+import { useGlobalAtom, useGlobalAtomValue, useSetGlobalAtom } from '../../Common/Hook/useGlobalAtom';
 import { useEffect, useMemo, useState } from 'react';
 import { editModeAtom, userIdAtom } from '../../Setting/SettingUser/Atom/SettingUserAtom';
 import { editModeEnum } from '../../Setting/Const/SettingConst';
@@ -39,6 +39,8 @@ function useHeader(props: propsType) {
     const { flag: isOpenModal, onFlag: openModal, offFlag: closeModal } = useSwitch();
     //ユーザー情報
     const userInfo = useGlobalAtomValue(userInfoAtom);
+    //ユーザー情報
+    const setUserInfo = useSetGlobalAtom(userInfoAtom);
 
     //作業履歴リストを取得
     const {
@@ -64,7 +66,7 @@ function useHeader(props: propsType) {
                 let userId = userInfo.userId;
 
                 //ローカルストレージから未読件数情報をリスト取得する
-                let nowDiffInfoArr = getUnReadNumInfo(userId);
+                let nowDiffInfoArr = getUnReadNumInfo(userId, data);
 
                 //新たに保存する未読件数情報を作成する
                 let latestUnReadInfo = createNewUnReadInfo(nowDiffInfoArr, data);
@@ -86,42 +88,6 @@ function useHeader(props: propsType) {
     );
 
 
-    //通知件数を取得
-    // useEffect(() => {
-
-    //     if (!workHistory) {
-    //         return;
-    //     }
-
-    //     if (!userInfo) {
-    //         return;
-    //     }
-
-    //     //ユーザーID
-    //     let userId = userInfo.userId;
-
-    //     //ローカルストレージから未読件数情報をリスト取得する
-    //     let nowDiffInfoArr = getUnReadNumInfo(userId);
-
-    //     //新たに保存する未読件数情報を作成する
-    //     let latestUnReadInfo = createNewUnReadInfo(nowDiffInfoArr, workHistory);
-
-    //     //未読件数情報をローカルストレージに保存する
-    //     setUnreadCount(latestUnReadInfo.unReadInfo, userInfo.userId);
-
-    //     //差分なし
-    //     if (latestUnReadInfo.preDiff <= 0 && workHistoryObj) {
-    //         return;
-    //     }
-
-    //     setWorkHistoryObj({
-    //         workHistoryList: workHistory,
-    //         historyListPreDiffLen: latestUnReadInfo.diff
-    //     });
-
-    // }, [workHistory, userInfo]);
-
-
     /**
      * ログアウト
      */
@@ -129,6 +95,9 @@ function useHeader(props: propsType) {
         Object.keys(cookie).forEach((key) => {
             removeCookie(key, { path: '/' });
         });
+
+        //ユーザー情報をリセットしてログイン画面に遷移する
+        setUserInfo(undefined);
         navigate(LOGIN_PATH);
     }
 

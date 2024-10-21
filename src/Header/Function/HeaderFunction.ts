@@ -13,10 +13,10 @@ export function setUnreadCount(num: string, userId: string) {
 /**
  * ローカルストレージから未読件数情報を取得してリストで返却
  */
-export function getUnReadNumInfo(userId: string): unReadObjType {
+export function getUnReadNumInfo(userId: string, data: taskHistoryType[]): unReadObjType {
 
-    //未読件数情報初期化用
-    const INIT_NOWDIFF_INFO = `${UN_READ_NUM_ZERO}${UNREAD_NUM_CONNECT}${DATALIST_LEN_ZERO}`;
+    //未読件数情報初期化用(取得した作業件数を表示する)
+    const INIT_NOWDIFF_INFO = `${data.length}${UNREAD_NUM_CONNECT}${data.length}`;
 
     //ローカルストレージから未読件数情報を取得する
     let nowDiffInfo = localStorage.getItem(`${UNREAD_NUM_KEY}-${userId}`);
