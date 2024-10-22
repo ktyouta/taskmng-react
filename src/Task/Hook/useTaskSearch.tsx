@@ -20,13 +20,18 @@ import { taskListUrlAtom, taskSearchConditionObjAtom } from "../Atom/TaskAtom";
 import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY, TASK_SEARCH_URL } from "../Const/TaskConst";
 
 
+//引数の型
+type propsType = {
+    taskSearchConditionList: taskSearchConditionType[] | undefined
+}
+
 
 /**
  * TaskSearchコンポーネントのビジネスロジック
  * @param selectedMaster 
  * @returns 
  */
-function useTaskSearch() {
+function useTaskSearch(props: propsType) {
 
     //タスクリスト取得用URL
     const setTaskListUrl = useSetAtom(taskListUrlAtom);
@@ -42,12 +47,6 @@ function useTaskSearch() {
     //ルーティング用
     const navigate = useNavigate();
 
-
-    //検索条件の設定リスト
-    const { data: taskSearchConditionList } = useQueryWrapper<taskSearchConditionType[]>({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}${SEARCHCONDITION_QUERY_KEY}${SEARCHCONDITION_KEY_DEFAULT},${SEARCHCONDITION_KEY_CUSTOM}`,
-    });
-
     /**
      * 初期表示タスク取得用URLと検索条件オブジェクトの作成
      */
@@ -55,7 +54,7 @@ function useTaskSearch() {
 
     //現在の検索条件(画面表示用)
     const displaySearchConditionList = useMemo(() => {
-        if (!taskSearchConditionList) {
+        if (!props.taskSearchConditionList) {
             return;
         }
         if (!searchConditionObj) {
@@ -63,8 +62,8 @@ function useTaskSearch() {
         }
 
         //検索条件のdomを作成
-        return createSearchDispCondition(taskSearchConditionList, searchConditionObj);
-    }, [searchConditionObj, taskSearchConditionList]);
+        return createSearchDispCondition(props.taskSearchConditionList, searchConditionObj);
+    }, [searchConditionObj, props.taskSearchConditionList]);
 
 
     /**
@@ -83,18 +82,18 @@ function useTaskSearch() {
      * クリアボタン押下
      */
     function clickClearBtn() {
-        if (!taskSearchConditionList) {
+        if (!props.taskSearchConditionList) {
             return;
         }
 
-        createDefaultUrlCondition({ taskSearchConditionList });
+        createDefaultUrlCondition({ taskSearchConditionList: props.taskSearchConditionList });
     }
 
     /**
      * モーダルオープンイベント
      */
     function openModal() {
-        if (!taskSearchConditionList) {
+        if (!props.taskSearchConditionList) {
             return;
         }
         if (!searchConditionObj) {
@@ -102,7 +101,7 @@ function useTaskSearch() {
         }
 
         //検索条件の参照を作成
-        setTaskSearchRefInfo(createSearchRefArray(taskSearchConditionList, searchConditionObj));
+        setTaskSearchRefInfo(createSearchRefArray(props.taskSearchConditionList, searchConditionObj));
         onFlag();
     }
 

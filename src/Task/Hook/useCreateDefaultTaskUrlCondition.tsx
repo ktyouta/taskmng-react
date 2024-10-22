@@ -31,6 +31,7 @@ function useCreateDefaultTaskUrlCondition() {
      * 初期表示タスク取得用URLと検索条件オブジェクトの作成
      */
     const createDefaultUrlCondition = (props: propsType) => {
+
         //クエリパラメータが存在する場合はスキップ
         if (window.location.search && props.querySkipFlg) {
             return;
@@ -39,6 +40,7 @@ function useCreateDefaultTaskUrlCondition() {
         let tmpCondition: { [key: string]: string } = {};
         let tmpUrl = `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`;
         let query = "?";
+
         props.taskSearchConditionList.forEach((element) => {
             //値が存在するプロパティをクエリストリングに設定
             if (!element.value) {
@@ -50,9 +52,11 @@ function useCreateDefaultTaskUrlCondition() {
             query += `${element.id}=${element.value}`;
             tmpCondition[element.id] = element.value;
         });
+
         if (query.length > 1) {
             tmpUrl += query;
         }
+
         //初期表示タスク取得用URLの作成
         setTaskListUrl(tmpUrl);
         //検索条件オブジェクトの作成

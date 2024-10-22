@@ -13,7 +13,13 @@ import ModalComponent from '../Common/ModalComponent';
 import TaskCondition from './TaskCondition';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import styled from 'styled-components';
+import { taskSearchConditionType } from './Type/TaskType';
 
+
+//引数の型
+type propsType = {
+    taskSearchConditionList: taskSearchConditionType[] | undefined
+}
 
 const TaskSearchAreaDiv = styled.div`
     height: 100%;
@@ -40,7 +46,7 @@ const TaskSearchButtonAreaDiv = styled.div`
     align-items: center;
 `;
 
-function TaskSearch() {
+function TaskSearch(props: propsType) {
 
     console.log("TaskSearch render");
 
@@ -53,7 +59,7 @@ function TaskSearch() {
         taskSearchRefInfo,
         displaySearchConditionList,
         closeModal,
-    } = useTaskSearch();
+    } = useTaskSearch({ ...props });
 
     return (
         <HeightDiv

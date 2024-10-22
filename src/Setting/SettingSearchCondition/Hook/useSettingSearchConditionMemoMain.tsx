@@ -3,7 +3,6 @@ import ENV from '../../../env.json';
 import { buttonObjType, refInfoType } from "../../../Common/Type/CommonType";
 import useQueryWrapper from "../../../Common/Hook/useQueryWrapper";
 import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../../../Task/Const/TaskConst";
-import useCreateDefaultTaskUrlCondition from "../../../Task/Hook/useCreateDefaultTaskUrlCondition";
 import { useAtom } from "jotai";
 import useMutationWrapper, { errResType, resType } from "../../../Common/Hook/useMutationWrapper";
 import { settingSearchConditionUpdReqType, settingSearchConditionUpdType } from "../Type/SettingSearchConditionType";

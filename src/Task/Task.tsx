@@ -27,6 +27,7 @@ function Task(props: propsType) {
   const {
     detailRoutingId,
     backPageFunc,
+    taskSearchConditionList,
   } = useTask({ ...props });
 
   return (
@@ -40,7 +41,9 @@ function Task(props: propsType) {
           element={
             <TaskMain
               path={props.path}
-            />}
+              taskSearchConditionList={taskSearchConditionList}
+            />
+          }
         />
         {/* タスク詳細画面のルーティング */}
         {

@@ -11,10 +11,12 @@ import TaskList from './TaskList';
 import TaskListContent from './TaskListContent';
 import './css/TaskTop.css';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import { taskSearchConditionType } from './Type/TaskType';
 
 //引数の型
 type propsType = {
   path: string,
+  taskSearchConditionList: taskSearchConditionType[] | undefined
 }
 
 
@@ -26,7 +28,9 @@ function TaskTop(props: propsType) {
     <HeightDiv
       height='85%'
     >
-      <TaskSearch />
+      <TaskSearch
+        taskSearchConditionList={props.taskSearchConditionList}
+      />
       <TaskListContent
         path={props.path}
       />

@@ -5,7 +5,6 @@ import { taskSearchConditionRefType, taskSearchConditionType } from "../../../Ta
 import { buttonObjType, refInfoType } from "../../../Common/Type/CommonType";
 import useQueryWrapper from "../../../Common/Hook/useQueryWrapper";
 import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../../../Task/Const/TaskConst";
-import useCreateDefaultTaskUrlCondition from "../../../Task/Hook/useCreateDefaultTaskUrlCondition";
 import { useAtom } from "jotai";
 import { taskSearchConditionObjAtom } from "../Atom/SettingSearchConditionAtom";
 import useMutationWrapper, { errResType, resType } from "../../../Common/Hook/useMutationWrapper";

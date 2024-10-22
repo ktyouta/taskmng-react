@@ -37,6 +37,10 @@ function useTask(props: propsType) {
     //検索条件リスト
     const { data: taskSearchConditionList } = useQueryWrapper<taskSearchConditionType[]>({
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}${SEARCHCONDITION_QUERY_KEY}${SEARCHCONDITION_KEY_DEFAULT},${SEARCHCONDITION_KEY_CUSTOM}`,
+        options: {
+            staleTime: 0,
+            cacheTime: 0,
+        }
     });
 
     /**
@@ -64,7 +68,7 @@ function useTask(props: propsType) {
         let query = "";
         let taskId = "";
 
-        //メモ一覧
+        //タスク一覧
         if (pathArray.length == 2) {
             if (window.location.search.includes("?")) {
                 query = window.location.search;
@@ -96,6 +100,7 @@ function useTask(props: propsType) {
     return {
         detailRoutingId,
         backPageFunc,
+        taskSearchConditionList,
     };
 }
 
