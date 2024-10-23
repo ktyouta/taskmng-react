@@ -75,5 +75,16 @@
 		"deleteFlg": "0",
 		"iconType": "2",
 		"iconUrl": "http://localhost:3000/img/standard/testimg1.png"
+	},
+	{
+		"userId": "g",
+		"userName": "テスト一般",
+		"password": "g",
+		"auth": "1",
+		"iconType": "1",
+		"iconUrl": "",
+		"registerTime": "2024/10/23",
+		"updTime": "2024/10/23",
+		"deleteFlg": "0"
 	}
 ]

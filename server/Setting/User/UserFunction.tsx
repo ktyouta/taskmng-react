@@ -70,11 +70,20 @@ export function runAddUser(res: any, req: any) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    //リクエストボディ
+    let requestBody: registUserInfoType = req.body;
+
+    if (!requestBody || !requestBody.userId) {
+        return res
+            .status(400)
+            .json({ errMessage: "登録に必要な情報が不足しています。" });
+    }
+
     //ユーザー情報の読み込み
     let decodeFileData: userInfoType[] = getUserInfoData();
 
     //IDの重複チェック
-    let dubErrMessage = dubUserCheck(decodeFileData, req);
+    let dubErrMessage = dubUserCheck(decodeFileData, requestBody);
 
     //重複エラー
     if (dubErrMessage) {
@@ -82,9 +91,6 @@ export function runAddUser(res: any, req: any) {
             .status(400)
             .json({ errMessage: dubErrMessage });
     }
-
-    //リクエストボディ
-    let requestBody: registUserInfoType = req.body;
 
     //登録用データの作成
     let registData = createAddUserData(decodeFileData, requestBody, authResult);

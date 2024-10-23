@@ -41,13 +41,13 @@ export function createAddUserData(fileDataObj: userInfoType[], requestBody: regi
  * @param stream 
  * @returns 
  */
-export function dubUserCheck(fileDataObj: userInfoType[], req: any)
+export function dubUserCheck(fileDataObj: userInfoType[], body: registUserInfoType)
     : string {
 
     //現在日付を取得
     const nowDate = getNowDate();
     //ユーザーID
-    let userId = req.body.userId;
+    let userId = body.userId;
 
     let tmp = fileDataObj.find((element) => {
         return element.userId === userId;

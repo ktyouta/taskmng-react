@@ -114,15 +114,22 @@ function useSettingUserEdit(props: propsType) {
 
     //初期値セット
     useEffect(() => {
-        //新規登録
-        if (editMode === editModeEnum.create) {
-            userDatasDisptch({ type: "userName", payload: "" });
-            userDatasDisptch({ type: "password", payload: "" });
-            userDatasDisptch({ type: "userId", payload: "" });
-            userDatasDisptch({ type: "auth", payload: "" });
+
+        if (!authList || authList.length < 1) {
             return;
         }
-    }, []);
+
+        //新規登録
+        if (editMode === editModeEnum.create) {
+            userDatasDisptch({ type: USERINFO_ACTION_TYPE.NAME, payload: "" });
+            userDatasDisptch({ type: USERINFO_ACTION_TYPE.PASS, payload: "" });
+            userDatasDisptch({ type: USERINFO_ACTION_TYPE.ID, payload: "" });
+            userDatasDisptch({ type: USERINFO_ACTION_TYPE.AUTH, payload: authList[0].value });
+            userDatasDisptch({ type: USERINFO_ACTION_TYPE.ICON_TYPE, payload: SELECT_ICON_TYPE.NO_SELECT });
+            return;
+        }
+
+    }, [authList]);
 
     //URLを直打ちした際にカスタム画面トップに遷移させる
     useEffect(() => {
@@ -270,7 +277,7 @@ function useSettingUserEdit(props: propsType) {
             alert("IDを入力してください");
             return;
         }
-        body.userId = userId;
+        body.userId = userDatas.userId;
 
         //名称
         if (!userDatas.userName) {
