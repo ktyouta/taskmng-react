@@ -142,3 +142,8 @@ export type taskSearchConditionRefType = {
     default: refInfoType[],
     custom: refInfoType[],
 }
+
+//まとめて削除時のリクエストの型
+export type reqDelSelectedTaskType = {
+    delTaskIdList: string[],
+}

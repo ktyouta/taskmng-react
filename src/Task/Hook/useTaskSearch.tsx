@@ -7,7 +7,7 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
-import { taskSearchConditionRefType, taskSearchConditionType } from "../Type/TaskType";
+import { reqDelSelectedTaskType, taskSearchConditionRefType, taskSearchConditionType } from "../Type/TaskType";
 import { refType } from "../../Common/BaseInputComponent";
 import useSwitch from "../../Common/Hook/useSwitch";
 import useGetGeneralDataList from "../../Common/Hook/useGetGeneralDataList";
@@ -46,6 +46,8 @@ function useTaskSearch(props: propsType) {
     const [searchConditionObj, setSearchConditionObj] = useAtom(taskSearchConditionObjAtom);
     //ルーティング用
     const navigate = useNavigate();
+    //削除対象のタスクIDリスト
+    const [delTaskIdList, setDelTaskIdList] = useState<string[]>([]);
 
     /**
      * 初期表示タスク取得用URLと検索条件オブジェクトの作成
@@ -64,6 +66,22 @@ function useTaskSearch(props: propsType) {
         //検索条件のdomを作成
         return createSearchDispCondition(props.taskSearchConditionList, searchConditionObj);
     }, [searchConditionObj, props.taskSearchConditionList]);
+
+
+    //更新用フック
+    const updMutation = useMutationWrapper({
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`,
+        method: "PUT",
+        //正常終了後の処理
+        afSuccessFn: (res: resType) => {
+            alert(res.errMessage);
+        },
+        //失敗後の処理
+        afErrorFn: (res: errResType) => {
+            //エラーメッセージを表示
+            alert(res.response.data.errMessage);
+        },
+    });
 
 
     /**
@@ -133,6 +151,43 @@ function useTaskSearch(props: propsType) {
         offFlag();
     }
 
+    /**
+     * 削除対象のタスクを選択する
+     */
+    function checkDelTask(taskId: string,) {
+
+        let tmpDelTaskIdList = [];
+
+        //チェックを外す場合
+        if (delTaskIdList.some(e => e === taskId)) {
+            tmpDelTaskIdList = [...delTaskIdList.filter(e => e !== taskId)];
+        }
+        else {
+            tmpDelTaskIdList = [...delTaskIdList, taskId];
+        }
+
+        setDelTaskIdList(tmpDelTaskIdList);
+    }
+
+    /**
+     * 選択したタスクを削除
+     */
+    function deleteSelectedTasks() {
+
+        //タスク未選択
+        if (!delTaskIdList || delTaskIdList.length === 0) {
+            alert("削除するタスクを選択してください");
+            return;
+        }
+
+        //リクエストボディ
+        let reqBody: reqDelSelectedTaskType = {
+            delTaskIdList: []
+        };
+
+        updMutation.mutate(reqBody);
+    }
+
     return {
         clickSearchBtn,
         clickClearBtn,
@@ -142,6 +197,8 @@ function useTaskSearch(props: propsType) {
         taskSearchRefInfo,
         displaySearchConditionList,
         closeModal,
+        checkDelTask,
+        deleteSelectedTasks,
     };
 }
 

@@ -3,7 +3,6 @@ import '../App.css';
 import { Routes, Route, Navigate } from "react-router-dom";
 import { selectedMasterDataType } from '../Common/Type/CommonType';
 import { Provider, useAtomValue } from 'jotai';
-import TaskTop from './TaskTop';
 import TaskFooter from './TaskFooter';
 import './css/Task.css';
 import ENV from '../env.json';

@@ -1,9 +1,12 @@
 import '../App.css';
-import TaskTop from './TaskTop';
 import TaskFooter from './TaskFooter';
 import './css/Task.css';
 import React from 'react';
 import { taskSearchConditionType } from './Type/TaskType';
+import useTaskMain from './Hook/useTaskMain';
+import TaskSearch from './TaskSearch';
+import TaskListContent from './TaskListContent';
+import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 
 //引数の型
 type propsType = {
@@ -15,13 +18,26 @@ function TaskMain(props: propsType) {
 
     console.log("TaskMain render");
 
+    const {
+        checkDelTask,
+        deleteSelectedTasks,
+    } = useTaskMain();
+
     return (
         <React.Fragment>
-            <TaskTop
-                path={props.path}
-                taskSearchConditionList={props.taskSearchConditionList}
+            <HeightDiv
+                height='85%'
+            >
+                <TaskSearch
+                    taskSearchConditionList={props.taskSearchConditionList}
+                />
+                <TaskListContent
+                    path={props.path}
+                />
+            </HeightDiv>
+            <TaskFooter
+                deleteSelectedTasks={deleteSelectedTasks}
             />
-            <TaskFooter />
         </React.Fragment>
     );
 }

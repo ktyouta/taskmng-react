@@ -16,6 +16,11 @@ import styled from 'styled-components';
 import PagenatetionComponent from '../Common/PagenatetionComponent';
 
 
+//引数の型
+type propsType = {
+    deleteSelectedTasks: () => void,
+}
+
 //フッターのスタイル
 const TaskFooterDiv = styled.div`
     display: flex;
@@ -28,7 +33,7 @@ const TaskFooterDiv = styled.div`
 `;
 
 
-function TaskFooter() {
+function TaskFooter(props: propsType) {
 
     console.log("TaskFooter render");
 
