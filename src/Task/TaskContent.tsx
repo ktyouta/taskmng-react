@@ -17,7 +17,7 @@ const OuterDiv = styled.div<{ bdColor?: string }>`
     height: auto;
     outline-color: ${({ bdColor }) => (bdColor ?? DEFAULT_STATUS_BODERCOLOR)};
     height: 100%;
-    width: 98%;
+    width: 100%;
 `;
 
 //タイトルエリアのスタイル

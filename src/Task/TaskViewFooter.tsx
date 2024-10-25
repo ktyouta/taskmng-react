@@ -3,6 +3,8 @@ import ButtonComponent, { buttonType } from '../Common/ButtonComponent';
 import SpaceComponent from '../Common/SpaceComponent';
 import styled from 'styled-components';
 import { buttonObjType } from '../Common/Type/CommonType';
+import { apiTaskDetailType } from './Type/TaskType';
+import { FLG } from '../Common/Const/CommonConst';
 
 
 
@@ -11,6 +13,7 @@ type propsType = {
     backPageButtonObj: buttonObjType,
     positiveButtonObj: buttonObjType,
     outerHeight: string,
+    updTask: apiTaskDetailType | undefined,
 }
 
 //外側のスタイル
@@ -51,6 +54,7 @@ function TaskViewFooter(props: propsType) {
                 space={"57%"}
             />
             {
+                props.updTask?.default.deleteFlg === FLG.OFF &&
                 props.positiveButtonObj &&
                 props.positiveButtonObj.title &&
                 props.positiveButtonObj.onclick &&

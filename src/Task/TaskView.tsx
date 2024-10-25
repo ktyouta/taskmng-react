@@ -107,6 +107,7 @@ function TaskView(props: propsType) {
         backPageButtonObj={backPageButtonObj}
         positiveButtonObj={positiveButtonObj}
         outerHeight='15%'
+        updTask={props.updTask}
       />
     </OuterDiv>
   );
