@@ -28,6 +28,7 @@ type propsType = {
     displayTaskList: taskContentDisplayType[] | null,
     isLoading: boolean,
     detailHoverId: string,
+    checkDelTask: (taskId: string) => void,
 }
 
 
@@ -51,6 +52,7 @@ function useTaskList(props: propsType) {
                             key={`content-${id}`}
                             contentObj={element}
                             detailHoverId={props.detailHoverId}
+                            checkDelTask={props.checkDelTask}
                         />
                     </TaskListLi>
                     <VerticalSpaceComponent

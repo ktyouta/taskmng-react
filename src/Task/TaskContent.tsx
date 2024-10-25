@@ -6,6 +6,7 @@ import React from 'react';
 import useTaskContent from './Hook/useTaskContent';
 import { DEFAULT_STATUS_BACKCOLOR, DEFAULT_STATUS_BODERCOLOR } from './Const/TaskConst';
 import { FLG } from '../Common/Const/CommonConst';
+import LabelCheckBoxComponent from '../Common/LabelCheckBoxComponent';
 
 
 //外側のスタイル
@@ -16,11 +17,12 @@ const OuterDiv = styled.div<{ bdColor?: string }>`
     height: auto;
     outline-color: ${({ bdColor }) => (bdColor ?? DEFAULT_STATUS_BODERCOLOR)};
     height: 100%;
+    width: 98%;
 `;
 
 //タイトルエリアのスタイル
 const ContentTitleAreaDiv = styled.div<{ titleBgColor?: string }>`
-    height: 40%;
+    height: 50%;
     min-height: 30px;
     border-bottom: 1px solid;
     border-color: #888888;
@@ -53,7 +55,6 @@ const DeleteAreaDiv = styled.div<{ titleBgColor?: string }>`
     overflow-wrap: break-word;
     width:10%;
     box-sizing: border-box;
-    padding-right: 1%;
     font-size: 15px;
     display: flex;
     align-items: center;
@@ -65,16 +66,16 @@ const DeleteAreaDiv = styled.div<{ titleBgColor?: string }>`
 const ContentInfoDiv = styled.div<{ infoBgColor?: string }>`
     display: flex;
     align-items: center;
-    height: 60%;
+    height: 50%;
     border-radius: 0px 0x 5px 5px;
     min-height: 30px;
     padding-left: 10px;
     background-color: ${({ infoBgColor }) => (infoBgColor ?? DEFAULT_STATUS_BACKCOLOR)};
+    overflow-wrap: break-word;
 `;
 
 //ボタンエリアのスタイル
 const ButtonAreaDiv = styled.div`
-    margin: 0 0 0 auto;
     position:relative;
     height: 100%;
     display: flex;
@@ -111,10 +112,24 @@ const UserNameSpan = styled.span<{ titleBgColor?: string }>`
     }
 `;
 
+//コンテンツ詳細のスタイル
+const ContentDetailDiv = styled.div`
+    width:90%;
+    overflow-wrap: break-word;
+`;
+
+//コンテンツの削除選択エリアのスタイル
+const ContentOpeDiv = styled.div`
+    width:10%;
+    overflow-wrap: break-word;
+    display: flex;
+`;
+
 //引数の型
 type propsType = {
     contentObj: taskContentDisplayType,
     detailHoverId: string,
+    checkDelTask: (taskId: string) => void,
 }
 
 
@@ -141,14 +156,24 @@ function TaskContent(props: propsType) {
                 </ContentTitleDiv>
                 <DeleteAreaDiv>
                     {`${props.contentObj.taskContent.deleteFlg === FLG.ON ? "削除済み" : ""}`}
+                    {/* モーダル表示ボタン */}
+                    <ButtonAreaDiv>
+                        {props.contentObj.editButton}
+                        <DetailNavDiv
+                            isDisplay={props.detailHoverId === props.contentObj.taskContent.id}
+                        >
+                            詳細をモーダルで表示
+                        </DetailNavDiv>
+                    </ButtonAreaDiv>
                 </DeleteAreaDiv>
-
             </ContentTitleAreaDiv>
             <ContentInfoDiv
                 infoBgColor={props.contentObj.infoBgColor}
             >
                 {/* 内容 */}
-                <React.Fragment key={`${props.contentObj.taskContent.id}`}>
+                <ContentDetailDiv
+                    key={`${props.contentObj.taskContent.id}`}
+                >
                     {
                         props.contentObj.taskContent.registerTime &&
                         <React.Fragment>
@@ -194,16 +219,28 @@ function TaskContent(props: propsType) {
                             />
                         </React.Fragment>
                     }
-                </React.Fragment>
-                {/* モーダル表示ボタン */}
-                <ButtonAreaDiv>
-                    {props.contentObj.editButton}
-                    <DetailNavDiv
-                        isDisplay={props.detailHoverId === props.contentObj.taskContent.id}
-                    >
-                        詳細をモーダルで表示
-                    </DetailNavDiv>
-                </ButtonAreaDiv>
+                </ContentDetailDiv>
+                <ContentOpeDiv>
+                    {
+                        props.contentObj.taskContent.deleteFlg === FLG.OFF &&
+                        <React.Fragment>
+                            <LabelCheckBoxComponent
+                                title={'削除'}
+                                value={props.contentObj.taskContent.id}
+                                htmlForId={props.contentObj.taskContent.id}
+                                initValue={false}
+                                onChange={() => {
+                                    props.checkDelTask(props.contentObj.taskContent.id);
+                                }}
+                                outerStyle={{
+                                    "margin-left": "auto",
+                                    "box-sizing": "border-box",
+                                    "padding-right": "8%",
+                                }}
+                            />
+                        </React.Fragment>
+                    }
+                </ContentOpeDiv>
             </ContentInfoDiv>
         </OuterDiv>
     );

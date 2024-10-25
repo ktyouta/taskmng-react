@@ -17,6 +17,7 @@ type propsType = {
     initValue: boolean,
     key?: string,
     onChangeBl?: (e: boolean) => void,
+    outerStyle?: { [key: string]: string },
 }
 
 //ラベルチェックボックスの基本スタイル
@@ -30,7 +31,9 @@ const LabelCheckboxDiv = styled.div`
 const LabelCheckBoxComponent = forwardRef<checkBoxRefType, propsType>((props, ref) => {
 
     return (
-        <LabelCheckboxDiv>
+        <LabelCheckboxDiv
+            style={props.outerStyle}
+        >
             <LabelComponent
                 {...props}
             />

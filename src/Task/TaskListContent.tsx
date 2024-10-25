@@ -33,6 +33,7 @@ const ContentListOuterDiv = styled(HeightDiv)`
 //引数の型
 type propsType = {
     path: string,
+    checkDelTask: (taskId: string) => void
 }
 
 function TaskListContent(props: propsType) {
@@ -78,6 +79,7 @@ function TaskListContent(props: propsType) {
                 displayTaskList={displayTaskList}
                 isLoading={isLoading}
                 detailHoverId={detailHoverId}
+                checkDelTask={props.checkDelTask}
             />
             {/* タスク詳細表示用モーダル */}
             <ModalComponent

@@ -26,12 +26,15 @@ const TaskFooterDiv = styled.div`
     display: flex;
     align-items: center;
     height: 15%;
-    position:relative;
     padding-right: 5%;
     box-sizing: border-box;
-    justify-content: center;
+    padding-left: 2%;
 `;
 
+//ボタン間隔
+const SpaceDiv = styled.div`
+    flex:1;
+`;
 
 function TaskFooter(props: propsType) {
 
@@ -52,14 +55,26 @@ function TaskFooter(props: propsType) {
                     changePage={changePage}
                     totalPage={pageNum}
                 />
+                <SpaceDiv />
+                <ButtonComponent
+                    styleTypeNumber="GRAD_RED"
+                    title={"まとめて削除"}
+                    onclick={props.deleteSelectedTasks}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "width": "10%",
+                        "height": "39%",
+                    }}
+                />
+                <SpaceComponent
+                    space={"1%"}
+                />
                 <ButtonComponent
                     styleTypeNumber="GRAD_GREEN"
                     title={"タスク作成"}
                     onclick={onFlag}
                     style={{
                         "fontSize": "0.9rem",
-                        "position": "absolute",
-                        "left": "84%",
                         "width": "10%",
                         "height": "39%",
                     }}

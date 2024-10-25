@@ -5,7 +5,7 @@ import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFun
 import { convDefaultTask, createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, getTasksByUserAuth, joinCustomAttribute } from "./TaskSelectFunction";
 import { runAddMultiTaskHistory, runAddTaskHistory } from "../History/HistoryFunction";
 import { CREATE, CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, DELETE, TASK_FILEPATH, UPDATE } from "./Const/TaskConst";
-import { multiDeleteTaskReqType, resTaskListType, retDefaultTaskType, taskCustomAttributeSelectType, taskDetailType, taskListType } from "./Type/TaskType";
+import { reqDelSelectedTaskType, resTaskListType, retDefaultTaskType, taskCustomAttributeSelectType, taskDetailType, taskListType } from "./Type/TaskType";
 import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
@@ -328,9 +328,9 @@ export function runMultiDeleteTask(res: any, req: any) {
     }
 
     //リクエストボディ
-    let reqBody: multiDeleteTaskReqType = req.body;
+    let reqBody: reqDelSelectedTaskType = req.body;
     //削除対象のタスクIDリスト
-    let deleteTaskList: string[] = reqBody.taskIdList;
+    let deleteTaskList: string[] = reqBody.delTaskIdList;
 
     //タスクファイルの読み込み
     let decodeFileData: taskListType[] = getTaskObj();

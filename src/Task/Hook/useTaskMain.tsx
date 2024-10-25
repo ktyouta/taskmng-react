@@ -14,6 +14,7 @@ import { orgTaskListAtom, taskListAtom } from '../Atom/TaskAtom';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { TASK_DISPLAY_NUM } from '../Const/TaskConst';
 import { reqDelSelectedTaskType } from '../Type/TaskType';
+import { objectDeepCopy } from '../../Common/Function/Function';
 
 
 function useTaskMain() {
@@ -43,14 +44,14 @@ function useTaskMain() {
      */
     function checkDelTask(taskId: string,) {
 
-        let tmpDelTaskIdList = [];
+        let tmpDelTaskIdList = [...delTaskIdList];
 
         //チェックを外す場合
         if (delTaskIdList.some(e => e === taskId)) {
-            tmpDelTaskIdList = [...delTaskIdList.filter(e => e !== taskId)];
+            tmpDelTaskIdList = [...tmpDelTaskIdList.filter(e => e !== taskId)];
         }
         else {
-            tmpDelTaskIdList = [...delTaskIdList, taskId];
+            tmpDelTaskIdList.push(taskId);
         }
 
         setDelTaskIdList(tmpDelTaskIdList);
@@ -67,9 +68,13 @@ function useTaskMain() {
             return;
         }
 
+        if (!window.confirm("選択したタスクを削除しますか？")) {
+            return;
+        }
+
         //リクエストボディ
         let reqBody: reqDelSelectedTaskType = {
-            delTaskIdList: []
+            delTaskIdList: delTaskIdList
         };
 
         updMutation.mutate(reqBody);

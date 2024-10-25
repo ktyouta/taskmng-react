@@ -33,6 +33,7 @@ function TaskMain(props: propsType) {
                 />
                 <TaskListContent
                     path={props.path}
+                    checkDelTask={checkDelTask}
                 />
             </HeightDiv>
             <TaskFooter

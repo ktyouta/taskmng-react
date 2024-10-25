@@ -54,9 +54,9 @@ export type retDefaultTaskType = taskListType & {
     userName: string,
 }
 
-//複数削除時のリクエストボディ
-export type multiDeleteTaskReqType = {
-    taskIdList: string[]
+//選択したタスクを削除するリクエストの型
+export type reqDelSelectedTaskType = {
+    delTaskIdList: string[],
 }
 
 //レスポンス用のタスク一覧の型

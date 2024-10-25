@@ -1992,27 +1992,27 @@
 		"title": "通知テスト",
 		"content": "",
 		"registerTime": "2024/10/21",
-		"updTime": "2024/10/21",
+		"updTime": "2024/10/25",
 		"limitTime": "",
 		"userId": "public",
 		"priority": "1",
 		"status": "1",
 		"userName": "",
 		"url": "",
-		"deleteFlg": "0"
+		"deleteFlg": "1"
 	},
 	{
 		"id": "TASKID-162",
 		"title": "通知テスト",
 		"content": "",
 		"registerTime": "2024/10/21",
-		"updTime": "2024/10/21",
+		"updTime": "2024/10/25",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
 		"status": "1",
 		"userName": "",
 		"url": "",
-		"deleteFlg": "0"
+		"deleteFlg": "1"
 	}
 ]

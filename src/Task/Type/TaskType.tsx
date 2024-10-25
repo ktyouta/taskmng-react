@@ -143,7 +143,7 @@ export type taskSearchConditionRefType = {
     custom: refInfoType[],
 }
 
-//まとめて削除時のリクエストの型
+//選択したタスクを削除するリクエストの型
 export type reqDelSelectedTaskType = {
     delTaskIdList: string[],
 }
