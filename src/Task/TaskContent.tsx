@@ -229,9 +229,7 @@ function TaskContent(props: propsType) {
                                 value={props.contentObj.taskContent.id}
                                 htmlForId={props.contentObj.taskContent.id}
                                 initValue={false}
-                                onChange={() => {
-                                    props.checkDelTask(props.contentObj.taskContent.id);
-                                }}
+                                onChange={props.checkDelTask}
                                 outerStyle={{
                                     "margin-left": "auto",
                                     "box-sizing": "border-box",

@@ -368,12 +368,6 @@ app.put(`${ENV.MEMO}/:param`, function (req, res) {
     runUpdMemo(res, req, req.params.param);
 });
 
-/**
- * タスクの複数削除
- */
-app.put(ENV.TASK, function (req, res) {
-    runMultiDeleteTask(res, req);
-});
 
 
 /**
@@ -416,4 +410,11 @@ app.delete(`${ENV.CATEGORY}/:param`, function (req, res) {
  */
 app.delete(`${ENV.MEMO}/:param`, function (req, res) {
     runDelMemo(res, req, req.params.param);
+});
+
+/**
+ * タスクの複数削除
+ */
+app.delete(ENV.TASK, function (req, res) {
+    runMultiDeleteTask(res, req);
 });

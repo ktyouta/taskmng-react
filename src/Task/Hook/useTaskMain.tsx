@@ -1,4 +1,4 @@
-import React, { RefObject, createRef, useContext, useEffect, useRef, useState } from 'react';
+import React, { RefObject, createRef, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { Link } from "react-router-dom";
 import ENV from '../../env.json';
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
@@ -23,10 +23,10 @@ function useTaskMain() {
     const [delTaskIdList, setDelTaskIdList] = useState<string[]>([]);
 
 
-    //更新用フック
-    const updMutation = useMutationWrapper({
+    //削除用フック
+    const delMutation = useMutationWrapper({
         url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.TASK}`,
-        method: "PUT",
+        method: "DELETE",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
             alert(res.errMessage);
@@ -42,20 +42,23 @@ function useTaskMain() {
     /**
      * 削除対象のタスクを選択する
      */
-    function checkDelTask(taskId: string,) {
+    function checkDelTask(taskId: string) {
 
-        let tmpDelTaskIdList = [...delTaskIdList];
+        setDelTaskIdList((prevDelTaskIdList) => {
 
-        //チェックを外す場合
-        if (delTaskIdList.some(e => e === taskId)) {
-            tmpDelTaskIdList = [...tmpDelTaskIdList.filter(e => e !== taskId)];
-        }
-        else {
-            tmpDelTaskIdList.push(taskId);
-        }
+            let tmpDelTaskIdList = [];
 
-        setDelTaskIdList(tmpDelTaskIdList);
+            // チェックを外す場合
+            if (prevDelTaskIdList.some(e => e === taskId)) {
+                tmpDelTaskIdList = prevDelTaskIdList.filter(e => e !== taskId);
+            } else {
+                tmpDelTaskIdList = [...prevDelTaskIdList, taskId];
+            }
+
+            return tmpDelTaskIdList;
+        });
     }
+
 
     /**
      * 選択したタスクを削除
@@ -68,7 +71,10 @@ function useTaskMain() {
             return;
         }
 
-        if (!window.confirm("選択したタスクを削除しますか？")) {
+        //削除対象のタスクID
+        let delTaskId = delTaskIdList.join("\r\n");
+
+        if (!window.confirm(`選択したタスクを削除しますか？\r\n${delTaskId}`)) {
             return;
         }
 
@@ -77,7 +83,7 @@ function useTaskMain() {
             delTaskIdList: delTaskIdList
         };
 
-        updMutation.mutate(reqBody);
+        delMutation.mutate(reqBody);
     }
 
 
