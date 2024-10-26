@@ -17,7 +17,8 @@ import styled from "styled-components";
 
 //引数の型
 type propsType = {
-    contentObj: taskContentDisplayType
+    contentObj: taskContentDisplayType,
+    delTaskIdList: string[],
 }
 
 /**
@@ -36,8 +37,17 @@ function useTaskContent(props: propsType) {
         moveUserInfo(props.contentObj.taskContent.userId, navigate);
     }
 
+    /**
+     * 削除対象タスクのチェック状態を取得
+     */
+    function getDelTaskCheck(taskId: string,) {
+
+        return props.delTaskIdList.some(e => e === taskId);
+    }
+
     return {
-        clickUserNm
+        clickUserNm,
+        getDelTaskCheck
     }
 }
 

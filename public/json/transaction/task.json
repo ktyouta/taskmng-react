@@ -1922,14 +1922,14 @@
 		"title": "通知テスト",
 		"content": "",
 		"registerTime": "2024/10/20",
-		"updTime": "2024/10/20",
+		"updTime": "2024/10/27",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",
 		"status": "1",
 		"userName": "",
 		"url": "",
-		"deleteFlg": "0"
+		"deleteFlg": "1"
 	},
 	{
 		"id": "TASKID-157",
@@ -1978,14 +1978,14 @@
 		"title": "通知テスト",
 		"content": "",
 		"registerTime": "2024/10/20",
-		"updTime": "2024/10/20",
+		"updTime": "2024/10/27",
 		"limitTime": "",
 		"userId": "public",
 		"priority": "1",
 		"status": "1",
 		"userName": "",
 		"url": "",
-		"deleteFlg": "0"
+		"deleteFlg": "1"
 	},
 	{
 		"id": "TASKID-161",
@@ -2161,6 +2161,20 @@
 		"content": "",
 		"registerTime": "2024/10/26",
 		"updTime": "2024/10/26",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
+		"userName": "",
+		"url": "",
+		"deleteFlg": "1"
+	},
+	{
+		"id": "TASKID-174",
+		"title": "削除テスト",
+		"content": "",
+		"registerTime": "2024/10/27",
+		"updTime": "2024/10/27",
 		"limitTime": "",
 		"userId": "f",
 		"priority": "1",

@@ -47,6 +47,8 @@ const ContentTitleDiv = styled.div`
     }
     width:90%;
     font-size: 20px;
+    display: flex;
+    align-items: center;
 `;
 
 //削除エリアのスタイル
@@ -130,6 +132,7 @@ type propsType = {
     contentObj: taskContentDisplayType,
     detailHoverId: string,
     checkDelTask: (taskId: string) => void,
+    delTaskIdList: string[],
 }
 
 
@@ -138,7 +141,8 @@ function TaskContent(props: propsType) {
     console.log("TaskContent render");
 
     const {
-        clickUserNm
+        clickUserNm,
+        getDelTaskCheck,
     } = useTaskContent({ ...props });
 
     return (
@@ -228,7 +232,7 @@ function TaskContent(props: propsType) {
                                 title={'削除'}
                                 value={props.contentObj.taskContent.id}
                                 htmlForId={props.contentObj.taskContent.id}
-                                initValue={false}
+                                initValue={getDelTaskCheck(props.contentObj.taskContent.id)}
                                 onChange={props.checkDelTask}
                                 outerStyle={{
                                     "margin-left": "auto",

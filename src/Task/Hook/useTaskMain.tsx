@@ -74,7 +74,7 @@ function useTaskMain() {
         //削除対象のタスクID
         let delTaskId = delTaskIdList.join("\r\n");
 
-        if (!window.confirm(`選択したタスクを削除しますか？\r\n${delTaskId}`)) {
+        if (!window.confirm(`選択したタスクを削除しますか？\r\n\r\削除対象タスク\r\n${delTaskId}`)) {
             return;
         }
 
@@ -90,6 +90,7 @@ function useTaskMain() {
     return {
         checkDelTask,
         deleteSelectedTasks,
+        delTaskIdList,
     }
 }
 

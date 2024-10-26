@@ -30,7 +30,8 @@ type propsType = {
     displayTaskList: taskContentDisplayType[] | null,
     isLoading: boolean,
     detailHoverId: string,
-    checkDelTask: (taskId: string) => void
+    checkDelTask: (taskId: string) => void,
+    delTaskIdList: string[],
 }
 
 

@@ -21,6 +21,7 @@ function TaskMain(props: propsType) {
     const {
         checkDelTask,
         deleteSelectedTasks,
+        delTaskIdList,
     } = useTaskMain();
 
     return (
@@ -34,6 +35,7 @@ function TaskMain(props: propsType) {
                 <TaskListContent
                     path={props.path}
                     checkDelTask={checkDelTask}
+                    delTaskIdList={delTaskIdList}
                 />
             </HeightDiv>
             <TaskFooter
