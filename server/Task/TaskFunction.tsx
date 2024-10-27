@@ -12,6 +12,8 @@ import { overWriteData } from "../Common/FileFunction";
 import { getGeneralDataList, getGeneralDetailDataList } from "../General/GeneralSelectFunction";
 import { userInfoType } from "../Setting/User/Type/UserType";
 import { getUserInfoData } from "../Setting/User/UserSelectFunction";
+import { USER_AUTH } from "../Auth/Const/AuthConst";
+import { createRecoveryTaskData } from "./TaskRecoveryFunction";
 
 
 
@@ -379,6 +381,97 @@ export function runMultiDeleteTask(res: any, req: any) {
         .status(200)
         .json({ errMessage: `削除が完了しました。` });
 }
+
+
+/**
+ * 削除済みタスクの復元を行う
+ */
+export function runTaskRecovery(res: any, req: any, recoveryTaskId: string,) {
+
+    //認証権限チェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //権限チェック(管理者のみ復元可能)
+    if (!authResult.userInfo ||
+        parseInt(authResult.userInfo.auth) < parseInt(USER_AUTH.ADMIN)) {
+
+        return res
+            .status(400)
+            .json({ errMessage: `タスクの復元権限が不足しています。` });
+    }
+
+    //IDの指定がない
+    if (!recoveryTaskId) {
+        return res
+            .status(400)
+            .json({ errMessage: `パスパラメータが不正です。` });
+    }
+
+    //タスクファイルの読み込み
+    let decodeFileData: taskListType[] = getTaskObj();
+
+    //復元対象のタスクを取得
+    let recTask = decodeFileData.find((element) => {
+        return element.id === recoveryTaskId;
+    });
+
+    //復元対象のタスクが存在しない
+    if (!recTask) {
+        return res
+            .status(400)
+            .json({ errMessage: `復元対象のタスクが存在しません。` });
+    }
+
+    //復元用データの作成
+    let registData = createRecoveryTaskData(decodeFileData, recoveryTaskId);
+
+    //データを登録
+    let errMessage = overWriteData(TASK_FILEPATH, JSON.stringify(registData, null, '\t'));
+
+    //復元に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
+    //タスクのカスタム属性の選択値ファイルの読み込み
+    let customDecodeFileDatas: taskCustomAttributeSelectType[] = getCustomAttributeTaskObj();
+
+    //カスタム属性の復元用データを作成
+    customDecodeFileDatas = createDeleteCustomAttributeData(customDecodeFileDatas, recoveryTaskId);
+
+    //データを登録
+    let customErrMessage = overWriteData(CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, JSON.stringify(customDecodeFileDatas, null, '\t'));
+
+    //復元に失敗
+    if (customErrMessage) {
+        return res
+            .status(400)
+            .json({ customErrMessage });
+    }
+
+    //作業履歴の登録
+    let historyErrMessage = runAddTaskHistory(authResult, recoveryTaskId, UPDATE);
+
+    //作業履歴の登録に失敗
+    if (historyErrMessage) {
+        return res
+            .status(400)
+            .json({ historyErrMessage });
+    }
+
+    //正常終了
+    return res
+        .status(200)
+        .json({ errMessage: `復元が完了しました。` });
+}
+
 
 /**
  * タスクのjoinを行う

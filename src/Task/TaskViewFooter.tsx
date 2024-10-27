@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { buttonObjType } from '../Common/Type/CommonType';
 import { apiTaskDetailType } from './Type/TaskType';
 import { FLG } from '../Common/Const/CommonConst';
+import useTaskViewFooter from './Hook/useTaskViewFooter';
 
 
 
@@ -14,6 +15,8 @@ type propsType = {
     positiveButtonObj: buttonObjType,
     outerHeight: string,
     updTask: apiTaskDetailType | undefined,
+    closeFn?: () => void,
+    updTaskId: string,
 }
 
 //外側のスタイル
@@ -26,6 +29,11 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
 function TaskViewFooter(props: propsType) {
 
     console.log("TaskViewFooter render");
+
+    const {
+        recoveryButtonObj,
+        isRestorableFlg,
+    } = useTaskViewFooter({ ...props });
 
     return (
         <OuterDiv
@@ -54,21 +62,34 @@ function TaskViewFooter(props: propsType) {
                 space={"57%"}
             />
             {
-                props.updTask?.default.deleteFlg === FLG.OFF &&
-                props.positiveButtonObj &&
-                props.positiveButtonObj.title &&
-                props.positiveButtonObj.onclick &&
-                <ButtonComponent
-                    styleTypeNumber={props.positiveButtonObj.type}
-                    title={props.positiveButtonObj.title}
-                    onclick={props.positiveButtonObj.onclick}
-                    style={{
-                        "fontWeight": "bold",
-                        "fontSize": "0.9rem",
-                        "width": "12%",
-                        "height": "43%",
-                    }}
-                />
+                props.updTask?.default.deleteFlg === FLG.OFF ?
+                    props.positiveButtonObj &&
+                    props.positiveButtonObj.title &&
+                    props.positiveButtonObj.onclick &&
+                    <ButtonComponent
+                        styleTypeNumber={props.positiveButtonObj.type}
+                        title={props.positiveButtonObj.title}
+                        onclick={props.positiveButtonObj.onclick}
+                        style={{
+                            "fontWeight": "bold",
+                            "fontSize": "0.9rem",
+                            "width": "12%",
+                            "height": "43%",
+                        }}
+                    />
+                    :
+                    isRestorableFlg &&
+                    <ButtonComponent
+                        styleTypeNumber={recoveryButtonObj.type}
+                        title={recoveryButtonObj.title}
+                        onclick={recoveryButtonObj.onclick}
+                        style={{
+                            "fontWeight": "bold",
+                            "fontSize": "0.9rem",
+                            "width": "12%",
+                            "height": "43%",
+                        }}
+                    />
             }
         </OuterDiv>
     );

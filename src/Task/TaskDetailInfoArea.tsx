@@ -47,6 +47,7 @@ function TaskDetailInfoArea(props: propsType) {
                                     openEditPage={openEditPage}
                                     closeFn={props.closeFn}
                                     backBtnTitle={props.backBtnTitle}
+                                    updTaskId={props.updTaskId}
                                 />
                             )
                         //編集

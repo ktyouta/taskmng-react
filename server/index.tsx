@@ -4,7 +4,7 @@ import { config } from './ApiConfig';
 import { createAddMasterData, createDelMasterData, createUpdMasterData, runRegister } from './MasterData/MasterDataFunction';
 import { runAddMaster } from './AddMasterData/AddMasterDataFunction';
 import { getGeneralData, getGeneralDetailData } from './General/GeneralFunction';
-import { getTaskDetail, getTaskList, runAddTask, runDeleteTask, runMultiDeleteTask, runUpdTask } from './Task/TaskFunction';
+import { getTaskDetail, getTaskList, runAddTask, runDeleteTask, runMultiDeleteTask, runTaskRecovery, runUpdTask } from './Task/TaskFunction';
 import {
     getCustomAttribute,
     getCustomAttributeDetail,
@@ -368,6 +368,12 @@ app.put(`${ENV.MEMO}/:param`, function (req, res) {
     runUpdMemo(res, req, req.params.param);
 });
 
+/**
+ * 削除済みタスクの復元
+ */
+app.put(`${ENV.TASKRECOVERY}/:param`, function (req, res) {
+    runTaskRecovery(res, req, req.params.param);
+});
 
 
 /**

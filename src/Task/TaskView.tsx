@@ -51,6 +51,7 @@ type propsType = {
   openEditPage: () => void,
   closeFn?: () => void,
   backBtnTitle?: string,
+  updTaskId: string,
 }
 
 
@@ -108,6 +109,8 @@ function TaskView(props: propsType) {
         positiveButtonObj={positiveButtonObj}
         outerHeight='15%'
         updTask={props.updTask}
+        closeFn={props.closeFn}
+        updTaskId={props.updTaskId}
       />
     </OuterDiv>
   );
