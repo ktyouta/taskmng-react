@@ -15,6 +15,8 @@ import TaskContent from "../TaskContent";
 import VerticalSpaceComponent from "../../Common/VerticalSpaceComponent";
 import styled from "styled-components";
 import CenterLoading from "../../Common/CenterLoading";
+import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
+import { userInfoAtom } from "../../Content/Atom/ContentAtom";
 
 
 const TaskListLi = styled.li`
@@ -40,6 +42,9 @@ type propsType = {
  */
 function useTaskList(props: propsType) {
 
+    // ログインユーザー情報
+    const userInfo = useGlobalAtomValue(userInfoAtom);
+
     //タスクのコンテンツリスト
     let taskContentList: ReactNode = useMemo(() => {
 
@@ -55,6 +60,7 @@ function useTaskList(props: propsType) {
                             detailHoverId={props.detailHoverId}
                             checkDelTask={props.checkDelTask}
                             delTaskIdList={props.delTaskIdList}
+                            userInfo={userInfo}
                         />
                     </TaskListLi>
                     <VerticalSpaceComponent

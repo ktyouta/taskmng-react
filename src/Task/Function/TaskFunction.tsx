@@ -825,3 +825,32 @@ export function getUrlQueryObj(queryStrParam: string) {
 
     return queries;
 }
+
+
+/**
+ * タスクの削除可能チェック
+ * @param userInfo 
+ * @param taskCreateUserId 
+ */
+export function checkTaskDeletable(userInfo: userInfoType, taskCreateUserId: string) {
+
+    //ユーザーID
+    let userId = userInfo.userId;
+    //ユーザー権限
+    let userAuth = userInfo.auth;
+
+    //権限ごとにフラグを返却
+    switch (userAuth) {
+        //一般
+        case USER_AUTH.PUBLIC:
+            return userId === taskCreateUserId;
+        //専用
+        case USER_AUTH.MASTER:
+            return userId === taskCreateUserId;
+        //管理者
+        case USER_AUTH.ADMIN:
+            return true;
+        default:
+            return false;
+    }
+}

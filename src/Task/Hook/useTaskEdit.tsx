@@ -9,7 +9,7 @@ import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import { buttonType } from "../../Common/ButtonComponent";
 import { createRequestBody, requestBodyInputCheck } from "../../Common/Function/Function";
 import useGetTaskInputSetting from "./useGetTaskInputSetting";
-import { checkTaskRequest, createTaskRequestBody, createUpdRefArray } from "../Function/TaskFunction";
+import { checkTaskDeletable, checkTaskRequest, createTaskRequestBody, createUpdRefArray } from "../Function/TaskFunction";
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import { userInfoAtom } from "../../Content/Atom/ContentAtom";
 import { USER_AUTH } from "../../Common/Const/CommonConst";
@@ -81,33 +81,10 @@ function useTaskEdit(props: propsType) {
             return false;
         }
 
-        //ユーザーID
-        let userId = userInfo.userId;
-        //ユーザー権限
-        let userAuth = userInfo.auth;
-
-        //ユーザー権限の設定不備
-        if (Number.isNaN(userAuth)) {
-            return false;
-        }
-
         //タスク作成ユーザーのID
         let taskCreateUserId = props.updTask.default[CREATE_TASK_USER_KEY];
 
-        //権限ごとにフラグを返却
-        switch (userAuth) {
-            //一般
-            case USER_AUTH.PUBLIC:
-                return userId === taskCreateUserId;
-            //専用
-            case USER_AUTH.MASTER:
-                return userId === taskCreateUserId;
-            //管理者
-            case USER_AUTH.ADMIN:
-                return true;
-            default:
-                return false;
-        }
+        return checkTaskDeletable(userInfo, taskCreateUserId);
 
     }, [props.updTask, userInfo]);
 

@@ -7,6 +7,8 @@ import useTaskContent from './Hook/useTaskContent';
 import { DEFAULT_STATUS_BACKCOLOR, DEFAULT_STATUS_BODERCOLOR } from './Const/TaskConst';
 import { FLG } from '../Common/Const/CommonConst';
 import LabelCheckBoxComponent from '../Common/LabelCheckBoxComponent';
+import { userInfoType } from '../Common/Type/CommonType';
+import { checkTaskDeletable } from './Function/TaskFunction';
 
 
 //外側のスタイル
@@ -133,6 +135,7 @@ type propsType = {
     detailHoverId: string,
     checkDelTask: (taskId: string) => void,
     delTaskIdList: string[],
+    userInfo: userInfoType | undefined
 }
 
 
@@ -226,7 +229,9 @@ function TaskContent(props: propsType) {
                 </ContentDetailDiv>
                 <ContentOpeDiv>
                     {
+                        props.userInfo &&
                         props.contentObj.taskContent.deleteFlg === FLG.OFF &&
+                        checkTaskDeletable(props.userInfo, props.contentObj.taskContent.userId) &&
                         <React.Fragment>
                             <LabelCheckBoxComponent
                                 title={'削除'}
