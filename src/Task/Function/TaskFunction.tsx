@@ -854,3 +854,14 @@ export function checkTaskDeletable(userInfo: userInfoType, taskCreateUserId: str
             return false;
     }
 }
+
+
+/**
+ * タスクの復元可能チェック
+ * @param userInfo 
+ * @param taskCreateUserId 
+ */
+export function checkTaskRecoverable(userInfo: userInfoType) {
+
+    return parseInt(userInfo.auth) >= parseInt(USER_AUTH.ADMIN);
+}

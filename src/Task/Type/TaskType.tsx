@@ -147,3 +147,8 @@ export type taskSearchConditionRefType = {
 export type reqDelSelectedTaskType = {
     delTaskIdList: string[],
 }
+
+//選択したタスクを復元するリクエストの型
+export type reqRecSelectedTaskType = {
+    recTaskIdList: string[],
+}

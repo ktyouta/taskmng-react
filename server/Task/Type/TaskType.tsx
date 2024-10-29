@@ -76,3 +76,8 @@ export type resTaskListType = {
     priorityLabel?: string,
     userName?: string,
 }
+
+//選択したタスクを復元するリクエストの型
+export type reqRecSelectedTaskType = {
+    recTaskIdList: string[],
+}

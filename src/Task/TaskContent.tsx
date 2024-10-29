@@ -8,7 +8,7 @@ import { DEFAULT_STATUS_BACKCOLOR, DEFAULT_STATUS_BODERCOLOR } from './Const/Tas
 import { FLG } from '../Common/Const/CommonConst';
 import LabelCheckBoxComponent from '../Common/LabelCheckBoxComponent';
 import { userInfoType } from '../Common/Type/CommonType';
-import { checkTaskDeletable } from './Function/TaskFunction';
+import { checkTaskDeletable, checkTaskRecoverable } from './Function/TaskFunction';
 
 
 //外側のスタイル
@@ -135,7 +135,9 @@ type propsType = {
     detailHoverId: string,
     checkDelTask: (taskId: string) => void,
     delTaskIdList: string[],
-    userInfo: userInfoType | undefined
+    userInfo: userInfoType | undefined,
+    checkRecTask: (taskId: string) => void,
+    recTaskIdList: string[],
 }
 
 
@@ -146,6 +148,7 @@ function TaskContent(props: propsType) {
     const {
         clickUserNm,
         getDelTaskCheck,
+        getRecTaskCheck,
     } = useTaskContent({ ...props });
 
     return (
@@ -229,23 +232,43 @@ function TaskContent(props: propsType) {
                 </ContentDetailDiv>
                 <ContentOpeDiv>
                     {
-                        props.userInfo &&
-                        props.contentObj.taskContent.deleteFlg === FLG.OFF &&
-                        checkTaskDeletable(props.userInfo, props.contentObj.taskContent.userId) &&
-                        <React.Fragment>
-                            <LabelCheckBoxComponent
-                                title={'削除'}
-                                value={props.contentObj.taskContent.id}
-                                htmlForId={props.contentObj.taskContent.id}
-                                initValue={getDelTaskCheck(props.contentObj.taskContent.id)}
-                                onChange={props.checkDelTask}
-                                outerStyle={{
-                                    "margin-left": "auto",
-                                    "box-sizing": "border-box",
-                                    "padding-right": "8%",
-                                }}
-                            />
-                        </React.Fragment>
+                        props.userInfo && (
+                            props.contentObj.taskContent.deleteFlg === FLG.OFF
+                                ?
+                                // 削除選択
+                                (
+                                    checkTaskDeletable(props.userInfo, props.contentObj.taskContent.userId) &&
+                                    <LabelCheckBoxComponent
+                                        title={'削除'}
+                                        value={props.contentObj.taskContent.id}
+                                        htmlForId={props.contentObj.taskContent.id}
+                                        initValue={getDelTaskCheck(props.contentObj.taskContent.id)}
+                                        onChange={props.checkDelTask}
+                                        outerStyle={{
+                                            "margin-left": "auto",
+                                            "box-sizing": "border-box",
+                                            "padding-right": "8%",
+                                        }}
+                                    />
+                                )
+                                :
+                                // 復元選択
+                                (
+                                    checkTaskRecoverable(props.userInfo) &&
+                                    <LabelCheckBoxComponent
+                                        title={'復元'}
+                                        value={props.contentObj.taskContent.id}
+                                        htmlForId={props.contentObj.taskContent.id}
+                                        initValue={getRecTaskCheck(props.contentObj.taskContent.id)}
+                                        onChange={props.checkRecTask}
+                                        outerStyle={{
+                                            "margin-left": "auto",
+                                            "box-sizing": "border-box",
+                                            "padding-right": "8%",
+                                        }}
+                                    />
+                                )
+                        )
                     }
                 </ContentOpeDiv>
             </ContentInfoDiv>

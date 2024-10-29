@@ -5,7 +5,7 @@ import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFun
 import { convDefaultTask, createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, getTasksByUserAuth, joinCustomAttribute } from "./TaskSelectFunction";
 import { runAddMultiTaskHistory, runAddTaskHistory } from "../History/HistoryFunction";
 import { CREATE, CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, DELETE, TASK_FILEPATH, UPDATE } from "./Const/TaskConst";
-import { reqDelSelectedTaskType, resTaskListType, retDefaultTaskType, taskCustomAttributeSelectType, taskDetailType, taskListType } from "./Type/TaskType";
+import { reqDelSelectedTaskType, reqRecSelectedTaskType, resTaskListType, retDefaultTaskType, taskCustomAttributeSelectType, taskDetailType, taskListType } from "./Type/TaskType";
 import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
@@ -13,7 +13,7 @@ import { getGeneralDataList, getGeneralDetailDataList } from "../General/General
 import { userInfoType } from "../Setting/User/Type/UserType";
 import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 import { USER_AUTH } from "../Auth/Const/AuthConst";
-import { createRecoveryTaskData } from "./TaskRecoveryFunction";
+import { createMultiRecoveryCustomAttributeData, createMultiRecoveryTaskData, createRecoveryCustomAttributeData, createRecoveryTaskData } from "./TaskRecoveryFunction";
 
 
 
@@ -444,7 +444,7 @@ export function runTaskRecovery(res: any, req: any, recoveryTaskId: string,) {
     let customDecodeFileDatas: taskCustomAttributeSelectType[] = getCustomAttributeTaskObj();
 
     //カスタム属性の復元用データを作成
-    customDecodeFileDatas = createDeleteCustomAttributeData(customDecodeFileDatas, recoveryTaskId);
+    customDecodeFileDatas = createRecoveryCustomAttributeData(customDecodeFileDatas, recoveryTaskId);
 
     //データを登録
     let customErrMessage = overWriteData(CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, JSON.stringify(customDecodeFileDatas, null, '\t'));
@@ -458,6 +458,73 @@ export function runTaskRecovery(res: any, req: any, recoveryTaskId: string,) {
 
     //作業履歴の登録
     let historyErrMessage = runAddTaskHistory(authResult, recoveryTaskId, UPDATE);
+
+    //作業履歴の登録に失敗
+    if (historyErrMessage) {
+        return res
+            .status(400)
+            .json({ historyErrMessage });
+    }
+
+    //正常終了
+    return res
+        .status(200)
+        .json({ errMessage: `復元が完了しました。` });
+}
+
+
+/**
+ * タスクの複数復元
+ */
+export function runMultiRecoveryTask(res: any, req: any) {
+
+    //認証権限チェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //リクエストボディ
+    let reqBody: reqRecSelectedTaskType = req.body;
+    //復元対象のタスクIDリスト
+    let recoveryTaskList: string[] = reqBody.recTaskIdList;
+
+    //タスクファイルの読み込み
+    let decodeFileData: taskListType[] = getTaskObj();
+
+    //復元用データの作成
+    let registData = createMultiRecoveryTaskData(decodeFileData, recoveryTaskList);
+
+    //データを登録
+    let errMessage = overWriteData(TASK_FILEPATH, JSON.stringify(registData, null, '\t'));
+
+    //復元に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
+    //タスクのカスタム属性の選択値ファイルの読み込み
+    let customDecodeFileDatas: taskCustomAttributeSelectType[] = getCustomAttributeTaskObj();
+
+    //カスタム属性の復元用データを作成
+    let delCustomData = createMultiRecoveryCustomAttributeData(customDecodeFileDatas, recoveryTaskList);
+
+    //データを登録
+    let customErrMessage = overWriteData(CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, JSON.stringify(delCustomData, null, '\t'));
+
+    //復元に失敗
+    if (customErrMessage) {
+        return res
+            .status(400)
+            .json({ customErrMessage });
+    }
+
+    //作業履歴の登録
+    let historyErrMessage = runAddMultiTaskHistory(authResult, recoveryTaskList, UPDATE);
 
     //作業履歴の登録に失敗
     if (historyErrMessage) {

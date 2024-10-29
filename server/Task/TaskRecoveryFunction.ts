@@ -35,7 +35,7 @@ export function createRecoveryTaskData(fileDataObj: taskListType[], delTaskId: s
  * @param stream 
  * @returns 
  */
-export function createDeleteCustomAttributeData(
+export function createRecoveryCustomAttributeData(
     customDecodeFileDatas: taskCustomAttributeSelectType[],
     recTaskId: string)
     : taskCustomAttributeSelectType[] {
@@ -51,6 +51,42 @@ export function createDeleteCustomAttributeData(
     //IDの一致するデータを復元
     recCustomAttributeObj.deleteFlg = FLG.OFF;
     recCustomAttributeObj.updTime = getNowDate();
+
+    return customDecodeFileDatas;
+}
+
+
+/**
+ * 複数削除用データの作成
+ * @param filePath 
+ * @param stream 
+ * @returns 
+ */
+export function createMultiRecoveryTaskData(fileDataObj: taskListType[], deleteTaskIdList: string[])
+    : taskListType[] {
+
+    deleteTaskIdList.forEach((element: string) => {
+
+        createRecoveryTaskData(fileDataObj, element);
+    });
+
+    return fileDataObj;
+}
+
+
+/**
+ * カスタム属性の複数復元用データの作成
+ * @param filePath 
+ * @param stream 
+ * @returns 
+ */
+export function createMultiRecoveryCustomAttributeData(customDecodeFileDatas: taskCustomAttributeSelectType[], deleteTaskIdList: string[])
+    : taskCustomAttributeSelectType[] {
+
+    deleteTaskIdList.forEach((element) => {
+
+        createRecoveryCustomAttributeData(customDecodeFileDatas, element);
+    });
 
     return customDecodeFileDatas;
 }

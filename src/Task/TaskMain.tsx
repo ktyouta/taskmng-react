@@ -22,6 +22,9 @@ function TaskMain(props: propsType) {
         checkDelTask,
         deleteSelectedTasks,
         delTaskIdList,
+        checkRecTask,
+        recoverySelectedTasks,
+        recTaskIdList
     } = useTaskMain();
 
     return (
@@ -36,10 +39,13 @@ function TaskMain(props: propsType) {
                     path={props.path}
                     checkDelTask={checkDelTask}
                     delTaskIdList={delTaskIdList}
+                    checkRecTask={checkRecTask}
+                    recTaskIdList={recTaskIdList}
                 />
             </HeightDiv>
             <TaskFooter
                 deleteSelectedTasks={deleteSelectedTasks}
+                recoverySelectedTasks={recoverySelectedTasks}
             />
         </React.Fragment>
     );

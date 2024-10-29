@@ -19,6 +19,7 @@ import PagenatetionComponent from '../Common/PagenatetionComponent';
 //引数の型
 type propsType = {
     deleteSelectedTasks: () => void,
+    recoverySelectedTasks: () => void,
 }
 
 //フッターのスタイル
@@ -56,6 +57,19 @@ function TaskFooter(props: propsType) {
                     totalPage={pageNum}
                 />
                 <SpaceDiv />
+                <ButtonComponent
+                    styleTypeNumber="GRAD_BLUE"
+                    title={"まとめて復元"}
+                    onclick={props.recoverySelectedTasks}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "width": "10%",
+                        "height": "39%",
+                    }}
+                />
+                <SpaceComponent
+                    space={"1%"}
+                />
                 <ButtonComponent
                     styleTypeNumber="GRAD_RED"
                     title={"まとめて削除"}

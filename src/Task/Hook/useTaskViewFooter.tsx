@@ -71,7 +71,7 @@ function useTaskViewFooter(props: propsType) {
             return false;
         }
 
-        return parseInt(userInfo.auth) > parseInt(USER_AUTH.MASTER);
+        return parseInt(userInfo.auth) >= parseInt(USER_AUTH.ADMIN);
 
     }, [userInfo]);
 

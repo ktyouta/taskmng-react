@@ -32,6 +32,8 @@ type propsType = {
     detailHoverId: string,
     checkDelTask: (taskId: string) => void,
     delTaskIdList: string[],
+    checkRecTask: (taskId: string) => void,
+    recTaskIdList: string[],
 }
 
 

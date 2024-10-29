@@ -35,6 +35,8 @@ type propsType = {
     path: string,
     checkDelTask: (taskId: string) => void,
     delTaskIdList: string[],
+    checkRecTask: (taskId: string) => void,
+    recTaskIdList: string[],
 }
 
 function TaskListContent(props: propsType) {
@@ -82,6 +84,8 @@ function TaskListContent(props: propsType) {
                 detailHoverId={detailHoverId}
                 checkDelTask={props.checkDelTask}
                 delTaskIdList={props.delTaskIdList}
+                checkRecTask={props.checkRecTask}
+                recTaskIdList={props.recTaskIdList}
             />
             {/* タスク詳細表示用モーダル */}
             <ModalComponent

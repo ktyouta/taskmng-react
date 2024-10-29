@@ -19,6 +19,7 @@ import styled from "styled-components";
 type propsType = {
     contentObj: taskContentDisplayType,
     delTaskIdList: string[],
+    recTaskIdList: string[],
 }
 
 /**
@@ -45,9 +46,18 @@ function useTaskContent(props: propsType) {
         return props.delTaskIdList.some(e => e === taskId);
     }
 
+    /**
+     * 復元対象タスクのチェック状態を取得
+     */
+    function getRecTaskCheck(taskId: string,) {
+
+        return props.recTaskIdList.some(e => e === taskId);
+    }
+
     return {
         clickUserNm,
-        getDelTaskCheck
+        getDelTaskCheck,
+        getRecTaskCheck,
     }
 }
 

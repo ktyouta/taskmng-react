@@ -32,6 +32,8 @@ type propsType = {
     detailHoverId: string,
     checkDelTask: (taskId: string) => void,
     delTaskIdList: string[],
+    checkRecTask: (taskId: string) => void,
+    recTaskIdList: string[],
 }
 
 
@@ -61,6 +63,8 @@ function useTaskList(props: propsType) {
                             checkDelTask={props.checkDelTask}
                             delTaskIdList={props.delTaskIdList}
                             userInfo={userInfo}
+                            checkRecTask={props.checkRecTask}
+                            recTaskIdList={props.recTaskIdList}
                         />
                     </TaskListLi>
                     <VerticalSpaceComponent
