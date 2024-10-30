@@ -1,5 +1,5 @@
 import { authInfoType } from "../Auth/Type/AuthType";
-import { getNowDate } from "../Common/Function";
+import { getNowDate, getNowDatetime } from "../Common/Function";
 import { createTaskHistoryNewId } from "./HistorySelectFunction";
 import { addTaskHistoryType, taskHistoryType } from "./Type/HistoryType";
 
@@ -12,7 +12,7 @@ export function createAddTaskHistory(decodeFileData: addTaskHistoryType[], taskI
 ) {
 
     //現在日付を取得
-    const nowDate = getNowDate();
+    const nowDate = getNowDatetime();
 
     //登録データ
     let registData: addTaskHistoryType = {

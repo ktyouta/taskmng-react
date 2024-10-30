@@ -15,6 +15,7 @@ import { searchConditionType } from "../Setting/SearchCondition/Type/SearchCondi
 import { userInfoType } from "../Setting/User/Type/UserType";
 import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 import { USER_AUTH } from "../Auth/Const/AuthConst";
+import { getFormatDate } from "../Common/Function";
 
 
 
@@ -342,4 +343,18 @@ export function getTasksByUserAuth(userAuth?: string): taskListType[] {
     }
 
     return taskList;
+}
+
+
+/**
+ * タスクの日付変換を行う
+ */
+export function getConvertTasksDaate(decodeFileData: taskListType[]): taskListType[] {
+
+    decodeFileData.forEach((element) => {
+        element.registerTime = getFormatDate(element.registerTime);
+        element.updTime = getFormatDate(element.updTime);
+    });
+
+    return decodeFileData;
 }
