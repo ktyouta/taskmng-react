@@ -23,6 +23,7 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
 const MainAreaDiv = styled.div`
     box-sizing: border-box;
     padding-left: 15%;
+    padding-top: 2%;
 `;
 
 function TaskEditForm(props: propsType) {
