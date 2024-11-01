@@ -27,7 +27,7 @@ export function getFormatDate(dateStr: string) {
 
 
 /**
- * 現在日時(yyyy/mm/dd hh:mm)を取得
+ * 現在日時(yyyy/MM/dd HH:mm)を取得
  */
 export function getNowDatetime() {
     const now = new Date();

@@ -1,5 +1,5 @@
 import { getGeneralDetailData } from "../General/GeneralFunction";
-import { getCustomAttributeData, getCustomAttributeListData } from "../Setting/CustomAttribute/CustomAttributeSelectFunction";
+import { getCustomAttributeData, getCustomAttributeListData, getCustomAttributeListObjList, getCustomAttributeObjList } from "../Setting/CustomAttribute/CustomAttributeSelectFunction";
 import { joinGeneralSetting } from "../History/HistorySelectFunction";
 import { CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, CUSTOMATTRIBUTE_KEY_DEFAULT, PRE_TASK_ID, SEARCHCONDITION_KEY_DEFAULT, TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH, TASK_FILEPATH } from "./Const/TaskConst";
 import { categoryType } from "../Setting/Category/Type/CategoryType";
@@ -166,11 +166,6 @@ function getTaskCustomAttributeSelectedData() {
     //カスタム属性の選択値リストの読み込み
     let customAttributeSelectedList: taskCustomAttributeSelectedType[] = getFileJsonData(TASK_CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
 
-    //削除済のデータをフィルターする
-    customAttributeSelectedList = customAttributeSelectedList.filter((element) => {
-        return element.deleteFlg !== "1";
-    });
-
     return customAttributeSelectedList;
 }
 
@@ -185,7 +180,7 @@ export function joinCustomAttribute(singleTaskData: taskListType) {
     let retCustomAttributeList: inputSettingType[] = [];
 
     //カスタム属性の読み込み
-    let customAttributeData: customAttributeType[] = getCustomAttributeData();
+    let customAttributeData: customAttributeType[] = getCustomAttributeObjList();
 
     //データなし
     if (!customAttributeData || customAttributeData.length === 0) {
@@ -193,7 +188,7 @@ export function joinCustomAttribute(singleTaskData: taskListType) {
     }
 
     //カスタム属性の選択リストの読み込み
-    let customAttributeListData: customAttributeListType[] = getCustomAttributeListData();
+    let customAttributeListData: customAttributeListType[] = getCustomAttributeListObjList();
 
     //データなし
     if (!customAttributeListData || customAttributeListData.length === 0) {

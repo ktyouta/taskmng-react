@@ -1,5 +1,6 @@
 import { USER_AUTH } from "../../Auth/Const/AuthConst";
 import { authInfoType } from "../../Auth/Type/AuthType";
+import { FLG } from "../../Common/Const/CommonConst";
 import { getFileJsonData } from "../../Common/FileFunction";
 import { comboType, inputSettingType } from "../../Common/Type/CommonType";
 import { getSearchConditionList } from "../SearchCondition/SearchConditionSelectFunction";
@@ -12,30 +13,55 @@ import { customAttributeListType, customAttributeType, resClientCustomAttributeT
 /**
  * カスタム属性リストを取得
  */
-export function getCustomAttributeData() {
+export function getCustomAttributeObjList() {
 
     //カスタム属性の読み込み
     let decodeFileData: customAttributeType[] = getFileJsonData(CUSTOM_ATTRIBUTE_FILEPATH);
 
+    return decodeFileData;
+}
+
+
+/**
+ * カスタム属性リストを取得(削除済みデータをフィルター)
+ */
+export function getCustomAttributeData() {
+
+    //カスタム属性の読み込み
+    let decodeFileData: customAttributeType[] = getCustomAttributeObjList();
+
     //削除済のデータをフィルターする
     decodeFileData = decodeFileData.filter((element) => {
-        return element.deleteFlg !== "1";
+        return element.deleteFlg === FLG.OFF;
     });
 
     return decodeFileData;
 }
 
+
 /**
  * カスタム属性選択リストを取得
  */
-export function getCustomAttributeListData() {
+export function getCustomAttributeListObjList() {
 
     //カスタム属性リストファイルの読み込み
     let calDecodeFileData: customAttributeListType[] = getFileJsonData(CUSTOM_ATTRIBUTE_SELECTLIST_FILEPATH);
 
+    return calDecodeFileData;
+}
+
+
+/**
+ * カスタム属性選択リストを取得(削除済みデータをフィルター)
+ */
+export function getCustomAttributeListData() {
+
+    //カスタム属性リストファイルの読み込み
+    let calDecodeFileData: customAttributeListType[] = getCustomAttributeListObjList();
+
     //削除済のデータをフィルターする
     calDecodeFileData = calDecodeFileData.filter((element) => {
-        return element.deleteFlg !== "1";
+        return element.deleteFlg === FLG.OFF;
     });
 
     return calDecodeFileData;
