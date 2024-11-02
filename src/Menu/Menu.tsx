@@ -50,6 +50,27 @@ const MenuUl = styled.ul`
   position: relative;
   overflow: auto;
   padding-top: 5%;
+  height:80%;
+  overflow-y:auto;
+  box-sizing: border-box;
+  padding-bottom: 1%;
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: linear-gradient(to bottom, #3f86ed, #4481eb, #04befe, #3f86ed); 
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+
 `;
 
 

@@ -1,3 +1,4 @@
+import { FLG } from "../../Common/Const/CommonConst";
 import { getFileJsonData } from "../../Common/FileFunction";
 import { CATEGORY_FILEPATH, PRE_CATEGORY_ID } from "./Const/CategoryConst";
 import { categoryType } from "./Type/CategoryType";
@@ -6,17 +7,30 @@ import { categoryType } from "./Type/CategoryType";
 /**
  * カテゴリの絞り込み
  */
-export function getFilterdCategory() {
+export function getFilterdCategoryObjList() {
+
     //カテゴリファイルの読み込み
     let decodeFileData: categoryType[] = getFileJsonData(CATEGORY_FILEPATH);
 
+    return decodeFileData;
+}
+
+
+/**
+ * カテゴリの絞り込み(削除済みデータをフィルター)
+ */
+export function getFilterdCategory() {
+    //カテゴリファイルの読み込み
+    let decodeFileData: categoryType[] = getFilterdCategoryObjList();
+
     //削除フラグが1(削除済)のデータをフィルターする
     decodeFileData = decodeFileData.filter((element) => {
-        return element.deleteFlg !== "1";
+        return element.deleteFlg === FLG.OFF;
     });
 
     return decodeFileData;
 }
+
 
 /**
  * カテゴリを絞り込む

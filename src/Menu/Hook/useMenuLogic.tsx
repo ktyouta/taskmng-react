@@ -27,6 +27,10 @@ const MenuLi = styled.li<{ isTopLine?: boolean }>`
     padding: 8px 16px;
     text-decoration: none;
     border-bottom: 1px solid #ffa500;
+    &:hover {
+        background-color: #1b2538;
+        color: white;
+    }
   }
 `;
 
