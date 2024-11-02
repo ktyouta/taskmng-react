@@ -1,5 +1,4 @@
 import '../App.css';
-import './css/Menu.css';
 import { Link } from 'react-router-dom';
 import useMenuLogic from './Hook/useMenuLogic';
 import IconComponent from '../Common/IconComponent';
@@ -42,6 +41,17 @@ const MenuDiv = styled.div<{ isOpenMenu: boolean }>`
   ${({ isOpenMenu }) => (isOpenMenu ? "" : "transform: translateX(-100%)")};
 `;
 
+//メニューUL用のスタイル
+const MenuUl = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  position: relative;
+  overflow: auto;
+  padding-top: 5%;
+`;
+
 
 function Menu(props: propsType) {
 
@@ -67,14 +77,14 @@ function Menu(props: propsType) {
           />
         }
       </CloseIconAreaDiv>
-      <ul className='menu-ul'>
+      <MenuUl>
         {
           menuList && menuList.length > 0 &&
           menuList.map((element) => {
             return element;
           })
         }
-      </ul>
+      </MenuUl>
     </MenuDiv>
   );
 

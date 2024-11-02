@@ -10,11 +10,24 @@ import { clientMenuListAtom, userInfoAtom } from '../../Content/Atom/ContentAtom
 
 
 //選択中のメニューのスタイル
-const SelectedDiv = styled.div<{ bgColor?: string }>`
+const SelectedDiv = styled.div`
     color: white;
     padding: 8px 16px;
     text-decoration: none;
     border-bottom: 1px solid #ffa500;
+    background-color: #1b2538;
+`;
+
+//メニューのliのスタイル
+const MenuLi = styled.li<{ isTopLine?: boolean }>`
+  border-top:${({ isTopLine }) => (isTopLine ? "1px solid #ffa500" : "")};
+  & > a {
+    display: block;
+    color: #000000;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-bottom: 1px solid #ffa500;
+  }
 `;
 
 //引数の型
@@ -46,21 +59,13 @@ function useMenuLogic(props: propsType) {
 
         tmpMenuList = filterMenuList.map((element, index) => {
 
-            let cssName = "";
-            //先頭のli
-            if (index === 0) {
-                cssName = "top-menu-li ";
-            }
-            //選択中のメニューを強調
-            if (element.name === props.selectedMenu) {
-                cssName += "selected";
-            }
             return (
-                <li
+                <MenuLi
                     key={`${element.path}-${index}`}
-                    className={cssName}
+                    isTopLine={index === 0}
                 >
                     {
+                        //選択中のメニューを強調
                         element.name === props.selectedMenu ?
                             <SelectedDiv
                                 data-testid={`${MenuTestIdPrefix}${element.id}`}
@@ -70,13 +75,12 @@ function useMenuLogic(props: propsType) {
                             :
                             <Link
                                 to={element.path}
-                                className="menu-link"
                                 data-testid={`${MenuTestIdPrefix}${element.id}`}
                             >
                                 {element.name}
                             </Link>
                     }
-                </li>
+                </MenuLi>
             )
         });
 
