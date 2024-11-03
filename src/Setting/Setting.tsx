@@ -5,13 +5,14 @@ import './css/Setting.css';
 import { useAtomValue } from 'jotai';
 import SettingMenu from './SettingMenu';
 import SettingMain from './SettingMain';
-//import { masterDataListAtom } from '../Main/Hook/useMainLogic';
+import { menuListType } from '../Common/Type/CommonType';
 
 
 //引数の型
 type propsType = {
   path: string,
   testId: string,
+  subMenuList: menuListType[],
 }
 
 function Setting(props: propsType) {
@@ -23,13 +24,10 @@ function Setting(props: propsType) {
       className="setting"
       data-testid={props.testId}
     >
-      <SettingMenu
-        width='15%'
-        path={props.path}
-      />
       <SettingMain
-        width='85%'
+        width='100%'
         path={props.path}
+        subMenuList={props.subMenuList}
       />
     </div>
   );

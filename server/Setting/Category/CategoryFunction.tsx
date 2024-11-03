@@ -1,5 +1,5 @@
-import { filterCategoryDetail, getFilterdCategory } from "./CategorySelectFunction";
-import { categoryType, checkOrderType } from "./Type/CategoryType";
+import { convertResCategoryList, filterCategoryDetail, getFilterdCategory, getFilterdSubCategoryObjList, joinSubMenuList } from "./CategorySelectFunction";
+import { categoryType, checkOrderType, resCategoryType, subCategoryType } from "./Type/CategoryType";
 import { createAddCategoryData } from "./CategoryRegistFunction";
 import { createUpdCategoryData, createUpdCategoryOrderData } from "./CategoryUpdateFunction";
 import { createDelCategoryData } from "./CategoryDeleteFunction";
@@ -28,7 +28,14 @@ export function getCategory(res: any, req: any) {
         return res.status(400).json({ errMessage: `カテゴリが登録されていません。` });
     }
 
-    return res.status(200).json(decodeFileData);
+    //レスポンス用の型に変換する
+    let resCategoryList: resCategoryType[] = convertResCategoryList(decodeFileData);
+
+    //サブメニューリストと結合する
+    let subCategoryList: subCategoryType[] = getFilterdSubCategoryObjList();
+    resCategoryList = joinSubMenuList(resCategoryList, subCategoryList);
+
+    return res.status(200).json(resCategoryList);
 }
 
 /**

@@ -92,7 +92,7 @@ function Menu(props: propsType) {
         {
           props.isOpenMenu &&
           <IconComponent
-            icon={IoIosArrowBack}
+            icon={RxCross1}
             onclick={props.switchMenu}
             data-testid={MenuCloseIconTestId}
           />

@@ -9,6 +9,11 @@ import Memo from "../../Memo/Memo";
 import Setting from "../../Setting/Setting";
 import User from "../../User/User";
 import Histroy from "../../History/Histroy";
+import SettingCustom from "../../Setting/SettingCustom/SettingCustom";
+import SettingCategory from "../../Setting/SettingCategory/SettingCategory";
+import SettingUser from "../../Setting/SettingUser/SettingUser";
+import SettingDefault from "../../Setting/SettingDefault/SettingDefault";
+import SettingSearchCondition from "../../Setting/SettingSearchCondition/SettingSearchCondition";
 
 /**
  * 設定から該当のコンポーネントを返す
@@ -59,7 +64,9 @@ export const retComponent = (element: menuListType) => {
         case "Setting":
             component = <Setting
                 path={path}
-                testId={`${testId}`} />;
+                testId={`${testId}`}
+                subMenuList={element.subCategoryList ?? []}
+            />;
             break;
         //ユーザーメニュー
         case "User":

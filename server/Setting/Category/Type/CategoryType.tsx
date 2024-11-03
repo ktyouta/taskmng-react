@@ -26,3 +26,24 @@ export type registSelectListRetType = {
     errMsg: string,
     registSelectList: customAttributeListType[]
 }
+
+//サブカテゴリの型
+export type subCategoryType = {
+    id: string,
+    parentId: string,
+    name: string,
+    path: string,
+    componentName: string,
+    auth: string,
+    isHidden: string,
+    order: string,
+    deleteFlg: string,
+    registerTime: string,
+    updTime: string,
+    userId: string,
+}
+
+//レスポンス用のカテゴリリストの型
+export type resCategoryType = categoryType & {
+    subMenuList: categoryType[]
+}

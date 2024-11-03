@@ -30,6 +30,7 @@ export type menuListType = {
     componentName: string,
     auth: string,
     isHidden: string,
+    subCategoryList?: menuListType[]
 }
 
 //リクエストボディのタイプ

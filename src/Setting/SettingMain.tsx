@@ -8,6 +8,7 @@ import useSettingMain from './Hook/useSettingMain';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 import { Routes, Route, Navigate } from "react-router-dom";
 import SettingCustom from './SettingCustom/SettingCustom';
+import { menuListType } from '../Common/Type/CommonType';
 
 
 //外側のスタイル
@@ -20,6 +21,7 @@ const OuterDiv = styled.div<{ width: string }>`
 type propsType = {
   width: string,
   path: string,
+  subMenuList: menuListType[],
 }
 
 function SettingMain(props: propsType) {

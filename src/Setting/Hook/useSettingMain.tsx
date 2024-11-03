@@ -56,27 +56,25 @@ const retSettingComponent = (componentName: string, path: string) => {
 //引数の型
 type propsType = {
     path: string,
+    subMenuList: menuListType[],
 }
 
 function useSettingMain(props: propsType) {
 
-    //メニューのリスト
-    const { data: settingMenu } = useQueryWrapper<menuListType[]>(
-        {
-            url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGMENU}`,
-        }
-    );
-
     //設定のルーティングリスト
-    let settingRouteList = useMemo(() => {
-        if (!settingMenu) {
+    const settingRouteList = useMemo(() => {
+
+        if (!props.subMenuList) {
             return;
         }
-        let tmpSettingRouteList = settingMenu.map((element, index) => {
+
+        let tmpSettingRouteList = props.subMenuList.map((element, index) => {
+
             //コンポーネントを取得
             let path = `${props.path}${element.path}`
             let Component = retSettingComponent(element.componentName, path);
-            let componentPath = `${element.path}/*`
+            let componentPath = `${element.path}/*`;
+
             if (!Component) {
                 return;
             }
@@ -90,10 +88,14 @@ function useSettingMain(props: propsType) {
                     </React.Fragment>
                 );
             }
+
             return <Route key={path} path={componentPath} element={<Provider>{Component}</Provider>} />;
+
         }).filter(e => e);
+
         return tmpSettingRouteList;
-    }, [settingMenu]);
+
+    }, [props.subMenuList]);
 
     return { settingRouteList }
 }

@@ -6,7 +6,7 @@ import Top from '../../Top/Top';
 import Master from '../../Master/Master';
 import Setting from '../../Setting/Setting';
 import { generalDataType, jsxObjType, masterDataListType, menuListType, resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
-import { Route } from "react-router-dom";
+import { Navigate, Route } from "react-router-dom";
 import NotFoundComponent from '../../NotFound/NotFoundComponent';
 import { Provider, atom, useAtom, useAtomValue } from 'jotai';
 import useQueryAtomValue from '../../Common/Hook/useQueryAtomValue';
@@ -20,7 +20,7 @@ import Memo from '../../Memo/Memo';
 import Histroy from '../../History/Histroy';
 import { clientMenuListAtom, userInfoAtom } from '../../Content/Atom/ContentAtom';
 import { ScreenTestIdPrefix } from '../../tests/AppTest/DataTestId';
-import { retComponent } from '../Function/MainFunction';
+import { retComponent, } from '../Function/MainFunction';
 
 
 //マスタのリスト(マスタメンテ画面のコンボ用)

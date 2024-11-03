@@ -1,13 +1,16 @@
 import useGetViewName from '../../Common/Hook/useGetViewName';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import React from 'react';
 import styled from 'styled-components';
 import { filterCategoryInfo } from '../Function/MenuFunction';
 import { MenuTestIdPrefix } from '../../tests/AppTest/DataTestId';
 import { clientMenuListAtom, userInfoAtom } from '../../Content/Atom/ContentAtom';
-
+import { menuListType } from '../../Common/Type/CommonType';
+import IconComponent from '../../Common/IconComponent';
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 
 //選択中のメニューのスタイル
 const SelectedDiv = styled.div`
@@ -22,7 +25,9 @@ const SelectedDiv = styled.div`
 const MenuLi = styled.li<{ isTopLine?: boolean }>`
   border-top:${({ isTopLine }) => (isTopLine ? "1px solid #ffa500" : "")};
   & > a {
-    display: block;
+    display:flex;
+    justify-content: center;
+    align-items: center;
     color: #000000;
     padding: 8px 16px;
     text-decoration: none;
@@ -33,6 +38,24 @@ const MenuLi = styled.li<{ isTopLine?: boolean }>`
     }
   }
 `;
+
+//親カテゴリのスタイル
+const SubCategoryParentDiv = styled.div`
+    color: #000000;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-bottom: 1px solid #ffa500;
+    &:hover {
+        background-color: #1b2538;
+        color: white;
+    }
+    box-sizing: border-box;
+    align-items: center;
+    display:flex;
+    justify-content: center;
+    position: relative;
+`;
+
 
 //引数の型
 type propsType = {
@@ -45,6 +68,29 @@ function useMenuLogic(props: propsType) {
     const menu = useGlobalAtomValue(clientMenuListAtom);
     //ユーザー情報
     const userInfo = useGlobalAtomValue(userInfoAtom);
+    //サブカテゴリ表示ID
+    const [dispSubCateogryIdList, setDispSubCateogryIdList] = useState<string[]>([]);
+
+    /**
+     * 親カテゴリの押下イベント
+     */
+    function clickParentCategory(categoryId: string,) {
+
+        setDispSubCateogryIdList((prevDispSubCateogryIdList) => {
+
+            let tmpDelTaskIdList = [];
+
+            //サブカテゴリを閉じる
+            if (prevDispSubCateogryIdList.some(e => e === categoryId)) {
+                tmpDelTaskIdList = prevDispSubCateogryIdList.filter(e => e !== categoryId);
+            }
+            else {
+                tmpDelTaskIdList = [...prevDispSubCateogryIdList, categoryId];
+            }
+
+            return tmpDelTaskIdList;
+        });
+    }
 
     //画面に表示するメニュー
     const menuList = useMemo(() => {
@@ -59,7 +105,7 @@ function useMenuLogic(props: propsType) {
         const userAuth = parseInt(userInfo.auth);
 
         //取得したカテゴリをユーザーの権限とプロパティでフィルターする
-        let filterMenuList = filterCategoryInfo(menu, userAuth);
+        let filterMenuList: menuListType[] = filterCategoryInfo(menu, userAuth);
 
         tmpMenuList = filterMenuList.map((element, index) => {
 
@@ -69,27 +115,86 @@ function useMenuLogic(props: propsType) {
                     isTopLine={index === 0}
                 >
                     {
-                        //選択中のメニューを強調
-                        element.name === props.selectedMenu ?
-                            <SelectedDiv
-                                data-testid={`${MenuTestIdPrefix}${element.id}`}
-                            >
-                                {element.name}
-                            </SelectedDiv>
+                        element.subCategoryList &&
+                            element.subCategoryList.length > 0
+                            ?
+                            (
+                                //サブメニュー展開時
+                                dispSubCateogryIdList &&
+                                    dispSubCateogryIdList.some((item) => {
+                                        return item === element.id
+                                    })
+                                    ?
+                                    <React.Fragment>
+                                        <SubCategoryParentDiv
+                                            data-testid={`${MenuTestIdPrefix}${element.id}`}
+                                            onClick={() => {
+                                                clickParentCategory(element.id)
+                                            }}
+                                        >
+                                            {element.name}
+                                            <IconComponent
+                                                icon={IoIosArrowDown}
+                                                style={{
+                                                    "position": "absolute",
+                                                    "right": "5%",
+                                                }}
+                                            />
+                                        </SubCategoryParentDiv>
+                                        {
+                                            element.subCategoryList.map((element2) => {
+                                                return (
+                                                    <Link
+                                                        to={`${element.path}${element2.path}`}
+                                                        data-testid={`${MenuTestIdPrefix}${element2.id}`}
+                                                    >
+                                                        {element2.name}
+                                                    </Link>
+                                                )
+                                            })
+                                        }
+                                    </React.Fragment>
+                                    :
+                                    <SubCategoryParentDiv
+                                        data-testid={`${MenuTestIdPrefix}${element.id}`}
+                                        onClick={() => {
+                                            clickParentCategory(element.id)
+                                        }}
+                                    >
+                                        {element.name}
+                                        <IconComponent
+                                            icon={IoIosArrowBack}
+                                            style={{
+                                                "position": "absolute",
+                                                "right": "5%",
+                                            }}
+                                        />
+                                    </SubCategoryParentDiv>
+                            )
                             :
-                            <Link
-                                to={element.path}
-                                data-testid={`${MenuTestIdPrefix}${element.id}`}
-                            >
-                                {element.name}
-                            </Link>
+                            (
+                                //選択中のメニューを強調
+                                element.name === props.selectedMenu ?
+                                    <SelectedDiv
+                                        data-testid={`${MenuTestIdPrefix}${element.id}`}
+                                    >
+                                        {element.name}
+                                    </SelectedDiv>
+                                    :
+                                    <Link
+                                        to={element.path}
+                                        data-testid={`${MenuTestIdPrefix}${element.id}`}
+                                    >
+                                        {element.name}
+                                    </Link>
+                            )
                     }
                 </MenuLi>
             )
         });
 
         return tmpMenuList;
-    }, [menu, props.selectedMenu, userInfo]);
+    }, [menu, props.selectedMenu, userInfo, dispSubCateogryIdList]);
 
     return { menu, menuList };
 }
