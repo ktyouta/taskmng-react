@@ -7,14 +7,14 @@ import { Location, useLocation } from 'react-router-dom'
  * URLが切り替わった際に処理を実行
  * @param props 
  */
-function useChangeUrlFunction(changeUrlFunc:()=>void) {
+function useChangeUrlFunction(setSelectedMenuId: () => void) {
 
   const location = useLocation();
 
   //URL切り替え時のイベント
-  useEffect(()=>{
-    changeUrlFunc();
-  },[location])
+  useEffect(() => {
+    setSelectedMenuId();
+  }, [location])
 
 }
 

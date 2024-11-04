@@ -9,9 +9,9 @@ import { IoIosArrowBack } from "react-icons/io";
 
 //引数の型
 type propsType = {
-  selectedMenu: string,
   isOpenMenu: boolean,
   switchMenu: () => void,
+  selectedMenuId: string,
 }
 
 //メニュークローズ用のスタイル

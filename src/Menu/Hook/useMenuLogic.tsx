@@ -1,4 +1,3 @@
-import useGetViewName from '../../Common/Hook/useGetViewName';
 import { useGlobalAtomValue } from '../../Common/Hook/useGlobalAtom';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -12,6 +11,7 @@ import IconComponent from '../../Common/IconComponent';
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 
+
 //選択中のメニューのスタイル
 const SelectedDiv = styled.div`
     color: white;
@@ -19,6 +19,9 @@ const SelectedDiv = styled.div`
     text-decoration: none;
     border-bottom: 1px solid #ffa500;
     background-color: #1b2538;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 //メニューのliのスタイル
@@ -43,7 +46,6 @@ const MenuLi = styled.li<{ isTopLine?: boolean }>`
 const SubCategoryParentDiv = styled.div`
     color: #000000;
     padding: 8px 16px;
-    text-decoration: none;
     border-bottom: 1px solid #ffa500;
     &:hover {
         background-color: #1b2538;
@@ -56,10 +58,21 @@ const SubCategoryParentDiv = styled.div`
     position: relative;
 `;
 
+//メニューのスタイル
+const MenuDiv = styled.div<{ isSelected: boolean }>`
+    padding: 8px 16px;
+    border-bottom: 1px solid #ffa500;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color: ${({ isSelected }) => (isSelected ? "white" : "#000000")};
+    background-color:${({ isSelected }) => (isSelected ? "#1b2538" : "inherit")};
+`;
+
 
 //引数の型
 type propsType = {
-    selectedMenu: string,
+    selectedMenuId: string,
 }
 
 function useMenuLogic(props: propsType) {
@@ -94,10 +107,13 @@ function useMenuLogic(props: propsType) {
 
     //画面に表示するメニュー
     const menuList = useMemo(() => {
+
         let tmpMenuList: JSX.Element[] = [];
+
         if (!menu || menu.length < 1) {
             return;
         }
+
         if (!userInfo) {
             return;
         }
@@ -115,48 +131,72 @@ function useMenuLogic(props: propsType) {
                     isTopLine={index === 0}
                 >
                     {
-                        element.subCategoryList &&
+                        //サブメニューを保持している
+                        (
+                            element.subCategoryList &&
                             element.subCategoryList.length > 0
+                        )
                             ?
                             (
                                 //サブメニュー展開時
-                                dispSubCateogryIdList &&
-                                    dispSubCateogryIdList.some((item) => {
-                                        return item === element.id
-                                    })
+                                (
+                                    dispSubCateogryIdList &&
+                                    dispSubCateogryIdList.some(item => item === element.id)
+                                )
                                     ?
                                     <React.Fragment>
-                                        <SubCategoryParentDiv
-                                            data-testid={`${MenuTestIdPrefix}${element.id}`}
-                                            onClick={() => {
-                                                clickParentCategory(element.id)
-                                            }}
-                                        >
-                                            {element.name}
-                                            <IconComponent
-                                                icon={IoIosArrowDown}
-                                                style={{
-                                                    "position": "absolute",
-                                                    "right": "5%",
+                                        {/* メインメニュー部分 */}
+                                        {
+                                            <MenuDiv
+                                                data-testid={`${MenuTestIdPrefix}${element.id}`}
+                                                isSelected={element.subCategoryList.some(item2 => item2.id === props.selectedMenuId)}
+                                                onClick={() => {
+                                                    clickParentCategory(element.id)
                                                 }}
-                                            />
-                                        </SubCategoryParentDiv>
+                                            >
+                                                {element.name}
+                                                <IconComponent
+                                                    icon={IoIosArrowDown}
+                                                    style={{
+                                                        "position": "absolute",
+                                                        "right": "5%",
+                                                    }}
+                                                />
+                                            </MenuDiv>
+                                        }
+                                        {/* サブメニュー部分 */}
                                         {
                                             element.subCategoryList.map((element2) => {
                                                 return (
-                                                    <Link
-                                                        to={`${element.path}${element2.path}`}
-                                                        data-testid={`${MenuTestIdPrefix}${element2.id}`}
-                                                    >
-                                                        {element2.name}
-                                                    </Link>
+                                                    <React.Fragment>
+                                                        {
+                                                            //選択中のメニューを強調
+                                                            element2.id === props.selectedMenuId
+                                                                ?
+                                                                <SelectedDiv
+                                                                    data-testid={`${MenuTestIdPrefix}${element2.id}`}
+                                                                >
+                                                                    {element2.name}
+                                                                </SelectedDiv>
+                                                                :
+                                                                <Link
+                                                                    to={`${element.path}${element2.path}`}
+                                                                    data-testid={`${MenuTestIdPrefix}${element2.id}`}
+                                                                >
+                                                                    {element2.name}
+                                                                </Link>
+                                                        }
+
+                                                    </React.Fragment>
                                                 )
                                             })
                                         }
                                     </React.Fragment>
                                     :
-                                    <SubCategoryParentDiv
+                                    //サブメニュー未展開
+                                    <MenuDiv
                                         data-testid={`${MenuTestIdPrefix}${element.id}`}
+                                        isSelected={element.subCategoryList.some(item2 => item2.id === props.selectedMenuId)}
                                         onClick={() => {
                                             clickParentCategory(element.id)
                                         }}
@@ -169,12 +209,13 @@ function useMenuLogic(props: propsType) {
                                                 "right": "5%",
                                             }}
                                         />
-                                    </SubCategoryParentDiv>
+                                    </MenuDiv>
                             )
                             :
+                            //サブメニューを保持していない
                             (
                                 //選択中のメニューを強調
-                                element.name === props.selectedMenu ?
+                                element.id === props.selectedMenuId ?
                                     <SelectedDiv
                                         data-testid={`${MenuTestIdPrefix}${element.id}`}
                                     >
@@ -194,7 +235,7 @@ function useMenuLogic(props: propsType) {
         });
 
         return tmpMenuList;
-    }, [menu, props.selectedMenu, userInfo, dispSubCateogryIdList]);
+    }, [menu, props.selectedMenuId, userInfo, dispSubCateogryIdList]);
 
     return { menu, menuList };
 }

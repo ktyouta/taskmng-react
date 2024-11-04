@@ -50,9 +50,9 @@ function Content() {
     return (
         <AppDiv>
             <Menu
-                selectedMenu={headerTitle}
                 isOpenMenu={isOpenMenu}
                 switchMenu={switchMenu}
+                selectedMenuId={headerId}
             />
             <ContentAreaDiv
                 isOpenMenu={isOpenMenu}

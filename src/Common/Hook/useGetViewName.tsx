@@ -26,22 +26,55 @@ function useGetViewName(props: propsType): retType {
 
     //メニューの変更
     const changeSelectedMenu = () => {
-        if (props.menu && props.menu.length > 0) {
-            let pathArray = window.location.pathname.split("/");
-            if (pathArray.length < 2) {
-                return;
-            }
-            //大機能部分を取得
-            let mainPath = `/${pathArray[1]}`;
-            props.menu.forEach((element) => {
-                //urlが一致する場合にヘッダタイトルを変更
-                if (element.path === mainPath) {
-                    setSelectedMenu(element.name);
-                    setSelectedMenuId(`${HeaderTestIdPrefix}${element.id}`);
-                    return;
-                }
-            })
+
+        //メインメニューが存在しない
+        if (!props.menu || props.menu.length === 0) {
+            return;
         }
+
+        let pathArray = window.location.pathname.split("/");
+
+        if (pathArray.length < 2) {
+            return;
+        }
+
+        //大機能部分を取得
+        let mainPath = `/${pathArray[1]}`;
+
+        props.menu.some((element) => {
+
+            //urlが一致する場合にヘッダタイトルを変更
+            if (element.path === mainPath) {
+
+                //選択したメニューがサブメニューを保持している場合
+                if (element.subCategoryList &&
+                    element.subCategoryList.length > 0 &&
+                    pathArray.length > 2) {
+
+                    //サブメニューのURL
+                    let subPath = `/${pathArray[1]}/${pathArray[2]}`;
+
+                    element.subCategoryList.some((element1) => {
+
+                        let tmpPath = `${element.path}${element1.path}`;
+
+                        if (tmpPath === subPath) {
+                            setSelectedMenu(element1.name);
+                            setSelectedMenuId(element1.id);
+                            return true;
+                        }
+                    })
+                }
+                else {
+                    setSelectedMenu(element.name);
+                    setSelectedMenuId(element.id);
+                }
+
+                return true;
+            }
+        });
+
+
     }
 
     //urlが変更した際にメニュー名を変更
