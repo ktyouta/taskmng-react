@@ -41,49 +41,44 @@ function useGetViewName(props: propsType): retType {
         //大機能部分を取得
         let mainPath = `/${pathArray[1]}`;
 
-        props.menu.some((element) => {
-
-            //urlが一致する場合にヘッダタイトルを変更
-            if (element.path === mainPath) {
-
-                //選択したメニューがサブメニューを保持している場合
-                if (element.subCategoryList &&
-                    element.subCategoryList.length > 0 &&
-                    pathArray.length > 2) {
-
-                    //サブメニューのURL
-                    let subPath = `/${pathArray[1]}/${pathArray[2]}`;
-
-                    element.subCategoryList.some((element1) => {
-
-                        let tmpPath = `${element.path}${element1.path}`;
-
-                        if (tmpPath === subPath) {
-                            setSelectedMenu(element1.name);
-                            setSelectedMenuId(element1.id);
-                            return true;
-                        }
-                    })
-                }
-                else {
-                    setSelectedMenu(element.name);
-                    setSelectedMenuId(element.id);
-                }
-
-                return true;
-            }
+        let menuObj = props.menu.find((element) => {
+            return element.path === mainPath;
         });
 
+        //URLが大機能に一致しない
+        if (!menuObj) {
+            return;
+        }
 
+        //サブメニューを保持していない
+        if (!menuObj.subCategoryList ||
+            menuObj.subCategoryList.length === 0
+        ) {
+            setSelectedMenu(menuObj.name);
+            setSelectedMenuId(menuObj.id);
+            return;
+        }
+
+        //サブメニューを保持している場合は再帰的に確認する
+        getSubMenuInfo(
+            menuObj.subCategoryList,
+            pathArray,
+            2,
+            setSelectedMenu,
+            setSelectedMenuId
+        );
     }
+
 
     //urlが変更した際にメニュー名を変更
     useChangeUrlFunction(changeSelectedMenu);
+
 
     //初回読み込み時にメニュー名を取得
     useEffect(() => {
         changeSelectedMenu();
     }, [props.menu]);
+
 
     return (
         [
@@ -91,6 +86,68 @@ function useGetViewName(props: propsType): retType {
             selectedMenuId,
         ]
     );
+}
+
+
+/**
+ * 選択したメニューを再帰的に確認
+ * @param subCategoryList サブカテゴリリスト
+ * @param pathArray パスリスト
+ * @param index インデックス
+ * @param setSelectedMenu メニュー名称のセッター
+ * @param setSelectedMenuId メニューIDのセッター
+ * @returns 
+ */
+function getSubMenuInfo(
+    subCategoryList: menuListType[],
+    pathArray: string[],
+    index: number,
+    setSelectedMenu: (value: React.SetStateAction<string>) => void,
+    setSelectedMenuId: (value: React.SetStateAction<string>) => void,
+) {
+
+    let tmpSubCategoryList: menuListType[] = [];
+
+    if (pathArray.length < index + 1) {
+        return;
+    }
+
+    //サブメニューパス
+    let subPath = `/${pathArray[index]}`;
+
+    subCategoryList.some((element) => {
+
+        if (element.path === subPath) {
+
+            //サブメニューを保持していない場合は、名称とタイトルを保存
+            if (!element.subCategoryList ||
+                element.subCategoryList.length === 0
+            ) {
+                setSelectedMenu(element.name);
+                setSelectedMenuId(element.id);
+                return;
+            }
+
+            tmpSubCategoryList = element.subCategoryList;
+
+            return true;
+        }
+    });
+
+    index++;
+
+    //サブメニューが存在する場合は下の階層を確認
+    if (tmpSubCategoryList.length > 0) {
+        getSubMenuInfo(
+            tmpSubCategoryList,
+            pathArray,
+            index,
+            setSelectedMenu,
+            setSelectedMenuId,
+        );
+    }
+
+    return;
 }
 
 export default useGetViewName;
