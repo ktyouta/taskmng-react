@@ -27,6 +27,9 @@ function useGetViewName(props: propsType): retType {
     //メニューの変更
     const changeSelectedMenu = () => {
 
+        //パス確認用の初期インデックス
+        const PATH_INDEX_INIT = 1;
+
         //メインメニューが存在しない
         if (!props.menu || props.menu.length === 0) {
             return;
@@ -34,36 +37,11 @@ function useGetViewName(props: propsType): retType {
 
         let pathArray = window.location.pathname.split("/");
 
-        if (pathArray.length < 2) {
-            return;
-        }
-
-        //大機能部分を取得
-        let mainPath = `/${pathArray[1]}`;
-
-        let menuObj = props.menu.find((element) => {
-            return element.path === mainPath;
-        });
-
-        //URLが大機能に一致しない
-        if (!menuObj) {
-            return;
-        }
-
-        //サブメニューを保持していない
-        if (!menuObj.subCategoryList ||
-            menuObj.subCategoryList.length === 0
-        ) {
-            setSelectedMenu(menuObj.name);
-            setSelectedMenuId(menuObj.id);
-            return;
-        }
-
-        //サブメニューを保持している場合は再帰的に確認する
+        //URLからメニューの名称とIDを取得する
         getSubMenuInfo(
-            menuObj.subCategoryList,
+            props.menu,
             pathArray,
-            2,
+            PATH_INDEX_INIT,
             setSelectedMenu,
             setSelectedMenuId
         );
@@ -93,7 +71,7 @@ function useGetViewName(props: propsType): retType {
  * 選択したメニューを再帰的に確認
  * @param subCategoryList サブカテゴリリスト
  * @param pathArray パスリスト
- * @param index インデックス
+ * @param pathIndex インデックス
  * @param setSelectedMenu メニュー名称のセッター
  * @param setSelectedMenuId メニューIDのセッター
  * @returns 
@@ -101,47 +79,47 @@ function useGetViewName(props: propsType): retType {
 function getSubMenuInfo(
     subCategoryList: menuListType[],
     pathArray: string[],
-    index: number,
+    pathIndex: number,
     setSelectedMenu: (value: React.SetStateAction<string>) => void,
     setSelectedMenuId: (value: React.SetStateAction<string>) => void,
 ) {
 
     let tmpSubCategoryList: menuListType[] = [];
 
-    if (pathArray.length < index + 1) {
+    if (pathArray.length < pathIndex + 1) {
         return;
     }
 
     //サブメニューパス
-    let subPath = `/${pathArray[index]}`;
+    let subPath = `/${pathArray[pathIndex]}`;
 
-    subCategoryList.some((element) => {
-
-        if (element.path === subPath) {
-
-            //サブメニューを保持していない場合は、名称とタイトルを保存
-            if (!element.subCategoryList ||
-                element.subCategoryList.length === 0
-            ) {
-                setSelectedMenu(element.name);
-                setSelectedMenuId(element.id);
-                return;
-            }
-
-            tmpSubCategoryList = element.subCategoryList;
-
-            return true;
-        }
+    //メニューリストからパスに一致する要素を取得
+    let menuObj = subCategoryList.find((element) => {
+        return element.path === subPath;
     });
 
-    index++;
+    //パスに一致するカテゴリが存在しない
+    if (!menuObj) {
+        return;
+    }
+
+    //サブメニューを保持していない場合は名称とIDを保存
+    if (!menuObj.subCategoryList ||
+        menuObj.subCategoryList.length === 0
+    ) {
+        setSelectedMenu(menuObj.name);
+        setSelectedMenuId(menuObj.id);
+        return;
+    }
+
+    tmpSubCategoryList = menuObj.subCategoryList;
 
     //サブメニューが存在する場合は下の階層を確認
     if (tmpSubCategoryList.length > 0) {
         getSubMenuInfo(
             tmpSubCategoryList,
             pathArray,
-            index,
+            ++pathIndex,
             setSelectedMenu,
             setSelectedMenuId,
         );
