@@ -3,7 +3,6 @@ import logo from './logo.svg';
 import '../App.css';
 import './css/Setting.css';
 import { useAtomValue } from 'jotai';
-import SettingMenu from './SettingMenu';
 import SettingMain from './SettingMain';
 import { menuListType } from '../Common/Type/CommonType';
 
