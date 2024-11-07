@@ -32,6 +32,8 @@ const ContentTitleDiv = styled.div<{ titleBgColor?: string }>`
         color: blue;
         text-decoration: underline;
     }
+    display: flex;
+    align-items: center;
 `;
 
 //コンテンツのスタイル

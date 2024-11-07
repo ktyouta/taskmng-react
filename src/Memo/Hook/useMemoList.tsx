@@ -16,7 +16,9 @@ import { MEMO_SEARCH_URL } from "../Const/MemoConst";
 
 const MemoListLi = styled.li`
     list-style: none;
-    padding: 0% 5% 0% 2%
+    padding-left:2%;
+    padding-right:1%;
+    box-sizing:border-box;
 `;
 
 //検索結果0件の表示スタイル

@@ -18,6 +18,12 @@ const DispLabel = styled(WidthDiv)`
     text-align: right;
 `;
 
+//外側のスタイル
+const ContentListOuterDiv = styled(HeightDiv)`
+    padding-right: 3%;
+    box-sizing: border-box;
+`;
+
 //引数の型
 type propsType = {
     path: string,
@@ -33,11 +39,11 @@ function MemoListContent(props: propsType) {
     } = useMemoListContent();
 
     return (
-        <HeightDiv
+        <ContentListOuterDiv
             height='78%'
         >
             <DispLabel
-                width='93%'
+                width='97%'
             >
                 <LabelComponent
                     title={orgMemoList ? `検索結果：${orgMemoList.length}件` : ``}
@@ -48,7 +54,7 @@ function MemoListContent(props: propsType) {
                 path={props.path}
                 memoList={memoList}
             />
-        </HeightDiv>
+        </ContentListOuterDiv>
     );
 }
 
