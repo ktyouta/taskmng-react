@@ -21,14 +21,14 @@ const MemoFooterDiv = styled.div`
     display: flex;
     align-items: center;
     height: 15%;
-    padding: 0% 0% 0% 2%;
-    position:relative;
+    padding-right: 5%;
+    box-sizing: border-box;
+    padding-left: 2%;
 `;
 
-//ページネーションのスタイル
-const PagenateDiv = styled.div`
-    position: absolute;
-    left: 35%;
+//ボタン間隔
+const SpaceDiv = styled.div`
+    flex:1;
 `;
 
 //引数の型
@@ -50,20 +50,17 @@ function MemoFooter(props: propsType) {
     return (
         <React.Fragment>
             <MemoFooterDiv>
-                <PagenateDiv>
-                    <PagenatetionComponent
-                        changePage={changePage}
-                        totalPage={pageNum}
-                    />
-                </PagenateDiv>
+                <PagenatetionComponent
+                    changePage={changePage}
+                    totalPage={pageNum}
+                />
+                <SpaceDiv />
                 <ButtonComponent
                     styleTypeNumber="GRAD_GREEN"
                     title={"メモ作成"}
                     onclick={clickCreateBtn}
                     style={{
                         "fontSize": "0.9rem",
-                        "position": "absolute",
-                        "left": "84%",
                         "width": "10%",
                         "height": "39%",
                     }}
