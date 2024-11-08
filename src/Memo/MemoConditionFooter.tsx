@@ -17,8 +17,15 @@ type propsType = {
 const OuterDiv = styled.div<{ height: string | undefined }>`
     height:${({ height }) => (height)};
     display:flex;
+    box-sizing:border-box;
+    padding-left:7%;
+    padding-right: 5%;
 `;
 
+//ボタン間隔
+const SpaceDiv = styled.div`
+    flex:1;
+`;
 
 function MemoConditionFooter(props: propsType) {
 
@@ -28,9 +35,6 @@ function MemoConditionFooter(props: propsType) {
         <OuterDiv
             height={props.outerHeight}
         >
-            <SpaceComponent
-                space={"9%"}
-            />
             {
                 props.backPageButtonObj &&
                 props.backPageButtonObj.title &&
@@ -41,14 +45,12 @@ function MemoConditionFooter(props: propsType) {
                     onclick={props.backPageButtonObj.onclick}
                     style={{
                         "fontSize": "0.9rem",
-                        "height": "42%",
-                        "width": "12%",
+                        "height": "61%",
+                        "width": "16%",
                     }}
                 />
             }
-            <SpaceComponent
-                space={"57%"}
-            />
+            <SpaceDiv />
             {
                 props.negativeButtonObj &&
                 props.negativeButtonObj.title &&
@@ -59,7 +61,7 @@ function MemoConditionFooter(props: propsType) {
                     onclick={props.negativeButtonObj.onclick}
                     style={{
                         "fontSize": "0.9rem",
-                        "height": "42%",
+                        "height": "61%",
                         "width": "auto",
                         "box-sizing": "border-box",
                         "padding": "1%"

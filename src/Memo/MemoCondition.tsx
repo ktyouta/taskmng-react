@@ -68,7 +68,7 @@ function MemoCondition(props: propsType) {
             height='100%'
         >
             <HeightDiv
-                height='85%'
+                height='90%'
             >
                 <HeaderDiv>
                     検索条件
@@ -91,7 +91,7 @@ function MemoCondition(props: propsType) {
                 </ConditionAreaDiv>
             </HeightDiv>
             <HeightDiv
-                height='15%'
+                height='10%'
             >
                 <MemoConditionFooter
                     backPageButtonObj={backPageButtonObj}

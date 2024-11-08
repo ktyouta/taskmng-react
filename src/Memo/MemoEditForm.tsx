@@ -71,7 +71,7 @@ function MemoEditForm(props: propsType) {
             >
                 <BaseInputComponent
                     placeholder='タイトル'
-                    textWidth='93%'
+                    textWidth='95%'
                     value={props.memoTitle}
                     onChange={props.setMemoTitle}
                 />
@@ -79,7 +79,7 @@ function MemoEditForm(props: propsType) {
             {/* タグ */}
             <MemoTag
                 height='7%'
-                width='93%'
+                width='95%'
                 tagList={props.memoTagList}
                 suggestions={props.tagSuggestList}
                 addTag={props.addTag}
@@ -88,7 +88,7 @@ function MemoEditForm(props: propsType) {
             {/* ヘッダメニュー */}
             <MemoHeadMenu
                 height='5%'
-                width='93%'
+                width='95%'
                 viewMode={viewMode}
                 clickMarkdownOnly={clickMarkdownOnly}
                 clickTeaxtAreaOnly={clickTeaxtAreaOnly}
@@ -97,7 +97,7 @@ function MemoEditForm(props: propsType) {
             {/* メモ入力欄 */}
             <MemoTextAreaDiv
                 height='84%'
-                width='93%'
+                width='95%'
             >
                 {
                     (() => {
