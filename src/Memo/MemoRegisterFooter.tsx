@@ -21,6 +21,13 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
     display:flex;
     box-sizing: border-box;
     padding-top: 1%;
+    padding-left:4%;
+    padding-right:7%;
+`;
+
+//ボタン間隔
+const SpaceDiv = styled.div`
+    flex:1;
 `;
 
 
@@ -32,9 +39,6 @@ function MemoRegisterFooter(props: propsType) {
         <OuterDiv
             height={props.outerHeight}
         >
-            <SpaceComponent
-                space={"5%"}
-            />
             {
                 props.backPageButtonObj &&
                 props.backPageButtonObj.title &&
@@ -50,9 +54,7 @@ function MemoRegisterFooter(props: propsType) {
                     }}
                 />
             }
-            <SpaceComponent
-                space="33%"
-            />
+            <SpaceDiv />
             {
                 props.clearButtonObj &&
                 props.clearButtonObj.title &&

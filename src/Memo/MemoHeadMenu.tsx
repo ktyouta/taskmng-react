@@ -38,6 +38,9 @@ const MemoHeadMenuDiv = styled.div<{ height: string, width: string, }>`
     background-color:white;
     display:flex;
     align-items: center;
+    box-sizing: border-box;
+    padding-left: 1%;
+    padding-right: 1%;
 `;
 
 //アイコンのスタイル
@@ -73,7 +76,7 @@ const MlNavDiv = styled(NavDiv)`
     padding-left: 6px;
     position: absolute;
     left: -31px;
-`
+`;
 
 //エディタラベル
 const TxNavDiv = styled(NavDiv)`
@@ -81,7 +84,12 @@ const TxNavDiv = styled(NavDiv)`
     padding-left: 6px;
     position: absolute;
     left: -48px;
-`
+`;
+
+const SpaceDiv = styled.div`
+    flex:1;
+`;
+
 
 function MemoHeadMenu(props: propsType) {
 
@@ -100,15 +108,10 @@ function MemoHeadMenu(props: propsType) {
             height={props.height}
             width={props.width}
         >
-            <SpaceComponent
-                space='1%'
-            />
             {
                 isOnMarkdown ? "プレビュー" : "本文"
             }
-            <SpaceComponent
-                space={isOnMarkdown ? '82%' : '87%'}
-            />
+            <SpaceDiv />
             <IconDiv
                 onMouseEnter={() => { hoverIcon(MEMO_VIEW_MODE.textareaOnly) }}
                 onMouseLeave={() => { hoverIcon("") }}
