@@ -20,6 +20,13 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
     display:flex;
     padding-top: 1%;
     box-sizing: border-box;
+    padding-left:3%;
+    padding-right:5%;
+`;
+
+//ボタン間隔
+const SpaceDiv = styled.div`
+    flex:1;
 `;
 
 
@@ -31,9 +38,6 @@ function MemoViewFooter(props: propsType) {
         <OuterDiv
             height={props.outerHeight}
         >
-            <SpaceComponent
-                space={"10%"}
-            />
             {
                 props.backPageButtonObj &&
                 props.backPageButtonObj.title &&
@@ -45,13 +49,11 @@ function MemoViewFooter(props: propsType) {
                     style={{
                         "fontSize": "0.9rem",
                         "width": "13%",
-                        "height": "53%",
+                        "height": "70%",
                     }}
                 />
             }
-            <SpaceComponent
-                space={"56%"}
-            />
+            <SpaceDiv />
             {
                 props.isMatchUser &&
                 props.positiveButtonObj &&
@@ -64,7 +66,7 @@ function MemoViewFooter(props: propsType) {
                     style={{
                         "fontSize": "0.9rem",
                         "width": "13%",
-                        "height": "53%",
+                        "height": "70%",
                     }}
                 />
             }

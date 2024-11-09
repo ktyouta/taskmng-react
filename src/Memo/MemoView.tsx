@@ -15,13 +15,16 @@ import MemoViewForm from './MemoViewForm';
 import React from 'react';
 import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import { tagType } from '../Common/TagsComponent';
 
 
 
 //入力欄
 const MainAreaDiv = styled(HeightDiv)`
-    padding-top:2%;
-    box-sizing: border-box;
+    padding-top:1%;
+    box-sizing:border-box;
+    padding-left:3%;
+    overflow-y: auto;
 `;
 
 //外側のスタイル
@@ -40,6 +43,7 @@ type propsType = {
   setMemoContent: React.Dispatch<React.SetStateAction<string>>,
   isLoading: boolean,
   isMatchUser: boolean,
+  memoTagList: tagType[],
 }
 
 
@@ -62,17 +66,18 @@ function MemoView(props: propsType) {
       height='100%'
     >
       <MainAreaDiv
-        height='87%'
+        height='90%'
       >
         <MemoViewForm
           memoTitle={props.memoTitle}
           memoContent={props.memoContent}
+          memoTagList={props.memoTagList}
         />
       </MainAreaDiv>
       <MemoViewFooter
         backPageButtonObj={backPageButtonObj}
         positiveButtonObj={positiveButtonObj}
-        outerHeight='13%'
+        outerHeight='10%'
         isMatchUser={props.isMatchUser}
       />
     </OuterDiv>

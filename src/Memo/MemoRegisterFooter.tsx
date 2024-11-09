@@ -22,7 +22,7 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
     box-sizing: border-box;
     padding-top: 1%;
     padding-left:4%;
-    padding-right:7%;
+    padding-right:5%;
 `;
 
 //ボタン間隔

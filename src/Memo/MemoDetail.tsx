@@ -62,6 +62,7 @@ function MemoDetail(props: propsType) {
                                     setMemoContent={setMemoContent}
                                     isLoading={isLoadinGetUpdMemo}
                                     isMatchUser={isMatchUser}
+                                    memoTagList={memoTagList}
                                 />
                             )
                         //編集
