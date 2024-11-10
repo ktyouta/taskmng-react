@@ -154,6 +154,7 @@ function useMemoDetail(props: propsType) {
         memoTagList,
         tagSuggestList,
         initMemoTagList,
+        setMemoTagList,
     }
 }
 

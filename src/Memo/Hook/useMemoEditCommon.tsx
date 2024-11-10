@@ -3,6 +3,7 @@ import ENV from '../../env.json';
 import { bodyObj, buttonObjType, comboType, generalDataType, refInfoType } from "../../Common/Type/CommonType";
 import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMutationWrapper";
 import useMemoEditBase from "./useMemoEditBase";
+import { tagType } from "../../Common/TagsComponent";
 
 
 //引数の型
@@ -16,6 +17,8 @@ type propsType = {
     initMemoContent: string | undefined,
     setMemoTitle: React.Dispatch<React.SetStateAction<string>>,
     setMemoContent: React.Dispatch<React.SetStateAction<string>>,
+    initMemoTagList: tagType[],
+    setMemoTagList: React.Dispatch<React.SetStateAction<tagType[]>>
 }
 
 

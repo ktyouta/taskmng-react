@@ -12,6 +12,7 @@ import { tagType } from "../../Common/TagsComponent";
 //引数の型
 type propsType = {
     path: string,
+    initMemoTagList: tagType[],
 }
 
 

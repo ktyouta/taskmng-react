@@ -20,6 +20,8 @@ type propsType = {
     setMemoTitle: React.Dispatch<React.SetStateAction<string>>,
     setMemoContent: React.Dispatch<React.SetStateAction<string>>,
     memoTagList: tagType[],
+    initMemoTagList: tagType[],
+    setMemoTagList: React.Dispatch<React.SetStateAction<tagType[]>>
 }
 
 

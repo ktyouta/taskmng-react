@@ -6,6 +6,7 @@ import { memoRegistReqType, memoUpdReqType, viewMemoType } from "../Type/MemoTyp
 import useMemoEditCommon from "./useMemoEditCommon";
 import useMemoRegisterCommon from "./useMemoRegisterCommon";
 import { MEMO_STATUS } from "../Const/MemoConst";
+import { tagType } from "../../Common/TagsComponent";
 
 
 //引数の型
@@ -19,6 +20,8 @@ type propsType = {
     initMemoContent: string | undefined,
     setMemoTitle: React.Dispatch<React.SetStateAction<string>>,
     setMemoContent: React.Dispatch<React.SetStateAction<string>>,
+    initMemoTagList: tagType[],
+    setMemoTagList: React.Dispatch<React.SetStateAction<tagType[]>>
 }
 
 

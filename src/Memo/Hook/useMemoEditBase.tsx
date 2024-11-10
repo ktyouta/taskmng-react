@@ -1,3 +1,4 @@
+import { tagType } from "../../Common/TagsComponent";
 
 
 //引数の型
@@ -8,6 +9,8 @@ type propsType = {
     initMemoContent: string | undefined,
     setMemoTitle: React.Dispatch<React.SetStateAction<string>>,
     setMemoContent: React.Dispatch<React.SetStateAction<string>>,
+    initMemoTagList: tagType[],
+    setMemoTagList: React.Dispatch<React.SetStateAction<tagType[]>>
 }
 
 
@@ -31,8 +34,10 @@ function useMemoEditBase(props: propsType) {
         if (!window.confirm("入力を元に戻しますか？")) {
             return;
         }
+
         props.setMemoTitle(props.initMemoTitle);
         props.setMemoContent(props.initMemoContent);
+        props.setMemoTagList(props.initMemoTagList);
     }
 
 

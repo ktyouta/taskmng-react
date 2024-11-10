@@ -10,6 +10,7 @@ import HorizonLabelItemComponent from '../Common/HorizonLabelItemComponent';
 import styled from 'styled-components';
 import LabelComponent from '../Common/LabelComponent';
 import { BoldSpan, HeaderDiv, HeightDiv, VerticalFlowDiv } from '../Common/StyledComponent/CommonStyledComponent';
+import { tagType } from '../Common/TagsComponent';
 
 
 //引数の型
@@ -41,7 +42,7 @@ function MemoRegister(props: propsType) {
     deleteTag,
     memoTagList,
     tagSuggestList,
-  } = useMemoRegister({ ...props });
+  } = useMemoRegister({ ...props, initMemoTagList: [] });
 
 
   return (

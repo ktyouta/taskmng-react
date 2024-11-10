@@ -37,8 +37,8 @@ type propsType = {
   openEditPage: () => void,
   closeFn?: () => void,
   backBtnTitle?: string,
-  memoTitle: string,
-  memoContent: string,
+  initMemoTitle: string,
+  initMemoContent: string,
   isLoading: boolean,
   isMatchUser: boolean,
   memoTagList: tagType[],
@@ -67,8 +67,8 @@ function MemoView(props: propsType) {
         height='90%'
       >
         <MemoViewForm
-          memoTitle={props.memoTitle}
-          memoContent={props.memoContent}
+          memoTitle={props.initMemoTitle}
+          memoContent={props.initMemoContent}
           memoTagList={props.memoTagList}
         />
       </MainAreaDiv>

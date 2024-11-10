@@ -40,6 +40,8 @@ type propsType = {
   deleteTag: (tagIndex: number) => void,
   memoTagList: tagType[],
   tagSuggestList: tagListResType[],
+  initMemoTagList: tagType[],
+  setMemoTagList: React.Dispatch<React.SetStateAction<tagType[]>>
 }
 
 

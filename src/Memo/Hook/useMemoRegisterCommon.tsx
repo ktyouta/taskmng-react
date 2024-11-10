@@ -20,6 +20,7 @@ type propsType = {
     memoTagList: tagType[],
     setMemoTagList: React.Dispatch<React.SetStateAction<tagType[]>>,
     setTagSuggestList: React.Dispatch<React.SetStateAction<tagListResType[]>>,
+    initMemoTagList: tagType[],
 }
 
 
