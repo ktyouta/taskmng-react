@@ -12,7 +12,7 @@ export type unReadObjType = {
     listLen: number,
 }
 
-//ローカルストレージ保存用の未読兼スオブジェクトの型
+//ローカルストレージ保存用の未読件数オブジェクトの型
 export type localSaveUnReadObjType = unReadObjType & {
     unReadInfo: string,
     preDiff: number,

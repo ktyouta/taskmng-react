@@ -21,6 +21,13 @@ const OuterDiv = styled.div<{ height: string | undefined }>`
     display:flex;
     box-sizing: border-box;
     padding-top: 1%;
+    padding-right: 4%;
+    padding-left: 3%;
+`;
+
+//ボタン間隔
+const SpaceDiv = styled.div`
+    flex:1;
 `;
 
 
@@ -32,9 +39,6 @@ function MemoEditFooter(props: propsType) {
         <OuterDiv
             height={props.outerHeight}
         >
-            <SpaceComponent
-                space={"5%"}
-            />
             {
                 props.backPageButtonObj &&
                 props.backPageButtonObj.title &&
@@ -46,13 +50,11 @@ function MemoEditFooter(props: propsType) {
                     style={{
                         "fontSize": "0.9rem",
                         "width": "12%",
-                        "height": "53%",
+                        "height": "70%",
                     }}
                 />
             }
-            <SpaceComponent
-                space={"32%"}
-            />
+            <SpaceDiv />
             {
                 props.negativeButtonObj &&
                 props.negativeButtonObj.title &&
@@ -64,7 +66,7 @@ function MemoEditFooter(props: propsType) {
                     style={{
                         "fontSize": "0.9rem",
                         "width": "12%",
-                        "height": "53%",
+                        "height": "70%",
                     }}
                 />
             }
@@ -82,7 +84,7 @@ function MemoEditFooter(props: propsType) {
                     style={{
                         "fontSize": "0.9rem",
                         "width": "12%",
-                        "height": "53%",
+                        "height": "70%",
                     }}
                 />
             }
@@ -101,7 +103,7 @@ function MemoEditFooter(props: propsType) {
                     style={{
                         "fontSize": "0.9rem",
                         "width": "12%",
-                        "height": "53%",
+                        "height": "70%",
                     }}
                 />
             }

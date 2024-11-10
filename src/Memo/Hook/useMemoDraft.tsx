@@ -150,17 +150,17 @@ function useMemoDraft(props: propsType) {
         } as buttonObjType,
         createButtonObj: {
             title: `登録`,
-            type: `RUN`,
+            type: `GRAD_BLUE`,
             onclick: create
         } as buttonObjType,
         saveButtonObj: {
             title: `下書き保存`,
-            type: `RUN`,
+            type: `GRAD_BLUE`,
             onclick: save
         } as buttonObjType,
         clearButtonObj: {
             title: `元に戻す`,
-            type: `RUN`,
+            type: `GRAD_BLUE`,
             onclick: clearButtonFunc
         } as buttonObjType,
     }

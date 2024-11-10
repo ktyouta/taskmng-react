@@ -33,7 +33,7 @@ type propsType = {
 
 //入力欄
 const MainAreaDiv = styled.div`
-    padding-left: 4%;
+    padding-left: 3%;
     padding-top: 2%;
     height: 100%;
     text-align:left;
@@ -71,7 +71,7 @@ function MemoEditForm(props: propsType) {
             >
                 <BaseInputComponent
                     placeholder='タイトル'
-                    textWidth='95%'
+                    textWidth='96%'
                     value={props.memoTitle}
                     onChange={props.setMemoTitle}
                 />
@@ -79,7 +79,7 @@ function MemoEditForm(props: propsType) {
             {/* タグ */}
             <MemoTag
                 height='7%'
-                width='95%'
+                width='96%'
                 tagList={props.memoTagList}
                 suggestions={props.tagSuggestList}
                 addTag={props.addTag}
@@ -88,7 +88,7 @@ function MemoEditForm(props: propsType) {
             {/* ヘッダメニュー */}
             <MemoHeadMenu
                 height='5%'
-                width='95%'
+                width='96%'
                 viewMode={viewMode}
                 clickMarkdownOnly={clickMarkdownOnly}
                 clickTeaxtAreaOnly={clickTeaxtAreaOnly}
@@ -97,7 +97,7 @@ function MemoEditForm(props: propsType) {
             {/* メモ入力欄 */}
             <MemoTextAreaDiv
                 height='84%'
-                width='95%'
+                width='96%'
             >
                 {
                     (() => {

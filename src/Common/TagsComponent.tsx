@@ -27,6 +27,7 @@ function TagsComponent(props: propsType) {
             onDelete={props.deleteTag}
             noOptionsText="No matching countries"
             allowNew
+            placeholderText='タグを追加'
         />
     )
 }

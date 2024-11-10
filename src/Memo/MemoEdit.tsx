@@ -66,7 +66,7 @@ function MemoEdit(props: propsType) {
       height='100%'
     >
       <HeightDiv
-        height='87%'
+        height='90%'
       >
         <MemoEditForm
           memoTitle={props.memoTitle}
@@ -80,7 +80,7 @@ function MemoEdit(props: propsType) {
         />
       </HeightDiv>
       <HeightDiv
-        height='13%'
+        height='10%'
       >
         {
           (() => {

@@ -26,7 +26,7 @@ const TitleDiv = styled.div`
 //マークダウンエリアのスタイル
 const ContentAreaDiv = styled.div`
     height:82%;
-    width:95%;
+    width:96%;
     border: 1px solid #a9a9a9;
     border-radius: 6px;
     text-align: left;
@@ -39,7 +39,7 @@ const ContentAreaDiv = styled.div`
 //タグのスタイル
 const TagDiv = styled.div`
     min-height:7%;
-    width:95%;
+    width:96%;
     background-color:white;
     margin-bottom:1%;
     display: flex;

@@ -20,6 +20,15 @@ type propsType = {
 const OuterDiv = styled.div<{ height: string | undefined }>`
     height:${({ height }) => (height)};
     display:flex;
+    box-sizing: border-box;
+    padding-top: 1%;
+    padding-right: 4%;
+    padding-left: 3%;
+`;
+
+//ボタン間隔
+const SpaceDiv = styled.div`
+    flex:1;
 `;
 
 
@@ -31,9 +40,6 @@ function MemoDraftFooter(props: propsType) {
         <OuterDiv
             height={props.outerHeight}
         >
-            <SpaceComponent
-                space={"5%"}
-            />
             {
                 props.backPageButtonObj &&
                 props.backPageButtonObj.title &&
@@ -42,12 +48,14 @@ function MemoDraftFooter(props: propsType) {
                     styleTypeNumber={props.backPageButtonObj.type}
                     title={props.backPageButtonObj.title}
                     onclick={props.backPageButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "70%",
+                    }}
                 />
             }
-            <SpaceComponent
-                space={"38%"}
-            />
+            <SpaceDiv />
             {
                 props.negativeButtonObj &&
                 props.negativeButtonObj.title &&
@@ -56,7 +64,11 @@ function MemoDraftFooter(props: propsType) {
                     styleTypeNumber={props.negativeButtonObj.type}
                     title={props.negativeButtonObj.title}
                     onclick={props.negativeButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "70%",
+                    }}
                 />
             }
             <SpaceComponent
@@ -70,7 +82,11 @@ function MemoDraftFooter(props: propsType) {
                     styleTypeNumber={props.saveButtonObj.type}
                     title={props.saveButtonObj.title}
                     onclick={props.saveButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "70%",
+                    }}
                 />
             }
             <SpaceComponent
@@ -84,7 +100,11 @@ function MemoDraftFooter(props: propsType) {
                     styleTypeNumber={props.positiveButtonObj.type}
                     title={props.positiveButtonObj.title}
                     onclick={props.positiveButtonObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "70%",
+                    }}
                 />
             }
             <SpaceComponent
@@ -99,7 +119,11 @@ function MemoDraftFooter(props: propsType) {
                     styleTypeNumber={props.deleteButtomObj.type}
                     title={props.deleteButtomObj.title}
                     onclick={props.deleteButtomObj.onclick}
-                    style={{ "borderRadius": "15px", "fontWeight": "bold", "fontSize": "0.9rem" }}
+                    style={{
+                        "fontSize": "0.9rem",
+                        "width": "12%",
+                        "height": "70%",
+                    }}
                 />
             }
         </OuterDiv>
