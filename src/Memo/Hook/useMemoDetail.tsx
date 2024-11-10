@@ -86,6 +86,14 @@ function useMemoDetail(props: propsType) {
         return updMemo.content;
     }, [updMemo]);
 
+    //タグリストの内容の初期値
+    let initMemoTagList = useMemo(() => {
+        if (!updMemo) {
+            return;
+        }
+        return updMemo.tagList;
+    }, [updMemo]);
+
     /**
      * 編集ボタン押下処理
      */
@@ -145,6 +153,7 @@ function useMemoDetail(props: propsType) {
         deleteTag,
         memoTagList,
         tagSuggestList,
+        initMemoTagList,
     }
 }
 

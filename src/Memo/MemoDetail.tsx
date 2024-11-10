@@ -41,6 +41,7 @@ function MemoDetail(props: propsType) {
         deleteTag,
         memoTagList,
         tagSuggestList,
+        initMemoTagList,
     } = useMemoDetail({ ...props });
 
 
@@ -56,13 +57,18 @@ function MemoDetail(props: propsType) {
                                     openEditPage={openEditPage}
                                     closeFn={props.closeFn}
                                     backBtnTitle={props.backBtnTitle}
-                                    memoTitle={memoTitle}
-                                    setMemoTitle={setMemoTitle}
-                                    memoContent={memoContent}
-                                    setMemoContent={setMemoContent}
+                                    memoTitle={initMemoTitle ?? ""}
+                                    memoContent={initMemoContent ?? ""}
                                     isLoading={isLoadinGetUpdMemo}
                                     isMatchUser={isMatchUser}
-                                    memoTagList={memoTagList}
+                                    memoTagList={
+                                        initMemoTagList &&
+                                            initMemoTagList.length > 0
+                                            ?
+                                            initMemoTagList
+                                            :
+                                            []
+                                    }
                                 />
                             )
                         //編集
