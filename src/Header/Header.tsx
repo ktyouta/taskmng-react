@@ -26,7 +26,6 @@ const HeaderDiv = styled.div`
   font-size: 30px;
   border-bottom: 1px solid #a9a9a9;
   box-sizing: border-box;
-  justify-content: space-between;
 `;
 
 //タイトルのスタイル
@@ -101,7 +100,6 @@ const UserInfoOuterDiv = styled.div`
   width:21%;
   display: flex;
   align-items: center;
-  margin-left: auto;
 `;
 
 //ユーザー名のスタイル
@@ -142,6 +140,11 @@ const NotificationBadgeSpan = styled.span`
   border-radius: 50%;
   font-size: 12px;
   font-weight: bold;
+`;
+
+//タイトルとコンテンツの間隔
+const SpaceDiv = styled.div`
+    flex:1;
 `;
 
 //引数の型
@@ -192,6 +195,7 @@ function Header(props: propsType) {
           {props.headerTitle}
         </TitleSpan>
       </TitleAreaDiv>
+      <SpaceDiv />
       <UserInfoOuterDiv>
         {
           workHistoryObj &&
