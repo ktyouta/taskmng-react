@@ -4,21 +4,17 @@ import {
 } from "../../Common/Type/CommonType";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 
-// 引数の型
-type propsType = {
-    pathParam?: string,
-}
 
 /**
  * 汎用詳細リストを取得
  * @param selectedMaster 
  * @returns 
  */
-function useGetGeneralDataList(props: propsType) {
+function useGetGeneralDataList(pathParam?: string) {
 
     //汎用詳細リスト
     const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}${props.pathParam ?? ""}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}${pathParam ? `/${pathParam}` : ""}`,
     });
 
     return {

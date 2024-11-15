@@ -40,7 +40,8 @@ function Content() {
         headerTitle,
         headerId,
         isOpenMenu,
-        switchMenu } = useContentLogic();
+        switchMenu,
+        breadcrumbList } = useContentLogic();
 
     //データが取得できるまでローディングを表示
     if (!userInfo || !clientMenuList || clientMenuList.length < 1) {
@@ -63,6 +64,7 @@ function Content() {
                     headerId={headerId}
                     isOpenMenu={isOpenMenu}
                     switchMenu={switchMenu}
+                    breadcrumbList={breadcrumbList}
                 />
                 <Main />
             </ContentAreaDiv>

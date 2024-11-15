@@ -22,3 +22,7 @@ export const FLG = {
     OFF: "0",
     ON: "1",
 }
+//汎用詳細のキー
+export const GEN_KEY = {
+    BREADCRUMB: "9",
+}

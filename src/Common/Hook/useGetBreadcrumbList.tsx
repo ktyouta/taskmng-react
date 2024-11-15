@@ -11,7 +11,7 @@ type propsType = {
 }
 
 //パンくずリストの型
-type breadcrumbType = {
+export type breadcrumbType = {
     path: string,
     name: string,
     menuObj?: menuListType,
@@ -19,7 +19,7 @@ type breadcrumbType = {
 
 
 /**
- * URLが変化した際に画面名(大機能)を返却
+ * URLが変化した際にパンくずリストを返却
  * @param url 
  * @returns 
  */
@@ -37,7 +37,15 @@ function useGetBreadcrumbList(props: propsType): breadcrumbType[] {
         }
 
         //汎用詳細のパンくずリストが存在しない
-        if (!props.breadcrumbGenList) {
+        // if (!props.breadcrumbGenList) {
+        //     return;
+        // }
+
+        let pathName = window.location.pathname;
+
+        //ホーム画面の場合はパンくずリストを表示しない
+        if (pathName === "/") {
+            setBreadcrumbList([]);
             return;
         }
 
@@ -62,7 +70,7 @@ function useGetBreadcrumbList(props: propsType): breadcrumbType[] {
                 }
 
                 tmpBreadcrumbList = [...tmpBreadcrumbList, {
-                    path: menuObj.path,
+                    path: `${menuObj.path}`,
                     name: menuObj.name,
                     menuObj: menuObj,
                 }];
@@ -70,7 +78,7 @@ function useGetBreadcrumbList(props: propsType): breadcrumbType[] {
                 return;
             }
 
-            menuObj = breadcrumbList[breadcrumbList.length - 1].menuObj;
+            menuObj = tmpBreadcrumbList[tmpBreadcrumbList.length - 1].menuObj;
 
             //一階層上のパスがサブメニューを保持している場合
             if (menuObj && menuObj.subCategoryList && menuObj.subCategoryList.length > 0) {
@@ -84,12 +92,29 @@ function useGetBreadcrumbList(props: propsType): breadcrumbType[] {
                 if (subMenuObj) {
 
                     tmpBreadcrumbList = [...tmpBreadcrumbList, {
-                        path: menuObj.path,
+                        path: `${tmpBreadcrumbList.join()}/${element}`,
                         name: menuObj.name,
                         menuObj: subMenuObj,
                     }];
                     return;
                 }
+            }
+            else {
+                menuObj = props.menu?.find((e) => {
+                    return e.path === `/${element}`;
+                });
+
+                if (!menuObj) {
+                    return true;
+                }
+
+                tmpBreadcrumbList = [...tmpBreadcrumbList, {
+                    path: `${menuObj.path}`,
+                    name: menuObj.name,
+                    menuObj: menuObj,
+                }];
+
+                return;
             }
 
             //汎用詳細のパンくず作成用データから取得
@@ -120,11 +145,10 @@ function useGetBreadcrumbList(props: propsType): breadcrumbType[] {
     }
 
 
-    //urlが変更した際にメニュー名を変更
+    //urlが変更した際にパンくずリストを取得
     useChangeUrlFunction(createBreadcrumbList);
 
-
-    //初回読み込み時にメニュー名を取得
+    //初回読み込み時にパンくずリストを取得
     useEffect(() => {
         createBreadcrumbList();
     }, [props.menu, props.breadcrumbGenList]);

@@ -15,6 +15,8 @@ import { FaRegBell } from "react-icons/fa";
 import React from 'react';
 import ModalComponent from '../Common/ModalComponent';
 import HeaderNotice from './HeaderNotice';
+import { breadcrumbType } from '../Common/Hook/useGetBreadcrumbList';
+import BreadcrumbList from '../Common/BreadcrumbList';
 
 //ヘッダーのスタイル
 const HeaderDiv = styled.div`
@@ -23,7 +25,6 @@ const HeaderDiv = styled.div`
   background-color: #f5f5f5;
   display: flex;
   align-items: center;
-  font-size: 30px;
   border-bottom: 1px solid #a9a9a9;
   box-sizing: border-box;
 `;
@@ -121,6 +122,7 @@ const TitleAreaDiv = styled.div`
   justify-content: center;
   align-items: center;
   white-space: nowrap;
+  font-size: 30px;
 `;
 
 //通知アイコンエリアのスタイル
@@ -147,13 +149,15 @@ const SpaceDiv = styled.div`
     flex:1;
 `;
 
+
 //引数の型
 type propsType = {
   userInfo: userInfoType,
   headerTitle: string,
   headerId: string,
   isOpenMenu: boolean,
-  switchMenu: () => void
+  switchMenu: () => void,
+  breadcrumbList: breadcrumbType[]
 }
 
 function Header(props: propsType) {
@@ -175,6 +179,7 @@ function Header(props: propsType) {
 
   return (
     <HeaderDiv>
+      {/* タイトル */}
       <TitleAreaDiv>
         {
           !props.isOpenMenu &&
@@ -195,6 +200,11 @@ function Header(props: propsType) {
           {props.headerTitle}
         </TitleSpan>
       </TitleAreaDiv>
+      {/* パンくずリスト */}
+      {/* <BreadcrumbList
+        breadcrumbList={props.breadcrumbList}
+        outerStyle={{ "margin-left": "2%" }}
+      /> */}
       <SpaceDiv />
       <UserInfoOuterDiv>
         {

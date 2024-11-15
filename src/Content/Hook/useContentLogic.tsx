@@ -7,6 +7,9 @@ import { menuListType, resUserInfoType, userInfoType } from '../../Common/Type/C
 import { useGlobalAtom } from '../../Common/Hook/useGlobalAtom';
 import useGetViewName from '../../Common/Hook/useGetViewName';
 import { clientMenuListAtom, userInfoAtom } from '../Atom/ContentAtom';
+import useGetGeneralDataList from '../../Common/Hook/useGetGeneralDataList';
+import { GEN_KEY } from '../../Common/Const/CommonConst';
+import useGetBreadcrumbList from '../../Common/Hook/useGetBreadcrumbList';
 
 
 
@@ -29,6 +32,15 @@ function useContentLogic() {
             url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.CATEGORY}`,
         }
     );
+
+    //汎用詳細リスト(パンくずリスト)
+    const { generalDataList: breadcrumbGenList } = useGetGeneralDataList(GEN_KEY.BREADCRUMB);
+
+    //パンくずリスト
+    const breadcrumbList = useGetBreadcrumbList({
+        menu: menuList,
+        breadcrumbGenList
+    });
 
     /**
      * メニューの開閉
@@ -67,6 +79,7 @@ function useContentLogic() {
         headerId,
         isOpenMenu,
         switchMenu,
+        breadcrumbList,
     }
 }
 

@@ -8,6 +8,7 @@ export function TestHeader() {
         headerId="headerTestId"
         isOpenMenu={true}
         switchMenu={() => { }}
+        breadcrumbList={[]}
     />
 }
 
@@ -18,5 +19,6 @@ export function NoIconTestHeader() {
         headerId="headerTestId"
         isOpenMenu={true}
         switchMenu={() => { }}
+        breadcrumbList={[]}
     />
 }
