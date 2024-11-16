@@ -201,10 +201,10 @@ function Header(props: propsType) {
         </TitleSpan>
       </TitleAreaDiv>
       {/* パンくずリスト */}
-      {/* <BreadcrumbList
+      <BreadcrumbList
         breadcrumbList={props.breadcrumbList}
         outerStyle={{ "margin-left": "2%" }}
-      /> */}
+      />
       <SpaceDiv />
       <UserInfoOuterDiv>
         {

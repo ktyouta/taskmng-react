@@ -36,11 +36,6 @@ function useGetBreadcrumbList(props: propsType): breadcrumbType[] {
             return;
         }
 
-        //汎用詳細のパンくずリストが存在しない
-        // if (!props.breadcrumbGenList) {
-        //     return;
-        // }
-
         let pathName = window.location.pathname;
 
         //ホーム画面の場合はパンくずリストを表示しない
@@ -79,21 +74,23 @@ function useGetBreadcrumbList(props: propsType): breadcrumbType[] {
             }
 
             menuObj = tmpBreadcrumbList[tmpBreadcrumbList.length - 1].menuObj;
+            //パンくずのリンク押下時の遷移先パス
+            let naviPath = `${tmpBreadcrumbList.slice(1).map(e => e.path).join()}/${element}`;
 
             //一階層上のパスがサブメニューを保持している場合
             if (menuObj && menuObj.subCategoryList && menuObj.subCategoryList.length > 0) {
 
                 let subMenuList = menuObj.subCategoryList;
                 let subMenuObj = subMenuList.find((e2) => {
-                    return e2.path === element;
+                    return e2.path === `/${element}`;
                 });
 
                 //サブメニューリスト内にパスが存在する場合
                 if (subMenuObj) {
 
                     tmpBreadcrumbList = [...tmpBreadcrumbList, {
-                        path: `${tmpBreadcrumbList.join()}/${element}`,
-                        name: menuObj.name,
+                        path: naviPath,
+                        name: subMenuObj.name,
                         menuObj: subMenuObj,
                     }];
                     return;
@@ -104,17 +101,14 @@ function useGetBreadcrumbList(props: propsType): breadcrumbType[] {
                     return e.path === `/${element}`;
                 });
 
-                if (!menuObj) {
-                    return true;
+                if (menuObj) {
+                    tmpBreadcrumbList = [...tmpBreadcrumbList, {
+                        path: `${menuObj.path}`,
+                        name: menuObj.name,
+                        menuObj: menuObj,
+                    }];
+                    return;
                 }
-
-                tmpBreadcrumbList = [...tmpBreadcrumbList, {
-                    path: `${menuObj.path}`,
-                    name: menuObj.name,
-                    menuObj: menuObj,
-                }];
-
-                return;
             }
 
             //汎用詳細のパンくず作成用データから取得
@@ -122,12 +116,10 @@ function useGetBreadcrumbList(props: propsType): breadcrumbType[] {
                 return e.value === element;
             });
 
-            let path = `${tmpBreadcrumbList.join()}/${element}`;
-
             //汎用詳細リストのパンくずデータが取得できた場合
             if (genObj) {
                 tmpBreadcrumbList = [...tmpBreadcrumbList, {
-                    path: path,
+                    path: naviPath,
                     name: genObj.label,
                 }];
                 return;
@@ -135,7 +127,7 @@ function useGetBreadcrumbList(props: propsType): breadcrumbType[] {
 
             //汎用詳細のパンくず作成用データにマッチするパスがない場合は、パンくずの名称のパスを表示する
             tmpBreadcrumbList = [...tmpBreadcrumbList, {
-                path: path,
+                path: naviPath,
                 name: element,
             }];
 
