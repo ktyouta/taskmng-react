@@ -18,21 +18,26 @@ import DynamicFormComponent from '../../Common/DynamicFormComponent';
 //ボタンのスタイル
 const BtnDiv = styled.div`
     width: 100%;
-    margin-top:1%;
-    margin-bottom:1%;
     display:flex;
-    height:8%;
+    height:12%;
+    padding-top: 2%;
+    padding-right: 5%;
+    box-sizing: border-box;
 `;
 
 //入力欄のスタイル
 const InputAreaDiv = styled(HeightDiv)`
     overflow-y: auto;
-    padding-top: 2%;
+    padding-top: 3%;
     box-sizing: border-box;
-    padding-left: 2%;
-    padding-right: 2%;
+    padding-left: 8%;
+    padding-right: 5%;
 `;
 
+//ボタン間隔のスタイル
+const SpaceDiv = styled.div`
+    flex:1;
+`;
 
 
 function SettingSearchConditionMemoMain() {
@@ -60,16 +65,14 @@ function SettingSearchConditionMemoMain() {
     return (
         <React.Fragment>
             <InputAreaDiv
-                height='75%'
+                height='77%'
             >
                 <DynamicFormComponent
                     refInfoArray={memoSearchRefInfo}
                 />
             </InputAreaDiv>
             <BtnDiv>
-                <SpaceComponent
-                    space={'80%'}
-                />
+                <SpaceDiv />
                 <ButtonComponent
                     styleTypeNumber={backPageButtonObj.type}
                     title={backPageButtonObj.title}

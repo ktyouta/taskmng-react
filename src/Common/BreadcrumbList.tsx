@@ -11,7 +11,7 @@ const BreadcrumbDiv = styled.div`
 `;
 
 //パンくずリストの名称のスタイル
-const BreadcrumbNameSpan = styled.span<{ isLink: boolean, isExistSubMenu: boolean | undefined }>`
+const BreadcrumbNameSpan = styled.span<{ isLink: boolean, isExistSubMenu: boolean }>`
   cursor:${({ isLink, isExistSubMenu }) => (isLink && !isExistSubMenu ? "pointer" : "")};
   color:${({ isLink, isExistSubMenu }) => (isLink && !isExistSubMenu ? "blue" : "")};
   text-decoration:${({ isLink, isExistSubMenu }) => (isLink && !isExistSubMenu ? "underline" : "")};
@@ -44,7 +44,7 @@ function BreadcrumbList(props: propsType) {
                                 isLink={index !== props.breadcrumbList.length - 1}
                                 //サブメニューを保持しているメニュー
                                 isExistSubMenu={
-                                    element.menuObj?.subCategoryList &&
+                                    !!element.menuObj?.subCategoryList &&
                                     element.menuObj.subCategoryList.length > 0
                                 }
                                 onClick={() => {
