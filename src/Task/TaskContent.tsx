@@ -18,14 +18,14 @@ const OuterDiv = styled.div<{ bdColor?: string }>`
     min-height: 65px;
     height: auto;
     outline-color: ${({ bdColor }) => (bdColor ?? DEFAULT_STATUS_BODERCOLOR)};
-    height: 100%;
     width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 `;
 
 //タイトルエリアのスタイル
 const ContentTitleAreaDiv = styled.div<{ titleBgColor?: string }>`
-    height: 50%;
-    min-height: 30px;
     border-bottom: 1px solid;
     border-color: #888888;
     border-radius: 5px 5px 0px 0px;
@@ -35,12 +35,13 @@ const ContentTitleAreaDiv = styled.div<{ titleBgColor?: string }>`
     width:100%;
     box-sizing: border-box;
     display:flex;
+    flex-grow: 1;
+    align-items: center;
 `;
 
 //タイトルのスタイル
 const ContentTitleDiv = styled.div`
     text-align: left;
-    height: 100%;
     overflow-wrap: break-word;
     cursor:pointer;
     &:hover {
@@ -55,7 +56,6 @@ const ContentTitleDiv = styled.div`
 
 //削除エリアのスタイル
 const DeleteAreaDiv = styled.div<{ titleBgColor?: string }>`
-    height: 100%;
     overflow-wrap: break-word;
     width:10%;
     box-sizing: border-box;
@@ -70,18 +70,16 @@ const DeleteAreaDiv = styled.div<{ titleBgColor?: string }>`
 const ContentInfoDiv = styled.div<{ infoBgColor?: string }>`
     display: flex;
     align-items: center;
-    height: 50%;
     border-radius: 0px 0x 5px 5px;
-    min-height: 30px;
     padding-left: 10px;
     background-color: ${({ infoBgColor }) => (infoBgColor ?? DEFAULT_STATUS_BACKCOLOR)};
     overflow-wrap: break-word;
+    flex-grow: 2;
 `;
 
 //ボタンエリアのスタイル
 const ButtonAreaDiv = styled.div`
     position:relative;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -92,8 +90,6 @@ const DetailNavDiv = styled.div<{ isDisplay: boolean }>`
     position: absolute;
     top: 39px;
     font-size: 13px;
-    height: 79%;
-    min-height: 24px;
     background-color: white;
     outline: 1px solid #b0c4de;
     display: ${({ isDisplay }) => (isDisplay ? "block" : "none")};

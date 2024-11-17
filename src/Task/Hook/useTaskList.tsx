@@ -19,10 +19,14 @@ import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import { userInfoAtom } from "../../Content/Atom/ContentAtom";
 
 
+//タスクコンテンツのliのスタイル
 const TaskListLi = styled.li`
     list-style: none;
     padding: 0% 1% 0% 2%;
-    height: 18%;
+    height: auto;
+    min-height: 18%;
+    display: flex;
+    flex-direction: column;
 `;
 
 //引数の型
