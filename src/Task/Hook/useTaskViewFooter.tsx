@@ -13,6 +13,7 @@ import { USER_AUTH } from "../../Common/Const/CommonConst";
 type propsType = {
     closeFn?: () => void,
     updTaskId: string,
+    updTask: apiTaskDetailType | undefined,
 }
 
 
@@ -75,6 +76,24 @@ function useTaskViewFooter(props: propsType) {
 
     }, [userInfo]);
 
+    /**
+     * 編集可能フラグ
+     */
+    const isEditableFlg = useMemo(() => {
+
+        if (!userInfo) {
+            return false;
+        }
+
+        if (!props.updTask) {
+            return false;
+        }
+
+        return props.updTask.default.userId === userInfo.userId ||
+            parseInt(userInfo.auth) >= parseInt(USER_AUTH.ADMIN);
+
+    }, [userInfo, props.updTask]);
+
 
     return {
         recoveryButtonObj: {
@@ -83,6 +102,7 @@ function useTaskViewFooter(props: propsType) {
             onclick: recoveryTask
         } as buttonObjType,
         isRestorableFlg,
+        isEditableFlg,
     }
 }
 
