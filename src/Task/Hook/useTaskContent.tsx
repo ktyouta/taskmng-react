@@ -13,6 +13,8 @@ import React from "react";
 import SpaceComponent from "../../Common/SpaceComponent";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useAtomValue } from "jotai";
+import { taskAuthorityAtom } from "../Atom/TaskAtom";
 
 
 //引数の型
@@ -31,6 +33,8 @@ function useTaskContent(props: propsType) {
 
     //ルーティング用
     const navigate = useNavigate();
+    //タスク画面の権限
+    const taskAuthority = useAtomValue(taskAuthorityAtom);
 
     //ユーザー名のクリックイベント
     function clickUserNm() {
@@ -58,6 +62,7 @@ function useTaskContent(props: propsType) {
         clickUserNm,
         getDelTaskCheck,
         getRecTaskCheck,
+        taskAuthority,
     }
 }
 

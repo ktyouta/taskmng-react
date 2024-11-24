@@ -1,5 +1,5 @@
 import React from "react";
-import { menuListType } from "../../Common/Type/CommonType";
+import { menuListType, userInfoType } from "../../Common/Type/CommonType";
 import { ScreenTestIdPrefix } from "../../tests/AppTest/DataTestId";
 import Home from "../../Home/Home";
 import Master from "../../Master/Master";
@@ -14,6 +14,7 @@ import SettingCategory from "../../Setting/SettingCategory/SettingCategory";
 import SettingUser from "../../Setting/SettingUser/SettingUser";
 import SettingDefault from "../../Setting/SettingDefault/SettingDefault";
 import SettingSearchCondition from "../../Setting/SettingSearchCondition/SettingSearchCondition";
+import { getUserAuth } from "../../Common/Function/Function";
 
 /**
  * 設定から該当のコンポーネントを返す
@@ -21,13 +22,21 @@ import SettingSearchCondition from "../../Setting/SettingSearchCondition/Setting
  * @param url 
  * @returns 
  */
-export const retComponent = (element: menuListType) => {
+export const retComponent = (element: menuListType, userInfo: userInfoType) => {
 
     let component;
     //画面のパス
     let path = element.path;
     //テスト用ID
-    let testId = `${ScreenTestIdPrefix}${element.id}`
+    let testId = `${ScreenTestIdPrefix}${element.id}`;
+
+    //画面IDから権限を取得
+    let auth = getUserAuth(userInfo, element.id);
+
+    //権限が存在しない
+    if (!auth) {
+        return component;
+    }
 
     switch (element.componentName) {
         //ホーム
@@ -51,6 +60,7 @@ export const retComponent = (element: menuListType) => {
             component = <Task
                 path={path}
                 testId={`${testId}`}
+                auth={auth}
             />;
             break;
         //メモ

@@ -145,6 +145,7 @@ function TaskContent(props: propsType) {
         clickUserNm,
         getDelTaskCheck,
         getRecTaskCheck,
+        taskAuthority,
     } = useTaskContent({ ...props });
 
     return (
@@ -233,7 +234,7 @@ function TaskContent(props: propsType) {
                                 ?
                                 // 削除選択
                                 (
-                                    checkTaskDeletable(props.userInfo, props.contentObj.taskContent.userId) &&
+                                    checkTaskDeletable(props.userInfo.userId, taskAuthority, props.contentObj.taskContent.userId) &&
                                     <LabelCheckBoxComponent
                                         title={'削除'}
                                         value={props.contentObj.taskContent.id}

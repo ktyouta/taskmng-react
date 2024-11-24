@@ -14,6 +14,8 @@ import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import { userInfoAtom } from "../../Content/Atom/ContentAtom";
 import { USER_AUTH } from "../../Common/Const/CommonConst";
 import { CREATE_TASK_USER_KEY } from "../Const/TaskConst";
+import { useAtomValue } from "jotai";
+import { taskAuthorityAtom } from "../Atom/TaskAtom";
 
 
 //引数の型
@@ -40,6 +42,8 @@ function useTaskEdit(props: propsType) {
     const [errMessage, setErrMessage] = useState("");
     // ログインユーザー情報
     const userInfo = useGlobalAtomValue(userInfoAtom);
+    //タスク画面の権限
+    const taskAuthority = useAtomValue(taskAuthorityAtom);
 
     //カスタム属性入力設定リスト
     const { data: customAttributeInputSetting } = useQueryWrapper<refInfoType[]>({
@@ -60,14 +64,14 @@ function useTaskEdit(props: propsType) {
         if (!customAttributeInputSetting) {
             return;
         }
-        if (!userInfo) {
+        if (!taskAuthority) {
             return;
         }
 
         //入力欄の参照を作成
         setRefInfoArray(createUpdRefArray(props.taskSettingList,
-            props.updTask, props.generalDataList, customAttributeInputSetting, userInfo));
-    }, [props.taskSettingList, props.updTask, props.generalDataList, customAttributeInputSetting, userInfo]);
+            props.updTask, props.generalDataList, customAttributeInputSetting, taskAuthority));
+    }, [props.taskSettingList, props.updTask, props.generalDataList, customAttributeInputSetting, taskAuthority]);
 
 
     //タスク削除フラグ
@@ -84,9 +88,9 @@ function useTaskEdit(props: propsType) {
         //タスク作成ユーザーのID
         let taskCreateUserId = props.updTask.default[CREATE_TASK_USER_KEY];
 
-        return checkTaskDeletable(userInfo, taskCreateUserId);
+        return checkTaskDeletable(userInfo.userId, taskAuthority, taskCreateUserId);
 
-    }, [props.updTask, userInfo]);
+    }, [props.updTask, userInfo, taskAuthority]);
 
 
     //更新用フック

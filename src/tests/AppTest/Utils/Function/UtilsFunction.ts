@@ -1,7 +1,7 @@
 import CATEGORY_INFO from '../../../../../public/json/setting/menu.json';
 import { menuListType } from "../../../../Common/Type/CommonType";
 import { retComponent } from '../../../../Main/Function/MainFunction';
-import { authInfo } from "../../TestDatas";
+import { authInfo, userInfo } from "../../TestDatas";
 
 /**
  * クッキーのリセット
@@ -32,7 +32,7 @@ export function getCategoryComponent(categoryId: string) {
     }
 
     //カテゴリ情報からコンポーネントを取得
-    let component = retComponent(category);
+    let component = retComponent(category, userInfo);
 
     if (!component) {
         fail(`画面のコンポーネントを取得できませんでした。MainFunction.tsxのretComponentを確認してください。`);

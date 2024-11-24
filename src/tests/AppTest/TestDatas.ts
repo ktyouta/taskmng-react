@@ -420,7 +420,71 @@ export const userInfo = {
     userName: "テスト管理者",
     auth: "3",
     iconUrl: "http://localhost:3000/img/standard/testimg1.png",
-    authList: [],
+    authList: [{
+        "userId": "f",
+        "menuId": "CATEGORY-1",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "CATEGORY-3",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "CATEGORY-4",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "CATEGORY-5",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "CATEGORY-6",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "CATEGORY-7",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "CATEGORY-8",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "CATEGORY-9",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "SUBCATEGORY-1",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "SUBCATEGORY-2",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "SUBCATEGORY-3",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "SUBCATEGORY-4",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "SUBCATEGORY-5",
+        "auth": "3"
+    }],
 };
 
 //テストログインユーザー情報(アイコン未設定)
@@ -429,7 +493,71 @@ export const noIconUserInfo = {
     userName: "テスト管理者",
     auth: "3",
     iconUrl: "",
-    authList: [],
+    authList: [{
+        "userId": "f",
+        "menuId": "CATEGORY-1",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "CATEGORY-3",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "CATEGORY-4",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "CATEGORY-5",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "CATEGORY-6",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "CATEGORY-7",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "CATEGORY-8",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "CATEGORY-9",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "SUBCATEGORY-1",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "SUBCATEGORY-2",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "SUBCATEGORY-3",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "SUBCATEGORY-4",
+        "auth": "3"
+    },
+    {
+        "userId": "f",
+        "menuId": "SUBCATEGORY-5",
+        "auth": "3"
+    }],
 };
 
 //テスト用ログイン情報

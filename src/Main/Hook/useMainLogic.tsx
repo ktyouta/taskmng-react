@@ -70,13 +70,10 @@ function useMainLogic() {
             return;
         }
 
-        //ユーザー権限
-        let userAuth = parseInt(userInfo.auth);
-
         tmpComponentList = menu.reduce((current: JSX.Element[], element: menuListType) => {
 
             //ルーティングの設定
-            let component = retComponent(element);
+            let component = retComponent(element, userInfo);
 
             if (!component) {
                 return current;

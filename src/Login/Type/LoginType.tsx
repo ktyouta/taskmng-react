@@ -1,5 +1,5 @@
-//ユーザー情報
-export type userInfoType = {
-    userId:string,
-    password:string,
+//ログインリクエスト用のユーザー情報
+export type reqLoginUserInfoType = {
+    userId: string,
+    password: string,
 }

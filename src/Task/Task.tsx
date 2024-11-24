@@ -14,9 +14,11 @@ import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import { DUMMY_ID, TASK_ROOT_PATH } from './Const/TaskConst';
 
 
+//引数の型
 type propsType = {
   path: string,
   testId: string,
+  auth: string,
 }
 
 function Task(props: propsType) {

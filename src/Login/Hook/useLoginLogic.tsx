@@ -1,7 +1,7 @@
 import React, { RefObject, useContext, useRef, useState } from 'react';
 import { Link } from "react-router-dom";
 import ENV from '../../env.json';
-import { userInfoType } from '../Type/LoginType';
+import { reqLoginUserInfoType } from '../Type/LoginType';
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { apiResponseType } from '../../Common/Type/CommonType';
@@ -65,7 +65,7 @@ function useLoginLogic() {
         }
         let userId = userIdRef.current?.refValue as string;
         let password = userPasswordRef.current?.refValue as string;
-        let body: userInfoType = { userId, password }
+        let body: reqLoginUserInfoType = { userId, password }
         //認証API呼び出し
         postMutation.mutate(body);
     }

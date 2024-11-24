@@ -226,7 +226,7 @@ export function createTaskCustomAttributeRequestBody(refInputArray: refInfoType[
  * @returns 
  */
 export function createUpdRefArray(taskSettingList: inputTaskSettingType[], updTask: apiTaskDetailType,
-    generalDataList: generalDataType[], customAttributeInputSetting: refInfoType[], userInfo: userInfoType
+    generalDataList: generalDataType[], customAttributeInputSetting: refInfoType[], taskAuthority: string
 ): editDisplayTaskType {
 
     let tmpRefInfoArray: refInfoType[] = [];
@@ -269,7 +269,7 @@ export function createUpdRefArray(taskSettingList: inputTaskSettingType[], updTa
         //入力値の種類
         let elementType = element.type;
         //編集可能フラグ
-        let isEditable = element.isEditableOther || userInfo.auth === USER_AUTH.ADMIN;
+        let isEditable = element.isEditableOther || taskAuthority === USER_AUTH.ADMIN;
 
         //他ユーザーが編集不可の項目(管理者ユーザーの場合は編集可能)
         if (!isEditable) {
@@ -829,15 +829,15 @@ export function getUrlQueryObj(queryStrParam: string) {
 
 /**
  * タスクの削除可能チェック
- * @param userInfo 
- * @param taskCreateUserId 
+ * @param userId ユーザーID
+ * @param userId ユーザー権限
+ * @param taskCreateUserId タスク作成ユーザーID
  */
-export function checkTaskDeletable(userInfo: userInfoType, taskCreateUserId: string) {
-
-    //ユーザーID
-    let userId = userInfo.userId;
-    //ユーザー権限
-    let userAuth = userInfo.auth;
+export function checkTaskDeletable(
+    userId: string,
+    userAuth: string,
+    taskCreateUserId: string
+) {
 
     //権限ごとにフラグを返却
     switch (userAuth) {

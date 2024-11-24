@@ -15,3 +15,5 @@ export const updTaskAtom = atom([]);
 export const orgTaskListAtom = atom<taskListType[] | undefined>(undefined);
 //画面表示用タスクリスト
 export const taskListAtom = atom<taskListType[] | undefined>(undefined);
+//タスク画面の権限
+export const taskAuthorityAtom = atom(``);
