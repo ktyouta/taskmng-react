@@ -420,6 +420,7 @@ export const userInfo = {
     userName: "テスト管理者",
     auth: "3",
     iconUrl: "http://localhost:3000/img/standard/testimg1.png",
+    authList: [],
 };
 
 //テストログインユーザー情報(アイコン未設定)
@@ -428,6 +429,7 @@ export const noIconUserInfo = {
     userName: "テスト管理者",
     auth: "3",
     iconUrl: "",
+    authList: [],
 };
 
 //テスト用ログイン情報

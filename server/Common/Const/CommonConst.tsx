@@ -29,6 +29,9 @@ export const GENERALFILEPATH = `general`;
 export const GENERALDETAILFILEPATH = `generaldetail`;
 //検索条件ファイルパス
 export const SEARCHCONDITIONFILEPATH = `searchcondition`;
+//権限設定ファイルパス
+export const AUTHORIRY = `authority`;
+
 
 //タスクファイル名
 export const TASKFILENM = `task`;

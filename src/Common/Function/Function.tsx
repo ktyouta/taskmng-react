@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiResponseType, bodyObj, refInfoType, refInputCheckType } from '../Type/CommonType';
+import { apiResponseType, bodyObj, refInfoType, refInputCheckType, userInfoType } from '../Type/CommonType';
 import { NOWPATH_STRAGEKEY, USER_PATH } from '../../Header/Const/HeaderConst';
 import { USERID_STRAGEKEY } from '../Const/CommonConst';
 import { NavigateFunction } from 'react-router-dom';
@@ -159,4 +159,14 @@ export function moveUserInfo(userId: string, navigate: NavigateFunction) {
     //ユーザーIDをストレージに保持する
     localStorage.setItem(USERID_STRAGEKEY, userId);
     navigate(USER_PATH);
+}
+
+/**
+ * 対象画面の権限を取得する
+ */
+export function getUserAuth(userInfo: userInfoType, menuId: string,) {
+
+    return userInfo.authList.find((element) => {
+        return element.menuId === menuId;
+    })?.auth;
 }

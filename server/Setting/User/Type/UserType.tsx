@@ -1,3 +1,5 @@
+import { authType } from "../../../Auth/Type/AuthType"
+
 //ユーザー情報
 export type userInfoType = {
     userId: string,
@@ -36,4 +38,19 @@ export type updUserInfoType = {
     updTime: string,
     iconUrl: string,
     iconType: string,
+}
+
+//レスポンス用ユーザー情報
+export type resUserInfoType = {
+    userId: string,
+    userName: string,
+    password?: string,
+    auth: string,
+    authNm?: string,
+    deleteFlg?: string,
+    registerTime: string,
+    updTime: string,
+    iconUrl: string,
+    iconType: string,
+    authList: authType[],
 }

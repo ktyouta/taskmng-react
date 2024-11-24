@@ -1,10 +1,11 @@
 import express from 'express';
 import { config } from '../ApiConfig';
-import { userInfoType } from '../Setting/User/Type/UserType';
+import { resUserInfoType, userInfoType } from '../Setting/User/Type/UserType';
 import { authInfoType } from './Type/AuthType';
 import { USERINFO_FILEPATH } from '../Setting/User/Const/UserConst';
 import { readFile } from '../Common/FileFunction';
 import { USER_AUTH } from './Const/AuthConst';
+import { getAuthObjList, getUserAuthList } from './AuthSelectFunction';
 
 
 const jwt = require('jsonwebtoken');
@@ -31,6 +32,7 @@ export function authenticate(cookie: string): authInfoType {
             updTime: "",
             iconUrl: "",
             iconType: "",
+            authList: [],
         }
     };
     try {
@@ -53,7 +55,7 @@ export function authenticate(cookie: string): authInfoType {
         //ファイルの読み込みに失敗
         if (!fileData) {
             tmpAuthInfo.status = 500;
-            tmpAuthInfo.errMessage = '予期しないエラーが発生しました。';
+            tmpAuthInfo.errMessage = 'ユーザー情報設定ファイルが存在しません。';
             return tmpAuthInfo;
         }
 
@@ -70,7 +72,22 @@ export function authenticate(cookie: string): authInfoType {
             return tmpAuthInfo;
         }
 
-        tmpAuthInfo.userInfo = userData;
+        //権限情報を取得する
+        let authList = getAuthObjList();
+
+        //ユーザーの権限情報を取得する
+        let userAuthList = getUserAuthList(authList, userData.userId);
+
+        //権限情報が存在しない
+        if (!userAuthList || userAuthList.length === 0) {
+            tmpAuthInfo.status = 400;
+            tmpAuthInfo.errMessage = '権限情報が存在しません。';
+            return tmpAuthInfo;
+        }
+
+        let resuserInfo: resUserInfoType = { ...userData, authList: userAuthList };
+        tmpAuthInfo.userInfo = resuserInfo;
+
     } catch (err) {
         console.log("err:", err);
         tmpAuthInfo.status = 500;

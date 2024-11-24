@@ -7,6 +7,13 @@ import ENV from '../../env.json';
 import useQueryWrapper from './useQueryWrapper';
 import useQueryAtom from './useQueryAtom';
 
+//権限データ
+export type authType = {
+    userId: string,
+    menuId: string,
+    auth: string,
+}
+
 //認証チェックAPIのレスポンスの型
 type authResponseType = {
     errMessage?: string,
@@ -15,6 +22,7 @@ type authResponseType = {
         userName?: string;
         auth?: string;
         iconUrl?: string,
+        authList: authType[]
     };
 }
 
@@ -28,12 +36,14 @@ function createUserInfo(data: authResponseType): resUserInfoType {
     let userName = data?.userInfo?.userName as string;
     let auth = data?.userInfo?.auth as string;
     let iconUrl = data?.userInfo?.iconUrl as string;
+    let authList = data?.userInfo?.authList as authType[];
 
     return {
         userId,
         userName,
         auth,
         iconUrl,
+        authList,
     };
 }
 

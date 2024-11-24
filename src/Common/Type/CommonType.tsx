@@ -1,6 +1,7 @@
 import { ReactNode, RefObject } from "react"
 import { inputTaskSettingType } from "../../Task/Type/TaskType"
 import { buttonType } from "../ButtonComponent"
+import { authType } from "../Hook/useCheckAuth"
 
 //画面に表示するテーブル
 export type selectedMasterDataType = {
@@ -50,6 +51,7 @@ export type resUserInfoType = {
     userName: string,
     auth: string,
     iconUrl: string,
+    authList: authType[],
 }
 
 //apiのレスポンス
@@ -72,6 +74,7 @@ export type userInfoType = {
     userName: string,
     auth: string,
     iconUrl: string,
+    authList: authType[],
 }
 
 //マスタのリスト

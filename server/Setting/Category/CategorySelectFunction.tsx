@@ -1,5 +1,8 @@
+import { USER_AUTH } from "../../Auth/Const/AuthConst";
+import { authType } from "../../Auth/Type/AuthType";
 import { FLG } from "../../Common/Const/CommonConst";
 import { getFileJsonData } from "../../Common/FileFunction";
+import { checkAuthAction } from "../../Common/Function";
 import { CATEGORY_FILEPATH, PRE_CATEGORY_ID, SUB_CATEGORY_FILEPATH } from "./Const/CategoryConst";
 import { categoryType, resCategoryType, subCategoryType } from "./Type/CategoryType";
 
@@ -65,7 +68,7 @@ export function createCategoryNewId(categoryList: categoryType[]) {
 
 
 /**
- * サブカテゴリを取得
+ * サブメニューを取得
  */
 export function getFilterdSubCategoryObjList() {
 
@@ -100,7 +103,7 @@ export function getFilterdSubCategory() {
 export function convertResCategoryList(categoryList: categoryType[]): resCategoryType[] {
 
     return categoryList.map((element) => {
-        return { ...element, subMenuList: [] }
+        return { ...element, subCategoryList: [] }
     });
 }
 
@@ -122,20 +125,20 @@ export function joinSubMenuList(
 
 
 /**
- * 親カテゴリからサブカテゴリを再帰的に取得する
+ * 親カテゴリからサブメニューを再帰的に取得する
  * @param parentId 
  * @param subCategoryList 
  */
 function getSubMenuList(
     categoryId: string,
     subCategoryList: subCategoryType[],
-): categoryType[] {
+): resCategoryType[] {
 
     let tmpSubCategoryList = subCategoryList.filter((element) => {
         return element.parentId === categoryId;
     });
 
-    //自身のカテゴリにサブカテゴリが存在しない場合
+    //自身のカテゴリにサブメニューが存在しない場合
     if (!tmpSubCategoryList || tmpSubCategoryList.length === 0) {
         return [];
     }
@@ -146,5 +149,84 @@ function getSubMenuList(
             ...element,
             subCategoryList: getSubMenuList(element.id, subCategoryList),
         }
+    });
+}
+
+
+/**
+ * メニューをユーザーの権限でフィルターする
+ * @param menuList 
+ * @param authList 
+ */
+export function filterMenuByAuth(menuList: resCategoryType[],
+    authList: authType[]): resCategoryType[] {
+
+    return menuList.filter((element) => {
+
+        //サブメニューーを保持していないメニュー
+        if (!element.subCategoryList || element.subCategoryList.length === 0) {
+
+            //メニューに対するユーザーの権限
+            let menuAuth = authList.find((element1: authType) => {
+                return element1.menuId === element.id;
+            })?.auth;
+
+            return menuAuth && checkAuthAction(menuAuth, USER_AUTH.PUBLIC);
+        }
+
+        return true;
+    });
+}
+
+
+/**
+ * サブメニューをユーザーの権限でフィルターする
+ * @param menuList 
+ * @param authList 
+ */
+export function filterSubMenuByAuth(menuList: subCategoryType[],
+    authList: authType[]): subCategoryType[] {
+
+    return menuList.filter((element) => {
+
+        //メニューに対するユーザーの権限
+        let menuAuth = authList.find((element1: authType) => {
+            return element1.menuId === element.id;
+        })?.auth;
+
+        return menuAuth && checkAuthAction(menuAuth, USER_AUTH.PUBLIC);
+    });
+}
+
+
+/**
+ * サブメニューを保持していないメニューを省く
+ */
+export function removeMenusWithoutSubmenu(
+    menuList: resCategoryType[],
+    subMenuMasterList: subCategoryType[]): resCategoryType[] {
+
+    return menuList.filter((element: resCategoryType) => {
+
+        //マスターに自身のサブメニューの存在チェックを行う
+        let subMenuList = subMenuMasterList.filter((element1) => {
+            return element1.parentId === element.id;
+        });
+
+        //サブメニューを保持しないメニュー
+        if (!subMenuList || subMenuList.length === 0) {
+            return true;
+        }
+
+        //現在自身にセットされているサブメニュー
+        let subMenuInMain = element.subCategoryList;
+
+        //自身にサブメニューがセットされていない場合はメニューから省く
+        if (!subMenuInMain || subMenuInMain.length === 0) {
+            return false;
+        }
+
+        //サブメニューがセットされている場合はサブメニュー内をチェックする
+        return removeMenusWithoutSubmenu(subMenuInMain, subMenuMasterList).length > 0;
     });
 }

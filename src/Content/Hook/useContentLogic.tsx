@@ -62,14 +62,7 @@ function useContentLogic() {
         if (!menuList) {
             return;
         }
-        if (!userInfo) {
-            return;
-        }
-        let tmpMenuList = [...menuList].filter((element: menuListType) => {
-            //ユーザーの権限によりメニューの表示を制限する
-            return parseInt(userInfo.auth) >= parseInt(element.auth);
-        });
-        setClientMenuList(tmpMenuList);
+        setClientMenuList(menuList);
     }, [menuList, userInfo]);
 
     return {

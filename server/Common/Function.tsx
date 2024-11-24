@@ -38,3 +38,16 @@ export function getNowDatetime() {
     const minutes = now.getMinutes().toString().padStart(2, '0');
     return `${year}/${month}/${date} ${hours}:${minutes}`;
 }
+
+/**
+ * アクションに対する権限チェック
+ * @param userAuth 
+ * @param targetAuth 
+ */
+export function checkAuthAction(userAuth: string, targetAuth: string,) {
+
+    return userAuth &&
+        !Number.isNaN(userAuth) &&
+        !Number.isNaN(targetAuth) &&
+        parseInt(userAuth) >= parseInt(targetAuth);
+}

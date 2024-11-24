@@ -1,4 +1,4 @@
-import { convertResCategoryList, filterCategoryDetail, getFilterdCategory, getFilterdSubCategoryObjList, joinSubMenuList } from "./CategorySelectFunction";
+import { convertResCategoryList, filterCategoryDetail, filterMenuByAuth, filterSubMenuByAuth, getFilterdCategory, getFilterdSubCategoryObjList, joinSubMenuList, removeMenusWithoutSubmenu } from "./CategorySelectFunction";
 import { categoryType, checkOrderType, resCategoryType, subCategoryType } from "./Type/CategoryType";
 import { createAddCategoryData } from "./CategoryRegistFunction";
 import { createUpdCategoryData, createUpdCategoryOrderData } from "./CategoryUpdateFunction";
@@ -6,6 +6,8 @@ import { createDelCategoryData } from "./CategoryDeleteFunction";
 import { CATEGORY_FILEPATH } from "./Const/CategoryConst";
 import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
 import { overWriteData } from "../../Common/FileFunction";
+import { authInfoType, authType } from "../../Auth/Type/AuthType";
+import { resUserInfoType, userInfoType } from "../User/Type/UserType";
 
 
 /**
@@ -13,11 +15,31 @@ import { overWriteData } from "../../Common/FileFunction";
  */
 export function getCategory(res: any, req: any) {
     //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
     if (authResult.errMessage) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
+    }
+
+    //ユーザー情報
+    let userInfo: resUserInfoType | undefined = authResult.userInfo;
+
+    //ユーザー情報が存在しない
+    if (!userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: "ユーザー情報が存在しません。" });
+    }
+
+    //ユーザーの権限リスト
+    let authList: authType[] = userInfo.authList;
+
+    //権限リストが存在しない
+    if (!authList || authList.length === 0) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: "表示可能な画面が存在しません。" });
     }
 
     //カテゴリの読み込み
@@ -31,9 +53,20 @@ export function getCategory(res: any, req: any) {
     //レスポンス用の型に変換する
     let resCategoryList: resCategoryType[] = convertResCategoryList(decodeFileData);
 
-    //サブメニューリストと結合する
+    //メインメニューを権限でフィルターする
+    resCategoryList = filterMenuByAuth(resCategoryList, authList);
+
+    //サブメニューリストを取得する
     let subCategoryList: subCategoryType[] = getFilterdSubCategoryObjList();
-    resCategoryList = joinSubMenuList(resCategoryList, subCategoryList);
+
+    //サブメニューを権限でフィルターする
+    let filterdSubCategoryList = filterSubMenuByAuth(subCategoryList, authList);
+
+    //サブメニューリストと結合する
+    resCategoryList = joinSubMenuList(resCategoryList, filterdSubCategoryList);
+
+    //権限不足のサブメニューを再帰的に省く
+    resCategoryList = removeMenusWithoutSubmenu(resCategoryList, subCategoryList);
 
     return res.status(200).json(resCategoryList);
 }

@@ -74,10 +74,6 @@ function useMainLogic() {
         let userAuth = parseInt(userInfo.auth);
 
         tmpComponentList = menu.reduce((current: JSX.Element[], element: menuListType) => {
-            //ログインユーザーの権限でルーティングを切り替える
-            if (parseInt(element.auth) > userAuth) {
-                return current;
-            }
 
             //ルーティングの設定
             let component = retComponent(element);

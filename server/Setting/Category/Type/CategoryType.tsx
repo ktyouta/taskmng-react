@@ -45,5 +45,5 @@ export type subCategoryType = {
 
 //レスポンス用のカテゴリリストの型
 export type resCategoryType = categoryType & {
-    subMenuList: categoryType[]
+    subCategoryList: resCategoryType[]
 }
