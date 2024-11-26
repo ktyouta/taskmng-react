@@ -5,10 +5,11 @@ import { displayTaskListType, taskContentDisplayType } from './Type/TaskType';
 import React from 'react';
 import useTaskContent from './Hook/useTaskContent';
 import { DEFAULT_STATUS_BACKCOLOR, DEFAULT_STATUS_BODERCOLOR } from './Const/TaskConst';
-import { FLG } from '../Common/Const/CommonConst';
+import { FLG, USER_AUTH } from '../Common/Const/CommonConst';
 import LabelCheckBoxComponent from '../Common/LabelCheckBoxComponent';
 import { userInfoType } from '../Common/Type/CommonType';
-import { checkTaskDeletable, checkTaskRecoverable } from './Function/TaskFunction';
+import { checkTaskDeletable, } from './Function/TaskFunction';
+import { checkAuthAction } from '../Common/Function/Function';
 
 
 //外側のスタイル
@@ -251,7 +252,8 @@ function TaskContent(props: propsType) {
                                 :
                                 // 復元選択
                                 (
-                                    checkTaskRecoverable(props.userInfo) &&
+                                    //タスクの復元可能チェック
+                                    checkAuthAction(taskAuthority, USER_AUTH.ADMIN) &&
                                     <LabelCheckBoxComponent
                                         title={'復元'}
                                         value={props.contentObj.taskContent.id}

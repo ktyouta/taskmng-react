@@ -7,6 +7,9 @@ import useMutationWrapper, { errResType, resType } from "../../Common/Hook/useMu
 import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
 import { userInfoAtom } from "../../Content/Atom/ContentAtom";
 import { USER_AUTH } from "../../Common/Const/CommonConst";
+import { useAtomValue } from "jotai";
+import { taskAuthorityAtom } from "../Atom/TaskAtom";
+import { checkAuthAction } from "../../Common/Function/Function";
 
 
 //引数の型
@@ -25,6 +28,8 @@ function useTaskViewFooter(props: propsType) {
 
     //ユーザー情報
     const userInfo = useGlobalAtomValue(userInfoAtom);
+    //タスク画面の権限
+    const taskAuthority = useAtomValue(taskAuthorityAtom);
 
 
     //更新用フック
@@ -68,13 +73,12 @@ function useTaskViewFooter(props: propsType) {
      */
     const isRestorableFlg = useMemo(() => {
 
-        if (!userInfo) {
+        if (!taskAuthority) {
             return false;
         }
 
-        return parseInt(userInfo.auth) >= parseInt(USER_AUTH.ADMIN);
-
-    }, [userInfo]);
+        return checkAuthAction(taskAuthority, USER_AUTH.ADMIN);
+    }, [taskAuthority]);
 
     /**
      * 編集可能フラグ
@@ -89,10 +93,14 @@ function useTaskViewFooter(props: propsType) {
             return false;
         }
 
-        return props.updTask.default.userId === userInfo.userId ||
-            parseInt(userInfo.auth) >= parseInt(USER_AUTH.ADMIN);
+        if (!taskAuthority) {
+            return false;
+        }
 
-    }, [userInfo, props.updTask]);
+        return props.updTask.default.userId === userInfo.userId ||
+            checkAuthAction(taskAuthority, USER_AUTH.ADMIN);
+
+    }, [userInfo, props.updTask, taskAuthority]);
 
 
     return {

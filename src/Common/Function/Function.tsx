@@ -170,3 +170,17 @@ export function getUserAuth(userInfo: userInfoType, menuId: string,) {
         return element.menuId === menuId;
     })?.auth;
 }
+
+
+/**
+ * アクションに対する権限チェック
+ * @param userAuth 
+ * @param actionAuth 
+ */
+export function checkAuthAction(userAuth: string, actionAuth: string,) {
+
+    return userAuth &&
+        !Number.isNaN(userAuth) &&
+        !Number.isNaN(actionAuth) &&
+        parseInt(userAuth) >= parseInt(actionAuth);
+}
