@@ -1,7 +1,7 @@
 import { getGeneralDetailData } from "../General/GeneralFunction";
 import { checkDeletable, createDeleteCustomAttributeData, createDeleteTaskData, createMultiDeleteCustomAttributeData, createMultiDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
-import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
+import { checkRegistAuth, createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
 import { convDefaultTask, createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getConvertTasksDaate, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, getTasksByUserAuth, joinCustomAttribute } from "./TaskSelectFunction";
 import { runAddMultiTaskHistory, runAddTaskHistory } from "../History/HistoryFunction";
 import { CREATE, CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, DELETE, TASK_FILEPATH, UPDATE } from "./Const/TaskConst";
@@ -14,6 +14,7 @@ import { userInfoType } from "../Setting/User/Type/UserType";
 import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 import { USER_AUTH } from "../Auth/Const/AuthConst";
 import { createMultiRecoveryCustomAttributeData, createMultiRecoveryTaskData, createRecoveryCustomAttributeData, createRecoveryTaskData } from "./TaskRecoveryFunction";
+import { authInfoType } from "../Auth/Type/AuthType";
 
 
 
@@ -107,13 +108,34 @@ export function getTaskDetail(res: any, req: any, id: string) {
  * タスクの追加
  */
 export function runAddTask(res: any, req: any) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
     }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //タスク登録権限チェック
+    let taskRegistAuthResult = checkRegistAuth(authResult.userInfo.authList);
+
+    //権限エラー
+    if (taskRegistAuthResult.message) {
+        return res
+            .status(taskRegistAuthResult.status)
+            .json({ errMessage: taskRegistAuthResult.message });
+    }
+
     //タスクファイルの読み込み
     let decodeFileData: taskListType[] = getTaskObj();
 

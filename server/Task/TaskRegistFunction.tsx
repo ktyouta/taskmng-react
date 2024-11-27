@@ -1,9 +1,12 @@
 import { getGeneralDetailData } from "../General/GeneralFunction";
 import { createTaskNewId, getCustomAttributeTaskObj } from "./TaskSelectFunction";
-import { getNowDate } from "../Common/Function";
+import { checkAuthAction, getNowDate } from "../Common/Function";
 import { PRE_TASK_ID } from "./Const/TaskConst";
 import { retCreateAddTaskType, taskCustomAttributeSelectType, taskListType } from "./Type/TaskType";
-import { authInfoType } from "../Auth/Type/AuthType";
+import { authInfoType, authType } from "../Auth/Type/AuthType";
+import { TASK_CATEGORY_ID } from "../Common/Const/CommonConst";
+import { USER_AUTH } from "../Auth/Const/AuthConst";
+import { resActionAuthType } from "../Common/Type/CommonType";
 
 
 /**
@@ -103,4 +106,39 @@ export function createAddCustomAttributeData(req: any, authResult: authInfoType,
     });
 
     return [...customDecodeFileData, ...tmpBody];
+}
+
+
+/**
+ * タスクの登録権限チェック
+ * @param authList 
+ * @returns 
+ */
+export function checkRegistAuth(authList: authType[],): resActionAuthType {
+
+    let resActionAuthObj: resActionAuthType = {
+        status: 200,
+        message: ""
+    };
+
+    //ユーザーの権限リストからタスクの権限を取得する
+    let userTaskAuthObj = authList.find((element) => {
+        return element.menuId === TASK_CATEGORY_ID;
+    });
+
+    //タスクに関する権限が存在しない場合
+    if (!userTaskAuthObj || !userTaskAuthObj.auth) {
+        resActionAuthObj.status = 403;
+        resActionAuthObj.message = "権限が存在しません。";
+        return resActionAuthObj;
+    }
+
+    //一般権限以上の場合登録可能
+    if (!checkAuthAction(userTaskAuthObj.auth, USER_AUTH.PUBLIC)) {
+        resActionAuthObj.status = 403;
+        resActionAuthObj.message = "タスクの登録権限が存在しません。";
+        return resActionAuthObj;
+    }
+
+    return resActionAuthObj;
 }

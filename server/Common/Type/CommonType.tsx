@@ -35,3 +35,9 @@ export type tagType = {
     label: string,
     value: string | number | symbol | null,
 }
+
+//アクションの権限チェックのレスポンス型
+export type resActionAuthType = {
+    status: number,
+    message: string,
+}
