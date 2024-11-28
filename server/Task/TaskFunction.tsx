@@ -1,7 +1,7 @@
 import { getGeneralDetailData } from "../General/GeneralFunction";
 import { checkDeletable, createDeleteCustomAttributeData, createDeleteTaskData, createMultiDeleteCustomAttributeData, createMultiDeleteTaskData } from "./TaskDeleteFunction";
-import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
-import { checkRegistAuth, createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
+import { checkTaskUpdAuth, createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
+import { checkTaskRegistAuth, createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
 import { convDefaultTask, createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getConvertTasksDaate, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, getTasksByUserAuth, joinCustomAttribute } from "./TaskSelectFunction";
 import { runAddMultiTaskHistory, runAddTaskHistory } from "../History/HistoryFunction";
 import { CREATE, CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, DELETE, TASK_FILEPATH, UPDATE } from "./Const/TaskConst";
@@ -127,7 +127,7 @@ export function runAddTask(res: any, req: any) {
     }
 
     //タスク登録権限チェック
-    let taskRegistAuthResult = checkRegistAuth(authResult.userInfo.authList);
+    let taskRegistAuthResult = checkTaskRegistAuth(authResult.userInfo.authList);
 
     //権限エラー
     if (taskRegistAuthResult.message) {
@@ -188,17 +188,11 @@ export function runAddTask(res: any, req: any) {
         .json({ errMessage: `登録が完了しました。` });
 }
 
+
 /**
  * タスクの更新
  */
 export function runUpdTask(res: any, req: any, updTaskId: string) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
 
     //IDの指定がない
     if (!updTaskId) {
@@ -207,8 +201,47 @@ export function runUpdTask(res: any, req: any, updTaskId: string) {
             .json({ errMessage: `パラメータが不正です。` });
     }
 
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
     //タスクファイルの読み込み
     let decodeFileData: taskListType[] = getTaskObj();
+
+    //更新対象データの存在チェック
+    let updTargetTask: taskListType | undefined = decodeFileData.find((element) => {
+        return element.id === updTaskId;
+    });
+
+    //更新対象のタスクが存在しない
+    if (!updTargetTask) {
+        return res
+            .status(400)
+            .json({ errMessage: `更新対象のタスクが存在しません。` });
+    }
+
+    //タスク更新権限チェック
+    let taskUpdAuthResult = checkTaskUpdAuth(authResult.userInfo, updTargetTask);
+
+    //更新権限エラー
+    if (taskUpdAuthResult.message) {
+        return res
+            .status(taskUpdAuthResult.status)
+            .json({ errMessage: taskUpdAuthResult.message });
+    }
 
     //更新用データの作成
     let updData = createUpdTaskData(decodeFileData, req.body.default, updTaskId);
@@ -251,6 +284,7 @@ export function runUpdTask(res: any, req: any, updTaskId: string) {
         .status(200)
         .json({ errMessage: `更新が完了しました。` });
 }
+
 
 /**
  * タスクの削除

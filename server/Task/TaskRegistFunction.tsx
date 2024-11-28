@@ -114,7 +114,7 @@ export function createAddCustomAttributeData(req: any, authResult: authInfoType,
  * @param authList 
  * @returns 
  */
-export function checkRegistAuth(authList: authType[],): resActionAuthType {
+export function checkTaskRegistAuth(authList: authType[],): resActionAuthType {
 
     let resActionAuthObj: resActionAuthType = {
         status: 200,
@@ -129,7 +129,7 @@ export function checkRegistAuth(authList: authType[],): resActionAuthType {
     //タスクに関する権限が存在しない場合
     if (!userTaskAuthObj || !userTaskAuthObj.auth) {
         resActionAuthObj.status = 403;
-        resActionAuthObj.message = "権限が存在しません。";
+        resActionAuthObj.message = "タスクの登録権限が存在しません。";
         return resActionAuthObj;
     }
 
