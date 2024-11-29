@@ -2244,14 +2244,14 @@
 		"title": "登録テスト（一般）",
 		"content": "",
 		"registerTime": "2024/11/27",
-		"updTime": "2024/11/27",
+		"updTime": "2024/11/30",
 		"limitTime": "",
 		"userId": "g",
 		"priority": "1",
 		"status": "1",
 		"userName": "",
 		"url": "",
-		"deleteFlg": "0"
+		"deleteFlg": "1"
 	},
 	{
 		"id": "TASKID-180",
@@ -2263,6 +2263,34 @@
 		"userId": "f",
 		"priority": "1",
 		"status": "2",
+		"userName": "",
+		"url": "",
+		"deleteFlg": "0"
+	},
+	{
+		"id": "TASKID-181",
+		"title": "削除テスト",
+		"content": "",
+		"registerTime": "2024/11/30",
+		"updTime": "2024/11/30",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
+		"userName": "",
+		"url": "",
+		"deleteFlg": "1"
+	},
+	{
+		"id": "TASKID-182",
+		"title": "削除テスト",
+		"content": "",
+		"registerTime": "2024/11/30",
+		"updTime": "2024/11/30",
+		"limitTime": "",
+		"userId": "f",
+		"priority": "1",
+		"status": "1",
 		"userName": "",
 		"url": "",
 		"deleteFlg": "0"

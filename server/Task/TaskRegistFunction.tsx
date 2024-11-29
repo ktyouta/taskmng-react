@@ -129,7 +129,7 @@ export function checkTaskRegistAuth(authList: authType[],): resActionAuthType {
     //タスクに関する権限が存在しない場合
     if (!userTaskAuthObj || !userTaskAuthObj.auth) {
         resActionAuthObj.status = 403;
-        resActionAuthObj.message = "タスクの登録権限が存在しません。";
+        resActionAuthObj.message = "タスク画面の権限がありません。";
         return resActionAuthObj;
     }
 

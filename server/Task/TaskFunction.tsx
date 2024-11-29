@@ -1,5 +1,5 @@
 import { getGeneralDetailData } from "../General/GeneralFunction";
-import { checkDeletable, createDeleteCustomAttributeData, createDeleteTaskData, createMultiDeleteCustomAttributeData, createMultiDeleteTaskData } from "./TaskDeleteFunction";
+import { checkTaskDelAuth, createDeleteCustomAttributeData, createDeleteTaskData, createMultiDeleteCustomAttributeData, createMultiDeleteTaskData, multiCheckTaskDelAuth } from "./TaskDeleteFunction";
 import { checkTaskUpdAuth, createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
 import { checkTaskRegistAuth, createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
 import { convDefaultTask, createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getConvertTasksDaate, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, getTasksByUserAuth, joinCustomAttribute } from "./TaskSelectFunction";
@@ -290,19 +290,29 @@ export function runUpdTask(res: any, req: any, updTaskId: string) {
  * タスクの削除
  */
 export function runDeleteTask(res: any, req: any, delTaskId: string) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
 
     //IDの指定がない
     if (!delTaskId) {
         return res
             .status(400)
             .json({ errMessage: `パスパラメータが不正です。` });
+    }
+
+    //有効ユーザーチェック
+    let authResult = checkUpdAuth(req.cookies.cookie);
+
+    //チェックエラー
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     //タスクファイルの読み込み
@@ -320,21 +330,21 @@ export function runDeleteTask(res: any, req: any, delTaskId: string) {
             .json({ errMessage: `削除対象のタスクが存在しません。` });
     }
 
-    //削除可能チェック
-    let errMessage = checkDeletable(delTask, authResult);
+    //削除権限チェック
+    let taskDelAuthResult = checkTaskDelAuth(authResult.userInfo, delTask);
 
-    //登録更新削除に失敗
-    if (errMessage) {
+    //削除権限エラー
+    if (taskDelAuthResult.message) {
         return res
-            .status(400)
-            .json({ errMessage });
+            .status(taskDelAuthResult.status)
+            .json({ errMessage: taskDelAuthResult.message });
     }
 
     //削除用データの作成
     let registData = createDeleteTaskData(decodeFileData, delTaskId);
 
     //データを登録
-    errMessage = overWriteData(TASK_FILEPATH, JSON.stringify(registData, null, '\t'));
+    let errMessage = overWriteData(TASK_FILEPATH, JSON.stringify(registData, null, '\t'));
 
     //登録更新削除に失敗
     if (errMessage) {
@@ -375,14 +385,24 @@ export function runDeleteTask(res: any, req: any, delTaskId: string) {
         .json({ errMessage: `削除が完了しました。` });
 }
 
+
 /**
  * タスクの複数削除
  */
 export function runMultiDeleteTask(res: any, req: any) {
 
-    //認証権限チェック
+    //有効ユーザーチェック
     let authResult = checkUpdAuth(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -395,6 +415,16 @@ export function runMultiDeleteTask(res: any, req: any) {
 
     //タスクファイルの読み込み
     let decodeFileData: taskListType[] = getTaskObj();
+
+    //削除権限チェック
+    let taskDelAuthResult = multiCheckTaskDelAuth(decodeFileData, authResult.userInfo, deleteTaskList);
+
+    //削除権限エラー
+    if (taskDelAuthResult.message) {
+        return res
+            .status(taskDelAuthResult.status)
+            .json({ errMessage: taskDelAuthResult.message });
+    }
 
     //削除用データの作成
     let registData = createMultiDeleteTaskData(decodeFileData, deleteTaskList);

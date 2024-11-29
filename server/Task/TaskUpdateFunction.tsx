@@ -122,17 +122,28 @@ export function checkTaskUpdAuth(userInfo: resUserInfoType, updTargetTask: taskL
     //タスクに関する権限が存在しない場合
     if (!userTaskAuthObj || !userTaskAuthObj.auth) {
         resActionAuthObj.status = 403;
-        resActionAuthObj.message = "タスクの更新権限がありません。";
+        resActionAuthObj.message = "タスク画面の権限がありません。";
         return resActionAuthObj;
     }
 
-    //更新対象タスクの作成ユーザーと更新ユーザーが一致していないかつ管理者以外の場合は権限不足エラー
-    if (updTargetTask.userId !== userInfo.userId &&
-        !checkAuthAction(userTaskAuthObj.auth, USER_AUTH.ADMIN)
-    ) {
-        resActionAuthObj.status = 403;
-        resActionAuthObj.message = "他ユーザーのタスクを更新できません。";
-        return resActionAuthObj;
+    //更新対象タスクの作成ユーザーと更新ユーザーが一致していない場合
+    if (updTargetTask.userId !== userInfo.userId) {
+
+        switch (userTaskAuthObj.auth) {
+            //一般
+            case USER_AUTH.PUBLIC:
+                resActionAuthObj.status = 403;
+                resActionAuthObj.message = "他ユーザーのタスクを更新できません。";
+                break;
+            //専用
+            case USER_AUTH.EXCLUSIVE:
+                resActionAuthObj.status = 403;
+                resActionAuthObj.message = "他ユーザーのタスクを更新できません。";
+                break;
+            //管理者
+            case USER_AUTH.ADMIN:
+                break;
+        }
     }
 
     return resActionAuthObj;
