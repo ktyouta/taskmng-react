@@ -34,9 +34,10 @@ export function authenticate(cookie: string): authInfoType {
         }
 
         //トークンの作成に使用したキーを取得
-        const decoded = jwt.verify(cookie, config.jwt.secret).ID;
+        const decoded = jwt.verify(cookie, config.jwt.secret);
+        const id = decoded.ID;
 
-        let userArray = decoded.split(',');
+        let userArray = id.split(',');
         let userId = userArray[0];
         let password = userArray[1];
 
@@ -79,9 +80,27 @@ export function authenticate(cookie: string): authInfoType {
         tmpAuthInfo.userInfo = resuserInfo;
 
     } catch (err) {
+
         console.log("err:", err);
-        tmpAuthInfo.status = 500;
-        tmpAuthInfo.errMessage = '予期しないエラーが発生しました。';
+
+        if (err instanceof Error) {
+
+            switch (err.name) {
+                //トークンの期限切れ
+                case 'TokenExpiredError':
+                    tmpAuthInfo.status = 401;
+                    tmpAuthInfo.errMessage = 'トークンの期限が切れました。\r\n再度ログインしてください。';
+                    break;
+                default:
+                    tmpAuthInfo.status = 500;
+                    tmpAuthInfo.errMessage = '予期しないエラーが発生しました。';
+                    break;
+            }
+        }
+        else {
+            tmpAuthInfo.status = 500;
+            tmpAuthInfo.errMessage = '予期しないエラーが発生しました。';
+        }
     }
     return tmpAuthInfo;
 }
