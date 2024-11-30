@@ -1,5 +1,9 @@
-import { FLG } from "../Common/Const/CommonConst";
-import { getNowDate } from "../Common/Function";
+import { USER_AUTH } from "../Auth/Const/AuthConst";
+import { authType } from "../Auth/Type/AuthType";
+import { FLG, TASK_CATEGORY_ID } from "../Common/Const/CommonConst";
+import { checkAuthAction, getNowDate } from "../Common/Function";
+import { resActionAuthType } from "../Common/Type/CommonType";
+import { resUserInfoType } from "../Setting/User/Type/UserType";
 import { taskCustomAttributeSelectType, taskListType } from "./Type/TaskType";
 
 
@@ -89,4 +93,28 @@ export function createMultiRecoveryCustomAttributeData(customDecodeFileDatas: ta
     });
 
     return customDecodeFileDatas;
+}
+
+
+/**
+ * 復元権限チェック
+ * @param authList 
+ * @returns 
+ */
+export function checkTaskRecAuth(
+    taskAuth: authType): resActionAuthType {
+
+    let resActionAuthObj: resActionAuthType = {
+        status: 200,
+        message: ""
+    };
+
+    //権限チェック(管理者以上のみ復元可能)
+    if (!checkAuthAction(taskAuth.auth, USER_AUTH.ADMIN)) {
+        resActionAuthObj.status = 403;
+        resActionAuthObj.message = "タスクの復元権限が不足しています。";
+        return resActionAuthObj;
+    }
+
+    return resActionAuthObj;
 }

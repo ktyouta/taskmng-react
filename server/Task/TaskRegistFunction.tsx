@@ -114,24 +114,13 @@ export function createAddCustomAttributeData(req: any, authResult: authInfoType,
  * @param authList 
  * @returns 
  */
-export function checkTaskRegistAuth(authList: authType[],): resActionAuthType {
+export function checkTaskRegistAuth(
+    userTaskAuthObj: authType): resActionAuthType {
 
     let resActionAuthObj: resActionAuthType = {
         status: 200,
         message: ""
     };
-
-    //ユーザーの権限リストからタスクの権限を取得する
-    let userTaskAuthObj = authList.find((element) => {
-        return element.menuId === TASK_CATEGORY_ID;
-    });
-
-    //タスクに関する権限が存在しない場合
-    if (!userTaskAuthObj || !userTaskAuthObj.auth) {
-        resActionAuthObj.status = 403;
-        resActionAuthObj.message = "タスク画面の権限がありません。";
-        return resActionAuthObj;
-    }
 
     //一般権限以上の場合登録可能
     if (!checkAuthAction(userTaskAuthObj.auth, USER_AUTH.PUBLIC)) {

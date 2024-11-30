@@ -1,3 +1,5 @@
+import { authType } from "../../Auth/Type/AuthType"
+
 //リクエストボディのタイプ
 export type bodyObj = {
     [prop: string]: any

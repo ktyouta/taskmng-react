@@ -134,27 +134,13 @@ function checkUserTaskDelAuth(
  * @param authList 
  * @returns 
  */
-export function checkTaskDelAuth(userInfo: resUserInfoType, delTargetTask: taskListType): resActionAuthType {
-
-    let resActionAuthObj: resActionAuthType = {
-        status: 200,
-        message: ""
-    };
-
-    //ユーザーの権限リストからタスクの権限を取得する
-    let userTaskAuthObj = userInfo.authList.find((element) => {
-        return element.menuId === TASK_CATEGORY_ID;
-    });
-
-    //タスクに関する権限が存在しない場合
-    if (!userTaskAuthObj || !userTaskAuthObj.auth) {
-        resActionAuthObj.status = 403;
-        resActionAuthObj.message = "タスク画面の権限がありません。";
-        return resActionAuthObj;
-    }
+export function checkTaskDelAuth(
+    userInfo: resUserInfoType,
+    delTargetTask: taskListType,
+    taskAuth: authType): resActionAuthType {
 
     //削除実行ユーザーと削除対象のタスクを確認
-    resActionAuthObj = checkUserTaskDelAuth(userInfo, delTargetTask, userTaskAuthObj.auth);
+    let resActionAuthObj = checkUserTaskDelAuth(userInfo, delTargetTask, taskAuth.auth);
 
     return resActionAuthObj;
 }
@@ -168,27 +154,13 @@ export function checkTaskDelAuth(userInfo: resUserInfoType, delTargetTask: taskL
 export function multiCheckTaskDelAuth(
     fileDataObj: taskListType[],
     userInfo: resUserInfoType,
-    deleteTaskList: string[]): resActionAuthType {
+    deleteTaskList: string[],
+    taskAuth: authType): resActionAuthType {
 
     let resActionAuthObj: resActionAuthType = {
         status: 200,
         message: ""
     };
-
-    //ユーザーの権限リストからタスクの権限を取得する
-    let userTaskAuthObj = userInfo.authList.find((element) => {
-        return element.menuId === TASK_CATEGORY_ID;
-    });
-
-    //タスク画面の権限
-    let taskAuth: string = "";
-
-    //タスクに関する権限が存在しない場合
-    if (!userTaskAuthObj || !(taskAuth = userTaskAuthObj.auth)) {
-        resActionAuthObj.status = 403;
-        resActionAuthObj.message = "タスク画面の権限がありません。";
-        return resActionAuthObj;
-    }
 
     //削除対象のタスクリストの権限チェック
     deleteTaskList.some((element: string) => {
@@ -204,7 +176,7 @@ export function multiCheckTaskDelAuth(
         }
 
         //削除権限チェック
-        resActionAuthObj = checkUserTaskDelAuth(userInfo, delTargetTask, taskAuth);
+        resActionAuthObj = checkUserTaskDelAuth(userInfo, delTargetTask, taskAuth.auth);
 
         return resActionAuthObj.message;
     });

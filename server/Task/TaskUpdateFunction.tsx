@@ -107,29 +107,20 @@ export function createUpdCustomAttributeData(req: any, authResult: authInfoType,
  * @param authList 
  * @returns 
  */
-export function checkTaskUpdAuth(userInfo: resUserInfoType, updTargetTask: taskListType): resActionAuthType {
+export function checkTaskUpdAuth(
+    userInfo: resUserInfoType,
+    updTargetTask: taskListType,
+    taskAuth: authType): resActionAuthType {
 
     let resActionAuthObj: resActionAuthType = {
         status: 200,
         message: ""
     };
 
-    //ユーザーの権限リストからタスクの権限を取得する
-    let userTaskAuthObj = userInfo.authList.find((element) => {
-        return element.menuId === TASK_CATEGORY_ID;
-    });
-
-    //タスクに関する権限が存在しない場合
-    if (!userTaskAuthObj || !userTaskAuthObj.auth) {
-        resActionAuthObj.status = 403;
-        resActionAuthObj.message = "タスク画面の権限がありません。";
-        return resActionAuthObj;
-    }
-
     //更新対象タスクの作成ユーザーと更新ユーザーが一致していない場合
     if (updTargetTask.userId !== userInfo.userId) {
 
-        switch (userTaskAuthObj.auth) {
+        switch (taskAuth.auth) {
             //一般
             case USER_AUTH.PUBLIC:
                 resActionAuthObj.status = 403;

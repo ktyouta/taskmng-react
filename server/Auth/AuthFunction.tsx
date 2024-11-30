@@ -142,3 +142,15 @@ export function checkUpdAuth(cookie: any): authInfoType {
 
     return authResult;
 }
+
+
+/**
+ * 対象メニューに対するユーザーの権限を取得する
+ */
+export function getMenuAuth(userInfo: resUserInfoType, menuId: string,) {
+
+    //ユーザーの権限リストからメニューの権限を取得する
+    return userInfo.authList.find((element) => {
+        return element.menuId === menuId;
+    });
+}
