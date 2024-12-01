@@ -12,13 +12,15 @@ import TaskDetail from './TaskDetail';
 import NotFoundComponent from '../NotFound/NotFoundComponent';
 import { HeightDiv } from '../Common/StyledComponent/CommonStyledComponent';
 import { DUMMY_ID, TASK_ROOT_PATH } from './Const/TaskConst';
+import { authType } from '../Common/Hook/useCheckAuth';
 
 
 //引数の型
 type propsType = {
   path: string,
   testId: string,
-  auth: string,
+  menuId: string,
+  authList: authType[]
 }
 
 function Task(props: propsType) {

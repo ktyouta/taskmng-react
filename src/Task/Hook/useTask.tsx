@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import ENV from '../../env.json';
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
@@ -9,12 +9,15 @@ import { detailRoutingIdAtom, taskAuthorityAtom, taskListUrlAtom, taskSearchCond
 import { DUMMY_ID, PRE_TASK_ID, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY, TASK_SEARCH_URL } from "../Const/TaskConst";
 import { getUrlQueryObj } from "../Function/TaskFunction";
 import { createQuery, getUrlQuery } from "../../Common/Function/Function";
+import { authType } from "../../Common/Hook/useCheckAuth";
+import useSetUserMenuAuth from "../../Common/Hook/useSetUserMenuAuth";
 
 
 //引数の型
 type propsType = {
     path: string,
-    auth: string,
+    menuId: string,
+    authList: authType[]
 }
 
 
@@ -36,6 +39,13 @@ function useTask(props: propsType) {
     const location = useLocation();
     //タスク画面の権限
     const setTaskAuthority = useSetAtom(taskAuthorityAtom);
+
+    //タスク画面の権限をセットする
+    useSetUserMenuAuth({
+        setter: setTaskAuthority,
+        authList: props.authList,
+        menuId: props.menuId
+    });
 
     //検索条件リスト
     const { data: taskSearchConditionList } = useQueryWrapper<taskSearchConditionType[]>({
@@ -99,11 +109,6 @@ function useTask(props: propsType) {
     const backPageFunc = () => {
         navigate(`${props.path}${createQuery(getUrlQuery(searchConditionObj))}`);
     }
-
-    //タスク画面の権限をセット
-    useEffect(() => {
-        setTaskAuthority(props.auth);
-    }, [props.auth]);
 
     return {
         detailRoutingId,

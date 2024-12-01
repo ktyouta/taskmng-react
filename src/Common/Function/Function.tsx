@@ -3,6 +3,7 @@ import { apiResponseType, bodyObj, refInfoType, refInputCheckType, userInfoType 
 import { NOWPATH_STRAGEKEY, USER_PATH } from '../../Header/Const/HeaderConst';
 import { USERID_STRAGEKEY } from '../Const/CommonConst';
 import { NavigateFunction } from 'react-router-dom';
+import { authType } from '../Hook/useCheckAuth';
 
 //jsonファイルにデータを登録する
 export const createJsonData = (url: string, name: bodyObj) => {
@@ -164,9 +165,9 @@ export function moveUserInfo(userId: string, navigate: NavigateFunction) {
 /**
  * 対象画面の権限を取得する
  */
-export function getUserAuth(userInfo: userInfoType, menuId: string,) {
+export function getUserAuth(authList: authType[], menuId: string,) {
 
-    return userInfo.authList.find((element) => {
+    return authList.find((element) => {
         return element.menuId === menuId;
     })?.auth;
 }

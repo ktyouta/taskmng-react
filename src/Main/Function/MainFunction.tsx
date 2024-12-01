@@ -22,7 +22,7 @@ import { getUserAuth } from "../../Common/Function/Function";
  * @param url 
  * @returns 
  */
-export const retComponent = (element: menuListType, userInfo: userInfoType) => {
+export function retComponent(element: menuListType, userInfo: userInfoType) {
 
     let component;
     //画面のパス
@@ -30,10 +30,12 @@ export const retComponent = (element: menuListType, userInfo: userInfoType) => {
     //テスト用ID
     let testId = `${ScreenTestIdPrefix}${element.id}`;
 
+    //ユーザーの権限リスト
+    let authList = userInfo.authList;
     //画面IDから権限を取得
-    let auth = getUserAuth(userInfo, element.id);
+    let auth = getUserAuth(authList, element.id);
 
-    //権限が存在しない
+    //対象画面の権限が存在しない
     if (!auth) {
         return component;
     }
@@ -60,7 +62,8 @@ export const retComponent = (element: menuListType, userInfo: userInfoType) => {
             component = <Task
                 path={path}
                 testId={`${testId}`}
-                auth={auth}
+                menuId={element.id}
+                authList={authList}
             />;
             break;
         //メモ
