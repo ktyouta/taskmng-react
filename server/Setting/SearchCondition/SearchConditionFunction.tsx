@@ -1,7 +1,8 @@
-import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
+import { authenticate } from "../../Auth/AuthFunction";
 import { authInfoType } from "../../Auth/Type/AuthType";
 import { overWriteData } from "../../Common/FileFunction";
 import { SEARCHCONDITION_FILE_PATH, SEARCHCONDITION_QUERYLRY } from "./Const/SearchConditionConst";
+import { getUserSearchConditionAuth } from "./SearchConditionAuthFunction";
 import { createAddSearchCondition } from "./SearchConditionRegisterFunction";
 import { filterdQueryParamSearchCondition, filterSearchConditionByUserAuth, getFilterdSearchConditionList, getSearchConditionList, getSearchConditionObj, joinSelectListSearchCondition, joinSelectListTaskSearchCondition } from "./SearchConditionSelectFunction";
 import { createUpdSearchCondition, createUpdSearchConditionList } from "./SearchConditionUpdateFunction";
@@ -12,22 +13,39 @@ import { retSearchConditionType, searchConditionType, settingSearchConditionUpdR
  * 検索条件設定リストの取得
  */
 export function getSearchCondition(res: any, req: any) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
     }
 
-    //ユーザーの権限
-    let userAuth = authResult.userInfo?.auth;
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //検索条件設定画面の権限を取得
+    let searchConditionAuth = getUserSearchConditionAuth(authResult.userInfo);
+
+    //検索条件設定に関する権限が存在しない場合
+    if (!searchConditionAuth || !searchConditionAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "検索条件設定画面の権限がありません。" });
+    }
 
     //検索設定ファイルの読み込み
     let searchConditionList: searchConditionType[] = getSearchConditionList();
 
     //ユーザー権限でフィルター
-    searchConditionList = filterSearchConditionByUserAuth(searchConditionList, userAuth);
+    searchConditionList = filterSearchConditionByUserAuth(searchConditionList, searchConditionAuth.auth);
 
     //クエリパラメータでデータをフィルターする
     let retSearchConditionList = filterdQueryParamSearchCondition(searchConditionList, req.query[SEARCHCONDITION_QUERYLRY]);
@@ -102,9 +120,18 @@ export function runUpdSearchCondition(authResult: authInfoType, body: searchCond
  */
 export function runUpdSearchConditionList(res: any, req: any) {
 
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });

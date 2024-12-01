@@ -2,9 +2,10 @@ import { createUpdDefaultAttribute, createUpdDefaultAttributeSelectList, } from 
 import { filterDefaultAttributeDetail, getDefaultAttributeData, } from "./DefaultAttributeSelectFunction";
 import { defaultAttributeType, defaultAttributeUpdType } from "./Type/DefaultAttributeType";
 import { DEFAULT_ATTRIBUTE_FILEPATH, GENERALDETAIL_FILEPATH } from "./Const/DefaultAttributeConst";
-import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
+import { authenticate } from "../../Auth/AuthFunction";
 import { getFileJsonData, overWriteData } from "../../Common/FileFunction";
 import { generalDetailType } from "../../General/Type/GeneralType";
+import { authInfoType } from "../../Auth/Type/AuthType";
 
 
 
@@ -12,9 +13,19 @@ import { generalDetailType } from "../../General/Type/GeneralType";
  * デフォルト属性の取得
  */
 export function getDefaultAttribute(res: any, req: any) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -35,9 +46,19 @@ export function getDefaultAttribute(res: any, req: any) {
  * デフォルト属性詳細の取得
  */
 export function getDefaultAttributeDetail(res: any, req: any, id: string) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -58,9 +79,19 @@ export function getDefaultAttributeDetail(res: any, req: any, id: string) {
  * デフォルト属性入力値設定の取得
  */
 export function getDefaultAttributeInputSetting(res: any, req: any) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -82,19 +113,29 @@ export function getDefaultAttributeInputSetting(res: any, req: any) {
  * デフォルト属性の更新
  */
 export function runUpdDefaultAttribute(res: any, req: any, dfId: string) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
 
     //IDの指定がない
     if (!dfId) {
         return res
             .status(400)
             .json({ errMessage: `パラメータが不正です。` });
+    }
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     let errMessage = "";

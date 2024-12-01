@@ -79,8 +79,6 @@ function useMenuLogic(props: propsType) {
 
     //クライアント用メニューリスト
     const menu = useGlobalAtomValue(clientMenuListAtom);
-    //ユーザー情報
-    const userInfo = useGlobalAtomValue(userInfoAtom);
     //サブカテゴリ表示ID
     const [dispSubCateogryIdList, setDispSubCateogryIdList] = useState<string[]>([]);
 
@@ -94,14 +92,8 @@ function useMenuLogic(props: propsType) {
             return;
         }
 
-        if (!userInfo) {
-            return;
-        }
-
-        const userAuth = parseInt(userInfo.auth);
-
         //取得したカテゴリをユーザーの権限とプロパティでフィルターする
-        let filterMenuList: menuListType[] = filterCategoryInfo(menu, userAuth);
+        let filterMenuList: menuListType[] = filterCategoryInfo(menu);
 
         tmpMenuList = filterMenuList.map((element, index) => {
 
@@ -125,7 +117,7 @@ function useMenuLogic(props: propsType) {
         });
 
         return tmpMenuList;
-    }, [menu, props.selectedMenuId, userInfo, dispSubCateogryIdList]);
+    }, [menu, props.selectedMenuId, dispSubCateogryIdList]);
 
     return { menu, menuList };
 }

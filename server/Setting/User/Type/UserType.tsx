@@ -45,7 +45,6 @@ export type resUserInfoType = {
     userId: string,
     userName: string,
     password?: string,
-    auth: string,
     authNm?: string,
     deleteFlg?: string,
     registerTime: string,

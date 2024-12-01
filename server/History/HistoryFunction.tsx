@@ -17,9 +17,19 @@ import { addTaskHistoryType, taskHistoryType } from "./Type/HistoryType";
  * タスクの作業履歴の取得
  */
 export function getTaskHistory(res: any, req: any) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });

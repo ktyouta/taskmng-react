@@ -1,4 +1,5 @@
 import { authenticate } from "../Auth/AuthFunction";
+import { authInfoType } from "../Auth/Type/AuthType";
 import { GENERAL_DETAIL_QUERY_KEY } from "./Const/GeneralConst";
 import { getGeneralDataList, getGeneralDetailDataList } from "./GeneralSelectFunction";
 
@@ -8,9 +9,19 @@ import { getGeneralDataList, getGeneralDetailDataList } from "./GeneralSelectFun
  * @returns 
  */
 export function getGeneralData(req: any, res: any) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -27,9 +38,19 @@ export function getGeneralData(req: any, res: any) {
  * @returns 
  */
 export function getGeneralDetailData(req: any, res: any) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });

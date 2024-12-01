@@ -4,7 +4,7 @@ import { createAddCategoryData } from "./CategoryRegistFunction";
 import { createUpdCategoryData, createUpdCategoryOrderData } from "./CategoryUpdateFunction";
 import { createDelCategoryData } from "./CategoryDeleteFunction";
 import { CATEGORY_FILEPATH } from "./Const/CategoryConst";
-import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
+import { authenticate } from "../../Auth/AuthFunction";
 import { overWriteData } from "../../Common/FileFunction";
 import { authInfoType, authType } from "../../Auth/Type/AuthType";
 import { resUserInfoType, userInfoType } from "../User/Type/UserType";
@@ -14,9 +14,19 @@ import { resUserInfoType, userInfoType } from "../User/Type/UserType";
  * カテゴリの取得
  */
 export function getCategory(res: any, req: any) {
-    //認証チェック
+
+    //有効ユーザーチェック
     let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -75,9 +85,19 @@ export function getCategory(res: any, req: any) {
  * カテゴリ詳細の取得
  */
 export function getCategoryDetail(res: any, req: any, id: string) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -98,9 +118,19 @@ export function getCategoryDetail(res: any, req: any, id: string) {
  * カテゴリの追加
  */
 export function runAddCategory(res: any, req: any) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -142,9 +172,19 @@ export function runAddCategory(res: any, req: any) {
  * カテゴリの更新
  */
 export function runUpdCategory(res: any, req: any, id: string) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -193,19 +233,29 @@ export function runUpdCategory(res: any, req: any, id: string) {
  * カテゴリの削除
  */
 export function runDeleteCategory(res: any, req: any, id: string) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
 
     //IDの指定がない
     if (!id) {
         return res
             .status(400)
             .json({ errMessage: `パラメータが不正です。` });
+    }
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     //カテゴリの読み込み
@@ -244,9 +294,19 @@ export function runDeleteCategory(res: any, req: any, id: string) {
  * 表示順の更新
  */
 export function runUpdCategoryOrder(res: any, req: any) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });

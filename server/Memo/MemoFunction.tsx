@@ -1,5 +1,5 @@
 import { getGeneralDetailData } from "../General/GeneralFunction";
-import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
+import { authenticate } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
 import { memoContentListType, memoListResType, memoListType, memoRegistReqType, memoSearchConditionListType, memoUpdReqType, retCreateAddMemoDataType } from "./Type/MemoType";
@@ -12,6 +12,7 @@ import { tagListType } from "../Tag/Type/TagType";
 import { TAG_FILEPATH } from "../Tag/Const/TagConst";
 import { getFilterdTag, getTagObj } from "../Tag/TagSelectFunction";
 import { getUserInfoData } from "../Setting/User/UserSelectFunction";
+import { authInfoType } from "../Auth/Type/AuthType";
 
 
 
@@ -19,9 +20,19 @@ import { getUserInfoData } from "../Setting/User/UserSelectFunction";
  * メモリストの取得
  */
 export function getMemoList(res: any, req: any) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -64,13 +75,24 @@ export function getMemoList(res: any, req: any) {
  * メモ詳細の取得
  */
 export function getMemoDetail(res: any, req: any, id: string) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
     }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
     //メモファイルの読み込み
     let decodeFileData: memoListType[] = getFilterdMemo();
 
@@ -102,9 +124,19 @@ export function getMemoDetail(res: any, req: any, id: string) {
  * メモ検索条件リストの取得
  */
 export function getMemoSearchConditionList(res: any, req: any) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -138,9 +170,19 @@ export function getMemoSearchConditionList(res: any, req: any) {
  * メモの追加
  */
 export function runAddMemo(res: any, req: any) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -202,19 +244,29 @@ export function runAddMemo(res: any, req: any) {
  * メモの更新
  */
 export function runUpdMemo(res: any, req: any, updMemoId: string) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
 
     //IDの指定がない
     if (!updMemoId) {
         return res
             .status(400)
             .json({ errMessage: `パラメータが不正です。` });
+    }
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     //リクエストボディ
@@ -273,19 +325,29 @@ export function runUpdMemo(res: any, req: any, updMemoId: string) {
  * メモの削除
  */
 export function runDelMemo(res: any, req: any, delMemoId: string) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
 
     //IDの指定がない
     if (!delMemoId) {
         return res
             .status(400)
             .json({ errMessage: `パラメータが不正です。` });
+    }
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     //メモファイルの読み込み

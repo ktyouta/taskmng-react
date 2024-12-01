@@ -1,4 +1,5 @@
-import { checkUpdAuth } from "../Auth/AuthFunction";
+import { authenticate } from "../Auth/AuthFunction";
+import { authInfoType } from "../Auth/Type/AuthType";
 import { JSONEXTENSION, MASTERFILEPATH } from "../Common/Const/CommonConst";
 import { checkFile, overWriteData, readFile } from "../Common/FileFunction";
 import { methodType } from "../Common/Type/CommonType";
@@ -110,13 +111,24 @@ export function runRegister(res: any,
     pathPrm: string = ""
 ) {
     try {
-        //認証権限チェック
-        let authResult = checkUpdAuth(req.cookies.cookie);
+
+        //有効ユーザーチェック
+        let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+        //チェックエラー
         if (authResult.errMessage) {
             return res
                 .status(authResult.status)
                 .json({ errMessage: authResult.errMessage });
         }
+
+        //トークンからユーザー情報が取得できなかった場合
+        if (!authResult.userInfo) {
+            return res
+                .status(authResult.status)
+                .json({ errMessage: authResult.errMessage });
+        }
+
 
         //ファイル名
         let fileNm;

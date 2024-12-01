@@ -1,5 +1,5 @@
 import { getGeneralDetailData } from "../General/GeneralFunction";
-import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
+import { authenticate } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
 import { imageListResType } from "./Type/ImageType";
@@ -9,6 +9,7 @@ import { tagListType } from "../Tag/Type/TagType";
 import { TAG_FILEPATH } from "../Tag/Const/TagConst";
 import { getFilterdTag, getTagObj } from "../Tag/TagSelectFunction";
 import { getUserInfoData } from "../Setting/User/UserSelectFunction";
+import { authInfoType } from "../Auth/Type/AuthType";
 
 
 
@@ -16,9 +17,19 @@ import { getUserInfoData } from "../Setting/User/UserSelectFunction";
  * 画像リストの取得
  */
 export function getImageList(res: any, req: any) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });

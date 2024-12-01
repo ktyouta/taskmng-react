@@ -1,4 +1,5 @@
-import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
+import { authenticate } from "../../Auth/AuthFunction";
+import { authInfoType } from "../../Auth/Type/AuthType";
 import { overWriteData } from "../../Common/FileFunction";
 import { SELECT_ICON_TYPE, USERINFO_FILEPATH } from "./Const/UserConst";
 import { registUserInfoType, updUserInfoType, userInfoType } from "./Type/UserType";
@@ -13,9 +14,19 @@ import { createUpdUserData } from "./UserUpdateFunction";
  * ユーザー情報の取得
  */
 export function getUserInfo(res: any, req: any) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -39,9 +50,19 @@ export function getUserInfo(res: any, req: any) {
  * ユーザー詳細の取得
  */
 export function getUserInfoDetail(res: any, req: any, id: string) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -62,9 +83,19 @@ export function getUserInfoDetail(res: any, req: any, id: string) {
  * ユーザーの追加
  */
 export function runAddUser(res: any, req: any) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -122,19 +153,29 @@ export function runAddUser(res: any, req: any) {
  * ユーザーの削除
  */
 export function runDeleteUser(res: any, req: any, userId: string) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
 
     //IDの指定がない
     if (!userId) {
         return res
             .status(400)
             .json({ errMessage: `パラメータが不正です。` });
+    }
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     let errMessage = "";
@@ -172,19 +213,29 @@ export function runDeleteUser(res: any, req: any, userId: string) {
  * ユーザーの更新
  */
 export function runUpdUser(res: any, req: any, userId: string) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
 
     //IDの指定がない
     if (!userId) {
         return res
             .status(400)
             .json({ errMessage: `パラメータが不正です。` });
+    }
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     let errMessage = "";

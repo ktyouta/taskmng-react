@@ -145,25 +145,6 @@ export function createToken(res: any, req: any) {
 
 
 /**
- * 登録更新削除前認証チェック
- */
-export function checkUpdAuth(cookie: any): authInfoType {
-    //認証チェック
-    let authResult = authenticate(cookie);
-    if (authResult.errMessage) {
-        return authResult;
-    }
-
-    //ファイルの更新権限チェック
-    if (!authResult || !authResult.userInfo || parseInt(authResult.userInfo.auth) < parseInt(USER_AUTH.PUBLIC)) {
-        return { status: 400, errMessage: `権限がありません。` };
-    }
-
-    return authResult;
-}
-
-
-/**
  * 対象メニューに対するユーザーの権限を取得する
  */
 export function getMenuAuth(userInfo: resUserInfoType, menuId: string,) {

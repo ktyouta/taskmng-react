@@ -15,7 +15,7 @@ import { searchConditionType } from "../Setting/SearchCondition/Type/SearchCondi
 import { userInfoType } from "../Setting/User/Type/UserType";
 import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 import { USER_AUTH } from "../Auth/Const/AuthConst";
-import { getFormatDate } from "../Common/Function";
+import { checkAuthAction, getFormatDate } from "../Common/Function";
 
 
 
@@ -46,14 +46,14 @@ export function getFilterdTask() {
 /**
  * タスクリストをクエリストリングで絞り込む
  */
-export function filterDefaultAttribute(decodeFileData: taskListType[], query: any, userAuth?: string) {
+export function filterDefaultAttribute(
+    decodeFileData: taskListType[],
+    query: any,
+    taskUserAuth: string) {
 
     //タスク用の検索条件設定リストを取得
     let searchConditionList: searchConditionType[] = getSearchConditionList();
     let taskConditionList: searchConditionType[] = getFilterdSearchConditionList(searchConditionList, SEARCHCONDITION_KEY_DEFAULT);
-
-    //ユーザー権限が存在しない場合は一般権限をセット
-    let convUserAuth = userAuth ?? USER_AUTH.PUBLIC;
 
     //検索条件で絞り込み
     taskConditionList.forEach((element: searchConditionType) => {
@@ -64,11 +64,8 @@ export function filterDefaultAttribute(decodeFileData: taskListType[], query: an
             return;
         }
 
-        //権限不足の場合
-        if (Number.isNaN(element.auth) ||
-            Number.isNaN(convUserAuth) ||
-            parseInt(convUserAuth) < parseInt(element.auth)
-        ) {
+        //権限不足の場合はチェックしない
+        if (!checkAuthAction(taskUserAuth, element.auth)) {
             return;
         }
 
@@ -104,7 +101,10 @@ export function filterDefaultAttribute(decodeFileData: taskListType[], query: an
 /**
  * タスクリストをカスタム属性のクエリストリングで絞り込む
  */
-export function filterCustomAttribute(taskList: taskListType[], query: any, userAuth?: string) {
+export function filterCustomAttribute(
+    taskList: taskListType[],
+    query: any,
+    taskUserAuth: string) {
 
     //タスク用の検索条件設定リストを取得
     let searchConditionList: searchConditionType[] = getSearchConditionList();
@@ -112,9 +112,6 @@ export function filterCustomAttribute(taskList: taskListType[], query: any, user
 
     //カスタム属性の選択値リスト
     let taskCustomAttributeList = getCustomAttributeTaskObj();
-
-    //ユーザー権限が存在しない場合は一般権限をセット
-    let convUserAuth = userAuth ?? USER_AUTH.PUBLIC;
 
     customAttributeConditionList.forEach((element: searchConditionType) => {
         let customAttributeId = element.id;
@@ -126,11 +123,8 @@ export function filterCustomAttribute(taskList: taskListType[], query: any, user
             return;
         }
 
-        //権限不足の場合
-        if (Number.isNaN(element.auth) ||
-            Number.isNaN(convUserAuth) ||
-            parseInt(convUserAuth) < parseInt(element.auth)
-        ) {
+        //権限不足の場合はチェックしない
+        if (!checkAuthAction(taskUserAuth, element.auth)) {
             return;
         }
 

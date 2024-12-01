@@ -6,7 +6,7 @@ import { convDefaultTask, createTaskDetailUrl, filterCustomAttribute, filterDefa
 import { runAddMultiTaskHistory, runAddTaskHistory } from "../History/HistoryFunction";
 import { CREATE, CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, DELETE, TASK_FILEPATH, UPDATE } from "./Const/TaskConst";
 import { reqDelSelectedTaskType, reqRecSelectedTaskType, resTaskListType, retDefaultTaskType, taskCustomAttributeSelectType, taskDetailType, taskListType } from "./Type/TaskType";
-import { authenticate, checkUpdAuth } from "../Auth/AuthFunction";
+import { authenticate } from "../Auth/AuthFunction";
 import { inputSettingType, resActionAuthType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
 import { getGeneralDataList, getGeneralDetailDataList } from "../General/GeneralSelectFunction";
@@ -23,19 +23,38 @@ import { getUserTaskAuth } from "./TaskAuthFunction";
  * タスクリストの取得
  */
 export function getTaskList(res: any, req: any) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
     }
 
-    //ユーザーの権限
-    let userAuth = authResult.userInfo?.auth;
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
 
+    //タスク画面の権限を取得する
+    let taskAuth: authType | undefined = getUserTaskAuth(authResult.userInfo);
+
+    //タスクに関する権限が存在しない場合
+    if (!taskAuth || !taskAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "タスク画面の権限がありません。" });
+    }
+
+    //タスク画面のユーザー権限
+    let taskUserAuth = taskAuth.auth;
     //タスクファイルの読み込み
-    let decodeFileData: taskListType[] = getTasksByUserAuth(userAuth);
+    let decodeFileData: taskListType[] = getTasksByUserAuth(taskUserAuth);
     //クエリパラメータ
     let queryStr = req.query;
 
@@ -43,10 +62,10 @@ export function getTaskList(res: any, req: any) {
     decodeFileData = getConvertTasksDaate(decodeFileData);
 
     //クエリストリングでフィルター(デフォルト属性)
-    decodeFileData = filterDefaultAttribute(decodeFileData, queryStr, userAuth);
+    decodeFileData = filterDefaultAttribute(decodeFileData, queryStr, taskUserAuth);
 
     //クエリストリングでフィルター(カスタム属性)
-    decodeFileData = filterCustomAttribute(decodeFileData, queryStr, userAuth);
+    decodeFileData = filterCustomAttribute(decodeFileData, queryStr, taskUserAuth);
 
     //該当データなし
     if (decodeFileData.length === 0) {
@@ -63,19 +82,39 @@ export function getTaskList(res: any, req: any) {
  * タスク詳細の取得
  */
 export function getTaskDetail(res: any, req: any, id: string) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
     }
 
-    //ユーザーの権限
-    let userAuth = authResult.userInfo?.auth;
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //タスク画面の権限を取得する
+    let taskAuth: authType | undefined = getUserTaskAuth(authResult.userInfo);
+
+    //タスクに関する権限が存在しない場合
+    if (!taskAuth || !taskAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "タスク画面の権限がありません。" });
+    }
+
+    //タスク画面のユーザー権限
+    let taskUserAuth = taskAuth.auth;
 
     //タスクファイルの読み込み
-    let decodeFileData: taskListType[] = getTasksByUserAuth(userAuth);
+    let decodeFileData: taskListType[] = getTasksByUserAuth(taskUserAuth);
 
     //該当データなし
     if (decodeFileData.length === 0) {
@@ -320,7 +359,7 @@ export function runDeleteTask(res: any, req: any, delTaskId: string) {
     }
 
     //有効ユーザーチェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
 
     //チェックエラー
     if (authResult.errMessage) {
@@ -423,7 +462,7 @@ export function runDeleteTask(res: any, req: any, delTaskId: string) {
 export function runMultiDeleteTask(res: any, req: any) {
 
     //有効ユーザーチェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
 
     //チェックエラー
     if (authResult.errMessage) {
@@ -530,7 +569,7 @@ export function runTaskRecovery(res: any, req: any, recoveryTaskId: string,) {
     }
 
     //有効ユーザーチェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
 
     //チェックエラー
     if (authResult.errMessage) {
@@ -633,7 +672,7 @@ export function runTaskRecovery(res: any, req: any, recoveryTaskId: string,) {
 export function runMultiRecoveryTask(res: any, req: any) {
 
     //有効ユーザーチェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
 
     //チェックエラー
     if (authResult.errMessage) {

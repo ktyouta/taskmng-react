@@ -4,13 +4,14 @@ import { callCreateUpdSearchCondition, createUpdCustomAttribute, createUpdCustom
 import { convertCustomAttribute, getCustomAttributeAuth, getCustomAttributeByUserAuth, getCustomAttributeData, getCustomAttributeListData, joinCustomAttributeList, joinCustomAttributeSelectList } from "./CustomAttributeSelectFunction";
 import { CUSTOM_ATTRIBUTE_FILEPATH } from "./Const/CustomAttributeConst";
 import { customAttributeListType, customAttributeType, reqClientCustomAttributeType, resClientCustomAttributeType, selectElementListType } from "./Type/CustomAttributeType";
-import { authenticate, checkUpdAuth } from "../../Auth/AuthFunction";
+import { authenticate } from "../../Auth/AuthFunction";
 import { getFileJsonData, overWriteData } from "../../Common/FileFunction";
 import { searchConditionType } from "../SearchCondition/Type/SearchConditionType";
 import { filterSearchConditionByUserAuth, getSearchConditionList, getSearchConditionObj } from "../SearchCondition/SearchConditionSelectFunction";
 import { SEARCHCONDITION_FILE_PATH } from "../SearchCondition/Const/SearchConditionConst";
 import { inputSettingType } from "../../Common/Type/CommonType";
 import { authInfoType } from "../../Auth/Type/AuthType";
+import { getUserCustomAttributeAuth } from "./CustomAttributeAuthFunction";
 
 
 
@@ -18,9 +19,19 @@ import { authInfoType } from "../../Auth/Type/AuthType";
  * カスタム属性の取得
  */
 export function getCustomAttribute(res: any, req: any) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -41,9 +52,19 @@ export function getCustomAttribute(res: any, req: any) {
  * カスタム属性詳細の取得
  */
 export function getCustomAttributeDetail(res: any, req: any, id: string) {
-    //認証チェック
-    let authResult = authenticate(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -84,16 +105,34 @@ export function getCustomAttributeDetail(res: any, req: any, id: string) {
  * カスタム属性入力値設定の取得
  */
 export function getCustomAttributeInputSetting(res: any, req: any) {
-    //認証チェック
+
+    //有効ユーザーチェック
     let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
     }
 
-    //ユーザー権限
-    let userAuth = authResult.userInfo?.auth;
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //カスタム属性画面の権限を取得
+    let customAttributeAuth = getUserCustomAttributeAuth(authResult.userInfo);
+
+    //カスタム属性に関する権限が存在しない場合
+    if (!customAttributeAuth || !customAttributeAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "カスタム属性画面の権限がありません。" });
+    }
+
     //カスタム属性の読み込み
     let customAttributeList: customAttributeType[] = getCustomAttributeData();
 
@@ -106,7 +145,7 @@ export function getCustomAttributeInputSetting(res: any, req: any) {
     let searchConditionList: searchConditionType[] = getSearchConditionList();
 
     //ユーザー権限でフィルター
-    let filterdSearchConditionList = filterSearchConditionByUserAuth(searchConditionList, userAuth);
+    let filterdSearchConditionList = filterSearchConditionByUserAuth(searchConditionList, customAttributeAuth.auth);
 
     //権限でフィルターする
     customAttributeList = getCustomAttributeByUserAuth(customAttributeList, filterdSearchConditionList);
@@ -125,9 +164,19 @@ export function getCustomAttributeInputSetting(res: any, req: any) {
  * カスタム属性の登録
  */
 export function runAddCustomAttribute(res: any, req: any) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
     if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
@@ -208,19 +257,29 @@ export function runAddCustomAttribute(res: any, req: any) {
  * カスタム属性の削除
  */
 export function runDeleteCustomAttribute(res: any, req: any, caId: string) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
 
     //IDの指定がない
     if (!caId) {
         return res
             .status(400)
             .json({ errMessage: `パラメータが不正です。` });
+    }
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     let errMessage = "";
@@ -292,19 +351,29 @@ export function runDeleteCustomAttribute(res: any, req: any, caId: string) {
  * カスタム属性の更新
  */
 export function runUpdCustomAttribute(res: any, req: any, caId: string) {
-    //認証権限チェック
-    let authResult = checkUpdAuth(req.cookies.cookie);
-    if (authResult.errMessage) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
 
     //IDの指定がない
     if (!caId) {
         return res
             .status(400)
             .json({ errMessage: `パラメータが不正です。` });
+    }
+
+    //有効ユーザーチェック
+    let authResult: authInfoType = authenticate(req.cookies.cookie);
+
+    //チェックエラー
+    if (authResult.errMessage) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
+    }
+
+    //トークンからユーザー情報が取得できなかった場合
+    if (!authResult.userInfo) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: authResult.errMessage });
     }
 
     let errMessage = "";

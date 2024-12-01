@@ -50,11 +50,8 @@ describe('メニューの表示チェック', () => {
 
         await waitFor(() => {
 
-            //テストユーザーの権限を取得
-            let testUserAuth = parseInt(authInfo.userInfo.auth);
-
             //権限とプロパティでフィルターする
-            let filteredCategoryInfo: menuListType[] = filterCategoryInfo(CATEGORY_INFO, testUserAuth);
+            let filteredCategoryInfo: menuListType[] = filterCategoryInfo(CATEGORY_INFO);
 
             //name要素が表示されていることの確認
             filteredCategoryInfo.forEach((element) => {
@@ -70,10 +67,8 @@ describe("メニューの選択チェック", async () => {
 
     //ユーザーイベント
     const user = userEvent.setup();
-    //テストユーザーの権限
-    let testUserAuth = parseInt(authInfo.userInfo.auth);
     //権限とプロパティでフィルターする
-    let filteredCategoryInfo: menuListType[] = filterCategoryInfo(CATEGORY_INFO, testUserAuth);
+    let filteredCategoryInfo: menuListType[] = filterCategoryInfo(CATEGORY_INFO);
 
     //表示可能カテゴリが存在しない場合
     if (!filteredCategoryInfo || filteredCategoryInfo.length === 0) {
