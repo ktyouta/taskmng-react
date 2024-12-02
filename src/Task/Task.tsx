@@ -20,7 +20,6 @@ type propsType = {
   path: string,
   testId: string,
   menuId: string,
-  authList: authType[]
 }
 
 function Task(props: propsType) {

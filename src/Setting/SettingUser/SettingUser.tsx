@@ -24,12 +24,15 @@ const OuterDiv = styled.div`
 //引数の型
 type propsType = {
     path: string,
+    menuId: string,
 }
 
 
 function SettingUser(props: propsType) {
 
     console.log("SettingUser render");
+
+    useSettingUser({ ...props });
 
     return (
         <OuterDiv>

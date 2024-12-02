@@ -4,9 +4,9 @@ import useCheckAuth from '../../Common/Hook/useCheckAuth';
 import useQueryWrapper from '../../Common/Hook/useQueryWrapper';
 import { atom, useAtom } from 'jotai';
 import { menuListType, resUserInfoType, userInfoType } from '../../Common/Type/CommonType';
-import { useGlobalAtom } from '../../Common/Hook/useGlobalAtom';
+import { useGlobalAtom, useSetGlobalAtom } from '../../Common/Hook/useGlobalAtom';
 import useGetViewName from '../../Common/Hook/useGetViewName';
-import { clientMenuListAtom, userInfoAtom } from '../Atom/ContentAtom';
+import { clientMenuListAtom, userAuthListAtom, userInfoAtom } from '../Atom/ContentAtom';
 import useGetGeneralDataList from '../../Common/Hook/useGetGeneralDataList';
 import { GEN_KEY } from '../../Common/Const/CommonConst';
 import useGetBreadcrumbList from '../../Common/Hook/useGetBreadcrumbList';
@@ -19,12 +19,15 @@ function useContentLogic() {
     const { info } = useCheckAuth();
     //メニューの開閉フラグ
     const [isOpenMenu, setIsOpenMenu] = useState(true);
-    // ユーザー情報
+    //ユーザー情報
     const [userInfo, setUserInfoAtom] = useGlobalAtom(userInfoAtom);
     //クライアント用メニューリスト
     const [clientMenuList, setClientMenuList] = useGlobalAtom(clientMenuListAtom);
     //ヘッダタイトル
     const [headerTitle, headerId] = useGetViewName({ menu: clientMenuList });
+    //権限リスト
+    const setUserAuthList = useSetGlobalAtom(userAuthListAtom);
+
 
     //メニューのリスト
     const { data: menuList } = useQueryWrapper<menuListType[]>(
@@ -33,8 +36,10 @@ function useContentLogic() {
         }
     );
 
+
     //汎用詳細リスト(パンくずリスト)
     const { generalDataList: breadcrumbGenList } = useGetGeneralDataList(GEN_KEY.BREADCRUMB);
+
 
     //パンくずリスト
     const breadcrumbList = useGetBreadcrumbList({
@@ -42,12 +47,14 @@ function useContentLogic() {
         breadcrumbGenList
     });
 
+
     /**
      * メニューの開閉
      */
     function switchMenu() {
         setIsOpenMenu(!isOpenMenu);
     }
+
 
     //ユーザー情報をセット
     useEffect(() => {
@@ -57,6 +64,7 @@ function useContentLogic() {
         setUserInfoAtom(info);
     }, [info]);
 
+
     //メニューリストを作成
     useEffect(() => {
         if (!menuList) {
@@ -64,6 +72,18 @@ function useContentLogic() {
         }
         setClientMenuList(menuList);
     }, [menuList, userInfo]);
+
+
+    //権限リストを作成
+    useEffect(() => {
+
+        if (!userInfo) {
+            return;
+        }
+
+        setUserAuthList(userInfo.authList);
+    }, [userInfo]);
+
 
     return {
         clientMenuList,

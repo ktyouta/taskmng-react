@@ -23,15 +23,9 @@ function useWorkHistory() {
         }
     );
 
-    //ユーザー情報
-    const userInfo = useGlobalAtomValue(userInfoAtom);
-
     //画面表示用リストを作成する
     const workDisplayList: JSX.Element | JSX.Element[] | undefined = useMemo(() => {
         let tmpWorkDisplayList: JSX.Element[] = [];
-        if (!userInfo) {
-            return <React.Fragment></React.Fragment>;
-        }
         if (!workHistoryList) {
             return <React.Fragment></React.Fragment>;
         }
@@ -51,14 +45,6 @@ function useWorkHistory() {
                     history += `　削除`;
                     break;
             }
-            switch (userInfo.auth) {
-                case "3":
-                    history += `　　作業ユーザー：${element.userName}`;
-                    break;
-                case "2":
-                    history += `　　作業ユーザー：${element.userName}`;
-                    break;
-            }
 
             let key = `${Object.values(element).join("-")}`;
             return (
@@ -68,7 +54,7 @@ function useWorkHistory() {
             );
         });
         return tmpWorkDisplayList;
-    }, [workHistoryList, userInfo]);
+    }, [workHistoryList]);
 
     return { workDisplayList, isLoading: isLoading || isFetching, isError };
 }

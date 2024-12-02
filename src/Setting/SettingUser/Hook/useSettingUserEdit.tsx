@@ -9,7 +9,7 @@ import { buttonObjType, generalDataType, refInfoType } from "../../../Common/Typ
 import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
 import { updUserType, userInputType, userType } from "../Type/SettingUserType";
-import { editModeAtom, userIdAtom } from "../Atom/SettingUserAtom";
+import { editModeAtom, settingUserAuthorityAtom, userIdAtom } from "../Atom/SettingUserAtom";
 import { editModeEnum } from "../../Const/SettingConst";
 import { AUTH_ID, SELECT_ICON_TYPE, USERINFO_ACTION_TYPE } from "../Const/SettingUserConst";
 import { useGlobalAtomValue } from "../../../Common/Hook/useGlobalAtom";
@@ -34,6 +34,9 @@ function useSettingUserEdit(props: propsType) {
     const userId = useAtomValue(userIdAtom);
     // ログインユーザー情報
     const userInfo = useGlobalAtomValue(userInfoAtom);
+    //ユーザー画面の権限
+    const settingUserAuthority = useAtomValue(settingUserAuthorityAtom);
+
 
     //汎用詳細リスト(形式選択)
     const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
@@ -356,7 +359,7 @@ function useSettingUserEdit(props: propsType) {
             onclick: editMode === editModeEnum.update ? updateAttribute : registeAttribute
         } as buttonObjType,
         editMode,
-        isEditable: userId === userInfo?.userId || userInfo?.auth === USER_AUTH.ADMIN,
+        isEditable: userId === userInfo?.userId || settingUserAuthority === USER_AUTH.ADMIN,
         isUpdLoading: registMutation.isLoading || updMutation.isLoading || delMutation.isLoading,
         userDatas,
         userDatasDisptch,

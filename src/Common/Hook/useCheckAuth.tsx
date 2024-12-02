@@ -20,7 +20,6 @@ type authResponseType = {
     userInfo?: {
         userId?: string;
         userName?: string;
-        auth?: string;
         iconUrl?: string,
         authList: authType[]
     };
@@ -34,14 +33,12 @@ type authResponseType = {
 function createUserInfo(data: authResponseType): resUserInfoType {
     let userId = data.userInfo?.userId as string;
     let userName = data?.userInfo?.userName as string;
-    let auth = data?.userInfo?.auth as string;
     let iconUrl = data?.userInfo?.iconUrl as string;
     let authList = data?.userInfo?.authList as authType[];
 
     return {
         userId,
         userName,
-        auth,
         iconUrl,
         authList,
     };

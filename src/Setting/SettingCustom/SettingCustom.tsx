@@ -24,6 +24,7 @@ const OuterDiv = styled.div`
 //引数の型
 type propsType = {
   path: string,
+  menuId: string,
 }
 
 function SettingCustom(props: propsType) {
@@ -32,7 +33,7 @@ function SettingCustom(props: propsType) {
 
   const {
     editMode,
-  } = useSettingCustom();
+  } = useSettingCustom({ ...props });
 
   return (
     <OuterDiv>

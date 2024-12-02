@@ -20,6 +20,7 @@ const OuterDiv = styled.div`
 //引数の型
 type propsType = {
     path: string,
+    menuId: string,
 }
 
 

@@ -5,6 +5,7 @@ import './css/Setting.css';
 import { useAtomValue } from 'jotai';
 import SettingMain from './SettingMain';
 import { menuListType } from '../Common/Type/CommonType';
+import { authType } from '../Common/Hook/useCheckAuth';
 
 
 //引数の型

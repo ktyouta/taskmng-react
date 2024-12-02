@@ -10,14 +10,15 @@ import { DUMMY_ID, PRE_TASK_ID, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_
 import { getUrlQueryObj } from "../Function/TaskFunction";
 import { createQuery, getUrlQuery } from "../../Common/Function/Function";
 import { authType } from "../../Common/Hook/useCheckAuth";
-import useSetUserMenuAuth from "../../Common/Hook/useSetUserMenuAuth";
+import useSetMenuAuthEffect from "../../Common/Hook/useSetMenuAuthEffect";
+import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
+import { userAuthListAtom } from "../../Content/Atom/ContentAtom";
 
 
 //引数の型
 type propsType = {
     path: string,
     menuId: string,
-    authList: authType[]
 }
 
 
@@ -37,13 +38,15 @@ function useTask(props: propsType) {
     const [searchConditionObj, setSearchConditionObj] = useAtom(taskSearchConditionObjAtom);
     //ロケーションオブジェクト
     const location = useLocation();
+    //権限リスト
+    const userAuthList = useGlobalAtomValue(userAuthListAtom);
     //タスク画面の権限
     const setTaskAuthority = useSetAtom(taskAuthorityAtom);
 
     //タスク画面の権限をセットする
-    useSetUserMenuAuth({
+    useSetMenuAuthEffect({
         setter: setTaskAuthority,
-        authList: props.authList,
+        authList: userAuthList,
         menuId: props.menuId
     });
 

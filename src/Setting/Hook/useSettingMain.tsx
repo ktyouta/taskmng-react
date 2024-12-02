@@ -13,6 +13,7 @@ import SettingUser from '../SettingUser/SettingUser';
 import { Provider } from 'jotai';
 import SettingDefault from '../SettingDefault/SettingDefault';
 import SettingSearchCondition from '../SettingSearchCondition/SettingSearchCondition';
+import { authType } from '../../Common/Hook/useCheckAuth';
 
 
 /**
@@ -21,32 +22,42 @@ import SettingSearchCondition from '../SettingSearchCondition/SettingSearchCondi
  * @param url 
  * @returns 
  */
-const retSettingComponent = (componentName: string, path: string) => {
+function retSettingComponent(
+    element: menuListType,
+    path: string,
+) {
+
     let component = <React.Fragment />;
-    switch (componentName) {
+
+    switch (element.componentName) {
         case "SettingCustom":
             component = <SettingCustom
                 path={path}
+                menuId={element.id}
             />;
             break;
         case "SettingCategory":
             component = <SettingCategory
                 path={path}
+                menuId={element.id}
             />;
             break;
         case "SettingUser":
             component = <SettingUser
                 path={path}
+                menuId={element.id}
             />;
             break;
         case "SettingDefault":
             component = <SettingDefault
                 path={path}
+                menuId={element.id}
             />;
             break;
         case "SettingSearchCondition":
             component = <SettingSearchCondition
                 path={path}
+                menuId={element.id}
             />;
             break;
     }
@@ -68,11 +79,11 @@ function useSettingMain(props: propsType) {
             return;
         }
 
-        let tmpSettingRouteList = props.subMenuList.map((element, index) => {
+        let tmpSettingRouteList = props.subMenuList.map((element: menuListType, index) => {
 
             //コンポーネントを取得
             let path = `${props.path}${element.path}`
-            let Component = retSettingComponent(element.componentName, path);
+            let Component = retSettingComponent(element, path);
             let componentPath = `${element.path}/*`;
 
             if (!Component) {

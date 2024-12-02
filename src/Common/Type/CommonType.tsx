@@ -49,7 +49,6 @@ export type reqUserInfoType = {
 export type resUserInfoType = {
     userId: string,
     userName: string,
-    auth: string,
     iconUrl: string,
     authList: authType[],
 }
@@ -72,7 +71,6 @@ export type apiResponseType = {
 export type userInfoType = {
     userId: string,
     userName: string,
-    auth: string,
     iconUrl: string,
     authList: authType[],
 }

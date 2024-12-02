@@ -2,9 +2,9 @@ import { useState } from "react";
 import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrapper";
 import ENV from '../../../env.json';
 import { useNavigate } from "react-router-dom";
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { userType } from "../Type/SettingUserType";
-import { editModeAtom, userIdAtom } from "../Atom/SettingUserAtom";
+import { editModeAtom, settingUserAuthorityAtom, userIdAtom } from "../Atom/SettingUserAtom";
 import { editModeEnum } from "../../Const/SettingConst";
 import { useGlobalAtomValue } from "../../../Common/Hook/useGlobalAtom";
 import { userInfoAtom } from "../../../Content/Atom/ContentAtom";
@@ -12,11 +12,12 @@ import { userInfoAtom } from "../../../Content/Atom/ContentAtom";
 
 function useSettingUserEditMain() {
 
-    //ユーザー情報
-    const userInfo = useGlobalAtomValue(userInfoAtom);
+    //ユーザー画面の権限
+    const settingUserAuthority = useAtomValue(settingUserAuthorityAtom);
+
 
     return {
-        userInfo
+        settingUserAuthority
     }
 
 }

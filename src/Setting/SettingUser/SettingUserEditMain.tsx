@@ -75,7 +75,7 @@ function SettingUserEditMain(props: propsType) {
     console.log("SettingUserMain render");
 
     const {
-        userInfo
+        settingUserAuthority
     } = useSettingUserEditMain();
 
     return (
@@ -150,7 +150,7 @@ function SettingUserEditMain(props: propsType) {
                     </HorizonLabelItemComponent>
                 }
                 {
-                    userInfo && userInfo.auth === ADMIN_ID &&
+                    settingUserAuthority && settingUserAuthority === ADMIN_ID &&
                     <HorizonLabelItemComponent
                         title={'権限'}
                         width='30%'

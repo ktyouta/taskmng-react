@@ -9,6 +9,7 @@ import useSettingMain from './Hook/useSettingMain';
 import { Routes, Route, Navigate } from "react-router-dom";
 import SettingCustom from './SettingCustom/SettingCustom';
 import { menuListType } from '../Common/Type/CommonType';
+import { authType } from '../Common/Hook/useCheckAuth';
 
 
 //外側のスタイル

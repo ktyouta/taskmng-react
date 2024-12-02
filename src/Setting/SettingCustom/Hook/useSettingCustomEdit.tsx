@@ -9,12 +9,13 @@ import { buttonObjType, generalDataType, refInfoType } from "../../../Common/Typ
 import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
 import { customAttributeType, resClientCustomAttributeType, selectElementListType, updCustomAttributeType } from "../Type/SettingCustomType";
-import { customAttributeIdAtom, editModeAtom } from "../Atom/SettingCustomAtom";
+import { customAttributeIdAtom, editModeAtom, settingCustomAuthorityAtom } from "../Atom/SettingCustomAtom";
 import { editModeEnum } from "../../Const/SettingConst";
 import { GENERAL_DETAIL_AUTH_ID, GENERAL_DETAIL_CUSTOMTYPELIST_ID } from "../Const/SettingCustomConst";
 import { USER_AUTH } from "../../../Common/Const/CommonConst";
 import { useGlobalAtomValue } from "../../../Common/Hook/useGlobalAtom";
 import { userInfoAtom } from "../../../Content/Atom/ContentAtom";
+import { checkAuthAction } from "../../../Common/Function/Function";
 
 
 //引数の型
@@ -57,6 +58,9 @@ function useSettingCustomEdit(props: propsType) {
     const [caAuth, setCaAuth] = useState<string | undefined>();
     // ログインユーザー情報
     const userInfo = useGlobalAtomValue(userInfoAtom);
+    //カスタム属性画面の権限
+    const settingCustomAuthority = useAtomValue(settingCustomAuthorityAtom);
+
 
     //編集画面遷移時に更新用タスクを取得
     const { data: updCustomAttribute, isLoading: isLoadinGetCustomAttribute } = useQueryWrapper<resClientCustomAttributeType>(
@@ -154,19 +158,8 @@ function useSettingCustomEdit(props: propsType) {
             return;
         }
 
-        if (!userInfo) {
-            return;
-        }
-
-        //ユーザー権限
-        let userAuth = userInfo.auth;
-
-        if (Number.isNaN(userAuth) || Number.isNaN(USER_AUTH.PUBLIC)) {
-            return;
-        }
-
         //ユーザーの権限が一般の場合は権限のリストを表示しない
-        if (parseInt(userAuth) <= parseInt(USER_AUTH.PUBLIC)) {
+        if (!checkAuthAction(settingCustomAuthority, USER_AUTH.MASTER)) {
             return;
         }
 
@@ -177,7 +170,7 @@ function useSettingCustomEdit(props: propsType) {
         });
 
         return tmp;
-    }, [generalDataList, userInfo]);
+    }, [generalDataList]);
 
     //初期値セット
     useEffect(() => {

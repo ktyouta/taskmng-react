@@ -15,7 +15,7 @@ type propsType = {
  * ユーザーの対象画面に対する権限をセットする
  * @param props 
  */
-function useSetUserMenuAuth(props: propsType) {
+function useSetMenuAuthEffect(props: propsType) {
 
     useEffect(() => {
 
@@ -38,4 +38,4 @@ function useSetUserMenuAuth(props: propsType) {
 
 }
 
-export default useSetUserMenuAuth;
+export default useSetMenuAuthEffect;
