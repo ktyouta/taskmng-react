@@ -11,6 +11,8 @@ import useSettingUserSelectStandardIconList from './Hook/useSettingUserSelectSta
 import { imageListResType } from './Type/SettingUserType';
 import Loading from '../../Common/Loading';
 import UserIconComponent from '../../Common/UserIconComponent';
+import IconComponent from '../../Common/IconComponent';
+import { RxCross1 } from 'react-icons/rx';
 
 
 //外側のスタイル
@@ -22,14 +24,16 @@ const OuterDiv = styled.div<{ height: string | undefined, width: string | undefi
 //タイトルのスタイル
 const TitleDiv = styled.div`
     background-color: blue;
-    border-radius: 8px;
-    padding-left: 1%;
-    color: white;
-    height: 5%;
-    font-size: 1.1rem;
-    font-weight: bold;
+    height: 6%;
+    background: linear-gradient(to right, #3f86ed, #4481eb, #04befe, #3f86ed);
+    box-sizing: border-box;
     display: flex;
     align-items: center;
+    color: white;
+    font-weight: bold;
+    padding-left: 1%;
+    border-radius: 9px;
+    position:relative;
 `;
 
 //アイコンリストの外側のスタイル
@@ -37,7 +41,8 @@ const IconOuterDiv = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 2%;
-    padding-top: 2%;
+    padding-top: 3%;
+    padding-left: 1%;
     box-sizing: border-box;
 `;
 
@@ -77,6 +82,15 @@ function SettingUserSelectStandardIconList(props: propsType) {
         >
             <TitleDiv>
                 標準アイコン一覧
+                <IconComponent
+                    icon={RxCross1}
+                    onclick={props.closeModal}
+                    style={{
+                        "text-align": "right",
+                        "position": "absolute",
+                        "right": "2%",
+                    }}
+                />
             </TitleDiv>
             {
                 iconList && iconList.length > 0 ?
