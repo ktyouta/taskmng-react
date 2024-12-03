@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Snackbar } from '@mui/material'
 import MuiAlert, { AlertColor, AlertProps } from '@mui/material/Alert'
 import { useEffect } from 'react'
+import { SnackbarBaseComponent } from './SnackbarBaseComponent'
 
 /** スナックバーの表示をカスタマイズ */
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
@@ -32,21 +33,15 @@ export const SnackbarComponent: React.FC<propsType> = (props) => {
     }, []);
 
     return (
-        <Snackbar
+        <SnackbarBaseComponent
             open={props.open}
+            message={props.message}
+            severity={props.severity}
             onClose={props.onClose}
-            style={{ position: "initial", ...props.outerStyle }}
-            ref={focusRef}
-        >
-            <Alert
-                severity={props.severity}
-                style={{
-                    overflowWrap: "break-word",
-                    textAlign: "left",
-                    ...props.innerStyle,
-                }}>
-                {props.message}
-            </Alert>
-        </Snackbar>
+            outerStyle={props.outerStyle}
+            innerStyle={props.innerStyle}
+            noFocus={props.noFocus}
+            focusRef={focusRef}
+        />
     )
 }

@@ -62,7 +62,8 @@ function TaskRegister(props: propsType) {
     backPageButtonObj,
     negativeButtonObj,
     positiveButtonObj,
-    errMessage, } = useTaskRegister({ ...props });
+    errMessage,
+    closeErrMessageBar, } = useTaskRegister({ ...props });
 
   //ローディング
   if (!refInfoArray || !refInfoArray.default || !refInfoArray.customAttribute) {
@@ -126,6 +127,7 @@ function TaskRegister(props: propsType) {
           {/* エラーメッセージ用スナックバー */}
           <TaskErrMessage
             errMessage={errMessage}
+            onClose={closeErrMessageBar}
           />
         </VerticalFlowDiv>
       </TaskFormAreaDiv>

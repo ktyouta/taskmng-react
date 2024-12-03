@@ -13,6 +13,7 @@ import { TASK_SNACKBAR_INNER_STYLE, TASK_SNACKBAR_OUTER_STYLE } from './Const/Ta
 //引数の型
 type propsType = {
     errMessage: string | undefined,
+    onClose: () => void,
 }
 
 
@@ -30,6 +31,7 @@ function TaskErrMessage(props: propsType) {
                     severity='error'
                     outerStyle={TASK_SNACKBAR_OUTER_STYLE}
                     innerStyle={TASK_SNACKBAR_INNER_STYLE}
+                    onClose={props.onClose}
                 />
             }
         </React.Fragment>

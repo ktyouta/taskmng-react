@@ -129,6 +129,15 @@ function useTaskRegister(props: propsType) {
         registerMutation.mutate(createTaskRequestBody(refInfoArray));
     }
 
+
+    /**
+     * スナックバーのクローズ用
+     */
+    const closeErrMessageBar = () => {
+        setErrMessage("");
+    }
+
+
     return {
         refInfoArray,
         isUpDelLoading: registerMutation.isLoading,
@@ -148,6 +157,7 @@ function useTaskRegister(props: propsType) {
             onclick: refInfoArray && refInfoArray.default && refInfoArray.customAttribute ? create : undefined
         } as buttonObjType,
         errMessage,
+        closeErrMessageBar,
     }
 }
 

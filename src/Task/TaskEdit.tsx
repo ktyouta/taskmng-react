@@ -50,7 +50,8 @@ function TaskEdit(props: propsType) {
     positiveButtonObj,
     deleteButtonObj,
     errMessage,
-    isTaskDeletable, } = useTaskEdit({ ...props });
+    isTaskDeletable,
+    closeErrMessageBar, } = useTaskEdit({ ...props });
 
 
   //ローディング
@@ -92,6 +93,7 @@ function TaskEdit(props: propsType) {
           {/* エラーメッセージ用スナックバー */}
           <TaskErrMessage
             errMessage={errMessage}
+            onClose={closeErrMessageBar}
           />
         </VerticalFlowDiv>
       </HeightDiv>

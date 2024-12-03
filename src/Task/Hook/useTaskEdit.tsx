@@ -196,6 +196,13 @@ function useTaskEdit(props: propsType) {
         delMutation.mutate();
     }
 
+    /**
+     * スナックバーのクローズ用
+     */
+    const closeErrMessageBar = () => {
+        setErrMessage("");
+    }
+
     return {
         refInfoArray,
         isUpDelLoading: updMutation.isLoading || delMutation.isLoading,
@@ -221,6 +228,7 @@ function useTaskEdit(props: propsType) {
         } as buttonObjType,
         errMessage,
         isTaskDeletable,
+        closeErrMessageBar,
     }
 }
 
