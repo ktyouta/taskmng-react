@@ -18,7 +18,6 @@ export function createAddUserData(fileDataObj: userInfoType[], requestBody: regi
     let body: userInfoType = {
         userId: "",
         userName: "",
-        auth: "",
         password: "",
         deleteFlg: "",
         registerTime: "",

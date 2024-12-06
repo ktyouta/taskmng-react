@@ -4,7 +4,6 @@ export type userType = {
     userId: string,
     userName: string,
     password: string,
-    auth: string,
     authNm: string,
     registerTime?: string,
     updTime?: string,
@@ -17,7 +16,6 @@ export type updUserType = {
     userId: string,
     userName: string,
     password: string,
-    auth: string,
     iconUrl: string,
     iconType: string,
 }
@@ -33,7 +31,6 @@ export type userInputType = {
     userId?: string,
     userName?: string,
     password?: string,
-    auth?: string,
     iconUrl?: string,
     iconType?: string,
 }

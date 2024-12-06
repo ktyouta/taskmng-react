@@ -66,17 +66,5 @@ export function joinAuthInfo(decodeFileData: userInfoType[])
         return element.id === AUTH_ID;
     });
 
-    //権限の紐づけ
-    decodeFileData.forEach((element) => {
-        //権限の名称を取得
-        let authObj = authList.find((element1) => {
-            return element1.value === element.auth;
-        });
-        if (!authObj) {
-            return;
-        }
-        element.authNm = authObj.label;
-    });
-
     return decodeFileData;
 }

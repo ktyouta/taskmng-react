@@ -270,7 +270,6 @@ function useSettingUserEdit(props: propsType) {
             userId: "",
             userName: "",
             password: "",
-            auth: "",
             iconType: userDatas.iconType ?? "",
             iconUrl: "",
         };
@@ -297,11 +296,11 @@ function useSettingUserEdit(props: propsType) {
         body.password = userDatas.password;
 
         //権限
-        if (!userDatas.auth) {
-            alert("権限を入力してください");
-            return;
-        }
-        body.auth = userDatas.auth;
+        // if (!userDatas.auth) {
+        //     alert("権限を入力してください");
+        //     return;
+        // }
+        // body.auth = userDatas.auth;
 
         //アイコン
         if (!isCorrectIconType(userDatas.iconType)) {

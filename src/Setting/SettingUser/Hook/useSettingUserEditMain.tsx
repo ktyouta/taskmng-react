@@ -8,16 +8,24 @@ import { editModeAtom, settingUserAuthorityAtom, userIdAtom } from "../Atom/Sett
 import { editModeEnum } from "../../Const/SettingConst";
 import { useGlobalAtomValue } from "../../../Common/Hook/useGlobalAtom";
 import { userInfoAtom } from "../../../Content/Atom/ContentAtom";
+import useSwitch from "../../../Common/Hook/useSwitch";
 
 
 function useSettingUserEditMain() {
 
     //ユーザー画面の権限
     const settingUserAuthority = useAtomValue(settingUserAuthorityAtom);
-
+    //モーダルの開閉用フラグ
+    const {
+        flag: isAuthModalOpen,
+        onFlag: openAuthModal,
+        offFlag: closeAuthModal, } = useSwitch();
 
     return {
-        settingUserAuthority
+        settingUserAuthority,
+        isAuthModalOpen,
+        openAuthModal,
+        closeAuthModal,
     }
 
 }

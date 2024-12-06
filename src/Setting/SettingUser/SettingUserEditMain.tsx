@@ -25,6 +25,7 @@ import UserIconComponent from '../../Common/UserIconComponent';
 import FileUploadComponent from '../../Common/FileUploadComponent';
 import SettingUserSelectOriginalMessage from './SettingUserSelectOriginalMessage';
 import { userInputType } from './Type/SettingUserType';
+import ModalComponent from '../../Common/ModalComponent';
 
 
 //外側のスタイル
@@ -45,6 +46,13 @@ const MainDiv = styled.div`
 //アイコン選択項目間のスタイル
 const MaringDiv = styled.div`
     margin-top:1%;
+`;
+
+//タイトルのスタイル
+const TitleSpan = styled.span`
+    color:blue;
+    cursor:pointer;
+    white-space: nowrap;
 `;
 
 //選択アイコンのスタイル
@@ -75,7 +83,10 @@ function SettingUserEditMain(props: propsType) {
     console.log("SettingUserMain render");
 
     const {
-        settingUserAuthority
+        settingUserAuthority,
+        isAuthModalOpen,
+        openAuthModal,
+        closeAuthModal,
     } = useSettingUserEditMain();
 
     return (
@@ -149,7 +160,7 @@ function SettingUserEditMain(props: propsType) {
                         }
                     </HorizonLabelItemComponent>
                 }
-                {
+                {/* {
                     settingUserAuthority && settingUserAuthority === ADMIN_ID &&
                     <HorizonLabelItemComponent
                         title={'権限'}
@@ -169,6 +180,26 @@ function SettingUserEditMain(props: propsType) {
                                 }}
                             />
                         }
+                    </HorizonLabelItemComponent>
+                } */}
+                {
+                    settingUserAuthority && settingUserAuthority === ADMIN_ID &&
+                    <HorizonLabelItemComponent
+                        title={'権限'}
+                        width='30%'
+                        position='left'
+                    >
+                        <TitleSpan
+                            onClick={openAuthModal}
+                        >
+                            権限を設定する
+                        </TitleSpan>
+                        <ModalComponent
+                            modalIsOpen={isAuthModalOpen}
+                            closeModal={closeAuthModal}
+                        >
+                            ユーザー権限設定
+                        </ModalComponent>
                     </HorizonLabelItemComponent>
                 }
                 {
