@@ -8,6 +8,7 @@ import SettingUserEditMain from '../Setting/SettingUser/SettingUserEditMain';
 import CenterLoading from '../Common/CenterLoading';
 import useUserTop from './Hook/useUserTop';
 import WaitLoading from '../Common/WaitLoading';
+import { authType } from '../Common/Hook/useCheckAuth';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -41,7 +42,8 @@ function UserTop(props: propsType) {
         isUpdLoading,
         userDatas,
         userDatasDisptch,
-        inputUserAuthList
+        inputUserAuthList,
+        setInputUserAuthList,
     } = useUserTop({ ...props });
 
     return (
@@ -57,6 +59,7 @@ function UserTop(props: propsType) {
                 userDatas={userDatas}
                 userDatasDisptch={userDatasDisptch}
                 inputUserAuthList={inputUserAuthList}
+                setInputUserAuthList={setInputUserAuthList}
             />
             <UserFooter
                 positiveButtonObj={positiveButtonObj}

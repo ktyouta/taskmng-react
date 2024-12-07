@@ -45,6 +45,7 @@ function SettingUserEdit(props: propsType) {
     userDatas,
     userDatasDisptch,
     inputUserAuthList,
+    setInputUserAuthList,
   } = useSettingUserEdit({ ...props });
 
   return (
@@ -60,6 +61,7 @@ function SettingUserEdit(props: propsType) {
         userDatas={userDatas}
         userDatasDisptch={userDatasDisptch}
         inputUserAuthList={inputUserAuthList}
+        setInputUserAuthList={setInputUserAuthList}
       />
       <SettingUserEditFooter
         positiveButtonObj={positiveButtonObj}

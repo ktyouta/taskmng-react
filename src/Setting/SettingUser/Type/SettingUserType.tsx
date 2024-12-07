@@ -5,7 +5,6 @@ export type userType = {
     userId: string,
     userName: string,
     password: string,
-    authNm: string,
     registerTime?: string,
     updTime?: string,
     iconUrl: string,

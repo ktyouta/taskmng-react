@@ -6,18 +6,23 @@ import { authType } from "../../../Common/Hook/useCheckAuth";
 import useGetGeneralDataList from "../../../Common/Hook/useGetGeneralDataList";
 import { AUTH_ID } from "../Const/SettingUserConst";
 import { editModeEnum } from "../../Const/SettingConst";
+import { useAtomValue } from "jotai";
+import { userIdAtom } from "../Atom/SettingUserAtom";
 
 
 //引数の型
 type propsType = {
+    closeFn?: () => void,
     inputUserAuthList: authType[],
+    setInputUserAuthList: React.Dispatch<React.SetStateAction<authType[]>>
 }
 
 //権限設定画面の権限リストの型
-type selectAuthType = {
+export type selectAuthType = {
     menuId: string,
     menuName: string,
     value: string,
+    userId: string,
     authLabelList: generalDataType[],
 }
 
@@ -26,6 +31,8 @@ function useSettingUserInputAuthList(props: propsType) {
 
     //権限の選択値
     const [selectAuthList, setSelectAuthList] = useState<selectAuthType[]>([]);
+    //ユーザーID
+    const userId = useAtomValue(userIdAtom);
 
     //メニューのリスト
     const { data: menuList } = useQueryWrapper<menuListType[]>(
@@ -45,6 +52,10 @@ function useSettingUserInputAuthList(props: propsType) {
         }
 
         if (!authLabelList || authLabelList.length === 0) {
+            return;
+        }
+
+        if (!props.inputUserAuthList) {
             return;
         }
 
@@ -69,6 +80,7 @@ function useSettingUserInputAuthList(props: propsType) {
             return {
                 menuId: element.id,
                 menuName: element.name,
+                userId: userId,
                 value: selectValue,
                 authLabelList: authLabelList,
             }
@@ -80,8 +92,28 @@ function useSettingUserInputAuthList(props: propsType) {
     }, [menuList, authLabelList]);
 
 
+    //選択した権限をセットする
+    const settingAuthInputInfo = () => {
+
+        //画面の入力値をセットする
+        props.setInputUserAuthList(
+            selectAuthList.map((element: selectAuthType) => {
+                return {
+                    menuId: element.menuId,
+                    userId: element.userId,
+                    auth: element.value
+                }
+            })
+        );
+
+        if (props.closeFn) {
+            props.closeFn();
+        }
+    };
+
     return {
-        selectAuthList
+        selectAuthList,
+        settingAuthInputInfo
     }
 }
 

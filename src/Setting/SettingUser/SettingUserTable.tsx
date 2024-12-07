@@ -75,10 +75,7 @@ function SettingUserTable(props: propsType) {
                 ID
               </th>
               <th>
-                名称
-              </th>
-              <th>
-                権限
+                ユーザー名
               </th>
             </tr>
           </thead>
@@ -94,9 +91,6 @@ function SettingUserTable(props: propsType) {
                     </IdTd>
                     <TdSt>
                       {element.userName}
-                    </TdSt>
-                    <TdSt>
-                      {element.authNm}
                     </TdSt>
                   </tr>
                 );

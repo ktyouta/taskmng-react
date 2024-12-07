@@ -36,6 +36,7 @@ function useUserTop(props: propsType) {
         userDatas,
         userDatasDisptch,
         inputUserAuthList,
+        setInputUserAuthList,
     } = useSettingUserEdit({ ...props });
 
     //ルーティング用
@@ -73,6 +74,7 @@ function useUserTop(props: propsType) {
         userDatas,
         userDatasDisptch,
         inputUserAuthList,
+        setInputUserAuthList,
     }
 }
 

@@ -4,12 +4,14 @@ import { HeaderDiv, HeightDiv, VerticalFlowDiv } from '../../Common/StyledCompon
 import IconComponent from '../../Common/IconComponent';
 import { authType } from '../../Common/Hook/useCheckAuth';
 import useSettingUserInputAuthList from './Hook/useSettingUserInputAuthList';
+import SettingUserInputAuthListForm from './SettingUserInputAuthListForm';
 
 
 //引数の型
 type propsType = {
     closeFn?: () => void,
     inputUserAuthList: authType[],
+    setInputUserAuthList: React.Dispatch<React.SetStateAction<authType[]>>
 }
 
 //ヘッダータイトルのスタイル
@@ -39,14 +41,17 @@ const AuthHeaderDiv = styled(HeaderDiv) <{ height: string | undefined }>`
 const AuthInputFormAreaDiv = styled.div<{ height: string | undefined }>`
   height:${({ height }) => (height)};
   box-sizing:border-box;
-  padding-top:4%;
+  padding-top:1%;
 `;
 
 function SettingUserInputAuthList(props: propsType) {
 
     console.log("SettingUserInputAuthList render");
 
-    const { selectAuthList } = useSettingUserInputAuthList({ ...props });
+    const {
+        selectAuthList,
+        settingAuthInputInfo
+    } = useSettingUserInputAuthList({ ...props });
 
     return (
         <HeightDiv
@@ -59,7 +64,7 @@ function SettingUserInputAuthList(props: propsType) {
                     ユーザー権限設定
                     <IconComponent
                         icon={RxCross1}
-                        onclick={props.closeFn}
+                        onclick={settingAuthInputInfo}
                         style={{
                             "text-align": "right",
                             "position": "absolute",
@@ -72,9 +77,11 @@ function SettingUserInputAuthList(props: propsType) {
                 height='77%'
             >
                 <VerticalFlowDiv
-                    height='85%'
+                    height='97%'
                 >
-
+                    <SettingUserInputAuthListForm
+                        selectAuthList={selectAuthList}
+                    />
                 </VerticalFlowDiv>
             </AuthInputFormAreaDiv>
             <HeightDiv

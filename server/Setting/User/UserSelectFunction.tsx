@@ -1,8 +1,10 @@
+import { getAuthObjList, getUserAuthList } from "../../Auth/AuthSelectFunction";
+import { authType } from "../../Auth/Type/AuthType";
 import { getFileJsonData, readFile } from "../../Common/FileFunction";
 import { generalDetailType } from "../../General/Type/GeneralType";
 import { GENERALDETAIL_FILEPATH } from "../DefaultAttribute/Const/DefaultAttributeConst";
 import { AUTH_ID, USERINFO_FILEPATH } from "./Const/UserConst";
-import { userInfoType } from "./Type/UserType";
+import { resUserInfoType, userInfoType } from "./Type/UserType";
 
 
 /**
@@ -32,39 +34,28 @@ export function getUserInfoData() {
 
 
 /**
- * ユーザー情報のリストをIDで絞り込む
- * @param decodeFileData 
- * @param id 
- * @param res 
- * @returns 
+ * レスポンス用のユーザー情報を作成
  */
-export function filterUserInfoDetail(decodeFileData: userInfoType[], id: string, res: any)
-    : any {
+export function createRestUserInfo(userInfoObj: userInfoType, userAuthList: authType[]): resUserInfoType {
 
-    let singleCustomAttributeData = decodeFileData.find((element) => { return element.userId === id });
-    if (!singleCustomAttributeData) {
-        return res.status(400).json({ errMessage: `該当データがありません。` });
-    }
-    return res.status(200).json(singleCustomAttributeData);
+    let resUserInfoObj = { ...userInfoObj, authList: userAuthList };
+
+    return resUserInfoObj;
 }
 
+
 /**
- * 権限情報の紐づけ
- * @param decodeFileData 
- * @param id 
- * @param res 
+ * ユーザーの権限情報リストを取得する
+ * @param userId 
  * @returns 
  */
-export function joinAuthInfo(decodeFileData: userInfoType[])
-    : any {
+export function getUserAuth(userId: string,) {
 
-    //汎用詳細の読み込み
-    let generalDatas: generalDetailType[] = getFileJsonData(GENERALDETAIL_FILEPATH);
+    //権限情報を取得する
+    let authList = getAuthObjList();
 
-    //権限リスト
-    let authList: generalDetailType[] = generalDatas.filter((element) => {
-        return element.id === AUTH_ID;
-    });
+    //ユーザーの権限情報を取得する
+    let userAuthList = getUserAuthList(authList, userId);
 
-    return decodeFileData;
+    return userAuthList;
 }

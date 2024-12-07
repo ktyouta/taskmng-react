@@ -1,11 +1,12 @@
 import { authenticate } from "../../Auth/AuthFunction";
+import { getAuthObjList, getUserAuthList } from "../../Auth/AuthSelectFunction";
 import { authInfoType } from "../../Auth/Type/AuthType";
 import { overWriteData } from "../../Common/FileFunction";
 import { SELECT_ICON_TYPE, USERINFO_FILEPATH } from "./Const/UserConst";
 import { registUserInfoType, updUserInfoType, userInfoType } from "./Type/UserType";
 import { createDeleteUserData } from "./UserDeleteFunction";
 import { createAddUserData, dubUserCheck } from "./UserRegistFunction";
-import { filterUserInfoDetail, getUserInfoData, joinAuthInfo } from "./UserSelectFunction";
+import { createRestUserInfo, getUserAuth, getUserInfoData } from "./UserSelectFunction";
 import { createUpdUserData } from "./UserUpdateFunction";
 
 
@@ -40,9 +41,6 @@ export function getUserInfo(res: any, req: any) {
         return res.status(400).json({ errMessage: `ユーザー情報が登録されていません。` });
     }
 
-    //権限情報の紐づけ
-    decodeFileData = joinAuthInfo(decodeFileData);
-
     return res.status(200).json(decodeFileData);
 }
 
@@ -76,8 +74,28 @@ export function getUserInfoDetail(res: any, req: any, id: string) {
         return res.status(400).json({ errMessage: `ユーザー情報が登録されていません。` });
     }
 
-    return filterUserInfoDetail(decodeFileData, id, res);
+    //ユーザーIDを元にリストからユーザーデータを取得
+    let userInfoObj: userInfoType | undefined = decodeFileData.find((element) => { return element.userId === id });
+
+    //IDからユーザーが取得に失敗
+    if (!userInfoObj) {
+        return res.status(400).json({ errMessage: `該当ユーザーが存在しません。` });
+    }
+
+    //ユーザーの権限情報を取得する
+    let userAuthList = getUserAuth(userInfoObj.userId);
+
+    //権限情報が存在しない
+    if (!userAuthList || userAuthList.length === 0) {
+        userAuthList = [];
+    }
+
+    //レスポンス用のユーザー情報を作成する
+    let resUserInfoObj = createRestUserInfo(userInfoObj, userAuthList);
+
+    return res.status(200).json(resUserInfoObj);
 }
+
 
 /**
  * ユーザーの追加

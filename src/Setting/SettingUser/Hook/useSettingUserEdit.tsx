@@ -33,7 +33,7 @@ function useSettingUserEdit(props: propsType) {
     const navigate = useNavigate();
     //ユーザーID
     const userId = useAtomValue(userIdAtom);
-    // ログインユーザー情報
+    //ログインユーザー情報
     const userInfo = useGlobalAtomValue(userInfoAtom);
     //ユーザー画面の権限
     const settingUserAuthority = useAtomValue(settingUserAuthorityAtom);
@@ -368,6 +368,7 @@ function useSettingUserEdit(props: propsType) {
         userDatas,
         userDatasDisptch,
         inputUserAuthList,
+        setInputUserAuthList,
     }
 }
 

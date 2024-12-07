@@ -77,6 +77,7 @@ type propsType = {
         payload?: string;
     }>
     inputUserAuthList: authType[],
+    setInputUserAuthList: React.Dispatch<React.SetStateAction<authType[]>>,
 }
 
 
@@ -202,7 +203,8 @@ function SettingUserEditMain(props: propsType) {
                         >
                             <SettingUserInputAuthList
                                 closeFn={closeAuthModal}
-                                inputUserAuthList={[]}
+                                inputUserAuthList={props.inputUserAuthList}
+                                setInputUserAuthList={props.setInputUserAuthList}
                             />
                         </ModalComponent>
                     </HorizonLabelItemComponent>

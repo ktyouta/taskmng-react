@@ -93,16 +93,9 @@ config.get.forEach((element) => {
  * generaldetailにアクセスした際の動作
  */
 app.get(`${ENV.GENERALDETAIL}`, function (req, res) {
-    getGeneralData(req, res);
+    getGeneralDetailData(req, res);
 });
 
-
-/**
- * generaldetailにアクセスした際の動作(パスパラメータあり)
- */
-app.get(`${ENV.GENERALDETAIL}/:param`, function (req, res) {
-    getGeneralDetailData(req, res)
-});
 
 
 /**

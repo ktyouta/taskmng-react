@@ -15,7 +15,7 @@ function useSettingUserEditMain() {
 
     //ユーザー画面の権限
     const settingUserAuthority = useAtomValue(settingUserAuthorityAtom);
-    //モーダルの開閉用フラグ
+    //権限設定モーダルの開閉用フラグ
     const {
         flag: isAuthModalOpen,
         onFlag: openAuthModal,
