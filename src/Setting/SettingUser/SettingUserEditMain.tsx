@@ -26,6 +26,8 @@ import FileUploadComponent from '../../Common/FileUploadComponent';
 import SettingUserSelectOriginalMessage from './SettingUserSelectOriginalMessage';
 import { userInputType } from './Type/SettingUserType';
 import ModalComponent from '../../Common/ModalComponent';
+import { authType } from '../../Common/Hook/useCheckAuth';
+import SettingUserInputAuthList from './SettingUserInputAuthList';
 
 
 //外側のスタイル
@@ -74,7 +76,7 @@ type propsType = {
         type: string;
         payload?: string;
     }>
-
+    inputUserAuthList: authType[],
 }
 
 
@@ -198,7 +200,10 @@ function SettingUserEditMain(props: propsType) {
                             modalIsOpen={isAuthModalOpen}
                             closeModal={closeAuthModal}
                         >
-                            ユーザー権限設定
+                            <SettingUserInputAuthList
+                                closeFn={closeAuthModal}
+                                inputUserAuthList={[]}
+                            />
                         </ModalComponent>
                     </HorizonLabelItemComponent>
                 }

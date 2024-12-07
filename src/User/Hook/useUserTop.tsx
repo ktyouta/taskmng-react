@@ -35,6 +35,7 @@ function useUserTop(props: propsType) {
         isUpdLoading,
         userDatas,
         userDatasDisptch,
+        inputUserAuthList,
     } = useSettingUserEdit({ ...props });
 
     //ルーティング用
@@ -71,6 +72,7 @@ function useUserTop(props: propsType) {
         isUpdLoading,
         userDatas,
         userDatasDisptch,
+        inputUserAuthList,
     }
 }
 

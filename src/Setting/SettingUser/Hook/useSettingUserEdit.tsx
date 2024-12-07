@@ -17,6 +17,7 @@ import { USER_AUTH } from "../../../Common/Const/CommonConst";
 import { isCorrectIconType, updateUserData } from "../Function/SettingUserFunction";
 import { HOME_PATH, NOWPATH_STRAGEKEY } from "../../../Header/Const/HeaderConst";
 import { userInfoAtom } from "../../../Content/Atom/ContentAtom";
+import { authType } from "../../../Common/Hook/useCheckAuth";
 
 
 //引数の型
@@ -36,6 +37,8 @@ function useSettingUserEdit(props: propsType) {
     const userInfo = useGlobalAtomValue(userInfoAtom);
     //ユーザー画面の権限
     const settingUserAuthority = useAtomValue(settingUserAuthorityAtom);
+    //ユーザーの権限入力リスト
+    const [inputUserAuthList, setInputUserAuthList] = useState<authType[]>([]);
 
 
     //汎用詳細リスト(形式選択)
@@ -59,12 +62,13 @@ function useSettingUserEdit(props: propsType) {
                 userDatasDisptch({ type: USERINFO_ACTION_TYPE.ID, payload: data.userId });
                 userDatasDisptch({ type: USERINFO_ACTION_TYPE.NAME, payload: data.userName });
                 userDatasDisptch({ type: USERINFO_ACTION_TYPE.PASS, payload: data.password });
-                userDatasDisptch({ type: USERINFO_ACTION_TYPE.AUTH, payload: data.auth });
                 userDatasDisptch({ type: USERINFO_ACTION_TYPE.ICON_TYPE, payload: data.iconType });
 
                 if (data.iconUrl) {
                     userDatasDisptch({ type: USERINFO_ACTION_TYPE.ICON_URL, payload: data.iconUrl });
                 }
+
+                setInputUserAuthList(data.authList);
             }
             , afErrorFn: (res) => {
                 let tmp = res as errResType;
@@ -330,6 +334,7 @@ function useSettingUserEdit(props: propsType) {
         return body;
     };
 
+
     return {
         authList,
         userId,
@@ -362,6 +367,7 @@ function useSettingUserEdit(props: propsType) {
         isUpdLoading: registMutation.isLoading || updMutation.isLoading || delMutation.isLoading,
         userDatas,
         userDatasDisptch,
+        inputUserAuthList,
     }
 }
 

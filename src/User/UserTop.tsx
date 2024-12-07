@@ -41,6 +41,7 @@ function UserTop(props: propsType) {
         isUpdLoading,
         userDatas,
         userDatasDisptch,
+        inputUserAuthList
     } = useUserTop({ ...props });
 
     return (
@@ -55,6 +56,7 @@ function UserTop(props: propsType) {
                 isEditable={isEditable}
                 userDatas={userDatas}
                 userDatasDisptch={userDatasDisptch}
+                inputUserAuthList={inputUserAuthList}
             />
             <UserFooter
                 positiveButtonObj={positiveButtonObj}

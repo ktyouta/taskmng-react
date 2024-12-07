@@ -1,6 +1,7 @@
+import { authType } from "../../../Common/Hook/useCheckAuth"
+
 //ユーザー情報の型
 export type userType = {
-    [key: string]: string | undefined,
     userId: string,
     userName: string,
     password: string,
@@ -9,6 +10,7 @@ export type userType = {
     updTime?: string,
     iconUrl: string,
     iconType: string,
+    authList: authType[]
 }
 
 //登録更新時のユーザー情報の型
