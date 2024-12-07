@@ -21,8 +21,8 @@ export function getGeneralDetailDataList(
     decodeGeneralDetailFileData: generalDetailType[],
     id: string) {
 
-    let idArry = id.split(",");
     let filterdGeneralDetail: generalDetailType[] = [];
+    let idArry: string[] = id.split(",");
 
     idArry.forEach((element: string,) => {
 

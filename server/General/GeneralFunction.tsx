@@ -56,6 +56,9 @@ export function getGeneralDetailData(req: any, res: any) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    //汎用詳細ファイルの読み込み
+    let generalList = getGeneralDataList();
+
     //クエリパラメータ
     let queryStr = req.query;
     let id = "";
@@ -64,9 +67,9 @@ export function getGeneralDetailData(req: any, res: any) {
         id = queryStr[GENERAL_DETAIL_QUERY_KEY] as string;
     }
 
-    //汎用詳細ファイルの読み込み
-    let generalList = getGeneralDataList();
-    let generalDetail = getGeneralDetailDataList(generalList, id);
+    if (id) {
+        generalList = getGeneralDetailDataList(generalList, id);
+    }
 
-    return res.status(200).json(generalDetail);
+    return res.status(200).json(generalList);
 }
