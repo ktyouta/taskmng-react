@@ -50,7 +50,8 @@ function SettingUserInputAuthList(props: propsType) {
 
     const {
         selectAuthList,
-        settingAuthInputInfo
+        settingAuthInputInfo,
+        changeAuthCombo,
     } = useSettingUserInputAuthList({ ...props });
 
     return (
@@ -77,10 +78,11 @@ function SettingUserInputAuthList(props: propsType) {
                 height='77%'
             >
                 <VerticalFlowDiv
-                    height='97%'
+                    height='100%'
                 >
                     <SettingUserInputAuthListForm
                         selectAuthList={selectAuthList}
+                        changeAuthCombo={changeAuthCombo}
                     />
                 </VerticalFlowDiv>
             </AuthInputFormAreaDiv>

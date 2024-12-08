@@ -8,6 +8,7 @@ import { AUTH_ID } from "../Const/SettingUserConst";
 import { editModeEnum } from "../../Const/SettingConst";
 import { useAtomValue } from "jotai";
 import { userIdAtom } from "../Atom/SettingUserAtom";
+import { getInputAuthObjList } from "../Function/SettingUserFunction";
 
 
 //引数の型
@@ -21,9 +22,11 @@ type propsType = {
 export type selectAuthType = {
     menuId: string,
     menuName: string,
-    value: string,
+    auth: string,
     userId: string,
     authLabelList: generalDataType[],
+    parentMenuId: string,
+    isContainSubMenu: boolean,
 }
 
 
@@ -59,33 +62,14 @@ function useSettingUserInputAuthList(props: propsType) {
             return;
         }
 
-        let tmpSelectAuthList: selectAuthType[] = menuList.map((element) => {
-
-            //ユーザーの権限リストからメニューIDに一致するデータを取得する
-            let userAuthObj = props.inputUserAuthList.find((element1) => {
-                return element1.menuId === element.id;
-            });
-
-            let selectValue;
-
-            //ユーザーの権限リストに存在する場合は権限リストの値を設定する
-            if (userAuthObj) {
-                selectValue = userAuthObj.auth;
-            }
-            //ユーザーの権限リストに存在しない場合は汎用詳細から取得したリストの先頭の値を設定する
-            else {
-                selectValue = authLabelList[0].value;
-            }
-
-            return {
-                menuId: element.id,
-                menuName: element.name,
-                userId: userId,
-                value: selectValue,
-                authLabelList: authLabelList,
-            }
-
-        });
+        //入力用の権限情報リストを作成する
+        let tmpSelectAuthList: selectAuthType[] = getInputAuthObjList(
+            menuList,
+            props.inputUserAuthList,
+            authLabelList,
+            userId,
+            ""
+        );
 
         setSelectAuthList(tmpSelectAuthList);
 
@@ -101,7 +85,7 @@ function useSettingUserInputAuthList(props: propsType) {
                 return {
                     menuId: element.menuId,
                     userId: element.userId,
-                    auth: element.value
+                    auth: element.auth
                 }
             })
         );
@@ -111,9 +95,33 @@ function useSettingUserInputAuthList(props: propsType) {
         }
     };
 
+
+    /**
+     * 権限のコンボボックスの切り替え処理
+     * @param selectValue 
+     * @param menuId 
+     */
+    const changeAuthCombo = (selectValue: string, menuId: string,) => {
+
+        setSelectAuthList((prevState: selectAuthType[]) => {
+
+            let selectState = prevState.find((element) => {
+                return element.menuId === menuId;
+            });
+
+            //選択した権限をセットする
+            if (selectState) {
+                selectState.auth = selectValue;
+            }
+
+            return prevState;
+        });
+    };
+
     return {
         selectAuthList,
-        settingAuthInputInfo
+        settingAuthInputInfo,
+        changeAuthCombo,
     }
 }
 

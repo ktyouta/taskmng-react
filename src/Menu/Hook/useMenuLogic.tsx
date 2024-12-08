@@ -42,33 +42,6 @@ const MenuLi = styled.li<{ isTopLine?: boolean }>`
   }
 `;
 
-//親カテゴリのスタイル
-const SubCategoryParentDiv = styled.div`
-    color: #000000;
-    padding: 8px 16px;
-    border-bottom: 1px solid #ffa500;
-    &:hover {
-        background-color: #1b2538;
-        color: white;
-    }
-    box-sizing: border-box;
-    align-items: center;
-    display:flex;
-    justify-content: center;
-    position: relative;
-`;
-
-//メニューのスタイル
-const MenuDiv = styled.div<{ isSelected: boolean }>`
-    padding: 8px 16px;
-    border-bottom: 1px solid #ffa500;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    color: ${({ isSelected }) => (isSelected ? "white" : "#000000")};
-    background-color:${({ isSelected }) => (isSelected ? "#1b2538" : "inherit")};
-`;
-
 
 //引数の型
 type propsType = {

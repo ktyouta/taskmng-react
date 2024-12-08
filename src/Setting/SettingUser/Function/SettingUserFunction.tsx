@@ -1,4 +1,7 @@
+import { authType } from "../../../Common/Hook/useCheckAuth";
+import { generalDataType, menuListType } from "../../../Common/Type/CommonType";
 import { SELECT_ICON_TYPE, USERINFO_ACTION_TYPE } from "../Const/SettingUserConst";
+import { selectAuthType } from "../Hook/useSettingUserInputAuthList";
 import { userInputType } from "../Type/SettingUserType";
 
 /**
@@ -41,4 +44,77 @@ export function updateUserData(state: userInputType, action: { type: string, pay
         default:
             return state;
     }
+}
+
+
+/**
+ * 入力用の権限情報リストを作成する
+ * @param menuList 
+ * @param inputUserAuthList 
+ * @param authLabelList 
+ * @param userId 
+ * @returns 
+ */
+export function getInputAuthObjList(
+    menuList: menuListType[],
+    inputUserAuthList: authType[],
+    authLabelList: generalDataType[],
+    userId: string,
+    parentId: string,): selectAuthType[] {
+
+    let tmpSelectAuthList: selectAuthType[] = menuList.reduce((prev: selectAuthType[], current: menuListType) => {
+
+        //ユーザーの権限リストからメニューIDに一致するデータを取得する
+        let userAuthObj = inputUserAuthList.find((element1) => {
+            return element1.menuId === current.id;
+        });
+
+        let selectValue;
+
+        //ユーザーの権限リストに存在する場合は権限リストの値を設定する
+        if (userAuthObj) {
+            selectValue = userAuthObj.auth;
+        }
+        //ユーザーの権限リストに存在しない場合は汎用詳細から取得したリストの先頭の値を設定する
+        else {
+            selectValue = authLabelList[0].value;
+        }
+
+        let selectAuthObj: selectAuthType = {
+            menuId: current.id,
+            menuName: current.name,
+            auth: selectValue,
+            userId: userId,
+            authLabelList: authLabelList,
+            parentMenuId: parentId,
+            isContainSubMenu: false
+        };
+
+        let subMenuList: selectAuthType[] = [];
+
+        //サブメニューを保持している場合、リストの取得メソッドを再帰的に呼び出す
+        if (current.subCategoryList && current.subCategoryList.length) {
+
+            selectAuthObj.isContainSubMenu = true;
+
+            subMenuList = getInputAuthObjList(
+                current.subCategoryList,
+                inputUserAuthList,
+                authLabelList,
+                userId,
+                current.id,
+            );
+        }
+
+        prev.push(selectAuthObj);
+
+        //サブメニューをリストに追加
+        subMenuList.forEach((element2) => {
+            prev.push(element2);
+        });
+
+        return prev;
+    }, []);
+
+    return tmpSelectAuthList;
 }
