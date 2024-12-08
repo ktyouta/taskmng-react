@@ -28,7 +28,6 @@ function useUserTop(props: propsType) {
         updTime,
         orgIconUrl,
         isLoadinGetuser,
-        authList,
         runButtonObj,
         editMode,
         isEditable,
@@ -57,7 +56,6 @@ function useUserTop(props: propsType) {
 
     return {
         userId,
-        authList,
         registerTime,
         orgIconUrl,
         updTime,

@@ -8,7 +8,7 @@ import './css/ModalComponent.css';
 //引数の型
 type propsType = {
     modalIsOpen: boolean,
-    closeModal: () => void,
+    closeModal?: () => void,
     children: ReactNode,
     width?: string,
     height?: string,

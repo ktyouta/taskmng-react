@@ -14,7 +14,7 @@ import { editModeEnum } from "../../Const/SettingConst";
 import { AUTH_ID, SELECT_ICON_TYPE, USERINFO_ACTION_TYPE } from "../Const/SettingUserConst";
 import { useGlobalAtomValue } from "../../../Common/Hook/useGlobalAtom";
 import { USER_AUTH } from "../../../Common/Const/CommonConst";
-import { isCorrectIconType, updateUserData } from "../Function/SettingUserFunction";
+import { checkUpdAuthList, isCorrectIconType, updateUserData } from "../Function/SettingUserFunction";
 import { HOME_PATH, NOWPATH_STRAGEKEY } from "../../../Header/Const/HeaderConst";
 import { userInfoAtom } from "../../../Content/Atom/ContentAtom";
 import { authType } from "../../../Common/Hook/useCheckAuth";
@@ -101,42 +101,20 @@ function useSettingUserEdit(props: propsType) {
         return updUser && updUser.iconUrl ? updUser.iconUrl : "";
     }, [updUser]);
 
-    //権限リスト
-    const authList = useMemo(() => {
-        if (!generalDataList) {
-            return;
-        }
-        let tmp: radioType[] = generalDataList.filter((element) => {
-            return element.id === AUTH_ID;
-        }).map((element) => {
-            return { label: element.label, value: element.value }
-        });
-
-        //新規登録の場合は先頭の値をセット
-        if (editMode === editModeEnum.create && tmp.length > 0) {
-            userDatasDisptch({ type: "auth", payload: tmp[0].value });
-        }
-        return tmp;
-    }, [generalDataList]);
 
     //初期値セット
     useEffect(() => {
-
-        if (!authList || authList.length < 1) {
-            return;
-        }
 
         //新規登録
         if (editMode === editModeEnum.create) {
             userDatasDisptch({ type: USERINFO_ACTION_TYPE.NAME, payload: "" });
             userDatasDisptch({ type: USERINFO_ACTION_TYPE.PASS, payload: "" });
             userDatasDisptch({ type: USERINFO_ACTION_TYPE.ID, payload: "" });
-            userDatasDisptch({ type: USERINFO_ACTION_TYPE.AUTH, payload: authList[0].value });
             userDatasDisptch({ type: USERINFO_ACTION_TYPE.ICON_TYPE, payload: SELECT_ICON_TYPE.NO_SELECT });
             return;
         }
 
-    }, [authList]);
+    }, []);
 
     //URLを直打ちした際にカスタム画面トップに遷移させる
     useEffect(() => {
@@ -301,6 +279,10 @@ function useSettingUserEdit(props: propsType) {
         body.password = userDatas.password;
 
         //権限
+        if (checkUpdAuthList(inputUserAuthList)) {
+            alert("最低1画面は権限を設定してください。");
+            return;
+        }
         body.authList = inputUserAuthList;
 
         //アイコン
@@ -333,7 +315,6 @@ function useSettingUserEdit(props: propsType) {
 
 
     return {
-        authList,
         userId,
         registerTime,
         orgIconUrl,

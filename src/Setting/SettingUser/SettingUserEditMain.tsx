@@ -65,7 +65,6 @@ const SelectedIconDiv = styled.div`
 //引数の型
 type propsType = {
     outerHeight: string | undefined,
-    authList: radioType[] | undefined,
     registerTime: string,
     updTime: string,
     orgIconUrl: string,
@@ -163,28 +162,6 @@ function SettingUserEditMain(props: propsType) {
                         }
                     </HorizonLabelItemComponent>
                 }
-                {/* {
-                    settingUserAuthority && settingUserAuthority === ADMIN_ID &&
-                    <HorizonLabelItemComponent
-                        title={'権限'}
-                        width='30%'
-                        position='left'
-                    >
-                        {
-                            props.authList &&
-                            props.userDatas !== undefined &&
-                            props.userDatas.auth !== undefined &&
-                            <ComboComponent
-                                combo={props.authList}
-                                initValue={props.userDatas.auth}
-                                disabled={false}
-                                onChange={(e) => {
-                                    props.userDatasDisptch({ type: USERINFO_ACTION_TYPE.AUTH, payload: e });
-                                }}
-                            />
-                        }
-                    </HorizonLabelItemComponent>
-                } */}
                 {
                     settingUserAuthority && settingUserAuthority === ADMIN_ID &&
                     <HorizonLabelItemComponent
@@ -207,26 +184,6 @@ function SettingUserEditMain(props: propsType) {
                                 setInputUserAuthList={props.setInputUserAuthList}
                             />
                         </ModalComponent>
-                    </HorizonLabelItemComponent>
-                }
-                {
-                    props.editMode === editModeEnum.update &&
-                    <HorizonLabelItemComponent
-                        title={'登録日'}
-                        width='30%'
-                        position='left'
-                    >
-                        {props.registerTime}
-                    </HorizonLabelItemComponent>
-                }
-                {
-                    props.editMode === editModeEnum.update &&
-                    <HorizonLabelItemComponent
-                        title={'更新日'}
-                        width='30%'
-                        position='left'
-                    >
-                        {props.updTime}
                     </HorizonLabelItemComponent>
                 }
                 <HorizonLabelItemComponent
@@ -309,6 +266,26 @@ function SettingUserEditMain(props: propsType) {
                         </React.Fragment>
                     }
                 </HorizonLabelItemComponent>
+                {
+                    props.editMode === editModeEnum.update &&
+                    <HorizonLabelItemComponent
+                        title={'登録日'}
+                        width='30%'
+                        position='left'
+                    >
+                        {props.registerTime}
+                    </HorizonLabelItemComponent>
+                }
+                {
+                    props.editMode === editModeEnum.update &&
+                    <HorizonLabelItemComponent
+                        title={'更新日'}
+                        width='30%'
+                        position='left'
+                    >
+                        {props.updTime}
+                    </HorizonLabelItemComponent>
+                }
             </MainDiv>
         </OuterDiv>
     );

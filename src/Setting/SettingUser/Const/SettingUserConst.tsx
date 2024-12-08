@@ -17,7 +17,6 @@ export const USERINFO_ACTION_TYPE = {
     ID: "userId",
     NAME: "userName",
     PASS: "password",
-    AUTH: "auth",
     ICON_TYPE: "iconType",
     ICON_URL: "iconUrl",
 }

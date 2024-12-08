@@ -34,7 +34,6 @@ function UserTop(props: propsType) {
         updTime,
         orgIconUrl,
         isLoadinGetuser,
-        authList,
         positiveButtonObj,
         runButtonObj,
         editMode,
@@ -50,7 +49,6 @@ function UserTop(props: propsType) {
         <OuterDiv>
             <SettingUserEditMain
                 outerHeight={'85%'}
-                authList={authList}
                 registerTime={registerTime}
                 updTime={updTime}
                 orgIconUrl={orgIconUrl}

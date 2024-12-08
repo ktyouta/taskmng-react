@@ -1,3 +1,5 @@
+import { USER_AUTH } from "../../../Common/Const/CommonConst";
+import { checkAuthAction } from "../../../Common/Function/Function";
 import { authType } from "../../../Common/Hook/useCheckAuth";
 import { generalDataType, menuListType } from "../../../Common/Type/CommonType";
 import { SELECT_ICON_TYPE, USERINFO_ACTION_TYPE } from "../Const/SettingUserConst";
@@ -32,9 +34,6 @@ export function updateUserData(state: userInputType, action: { type: string, pay
         //パスワード
         case USERINFO_ACTION_TYPE.PASS:
             return { ...state, password: action.payload };
-        //権限
-        case USERINFO_ACTION_TYPE.AUTH:
-            return { ...state, auth: action.payload };
         //アイコンURL
         case USERINFO_ACTION_TYPE.ICON_URL:
             return { ...state, iconUrl: action.payload };
@@ -117,4 +116,19 @@ export function getInputAuthObjList(
     }, []);
 
     return tmpSelectAuthList;
+}
+
+
+/**
+ * 登録更新用の権限リストを確認する
+ * @param inputUserAuthList 
+ * @returns 
+ */
+export function checkUpdAuthList(inputUserAuthList: authType[]) {
+
+    return inputUserAuthList.every((element) => {
+
+        //一般権限未満の要素をチェックする
+        return !checkAuthAction(element.auth, USER_AUTH.PUBLIC);
+    });
 }

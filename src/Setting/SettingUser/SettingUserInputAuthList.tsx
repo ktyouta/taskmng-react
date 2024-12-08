@@ -5,6 +5,7 @@ import IconComponent from '../../Common/IconComponent';
 import { authType } from '../../Common/Hook/useCheckAuth';
 import useSettingUserInputAuthList from './Hook/useSettingUserInputAuthList';
 import SettingUserInputAuthListForm from './SettingUserInputAuthListForm';
+import SettingUserInputAuthListFooter from './SettingUserInputAuthListFooter';
 
 
 //引数の型
@@ -75,7 +76,7 @@ function SettingUserInputAuthList(props: propsType) {
                 </HeaderTitleDiv>
             </AuthHeaderDiv>
             <AuthInputFormAreaDiv
-                height='77%'
+                height='80%'
             >
                 <VerticalFlowDiv
                     height='100%'
@@ -87,8 +88,11 @@ function SettingUserInputAuthList(props: propsType) {
                 </VerticalFlowDiv>
             </AuthInputFormAreaDiv>
             <HeightDiv
-                height='15%'
+                height='12%'
             >
+                <SettingUserInputAuthListFooter
+                    onclick={settingAuthInputInfo}
+                />
             </HeightDiv>
         </HeightDiv>
     );

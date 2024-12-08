@@ -73,6 +73,8 @@ function SettingUserInputAuthListForm(props: propsType) {
     return (
         <MainDiv>
             {
+                props.selectAuthList &&
+                props.selectAuthList.length > 0 &&
                 props.selectAuthList.reduce((prev: ReactNode[], element: selectAuthType) => {
 
                     //親メニューが展開されていないサブメニュー
@@ -116,6 +118,7 @@ function SettingUserInputAuthListForm(props: propsType) {
                             {
                                 element.authLabelList &&
                                 !element.isContainSubMenu &&
+                                element.auth &&
                                 <ComboComponent
                                     combo={element.authLabelList}
                                     initValue={element.auth}

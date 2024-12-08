@@ -35,7 +35,6 @@ function SettingUserEdit(props: propsType) {
     updTime,
     orgIconUrl,
     isLoadinGetuser,
-    authList,
     positiveButtonObj,
     deleteButtonObj,
     runButtonObj,
@@ -52,7 +51,6 @@ function SettingUserEdit(props: propsType) {
     <OuterDiv>
       <SettingUserEditMain
         outerHeight={'85%'}
-        authList={authList}
         registerTime={registerTime}
         updTime={updTime}
         orgIconUrl={orgIconUrl}
