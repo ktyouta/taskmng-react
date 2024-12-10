@@ -30,9 +30,9 @@ import { authType } from '../../Common/Hook/useCheckAuth';
 import SettingUserInputAuthList from './SettingUserInputAuthList';
 import { selectAuthType } from './Hook/useSettingUserInputAuthList';
 import IconComponent from '../../Common/IconComponent';
-import { IoIosArrowForward, IoIosArrowDown } from 'react-icons/io';
+import { IoIosArrowForward, IoIosArrowDown, IoIosArrowRoundUp } from 'react-icons/io';
 import useSettingUserInputAuthListForm from './Hook/useSettingUserInputAuthListForm';
-
+import { IoIosArrowUp } from "react-icons/io";
 
 //入力欄のスタイル
 const MainDiv = styled.div`
@@ -78,9 +78,7 @@ function SettingUserInputAuthListForm(props: propsType) {
                 props.selectAuthList.reduce((prev: ReactNode[], element: selectAuthType) => {
 
                     //親メニューが展開されていないサブメニュー
-                    if (element.parentMenuId && !selectMenuList.includes(element.parentMenuId)) {
-                        return prev;
-                    }
+                    let isCloseSubmenu = element.parentMenuId && !selectMenuList.includes(element.parentMenuId);
 
                     prev.push(
                         <HorizonLabelItemComponent
@@ -96,9 +94,9 @@ function SettingUserInputAuthListForm(props: propsType) {
                                         <IconComponent
                                             icon={selectMenuList.includes(element.menuId)
                                                 ?
-                                                IoIosArrowDown
+                                                IoIosArrowUp
                                                 :
-                                                IoIosArrowForward
+                                                IoIosArrowDown
                                             }
                                             style={{
                                                 "position": "absolute",
@@ -114,6 +112,7 @@ function SettingUserInputAuthListForm(props: propsType) {
                             }
                             width='30%'
                             position='left'
+                            outerStyle={{ "display": isCloseSubmenu ? "none" : "" }}
                         >
                             {
                                 element.authLabelList &&
