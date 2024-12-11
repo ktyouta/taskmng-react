@@ -8,7 +8,7 @@ import useMutationWrapper, { resType } from "../../../Common/Hook/useMutationWra
 import { buttonObjType, generalDataType, refInfoType } from "../../../Common/Type/CommonType";
 import { radioType } from "../../../Common/LabelRadioListComponent";
 import { buttonType } from "../../../Common/ButtonComponent";
-import { updUserType, userInputType, userType } from "../Type/SettingUserType";
+import { reqAuthReqType, updUserType, userInputType, userType } from "../Type/SettingUserType";
 import { editModeAtom, settingUserAuthorityAtom, userIdAtom } from "../Atom/SettingUserAtom";
 import { editModeEnum } from "../../Const/SettingConst";
 import { AUTH_ID, SELECT_ICON_TYPE, USERINFO_ACTION_TYPE } from "../Const/SettingUserConst";
@@ -38,13 +38,8 @@ function useSettingUserEdit(props: propsType) {
     //ユーザー画面の権限
     const settingUserAuthority = useAtomValue(settingUserAuthorityAtom);
     //ユーザーの権限入力リスト
-    const [inputUserAuthList, setInputUserAuthList] = useState<authType[]>([]);
+    const [inputUserAuthList, setInputUserAuthList] = useState<reqAuthReqType[]>([]);
 
-
-    //汎用詳細リスト(形式選択)
-    const { data: generalDataList } = useQueryWrapper<generalDataType[]>({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.GENERALDETAIL}`,
-    });
 
     //入力欄のユーザー情報
     const [userDatas, userDatasDisptch] = useReducer(updateUserData, {});
@@ -99,6 +94,11 @@ function useSettingUserEdit(props: propsType) {
     //現在ユーザー情報に設定されているアイコンのURL
     let orgIconUrl = useMemo(() => {
         return updUser && updUser.iconUrl ? updUser.iconUrl : "";
+    }, [updUser]);
+
+    //ユーザー情報取得時の権限情報
+    let orgAuthList = useMemo(() => {
+        return updUser && updUser.authList ? updUser.authList : [];
     }, [updUser]);
 
 
@@ -280,7 +280,7 @@ function useSettingUserEdit(props: propsType) {
 
         //権限
         if (checkUpdAuthList(inputUserAuthList)) {
-            alert("最低1画面は権限を設定してください。");
+            alert("最低1画面は「一般」以上の権限を設定してください。");
             return;
         }
         body.authList = inputUserAuthList;
@@ -347,6 +347,7 @@ function useSettingUserEdit(props: propsType) {
         userDatasDisptch,
         inputUserAuthList,
         setInputUserAuthList,
+        orgAuthList,
     }
 }
 

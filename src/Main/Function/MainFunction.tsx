@@ -30,14 +30,6 @@ export function retComponent(element: menuListType, userInfo: userInfoType) {
     //テスト用ID
     let testId = `${ScreenTestIdPrefix}${element.id}`;
 
-    //画面IDから権限を取得
-    let auth = getUserAuth(userInfo.authList, element.id);
-
-    //対象画面の権限が存在しない
-    if (!auth) {
-        return component;
-    }
-
     switch (element.componentName) {
         //ホーム
         case "Home":

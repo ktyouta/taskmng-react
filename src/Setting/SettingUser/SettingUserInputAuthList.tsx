@@ -12,7 +12,8 @@ import SettingUserInputAuthListFooter from './SettingUserInputAuthListFooter';
 type propsType = {
     closeFn?: () => void,
     inputUserAuthList: authType[],
-    setInputUserAuthList: React.Dispatch<React.SetStateAction<authType[]>>
+    setInputUserAuthList: React.Dispatch<React.SetStateAction<authType[]>>,
+    orgAuthList: authType[],
 }
 
 //ヘッダータイトルのスタイル
@@ -53,6 +54,7 @@ function SettingUserInputAuthList(props: propsType) {
         selectAuthList,
         settingAuthInputInfo,
         changeAuthCombo,
+        resetAuthList,
     } = useSettingUserInputAuthList({ ...props });
 
     return (
@@ -92,6 +94,7 @@ function SettingUserInputAuthList(props: propsType) {
             >
                 <SettingUserInputAuthListFooter
                     onclick={settingAuthInputInfo}
+                    resetAuthList={resetAuthList}
                 />
             </HeightDiv>
         </HeightDiv>

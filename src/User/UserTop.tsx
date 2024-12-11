@@ -43,6 +43,7 @@ function UserTop(props: propsType) {
         userDatasDisptch,
         inputUserAuthList,
         setInputUserAuthList,
+        orgAuthList,
     } = useUserTop({ ...props });
 
     return (
@@ -58,6 +59,7 @@ function UserTop(props: propsType) {
                 userDatasDisptch={userDatasDisptch}
                 inputUserAuthList={inputUserAuthList}
                 setInputUserAuthList={setInputUserAuthList}
+                orgAuthList={orgAuthList}
             />
             <UserFooter
                 positiveButtonObj={positiveButtonObj}

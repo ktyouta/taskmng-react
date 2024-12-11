@@ -15,7 +15,8 @@ import { getInputAuthObjList } from "../Function/SettingUserFunction";
 type propsType = {
     closeFn?: () => void,
     inputUserAuthList: authType[],
-    setInputUserAuthList: React.Dispatch<React.SetStateAction<authType[]>>
+    setInputUserAuthList: React.Dispatch<React.SetStateAction<authType[]>>,
+    orgAuthList: authType[],
 }
 
 //権限設定画面の権限リストの型
@@ -118,10 +119,47 @@ function useSettingUserInputAuthList(props: propsType) {
         });
     };
 
+    /**
+     * 権限情報をリセットする
+     */
+    const resetAuthList = () => {
+
+        if (!authLabelList || authLabelList.length === 0) {
+            return;
+        }
+
+        //リセット確認
+        if (!window.confirm("権限情報をリセットしますか？")) {
+            return;
+        }
+
+        //APIから取得したユーザーの権限情報をもとに権限をリセットする
+        setSelectAuthList((prevState: selectAuthType[]) => {
+
+            prevState.forEach((element: selectAuthType) => {
+
+                let authObj = props.orgAuthList.find((element1: authType) => {
+                    return element1.menuId === element.menuId;
+                });
+
+                //APIから取得した権限情報リスト内に存在する要素
+                if (authObj) {
+                    element.auth = authObj.auth;
+                }
+                else {
+                    element.auth = authLabelList[0].value;
+                }
+            });
+
+            return prevState;
+        });
+    };
+
     return {
         selectAuthList,
         settingAuthInputInfo,
         changeAuthCombo,
+        resetAuthList,
     }
 }
 

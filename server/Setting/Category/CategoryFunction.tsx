@@ -63,9 +63,6 @@ export function getCategory(res: any, req: any) {
     //レスポンス用の型に変換する
     let resCategoryList: resCategoryType[] = convertResCategoryList(decodeFileData);
 
-    //メインメニューを権限でフィルターする
-    resCategoryList = filterMenuByAuth(resCategoryList, authList);
-
     //サブメニューリストを取得する
     let subCategoryList: subCategoryType[] = getFilterdSubCategoryObjList();
 
@@ -74,6 +71,9 @@ export function getCategory(res: any, req: any) {
 
     //サブメニューリストと結合する
     resCategoryList = joinSubMenuList(resCategoryList, filterdSubCategoryList);
+
+    //メインメニューを権限でフィルターする
+    resCategoryList = filterMenuByAuth(resCategoryList, authList);
 
     //権限不足のサブメニューを再帰的に省く
     resCategoryList = removeMenusWithoutSubmenu(resCategoryList, subCategoryList);

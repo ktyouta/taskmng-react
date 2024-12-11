@@ -1,13 +1,14 @@
 import { authenticate } from "../../Auth/AuthFunction";
 import { getAuthObjList, getUserAuthList } from "../../Auth/AuthSelectFunction";
+import { AUTH_FILEPATH } from "../../Auth/Const/AuthConst";
 import { authInfoType } from "../../Auth/Type/AuthType";
 import { overWriteData } from "../../Common/FileFunction";
 import { SELECT_ICON_TYPE, USERINFO_FILEPATH } from "./Const/UserConst";
 import { registUserInfoType, updUserInfoType, userInfoType } from "./Type/UserType";
-import { createDeleteUserData } from "./UserDeleteFunction";
-import { createAddUserData, dubUserCheck } from "./UserRegistFunction";
+import { createDeleteUserData, createDelUserAuth } from "./UserDeleteFunction";
+import { checkDubUserAuth, createAddUserAuth, createAddUserData, dubUserCheck } from "./UserRegistFunction";
 import { createRestUserInfo, getUserAuth, getUserInfoData } from "./UserSelectFunction";
-import { createUpdUserData } from "./UserUpdateFunction";
+import { createUpdUserData, createUpdUserAuth } from "./UserUpdateFunction";
 
 
 
@@ -142,7 +143,7 @@ export function runAddUser(res: any, req: any) {
     }
 
     //登録用データの作成
-    let registData = createAddUserData(decodeFileData, requestBody, authResult);
+    let registData = createAddUserData(decodeFileData, requestBody);
 
     //ユーザーが登録されていない
     if (!registData || !Array.isArray(registData) || registData.length === 0) {
@@ -151,10 +152,33 @@ export function runAddUser(res: any, req: any) {
             .json({ errMessage: "ユーザーが登録されませんでした。" });
     }
 
+    //権限情報を取得する
+    let authList = getAuthObjList();
+
+    //権限の重複チェック
+    if (checkDubUserAuth(authList, authResult.userInfo.userId)) {
+        return res
+            .status(500)
+            .json({ errMessage: "権限情報が既に登録されています。" });
+    }
+
+    //権限データの作成
+    let registAuthList = createAddUserAuth(authList, requestBody.authList);
+
     //データを登録
     let errMessage = overWriteData(USERINFO_FILEPATH, JSON.stringify(registData, null, '\t'));
 
-    //登録更新削除に失敗
+    //ユーザー情報の登録に失敗
+    if (errMessage) {
+        return res
+            .status(400)
+            .json({ errMessage });
+    }
+
+    //権限データを登録
+    errMessage = overWriteData(AUTH_FILEPATH, JSON.stringify(registAuthList, null, '\t'));
+
+    //権限情報の登録に失敗
     if (errMessage) {
         return res
             .status(400)
@@ -210,6 +234,12 @@ export function runDeleteUser(res: any, req: any, userId: string) {
     //削除データの作成
     let delData = createDeleteUserData(decodeFileData, userId);
 
+    //権限情報を取得する
+    let authList = getAuthObjList();
+
+    //削除用権限データの作成
+    let delAuthList = createDelUserAuth(authList, userId);
+
     //データを削除
     errMessage = overWriteData(USERINFO_FILEPATH, JSON.stringify(delData, null, '\t'));
 
@@ -217,6 +247,16 @@ export function runDeleteUser(res: any, req: any, userId: string) {
     if (errMessage) {
         return res
             .status(500)
+            .json({ errMessage });
+    }
+
+    //権限データを削除
+    errMessage = overWriteData(AUTH_FILEPATH, JSON.stringify(delAuthList, null, '\t'));
+
+    //権限情報の登録に失敗
+    if (errMessage) {
+        return res
+            .status(400)
             .json({ errMessage });
     }
 
@@ -279,13 +319,29 @@ export function runUpdUser(res: any, req: any, userId: string) {
     //更新データの作成
     let updData = createUpdUserData(decodeFileData, requestBody, userId);
 
-    //データを更新
+    //権限情報を取得する
+    let authList = getAuthObjList();
+
+    //更新用権限データの作成
+    let updAuthList = createUpdUserAuth(authList, requestBody.authList);
+
+    //ユーザー情報を更新
     errMessage = overWriteData(USERINFO_FILEPATH, JSON.stringify(updData, null, '\t'));
 
-    //更新に失敗
+    //ユーザー情報の更新に失敗
     if (errMessage) {
         return res
             .status(500)
+            .json({ errMessage });
+    }
+
+    //権限データを更新
+    errMessage = overWriteData(AUTH_FILEPATH, JSON.stringify(updAuthList, null, '\t'));
+
+    //権限情報の登録に失敗
+    if (errMessage) {
+        return res
+            .status(400)
             .json({ errMessage });
     }
 

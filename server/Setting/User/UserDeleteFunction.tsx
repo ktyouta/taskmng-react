@@ -1,3 +1,4 @@
+import { authType } from "../../Auth/Type/AuthType";
 import { getNowDate } from "../../Common/Function";
 import { userInfoType } from "./Type/UserType";
 
@@ -20,6 +21,25 @@ export function createDeleteUserData(fileDataObj: userInfoType[], userId: string
             element.updTime = nowDate;
             return true
         }
+    });
+
+    return fileDataObj;
+}
+
+
+/**
+ * 削除用の権限データを作成
+ * @param fileDataObj 
+ * @param requestBody 
+ * @returns 
+ */
+export function createDelUserAuth(fileDataObj: authType[], userId: string,)
+    : authType[] {
+
+    //ユーザーIDに一致する権限情報を削除する
+    fileDataObj = fileDataObj.filter((element: authType) => {
+
+        return element.userId === userId;
     });
 
     return fileDataObj;

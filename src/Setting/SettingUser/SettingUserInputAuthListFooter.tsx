@@ -8,7 +8,8 @@ import React from 'react';
 
 //引数の型
 type propsType = {
-    onclick: () => void
+    onclick: () => void,
+    resetAuthList: () => void
 }
 
 //外側のスタイル
@@ -32,6 +33,16 @@ function SettingUserInputAuthListFooter(props: propsType) {
 
     return (
         <OuterDiv>
+            <ButtonComponent
+                styleTypeNumber="GRAD_GRAY"
+                title="リセット"
+                onclick={props.resetAuthList}
+                style={{
+                    "fontSize": "0.9rem",
+                    "height": "51%",
+                    "width": "14%",
+                }}
+            />
             <SpaceDiv />
             <ButtonComponent
                 styleTypeNumber="GRAD_BLUE"

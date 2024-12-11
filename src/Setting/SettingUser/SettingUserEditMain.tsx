@@ -77,6 +77,7 @@ type propsType = {
     }>
     inputUserAuthList: authType[],
     setInputUserAuthList: React.Dispatch<React.SetStateAction<authType[]>>,
+    orgAuthList: authType[],
 }
 
 
@@ -182,6 +183,7 @@ function SettingUserEditMain(props: propsType) {
                                 closeFn={closeAuthModal}
                                 inputUserAuthList={props.inputUserAuthList}
                                 setInputUserAuthList={props.setInputUserAuthList}
+                                orgAuthList={props.orgAuthList}
                             />
                         </ModalComponent>
                     </HorizonLabelItemComponent>

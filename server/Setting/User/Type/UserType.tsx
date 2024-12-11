@@ -23,6 +23,7 @@ export type registUserInfoType = {
     updTime: string,
     iconUrl: string,
     iconType: string,
+    authList: authType[],
 }
 
 //更新時のユーザー情報
@@ -36,6 +37,7 @@ export type updUserInfoType = {
     updTime: string,
     iconUrl: string,
     iconType: string,
+    authList: authType[],
 }
 
 //レスポンス用ユーザー情報
@@ -49,4 +51,12 @@ export type resUserInfoType = {
     iconUrl: string,
     iconType: string,
     authList: authType[],
+}
+
+
+//登録更新時の権限情報の型
+export type registerAuthReqType = {
+    userId: string;
+    menuId: string;
+    auth: string;
 }

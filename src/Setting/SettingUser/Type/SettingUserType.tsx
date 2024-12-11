@@ -36,3 +36,11 @@ export type userInputType = {
     iconUrl?: string,
     iconType?: string,
 }
+
+
+//登録更新時の権限情報の型
+export type reqAuthReqType = {
+    userId: string;
+    menuId: string;
+    auth: string;
+}
