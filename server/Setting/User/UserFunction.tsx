@@ -3,10 +3,12 @@ import { getAuthObjList, getUserAuthList } from "../../Auth/AuthSelectFunction";
 import { AUTH_FILEPATH } from "../../Auth/Const/AuthConst";
 import { authInfoType } from "../../Auth/Type/AuthType";
 import { overWriteData } from "../../Common/FileFunction";
+import { resActionAuthType } from "../../Common/Type/CommonType";
 import { SELECT_ICON_TYPE, USERINFO_FILEPATH } from "./Const/UserConst";
 import { registUserInfoType, updUserInfoType, userInfoType } from "./Type/UserType";
+import { checkSettingUserAddAuth, checkSettingUserDelAuth, checkSettingUserGetAuth, checkSettingUserGetDetailAuth, checkSettingUserUpdAuth, getSettingUserAuth, } from "./UserAuthFunction";
 import { createDeleteUserData, createDelUserAuth } from "./UserDeleteFunction";
-import { checkDubUserAuth, createAddUserAuth, createAddUserData, dubUserCheck } from "./UserRegistFunction";
+import { checkDubUserAuth, convAuthList, createAddUserAuth, createAddUserData, dubUserCheck } from "./UserRegistFunction";
 import { createRestUserInfo, getUserAuth, getUserInfoData } from "./UserSelectFunction";
 import { createUpdUserData, createUpdUserAuth } from "./UserUpdateFunction";
 
@@ -32,6 +34,26 @@ export function getUserInfo(res: any, req: any) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
+    }
+
+    //ユーザー設定画面の権限を取得
+    let settingUserAuth = getSettingUserAuth(authResult.userInfo);
+
+    //ユーザー設定画面の権限が存在しない
+    if (!settingUserAuth) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: "ユーザー設定画面の権限がありません。" });
+    }
+
+    //ユーザー情報リスト権限チェック
+    let settingUserGetAuthObj: resActionAuthType = checkSettingUserGetAuth(settingUserAuth);
+
+    //ユーザー情報リスト権限エラー
+    if (settingUserGetAuthObj.message) {
+        return res
+            .status(settingUserGetAuthObj.status)
+            .json({ errMessage: settingUserGetAuthObj.message });
     }
 
     //ユーザー情報の読み込み
@@ -65,6 +87,26 @@ export function getUserInfoDetail(res: any, req: any, id: string) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
+    }
+
+    //ユーザー設定画面の権限を取得
+    let settingUserAuth = getSettingUserAuth(authResult.userInfo);
+
+    //ユーザー設定画面の権限が存在しない
+    if (!settingUserAuth) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: "ユーザー設定画面の権限がありません。" });
+    }
+
+    //ユーザー情報詳細権限チェック
+    let settingUserGetDetailAuthObj: resActionAuthType = checkSettingUserGetDetailAuth(settingUserAuth);
+
+    //詳細取得権限エラー
+    if (settingUserGetDetailAuthObj.message) {
+        return res
+            .status(settingUserGetDetailAuthObj.status)
+            .json({ errMessage: settingUserGetDetailAuthObj.message });
     }
 
     //ユーザー情報の読み込み
@@ -120,6 +162,26 @@ export function runAddUser(res: any, req: any) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    //ユーザー設定画面の権限を取得
+    let settingUserAuth = getSettingUserAuth(authResult.userInfo);
+
+    //ユーザー設定画面の権限が存在しない
+    if (!settingUserAuth) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: "ユーザー設定画面の権限がありません。" });
+    }
+
+    //登録権限チェック
+    let settingUserAddAuthObj: resActionAuthType = checkSettingUserAddAuth(settingUserAuth);
+
+    //登録権限エラー
+    if (settingUserAddAuthObj.message) {
+        return res
+            .status(settingUserAddAuthObj.status)
+            .json({ errMessage: settingUserAddAuthObj.message });
+    }
+
     //リクエストボディ
     let requestBody: registUserInfoType = req.body;
 
@@ -128,6 +190,9 @@ export function runAddUser(res: any, req: any) {
             .status(400)
             .json({ errMessage: "登録に必要な情報が不足しています。" });
     }
+
+    //ユーザーID
+    let userId: string = requestBody.userId;
 
     //ユーザー情報の読み込み
     let decodeFileData: userInfoType[] = getUserInfoData();
@@ -156,14 +221,17 @@ export function runAddUser(res: any, req: any) {
     let authList = getAuthObjList();
 
     //権限の重複チェック
-    if (checkDubUserAuth(authList, authResult.userInfo.userId)) {
+    if (checkDubUserAuth(authList, userId)) {
         return res
             .status(500)
             .json({ errMessage: "権限情報が既に登録されています。" });
     }
 
+    //リクエストの権限情報を登録用の型に変換する
+    let addAuthList = convAuthList(requestBody.authList, userId);
+
     //権限データの作成
-    let registAuthList = createAddUserAuth(authList, requestBody.authList);
+    let registAuthList = createAddUserAuth(authList, addAuthList);
 
     //データを登録
     let errMessage = overWriteData(USERINFO_FILEPATH, JSON.stringify(registData, null, '\t'));
@@ -218,6 +286,26 @@ export function runDeleteUser(res: any, req: any, userId: string) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
+    }
+
+    //ユーザー設定画面の権限を取得
+    let settingUserAuth = getSettingUserAuth(authResult.userInfo);
+
+    //ユーザー設定画面の権限が存在しない
+    if (!settingUserAuth) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: "ユーザー設定画面の権限がありません。" });
+    }
+
+    //削除権限チェック
+    let settingUserDelAuthObj: resActionAuthType = checkSettingUserDelAuth(settingUserAuth);
+
+    //削除権限エラー
+    if (settingUserDelAuthObj.message) {
+        return res
+            .status(settingUserDelAuthObj.status)
+            .json({ errMessage: settingUserDelAuthObj.message });
     }
 
     let errMessage = "";
@@ -294,6 +382,26 @@ export function runUpdUser(res: any, req: any, userId: string) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
+    }
+
+    //ユーザー設定画面の権限を取得
+    let settingUserAuth = getSettingUserAuth(authResult.userInfo);
+
+    //ユーザー設定画面の権限が存在しない
+    if (!settingUserAuth) {
+        return res
+            .status(authResult.status)
+            .json({ errMessage: "ユーザー設定画面の権限がありません。" });
+    }
+
+    //更新権限チェック
+    let settingUserUpdAuthObj: resActionAuthType = checkSettingUserUpdAuth(settingUserAuth);
+
+    //更新権限エラー
+    if (settingUserUpdAuthObj.message) {
+        return res
+            .status(settingUserUpdAuthObj.status)
+            .json({ errMessage: settingUserUpdAuthObj.message });
     }
 
     let errMessage = "";

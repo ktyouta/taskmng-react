@@ -62,7 +62,7 @@ export function dubUserCheck(fileDataObj: userInfoType[], body: registUserInfoTy
  * @param requestBody 
  * @returns 
  */
-export function createAddUserAuth(fileDataObj: authType[], requestBody: registerAuthReqType[])
+export function createAddUserAuth(fileDataObj: authType[], requestBody: authType[])
     : authType[] {
 
     //リクエスト用の権限リストから登録用の権限リストを作成
@@ -87,5 +87,21 @@ export function checkDubUserAuth(fileDataObj: authType[], userId: string,) {
 
     return fileDataObj.some((element) => {
         return element.userId === userId;
+    });
+}
+
+
+/**
+ * 権限情報リストを登録用の型に変換する
+ */
+export function convAuthList(addAuthList: registerAuthReqType[], userId: string,): authType[] {
+
+    return addAuthList.map((element: registerAuthReqType) => {
+
+        return {
+            userId: userId,
+            menuId: element.menuId,
+            auth: element.auth,
+        }
     });
 }

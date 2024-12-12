@@ -107,27 +107,3 @@ export function createAddCustomAttributeData(req: any, authResult: authInfoType,
 
     return [...customDecodeFileData, ...tmpBody];
 }
-
-
-/**
- * タスクの登録権限チェック
- * @param authList 
- * @returns 
- */
-export function checkTaskRegistAuth(
-    userTaskAuthObj: authType): resActionAuthType {
-
-    let resActionAuthObj: resActionAuthType = {
-        status: 200,
-        message: ""
-    };
-
-    //一般権限以上の場合登録可能
-    if (!checkAuthAction(userTaskAuthObj.auth, USER_AUTH.PUBLIC)) {
-        resActionAuthObj.status = 403;
-        resActionAuthObj.message = "タスクの登録権限が存在しません。";
-        return resActionAuthObj;
-    }
-
-    return resActionAuthObj;
-}

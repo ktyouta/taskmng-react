@@ -39,7 +39,7 @@ export function createDelUserAuth(fileDataObj: authType[], userId: string,)
     //ユーザーIDに一致する権限情報を削除する
     fileDataObj = fileDataObj.filter((element: authType) => {
 
-        return element.userId === userId;
+        return element.userId !== userId;
     });
 
     return fileDataObj;

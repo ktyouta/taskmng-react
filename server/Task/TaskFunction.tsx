@@ -1,7 +1,7 @@
 import { getGeneralDetailData } from "../General/GeneralFunction";
-import { checkTaskDelAuth, createDeleteCustomAttributeData, createDeleteTaskData, createMultiDeleteCustomAttributeData, createMultiDeleteTaskData, multiCheckTaskDelAuth } from "./TaskDeleteFunction";
-import { checkTaskUpdAuth, createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
-import { checkTaskRegistAuth, createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
+import { createDeleteCustomAttributeData, createDeleteTaskData, createMultiDeleteCustomAttributeData, createMultiDeleteTaskData } from "./TaskDeleteFunction";
+import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
+import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
 import { convDefaultTask, createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getConvertTasksDaate, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, getTasksByUserAuth, joinCustomAttribute } from "./TaskSelectFunction";
 import { runAddMultiTaskHistory, runAddTaskHistory } from "../History/HistoryFunction";
 import { CREATE, CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, DELETE, TASK_FILEPATH, UPDATE } from "./Const/TaskConst";
@@ -13,9 +13,9 @@ import { getGeneralDataList, getGeneralDetailDataList } from "../General/General
 import { userInfoType } from "../Setting/User/Type/UserType";
 import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 import { USER_AUTH } from "../Auth/Const/AuthConst";
-import { checkTaskRecAuth, createMultiRecoveryCustomAttributeData, createMultiRecoveryTaskData, createRecoveryCustomAttributeData, createRecoveryTaskData } from "./TaskRecoveryFunction";
+import { createMultiRecoveryCustomAttributeData, createMultiRecoveryTaskData, createRecoveryCustomAttributeData, createRecoveryTaskData } from "./TaskRecoveryFunction";
 import { authInfoType, authType } from "../Auth/Type/AuthType";
-import { getUserTaskAuth } from "./TaskAuthFunction";
+import { checkTaskDelAuth, checkTaskRecAuth, checkTaskRegistAuth, checkTaskUpdAuth, getUserTaskAuth, multiCheckTaskDelAuth } from "./TaskAuthFunction";
 
 
 
