@@ -9,6 +9,7 @@ import { editModeEnum } from "../../Const/SettingConst";
 import { useAtomValue } from "jotai";
 import { userIdAtom } from "../Atom/SettingUserAtom";
 import { getInputAuthObjList } from "../Function/SettingUserFunction";
+import { objectDeepCopy } from "../../../Common/Function/Function";
 
 
 //引数の型
@@ -106,16 +107,19 @@ function useSettingUserInputAuthList(props: propsType) {
 
         setSelectAuthList((prevState: selectAuthType[]) => {
 
-            let selectState = prevState.find((element) => {
+            let tmpPrevState = objectDeepCopy(prevState);
+
+            //権限を切り替えたメニューオブジェクトを取得
+            let selectStateObj = tmpPrevState.find((element) => {
                 return element.menuId === menuId;
             });
 
             //選択した権限をセットする
-            if (selectState) {
-                selectState.auth = selectValue;
+            if (selectStateObj) {
+                selectStateObj.auth = selectValue;
             }
 
-            return prevState;
+            return tmpPrevState;
         });
     };
 
@@ -136,22 +140,34 @@ function useSettingUserInputAuthList(props: propsType) {
         //APIから取得したユーザーの権限情報をもとに権限をリセットする
         setSelectAuthList((prevState: selectAuthType[]) => {
 
-            prevState.forEach((element: selectAuthType) => {
+            let tmpPrevState = objectDeepCopy(prevState).map((element: selectAuthType) => {
 
                 let authObj = props.orgAuthList.find((element1: authType) => {
                     return element1.menuId === element.menuId;
                 });
 
+                let auth;
+
                 //APIから取得した権限情報リスト内に存在する要素
                 if (authObj) {
-                    element.auth = authObj.auth;
+                    auth = authObj.auth;
                 }
                 else {
-                    element.auth = authLabelList[0].value;
+                    auth = authLabelList[0].value;
+                }
+
+                return {
+                    menuId: element.menuId,
+                    menuName: element.menuName,
+                    auth: auth,
+                    userId: element.userId,
+                    authLabelList: element.authLabelList,
+                    parentMenuId: element.parentMenuId,
+                    isContainSubMenu: element.isContainSubMenu,
                 }
             });
 
-            return prevState;
+            return tmpPrevState;
         });
     };
 

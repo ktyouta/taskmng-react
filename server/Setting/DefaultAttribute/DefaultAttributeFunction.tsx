@@ -5,7 +5,9 @@ import { DEFAULT_ATTRIBUTE_FILEPATH, GENERALDETAIL_FILEPATH } from "./Const/Defa
 import { authenticate } from "../../Auth/AuthFunction";
 import { getFileJsonData, overWriteData } from "../../Common/FileFunction";
 import { generalDetailType } from "../../General/Type/GeneralType";
-import { authInfoType } from "../../Auth/Type/AuthType";
+import { authInfoType, authType } from "../../Auth/Type/AuthType";
+import { checkDefaultAttributeGetAuth, getUserDefaultAttributeAuth } from "./DefaultAttributeAuthFunction";
+import { resActionAuthType } from "../../Common/Type/CommonType";
 
 
 
@@ -29,6 +31,26 @@ export function getDefaultAttribute(res: any, req: any) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
+    }
+
+    //デフォルト属性画面の権限を取得する
+    let defalutAttributeAuth: authType | undefined = getUserDefaultAttributeAuth(authResult.userInfo);
+
+    //デフォルト属性に関する権限が存在しない場合
+    if (!defalutAttributeAuth || !defalutAttributeAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "デフォルト属性画面の権限がありません。" });
+    }
+
+    //デフォルト属性権限チェック
+    let defaultAttributeGetAuthObj: resActionAuthType = checkDefaultAttributeGetAuth(defalutAttributeAuth);
+
+    //デフォルト属性権限エラー
+    if (defaultAttributeGetAuthObj.message) {
+        return res
+            .status(defaultAttributeGetAuthObj.status)
+            .json({ errMessage: defaultAttributeGetAuthObj.message });
     }
 
     //デフォルト属性の読み込み

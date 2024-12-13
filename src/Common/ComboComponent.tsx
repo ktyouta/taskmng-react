@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import '../App.css';
 import styled from "styled-components";
 
@@ -68,6 +68,9 @@ const ComboComponent = forwardRef<refType, propsType>((props, ref) => {
     setSelectValue(props.initValue);
   };
 
+  useEffect(() => {
+    setSelectValue(props.initValue);
+  }, [props.initValue]);
 
   return (
     <React.Fragment>

@@ -117,7 +117,6 @@ function SettingUserInputAuthListForm(props: propsType) {
                             {
                                 element.authLabelList &&
                                 !element.isContainSubMenu &&
-                                element.auth &&
                                 <ComboComponent
                                     combo={element.authLabelList}
                                     initValue={element.auth}
