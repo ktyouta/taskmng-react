@@ -1,6 +1,7 @@
 import { authenticate } from "../../Auth/AuthFunction";
 import { authInfoType } from "../../Auth/Type/AuthType";
 import { overWriteData } from "../../Common/FileFunction";
+import { getUserTaskAuth } from "../../Task/TaskAuthFunction";
 import { SEARCHCONDITION_FILE_PATH, SEARCHCONDITION_QUERYLRY } from "./Const/SearchConditionConst";
 import { getUserSearchConditionAuth } from "./SearchConditionAuthFunction";
 import { createAddSearchCondition } from "./SearchConditionRegisterFunction";
@@ -31,21 +32,21 @@ export function getSearchCondition(res: any, req: any) {
             .json({ errMessage: authResult.errMessage });
     }
 
-    //検索条件設定画面の権限を取得
-    let searchConditionAuth = getUserSearchConditionAuth(authResult.userInfo);
+    //タスク画面の権限を取得
+    let taskUseruth = getUserTaskAuth(authResult.userInfo);
 
-    //検索条件設定に関する権限が存在しない場合
-    if (!searchConditionAuth || !searchConditionAuth.auth) {
+    //タスクに関する権限が存在しない場合
+    if (!taskUseruth || !taskUseruth.auth) {
         return res
             .status(403)
-            .json({ errMessage: "検索条件設定画面の権限がありません。" });
+            .json({ errMessage: "タスク画面の権限が存在しないため検索条件を取得できません。" });
     }
 
     //検索設定ファイルの読み込み
     let searchConditionList: searchConditionType[] = getSearchConditionList();
 
     //ユーザー権限でフィルター
-    searchConditionList = filterSearchConditionByUserAuth(searchConditionList, searchConditionAuth.auth);
+    searchConditionList = filterSearchConditionByUserAuth(searchConditionList, taskUseruth.auth);
 
     //クエリパラメータでデータをフィルターする
     let retSearchConditionList = filterdQueryParamSearchCondition(searchConditionList, req.query[SEARCHCONDITION_QUERYLRY]);

@@ -1,5 +1,6 @@
 import { USER_AUTH } from "../../Auth/Const/AuthConst";
 import { readFile } from "../../Common/FileFunction";
+import { checkAuthAction } from "../../Common/Function";
 import { comboType } from "../../Common/Type/CommonType";
 import { getGeneralDataList } from "../../General/GeneralSelectFunction";
 import { USER_SEARCHCONDITION_ID } from "../../Memo/Const/MemoConst";
@@ -136,15 +137,12 @@ export function filterdQueryParamSearchCondition(searchConditionList: searchCond
  * ユーザーの権限に応じて検索条件をフィルターする
  */
 export function filterSearchConditionByUserAuth(searchConditionList: searchConditionType[],
-    userAuth?: string): searchConditionType[] {
-
-    //ユーザー権限が存在しない場合は一般権限をセット
-    let convUserAuth = userAuth ?? USER_AUTH.PUBLIC;
+    taskUseruth: string): searchConditionType[] {
 
     return searchConditionList.filter((element: searchConditionType) => {
 
         //権限チェック
-        return !Number.isNaN(element.auth) && !Number.isNaN(convUserAuth) && parseInt(convUserAuth) >= parseInt(element.auth);
+        return checkAuthAction(taskUseruth, element.auth);
     });
 }
 
