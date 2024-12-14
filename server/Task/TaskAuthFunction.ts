@@ -200,3 +200,47 @@ export function multiCheckTaskDelAuth(
 
     return resActionAuthObj;
 }
+
+
+/**
+ * タスク画面のリスト取得権限チェック
+ * @returns 
+ */
+export function checktaskGetAuth(settingUserAuth: authType) {
+
+    let resActionAuthObj: resActionAuthType = {
+        status: 200,
+        message: ""
+    };
+
+    //一般権限以上の場合リスト取得可能
+    if (!checkAuthAction(settingUserAuth.auth, USER_AUTH.PUBLIC)) {
+        resActionAuthObj.status = 403;
+        resActionAuthObj.message = "権限が不足しています。";
+        return resActionAuthObj;
+    }
+
+    return resActionAuthObj;
+}
+
+
+/**
+ * タスク画面の詳細取得権限チェック
+ * @returns 
+ */
+export function checktaskGetDetailAuth(settingUserAuth: authType) {
+
+    let resActionAuthObj: resActionAuthType = {
+        status: 200,
+        message: ""
+    };
+
+    //一般権限以上の場合リスト取得可能
+    if (!checkAuthAction(settingUserAuth.auth, USER_AUTH.PUBLIC)) {
+        resActionAuthObj.status = 403;
+        resActionAuthObj.message = "権限が不足しています。";
+        return resActionAuthObj;
+    }
+
+    return resActionAuthObj;
+}

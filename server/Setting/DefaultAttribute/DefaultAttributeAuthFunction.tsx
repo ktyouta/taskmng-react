@@ -39,3 +39,47 @@ export function checkDefaultAttributeGetAuth(settingUserAuth: authType) {
 
     return resActionAuthObj;
 }
+
+
+/**
+ * デフォルト属性画面の詳細取得権限チェック
+ * @returns 
+ */
+export function checkDefaultAttributeGetDetailAuth(settingUserAuth: authType) {
+
+    let resActionAuthObj: resActionAuthType = {
+        status: 200,
+        message: ""
+    };
+
+    //専用権限以上の場合リスト取得可能
+    if (!checkAuthAction(settingUserAuth.auth, USER_AUTH.EXCLUSIVE)) {
+        resActionAuthObj.status = 403;
+        resActionAuthObj.message = "権限が不足しています。";
+        return resActionAuthObj;
+    }
+
+    return resActionAuthObj;
+}
+
+
+/**
+ * デフォルト属性画面の更新権限チェック
+ * @returns 
+ */
+export function checkDefaultAttributeUpdAuth(settingUserAuth: authType) {
+
+    let resActionAuthObj: resActionAuthType = {
+        status: 200,
+        message: ""
+    };
+
+    //管理者権限以上の場合リスト取得可能
+    if (!checkAuthAction(settingUserAuth.auth, USER_AUTH.ADMIN)) {
+        resActionAuthObj.status = 403;
+        resActionAuthObj.message = "権限が不足しています。";
+        return resActionAuthObj;
+    }
+
+    return resActionAuthObj;
+}

@@ -2,9 +2,9 @@ import { useState } from "react";
 import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrapper";
 import ENV from '../../../env.json';
 import { useNavigate } from "react-router-dom";
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { userType } from "../Type/SettingUserType";
-import { editModeAtom, userIdAtom } from "../Atom/SettingUserAtom";
+import { editModeAtom, settingUserAuthorityAtom, userIdAtom } from "../Atom/SettingUserAtom";
 import { editModeEnum } from "../../Const/SettingConst";
 
 
@@ -21,8 +21,11 @@ function useSettingUserTable(props: propsType) {
     const navigate = useNavigate();
     //編集モード
     const setEditMode = useSetAtom(editModeAtom);
-    //カスタム属性のID
+    //選択ユーザーのID
     const setUserId = useSetAtom(userIdAtom);
+    //ユーザー設定画面の権限
+    const settingUserAuth = useAtomValue(settingUserAuthorityAtom);
+
 
     //ユーザー情報のリストを取得する
     const { data: userInfoList, isLoading } = useQueryWrapper<userType[]>(
@@ -44,7 +47,13 @@ function useSettingUserTable(props: propsType) {
         navigate(`${props.path}/edit`);
     };
 
-    return { userInfoList, isLoading, errMessage, clickId }
+    return {
+        userInfoList,
+        isLoading,
+        errMessage,
+        clickId,
+        settingUserAuth
+    }
 
 }
 

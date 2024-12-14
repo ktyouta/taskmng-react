@@ -6,7 +6,7 @@ import { authenticate } from "../../Auth/AuthFunction";
 import { getFileJsonData, overWriteData } from "../../Common/FileFunction";
 import { generalDetailType } from "../../General/Type/GeneralType";
 import { authInfoType, authType } from "../../Auth/Type/AuthType";
-import { checkDefaultAttributeGetAuth, getUserDefaultAttributeAuth } from "./DefaultAttributeAuthFunction";
+import { checkDefaultAttributeGetAuth, checkDefaultAttributeGetDetailAuth, checkDefaultAttributeUpdAuth, getUserDefaultAttributeAuth } from "./DefaultAttributeAuthFunction";
 import { resActionAuthType } from "../../Common/Type/CommonType";
 
 
@@ -43,7 +43,7 @@ export function getDefaultAttribute(res: any, req: any) {
             .json({ errMessage: "デフォルト属性画面の権限がありません。" });
     }
 
-    //デフォルト属性権限チェック
+    //デフォルト属性リスト取得権限チェック
     let defaultAttributeGetAuthObj: resActionAuthType = checkDefaultAttributeGetAuth(defalutAttributeAuth);
 
     //デフォルト属性権限エラー
@@ -86,6 +86,26 @@ export function getDefaultAttributeDetail(res: any, req: any, id: string) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    //デフォルト属性画面の権限を取得する
+    let defalutAttributeAuth: authType | undefined = getUserDefaultAttributeAuth(authResult.userInfo);
+
+    //デフォルト属性に関する権限が存在しない場合
+    if (!defalutAttributeAuth || !defalutAttributeAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "デフォルト属性画面の権限がありません。" });
+    }
+
+    //デフォルト属性詳細取得権限チェック
+    let defaultAttributeGetAuthObj: resActionAuthType = checkDefaultAttributeGetDetailAuth(defalutAttributeAuth);
+
+    //デフォルト属性権限エラー
+    if (defaultAttributeGetAuthObj.message) {
+        return res
+            .status(defaultAttributeGetAuthObj.status)
+            .json({ errMessage: defaultAttributeGetAuthObj.message });
+    }
+
     //デフォルト属性の読み込み
     let decodeFileData: defaultAttributeType[] = getDefaultAttributeData();
 
@@ -95,39 +115,6 @@ export function getDefaultAttributeDetail(res: any, req: any, id: string) {
     }
 
     return filterDefaultAttributeDetail(decodeFileData, id, res);
-}
-
-/**
- * デフォルト属性入力値設定の取得
- */
-export function getDefaultAttributeInputSetting(res: any, req: any) {
-
-    //有効ユーザーチェック
-    let authResult: authInfoType = authenticate(req.cookies.cookie);
-
-    //チェックエラー
-    if (authResult.errMessage) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
-
-    //トークンからユーザー情報が取得できなかった場合
-    if (!authResult.userInfo) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
-
-    //デフォルト属性の読み込み
-    let defaultAttributeList: defaultAttributeType[] = getDefaultAttributeData();
-
-    //データなし
-    if (!defaultAttributeList || defaultAttributeList.length === 0) {
-        return res.status(400).json({ errMessage: `デフォルト属性が登録されていません。` });
-    }
-
-    return res.status(200).json(defaultAttributeList);
 }
 
 
@@ -158,6 +145,26 @@ export function runUpdDefaultAttribute(res: any, req: any, dfId: string) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
+    }
+
+    //デフォルト属性画面の権限を取得する
+    let defalutAttributeAuth: authType | undefined = getUserDefaultAttributeAuth(authResult.userInfo);
+
+    //デフォルト属性に関する権限が存在しない場合
+    if (!defalutAttributeAuth || !defalutAttributeAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "デフォルト属性画面の権限がありません。" });
+    }
+
+    //デフォルト属性更新権限チェック
+    let defaultAttributeGetAuthObj: resActionAuthType = checkDefaultAttributeUpdAuth(defalutAttributeAuth);
+
+    //デフォルト属性権限エラー
+    if (defaultAttributeGetAuthObj.message) {
+        return res
+            .status(defaultAttributeGetAuthObj.status)
+            .json({ errMessage: defaultAttributeGetAuthObj.message });
     }
 
     let errMessage = "";

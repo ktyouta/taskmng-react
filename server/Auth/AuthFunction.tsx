@@ -1,11 +1,12 @@
 import express from 'express';
 import { config } from '../ApiConfig';
 import { resUserInfoType, userInfoType } from '../Setting/User/Type/UserType';
-import { authInfoType } from './Type/AuthType';
+import { authInfoType, authType } from './Type/AuthType';
 import { USERINFO_FILEPATH } from '../Setting/User/Const/UserConst';
 import { readFile } from '../Common/FileFunction';
 import { USER_AUTH } from './Const/AuthConst';
 import { getAuthObjList, getUserAuthList } from './AuthSelectFunction';
+import { checkAuthAction } from '../Common/Function';
 
 
 const jwt = require('jsonwebtoken');
@@ -150,7 +151,8 @@ export function createToken(res: any, req: any) {
 export function getMenuAuth(userInfo: resUserInfoType, menuId: string,) {
 
     //ユーザーの権限リストからメニューの権限を取得する
-    return userInfo.authList.find((element) => {
-        return element.menuId === menuId;
+    return userInfo.authList.find((element: authType) => {
+
+        return element.menuId === menuId && checkAuthAction(element.auth, USER_AUTH.PUBLIC);
     });
 }

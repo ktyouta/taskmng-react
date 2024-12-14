@@ -7,6 +7,8 @@ import styled from 'styled-components';
 import Loading from '../../Common/Loading';
 import MessageComponent, { labelType } from '../../Common/MessageComponent';
 import useSettingUserTable from '../SettingUser/Hook/useSettingUserTable';
+import { USER_AUTH } from '../../Common/Const/CommonConst';
+import { checkAuthAction } from '../../Common/Function/Function';
 
 //外側のスタイル
 const OuterDiv = styled.div<{ height: string, width: string }>`
@@ -48,6 +50,7 @@ function SettingUserTable(props: propsType) {
     isLoading,
     errMessage,
     clickId,
+    settingUserAuth,
   } = useSettingUserTable({ ...props });
 
   //ローディング
@@ -84,11 +87,19 @@ function SettingUserTable(props: propsType) {
               userInfoList && userInfoList.map((element) => {
                 return (
                   <tr>
-                    <IdTd
-                      onClick={() => { clickId(element.userId) }}
-                    >
-                      {element.userId}
-                    </IdTd>
+                    {
+                      checkAuthAction(settingUserAuth, USER_AUTH.MASTER)
+                        ?
+                        <IdTd
+                          onClick={() => { clickId(element.userId) }}
+                        >
+                          {element.userId}
+                        </IdTd>
+                        :
+                        <TdSt>
+                          {element.userId}
+                        </TdSt>
+                    }
                     <TdSt>
                       {element.userName}
                     </TdSt>

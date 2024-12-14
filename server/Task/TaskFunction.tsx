@@ -15,7 +15,7 @@ import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 import { USER_AUTH } from "../Auth/Const/AuthConst";
 import { createMultiRecoveryCustomAttributeData, createMultiRecoveryTaskData, createRecoveryCustomAttributeData, createRecoveryTaskData } from "./TaskRecoveryFunction";
 import { authInfoType, authType } from "../Auth/Type/AuthType";
-import { checkTaskDelAuth, checkTaskRecAuth, checkTaskRegistAuth, checkTaskUpdAuth, getUserTaskAuth, multiCheckTaskDelAuth } from "./TaskAuthFunction";
+import { checkTaskDelAuth, checktaskGetAuth, checktaskGetDetailAuth, checkTaskRecAuth, checkTaskRegistAuth, checkTaskUpdAuth, getUserTaskAuth, multiCheckTaskDelAuth } from "./TaskAuthFunction";
 
 
 
@@ -49,6 +49,16 @@ export function getTaskList(res: any, req: any) {
         return res
             .status(403)
             .json({ errMessage: "タスク画面の権限がありません。" });
+    }
+
+    //タスクリスト取得権限チェック
+    let taskGetListAuthResult = checktaskGetAuth(taskAuth);
+
+    //権限エラー
+    if (taskGetListAuthResult.message) {
+        return res
+            .status(taskGetListAuthResult.status)
+            .json({ errMessage: taskGetListAuthResult.message });
     }
 
     //タスク画面のユーザー権限
@@ -108,6 +118,16 @@ export function getTaskDetail(res: any, req: any, id: string) {
         return res
             .status(403)
             .json({ errMessage: "タスク画面の権限がありません。" });
+    }
+
+    //タスク詳細取得権限チェック
+    let taskGetDetailAuthResult = checktaskGetDetailAuth(taskAuth);
+
+    //権限エラー
+    if (taskGetDetailAuthResult.message) {
+        return res
+            .status(taskGetDetailAuthResult.status)
+            .json({ errMessage: taskGetDetailAuthResult.message });
     }
 
     //タスク画面のユーザー権限

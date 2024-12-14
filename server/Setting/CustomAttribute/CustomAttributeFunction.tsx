@@ -9,9 +9,11 @@ import { getFileJsonData, overWriteData } from "../../Common/FileFunction";
 import { searchConditionType } from "../SearchCondition/Type/SearchConditionType";
 import { filterSearchConditionByUserAuth, getSearchConditionList, getSearchConditionObj } from "../SearchCondition/SearchConditionSelectFunction";
 import { SEARCHCONDITION_FILE_PATH } from "../SearchCondition/Const/SearchConditionConst";
-import { inputSettingType } from "../../Common/Type/CommonType";
-import { authInfoType } from "../../Auth/Type/AuthType";
-import { getUserCustomAttributeAuth } from "./CustomAttributeAuthFunction";
+import { inputSettingType, resActionAuthType } from "../../Common/Type/CommonType";
+import { authInfoType, authType } from "../../Auth/Type/AuthType";
+import { checkCustomAttributeAddAuth, checkCustomAttributeDelAuth, checkCustomAttributeGetAuth, checkCustomAttributeGetDetialAuth, checkCustomAttributeUpdAuth, getUserCustomAttributeAuth } from "./CustomAttributeAuthFunction";
+import { checkDefaultAttributeGetAuth } from "../DefaultAttribute/DefaultAttributeAuthFunction";
+import { getUserTaskAuth } from "../../Task/TaskAuthFunction";
 
 
 
@@ -35,6 +37,26 @@ export function getCustomAttribute(res: any, req: any) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
+    }
+
+    //カスタム属性属性画面の権限を取得する
+    let customAttributeAuth: authType | undefined = getUserCustomAttributeAuth(authResult.userInfo);
+
+    //カスタム属性に関する権限が存在しない場合
+    if (!customAttributeAuth || !customAttributeAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "カスタム属性画面の権限がありません。" });
+    }
+
+    //カスタム属性リスト取得権限チェック
+    let customAttributeGetAuthObj: resActionAuthType = checkCustomAttributeGetAuth(customAttributeAuth);
+
+    //カスタム属性権限エラー
+    if (customAttributeGetAuthObj.message) {
+        return res
+            .status(customAttributeGetAuthObj.status)
+            .json({ errMessage: customAttributeGetAuthObj.message });
     }
 
     //カスタム属性の読み込み
@@ -68,6 +90,26 @@ export function getCustomAttributeDetail(res: any, req: any, id: string) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
+    }
+
+    //カスタム属性属性画面の権限を取得する
+    let customAttributeAuth: authType | undefined = getUserCustomAttributeAuth(authResult.userInfo);
+
+    //カスタム属性に関する権限が存在しない場合
+    if (!customAttributeAuth || !customAttributeAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "カスタム属性画面の権限がありません。" });
+    }
+
+    //カスタム属性詳細取得権限チェック
+    let customAttributeGetDetailAuthObj: resActionAuthType = checkCustomAttributeGetDetialAuth(customAttributeAuth);
+
+    //カスタム属性権限エラー
+    if (customAttributeGetDetailAuthObj.message) {
+        return res
+            .status(customAttributeGetDetailAuthObj.status)
+            .json({ errMessage: customAttributeGetDetailAuthObj.message });
     }
 
     //カスタム属性の読み込み
@@ -123,14 +165,14 @@ export function getCustomAttributeInputSetting(res: any, req: any) {
             .json({ errMessage: authResult.errMessage });
     }
 
-    //カスタム属性画面の権限を取得
-    let customAttributeAuth = getUserCustomAttributeAuth(authResult.userInfo);
+    //タスク画面の権限を取得
+    let taskUseruth = getUserTaskAuth(authResult.userInfo);
 
-    //カスタム属性に関する権限が存在しない場合
-    if (!customAttributeAuth || !customAttributeAuth.auth) {
+    //タスクに関する権限が存在しない場合
+    if (!taskUseruth || !taskUseruth.auth) {
         return res
             .status(403)
-            .json({ errMessage: "カスタム属性画面の権限がありません。" });
+            .json({ errMessage: "タスク画面の権限が存在しないためカスタム属性入力設定値を取得できません。" });
     }
 
     //カスタム属性の読み込み
@@ -145,7 +187,7 @@ export function getCustomAttributeInputSetting(res: any, req: any) {
     let searchConditionList: searchConditionType[] = getSearchConditionList();
 
     //ユーザー権限でフィルター
-    let filterdSearchConditionList = filterSearchConditionByUserAuth(searchConditionList, customAttributeAuth.auth);
+    let filterdSearchConditionList = filterSearchConditionByUserAuth(searchConditionList, taskUseruth.auth);
 
     //権限でフィルターする
     customAttributeList = getCustomAttributeByUserAuth(customAttributeList, filterdSearchConditionList);
@@ -180,6 +222,26 @@ export function runAddCustomAttribute(res: any, req: any) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
+    }
+
+    //カスタム属性属性画面の権限を取得する
+    let customAttributeAuth: authType | undefined = getUserCustomAttributeAuth(authResult.userInfo);
+
+    //カスタム属性に関する権限が存在しない場合
+    if (!customAttributeAuth || !customAttributeAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "カスタム属性画面の権限がありません。" });
+    }
+
+    //カスタム属性登録権限チェック
+    let customAttributeAddAuthObj: resActionAuthType = checkCustomAttributeAddAuth(customAttributeAuth);
+
+    //カスタム属性権限エラー
+    if (customAttributeAddAuthObj.message) {
+        return res
+            .status(customAttributeAddAuthObj.status)
+            .json({ errMessage: customAttributeAddAuthObj.message });
     }
 
     //リクエストボディ
@@ -282,6 +344,26 @@ export function runDeleteCustomAttribute(res: any, req: any, caId: string) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    //カスタム属性属性画面の権限を取得する
+    let customAttributeAuth: authType | undefined = getUserCustomAttributeAuth(authResult.userInfo);
+
+    //カスタム属性に関する権限が存在しない場合
+    if (!customAttributeAuth || !customAttributeAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "カスタム属性画面の権限がありません。" });
+    }
+
+    //カスタム属性削除権限チェック
+    let customAttributeDelAuthObj: resActionAuthType = checkCustomAttributeDelAuth(customAttributeAuth);
+
+    //カスタム属性権限エラー
+    if (customAttributeDelAuthObj.message) {
+        return res
+            .status(customAttributeDelAuthObj.status)
+            .json({ errMessage: customAttributeDelAuthObj.message });
+    }
+
     let errMessage = "";
 
     //カスタム属性ファイルの読み込み
@@ -374,6 +456,26 @@ export function runUpdCustomAttribute(res: any, req: any, caId: string) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
+    }
+
+    //カスタム属性属性画面の権限を取得する
+    let customAttributeAuth: authType | undefined = getUserCustomAttributeAuth(authResult.userInfo);
+
+    //カスタム属性に関する権限が存在しない場合
+    if (!customAttributeAuth || !customAttributeAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "カスタム属性画面の権限がありません。" });
+    }
+
+    //カスタム属性更新権限チェック
+    let customAttributeDelAuthObj: resActionAuthType = checkCustomAttributeUpdAuth(customAttributeAuth);
+
+    //カスタム属性権限エラー
+    if (customAttributeDelAuthObj.message) {
+        return res
+            .status(customAttributeDelAuthObj.status)
+            .json({ errMessage: customAttributeDelAuthObj.message });
     }
 
     let errMessage = "";
