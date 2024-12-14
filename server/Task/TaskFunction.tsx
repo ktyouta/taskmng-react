@@ -2,7 +2,7 @@ import { getGeneralDetailData } from "../General/GeneralFunction";
 import { createDeleteCustomAttributeData, createDeleteTaskData, createMultiDeleteCustomAttributeData, createMultiDeleteTaskData } from "./TaskDeleteFunction";
 import { createUpdCustomAttributeData, createUpdTaskData } from "./TaskUpdateFunction";
 import { createAddCustomAttributeData, createAddTaskData } from "./TaskRegistFunction";
-import { convDefaultTask, createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getConvertTasksDaate, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, getTasksByUserAuth, joinCustomAttribute } from "./TaskSelectFunction";
+import { convDefaultTask, createTaskDetailUrl, filterCustomAttribute, filterDefaultAttribute, getConvertTaskListDate, getConvertTasksDate, getCustomAttributeTaskObj, getFilterdTask, getTaskObj, getTasksByUserAuth, joinCustomAttribute } from "./TaskSelectFunction";
 import { runAddMultiTaskHistory, runAddTaskHistory } from "../History/HistoryFunction";
 import { CREATE, CUSTOMATTRIBUTESELECTVALUE_FILE_PATH, DELETE, TASK_FILEPATH, UPDATE } from "./Const/TaskConst";
 import { reqDelSelectedTaskType, reqRecSelectedTaskType, resTaskListType, retDefaultTaskType, taskCustomAttributeSelectType, taskDetailType, taskListType } from "./Type/TaskType";
@@ -69,7 +69,7 @@ export function getTaskList(res: any, req: any) {
     let queryStr = req.query;
 
     //日付変換
-    decodeFileData = getConvertTasksDaate(decodeFileData);
+    decodeFileData = getConvertTaskListDate(decodeFileData);
 
     //クエリストリングでフィルター(デフォルト属性)
     decodeFileData = filterDefaultAttribute(decodeFileData, queryStr, taskUserAuth);
@@ -146,6 +146,9 @@ export function getTaskDetail(res: any, req: any, id: string) {
     if (!singleTaskData) {
         return res.status(400).json({ errMessage: `該当データがありません。` });
     }
+
+    //日付変換
+    singleTaskData = getConvertTasksDate(singleTaskData);
 
     //URLを作成
     singleTaskData = createTaskDetailUrl(singleTaskData);

@@ -664,7 +664,7 @@ export function createTaskViewList(taskSettingList: inputTaskSettingType[], updT
     let tmpViewTaskList: viewTaskType[] = [];
     let tmpViewCustomAttributeList: viewTaskType[] = [];
 
-    taskSettingList.forEach((element) => {
+    taskSettingList.forEach((element: inputTaskSettingType) => {
         let tmpValue: string = "";
 
         //項目の表示非表示
@@ -686,6 +686,11 @@ export function createTaskViewList(taskSettingList: inputTaskSettingType[], updT
                 tmpValue = value as string;
                 break;
             }
+        }
+
+        //期限の場合はフォーマット変換する
+        if (element.id === "limitTime") {
+            tmpValue = parseStrDate(tmpValue);
         }
 
         let tmpSelectLits: comboType[] = [];

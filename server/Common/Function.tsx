@@ -15,6 +15,11 @@ export function getNowDate() {
  * yyyymmddをyyyy/mm/ddに変換する
  */
 export function getFormatDate(dateStr: string) {
+
+    if (!dateStr) {
+        return "";
+    }
+
     if (dateStr.includes("/")) {
         return dateStr;
     }

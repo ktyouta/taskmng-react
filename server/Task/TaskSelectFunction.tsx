@@ -336,14 +336,26 @@ export function getTasksByUserAuth(userAuth?: string): taskListType[] {
 
 
 /**
- * タスクの日付変換を行う
+ * タスクリストの日付変換を行う
  */
-export function getConvertTasksDaate(decodeFileData: taskListType[]): taskListType[] {
+export function getConvertTaskListDate(decodeFileData: taskListType[]): taskListType[] {
 
     decodeFileData.forEach((element) => {
-        element.registerTime = getFormatDate(element.registerTime);
-        element.updTime = getFormatDate(element.updTime);
+
+        getConvertTasksDate(element);
     });
 
     return decodeFileData;
+}
+
+
+/**
+ * タスクの日付変換を行う
+ */
+export function getConvertTasksDate(taskData: taskListType): taskListType {
+
+    taskData.registerTime = getFormatDate(taskData.registerTime);
+    taskData.updTime = getFormatDate(taskData.updTime);
+
+    return taskData;
 }
