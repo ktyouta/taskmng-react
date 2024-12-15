@@ -81,11 +81,11 @@
 	},
 	{
 		"userId": "t",
-		"userName": "動作確認用ユーザー",
+		"userName": "権限確認用",
 		"password": "t",
 		"deleteFlg": "0",
 		"registerTime": "2024/12/12",
-		"updTime": "2024/12/14",
+		"updTime": "2024/12/15",
 		"iconUrl": "",
 		"iconType": "1"
 	}

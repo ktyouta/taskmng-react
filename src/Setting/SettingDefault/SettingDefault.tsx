@@ -33,7 +33,7 @@ function SettingDefault(props: propsType) {
 
   const {
     editMode,
-  } = useSettingDefault();
+  } = useSettingDefault({ ...props });
 
   return (
     <OuterDiv>

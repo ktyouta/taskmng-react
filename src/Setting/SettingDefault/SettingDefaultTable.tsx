@@ -9,6 +9,8 @@ import useSettingDefaultTable from './Hook/useSettingDefaultTable';
 import './css/SettingDefaultTable.css'
 import Loading from '../../Common/Loading';
 import MessageComponent, { labelType } from '../../Common/MessageComponent';
+import { checkAuthAction } from '../../Common/Function/Function';
+import { USER_AUTH } from '../../Common/Const/CommonConst';
 
 //外側のスタイル
 const OuterDiv = styled.div<{ height: string, width: string }>`
@@ -48,6 +50,7 @@ function SettingDefaultTable(props: propsType) {
     isLoading,
     errMessage,
     clickId,
+    settingDefalutAuth,
   } = useSettingDefaultTable({ ...props });
 
   //ローディング
@@ -84,11 +87,19 @@ function SettingDefaultTable(props: propsType) {
               taskSettingList && taskSettingList.map((element) => {
                 return (
                   <tr>
-                    <IdTd
-                      onClick={() => { clickId(element.id) }}
-                    >
-                      {element.id}
-                    </IdTd>
+                    {
+                      checkAuthAction(settingDefalutAuth, USER_AUTH.MASTER)
+                        ?
+                        <IdTd
+                          onClick={() => { clickId(element.id) }}
+                        >
+                          {element.id}
+                        </IdTd>
+                        :
+                        <TdSt>
+                          {element.id}
+                        </TdSt>
+                    }
                     <TdSt>
                       {element.name}
                     </TdSt>

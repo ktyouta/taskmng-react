@@ -1,11 +1,11 @@
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { useNavigate } from "react-router-dom";
 import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrapper";
 import { categoryType, refCategoryInfoType } from "../Type/SettingCategoryType";
 import ENV from '../../../env.json';
 import { createRef, useEffect, useState } from "react";
 import useMutationWrapper, { resType } from "../../../Common/Hook/useMutationWrapper";
-import { categoryIdAtom, editModeAtom } from "../Atom/SettingCategoryAtom";
+import { categoryIdAtom, editModeAtom, settingCategoryAuthorityAtom } from "../Atom/SettingCategoryAtom";
 import { editModeEnum } from "../../Const/SettingConst";
 
 
@@ -24,6 +24,9 @@ function useSettingCategoryTop(props: propsType) {
     const setCategoryId = useSetAtom(categoryIdAtom);
     //入力参照用リスト
     const [refInfoArray, setRefInfoArray] = useState<refCategoryInfoType[]>();
+    //カテゴリ画面の権限
+    const settingCateogryAuth = useAtomValue(settingCategoryAuthorityAtom);
+
 
     //カテゴリのリストを取得する
     const { data: categoryInfoList, isLoading } = useQueryWrapper<categoryType[]>(
@@ -112,7 +115,8 @@ function useSettingCategoryTop(props: propsType) {
         createNewCategory,
         changeCategoryOrder,
         refInfoArray,
-        isLoading
+        isLoading,
+        settingCateogryAuth
     }
 }
 

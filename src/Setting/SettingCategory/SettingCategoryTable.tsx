@@ -9,6 +9,8 @@ import MessageComponent, { labelType } from '../../Common/MessageComponent';
 import useSettingCategoryTable from '../SettingCategory/Hook/useSettingCategoryTable';
 import NumberPickerComponent from '../../Common/NumberPickerComponent';
 import { refCategoryInfoType } from './Type/SettingCategoryType';
+import { checkAuthAction } from '../../Common/Function/Function';
+import { USER_AUTH } from '../../Common/Const/CommonConst';
 
 //外側のスタイル
 const OuterDiv = styled.div<{ height: string, width: string }>`
@@ -55,6 +57,7 @@ function SettingCategoryTable(props: propsType) {
   const {
     errMessage,
     clickPath,
+    settingCateogryAuth,
   } = useSettingCategoryTable({ ...props });
 
   //ローディング
@@ -97,11 +100,19 @@ function SettingCategoryTable(props: propsType) {
               props.refInfoArray && props.refInfoArray.map((element) => {
                 return (
                   <tr>
-                    <IdTd
-                      onClick={() => { clickPath(element.id) }}
-                    >
-                      {element.path}
-                    </IdTd>
+                    {
+                      checkAuthAction(settingCateogryAuth, USER_AUTH.MASTER)
+                        ?
+                        <IdTd
+                          onClick={() => { clickPath(element.id) }}
+                        >
+                          {element.path}
+                        </IdTd>
+                        :
+                        <TdSt>
+                          {element.path}
+                        </TdSt>
+                    }
                     <TdSt>
                       {element.name}
                     </TdSt>
@@ -110,6 +121,7 @@ function SettingCategoryTable(props: propsType) {
                         <NumberPickerComponent
                           value={parseInt(element.order)}
                           ref={element.ref}
+                          disabled={!checkAuthAction(settingCateogryAuth, USER_AUTH.ADMIN)}
                         />
                       }
                     </NmTd>

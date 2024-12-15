@@ -2,6 +2,10 @@ import ButtonComponent, { buttonType } from '../../Common/ButtonComponent';
 import SpaceComponent from '../../Common/SpaceComponent';
 import styled from 'styled-components';
 import { buttonObjType } from '../../Common/Type/CommonType';
+import useSettingCategoryEditFooter from './Hook/useSettingCategoryEditFooter';
+import React from 'react';
+import { checkAuthAction } from '../../Common/Function/Function';
+import { USER_AUTH } from '../../Common/Const/CommonConst';
 
 
 
@@ -32,6 +36,8 @@ function SettingCategoryEditFooter(props: propsType) {
 
     console.log("SettingCategoryEditFooter render");
 
+    const { settingCateogryAuth } = useSettingCategoryEditFooter();
+
     return (
         <OuterDiv
             height={props.outerHeight}
@@ -53,37 +59,43 @@ function SettingCategoryEditFooter(props: propsType) {
             }
             <SpaceDiv />
             {
-                props.runButtonObj &&
-                props.runButtonObj.title &&
-                props.runButtonObj.onclick &&
-                <ButtonComponent
-                    styleTypeNumber={props.runButtonObj.type}
-                    title={props.runButtonObj.title}
-                    onclick={props.runButtonObj.onclick}
-                    style={{
-                        "fontSize": "0.9rem",
-                        "height": "42%",
-                        "width": "16%",
-                    }}
-                />
-            }
-            <SpaceComponent
-                space={"5%"}
-            />
-            {
-                props.deleteButtonObj &&
-                props.deleteButtonObj.title &&
-                props.deleteButtonObj.onclick &&
-                <ButtonComponent
-                    styleTypeNumber={props.deleteButtonObj.type}
-                    title={props.deleteButtonObj.title}
-                    onclick={props.deleteButtonObj.onclick}
-                    style={{
-                        "fontSize": "0.9rem",
-                        "height": "42%",
-                        "width": "16%",
-                    }}
-                />
+                //管理者権限以上のみ操作可能
+                checkAuthAction(settingCateogryAuth, USER_AUTH.ADMIN) &&
+                <React.Fragment>
+                    {
+                        props.runButtonObj &&
+                        props.runButtonObj.title &&
+                        props.runButtonObj.onclick &&
+                        <ButtonComponent
+                            styleTypeNumber={props.runButtonObj.type}
+                            title={props.runButtonObj.title}
+                            onclick={props.runButtonObj.onclick}
+                            style={{
+                                "fontSize": "0.9rem",
+                                "height": "42%",
+                                "width": "16%",
+                            }}
+                        />
+                    }
+                    <SpaceComponent
+                        space={"5%"}
+                    />
+                    {
+                        props.deleteButtonObj &&
+                        props.deleteButtonObj.title &&
+                        props.deleteButtonObj.onclick &&
+                        <ButtonComponent
+                            styleTypeNumber={props.deleteButtonObj.type}
+                            title={props.deleteButtonObj.title}
+                            onclick={props.deleteButtonObj.onclick}
+                            style={{
+                                "fontSize": "0.9rem",
+                                "height": "42%",
+                                "width": "16%",
+                            }}
+                        />
+                    }
+                </React.Fragment>
             }
         </OuterDiv>
     );

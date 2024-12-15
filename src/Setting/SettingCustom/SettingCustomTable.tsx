@@ -9,6 +9,8 @@ import useSettingCustomTable from './Hook/useSettingCustomTable';
 import './css/SettingCustomTable.css'
 import Loading from '../../Common/Loading';
 import MessageComponent, { labelType } from '../../Common/MessageComponent';
+import { checkAuthAction } from '../../Common/Function/Function';
+import { USER_AUTH } from '../../Common/Const/CommonConst';
 
 //外側のスタイル
 const OuterDiv = styled.div<{ height: string, width: string }>`
@@ -50,6 +52,7 @@ function SettingCustomTable(props: propsType) {
     isLoading,
     errMessage,
     clickId,
+    settingCustomAttributeAuth,
   } = useSettingCustomTable({ ...props });
 
   //ローディング
@@ -86,11 +89,19 @@ function SettingCustomTable(props: propsType) {
               customAttributeList && customAttributeList.map((element) => {
                 return (
                   <tr>
-                    <IdTd
-                      onClick={() => { clickId(element.id) }}
-                    >
-                      {element.id}
-                    </IdTd>
+                    {
+                      checkAuthAction(settingCustomAttributeAuth, USER_AUTH.MASTER)
+                        ?
+                        <IdTd
+                          onClick={() => { clickId(element.id) }}
+                        >
+                          {element.id}
+                        </IdTd>
+                        :
+                        <TdSt>
+                          {element.id}
+                        </TdSt>
+                    }
                     <TdSt>
                       {element.name}
                     </TdSt>

@@ -4,6 +4,9 @@ import ButtonComponent from '../../Common/ButtonComponent';
 import useSettingCustomTop from './Hook/useSettingCustomTop';
 import LabelComponent from '../../Common/LabelComponent';
 import SpaceComponent from '../../Common/SpaceComponent';
+import { checkAuthAction } from '../../Common/Function/Function';
+import { USER_AUTH } from '../../Common/Const/CommonConst';
+import React from 'react';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -39,7 +42,10 @@ function SettingCustomTop(props: propsType) {
 
   console.log("SettingCustomTop render");
 
-  const { createNewCustomAttribute } = useSettingCustomTop({ ...props });
+  const {
+    createNewCustomAttribute,
+    settingCustomAttributeAuth
+  } = useSettingCustomTop({ ...props });
 
   return (
     <OuterDiv>
@@ -50,19 +56,25 @@ function SettingCustomTop(props: propsType) {
         />
       </TitleDiv>
       <BtnDiv>
-        <SpaceComponent
-          space={'14%'}
-        />
-        <ButtonComponent
-          styleTypeNumber="GRAD_BLUE"
-          title={"カスタム属性を追加"}
-          onclick={createNewCustomAttribute}
-          style={{
-            "fontSize": "0.9rem",
-            "height": "74%",
-            "width": "14%",
-          }}
-        />
+        {
+          //管理者権限以上のみ操作可能
+          checkAuthAction(settingCustomAttributeAuth, USER_AUTH.ADMIN) &&
+          <React.Fragment>
+            <SpaceComponent
+              space={'14%'}
+            />
+            <ButtonComponent
+              styleTypeNumber="GRAD_BLUE"
+              title={"カスタム属性を追加"}
+              onclick={createNewCustomAttribute}
+              style={{
+                "fontSize": "0.9rem",
+                "height": "74%",
+                "width": "14%",
+              }}
+            />
+          </React.Fragment>
+        }
       </BtnDiv>
       <SettingCustomTable
         height='70%'

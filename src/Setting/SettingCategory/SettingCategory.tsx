@@ -32,6 +32,8 @@ function SettingCategory(props: propsType) {
 
     console.log("SettingCategory render");
 
+    useSettingCategory({ ...props });
+
     return (
         <OuterDiv>
             <Routes>

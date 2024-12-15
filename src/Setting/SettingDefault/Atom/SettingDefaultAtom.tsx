@@ -4,3 +4,5 @@ import { atom } from "jotai";
 export const editModeAtom = atom(0);
 //デフォルト属性のID
 export const defaultAttributeIdAtom = atom("");
+//デフォルト属性画面の権限
+export const settingDefaultAuthorityAtom = atom(``);

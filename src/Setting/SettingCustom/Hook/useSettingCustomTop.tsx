@@ -1,6 +1,6 @@
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { useNavigate } from "react-router-dom";
-import { customAttributeIdAtom, editModeAtom } from "../Atom/SettingCustomAtom";
+import { customAttributeIdAtom, editModeAtom, settingCustomAuthorityAtom } from "../Atom/SettingCustomAtom";
 import { editModeEnum } from "../../Const/SettingConst";
 
 //引数の型
@@ -16,6 +16,9 @@ function useSettingCustomTop(props: propsType) {
     const navigate = useNavigate();
     //カスタム属性のID
     const setCustomAttributeId = useSetAtom(customAttributeIdAtom);
+    //カスタム属性画面の権限
+    const settingCustomAttributeAuth = useAtomValue(settingCustomAuthorityAtom);
+
 
     /**
      * 新規作成ボタン押下
@@ -26,7 +29,10 @@ function useSettingCustomTop(props: propsType) {
         navigate(`${props.path}/edit`);
     };
 
-    return { createNewCustomAttribute }
+    return {
+        createNewCustomAttribute,
+        settingCustomAttributeAuth
+    }
 }
 
 export default useSettingCustomTop;

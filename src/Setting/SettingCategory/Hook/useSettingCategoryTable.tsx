@@ -2,9 +2,9 @@ import { useState } from "react";
 import useQueryWrapper, { errResType } from "../../../Common/Hook/useQueryWrapper";
 import ENV from '../../../env.json';
 import { useNavigate } from "react-router-dom";
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { categoryType } from "../Type/SettingCategoryType";
-import { categoryIdAtom, editModeAtom } from "../Atom/SettingCategoryAtom";
+import { categoryIdAtom, editModeAtom, settingCategoryAuthorityAtom } from "../Atom/SettingCategoryAtom";
 import { editModeEnum } from "../../Const/SettingConst";
 
 
@@ -23,6 +23,9 @@ function useSettingCategoryTable(props: propsType) {
     const setEditMode = useSetAtom(editModeAtom);
     //カテゴリのpath
     const setCategoryId = useSetAtom(categoryIdAtom);
+    //カテゴリ画面の権限
+    const settingCateogryAuth = useAtomValue(settingCategoryAuthorityAtom);
+
 
     //PATHのクリックイベント
     const clickPath = (id: string) => {
@@ -33,7 +36,8 @@ function useSettingCategoryTable(props: propsType) {
 
     return {
         errMessage,
-        clickPath
+        clickPath,
+        settingCateogryAuth,
     }
 
 }

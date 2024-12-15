@@ -3,6 +3,9 @@ import SpaceComponent from '../../Common/SpaceComponent';
 import styled from 'styled-components';
 import { buttonObjType } from '../../Common/Type/CommonType';
 import React from 'react';
+import useSettingUserEditFooter from './Hook/useSettingUserEditFooter';
+import { USER_AUTH } from '../../Common/Const/CommonConst';
+import { checkAuthAction } from '../../Common/Function/Function';
 
 
 
@@ -34,6 +37,8 @@ function SettingUserEditFooter(props: propsType) {
 
     console.log("SettingUserEditFooter render");
 
+    const { settingUserAuth } = useSettingUserEditFooter();
+
     return (
         <OuterDiv
             height={props.outerHeight}
@@ -55,44 +60,49 @@ function SettingUserEditFooter(props: propsType) {
             }
             <SpaceDiv />
             {
-                props.isEditable &&
+                //管理者権限以上のみ操作可能
+                checkAuthAction(settingUserAuth, USER_AUTH.ADMIN) &&
                 <React.Fragment>
                     {
-                        props.runButtonObj &&
-                        props.runButtonObj.title &&
-                        props.runButtonObj.onclick &&
-                        <ButtonComponent
-                            styleTypeNumber={props.runButtonObj.type}
-                            title={props.runButtonObj.title}
-                            onclick={props.runButtonObj.onclick}
-                            style={{
-                                "fontSize": "0.9rem",
-                                "height": "42%",
-                                "width": "14%",
-                            }}
-                        />
-                    }
-                    <SpaceComponent
-                        space={"5%"}
-                    />
-                    {
-                        props.deleteButtonObj &&
-                        props.deleteButtonObj.title &&
-                        props.deleteButtonObj.onclick &&
-                        <ButtonComponent
-                            styleTypeNumber={props.deleteButtonObj.type}
-                            title={props.deleteButtonObj.title}
-                            onclick={props.deleteButtonObj.onclick}
-                            style={{
-                                "fontSize": "0.9rem",
-                                "height": "42%",
-                                "width": "14%",
-                            }}
-                        />
+                        props.isEditable &&
+                        <React.Fragment>
+                            {
+                                props.runButtonObj &&
+                                props.runButtonObj.title &&
+                                props.runButtonObj.onclick &&
+                                <ButtonComponent
+                                    styleTypeNumber={props.runButtonObj.type}
+                                    title={props.runButtonObj.title}
+                                    onclick={props.runButtonObj.onclick}
+                                    style={{
+                                        "fontSize": "0.9rem",
+                                        "height": "42%",
+                                        "width": "14%",
+                                    }}
+                                />
+                            }
+                            <SpaceComponent
+                                space={"5%"}
+                            />
+                            {
+                                props.deleteButtonObj &&
+                                props.deleteButtonObj.title &&
+                                props.deleteButtonObj.onclick &&
+                                <ButtonComponent
+                                    styleTypeNumber={props.deleteButtonObj.type}
+                                    title={props.deleteButtonObj.title}
+                                    onclick={props.deleteButtonObj.onclick}
+                                    style={{
+                                        "fontSize": "0.9rem",
+                                        "height": "42%",
+                                        "width": "14%",
+                                    }}
+                                />
+                            }
+                        </React.Fragment>
                     }
                 </React.Fragment>
             }
-
         </OuterDiv>
     );
 }

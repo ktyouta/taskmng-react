@@ -4,6 +4,9 @@ import LabelComponent from '../../Common/LabelComponent';
 import useSettingCategoryTop from '../SettingCategory/Hook/useSettingCategoryTop';
 import SettingCategoryTable from '../SettingCategory/SettingCategoryTable';
 import SpaceComponent from '../../Common/SpaceComponent';
+import { checkAuthAction } from '../../Common/Function/Function';
+import { USER_AUTH } from '../../Common/Const/CommonConst';
+import React from 'react';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -44,6 +47,7 @@ function SettingCategoryTop(props: prospType) {
     changeCategoryOrder,
     refInfoArray,
     isLoading,
+    settingCateogryAuth,
   } = useSettingCategoryTop({ ...props });
 
   return (
@@ -55,32 +59,38 @@ function SettingCategoryTop(props: prospType) {
         />
       </TitleDiv>
       <BtnDiv>
-        <SpaceComponent
-          space={'14%'}
-        />
-        <ButtonComponent
-          styleTypeNumber="GRAD_BLUE"
-          title={"カテゴリを追加"}
-          onclick={createNewCategory}
-          style={{
-            "fontSize": "0.9rem",
-            "height": "74%",
-            "width": "14%",
-          }}
-        />
-        <SpaceComponent
-          space={'2%'}
-        />
-        <ButtonComponent
-          styleTypeNumber="GRAD_BLUE"
-          title={"表示順を更新"}
-          onclick={changeCategoryOrder}
-          style={{
-            "fontSize": "0.9rem",
-            "height": "74%",
-            "width": "14%",
-          }}
-        />
+        {
+          //管理者権限以上のみ操作可能
+          checkAuthAction(settingCateogryAuth, USER_AUTH.ADMIN) &&
+          <React.Fragment>
+            <SpaceComponent
+              space={'14%'}
+            />
+            <ButtonComponent
+              styleTypeNumber="GRAD_BLUE"
+              title={"カテゴリを追加"}
+              onclick={createNewCategory}
+              style={{
+                "fontSize": "0.9rem",
+                "height": "74%",
+                "width": "14%",
+              }}
+            />
+            <SpaceComponent
+              space={'2%'}
+            />
+            <ButtonComponent
+              styleTypeNumber="GRAD_BLUE"
+              title={"表示順を更新"}
+              onclick={changeCategoryOrder}
+              style={{
+                "fontSize": "0.9rem",
+                "height": "74%",
+                "width": "14%",
+              }}
+            />
+          </React.Fragment>
+        }
       </BtnDiv>
       <SettingCategoryTable
         height='75%'

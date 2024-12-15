@@ -4,6 +4,9 @@ import LabelComponent from '../../Common/LabelComponent';
 import useSettingUserTop from '../SettingUser/Hook/useSettingUserTop';
 import SettingUserTable from '../SettingUser/SettingUserTable';
 import SpaceComponent from '../../Common/SpaceComponent';
+import { checkAuthAction } from '../../Common/Function/Function';
+import { USER_AUTH } from '../../Common/Const/CommonConst';
+import React from 'react';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -39,7 +42,9 @@ function SettingUserTop(props: prospType) {
 
   console.log("SettingUserTop render");
 
-  const { createNewUser } = useSettingUserTop({ ...props });
+  const {
+    createNewUser,
+    settingUserAuth } = useSettingUserTop({ ...props });
 
   return (
     <OuterDiv>
@@ -50,19 +55,24 @@ function SettingUserTop(props: prospType) {
         />
       </TitleDiv>
       <BtnDiv>
-        <SpaceComponent
-          space={'14%'}
-        />
-        <ButtonComponent
-          styleTypeNumber="GRAD_BLUE"
-          title={"ユーザーを追加"}
-          onclick={createNewUser}
-          style={{
-            "fontSize": "0.9rem",
-            "height": "74%",
-            "width": "14%",
-          }}
-        />
+        {
+          checkAuthAction(settingUserAuth, USER_AUTH.ADMIN) &&
+          <React.Fragment>
+            <SpaceComponent
+              space={'14%'}
+            />
+            <ButtonComponent
+              styleTypeNumber="GRAD_BLUE"
+              title={"ユーザーを追加"}
+              onclick={createNewUser}
+              style={{
+                "fontSize": "0.9rem",
+                "height": "74%",
+                "width": "14%",
+              }}
+            />
+          </React.Fragment>
+        }
       </BtnDiv>
       <SettingUserTable
         height='75%'
