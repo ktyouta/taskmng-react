@@ -12,7 +12,8 @@ import { tagListType } from "../Tag/Type/TagType";
 import { TAG_FILEPATH } from "../Tag/Const/TagConst";
 import { getFilterdTag, getTagObj } from "../Tag/TagSelectFunction";
 import { getUserInfoData } from "../Setting/User/UserSelectFunction";
-import { authInfoType } from "../Auth/Type/AuthType";
+import { authInfoType, authType } from "../Auth/Type/AuthType";
+import { checkMemoDelAuth, checkMemoGetAuth, checkMemoRegistAuth, checkMemoUpdAuth, checktaskGetDetailAuth, getUserMemoAuth } from "./MemoAuthFunction";
 
 
 
@@ -36,6 +37,26 @@ export function getMemoList(res: any, req: any) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
+    }
+
+    //メモ画面の権限を取得する
+    let memoAuth: authType | undefined = getUserMemoAuth(authResult.userInfo);
+
+    //メモに関する権限が存在しない場合
+    if (!memoAuth || !memoAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "メモ画面の権限がありません。" });
+    }
+
+    //メモリスト取得権限チェック
+    let memoGetListAuthResult = checkMemoGetAuth(memoAuth);
+
+    //権限エラー
+    if (memoGetListAuthResult.message) {
+        return res
+            .status(memoGetListAuthResult.status)
+            .json({ errMessage: memoGetListAuthResult.message });
     }
 
     //クエリストリング
@@ -93,6 +114,26 @@ export function getMemoDetail(res: any, req: any, id: string) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    //メモ画面の権限を取得する
+    let memoAuth: authType | undefined = getUserMemoAuth(authResult.userInfo);
+
+    //メモに関する権限が存在しない場合
+    if (!memoAuth || !memoAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "メモ画面の権限がありません。" });
+    }
+
+    //メモ詳細取得権限チェック
+    let memoGetDetailAuthResult = checktaskGetDetailAuth(memoAuth);
+
+    //権限エラー
+    if (memoGetDetailAuthResult.message) {
+        return res
+            .status(memoGetDetailAuthResult.status)
+            .json({ errMessage: memoGetDetailAuthResult.message });
+    }
+
     //メモファイルの読み込み
     let decodeFileData: memoListType[] = getFilterdMemo();
 
@@ -142,6 +183,16 @@ export function getMemoSearchConditionList(res: any, req: any) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    //メモ画面の権限を取得する
+    let memoAuth: authType | undefined = getUserMemoAuth(authResult.userInfo);
+
+    //メモに関する権限が存在しない場合
+    if (!memoAuth || !memoAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "メモ画面の権限が存在しないため検索条件を取得できません。" });
+    }
+
     //メモ検索条件ファイルの読み込み
     let decodeFileData: memoSearchConditionListType[] = getFilterdSearchCondition();
 
@@ -186,6 +237,26 @@ export function runAddMemo(res: any, req: any) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
+    }
+
+    //メモ画面の権限を取得する
+    let memoAuth: authType | undefined = getUserMemoAuth(authResult.userInfo);
+
+    //メモに関する権限が存在しない場合
+    if (!memoAuth || !memoAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "メモ画面の権限がありません。" });
+    }
+
+    //メモ登録権限チェック
+    let memoAddAuthResult = checkMemoRegistAuth(memoAuth);
+
+    //権限エラー
+    if (memoAddAuthResult.message) {
+        return res
+            .status(memoAddAuthResult.status)
+            .json({ errMessage: memoAddAuthResult.message });
     }
 
     //リクエストボディ
@@ -269,6 +340,41 @@ export function runUpdMemo(res: any, req: any, updMemoId: string) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    //メモ画面の権限を取得する
+    let memoAuth: authType | undefined = getUserMemoAuth(authResult.userInfo);
+
+    //メモに関する権限が存在しない場合
+    if (!memoAuth || !memoAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "メモ画面の権限がありません。" });
+    }
+
+    //メモファイルの読み込み
+    let decodeFileData: memoListType[] = getMemoObj();
+
+    //更新対象のメモを取得する
+    let updMemo = decodeFileData.find((element: memoListType) => {
+        return element.id === updMemoId;
+    });
+
+    //更新対象のメモが存在しない
+    if (!updMemo) {
+        return res
+            .status(400)
+            .json({ errMessage: `更新対象のメモが存在しません。` });
+    }
+
+    //メモ更新権限チェック
+    let memoUpdAuthResult = checkMemoUpdAuth(authResult.userInfo, updMemo, memoAuth);
+
+    //権限エラー
+    if (memoUpdAuthResult.message) {
+        return res
+            .status(memoUpdAuthResult.status)
+            .json({ errMessage: memoUpdAuthResult.message });
+    }
+
     //リクエストボディ
     let body: memoUpdReqType = req.body;
 
@@ -290,9 +396,6 @@ export function runUpdMemo(res: any, req: any, updMemoId: string) {
             .status(400)
             .json({ errMessage });
     }
-
-    //メモファイルの読み込み
-    let decodeFileData: memoListType[] = getMemoObj();
 
     //更新用データの作成
     let retObj = createUpdMemoData(decodeFileData, body, updMemoId, decodeTagFileData, authResult);
@@ -350,8 +453,40 @@ export function runDelMemo(res: any, req: any, delMemoId: string) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    //メモ画面の権限を取得する
+    let memoAuth: authType | undefined = getUserMemoAuth(authResult.userInfo);
+
+    //メモに関する権限が存在しない場合
+    if (!memoAuth || !memoAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "メモ画面の権限がありません。" });
+    }
+
     //メモファイルの読み込み
     let decodeFileData: memoListType[] = getMemoObj();
+
+    //削除対象のメモを取得する
+    let delMemo = decodeFileData.find((element: memoListType) => {
+        return element.id === delMemoId;
+    });
+
+    //削除対象のメモが存在しない
+    if (!delMemo) {
+        return res
+            .status(400)
+            .json({ errMessage: `削除対象のメモが存在しません。` });
+    }
+
+    //メモ削除権限チェック
+    let memoDelAuthResult = checkMemoDelAuth(authResult.userInfo, delMemo, memoAuth);
+
+    //権限エラー
+    if (memoDelAuthResult.message) {
+        return res
+            .status(memoDelAuthResult.status)
+            .json({ errMessage: memoDelAuthResult.message });
+    }
 
     //削除用データの作成
     let retObj = createDelMemoData(decodeFileData, delMemoId, authResult);

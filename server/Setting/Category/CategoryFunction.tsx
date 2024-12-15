@@ -8,6 +8,8 @@ import { authenticate } from "../../Auth/AuthFunction";
 import { overWriteData } from "../../Common/FileFunction";
 import { authInfoType, authType } from "../../Auth/Type/AuthType";
 import { resUserInfoType, userInfoType } from "../User/Type/UserType";
+import { checkCategoryAddAuth, checkCategoryChangeOrderAuth, checkCategoryDelAuth, checkCategoryGetDetialAuth, checkCategoryUpdAuth, getUserCategoryAuth } from "./CategoryAuthFunction";
+import { resActionAuthType } from "../../Common/Type/CommonType";
 
 
 /**
@@ -103,6 +105,26 @@ export function getCategoryDetail(res: any, req: any, id: string) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    //カテゴリ画面の権限を取得する
+    let categoryAuth: authType | undefined = getUserCategoryAuth(authResult.userInfo);
+
+    //カテゴリ画面に関する権限が存在しない場合
+    if (!categoryAuth || !categoryAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "カテゴリ画面の権限がありません。" });
+    }
+
+    //カテゴリ詳細取得権限チェック
+    let categoryGetDetailAuthObj: resActionAuthType = checkCategoryGetDetialAuth(categoryAuth);
+
+    //カテゴリ権限エラー
+    if (categoryGetDetailAuthObj.message) {
+        return res
+            .status(categoryGetDetailAuthObj.status)
+            .json({ errMessage: categoryGetDetailAuthObj.message });
+    }
+
     //カテゴリの読み込み
     let decodeFileData: categoryType[] = getFilterdCategory();
 
@@ -134,6 +156,26 @@ export function runAddCategory(res: any, req: any) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
+    }
+
+    //カテゴリ画面の権限を取得する
+    let categoryAuth: authType | undefined = getUserCategoryAuth(authResult.userInfo);
+
+    //カテゴリ画面に関する権限が存在しない場合
+    if (!categoryAuth || !categoryAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "カテゴリ画面の権限がありません。" });
+    }
+
+    //カテゴリ登録権限チェック
+    let categoryAddAuthObj: resActionAuthType = checkCategoryAddAuth(categoryAuth);
+
+    //カテゴリ権限エラー
+    if (categoryAddAuthObj.message) {
+        return res
+            .status(categoryAddAuthObj.status)
+            .json({ errMessage: categoryAddAuthObj.message });
     }
 
     //カテゴリの読み込み
@@ -173,6 +215,13 @@ export function runAddCategory(res: any, req: any) {
  */
 export function runUpdCategory(res: any, req: any, id: string) {
 
+    //IDの指定がない
+    if (!id) {
+        return res
+            .status(400)
+            .json({ errMessage: `パラメータが不正です。` });
+    }
+
     //有効ユーザーチェック
     let authResult: authInfoType = authenticate(req.cookies.cookie);
 
@@ -190,11 +239,24 @@ export function runUpdCategory(res: any, req: any, id: string) {
             .json({ errMessage: authResult.errMessage });
     }
 
-    //IDの指定がない
-    if (!id) {
+    //カテゴリ画面の権限を取得する
+    let categoryAuth: authType | undefined = getUserCategoryAuth(authResult.userInfo);
+
+    //カテゴリ画面に関する権限が存在しない場合
+    if (!categoryAuth || !categoryAuth.auth) {
         return res
-            .status(400)
-            .json({ errMessage: `パラメータが不正です。` });
+            .status(403)
+            .json({ errMessage: "カテゴリ画面の権限がありません。" });
+    }
+
+    //カテゴリ更新権限チェック
+    let categoryUpdAuthObj: resActionAuthType = checkCategoryUpdAuth(categoryAuth);
+
+    //カテゴリ権限エラー
+    if (categoryUpdAuthObj.message) {
+        return res
+            .status(categoryUpdAuthObj.status)
+            .json({ errMessage: categoryUpdAuthObj.message });
     }
 
     //カテゴリの読み込み
@@ -258,6 +320,26 @@ export function runDeleteCategory(res: any, req: any, id: string) {
             .json({ errMessage: authResult.errMessage });
     }
 
+    //カテゴリ画面の権限を取得する
+    let categoryAuth: authType | undefined = getUserCategoryAuth(authResult.userInfo);
+
+    //カテゴリ画面に関する権限が存在しない場合
+    if (!categoryAuth || !categoryAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "カテゴリ画面の権限がありません。" });
+    }
+
+    //カテゴリ削除権限チェック
+    let categoryDelAuthObj: resActionAuthType = checkCategoryDelAuth(categoryAuth);
+
+    //カテゴリ権限エラー
+    if (categoryDelAuthObj.message) {
+        return res
+            .status(categoryDelAuthObj.status)
+            .json({ errMessage: categoryDelAuthObj.message });
+    }
+
     //カテゴリの読み込み
     let decodeFileData: categoryType[] = getFilterdCategory();
 
@@ -310,6 +392,26 @@ export function runUpdCategoryOrder(res: any, req: any) {
         return res
             .status(authResult.status)
             .json({ errMessage: authResult.errMessage });
+    }
+
+    //カテゴリ画面の権限を取得する
+    let categoryAuth: authType | undefined = getUserCategoryAuth(authResult.userInfo);
+
+    //カテゴリ画面に関する権限が存在しない場合
+    if (!categoryAuth || !categoryAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "カテゴリ画面の権限がありません。" });
+    }
+
+    //カテゴリの表示順更新権限チェック
+    let categoryChangeOrderAuthObj: resActionAuthType = checkCategoryChangeOrderAuth(categoryAuth);
+
+    //カテゴリ権限エラー
+    if (categoryChangeOrderAuthObj.message) {
+        return res
+            .status(categoryChangeOrderAuthObj.status)
+            .json({ errMessage: categoryChangeOrderAuthObj.message });
     }
 
     let body: checkOrderType[] = req.body;

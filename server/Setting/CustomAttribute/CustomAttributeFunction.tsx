@@ -344,7 +344,7 @@ export function runDeleteCustomAttribute(res: any, req: any, caId: string) {
             .json({ errMessage: authResult.errMessage });
     }
 
-    //カスタム属性属性画面の権限を取得する
+    //カスタム属性画面の権限を取得する
     let customAttributeAuth: authType | undefined = getUserCustomAttributeAuth(authResult.userInfo);
 
     //カスタム属性に関する権限が存在しない場合

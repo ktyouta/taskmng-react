@@ -70,12 +70,16 @@ export const CRUD_ID = "5";
 
 //タスクのカテゴリID
 export const TASK_CATEGORY_ID = "CATEGORY-5";
+//メモのカテゴリID
+export const MEMO_CATEGORY_ID = "CATEGORY-6";
 //デフォルト属性のカテゴリID
 export const DEFAULTATTRIBUTE_CATEGORY_ID = "SUBCATEGORY-1";
 //カスタム属性のカテゴリID
 export const CUSTOMATTRIBUTE_CATEGORY_ID = "SUBCATEGORY-2";
 //検索条件設定のカテゴリID
 export const SEARCHCONDITON_CATEGORY_ID = "SUBCATEGORY-3";
+//カテゴリ設定のカテゴリID
+export const SETTINGCATEGORY_CATEGORY_ID = "SUBCATEGORY-4";
 //ユーザー設定のカテゴリID
 export const USER_CATEGORY_ID = "SUBCATEGORY-5";
 
