@@ -10,6 +10,7 @@ type propsType = {
   onMouseEnter?: () => void,
   onMouseLeave?: () => void,
   style?: { [key: string]: string },
+  disabled?: boolean,
 }
 
 //ボタンの種類
@@ -143,6 +144,7 @@ const ButtonComponent = (props: propsType) => {
     onMouseEnter={() => { if (props.onMouseEnter) props.onMouseEnter() }}
     onMouseLeave={() => { if (props.onMouseLeave) props.onMouseLeave() }}
     style={props.style}
+    disabled={props.disabled}
   >
     {props.title}
   </Component>;

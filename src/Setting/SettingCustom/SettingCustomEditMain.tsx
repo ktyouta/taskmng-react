@@ -16,6 +16,7 @@ import SpaceComponent from '../../Common/SpaceComponent';
 import HorizontalComponent from '../../Common/HorizontalComponent';
 import { editModeEnum } from '../Const/SettingConst';
 import ComboComponent from '../../Common/ComboComponent';
+import useSettingCustomEditMain from './Hook/useSettingCustomEditMain';
 
 
 //外側のスタイル
@@ -61,6 +62,8 @@ function SettingCustomEditMain(props: propsType) {
 
     console.log("SettingCustomMain render");
 
+    const { isEditableAuth } = useSettingCustomEditMain();
+
     return (
         <OuterDiv
             height={props.outerHeight}
@@ -88,6 +91,7 @@ function SettingCustomEditMain(props: propsType) {
                             length={50}
                             onChange={props.setCaNm}
                             textWidth='80%'
+                            disabled={!isEditableAuth}
                         />
                     }
                 </HorizonLabelItemComponent>
@@ -104,6 +108,7 @@ function SettingCustomEditMain(props: propsType) {
                             length={50}
                             onChange={props.setCaDescription}
                             textWidth='80%'
+                            disabled={!isEditableAuth}
                         />
                     }
                 </HorizonLabelItemComponent>
@@ -122,6 +127,7 @@ function SettingCustomEditMain(props: propsType) {
                             onChange={props.setCaType}
                             width='auto'
                             radioGap='5%'
+                            disabled={!isEditableAuth}
                         />
                     }
                 </HorizonLabelItemComponent>
@@ -139,6 +145,7 @@ function SettingCustomEditMain(props: propsType) {
                             htmlForId={'requiredItem'}
                             initValue={props.caRequired}
                             onChangeBl={props.setCaRequired}
+                            disabled={!isEditableAuth}
                         />
                     }
                 </HorizonLabelItemComponent>
@@ -177,6 +184,7 @@ function SettingCustomEditMain(props: propsType) {
                                                         "height": "80%",
                                                         "width": "20%",
                                                     }}
+                                                    disabled={!isEditableAuth}
                                                 />
                                                 <SpaceComponent
                                                     space={"1%"}
@@ -190,6 +198,7 @@ function SettingCustomEditMain(props: propsType) {
                                                         "height": "80%",
                                                         "width": "20%",
                                                     }}
+                                                    disabled={!isEditableAuth}
                                                 />
                                             </HorizontalComponent>
                                         </HorizonLabelItemComponent>
@@ -207,6 +216,7 @@ function SettingCustomEditMain(props: propsType) {
                                                                 ref={element.ref}
                                                                 length={10}
                                                                 textWidth='80%'
+                                                                disabled={!isEditableAuth}
                                                             />
                                                             <VerticalSpaceComponent
                                                                 space={'5px'}
@@ -224,7 +234,6 @@ function SettingCustomEditMain(props: propsType) {
                                 )
                         }
                     })()
-
                 }
                 {
                     props.authList &&
@@ -239,6 +248,7 @@ function SettingCustomEditMain(props: propsType) {
                             combo={props.authList}
                             initValue={props.caAuth}
                             onChange={props.setCaAuth}
+                            disabled={!isEditableAuth}
                         />
                     </HorizonLabelItemComponent>
                 }

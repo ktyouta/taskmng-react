@@ -188,7 +188,7 @@ export function getUserAuth(authList: authType[], menuId: string,) {
  */
 export function checkAuthAction(userAuth: string, actionAuth: string,) {
 
-    return userAuth &&
+    return !!userAuth &&
         !Number.isNaN(userAuth) &&
         !Number.isNaN(actionAuth) &&
         parseInt(userAuth) >= parseInt(actionAuth);

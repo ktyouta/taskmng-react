@@ -28,6 +28,8 @@ import { userInputType } from './Type/SettingUserType';
 import ModalComponent from '../../Common/ModalComponent';
 import { authType } from '../../Common/Hook/useCheckAuth';
 import SettingUserInputAuthList from './SettingUserInputAuthList';
+import { checkAuthAction } from '../../Common/Function/Function';
+import { USER_AUTH } from '../../Common/Const/CommonConst';
 
 
 //外側のスタイル
@@ -164,7 +166,7 @@ function SettingUserEditMain(props: propsType) {
                     </HorizonLabelItemComponent>
                 }
                 {
-                    settingUserAuthority && settingUserAuthority === ADMIN_ID &&
+                    checkAuthAction(settingUserAuthority, USER_AUTH.ADMIN) &&
                     <HorizonLabelItemComponent
                         title={'権限'}
                         width='30%'

@@ -18,6 +18,7 @@ import { checkUpdAuthList, isCorrectIconType, updateUserData } from "../Function
 import { HOME_PATH, NOWPATH_STRAGEKEY } from "../../../Header/Const/HeaderConst";
 import { userInfoAtom } from "../../../Content/Atom/ContentAtom";
 import { authType } from "../../../Common/Hook/useCheckAuth";
+import { checkAuthAction } from "../../../Common/Function/Function";
 
 
 //引数の型
@@ -341,7 +342,7 @@ function useSettingUserEdit(props: propsType) {
             onclick: editMode === editModeEnum.update ? updateAttribute : registeAttribute
         } as buttonObjType,
         editMode,
-        isEditable: userId === userInfo?.userId || settingUserAuthority === USER_AUTH.ADMIN,
+        isEditable: userId === userInfo?.userId || checkAuthAction(settingUserAuthority, USER_AUTH.ADMIN),
         isUpdLoading: registMutation.isLoading || updMutation.isLoading || delMutation.isLoading,
         userDatas,
         userDatasDisptch,

@@ -18,6 +18,9 @@ import NumberPickerComponent from '../../Common/NumberPickerComponent';
 import { defaultAttributeInputRefType, initRefValueType } from './Type/SettingDefaultType';
 import ComboComponent from '../../Common/ComboComponent';
 import { editModeEnum } from '../Const/SettingConst';
+import useSettingDefaultEditMain from './Hook/useSettingDefaultEditMain';
+import { checkAuthAction } from '../../Common/Function/Function';
+import { USER_AUTH } from '../../Common/Const/CommonConst';
 
 
 //外側のスタイル
@@ -72,6 +75,8 @@ function SettingDefaultEditMain(props: propsType) {
 
     console.log("SettingDefaultMain render");
 
+    const { isEditableAuth } = useSettingDefaultEditMain();
+
     return (
         <OuterDiv
             height={props.outerHeight}
@@ -98,6 +103,7 @@ function SettingDefaultEditMain(props: propsType) {
                                 length={50}
                                 onChange={props.setCaNm}
                                 textWidth='80%'
+                                disabled={!isEditableAuth}
                             />
                             :
                             <React.Fragment>{props.caNm}</React.Fragment>
@@ -117,6 +123,7 @@ function SettingDefaultEditMain(props: propsType) {
                                 length={500}
                                 onChange={props.setCaDescription}
                                 textWidth='80%'
+                                disabled={!isEditableAuth}
                             />
                             :
                             <React.Fragment>{props.caDescription}</React.Fragment>
@@ -149,6 +156,7 @@ function SettingDefaultEditMain(props: propsType) {
                                             length={10}
                                             textWidth='80%'
                                             onChange={(e) => { props.editSelectList(e, index + 1) }}
+                                            disabled={!isEditableAuth}
                                         />
                                         <VerticalSpaceComponent
                                             space={'5px'}
@@ -175,6 +183,7 @@ function SettingDefaultEditMain(props: propsType) {
                                         length={50}
                                         onChange={props.setInitValue}
                                         textWidth='80%'
+                                        disabled={!isEditableAuth}
                                     />
                                     :
                                     props.selectTypeInitRef !== undefined &&
@@ -182,6 +191,7 @@ function SettingDefaultEditMain(props: propsType) {
                                         combo={props.selectTypeInitRef.selectElementList}
                                         initValue={props.selectTypeInitRef.initValue}
                                         ref={props.selectTypeInitRef.ref}
+                                        disabled={!isEditableAuth}
                                     />
                                 :
                                 <React.Fragment>{props.initValue}</React.Fragment>
@@ -202,6 +212,7 @@ function SettingDefaultEditMain(props: propsType) {
                             <NumberPickerComponent
                                 value={props.length}
                                 onChange={props.setLength}
+                                disabled={!isEditableAuth}
                             />
                         }
                     </HorizonLabelItemComponent>
@@ -222,7 +233,7 @@ function SettingDefaultEditMain(props: propsType) {
                                 htmlForId={'requiredItem'}
                                 initValue={props.caRequired}
                                 onChangeBl={props.setCaRequired}
-                                disabled={!props.isSettingEditable}
+                                disabled={!props.isSettingEditable || !isEditableAuth}
                             />
                         }
                     </HorizonLabelItemComponent>
@@ -240,7 +251,7 @@ function SettingDefaultEditMain(props: propsType) {
                             htmlForId={'isHiddenItem'}
                             initValue={props.isHidden}
                             onChangeBl={props.setIsHidden}
-                            disabled={!props.isSettingEditable}
+                            disabled={!props.isSettingEditable || !isEditableAuth}
                         />
                     }
                 </HorizonLabelItemComponent>
@@ -257,7 +268,7 @@ function SettingDefaultEditMain(props: propsType) {
                             htmlForId={'isNewCreateVisibleItem'}
                             initValue={props.isNewCreateVisible}
                             onChangeBl={props.setIsNewCreateVisible}
-                            disabled={!props.isSettingEditable}
+                            disabled={!props.isSettingEditable || !isEditableAuth}
                         />
                     }
                 </HorizonLabelItemComponent>
@@ -274,7 +285,7 @@ function SettingDefaultEditMain(props: propsType) {
                             htmlForId={'isEditableOther'}
                             initValue={props.isEditableOther}
                             onChangeBl={props.setIsEditableOther}
-                            disabled={!props.isSettingEditable}
+                            disabled={!props.isSettingEditable || !isEditableAuth}
                         />
                     }
                 </HorizonLabelItemComponent>

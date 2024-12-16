@@ -13,6 +13,7 @@ type propsType = {
     isNotResize?: boolean,
     onChange?: (e: string) => void,
     placeholder?: string,
+    disabled?: boolean
 }
 
 //参照の型
@@ -69,6 +70,7 @@ const BaseTextAreaComponent = forwardRef<refType, propsType>((props, ref) => {
             height={props.height}
             isNotResize={props.isNotResize}
             placeholder={props.placeholder}
+            disabled={props.disabled}
         />
     );
 })

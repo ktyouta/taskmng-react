@@ -17,6 +17,7 @@ import HorizontalComponent from '../../Common/HorizontalComponent';
 import ComboComponent from '../../Common/ComboComponent';
 import CheckBoxComponent from '../../Common/CheckBoxComponent';
 import { editModeEnum } from '../Const/SettingConst';
+import useSettingCategoryEditMain from './Hook/useSettingCategoryEditMain';
 
 
 //外側のスタイル
@@ -58,6 +59,8 @@ function SettingCategoryEditMain(props: propsType) {
 
     console.log("SettingCategoryMain render");
 
+    const { isEditableAuth } = useSettingCategoryEditMain();
+
     return (
         <OuterDiv
             height={props.outerHeight}
@@ -75,6 +78,7 @@ function SettingCategoryEditMain(props: propsType) {
                             length={50}
                             onChange={props.setPath}
                             textWidth='80%'
+                            disabled={!isEditableAuth}
                         />
                     }
                 </HorizonLabelItemComponent>
@@ -90,6 +94,7 @@ function SettingCategoryEditMain(props: propsType) {
                             length={50}
                             onChange={props.setName}
                             textWidth='80%'
+                            disabled={!isEditableAuth}
                         />
                     }
                 </HorizonLabelItemComponent>
@@ -105,6 +110,7 @@ function SettingCategoryEditMain(props: propsType) {
                             length={50}
                             onChange={props.setComponentName}
                             textWidth='80%'
+                            disabled={!isEditableAuth}
                         />
                     }
                 </HorizonLabelItemComponent>
@@ -119,7 +125,7 @@ function SettingCategoryEditMain(props: propsType) {
                         <ComboComponent
                             combo={props.authList}
                             initValue={props.auth}
-                            disabled={false}
+                            disabled={!isEditableAuth}
                             onChange={props.setAuth}
                         />
                     }
@@ -138,6 +144,7 @@ function SettingCategoryEditMain(props: propsType) {
                             onChange={(e) => {
                                 props.setIsHidden(e === "0" ? "1" : "0");
                             }}
+                            disabled={!isEditableAuth}
                         />
                     }
                 </HorizonLabelItemComponent>
