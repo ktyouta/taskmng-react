@@ -60,6 +60,7 @@ export function retComponent(element: menuListType, userInfo: userInfoType) {
             component = <Memo
                 path={path}
                 testId={`${testId}`}
+                menuId={element.id}
             />;
             break;
         //設定

@@ -3,6 +3,9 @@ import ButtonComponent, { buttonType } from '../Common/ButtonComponent';
 import SpaceComponent from '../Common/SpaceComponent';
 import styled from 'styled-components';
 import { buttonObjType } from '../Common/Type/CommonType';
+import useMemoViewFooter from './Hook/useMemoViewFooter';
+import { checkAuthAction } from '../Common/Function/Function';
+import { USER_AUTH } from '../Common/Const/CommonConst';
 
 
 
@@ -34,6 +37,8 @@ function MemoViewFooter(props: propsType) {
 
     console.log("MemoViewFooter render");
 
+    const { memoAuthority } = useMemoViewFooter();
+
     return (
         <OuterDiv
             height={props.outerHeight}
@@ -55,7 +60,8 @@ function MemoViewFooter(props: propsType) {
             }
             <SpaceDiv />
             {
-                props.isMatchUser &&
+                //メモの作成者または管理者権限以上の場合編集可能
+                (props.isMatchUser || checkAuthAction(memoAuthority, USER_AUTH.ADMIN)) &&
                 props.positiveButtonObj &&
                 props.positiveButtonObj.title &&
                 props.positiveButtonObj.onclick &&

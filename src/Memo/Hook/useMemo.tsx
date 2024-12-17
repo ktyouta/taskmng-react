@@ -5,15 +5,19 @@ import useQueryWrapper from "../../Common/Hook/useQueryWrapper";
 import useCreateDefaultMemoUrlCondition from "./useCreateDefaultMemoUrlCondition";
 import { useNavigate } from "react-router-dom";
 import { memoSearchConditionType } from "../Type/MemoType";
-import { detailRoutingIdAtom, memoListUrlAtom, memoSearchConditionObjAtom, selectedTagListAtom } from "../Atom/MemoAtom";
+import { detailRoutingIdAtom, memoAuthorityAtom, memoListUrlAtom, memoSearchConditionObjAtom, selectedTagListAtom } from "../Atom/MemoAtom";
 import { DUMMY_ID, MEMO_SEARCHCONDITION_URL, MEMO_SEARCH_URL, PRE_MEMO_ID, SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../Const/MemoConst";
 import { getUrlQueryMemo, getUrlQueryObj, getUrlQueryTagList } from "../Function/MemoFunction";
 import { createQuery, getUrlQuery } from "../../Common/Function/Function";
+import { useGlobalAtomValue } from "../../Common/Hook/useGlobalAtom";
+import { userAuthListAtom } from "../../Content/Atom/ContentAtom";
+import useSetMenuAuthEffect from "../../Common/Hook/useSetMenuAuthEffect";
 
 
 //引数の型
 type propsType = {
-    path: string
+    path: string,
+    menuId: string,
 }
 
 
@@ -33,6 +37,17 @@ function useMemo(props: propsType) {
     const [selectedTagList, setSelectedTagList] = useAtom(selectedTagListAtom);
     //メモリスト取得用URL
     const setMemoListUrl = useSetAtom(memoListUrlAtom);
+    //権限リスト
+    const userAuthList = useGlobalAtomValue(userAuthListAtom);
+    //メモ画面の権限
+    const setMemoAuthority = useSetAtom(memoAuthorityAtom);
+
+    //メモ画面の権限をセットする
+    useSetMenuAuthEffect({
+        setter: setMemoAuthority,
+        authList: userAuthList,
+        menuId: props.menuId
+    });
 
     //検索条件リスト
     const { data: memoSearchConditionList } = useQueryWrapper<memoSearchConditionType[]>({

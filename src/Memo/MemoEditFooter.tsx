@@ -3,6 +3,9 @@ import ButtonComponent, { buttonType } from '../Common/ButtonComponent';
 import SpaceComponent from '../Common/SpaceComponent';
 import styled from 'styled-components';
 import { buttonObjType } from '../Common/Type/CommonType';
+import useMemoEditFooter from './Hook/useMemoEditFooter';
+import { checkAuthAction } from '../Common/Function/Function';
+import { USER_AUTH } from '../Common/Const/CommonConst';
 
 
 
@@ -13,6 +16,7 @@ type propsType = {
     negativeButtonObj: buttonObjType,
     positiveButtonObj: buttonObjType,
     outerHeight: string,
+    isMatchUser: boolean,
 }
 
 //外側のスタイル
@@ -35,6 +39,8 @@ function MemoEditFooter(props: propsType) {
 
     console.log("MemoEditFooter render");
 
+    const { memoAuthority } = useMemoEditFooter();
+
     return (
         <OuterDiv
             height={props.outerHeight}
@@ -56,6 +62,8 @@ function MemoEditFooter(props: propsType) {
             }
             <SpaceDiv />
             {
+                //メモの作成者または管理者権限以上の場合編集可能
+                (props.isMatchUser || checkAuthAction(memoAuthority, USER_AUTH.ADMIN)) &&
                 props.negativeButtonObj &&
                 props.negativeButtonObj.title &&
                 props.negativeButtonObj.onclick &&
@@ -74,6 +82,8 @@ function MemoEditFooter(props: propsType) {
                 space={"3%"}
             />
             {
+                //メモの作成者または管理者権限以上の場合編集可能
+                (props.isMatchUser || checkAuthAction(memoAuthority, USER_AUTH.ADMIN)) &&
                 props.positiveButtonObj &&
                 props.positiveButtonObj.title &&
                 props.positiveButtonObj.onclick &&
@@ -92,6 +102,8 @@ function MemoEditFooter(props: propsType) {
                 space={"3%"}
             />
             {
+                //メモの作成者または管理者権限以上の場合編集可能
+                (props.isMatchUser || checkAuthAction(memoAuthority, USER_AUTH.ADMIN)) &&
                 props.deleteButtomObj &&
                 props.deleteButtomObj.title &&
                 props.deleteButtomObj.onclick &&

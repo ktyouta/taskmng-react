@@ -27,6 +27,7 @@ const MemoDiv = styled.div<{ height: string | undefined }>`
 type propsType = {
   path: string,
   testId: string,
+  menuId: string,
 }
 
 function Memo(props: propsType) {

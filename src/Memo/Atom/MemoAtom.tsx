@@ -17,3 +17,5 @@ export const orgMemoListAtom = atom<memoListType[] | undefined>(undefined);
 export const memoListAtom = atom<memoListType[] | undefined>(undefined);
 //選択中のタグリスト
 export const selectedTagListAtom = atom<tagListResType[]>([]);
+//メモ画面の権限
+export const memoAuthorityAtom = atom(``);

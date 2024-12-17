@@ -41,7 +41,8 @@ type propsType = {
   memoTagList: tagType[],
   tagSuggestList: tagListResType[],
   initMemoTagList: tagType[],
-  setMemoTagList: React.Dispatch<React.SetStateAction<tagType[]>>
+  setMemoTagList: React.Dispatch<React.SetStateAction<tagType[]>>,
+  isMatchUser: boolean,
 }
 
 
@@ -96,6 +97,7 @@ function MemoEdit(props: propsType) {
                     deleteButtomObj={deleteButtonObj}
                     positiveButtonObj={positiveButtonObj}
                     outerHeight='100%'
+                    isMatchUser={props.isMatchUser}
                   />
                 );
               //下書き
@@ -108,6 +110,7 @@ function MemoEdit(props: propsType) {
                     saveButtonObj={saveButtonObj}
                     positiveButtonObj={createButtonObj}
                     outerHeight='100%'
+                    isMatchUser={props.isMatchUser}
                   />
                 );
               default:

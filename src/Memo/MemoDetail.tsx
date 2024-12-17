@@ -99,6 +99,7 @@ function MemoDetail(props: propsType) {
                                             []
                                     }
                                     setMemoTagList={setMemoTagList}
+                                    isMatchUser={isMatchUser}
                                 />
                             )
                         default:
