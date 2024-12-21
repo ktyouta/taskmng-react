@@ -101,7 +101,7 @@
 		"type": "checkbox",
 		"listKey": "8",
 		"isHidden": false,
-		"value": "0,1",
+		"value": "",
 		"attribute": "default",
 		"registerTime": "2024/10/12",
 		"updTime": "2024/10/12",

@@ -23,14 +23,16 @@ export const ORIGINAL_IMAGE_PATH = `/original`;
 
 //マスタテーブルファイル名
 export const MASTERTABLEFILENM = `samplemastertable`;
-//汎用ファイルパス
+//汎用ファイル名
 export const GENERALFILEPATH = `general`;
-//汎用詳細ファイルパス
+//汎用詳細ファイル名
 export const GENERALDETAILFILEPATH = `generaldetail`;
-//検索条件ファイルパス
+//検索条件ファイル名
 export const SEARCHCONDITIONFILEPATH = `searchcondition`;
-//権限設定ファイルパス
+//権限設定ファイル名
 export const AUTHORIRY = `authority`;
+//タスク検索条件ファイル名
+export const TASK_PRIVATE_SEARCHCONDITION_FILEPATH = `taskprivatesearchcondition`;
 
 
 //タスクファイル名
@@ -42,18 +44,18 @@ export const CUSTOMATTRIBUTELIST = `customattributeselectlist`;
 //カスタム属性の選択値
 export const CUSTOMATTRIBUTESELECT = "customattributetaskselectedvalue";
 
-//タスクの作業履歴のファイルパス
+//タスクの作業履歴のファイル名
 export const TASKHISTORYPATH = "taskhistory";
 
-//ユーザー情報ファイルパス
+//ユーザー情報ファイル名
 export const USERINFOFILEPATH = "userinfo";
 
-//カテゴリデータファイルパス
+//カテゴリデータファイル名
 export const CATEGORYFILEPATH = "menu";
-//サブカテゴリデータファイルパス
+//サブカテゴリデータファイル名
 export const SUBCATEGORYFILEPATH = "submenu";
 
-//タスクの入力設定値用ファイルパス
+//タスクの入力設定値用ファイル名
 export const TASKINPUTSETTING = "taskinputsetting";
 
 //メモファイル名

@@ -40,3 +40,13 @@ export type settingSearchConditionUpdType = {
 export type settingSearchConditionUpdReqType = {
     condition: settingSearchConditionUpdType[]
 }
+
+//ユーザー毎のタスク検索条件の型
+export type taskPrivateSearchConditionType = {
+    id: string,
+    value: string,
+    registerTime: string,
+    updTime: string,
+    deleteFlg: string,
+    userId: string,
+}

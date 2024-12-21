@@ -5,9 +5,9 @@ import { getUserTaskAuth } from "../../Task/TaskAuthFunction";
 import { SEARCHCONDITION_FILE_PATH, SEARCHCONDITION_QUERYLRY } from "./Const/SearchConditionConst";
 import { getUserSearchConditionAuth } from "./SearchConditionAuthFunction";
 import { createAddSearchCondition } from "./SearchConditionRegisterFunction";
-import { filterdQueryParamSearchCondition, filterSearchConditionByUserAuth, getFilterdSearchConditionList, getSearchConditionList, getSearchConditionObj, joinSelectListSearchCondition, joinSelectListTaskSearchCondition } from "./SearchConditionSelectFunction";
+import { filterdQueryParamSearchCondition, filterSearchConditionByUserAuth, getFilterdSearchConditionList, getPrivateSearchConditionList, getSearchConditionList, getSearchConditionObj, getUserPrivateSearchConditionList, joinSearchCondition, joinSelectListSearchCondition, joinSelectListTaskSearchCondition } from "./SearchConditionSelectFunction";
 import { createUpdSearchCondition, createUpdSearchConditionList } from "./SearchConditionUpdateFunction";
-import { retSearchConditionType, searchConditionType, settingSearchConditionUpdReqType } from "./Type/SearchConditionType";
+import { retSearchConditionType, searchConditionType, settingSearchConditionUpdReqType, taskPrivateSearchConditionType } from "./Type/SearchConditionType";
 
 
 /**
@@ -42,8 +42,14 @@ export function getSearchCondition(res: any, req: any) {
             .json({ errMessage: "タスク画面の権限が存在しないため検索条件を取得できません。" });
     }
 
-    //検索設定ファイルの読み込み
+    //検索設定マスタファイルの読み込み
     let searchConditionList: searchConditionType[] = getSearchConditionList();
+
+    //ユーザー毎のタスク検索条件設定を取得する
+    let taskPrivateSearchConditionList: taskPrivateSearchConditionType[] = getUserPrivateSearchConditionList(authResult.userInfo.userId);
+
+    //検索条件マスタとユーザーの検索条件設定を結合する
+    searchConditionList = joinSearchCondition(searchConditionList, taskPrivateSearchConditionList);
 
     //ユーザー権限でフィルター
     searchConditionList = filterSearchConditionByUserAuth(searchConditionList, taskUseruth.auth);

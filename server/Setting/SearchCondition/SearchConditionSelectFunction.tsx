@@ -8,19 +8,31 @@ import { getCustomAttributeData, getCustomAttributeListData } from "../CustomAtt
 import { customAttributeListType, customAttributeType } from "../CustomAttribute/Type/CustomAttributeType";
 import { userInfoType } from "../User/Type/UserType";
 import { getUserInfoData } from "../User/UserSelectFunction";
-import { SEARCHCONDITION_FILE_PATH } from "./Const/SearchConditionConst";
-import { retSearchConditionType, searchConditionType } from "./Type/SearchConditionType";
+import { SEARCHCONDITION_FILE_PATH, TASK_PRIVATE_SEARCHCONDITION_FILE_PATH } from "./Const/SearchConditionConst";
+import { retSearchConditionType, searchConditionType, taskPrivateSearchConditionType } from "./Type/SearchConditionType";
 
 
 /**
  * 検索条件リストの読み込み
  */
 export function getSearchConditionObj(): searchConditionType[] {
-    //タスクファイルの読み込み
+    //タスク検索条件ファイルの読み込み
     let fileData = readFile(SEARCHCONDITION_FILE_PATH);
 
     return JSON.parse(fileData);
 }
+
+
+/**
+ * 検索条件リストの読み込み
+ */
+export function getPrivateSearchConditionObj(): searchConditionType[] {
+    //ユーザー毎のタスク検索条件ファイルの読み込み
+    let fileData = readFile(TASK_PRIVATE_SEARCHCONDITION_FILE_PATH);
+
+    return JSON.parse(fileData);
+}
+
 
 /**
  * 画面表示用検索条件リストの読み込み
@@ -176,4 +188,79 @@ export function joinSelectListTaskSearchCondition(searchConditionList: retSearch
     userProperty.selectList = selectList;
 
     return searchConditionList;
+}
+
+
+/**
+ * ユーザーの画面表示用検索条件リストの読み込み
+ */
+export function getPrivateSearchConditionList(): taskPrivateSearchConditionType[] {
+
+    let decodeFileData: taskPrivateSearchConditionType[] = getPrivateSearchConditionObj();
+
+    //削除フラグが1(削除済)のデータをフィルターする
+    decodeFileData = decodeFileData.filter((element) => {
+        return element.deleteFlg !== "1";
+    });
+
+    return decodeFileData;
+}
+
+/**
+ * 対象ユーザーの検索条件を取得する
+ */
+export function getUserPrivateSearchConditionList(userId: string): taskPrivateSearchConditionType[] {
+
+    let decodeFileData: taskPrivateSearchConditionType[] = getPrivateSearchConditionList();
+
+    //対象ユーザーでフィルターする
+    decodeFileData = decodeFileData.filter((element) => {
+        return element.userId === userId;
+    });
+
+    return decodeFileData;
+}
+
+
+/**
+ * 検索条件マスタとユーザーの検索条件設定を結合する
+ * @param searchCondtionMasterList 
+ * @param searchConditionPrivateList 
+ * @returns 
+ */
+export function joinSearchCondition(searchCondtionMasterList: searchConditionType[],
+    searchConditionPrivateList: taskPrivateSearchConditionType[]
+): searchConditionType[] {
+
+    let retSearchConditionList: searchConditionType[] = searchCondtionMasterList.map((element: searchConditionType) => {
+
+        let value = element.value;
+
+        //ユーザー毎のタスク検索条件を取得
+        let searchConditionPrivateObj = searchConditionPrivateList.find((element1: taskPrivateSearchConditionType) => {
+
+            return element1.id === element.id;
+        });
+
+        //ユーザーの検索条件が存在する場合
+        if (searchConditionPrivateObj) {
+            value = searchConditionPrivateObj.value;
+        }
+
+        return {
+            id: element.id,
+            name: element.name,
+            type: element.type,
+            listKey: element.listKey,
+            value: value,
+            attribute: element.attribute,
+            registerTime: element.registerTime,
+            updTime: element.updTime,
+            deleteFlg: element.deleteFlg,
+            userId: element.userId,
+            auth: element.auth,
+        }
+    });
+
+    return retSearchConditionList;
 }
