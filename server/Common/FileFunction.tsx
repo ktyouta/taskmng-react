@@ -44,6 +44,27 @@ export function overWriteData(filePath: string, stream: string) {
     }
 }
 
+
+/**
+ * ファイル書き込み
+ * @param filePath 
+ * @param stream 
+ * @returns 
+ */
+export function overWriteFileData<T>(filePath: string, data: T) {
+
+    try {
+
+        //json文字列に変換
+        let stream: string = JSON.stringify(data, null, '\t');
+        fs.writeFileSync(filePath, stream);
+
+        return "";
+    } catch (err) {
+        return "ファイルの書き込みに失敗しました。";
+    }
+}
+
 /**
  * 文字列をjsonオブジェクトに変換
  */

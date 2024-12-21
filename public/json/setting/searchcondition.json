@@ -222,7 +222,7 @@
 		"attribute": "custom",
 		"registerTime": "2024/01/28",
 		"updTime": "2024/10/12",
-		"deleteFlg": "0",
+		"deleteFlg": "1",
 		"userId": "f",
 		"auth": "1"
 	},
@@ -235,7 +235,7 @@
 		"attribute": "custom",
 		"registerTime": "2024/01/28",
 		"updTime": "2024/10/12",
-		"deleteFlg": "0",
+		"deleteFlg": "1",
 		"userId": "f",
 		"auth": "1"
 	},
@@ -248,7 +248,7 @@
 		"attribute": "custom",
 		"registerTime": "2024/02/12",
 		"updTime": "2024/10/12",
-		"deleteFlg": "0",
+		"deleteFlg": "1",
 		"userId": "f",
 		"auth": "1"
 	},
@@ -261,7 +261,7 @@
 		"attribute": "custom",
 		"registerTime": "2024/02/12",
 		"updTime": "2024/10/12",
-		"deleteFlg": "0",
+		"deleteFlg": "1",
 		"userId": "f",
 		"auth": "1"
 	},
@@ -274,7 +274,7 @@
 		"attribute": "custom",
 		"registerTime": "2024/02/12",
 		"updTime": "2024/10/12",
-		"deleteFlg": "0",
+		"deleteFlg": "1",
 		"userId": "f",
 		"auth": "1"
 	},

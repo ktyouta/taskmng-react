@@ -1,13 +1,18 @@
 import { authenticate } from "../../Auth/AuthFunction";
-import { authInfoType } from "../../Auth/Type/AuthType";
-import { overWriteData } from "../../Common/FileFunction";
+import { authInfoType, authType } from "../../Auth/Type/AuthType";
+import { overWriteData, overWriteFileData } from "../../Common/FileFunction";
+import { resActionAuthType } from "../../Common/Type/CommonType";
+import { getGeneralDataList } from "../../General/GeneralSelectFunction";
+import { generalDetailType } from "../../General/Type/GeneralType";
 import { getUserTaskAuth } from "../../Task/TaskAuthFunction";
-import { SEARCHCONDITION_FILE_PATH, SEARCHCONDITION_QUERYLRY } from "./Const/SearchConditionConst";
-import { getUserSearchConditionAuth } from "./SearchConditionAuthFunction";
+import { getCustomAttributeData, getCustomAttributeListData } from "../CustomAttribute/CustomAttributeSelectFunction";
+import { customAttributeListType, customAttributeType } from "../CustomAttribute/Type/CustomAttributeType";
+import { SEARCHCONDITION_FILE_PATH, SEARCHCONDITION_QUERYLRY, TASK_PRIVATE_SEARCHCONDITION_FILE_PATH } from "./Const/SearchConditionConst";
+import { getUserPrivateSearchConditionUpdAuth, getUserSearchConditionAuth } from "./SearchConditionAuthFunction";
 import { createAddSearchCondition } from "./SearchConditionRegisterFunction";
-import { filterdQueryParamSearchCondition, filterSearchConditionByUserAuth, getFilterdSearchConditionList, getPrivateSearchConditionList, getSearchConditionList, getSearchConditionObj, getUserPrivateSearchConditionList, joinSearchCondition, joinSelectListSearchCondition, joinSelectListTaskSearchCondition } from "./SearchConditionSelectFunction";
-import { createUpdSearchCondition, createUpdSearchConditionList } from "./SearchConditionUpdateFunction";
-import { retSearchConditionType, searchConditionType, settingSearchConditionUpdReqType, taskPrivateSearchConditionType } from "./Type/SearchConditionType";
+import { filterdQueryParamSearchCondition, filterSearchConditionByUserAuth, getFilterdSearchConditionList, getPrivateSearchConditionList, getPrivateSearchConditionObj, getSearchConditionList, getSearchConditionObj, getUserPrivateSearchConditionList, joinSearchCondition, joinSelectListSearchCondition, joinSelectListTaskSearchCondition } from "./SearchConditionSelectFunction";
+import { createUpdPrivateSearchConditionList, createUpdSearchCondition, createUpdSearchConditionList } from "./SearchConditionUpdateFunction";
+import { retSearchConditionType, searchConditionType, settingPrivateSearchConditionUpdReqType, settingSearchConditionUpdReqType, taskPrivateSearchConditionType } from "./Type/SearchConditionType";
 
 
 /**
@@ -57,8 +62,20 @@ export function getSearchCondition(res: any, req: any) {
     //クエリパラメータでデータをフィルターする
     let retSearchConditionList = filterdQueryParamSearchCondition(searchConditionList, req.query[SEARCHCONDITION_QUERYLRY]);
 
+    //汎用詳細ファイルの読み込み
+    let generalDatas: generalDetailType[] = getGeneralDataList();
+    //カスタム属性の読み込み
+    let customAttributeList: customAttributeType[] = getCustomAttributeData();
+    //カスタム属性リストファイルの読み込み
+    let customAttributeSelectList: customAttributeListType[] = getCustomAttributeListData();
+
     //選択リストを結合
-    let joinedSearchConditionList: retSearchConditionType[] = joinSelectListSearchCondition(retSearchConditionList);
+    let joinedSearchConditionList: retSearchConditionType[] = joinSelectListSearchCondition(
+        retSearchConditionList,
+        generalDatas,
+        customAttributeList,
+        customAttributeSelectList
+    );
 
     //ユーザーリストと結合
     joinedSearchConditionList = joinSelectListTaskSearchCondition(joinedSearchConditionList);
@@ -144,17 +161,40 @@ export function runUpdSearchConditionList(res: any, req: any) {
             .json({ errMessage: authResult.errMessage });
     }
 
-    //リクエストボディ
-    let body: settingSearchConditionUpdReqType = req.body;
+    //検索条件設定画面の権限を取得する
+    let searchConditionAuth: authType | undefined = getUserSearchConditionAuth(authResult.userInfo);
 
-    //検索設定ファイルの読み込み
-    let searchConditionList: searchConditionType[] = getSearchConditionObj();
+    //検索条件設定に関する権限が存在しない場合
+    if (!searchConditionAuth || !searchConditionAuth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "検索条件設定画面の権限がありません。" });
+    }
+
+    //検索条件設定更新権限チェック
+    let searchConditionupdAuthObj: resActionAuthType = getUserPrivateSearchConditionUpdAuth(searchConditionAuth);
+
+    //検索条件設定権限エラー
+    if (searchConditionupdAuthObj.message) {
+        return res
+            .status(searchConditionupdAuthObj.status)
+            .json({ errMessage: searchConditionupdAuthObj.message });
+    }
+
+    //リクエストボディ
+    let body: settingPrivateSearchConditionUpdReqType = req.body;
+    //ユーザーID
+    let userId = authResult.userInfo.userId;
+
+    //ユーザー毎のタスク検索条件設定を取得する
+    let taskPrivateSearchConditionList: taskPrivateSearchConditionType[] = getPrivateSearchConditionObj();
 
     //更新用データの作成
-    let updData = createUpdSearchConditionList(searchConditionList, body, authResult);
+    let updData: taskPrivateSearchConditionType[] = createUpdPrivateSearchConditionList(
+        taskPrivateSearchConditionList, body, userId);
 
-    //データを登録
-    let errMessage = overWriteData(SEARCHCONDITION_FILE_PATH, JSON.stringify(updData, null, '\t'));
+    //更新データをファイルに書き込む
+    let errMessage = overWriteFileData(TASK_PRIVATE_SEARCHCONDITION_FILE_PATH, updData);
 
     //エラー
     if (errMessage) {

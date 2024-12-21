@@ -116,7 +116,8 @@
 		"required": false,
 		"selectElementListId": "ATTRIBUTELISTID-10",
 		"registerTime": "2023/11/29",
-		"updTime": "2023/12/17"
+		"updTime": "2023/12/17",
+		"deleteFlg": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-11",
@@ -127,7 +128,8 @@
 		"selectElementListId": "ATTRIBUTELISTID-11",
 		"registerTime": "2024/02/12",
 		"updTime": "2024/02/12",
-		"userId": "f"
+		"userId": "f",
+		"deleteFlg": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-12",
@@ -137,7 +139,8 @@
 		"required": false,
 		"selectElementListId": "",
 		"registerTime": "2024/02/12",
-		"updTime": "2024/02/13"
+		"updTime": "2024/02/13",
+		"deleteFlg": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-13",
@@ -148,7 +151,8 @@
 		"selectElementListId": "ATTRIBUTELISTID-12",
 		"registerTime": "2024/02/12",
 		"updTime": "2024/03/10",
-		"userId": "f"
+		"userId": "f",
+		"deleteFlg": "1"
 	},
 	{
 		"id": "ATTRIBUTEID-14",

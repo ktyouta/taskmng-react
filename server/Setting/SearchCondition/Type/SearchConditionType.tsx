@@ -50,3 +50,8 @@ export type taskPrivateSearchConditionType = {
     deleteFlg: string,
     userId: string,
 }
+
+//検索条件設定(ユーザー単位)の更新用リクエストの型
+export type settingPrivateSearchConditionUpdReqType = {
+    condition: settingSearchConditionUpdType[]
+}

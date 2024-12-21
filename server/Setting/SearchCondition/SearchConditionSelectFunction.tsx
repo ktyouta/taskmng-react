@@ -1,8 +1,10 @@
 import { USER_AUTH } from "../../Auth/Const/AuthConst";
+import { FLG } from "../../Common/Const/CommonConst";
 import { readFile } from "../../Common/FileFunction";
 import { checkAuthAction } from "../../Common/Function";
 import { comboType } from "../../Common/Type/CommonType";
 import { getGeneralDataList } from "../../General/GeneralSelectFunction";
+import { generalDetailType } from "../../General/Type/GeneralType";
 import { USER_SEARCHCONDITION_ID } from "../../Memo/Const/MemoConst";
 import { getCustomAttributeData, getCustomAttributeListData } from "../CustomAttribute/CustomAttributeSelectFunction";
 import { customAttributeListType, customAttributeType } from "../CustomAttribute/Type/CustomAttributeType";
@@ -24,7 +26,7 @@ export function getSearchConditionObj(): searchConditionType[] {
 
 
 /**
- * 検索条件リストの読み込み
+ * 検索条件リスト(ユーザー単位)の読み込み
  */
 export function getPrivateSearchConditionObj(): searchConditionType[] {
     //ユーザー毎のタスク検索条件ファイルの読み込み
@@ -42,7 +44,7 @@ export function getSearchConditionList(): searchConditionType[] {
 
     //削除フラグが1(削除済)のデータをフィルターする
     decodeFileData = decodeFileData.filter((element) => {
-        return element.deleteFlg !== "1";
+        return element.deleteFlg !== FLG.ON;
     });
 
     return decodeFileData;
@@ -64,14 +66,12 @@ export function getFilterdSearchConditionList(searchConditionList: searchConditi
 /**
  * 選択リストを結合
  */
-export function joinSelectListSearchCondition(searchConditionList: searchConditionType[]) {
-
-    //汎用詳細ファイルの読み込み
-    let generalDatas = getGeneralDataList();
-    //カスタム属性の読み込み
-    let customAttributeList: customAttributeType[] = getCustomAttributeData();
-    //カスタム属性リストファイルの読み込み
-    let customAttributeSelectList: customAttributeListType[] = getCustomAttributeListData();
+export function joinSelectListSearchCondition(
+    searchConditionList: searchConditionType[],
+    generalDatas: generalDetailType[],
+    customAttributeList: customAttributeType[],
+    customAttributeSelectList: customAttributeListType[]
+) {
 
     //選択リストと結合
     let retSearchConditionList: retSearchConditionType[] = searchConditionList.reduce((nowList: retSearchConditionType[],
@@ -92,10 +92,14 @@ export function joinSelectListSearchCondition(searchConditionList: searchConditi
 
             //検索条件の属性がカスタム属性で選択リストを保持している場合
             if (customAttribute && customAttribute.selectElementListId) {
-                let tmpCustomAttributeSelectList = customAttributeSelectList.filter((element1) => {
+
+                let tmpCustomAttributeSelectList = customAttributeSelectList.filter((element1: customAttributeListType) => {
+
                     return element1.id === customAttribute?.selectElementListId && element1.deleteFlg !== "1";
                 });
+
                 selectList = tmpCustomAttributeSelectList.map((element1) => {
+
                     return {
                         label: element1.content,
                         value: element1.no,
@@ -200,7 +204,7 @@ export function getPrivateSearchConditionList(): taskPrivateSearchConditionType[
 
     //削除フラグが1(削除済)のデータをフィルターする
     decodeFileData = decodeFileData.filter((element) => {
-        return element.deleteFlg !== "1";
+        return element.deleteFlg !== FLG.ON;
     });
 
     return decodeFileData;
