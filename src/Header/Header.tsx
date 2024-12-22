@@ -41,16 +41,15 @@ const UserInfoMainDiv = styled.div`
   display: flex;
   white-space: nowrap;
   align-items: center;
-  width: 85%;
 `;
 
 //ボタンのスタイル
-const BtnDiv = styled.div<{ width: string }>`
+const BtnDiv = styled.div`
   margin-left: 2%;
   margin-right: 5%;
   position:relative;
   align-items: center;
-  width:${({ width }) => (width)};
+  width:47px;
 `;
 
 //ナビゲーション
@@ -98,14 +97,14 @@ const OverlayDiv = styled.div`
 
 //ユーザー情報エリアのスタイル
 const UserInfoOuterDiv = styled.div`
-  width:21%;
+  padding-right: 1%;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
 `;
 
 //ユーザー名のスタイル
 const UserNameDiv = styled.div`
-  width:80%;
   text-align: right;
 `;
 
@@ -128,7 +127,8 @@ const TitleAreaDiv = styled.div`
 //通知アイコンエリアのスタイル
 const NotificationAreaDiv = styled.div`
   position: relative;
-  width:12%;
+  width:36px;
+  margin-right: 5px;
 `;
 
 //通知バッジのスタイル
@@ -229,9 +229,7 @@ function Header(props: propsType) {
           <UserNameDiv>
             {props.userInfo?.userName ? `ユーザー：${props.userInfo?.userName}` : ""}
           </UserNameDiv>
-          <BtnDiv
-            width={props.userInfo?.iconUrl ? '13%' : '11%'}
-          >
+          <BtnDiv>
             {
               props.userInfo?.iconUrl ?
                 // ユーザーの設定アイコン
