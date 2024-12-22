@@ -3,7 +3,6 @@ import { authType } from "../Auth/Type/AuthType";
 import { FLG, TASK_CATEGORY_ID } from "../Common/Const/CommonConst";
 import { checkAuthAction, getNowDate } from "../Common/Function";
 import { resActionAuthType } from "../Common/Type/CommonType";
-import { resUserInfoType } from "../Setting/User/Type/UserType";
 import { taskCustomAttributeSelectType, taskListType } from "./Type/TaskType";
 
 

@@ -10,12 +10,12 @@ import { authenticate } from "../Auth/AuthFunction";
 import { inputSettingType, resActionAuthType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
 import { getGeneralDataList, getGeneralDetailDataList } from "../General/GeneralSelectFunction";
-import { userInfoType } from "../Setting/User/Type/UserType";
-import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 import { USER_AUTH } from "../Auth/Const/AuthConst";
 import { createMultiRecoveryCustomAttributeData, createMultiRecoveryTaskData, createRecoveryCustomAttributeData, createRecoveryTaskData } from "./TaskRecoveryFunction";
 import { authInfoType, authType } from "../Auth/Type/AuthType";
 import { checkTaskDelAuth, checktaskGetAuth, checktaskGetDetailAuth, checkTaskRecAuth, checkTaskRegistAuth, checkTaskUpdAuth, getUserTaskAuth, multiCheckTaskDelAuth } from "./TaskAuthFunction";
+import { userInfoType } from "../Setting/SettingUser/Type/SettingUserType";
+import { getUserInfoData } from "../Setting/SettingUser/SettingUserSelectFunction";
 
 
 

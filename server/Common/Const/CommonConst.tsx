@@ -82,8 +82,10 @@ export const CUSTOMATTRIBUTE_CATEGORY_ID = "SUBCATEGORY-2";
 export const SEARCHCONDITON_CATEGORY_ID = "SUBCATEGORY-3";
 //カテゴリ設定のカテゴリID
 export const SETTINGCATEGORY_CATEGORY_ID = "SUBCATEGORY-4";
-//ユーザー設定のカテゴリID
-export const USER_CATEGORY_ID = "SUBCATEGORY-5";
+//ユーザー設定(設定画面)のカテゴリID
+export const SETTING_USER_CATEGORY_ID = "SUBCATEGORY-5";
+//ユーザー設定(個人)のカテゴリID
+export const USER_CATEGORY_ID = "CATEGORY-8";
 
 
 //フラグ

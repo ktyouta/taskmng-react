@@ -4,7 +4,6 @@ import { TASK_CATEGORY_ID } from "../Common/Const/CommonConst";
 import { checkAuthAction, getNowDate } from "../Common/Function";
 import { resActionAuthType } from "../Common/Type/CommonType";
 import { getGeneralDetailData } from "../General/GeneralFunction";
-import { resUserInfoType } from "../Setting/User/Type/UserType";
 import { getCustomAttributeTaskObj } from "./TaskSelectFunction";
 import { taskCustomAttributeSelectType, taskListType } from "./Type/TaskType";
 

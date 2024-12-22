@@ -1,6 +1,7 @@
-import { authType } from "../../Auth/Type/AuthType";
-import { getNowDate } from "../../Common/Function";
-import { registerAuthReqType, updUserInfoType, userInfoType } from "./Type/UserType";
+import { authType } from "../Auth/Type/AuthType";
+import { getNowDate } from "../Common/Function";
+import { registerAuthReqType, updUserInfoType, userInfoType } from "./Type/SettingUserType";
+
 
 /**
  * 更新用データの作成

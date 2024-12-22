@@ -3,8 +3,8 @@ import { authType } from "../../Auth/Type/AuthType";
 import { getFileJsonData, readFile } from "../../Common/FileFunction";
 import { generalDetailType } from "../../General/Type/GeneralType";
 import { GENERALDETAIL_FILEPATH } from "../DefaultAttribute/Const/DefaultAttributeConst";
-import { AUTH_ID, USERINFO_FILEPATH } from "./Const/UserConst";
-import { resUserInfoType, userInfoType } from "./Type/UserType";
+import { AUTH_ID, USERINFO_FILEPATH } from "./Const/SettingUserConst";
+import { resUserInfoType, userInfoType } from "./Type/SettingUserType";
 
 
 /**

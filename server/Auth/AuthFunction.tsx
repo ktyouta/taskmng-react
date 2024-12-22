@@ -1,8 +1,8 @@
 import express from 'express';
 import { config } from '../ApiConfig';
-import { resUserInfoType, userInfoType } from '../Setting/User/Type/UserType';
+import { resUserInfoType, userInfoType } from '../Setting/SettingUser/Type/SettingUserType';
 import { authInfoType, authType } from './Type/AuthType';
-import { USERINFO_FILEPATH } from '../Setting/User/Const/UserConst';
+import { USERINFO_FILEPATH } from '../Setting/SettingUser/Const/SettingUserConst';
 import { readFile } from '../Common/FileFunction';
 import { USER_AUTH } from './Const/AuthConst';
 import { getAuthObjList, getUserAuthList } from './AuthSelectFunction';

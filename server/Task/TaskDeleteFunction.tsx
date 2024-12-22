@@ -4,7 +4,6 @@ import { FLG, TASK_CATEGORY_ID } from "../Common/Const/CommonConst";
 import { getNowDate } from "../Common/Function";
 import { resActionAuthType } from "../Common/Type/CommonType";
 import { getGeneralDetailData } from "../General/GeneralFunction";
-import { resUserInfoType } from "../Setting/User/Type/UserType";
 import { NO_AUTH_MESSAGE } from "./Const/TaskConst";
 import { getCustomAttributeTaskObj } from "./TaskSelectFunction";
 import { taskCustomAttributeSelectType, taskListType } from "./Type/TaskType";

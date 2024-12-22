@@ -2,7 +2,6 @@ import { imageListResType } from "./Type/ImageType";
 import { IMAGE_FILEPATH, IMAGE_FOLDER_ORIGINAL, IMAGE_FOLDER_STAND, IMAGE_TYPE } from "./Const/ImageConst";
 import { getFileJsonData, getFileName, readFile } from "../Common/FileFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
-import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 import { GENERALDETAIL_FILEPATH } from "../Setting/DefaultAttribute/Const/DefaultAttributeConst";
 import { generalDetailType } from "../General/Type/GeneralType";
 import { getGeneralDataList } from "../General/GeneralSelectFunction";
@@ -11,7 +10,6 @@ import { getFormatDate } from "../Common/Function";
 import { PUBLIC, SERVER_URL, TAGFILENM } from "../Common/Const/CommonConst";
 import { tagListType } from "../Tag/Type/TagType";
 import { TAG_FILEPATH } from "../Tag/Const/TagConst";
-import { userInfoType } from "../Setting/User/Type/UserType";
 
 
 /**

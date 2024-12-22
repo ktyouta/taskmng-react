@@ -14,7 +14,7 @@ import {
     runUpdCustomAttribute
 } from './Setting/CustomAttribute/CustomAttributeFunction';
 import { getTaskHistory } from './History/HistoryFunction';
-import { getUserInfo, getUserInfoDetail, runAddUser, runDeleteUser, runUpdUser } from './Setting/User/UserFunction';
+import { getUserInfo, getUserInfoDetail, runAddUser, runDeleteUser, runUpdUser } from './Setting/SettingUser/SettingUserFunction';
 import { getCategory, getCategoryDetail, runAddCategory, runDeleteCategory, runUpdCategory, runUpdCategoryOrder } from './Setting/Category/CategoryFunction';
 import { Response, Request, ParamsDictionary } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';

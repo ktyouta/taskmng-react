@@ -8,8 +8,8 @@ import { generalDetailType } from "../../General/Type/GeneralType";
 import { USER_SEARCHCONDITION_ID } from "../../Memo/Const/MemoConst";
 import { getCustomAttributeData, getCustomAttributeListData } from "../CustomAttribute/CustomAttributeSelectFunction";
 import { customAttributeListType, customAttributeType } from "../CustomAttribute/Type/CustomAttributeType";
-import { userInfoType } from "../User/Type/UserType";
-import { getUserInfoData } from "../User/UserSelectFunction";
+import { userInfoType } from "../SettingUser/Type/SettingUserType";
+import { getUserInfoData } from "../SettingUser/SettingUserSelectFunction";
 import { SEARCHCONDITION_FILE_PATH, TASK_PRIVATE_SEARCHCONDITION_FILE_PATH } from "./Const/SearchConditionConst";
 import { retSearchConditionType, searchConditionType, taskPrivateSearchConditionType } from "./Type/SearchConditionType";
 

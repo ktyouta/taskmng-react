@@ -11,9 +11,9 @@ import { createDelMemoData } from "./MemoDeleteFunction";
 import { tagListType } from "../Tag/Type/TagType";
 import { TAG_FILEPATH } from "../Tag/Const/TagConst";
 import { getFilterdTag, getTagObj } from "../Tag/TagSelectFunction";
-import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 import { authInfoType, authType } from "../Auth/Type/AuthType";
 import { checkMemoDelAuth, checkMemoGetAuth, checkMemoRegistAuth, checkMemoUpdAuth, checktaskGetDetailAuth, getUserMemoAuth } from "./MemoAuthFunction";
+import { getUserInfoData } from "../Setting/SettingUser/SettingUserSelectFunction";
 
 
 

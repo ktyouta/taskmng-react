@@ -4,13 +4,13 @@ import { AUTH_FILEPATH } from "../../Auth/Const/AuthConst";
 import { authInfoType } from "../../Auth/Type/AuthType";
 import { overWriteData } from "../../Common/FileFunction";
 import { resActionAuthType } from "../../Common/Type/CommonType";
-import { SELECT_ICON_TYPE, USERINFO_FILEPATH } from "./Const/UserConst";
-import { registUserInfoType, updUserInfoType, userInfoType } from "./Type/UserType";
-import { checkSettingUserAddAuth, checkSettingUserDelAuth, checkSettingUserGetAuth, checkSettingUserGetDetailAuth, checkSettingUserUpdAuth, getSettingUserAuth, } from "./UserAuthFunction";
-import { createDeleteUserData, createDelUserAuth } from "./UserDeleteFunction";
-import { checkDubUserAuth, convAuthList, createAddUserAuth, createAddUserData, dubUserCheck } from "./UserRegistFunction";
-import { createRestUserInfo, getUserAuth, getUserInfoData } from "./UserSelectFunction";
-import { createUpdUserData, createUpdUserAuth } from "./UserUpdateFunction";
+import { SELECT_ICON_TYPE, USERINFO_FILEPATH } from "./Const/SettingUserConst";
+import { registUserInfoType, updUserInfoType, userInfoType } from "./Type/SettingUserType";
+import { checkSettingUserAddAuth, checkSettingUserDelAuth, checkSettingUserGetAuth, checkSettingUserGetDetailAuth, checkSettingUserUpdAuth, getSettingUserAuth, } from "./SettingUserAuthFunction";
+import { createDeleteUserData, createDelUserAuth } from "./SettingUserDeleteFunction";
+import { checkDubUserAuth, convAuthList, createAddUserAuth, createAddUserData, dubUserCheck } from "./SettingUserRegistFunction";
+import { createRestUserInfo, getUserAuth, getUserInfoData } from "./SettingUserSelectFunction";
+import { createUpdUserData, createUpdUserAuth } from "./SettingUserUpdateFunction";
 
 
 

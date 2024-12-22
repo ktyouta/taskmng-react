@@ -1,6 +1,6 @@
 import { authType } from "../../Auth/Type/AuthType";
 import { getNowDate } from "../../Common/Function";
-import { userInfoType } from "./Type/UserType";
+import { userInfoType } from "./Type/SettingUserType";
 
 /**
  * 削除用データの作成

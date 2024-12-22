@@ -12,10 +12,10 @@ import { comboType, inputSettingType } from "../Common/Type/CommonType";
 import { getFileJsonData, readFile } from "../Common/FileFunction";
 import { getFilterdSearchConditionList, getSearchConditionList } from "../Setting/SearchCondition/SearchConditionSelectFunction";
 import { searchConditionType } from "../Setting/SearchCondition/Type/SearchConditionType";
-import { userInfoType } from "../Setting/User/Type/UserType";
-import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 import { USER_AUTH } from "../Auth/Const/AuthConst";
 import { checkAuthAction, getFormatDate } from "../Common/Function";
+import { userInfoType } from "../Setting/SettingUser/Type/SettingUserType";
+import { getUserInfoData } from "../Setting/SettingUser/SettingUserSelectFunction";
 
 
 

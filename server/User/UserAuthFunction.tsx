@@ -1,10 +1,10 @@
-import { getMenuAuth } from "../../Auth/AuthFunction";
-import { USER_AUTH } from "../../Auth/Const/AuthConst";
-import { authType } from "../../Auth/Type/AuthType";
-import { USER_CATEGORY_ID } from "../../Common/Const/CommonConst";
-import { checkAuthAction } from "../../Common/Function";
-import { resActionAuthType } from "../../Common/Type/CommonType";
-import { resUserInfoType } from "./Type/UserType";
+import { getMenuAuth } from "../Auth/AuthFunction";
+import { USER_AUTH } from "../Auth/Const/AuthConst";
+import { authType } from "../Auth/Type/AuthType";
+import { USER_CATEGORY_ID } from "../Common/Const/CommonConst";
+import { checkAuthAction } from "../Common/Function";
+import { resActionAuthType } from "../Common/Type/CommonType";
+import { resUserInfoType } from "./Type/SettingUserType";
 
 
 /**
@@ -12,7 +12,7 @@ import { resUserInfoType } from "./Type/UserType";
  * @param userInfo 
  * @returns 
  */
-export function getSettingUserAuth(userInfo: resUserInfoType): authType | undefined {
+export function getUserScreenAuth(userInfo: resUserInfoType): authType | undefined {
 
     return getMenuAuth(userInfo, USER_CATEGORY_ID);
 }

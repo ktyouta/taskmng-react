@@ -1,7 +1,7 @@
 import { USER_AUTH } from "../Auth/Const/AuthConst";
 import { authType } from "../Auth/Type/AuthType";
 import { checkAuthAction } from "../Common/Function";
-import { resUserInfoType } from "../Setting/User/Type/UserType";
+import { resUserInfoType } from "../Setting/SettingUser/Type/SettingUserType";
 
 /**
  * 一般権限以上の権限リストを取得する

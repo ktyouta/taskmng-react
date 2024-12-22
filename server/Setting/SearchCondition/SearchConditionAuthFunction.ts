@@ -4,7 +4,7 @@ import { authType } from "../../Auth/Type/AuthType";
 import { CUSTOMATTRIBUTE_CATEGORY_ID, SEARCHCONDITON_CATEGORY_ID } from "../../Common/Const/CommonConst";
 import { checkAuthAction } from "../../Common/Function";
 import { resActionAuthType } from "../../Common/Type/CommonType";
-import { resUserInfoType } from "../User/Type/UserType";
+import { resUserInfoType } from "../SettingUser/Type/SettingUserType";
 
 
 

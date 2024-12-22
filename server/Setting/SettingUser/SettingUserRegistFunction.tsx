@@ -1,7 +1,7 @@
 import { authInfoType, authType } from "../../Auth/Type/AuthType";
 import { FLG } from "../../Common/Const/CommonConst";
 import { getNowDate } from "../../Common/Function";
-import { registerAuthReqType, registUserInfoType, updUserInfoType, userInfoType } from "./Type/UserType";
+import { registerAuthReqType, registUserInfoType, updUserInfoType, userInfoType } from "./Type/SettingUserType";
 
 /**
  * 登録用データの作成

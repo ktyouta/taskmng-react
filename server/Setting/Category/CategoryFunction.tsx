@@ -7,9 +7,9 @@ import { CATEGORY_FILEPATH } from "./Const/CategoryConst";
 import { authenticate } from "../../Auth/AuthFunction";
 import { overWriteData } from "../../Common/FileFunction";
 import { authInfoType, authType } from "../../Auth/Type/AuthType";
-import { resUserInfoType, userInfoType } from "../User/Type/UserType";
 import { checkCategoryAddAuth, checkCategoryChangeOrderAuth, checkCategoryDelAuth, checkCategoryGetDetialAuth, checkCategoryUpdAuth, getUserCategoryAuth } from "./CategoryAuthFunction";
 import { resActionAuthType } from "../../Common/Type/CommonType";
+import { resUserInfoType } from "../SettingUser/Type/SettingUserType";
 
 
 /**

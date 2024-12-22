@@ -4,7 +4,7 @@ import { authType } from "../Auth/Type/AuthType";
 import { TASK_CATEGORY_ID } from "../Common/Const/CommonConst";
 import { checkAuthAction } from "../Common/Function";
 import { resActionAuthType } from "../Common/Type/CommonType";
-import { resUserInfoType } from "../Setting/User/Type/UserType";
+import { resUserInfoType } from "../Setting/SettingUser/Type/SettingUserType";
 import { taskListType } from "./Type/TaskType";
 
 

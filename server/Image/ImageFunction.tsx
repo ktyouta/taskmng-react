@@ -8,7 +8,6 @@ import { IMAGE_FILEPATH } from "./Const/ImageConst";
 import { tagListType } from "../Tag/Type/TagType";
 import { TAG_FILEPATH } from "../Tag/Const/TagConst";
 import { getFilterdTag, getTagObj } from "../Tag/TagSelectFunction";
-import { getUserInfoData } from "../Setting/User/UserSelectFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
 
 
