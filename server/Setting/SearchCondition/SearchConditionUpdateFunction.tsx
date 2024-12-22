@@ -1,6 +1,6 @@
-import { authInfoType } from "../../Auth/Type/AuthType";
+import { authInfoType, authType } from "../../Auth/Type/AuthType";
 import { FLG } from "../../Common/Const/CommonConst";
-import { getNowDate } from "../../Common/Function";
+import { checkAuthAction, getNowDate } from "../../Common/Function";
 import { searchConditionType, settingPrivateSearchConditionUpdReqType, settingSearchConditionUpdReqType, settingSearchConditionUpdType, taskPrivateSearchConditionType } from "./Type/SearchConditionType";
 
 /**
@@ -78,7 +78,7 @@ export function createUpdPrivateSearchConditionList(
 
     body.condition.forEach((element: settingSearchConditionUpdType) => {
 
-        //ユーザーの検索条件オブジェクトを取得
+        //現在のユーザーの検索条件リストから更新対象のオブジェクトを取得
         let privateSearchCondition = privateSearchConditionList.find((element1: taskPrivateSearchConditionType) => {
 
             return element.id === element1.id && element1.userId === userId;
@@ -86,6 +86,7 @@ export function createUpdPrivateSearchConditionList(
 
         //現在のユーザーの検索条件に存在しない場合は追加する
         if (!privateSearchCondition) {
+
             addSearchConditionList = [...addSearchConditionList, {
                 id: element.id,
                 value: element.value,
@@ -94,7 +95,6 @@ export function createUpdPrivateSearchConditionList(
                 deleteFlg: FLG.OFF,
                 userId: userId,
             }];
-
             return;
         }
 
@@ -105,6 +105,29 @@ export function createUpdPrivateSearchConditionList(
 
     //追加の検索条件をセット
     privateSearchConditionList = [...privateSearchConditionList, ...addSearchConditionList];
+
+    return privateSearchConditionList;
+}
+
+
+/**
+ * 参照権限のない検索条件を削除する
+ */
+export function filterConditionsByAuth(
+    privateSearchConditionList: taskPrivateSearchConditionType[],
+    searchConditionMasterList: searchConditionType[],
+    taskUseruth: authType) {
+
+    privateSearchConditionList.filter((element: taskPrivateSearchConditionType) => {
+
+        //更新対象の検索条件がマスタに存在するかつ参照権限を満たすデータを取得
+        let masterSearchCondtion = searchConditionMasterList.find((element1: searchConditionType) => {
+
+            return element1.id === element.id && checkAuthAction(taskUseruth.auth, element1.auth);
+        });
+
+        return !!masterSearchCondtion;
+    });
 
     return privateSearchConditionList;
 }

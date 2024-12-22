@@ -11,7 +11,7 @@ import { SEARCHCONDITION_FILE_PATH, SEARCHCONDITION_QUERYLRY, TASK_PRIVATE_SEARC
 import { getUserPrivateSearchConditionUpdAuth, getUserSearchConditionAuth } from "./SearchConditionAuthFunction";
 import { createAddSearchCondition } from "./SearchConditionRegisterFunction";
 import { filterdQueryParamSearchCondition, filterSearchConditionByUserAuth, getFilterdSearchConditionList, getPrivateSearchConditionList, getPrivateSearchConditionObj, getSearchConditionList, getSearchConditionObj, getUserPrivateSearchConditionList, joinSearchCondition, joinSelectListSearchCondition, joinSelectListTaskSearchCondition } from "./SearchConditionSelectFunction";
-import { createUpdPrivateSearchConditionList, createUpdSearchCondition, createUpdSearchConditionList } from "./SearchConditionUpdateFunction";
+import { createUpdPrivateSearchConditionList, createUpdSearchCondition, createUpdSearchConditionList, filterConditionsByAuth } from "./SearchConditionUpdateFunction";
 import { retSearchConditionType, searchConditionType, settingPrivateSearchConditionUpdReqType, settingSearchConditionUpdReqType, taskPrivateSearchConditionType } from "./Type/SearchConditionType";
 
 
@@ -139,6 +139,7 @@ export function runUpdSearchCondition(authResult: authInfoType, body: searchCond
     return "";
 }
 
+
 /**
  * 検索条件設定の一括更新
  */
@@ -181,10 +182,23 @@ export function runUpdSearchConditionList(res: any, req: any) {
             .json({ errMessage: searchConditionupdAuthObj.message });
     }
 
+    //タスク画面の権限を取得
+    let taskUseruth: authType | undefined = getUserTaskAuth(authResult.userInfo);
+
+    //タスクに関する権限が存在しない場合
+    if (!taskUseruth || !taskUseruth.auth) {
+        return res
+            .status(403)
+            .json({ errMessage: "タスク画面の権限が存在しないため検索条件を更新できません。" });
+    }
+
     //リクエストボディ
     let body: settingPrivateSearchConditionUpdReqType = req.body;
     //ユーザーID
     let userId = authResult.userInfo.userId;
+
+    //検索設定マスタファイルの読み込み
+    let searchConditionMasterList: searchConditionType[] = getSearchConditionList();
 
     //ユーザー毎のタスク検索条件設定を取得する
     let taskPrivateSearchConditionList: taskPrivateSearchConditionType[] = getPrivateSearchConditionObj();
@@ -192,6 +206,9 @@ export function runUpdSearchConditionList(res: any, req: any) {
     //更新用データの作成
     let updData: taskPrivateSearchConditionType[] = createUpdPrivateSearchConditionList(
         taskPrivateSearchConditionList, body, userId);
+
+    //参照権限のない検索条件を削除する
+    updData = filterConditionsByAuth(updData, searchConditionMasterList, taskUseruth);
 
     //更新データをファイルに書き込む
     let errMessage = overWriteFileData(TASK_PRIVATE_SEARCHCONDITION_FILE_PATH, updData);
