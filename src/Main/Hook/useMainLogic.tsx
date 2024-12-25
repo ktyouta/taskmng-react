@@ -51,8 +51,6 @@ function useMainLogic() {
     );
     const [masterDataList, setMasterDataList] = useGlobalAtom(masterDataListAtom);
 
-    //ユーザー情報
-    const userInfo = useGlobalAtomValue(userInfoAtom);
     //クライアント用メニューリスト
     const menu = useGlobalAtomValue(clientMenuListAtom);
 
@@ -66,14 +64,11 @@ function useMainLogic() {
         if (!menu || menu.length < 1) {
             return;
         }
-        if (!userInfo) {
-            return;
-        }
 
         tmpComponentList = menu.reduce((current: JSX.Element[], element: menuListType) => {
 
             //ルーティングの設定
-            let component = retComponent(element, userInfo);
+            let component = retComponent(element);
 
             if (!component) {
                 return current;
@@ -89,7 +84,7 @@ function useMainLogic() {
         //notfoundページ
         tmpComponentList.push(<Route key={"*"} path="*" element={<NotFoundComponent backUrl='/' />} />);
         return tmpComponentList;
-    }, [menu, userInfo]);
+    }, [menu]);
 
     return { masterDataList, componentList }
 }

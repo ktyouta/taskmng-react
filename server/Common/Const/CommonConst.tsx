@@ -33,6 +33,8 @@ export const SEARCHCONDITIONFILEPATH = `searchcondition`;
 export const AUTHORIRY = `authority`;
 //タスク検索条件ファイル名
 export const TASK_PRIVATE_SEARCHCONDITION_FILEPATH = `taskprivatesearchcondition`;
+//メモ検索条件ファイル名
+export const MEMO_PRIVATE_SEARCHCONDITION_FILEPATH = `memoprivatesearchcondition`;
 
 
 //タスクファイル名

@@ -14,22 +14,6 @@ export type memoListType = {
     status: string,
 }
 
-//メモ検索条件リストの型
-export type memoSearchConditionListType = {
-    [key: string]: string | boolean | comboType[],
-    id: string,
-    name: string,
-    type: string,
-    isHidden: boolean,
-    value: string,
-    registerTime: string,
-    updTime: string,
-    deleteFlg: string,
-    userId: string,
-    listKey: string,
-    selectList: comboType[],
-    description: string,
-}
 
 //メモ検索条件リストの画面返却用の型
 export type resMemoSearchConditionListType = {

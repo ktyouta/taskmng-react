@@ -1,4 +1,4 @@
-import { memoContentListType, memoListResType, memoListType, memoSearchConditionListType } from "./Type/MemoType";
+import { memoContentListType, memoListResType, memoListType, } from "./Type/MemoType";
 import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_INPUTSETTING_FILEPATH, MEMO_SEARCHCONDITION_FILEPATH, MEMO_STATUS, PRE_MEMO_ID, PRE_TAG_ID, TAG_PROPERTY, USER_SEARCHCONDITION_ID } from "./Const/MemoConst";
 import { getFileJsonData, readFile } from "../Common/FileFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
@@ -12,6 +12,7 @@ import { tagListType } from "../Tag/Type/TagType";
 import { TAG_FILEPATH } from "../Tag/Const/TagConst";
 import { getUserInfoData } from "../Setting/SettingUser/SettingUserSelectFunction";
 import { userInfoType } from "../Setting/SettingUser/Type/SettingUserType";
+import { memoSearchConditionListType } from "../Setting/MemoSearchCondition/Type/MemoSearchConditionType";
 
 
 

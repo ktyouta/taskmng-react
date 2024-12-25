@@ -375,6 +375,13 @@ app.put(`${ENV.TASKRECOVERY}`, function (req, res) {
     runMultiRecoveryTask(res, req);
 });
 
+/**
+ * メモ検索条件(ユーザー単位)の更新
+ */
+app.put(ENV.MEMOSEARCHCONDITION, function (req, res) {
+    getMemoSearchConditionList(res, req);
+});
+
 
 /**
  * DELETE

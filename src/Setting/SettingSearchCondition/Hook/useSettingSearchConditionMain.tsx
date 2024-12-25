@@ -8,7 +8,7 @@ import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITIO
 import { useAtom } from "jotai";
 import { taskSearchConditionObjAtom } from "../Atom/SettingSearchConditionAtom";
 import useMutationWrapper, { errResType, resType } from "../../../Common/Hook/useMutationWrapper";
-import { settingSearchConditionUpdReqType, settingSearchConditionUpdType } from "../Type/SettingSearchConditionType";
+import { settingSearchConditionUpdReqType } from "../Type/SettingSearchConditionType";
 
 
 

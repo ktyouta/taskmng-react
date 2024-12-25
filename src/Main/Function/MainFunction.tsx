@@ -22,7 +22,7 @@ import { getUserAuth } from "../../Common/Function/Function";
  * @param url 
  * @returns 
  */
-export function retComponent(element: menuListType, userInfo: userInfoType) {
+export function retComponent(element: menuListType) {
 
     let component;
     //画面のパス
@@ -34,24 +34,26 @@ export function retComponent(element: menuListType, userInfo: userInfoType) {
         //ホーム
         case "Home":
             component = <Home
-                testId={`${testId}`}
+                testId={testId}
             />;
             break;
         //マスタ編集
         case "Master":
             component = <Master
-                testId={`${testId}`} />;
+                testId={testId}
+            />;
             break;
         //新規マスタ追加
         case "AddMaster":
             component = <AddMaster
-                testId={`${testId}`} />;
+                testId={testId}
+            />;
             break;
         //タスク
         case "Task":
             component = <Task
                 path={path}
-                testId={`${testId}`}
+                testId={testId}
                 menuId={element.id}
             />;
             break;
@@ -59,7 +61,7 @@ export function retComponent(element: menuListType, userInfo: userInfoType) {
         case "Memo":
             component = <Memo
                 path={path}
-                testId={`${testId}`}
+                testId={testId}
                 menuId={element.id}
             />;
             break;
@@ -67,7 +69,7 @@ export function retComponent(element: menuListType, userInfo: userInfoType) {
         case "Setting":
             component = <Setting
                 path={path}
-                testId={`${testId}`}
+                testId={testId}
                 subMenuList={element.subCategoryList ?? []}
             />;
             break;
@@ -75,13 +77,13 @@ export function retComponent(element: menuListType, userInfo: userInfoType) {
         case "User":
             component = <User
                 path={path}
-                testId={`${testId}`}
+                testId={testId}
             />;
             break;
         //作業履歴
         case "History":
             component = <Histroy
-                testId={`${testId}`}
+                testId={testId}
             />
             break;
     }

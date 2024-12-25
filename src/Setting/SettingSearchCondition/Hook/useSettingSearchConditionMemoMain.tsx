@@ -5,7 +5,6 @@ import useQueryWrapper from "../../../Common/Hook/useQueryWrapper";
 import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../../../Task/Const/TaskConst";
 import { useAtom } from "jotai";
 import useMutationWrapper, { errResType, resType } from "../../../Common/Hook/useMutationWrapper";
-import { settingSearchConditionUpdReqType, settingSearchConditionUpdType } from "../Type/SettingSearchConditionType";
 import { memoSearchConditionType } from "../../../Memo/Type/MemoType";
 import { createRequestBody } from "../../../Common/Function/Function";
 import { createSearchRefArray } from "../../../Memo/Function/MemoFunction";
@@ -37,7 +36,7 @@ function useSettingSearchConditionMemoMain() {
 
     //更新用フック
     const updMutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SEARCHCONDITION}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.MEMOSEARCHCONDITION}`,
         method: "PUT",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {

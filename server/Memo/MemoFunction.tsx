@@ -2,7 +2,7 @@ import { getGeneralDetailData } from "../General/GeneralFunction";
 import { authenticate } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
-import { memoContentListType, memoListResType, memoListType, memoRegistReqType, memoSearchConditionListType, memoUpdReqType, retCreateAddMemoDataType } from "./Type/MemoType";
+import { memoContentListType, memoListResType, memoListType, memoRegistReqType, memoUpdReqType, retCreateAddMemoDataType } from "./Type/MemoType";
 import { convMemo, convMemoDetail, filterMemoQuery, getFilterdMemo, getFilterdSearchCondition, getFilterdUserStatusMemo, getMemoObj, joinMemoDetailTag, joinMemoTag, joinSelectListMemoSearchCondition, joinTagLabelMemoSearchCondition, joinUser } from "./MemoSelectFunction";
 import { MEMO_FILEPATH } from "./Const/MemoConst";
 import { createAddMemoData, createAddMemoTagData } from "./MemoRegistFunction";
@@ -14,6 +14,7 @@ import { getFilterdTag, getTagObj } from "../Tag/TagSelectFunction";
 import { authInfoType, authType } from "../Auth/Type/AuthType";
 import { checkMemoDelAuth, checkMemoGetAuth, checkMemoRegistAuth, checkMemoUpdAuth, checktaskGetDetailAuth, getUserMemoAuth } from "./MemoAuthFunction";
 import { getUserInfoData } from "../Setting/SettingUser/SettingUserSelectFunction";
+import { memoSearchConditionListType } from "../Setting/MemoSearchCondition/Type/MemoSearchConditionType";
 
 
 
