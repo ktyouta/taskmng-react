@@ -47,26 +47,3 @@ export function createUpdPrivateMemoSearchConditionList(
 
     return privateSearchConditionList;
 }
-
-
-/**
- * 参照権限のない検索条件を削除する
- */
-export function filterMemoConditionsByAuth(
-    privateSearchConditionList: memoPrivateSearchConditionType[],
-    searchConditionMasterList: memoSearchConditionListType[],
-    memoUserAuth: string) {
-
-    privateSearchConditionList.filter((element: memoPrivateSearchConditionType) => {
-
-        //更新対象の検索条件がマスタに存在するデータを取得
-        let masterSearchCondtion = searchConditionMasterList.find((element1: memoSearchConditionListType) => {
-
-            return element1.id === element.id;
-        });
-
-        return !!masterSearchCondtion;
-    });
-
-    return privateSearchConditionList;
-}

@@ -1,5 +1,5 @@
 import { memoContentListType, memoListResType, memoListType, } from "./Type/MemoType";
-import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_INPUTSETTING_FILEPATH, MEMO_SEARCHCONDITION_FILEPATH, MEMO_STATUS, PRE_MEMO_ID, PRE_TAG_ID, TAG_PROPERTY, USER_SEARCHCONDITION_ID } from "./Const/MemoConst";
+import { MEMO_CONTENT_FILEPATH, MEMO_FILEPATH, MEMO_STATUS, PRE_MEMO_ID, PRE_TAG_ID, TAG_PROPERTY, USER_SEARCHCONDITION_ID } from "./Const/MemoConst";
 import { getFileJsonData, readFile } from "../Common/FileFunction";
 import { authInfoType } from "../Auth/Type/AuthType";
 import { GENERALDETAIL_FILEPATH } from "../Setting/DefaultAttribute/Const/DefaultAttributeConst";
@@ -13,6 +13,7 @@ import { TAG_FILEPATH } from "../Tag/Const/TagConst";
 import { getUserInfoData } from "../Setting/SettingUser/SettingUserSelectFunction";
 import { userInfoType } from "../Setting/SettingUser/Type/SettingUserType";
 import { memoSearchConditionListType } from "../Setting/MemoSearchCondition/Type/MemoSearchConditionType";
+import { getMemoSearchConditionObj } from "../Setting/MemoSearchCondition/MemoSearchConditionSelectFunction";
 
 
 
@@ -32,31 +33,6 @@ export function getMemoObj(): memoListType[] {
 export function getFilterdMemo() {
     //メメモファイルの読み込み
     let decodeFileData: memoListType[] = getMemoObj();
-
-    //削除フラグが1(削除済)のデータをフィルターする
-    decodeFileData = decodeFileData.filter((element) => {
-        return element.deleteFlg !== "1";
-    });
-
-    return decodeFileData;
-}
-
-
-/**
- * メモ検索条件ファイルからオブジェクトを取得
- */
-export function getMemoSearchConditionObj(): memoSearchConditionListType[] {
-    //メモ検索条件ファイルの読み込み
-    let fileData = readFile(MEMO_SEARCHCONDITION_FILEPATH);
-    return JSON.parse(fileData);
-}
-
-/**
- * 削除データをフィルターする
- */
-export function getFilterdSearchCondition() {
-    //メモ検索条件ファイルの読み込み
-    let decodeFileData: memoSearchConditionListType[] = getMemoSearchConditionObj();
 
     //削除フラグが1(削除済)のデータをフィルターする
     decodeFileData = decodeFileData.filter((element) => {

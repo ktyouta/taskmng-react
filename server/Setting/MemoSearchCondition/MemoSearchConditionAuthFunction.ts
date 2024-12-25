@@ -32,7 +32,7 @@ export function getMemoSearchConditionMemoAuth(memoAuth: authType,) {
     //一般権限以上の場合更新可能
     if (!checkAuthAction(memoAuth.auth, USER_AUTH.PUBLIC)) {
         resActionAuthObj.status = 403;
-        resActionAuthObj.message = "メモ画面の権限が不足しています。";
+        resActionAuthObj.message = "メモ画面の権限が不足しているため検索条件を更新できません。";
         return resActionAuthObj;
     }
 

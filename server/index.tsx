@@ -26,6 +26,7 @@ import { JSONEXTENSION, MASTERFILEPATH } from './Common/Const/CommonConst';
 import { getMemoDetail, getMemoList, getMemoSearchConditionList, runAddMemo, runDelMemo, runUpdMemo } from './Memo/MemoFunction';
 import { getTagList } from './Tag/TagFunction';
 import { getImageList } from './Image/ImageFunction';
+import { runUpdMemoSearchConditionList } from './Setting/MemoSearchCondition/MemoSearchConditionFunction';
 
 
 
@@ -379,7 +380,7 @@ app.put(`${ENV.TASKRECOVERY}`, function (req, res) {
  * メモ検索条件(ユーザー単位)の更新
  */
 app.put(ENV.MEMOSEARCHCONDITION, function (req, res) {
-    getMemoSearchConditionList(res, req);
+    runUpdMemoSearchConditionList(res, req);
 });
 
 

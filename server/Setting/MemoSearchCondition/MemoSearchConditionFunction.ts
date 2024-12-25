@@ -3,7 +3,7 @@ import { authInfoType, authType } from "../../Auth/Type/AuthType";
 import { overWriteFileData } from "../../Common/FileFunction";
 import { resActionAuthType } from "../../Common/Type/CommonType";
 import { getUserMemoAuth } from "../../Memo/MemoAuthFunction";
-import { getFilterdSearchCondition, getMemoSearchConditionObj, joinSelectListMemoSearchCondition, joinTagLabelMemoSearchCondition } from "../../Memo/MemoSelectFunction";
+import { joinSelectListMemoSearchCondition, joinTagLabelMemoSearchCondition } from "../../Memo/MemoSelectFunction";
 import { getFilterdTag } from "../../Tag/TagSelectFunction";
 import { tagListType } from "../../Tag/Type/TagType";
 import { getUserPrivateSearchConditionUpdAuth, getUserSearchConditionAuth } from "../SearchCondition/SearchConditionAuthFunction";
@@ -11,8 +11,8 @@ import { searchConditionType } from "../SearchCondition/Type/SearchConditionType
 import { getUserInfoData } from "../SettingUser/SettingUserSelectFunction";
 import { MEMO_PRIVATE_SEARCHCONDITION_FILE_PATH } from "./Const/MemoSearchConditionConst";
 import { getMemoSearchConditionMemoAuth } from "./MemoSearchConditionAuthFunction";
-import { createUpdPrivateMemoSearchConditionList, filterMemoConditionsByAuth } from "./MemoSearchConditionUpdateFunction";
-import { getPrivateMemoSearchConditionObj } from "./MemoSearchConditonFunction";
+import { createUpdPrivateMemoSearchConditionList, } from "./MemoSearchConditionUpdateFunction";
+import { getFilterdMemoSearchCondition, getPrivateMemoSearchConditionList, getPrivateMemoSearchConditionObj, getUserPrivateMemoSearchConditionList, joinMemoSearchCondition } from "./MemoSearchConditionSelectFunction";
 import { memoPrivateSearchConditionType, memoSearchConditionListType, settingPrivateMemoSearchConditionUpdReqType } from "./Type/MemoSearchConditionType";
 
 
@@ -50,7 +50,13 @@ export function getMemoSearchConditionList(res: any, req: any) {
     }
 
     //メモ検索条件ファイルの読み込み
-    let decodeFileData: memoSearchConditionListType[] = getFilterdSearchCondition();
+    let decodeFileData: memoSearchConditionListType[] = getFilterdMemoSearchCondition();
+
+    //メモ検索条件ファイル(ユーザー単位)の読み込み
+    let userMemoSearchConditionList = getPrivateMemoSearchConditionList();
+
+    //検索条件マスタとユーザーの検索条件設定を結合する
+    let searchConditionList: memoSearchConditionListType[] = joinMemoSearchCondition(decodeFileData, userMemoSearchConditionList);
 
     //ユーザーリストの読み込み
     let userList = getUserInfoData();
@@ -136,12 +142,9 @@ export function runUpdMemoSearchConditionList(res: any, req: any) {
     }
 
     //リクエストボディ
-    let body: settingPrivateMemoSearchConditionUpdReqType = req.body;
+    const body: settingPrivateMemoSearchConditionUpdReqType = req.body;
     //ユーザーID
-    let userId = authResult.userInfo.userId;
-
-    //検索設定マスタファイルの読み込み
-    let searchConditionMasterList: memoSearchConditionListType[] = getMemoSearchConditionObj();
+    const userId = authResult.userInfo.userId;
 
     //ユーザー毎のメモ検索条件設定を取得する
     let memoPrivateSearchConditionList: memoPrivateSearchConditionType[] = getPrivateMemoSearchConditionObj();
@@ -149,9 +152,6 @@ export function runUpdMemoSearchConditionList(res: any, req: any) {
     //更新用データの作成
     let updData: memoPrivateSearchConditionType[] = createUpdPrivateMemoSearchConditionList(
         memoPrivateSearchConditionList, body, userId);
-
-    //参照権限のない検索条件を削除する
-    updData = filterMemoConditionsByAuth(updData, searchConditionMasterList, memoAuth.auth);
 
     //更新データをファイルに書き込む
     let errMessage = overWriteFileData(MEMO_PRIVATE_SEARCHCONDITION_FILE_PATH, updData);

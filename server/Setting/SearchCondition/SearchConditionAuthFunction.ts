@@ -38,3 +38,24 @@ export function getUserPrivateSearchConditionUpdAuth(settingSearchConditionAuth:
 
     return resActionAuthObj;
 }
+
+
+/**
+ * タスク画面の権限をもとに更新権限を確認する
+ */
+export function getTaskSearchConditionMemoAuth(memoAuth: authType,) {
+
+    let resActionAuthObj: resActionAuthType = {
+        status: 200,
+        message: ""
+    };
+
+    //一般権限以上の場合更新可能
+    if (!checkAuthAction(memoAuth.auth, USER_AUTH.PUBLIC)) {
+        resActionAuthObj.status = 403;
+        resActionAuthObj.message = "タスク画面の権限が不足しているため検索条件を更新できません。";
+        return resActionAuthObj;
+    }
+
+    return resActionAuthObj;
+}

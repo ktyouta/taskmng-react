@@ -3,7 +3,7 @@ import { authenticate } from "../Auth/AuthFunction";
 import { inputSettingType } from "../Common/Type/CommonType";
 import { overWriteData } from "../Common/FileFunction";
 import { memoContentListType, memoListResType, memoListType, memoRegistReqType, memoUpdReqType, retCreateAddMemoDataType } from "./Type/MemoType";
-import { convMemo, convMemoDetail, filterMemoQuery, getFilterdMemo, getFilterdSearchCondition, getFilterdUserStatusMemo, getMemoObj, joinMemoDetailTag, joinMemoTag, joinSelectListMemoSearchCondition, joinTagLabelMemoSearchCondition, joinUser } from "./MemoSelectFunction";
+import { convMemo, convMemoDetail, filterMemoQuery, getFilterdMemo, getFilterdUserStatusMemo, getMemoObj, joinMemoDetailTag, joinMemoTag, joinSelectListMemoSearchCondition, joinTagLabelMemoSearchCondition, joinUser } from "./MemoSelectFunction";
 import { MEMO_FILEPATH } from "./Const/MemoConst";
 import { createAddMemoData, createAddMemoTagData } from "./MemoRegistFunction";
 import { createUpdMemoData } from "./MemoUpdateFunction";
@@ -15,6 +15,7 @@ import { authInfoType, authType } from "../Auth/Type/AuthType";
 import { checkMemoDelAuth, checkMemoGetAuth, checkMemoRegistAuth, checkMemoUpdAuth, checktaskGetDetailAuth, getUserMemoAuth } from "./MemoAuthFunction";
 import { getUserInfoData } from "../Setting/SettingUser/SettingUserSelectFunction";
 import { memoSearchConditionListType } from "../Setting/MemoSearchCondition/Type/MemoSearchConditionType";
+import { getFilterdMemoSearchCondition } from "../Setting/MemoSearchCondition/MemoSearchConditionSelectFunction";
 
 
 
@@ -195,7 +196,7 @@ export function getMemoSearchConditionList(res: any, req: any) {
     }
 
     //メモ検索条件ファイルの読み込み
-    let decodeFileData: memoSearchConditionListType[] = getFilterdSearchCondition();
+    let decodeFileData: memoSearchConditionListType[] = getFilterdMemoSearchCondition();
 
     //ユーザーリストの読み込み
     let userList = getUserInfoData();

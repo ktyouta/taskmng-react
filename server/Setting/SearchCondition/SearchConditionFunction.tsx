@@ -8,7 +8,7 @@ import { getUserTaskAuth } from "../../Task/TaskAuthFunction";
 import { getCustomAttributeData, getCustomAttributeListData } from "../CustomAttribute/CustomAttributeSelectFunction";
 import { customAttributeListType, customAttributeType } from "../CustomAttribute/Type/CustomAttributeType";
 import { SEARCHCONDITION_FILE_PATH, SEARCHCONDITION_QUERYLRY, TASK_PRIVATE_SEARCHCONDITION_FILE_PATH } from "./Const/SearchConditionConst";
-import { getUserPrivateSearchConditionUpdAuth, getUserSearchConditionAuth } from "./SearchConditionAuthFunction";
+import { getTaskSearchConditionMemoAuth, getUserPrivateSearchConditionUpdAuth, getUserSearchConditionAuth } from "./SearchConditionAuthFunction";
 import { createAddSearchCondition } from "./SearchConditionRegisterFunction";
 import { filterdQueryParamSearchCondition, filterSearchConditionByUserAuth, getFilterdSearchConditionList, getPrivateSearchConditionList, getPrivateSearchConditionObj, getSearchConditionList, getSearchConditionObj, getUserPrivateSearchConditionList, joinSearchCondition, joinSelectListSearchCondition, joinSelectListTaskSearchCondition } from "./SearchConditionSelectFunction";
 import { createUpdPrivateSearchConditionList, createUpdSearchCondition, createUpdSearchConditionList, filterConditionsByAuth } from "./SearchConditionUpdateFunction";
@@ -163,7 +163,7 @@ export function runUpdSearchConditionList(res: any, req: any) {
     }
 
     //検索条件設定画面の権限を取得する
-    let searchConditionAuth: authType | undefined = getUserSearchConditionAuth(authResult.userInfo);
+    const searchConditionAuth: authType | undefined = getUserSearchConditionAuth(authResult.userInfo);
 
     //検索条件設定に関する権限が存在しない場合
     if (!searchConditionAuth || !searchConditionAuth.auth) {
@@ -173,7 +173,7 @@ export function runUpdSearchConditionList(res: any, req: any) {
     }
 
     //検索条件設定更新権限チェック
-    let searchConditionupdAuthObj: resActionAuthType = getUserPrivateSearchConditionUpdAuth(searchConditionAuth);
+    const searchConditionupdAuthObj: resActionAuthType = getUserPrivateSearchConditionUpdAuth(searchConditionAuth);
 
     //検索条件設定権限エラー
     if (searchConditionupdAuthObj.message) {
@@ -183,13 +183,23 @@ export function runUpdSearchConditionList(res: any, req: any) {
     }
 
     //タスク画面の権限を取得
-    let taskUseruth: authType | undefined = getUserTaskAuth(authResult.userInfo);
+    const taskUseruth: authType | undefined = getUserTaskAuth(authResult.userInfo);
 
     //タスクに関する権限が存在しない場合
     if (!taskUseruth || !taskUseruth.auth) {
         return res
             .status(403)
             .json({ errMessage: "タスク画面の権限が存在しないため検索条件を更新できません。" });
+    }
+
+    //タスク権限チェック
+    const taskUpdAuthObj: resActionAuthType = getTaskSearchConditionMemoAuth(taskUseruth);
+
+    //タスク権限エラー
+    if (taskUpdAuthObj.message) {
+        return res
+            .status(taskUpdAuthObj.status)
+            .json({ errMessage: taskUpdAuthObj.message });
     }
 
     //リクエストボディ
