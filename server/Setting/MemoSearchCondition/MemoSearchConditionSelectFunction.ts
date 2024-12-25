@@ -80,7 +80,8 @@ export function getUserPrivateMemoSearchConditionList(userId: string): memoPriva
  * @returns 
  */
 export function joinMemoSearchCondition(searchCondtionMasterList: memoSearchConditionListType[],
-    searchConditionPrivateList: memoPrivateSearchConditionType[]
+    searchConditionPrivateList: memoPrivateSearchConditionType[],
+    userId: string,
 ): memoSearchConditionListType[] {
 
     let retSearchConditionList: memoSearchConditionListType[] = searchCondtionMasterList.map((element: memoSearchConditionListType) => {
@@ -90,7 +91,7 @@ export function joinMemoSearchCondition(searchCondtionMasterList: memoSearchCond
         //ユーザー毎のメモ検索条件を取得
         let searchConditionPrivateObj = searchConditionPrivateList.find((element1: memoPrivateSearchConditionType) => {
 
-            return element1.id === element.id;
+            return element1.id === element.id && element1.userId === userId;
         });
 
         //ユーザーの検索条件が存在する場合

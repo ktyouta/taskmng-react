@@ -32,6 +32,30 @@
 		"userId": "f"
 	},
 	{
+		"id": "registerTime",
+		"value": "",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/03/16",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"id": "updTime",
+		"value": "",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/03/16",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
+		"id": "tag",
+		"value": "",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/12/22",
+		"deleteFlg": "0",
+		"userId": "f"
+	},
+	{
 		"id": "limit",
 		"value": "250",
 		"registerTime": "2024/01/28",
@@ -60,6 +84,30 @@
 		"value": "",
 		"registerTime": "2024/01/28",
 		"updTime": "2024/03/16",
+		"deleteFlg": "0",
+		"userId": "g"
+	},
+	{
+		"id": "registerTime",
+		"value": "",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/03/16",
+		"deleteFlg": "0",
+		"userId": "g"
+	},
+	{
+		"id": "updTime",
+		"value": "",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/03/16",
+		"deleteFlg": "0",
+		"userId": "g"
+	},
+	{
+		"id": "tag",
+		"value": "",
+		"registerTime": "2024/01/28",
+		"updTime": "2024/12/22",
 		"deleteFlg": "0",
 		"userId": "g"
 	}

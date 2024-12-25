@@ -164,62 +164,6 @@ export function getMemoDetail(res: any, req: any, id: string) {
 
 
 /**
- * メモ検索条件リストの取得
- */
-export function getMemoSearchConditionList(res: any, req: any) {
-
-    //有効ユーザーチェック
-    let authResult: authInfoType = authenticate(req.cookies.cookie);
-
-    //チェックエラー
-    if (authResult.errMessage) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
-
-    //トークンからユーザー情報が取得できなかった場合
-    if (!authResult.userInfo) {
-        return res
-            .status(authResult.status)
-            .json({ errMessage: authResult.errMessage });
-    }
-
-    //メモ画面の権限を取得する
-    let memoAuth: authType | undefined = getUserMemoAuth(authResult.userInfo);
-
-    //メモに関する権限が存在しない場合
-    if (!memoAuth || !memoAuth.auth) {
-        return res
-            .status(403)
-            .json({ errMessage: "メモ画面の権限が存在しないため検索条件を取得できません。" });
-    }
-
-    //メモ検索条件ファイルの読み込み
-    let decodeFileData: memoSearchConditionListType[] = getFilterdMemoSearchCondition();
-
-    //ユーザーリストの読み込み
-    let userList = getUserInfoData();
-
-    //タグファイルの読み込み
-    let decodeTagFileData: tagListType[] = getFilterdTag();
-
-    //ユーザーリストと結合する
-    let resMemoSearchConditionList: memoSearchConditionListType[] = joinSelectListMemoSearchCondition(decodeFileData, userList);
-
-    //タグラベルと結合する
-    resMemoSearchConditionList = joinTagLabelMemoSearchCondition(decodeFileData, decodeTagFileData);
-
-    //該当データなし
-    if (resMemoSearchConditionList.length === 0) {
-        return res.status(200).json(resMemoSearchConditionList);
-    }
-
-    return res.status(200).json(resMemoSearchConditionList);
-}
-
-
-/**
  * メモの追加
  */
 export function runAddMemo(res: any, req: any) {

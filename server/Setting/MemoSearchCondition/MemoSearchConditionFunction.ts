@@ -50,13 +50,14 @@ export function getMemoSearchConditionList(res: any, req: any) {
     }
 
     //メモ検索条件ファイルの読み込み
-    let decodeFileData: memoSearchConditionListType[] = getFilterdMemoSearchCondition();
+    let memoSearchConditionMasterList: memoSearchConditionListType[] = getFilterdMemoSearchCondition();
 
     //メモ検索条件ファイル(ユーザー単位)の読み込み
     let userMemoSearchConditionList = getPrivateMemoSearchConditionList();
 
     //検索条件マスタとユーザーの検索条件設定を結合する
-    let searchConditionList: memoSearchConditionListType[] = joinMemoSearchCondition(decodeFileData, userMemoSearchConditionList);
+    let searchConditionList: memoSearchConditionListType[] = joinMemoSearchCondition(
+        memoSearchConditionMasterList, userMemoSearchConditionList, authResult.userInfo.userId);
 
     //ユーザーリストの読み込み
     let userList = getUserInfoData();
@@ -65,10 +66,10 @@ export function getMemoSearchConditionList(res: any, req: any) {
     let decodeTagFileData: tagListType[] = getFilterdTag();
 
     //ユーザーリストと結合する
-    let resMemoSearchConditionList: memoSearchConditionListType[] = joinSelectListMemoSearchCondition(decodeFileData, userList);
+    let resMemoSearchConditionList: memoSearchConditionListType[] = joinSelectListMemoSearchCondition(searchConditionList, userList);
 
     //タグラベルと結合する
-    resMemoSearchConditionList = joinTagLabelMemoSearchCondition(decodeFileData, decodeTagFileData);
+    resMemoSearchConditionList = joinTagLabelMemoSearchCondition(searchConditionList, decodeTagFileData);
 
     //該当データなし
     if (resMemoSearchConditionList.length === 0) {

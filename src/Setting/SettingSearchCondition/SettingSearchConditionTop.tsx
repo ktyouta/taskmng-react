@@ -34,7 +34,9 @@ const TitleDiv = styled.div`
     padding-left: 2%;
     padding-top: 1%;
     padding-right: 1%;
+    text-align: center;
 `;
+
 
 
 function SettingSearchConditionTop() {
