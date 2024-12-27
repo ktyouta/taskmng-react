@@ -45,8 +45,8 @@ function retSettingComponent(
                 menuId={element.id}
             />;
             break;
-        //検索条件
-        case CATEGORY_ID.SEARCHCONDITON:
+        //ユーザー設定
+        case CATEGORY_ID.SETTING_USER:
             component = <SettingUser
                 path={path}
                 menuId={element.id}
@@ -59,8 +59,8 @@ function retSettingComponent(
                 menuId={element.id}
             />;
             break;
-        //ユーザー設定
-        case CATEGORY_ID.SETTING_USER:
+        //検索条件
+        case CATEGORY_ID.SEARCHCONDITON:
             component = <SettingSearchCondition
                 path={path}
                 menuId={element.id}
