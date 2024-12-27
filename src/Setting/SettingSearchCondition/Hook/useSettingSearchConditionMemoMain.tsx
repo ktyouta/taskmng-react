@@ -9,6 +9,7 @@ import { memoSearchConditionType } from "../../../Memo/Type/MemoType";
 import { createRequestBody } from "../../../Common/Function/Function";
 import { createSearchRefArray } from "../../../Memo/Function/MemoFunction";
 import { createMemoSearchRefArray } from "../Function/SettingSearchConditionFunction";
+import { settingSMemoearchConditionUpdReqType } from "../Type/SettingSearchConditionType";
 
 
 
@@ -62,7 +63,18 @@ function useSettingSearchConditionMemoMain() {
         }
 
         //リクエストボディの作成
-        let body = createRequestBody(memoSearchRefInfo);
+        let body: settingSMemoearchConditionUpdReqType = {
+            condition: []
+        };
+
+        body.condition = memoSearchRefInfo.map((element) => {
+
+            return {
+                id: element.id,
+                value: element.ref.current?.refValue ?? "",
+            }
+        });
+
         updMutation.mutate(body);
     }
 

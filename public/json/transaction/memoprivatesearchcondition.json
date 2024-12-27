@@ -3,7 +3,7 @@
 		"id": "limit",
 		"value": "250",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/12/22",
+		"updTime": "2024/12/27",
 		"deleteFlg": "0",
 		"userId": "f"
 	},
@@ -11,7 +11,7 @@
 		"id": "keyword",
 		"value": "",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/12/22",
+		"updTime": "2024/12/27",
 		"deleteFlg": "0",
 		"userId": "f"
 	},
@@ -19,7 +19,7 @@
 		"id": "title",
 		"value": "",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/12/22",
+		"updTime": "2024/12/27",
 		"deleteFlg": "0",
 		"userId": "f"
 	},
@@ -27,7 +27,7 @@
 		"id": "userId",
 		"value": "",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/12/22",
+		"updTime": "2024/12/27",
 		"deleteFlg": "0",
 		"userId": "f"
 	},
@@ -35,7 +35,7 @@
 		"id": "registerTime",
 		"value": "",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/03/16",
+		"updTime": "2024/12/27",
 		"deleteFlg": "0",
 		"userId": "f"
 	},
@@ -43,7 +43,7 @@
 		"id": "updTime",
 		"value": "",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/03/16",
+		"updTime": "2024/12/27",
 		"deleteFlg": "0",
 		"userId": "f"
 	},
@@ -51,7 +51,7 @@
 		"id": "tag",
 		"value": "",
 		"registerTime": "2024/01/28",
-		"updTime": "2024/12/22",
+		"updTime": "2024/12/27",
 		"deleteFlg": "0",
 		"userId": "f"
 	},
