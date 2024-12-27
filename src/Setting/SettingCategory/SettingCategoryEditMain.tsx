@@ -42,16 +42,12 @@ type propsType = {
     setPath: React.Dispatch<React.SetStateAction<string | undefined>>,
     name: string | undefined,
     setName: React.Dispatch<React.SetStateAction<string | undefined>>,
-    componentName: string | undefined,
-    setComponentName: React.Dispatch<React.SetStateAction<string | undefined>>,
     isHidden: string | undefined,
     setIsHidden: React.Dispatch<React.SetStateAction<string | undefined>>,
-    authList: radioType[] | undefined,
-    auth: string | undefined,
-    setAuth: React.Dispatch<React.SetStateAction<string | undefined>>,
     registerTime: string,
     updTime: string,
     editMode: number,
+    id: string,
 }
 
 
@@ -66,6 +62,16 @@ function SettingCategoryEditMain(props: propsType) {
             height={props.outerHeight}
         >
             <MainDiv>
+                {
+                    props.editMode === editModeEnum.update &&
+                    <HorizonLabelItemComponent
+                        title={'ID'}
+                        width='30%'
+                        position='left'
+                    >
+                        {props.id}
+                    </HorizonLabelItemComponent>
+                }
                 <HorizonLabelItemComponent
                     title={'パス'}
                     width='30%'
@@ -95,38 +101,6 @@ function SettingCategoryEditMain(props: propsType) {
                             onChange={props.setName}
                             textWidth='80%'
                             disabled={!isEditableAuth}
-                        />
-                    }
-                </HorizonLabelItemComponent>
-                <HorizonLabelItemComponent
-                    title={'コンポーネント名称'}
-                    width='30%'
-                    position='left'
-                >
-                    {
-                        props.componentName !== undefined &&
-                        <BaseInputComponent
-                            value={props.componentName}
-                            length={50}
-                            onChange={props.setComponentName}
-                            textWidth='80%'
-                            disabled={!isEditableAuth}
-                        />
-                    }
-                </HorizonLabelItemComponent>
-                <HorizonLabelItemComponent
-                    title={'権限'}
-                    width='30%'
-                    position='left'
-                >
-                    {
-                        props.authList &&
-                        props.auth !== undefined &&
-                        <ComboComponent
-                            combo={props.authList}
-                            initValue={props.auth}
-                            disabled={!isEditableAuth}
-                            onChange={props.setAuth}
                         />
                     }
                 </HorizonLabelItemComponent>

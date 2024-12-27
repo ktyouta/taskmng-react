@@ -39,12 +39,6 @@ function useSettingCategoryEdit(props: propsType) {
     const [path, setPath] = useState<string | undefined>();
     //名称
     const [name, setName] = useState<string | undefined>();
-    //コンポーネント名称
-    const [componentName, setComponentName] = useState<string | undefined>();
-    //権限
-    const [auth, setAuth] = useState<string | undefined>();
-    //コンポーネント名称の初期値
-    const [initComponentName, setInitComponentName] = useState<string>();
     //表示非表示フラグ
     const [isHidden, setIsHidden] = useState<string | undefined>();
 
@@ -60,9 +54,6 @@ function useSettingCategoryEdit(props: propsType) {
                 }
                 setPath(data.path);
                 setName(data.name);
-                setComponentName(data.componentName);
-                setAuth(data.auth);
-                setInitComponentName(data.componentName);
                 setIsHidden(data.isHidden);
             }
             , afErrorFn: (res) => {
@@ -82,23 +73,11 @@ function useSettingCategoryEdit(props: propsType) {
         return updCategory && updCategory.updTime ? updCategory.updTime : "";
     }, [updCategory]);
 
-    //権限リスト
-    const authList = useMemo(() => {
-        if (!generalDataList) {
-            return;
-        }
-        let tmp: radioType[] = generalDataList.filter((element) => {
-            return element.id === AUTH_ID;
-        }).map((element) => {
-            return { label: element.label, value: element.value }
-        });
+    //ID
+    let id = useMemo(() => {
+        return updCategory && updCategory.id ? updCategory.id : "";
+    }, [updCategory]);
 
-        //新規登録の場合は先頭の値をセット
-        if (editMode === editModeEnum.create && tmp.length > 0) {
-            setAuth(tmp[0].value);
-        }
-        return tmp;
-    }, [generalDataList]);
 
     //初期値セット
     useEffect(() => {
@@ -106,7 +85,6 @@ function useSettingCategoryEdit(props: propsType) {
         if (editMode === editModeEnum.create) {
             setPath("");
             setName("");
-            setComponentName("");
             setIsHidden("0");
             return;
         }
@@ -220,16 +198,9 @@ function useSettingCategoryEdit(props: propsType) {
         if (!body) {
             return;
         }
-        //コンポーネント名称が変更された場合
-        if (initComponentName != body.componentName) {
-            if (!window.confirm("コンポーネント名称が変更されたため、画面が表示されなくなる可能性があります。カテゴリを更新しますか？")) {
-                return;
-            }
-        }
-        else {
-            if (!window.confirm('カテゴリを更新しますか？')) {
-                return
-            }
+
+        if (!window.confirm('カテゴリを更新しますか？')) {
+            return
         }
 
         if (!registMutation) {
@@ -256,7 +227,6 @@ function useSettingCategoryEdit(props: propsType) {
         let body: registCategoryType = {
             name: "",
             path: "",
-            componentName: "",
             auth: "",
             isHidden: "0",
         };
@@ -273,18 +243,6 @@ function useSettingCategoryEdit(props: propsType) {
             return;
         }
         body.name = name;
-        //コンポーネント名称
-        if (!componentName) {
-            alert("コンポーネント名称を入力してください");
-            return;
-        }
-        body.componentName = componentName;
-        //権限
-        if (!auth) {
-            alert("権限を入力してください");
-            return;
-        }
-        body.auth = auth;
         //表示非表示
         if (isHidden) {
             body.isHidden = isHidden;
@@ -298,13 +256,8 @@ function useSettingCategoryEdit(props: propsType) {
         setPath,
         name,
         setName,
-        componentName,
-        setComponentName,
-        auth,
-        setAuth,
         isHidden,
         setIsHidden,
-        authList,
         registerTime,
         updTime,
         isLoadinGetcategory,
@@ -329,6 +282,7 @@ function useSettingCategoryEdit(props: propsType) {
             onclick: editMode === editModeEnum.update ? updateCategory : registeCategory
         } as buttonObjType,
         editMode,
+        id
     }
 }
 

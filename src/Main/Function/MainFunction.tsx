@@ -15,6 +15,7 @@ import SettingUser from "../../Setting/SettingUser/SettingUser";
 import SettingDefault from "../../Setting/SettingDefault/SettingDefault";
 import SettingSearchCondition from "../../Setting/SettingSearchCondition/SettingSearchCondition";
 import { getUserAuth } from "../../Common/Function/Function";
+import { CATEGORY_ID } from "../../Common/Const/CommonConst";
 
 /**
  * 設定から該当のコンポーネントを返す
@@ -30,27 +31,27 @@ export function retComponent(element: menuListType) {
     //テスト用ID
     let testId = `${ScreenTestIdPrefix}${element.id}`;
 
-    switch (element.componentName) {
+    switch (element.id) {
         //ホーム
-        case "Home":
+        case CATEGORY_ID.HOME:
             component = <Home
                 testId={testId}
             />;
             break;
         //マスタ編集
-        case "Master":
+        case CATEGORY_ID.MASTER_EDIT:
             component = <Master
                 testId={testId}
             />;
             break;
         //新規マスタ追加
-        case "AddMaster":
+        case CATEGORY_ID.ADD_MASTER:
             component = <AddMaster
                 testId={testId}
             />;
             break;
         //タスク
-        case "Task":
+        case CATEGORY_ID.TASK:
             component = <Task
                 path={path}
                 testId={testId}
@@ -58,7 +59,7 @@ export function retComponent(element: menuListType) {
             />;
             break;
         //メモ
-        case "Memo":
+        case CATEGORY_ID.MEMO:
             component = <Memo
                 path={path}
                 testId={testId}
@@ -66,7 +67,7 @@ export function retComponent(element: menuListType) {
             />;
             break;
         //設定
-        case "Setting":
+        case CATEGORY_ID.SETTING:
             component = <Setting
                 path={path}
                 testId={testId}
@@ -74,14 +75,14 @@ export function retComponent(element: menuListType) {
             />;
             break;
         //ユーザーメニュー
-        case "User":
+        case CATEGORY_ID.USER:
             component = <User
                 path={path}
                 testId={testId}
             />;
             break;
         //作業履歴
-        case "History":
+        case CATEGORY_ID.HISTORY:
             component = <Histroy
                 testId={testId}
             />

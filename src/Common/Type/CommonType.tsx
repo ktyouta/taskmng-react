@@ -28,7 +28,6 @@ export type menuListType = {
     id: string,
     name: string,
     path: string,
-    componentName: string,
     auth: string,
     isHidden: string,
     subCategoryList?: menuListType[]

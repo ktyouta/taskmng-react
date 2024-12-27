@@ -4,7 +4,6 @@
         "parentId":"CATEGORY-7",
         "name": "デフォルト属性",
         "path": "/default",
-        "componentName": "SettingDefault",
         "auth": "3",
         "isHidden": false,
         "order":"1"
@@ -14,7 +13,6 @@
         "parentId":"CATEGORY-7",
         "name": "カスタム属性",
         "path": "/custom",
-        "componentName": "SettingCustom",
         "auth": "3",
         "isHidden": false,
         "order":"2"
@@ -24,7 +22,6 @@
         "parentId":"CATEGORY-7",
         "name": "検索条件",
         "path": "/searchcondition",
-        "componentName": "SettingSearchCondition",
         "auth": "3",
         "isHidden": false,
         "order":"3"
@@ -34,7 +31,6 @@
         "parentId":"CATEGORY-7",
         "name": "カテゴリ",
         "path": "/category",
-        "componentName": "SettingCategory",
         "auth": "3",
         "isHidden": false,
         "order":"4"
@@ -44,7 +40,6 @@
         "parentId":"CATEGORY-7",
         "name": "ユーザー",
         "path": "/user",
-        "componentName": "SettingUser",
         "auth": "3",
         "isHidden": false,
         "order":"5"

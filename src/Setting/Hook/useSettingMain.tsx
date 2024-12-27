@@ -14,6 +14,7 @@ import { Provider } from 'jotai';
 import SettingDefault from '../SettingDefault/SettingDefault';
 import SettingSearchCondition from '../SettingSearchCondition/SettingSearchCondition';
 import { authType } from '../../Common/Hook/useCheckAuth';
+import { CATEGORY_ID } from '../../Common/Const/CommonConst';
 
 
 /**
@@ -29,32 +30,37 @@ function retSettingComponent(
 
     let component = <React.Fragment />;
 
-    switch (element.componentName) {
-        case "SettingCustom":
+    switch (element.id) {
+        //カスタム属性
+        case CATEGORY_ID.CUSTOMATTRIBUTE:
             component = <SettingCustom
                 path={path}
                 menuId={element.id}
             />;
             break;
-        case "SettingCategory":
+        //カテゴリ
+        case CATEGORY_ID.SETTINGCATEGORY:
             component = <SettingCategory
                 path={path}
                 menuId={element.id}
             />;
             break;
-        case "SettingUser":
+        //検索条件
+        case CATEGORY_ID.SEARCHCONDITON:
             component = <SettingUser
                 path={path}
                 menuId={element.id}
             />;
             break;
-        case "SettingDefault":
+        //デフォルト属性
+        case CATEGORY_ID.DEFAULTATTRIBUTE:
             component = <SettingDefault
                 path={path}
                 menuId={element.id}
             />;
             break;
-        case "SettingSearchCondition":
+        //ユーザー設定
+        case CATEGORY_ID.SETTING_USER:
             component = <SettingSearchCondition
                 path={path}
                 menuId={element.id}

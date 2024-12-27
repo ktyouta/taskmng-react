@@ -6,7 +6,6 @@ export type categoryType = {
     id: string,
     name: string,
     path: string,
-    componentName: string,
     auth: string,
     isHidden: string,
     order: string,
@@ -18,7 +17,6 @@ export type categoryType = {
 export type registCategoryType = {
     name: string,
     path: string,
-    componentName: string,
     auth: string,
     isHidden: string,
 }

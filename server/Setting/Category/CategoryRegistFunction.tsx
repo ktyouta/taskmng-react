@@ -21,7 +21,6 @@ export function createAddCategoryData(fileDataObj: categoryType[], req: any, aut
         id: "",
         name: "",
         path: "",
-        componentName: "",
         auth: "",
         isHidden: "0",
         deleteFlg: "",
