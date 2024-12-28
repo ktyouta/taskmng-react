@@ -228,7 +228,7 @@ function useSettingUserEdit(props: propsType) {
         if (!window.confirm('ユーザーを更新しますか？')) {
             return
         }
-        if (!registMutation) {
+        if (!updMutation) {
             alert("リクエストの送信に失敗しました。");
             return;
         }

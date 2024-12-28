@@ -10,9 +10,18 @@ import { editModeEnum } from '../../Setting/Const/SettingConst';
 import { userInfoType } from '../../Common/Type/CommonType';
 import { HOME_PATH, NOWPATH_STRAGEKEY } from '../../Header/Const/HeaderConst';
 import { USERID_STRAGEKEY } from '../../Common/Const/CommonConst';
+import { userInfoAuthorityAtom } from '../Atom/UserAtom';
 
 
-function useUser() {
+//引数の型
+type propsType = {
+    path: string,
+    testId: string,
+    menuId: string,
+}
+
+
+function useUser(props: propsType) {
 
     //編集モード
     const setEditMode = useSetAtom(editModeAtom);
@@ -20,6 +29,8 @@ function useUser() {
     const setUserId = useSetAtom(userIdAtom);
     //ルーティング用
     const navigate = useNavigate();
+    //ユーザー情報画面の権限
+    const setUserInfoAuthority = useSetAtom(userInfoAuthorityAtom);
 
     useEffect(() => {
         //ローカルストレージからユーザーIDを取得する

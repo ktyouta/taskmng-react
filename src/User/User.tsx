@@ -18,6 +18,7 @@ const OuterDiv = styled.div`
 type propsType = {
     path: string,
     testId: string,
+    menuId: string,
 }
 
 
@@ -25,7 +26,7 @@ function User(props: propsType) {
 
     console.log("User render");
 
-    useUser();
+    useUser({ ...props });
 
     return (
         <OuterDiv
@@ -35,9 +36,7 @@ function User(props: propsType) {
                 <Route
                     path="/"
                     element={
-                        <UserTop
-                            path={props.path}
-                        />}
+                        <UserTop />}
                 />
             </Routes>
         </OuterDiv>

@@ -11,7 +11,6 @@ type propsType = {
     positiveButtonObj: buttonObjType,
     runButtonObj: buttonObjType,
     outerHeight: string,
-    isEditable: boolean,
 }
 
 //外側のスタイル
@@ -54,28 +53,24 @@ function UserFooter(props: propsType) {
                 />
             }
             <SpaceDiv />
-            {
-                props.isEditable &&
-                <React.Fragment>
-                    {
-                        props.runButtonObj &&
-                        props.runButtonObj.title &&
-                        props.runButtonObj.onclick &&
-                        <ButtonComponent
-                            styleTypeNumber={props.runButtonObj.type}
-                            title={props.runButtonObj.title}
-                            onclick={props.runButtonObj.onclick}
-                            style={{
-                                "fontWeight": "bold",
-                                "fontSize": "0.9rem",
-                                "width": "12%",
-                                "height": "43%",
-                            }}
-                        />
-                    }
-                </React.Fragment>
-            }
-
+            <React.Fragment>
+                {
+                    props.runButtonObj &&
+                    props.runButtonObj.title &&
+                    props.runButtonObj.onclick &&
+                    <ButtonComponent
+                        styleTypeNumber={props.runButtonObj.type}
+                        title={props.runButtonObj.title}
+                        onclick={props.runButtonObj.onclick}
+                        style={{
+                            "fontWeight": "bold",
+                            "fontSize": "0.9rem",
+                            "width": "12%",
+                            "height": "43%",
+                        }}
+                    />
+                }
+            </React.Fragment>
         </OuterDiv>
     );
 }

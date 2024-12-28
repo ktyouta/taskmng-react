@@ -79,6 +79,7 @@ export function retComponent(element: menuListType) {
             component = <User
                 path={path}
                 testId={testId}
+                menuId={element.id}
             />;
             break;
         //作業履歴

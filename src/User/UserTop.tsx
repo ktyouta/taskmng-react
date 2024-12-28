@@ -9,6 +9,7 @@ import CenterLoading from '../Common/CenterLoading';
 import useUserTop from './Hook/useUserTop';
 import WaitLoading from '../Common/WaitLoading';
 import { authType } from '../Common/Hook/useCheckAuth';
+import UserEditMain from './UserEditMain';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 
 
@@ -20,41 +21,31 @@ const OuterDiv = styled.div`
 `;
 
 
-//引数の型
-type propsType = {
-    path: string,
-}
 
-function UserTop(props: propsType) {
+function UserTop() {
 
     console.log("UserTop render");
 
     const {
-        registerTime,
-        updTime,
         orgIconUrl,
         isLoadinGetuser,
         positiveButtonObj,
         runButtonObj,
         editMode,
-        isEditable,
         isUpdLoading,
         userDatas,
         userDatasDisptch,
         inputUserAuthList,
         setInputUserAuthList,
         orgAuthList,
-    } = useUserTop({ ...props });
+    } = useUserTop();
 
     return (
         <OuterDiv>
-            <SettingUserEditMain
+            <UserEditMain
                 outerHeight={'85%'}
-                registerTime={registerTime}
-                updTime={updTime}
                 orgIconUrl={orgIconUrl}
                 editMode={editMode}
-                isEditable={isEditable}
                 userDatas={userDatas}
                 userDatasDisptch={userDatasDisptch}
                 inputUserAuthList={inputUserAuthList}
@@ -65,7 +56,6 @@ function UserTop(props: propsType) {
                 positiveButtonObj={positiveButtonObj}
                 runButtonObj={runButtonObj}
                 outerHeight={'15%'}
-                isEditable={isEditable}
             />
             {/* ユーザー情報取得時ローディング */}
             {
