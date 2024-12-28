@@ -10,7 +10,6 @@ import UserIconComponent from "../Common/UserIconComponent";
 import LabelRadioComponent from "../Common/LabelRadioComponent";
 import SettingUserSelectStandardMessage from "../Setting/SettingUser/SettingUserSelectStandardMessage";
 import { SELECT_ICON_TYPE } from "../Setting/SettingUser/Const/SettingUserConst";
-import useUserEditMain from "./Hook/useUserEditMain";
 import { userInfoInputType } from "./Type/UserType";
 import { USERINFO_ACTION_TYPE } from "./Const/UserConst";
 
@@ -55,17 +54,13 @@ type propsType = {
     inputUserAuthList: authType[],
     setInputUserAuthList: React.Dispatch<React.SetStateAction<authType[]>>,
     orgAuthList: authType[],
+    userId: string,
 }
 
 
 function UserEditMain(props: propsType) {
 
     console.log("UserEditMain render");
-
-    const {
-        openAuthModal,
-        closeAuthModal,
-    } = useUserEditMain();
 
     return (
         <OuterDiv
@@ -78,17 +73,7 @@ function UserEditMain(props: propsType) {
                         width='30%'
                         position='left'
                     >
-                        {
-                            props.userDatas.userId !== undefined &&
-                            <BaseInputComponent
-                                value={props.userDatas.userId}
-                                length={50}
-                                onChange={(e) => {
-                                    props.userDatasDisptch({ type: USERINFO_ACTION_TYPE.ID, payload: e });
-                                }}
-                                textWidth='80%'
-                            />
-                        }
+                        {props.userId}
                     </HorizonLabelItemComponent>
                 }
                 <HorizonLabelItemComponent

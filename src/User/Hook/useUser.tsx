@@ -11,6 +11,8 @@ import { userInfoType } from '../../Common/Type/CommonType';
 import { HOME_PATH, NOWPATH_STRAGEKEY } from '../../Header/Const/HeaderConst';
 import { USERID_STRAGEKEY } from '../../Common/Const/CommonConst';
 import { userInfoAuthorityAtom } from '../Atom/UserAtom';
+import { userAuthListAtom } from '../../Content/Atom/ContentAtom';
+import useSetMenuAuthEffect from '../../Common/Hook/useSetMenuAuthEffect';
 
 
 //引数の型
@@ -31,6 +33,9 @@ function useUser(props: propsType) {
     const navigate = useNavigate();
     //ユーザー情報画面の権限
     const setUserInfoAuthority = useSetAtom(userInfoAuthorityAtom);
+    //権限リスト
+    const userAuthList = useGlobalAtomValue(userAuthListAtom);
+
 
     useEffect(() => {
         //ローカルストレージからユーザーIDを取得する
@@ -50,6 +55,13 @@ function useUser(props: propsType) {
         setUserId(userId);
         setEditMode(editModeEnum.update);
     }, []);
+
+    //ユーザー情報画面の権限をセットする
+    useSetMenuAuthEffect({
+        setter: setUserInfoAuthority,
+        authList: userAuthList,
+        menuId: props.menuId
+    });
 
 }
 

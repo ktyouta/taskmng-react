@@ -14,7 +14,7 @@ import {
     runUpdCustomAttribute
 } from './Setting/CustomAttribute/CustomAttributeFunction';
 import { getTaskHistory } from './History/HistoryFunction';
-import { getUserInfo, getUserInfoDetail, runAddUser, runDeleteUser, runUpdUser } from './Setting/SettingUser/SettingUserFunction';
+import { getUserInfo, getSettingUserInfoDetail, runAddUser, runDeleteUser, runUpdUser } from './Setting/SettingUser/SettingUserFunction';
 import { getCategory, getCategoryDetail, runAddCategory, runDeleteCategory, runUpdCategory, runUpdCategoryOrder } from './Setting/Category/CategoryFunction';
 import { Response, Request, ParamsDictionary } from 'express-serve-static-core';
 import { ParsedQs } from 'qs';
@@ -27,6 +27,7 @@ import { getMemoDetail, getMemoList, runAddMemo, runDelMemo, runUpdMemo } from '
 import { getTagList } from './Tag/TagFunction';
 import { getImageList } from './Image/ImageFunction';
 import { getMemoSearchConditionList, runUpdMemoSearchConditionList } from './Setting/MemoSearchCondition/MemoSearchConditionFunction';
+import { getUserInfoDetail, runUpdUserInfo } from './User/UserFunction';
 
 
 
@@ -152,7 +153,7 @@ app.get(`${ENV.SETTINGUSER}`, function (req, res) {
  * user/idにアクセスした際の動作
  */
 app.get(`${ENV.SETTINGUSER}/:param`, function (req, res) {
-    getUserInfoDetail(res, req, req.params.param);
+    getSettingUserInfoDetail(res, req, req.params.param);
 });
 
 /**
@@ -226,6 +227,14 @@ app.get(ENV.TAGLIST, function (req, res) {
 app.get(ENV.IMAGELIST, function (req, res) {
     getImageList(res, req);
 });
+
+/**
+ * user/idにアクセスした際の動作
+ */
+app.get(`${ENV.USERINFO}/:param`, function (req, res) {
+    getUserInfoDetail(res, req, req.params.param);
+});
+
 
 
 /**
@@ -321,10 +330,17 @@ app.put(`${ENV.CUSTOMATTRIBUTE}/:param`, function (req, res) {
 });
 
 /**
- * ユーザー情報の更新
+ * ユーザー情報(設定)の更新
  */
 app.put(`${ENV.SETTINGUSER}/:param`, function (req, res) {
     runUpdUser(res, req, req.params.param);
+});
+
+/**
+ * ユーザー情報の更新
+ */
+app.put(`${ENV.USERINFO}/:param`, function (req, res) {
+    runUpdUserInfo(res, req, req.params.param);
 });
 
 /**

@@ -70,7 +70,7 @@ export function getUserInfo(res: any, req: any) {
 /**
  * ユーザー詳細の取得
  */
-export function getUserInfoDetail(res: any, req: any, id: string) {
+export function getSettingUserInfoDetail(res: any, req: any, id: string) {
 
     //有効ユーザーチェック
     let authResult: authInfoType = authenticate(req.cookies.cookie);

@@ -1,8 +1,8 @@
 import { getAuthObjList, getUserAuthList } from "../Auth/AuthSelectFunction";
 import { authType } from "../Auth/Type/AuthType";
 import { readFile } from "../Common/FileFunction";
-import { AUTH_ID, USERINFO_FILEPATH } from "./Const/UserConst";
-import { resUserInfoType, userInfoType } from "./Type/SettingUserType";
+import { USERINFO_FILEPATH } from "./Const/UserConst";
+import { resUserInfoType, userInfoType } from "./Type/UserType";
 
 
 /**
@@ -35,9 +35,15 @@ export function getUserInfoData() {
 /**
  * レスポンス用のユーザー情報を作成
  */
-export function createRestUserInfo(userInfoObj: userInfoType, userAuthList: authType[]): resUserInfoType {
+export function createRestUserInfo(userInfoObj: userInfoType): resUserInfoType {
 
-    let resUserInfoObj = { ...userInfoObj, authList: userAuthList };
+    let resUserInfoObj = {
+        userId: userInfoObj.userId,
+        userName: userInfoObj.userName,
+        password: userInfoObj.password,
+        iconUrl: userInfoObj.iconUrl,
+        iconType: userInfoObj.iconType,
+    };
 
     return resUserInfoObj;
 }

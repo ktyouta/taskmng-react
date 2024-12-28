@@ -5,10 +5,10 @@ import { authInfoType } from "../Auth/Type/AuthType";
 import { overWriteFileData } from "../Common/FileFunction";
 import { resActionAuthType } from "../Common/Type/CommonType";
 import { SELECT_ICON_TYPE, USERINFO_FILEPATH } from "./Const/UserConst";
-import { registUserInfoType, updUserInfoType, userInfoType } from "./Type/SettingUserType";
-import { checkSettingUserAddAuth, checkSettingUserDelAuth, checkSettingUserGetAuth, checkSettingUserGetDetailAuth, checkSettingUserUpdAuth, getUserScreenAuth, } from "./UserAuthFunction";
+import { updUserReqType, userInfoType } from "./Type/UserType";
+import { checkSettingUserGetDetailAuth, checkSettingUserUpdAuth, getUserScreenAuth, } from "./UserAuthFunction";
 import { createRestUserInfo, getUserAuth, getUserInfoData } from "./UserSelectFunction";
-import { createUpdUserData, createUpdUserAuth } from "./UserUpdateFunction";
+import { createUpdUserData } from "./UserUpdateFunction";
 
 
 
@@ -79,7 +79,7 @@ export function getUserInfoDetail(res: any, req: any, id: string) {
     }
 
     //レスポンス用のユーザー情報を作成する
-    let resUserInfoObj = createRestUserInfo(userInfoObj, userAuthList);
+    let resUserInfoObj = createRestUserInfo(userInfoObj);
 
     return res.status(200).json(resUserInfoObj);
 }
@@ -88,7 +88,7 @@ export function getUserInfoDetail(res: any, req: any, id: string) {
 /**
  * ユーザーの更新
  */
-export function runUpdUser(res: any, req: any, userId: string) {
+export function runUpdUserInfo(res: any, req: any, userId: string) {
 
     //IDの指定がない
     if (!userId) {
@@ -146,7 +146,7 @@ export function runUpdUser(res: any, req: any, userId: string) {
     }
 
     //リクエストボディ
-    let requestBody: updUserInfoType = req.body;
+    let requestBody: updUserReqType = req.body;
 
     if (!isCorrectIconType(requestBody.iconType)) {
         return res
@@ -157,12 +157,6 @@ export function runUpdUser(res: any, req: any, userId: string) {
     //更新データの作成
     let updData = createUpdUserData(decodeFileData, requestBody, userId);
 
-    //権限情報を取得する
-    let authList = getAuthObjList();
-
-    //更新用権限データの作成
-    let updAuthList = createUpdUserAuth(authList, requestBody.authList);
-
     //ユーザー情報を更新
     errMessage = overWriteFileData(USERINFO_FILEPATH, updData);
 
@@ -172,9 +166,6 @@ export function runUpdUser(res: any, req: any, userId: string) {
             .status(500)
             .json({ errMessage });
     }
-
-    //権限データを更新
-    errMessage = overWriteFileData(AUTH_FILEPATH, updAuthList);
 
     //権限情報の登録に失敗
     if (errMessage) {

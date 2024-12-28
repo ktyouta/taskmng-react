@@ -3,6 +3,9 @@ import { buttonObjType } from "../Common/Type/CommonType";
 import SpaceComponent from "../Common/SpaceComponent";
 import ButtonComponent from "../Common/ButtonComponent";
 import React from "react";
+import useUserFooter from "./Hook/useUserFooter";
+import { checkAuthAction } from "../Common/Function/Function";
+import { USER_AUTH } from "../Common/Const/CommonConst";
 
 
 
@@ -32,6 +35,8 @@ function UserFooter(props: propsType) {
 
     console.log("UserFooter render");
 
+    const { userInfoAuthority } = useUserFooter();
+
     return (
         <OuterDiv
             height={props.outerHeight}
@@ -55,6 +60,7 @@ function UserFooter(props: propsType) {
             <SpaceDiv />
             <React.Fragment>
                 {
+                    checkAuthAction(userInfoAuthority, USER_AUTH.PUBLIC) &&
                     props.runButtonObj &&
                     props.runButtonObj.title &&
                     props.runButtonObj.onclick &&

@@ -38,6 +38,7 @@ function UserTop() {
         inputUserAuthList,
         setInputUserAuthList,
         orgAuthList,
+        userId,
     } = useUserTop();
 
     return (
@@ -51,6 +52,7 @@ function UserTop() {
                 inputUserAuthList={inputUserAuthList}
                 setInputUserAuthList={setInputUserAuthList}
                 orgAuthList={orgAuthList}
+                userId={userId}
             />
             <UserFooter
                 positiveButtonObj={positiveButtonObj}

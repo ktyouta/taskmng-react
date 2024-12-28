@@ -13,3 +13,11 @@ export type reqAuthReqType = {
     menuId: string;
     auth: string;
 }
+
+//更新時のユーザー情報の型
+export type updUserReqType = {
+    userName: string,
+    password: string,
+    iconUrl: string,
+    iconType: string,
+}

@@ -18,6 +18,9 @@ import { userInfoAuthorityAtom } from "../Atom/UserAtom";
 import { USERINFO_ACTION_TYPE } from "../Const/UserConst";
 import { updateUserData } from "../Function/UserFunction";
 import { isCorrectIconType } from "../../Setting/SettingUser/Function/SettingUserFunction";
+import { updUserReqType } from "../Type/UserType";
+import { checkAuthAction } from "../../Common/Function/Function";
+import { USER_AUTH } from "../../Common/Const/CommonConst";
 
 
 
@@ -29,8 +32,6 @@ function useUserTop() {
     const navigate = useNavigate();
     //ユーザーID
     const userId = useAtomValue(userIdAtom);
-    //ログインユーザー情報
-    const userInfo = useGlobalAtomValue(userInfoAtom);
     //ユーザー画面の権限
     const userInfoAuthority = useAtomValue(userInfoAuthorityAtom);
     //ユーザーの権限入力リスト
@@ -43,7 +44,7 @@ function useUserTop() {
     //編集画面遷移時に更新用データを取得
     const { data: updUser, isLoading: isLoadinGetuser } = useQueryWrapper<userType>(
         {
-            url: userId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGUSER}/${userId}` : ``,
+            url: userId ? `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.USERINFO}/${userId}` : ``,
             //取得したデータをセット
             afSuccessFn: (data) => {
                 if (!data) {
@@ -106,7 +107,7 @@ function useUserTop() {
 
     //更新用フック
     const updMutation = useMutationWrapper({
-        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.SETTINGUSER}/${userId}`,
+        url: `${ENV.PROTOCOL}${ENV.DOMAIN}${ENV.PORT}${ENV.USERINFO}/${userId}`,
         method: "PUT",
         //正常終了後の処理
         afSuccessFn: (res: resType) => {
@@ -121,30 +122,16 @@ function useUserTop() {
 
 
     /**
-     * 実行ボタンタイトル
-     */
-    let buttonTitle = "";
-    switch (editMode) {
-        //閲覧
-        case editModeEnum.noselect:
-            break;
-        //登録
-        case editModeEnum.create:
-            buttonTitle = "登録";
-            break;
-        //更新
-        case editModeEnum.update:
-            buttonTitle = "更新";
-            break;
-        default:
-            break;
-    }
-
-
-    /**
      * 更新イベント
      */
     const updateAttribute = () => {
+
+        //ユーザー情報画面権限チェック
+        if (!checkAuthAction(userInfoAuthority, USER_AUTH.PUBLIC)) {
+            alert("ユーザー情報画面の権限が不足しているため更新できません。");
+            return;
+        }
+
         let body = createRequestBody();
         if (!body) {
             return;
@@ -164,25 +151,16 @@ function useUserTop() {
      * リクエストボディの作成
      */
     const createRequestBody = () => {
-        let body: updUserType = {
-            userId: "",
+        let body: updUserReqType = {
             userName: "",
             password: "",
             iconType: userDatas.iconType ?? "",
             iconUrl: "",
-            authList: [],
         };
-
-        //ID
-        if (!userDatas.userId) {
-            alert("IDを入力してください");
-            return;
-        }
-        body.userId = userDatas.userId;
 
         //名称
         if (!userDatas.userName) {
-            alert("名称を入力してください");
+            alert("ユーザー名を入力してください");
             return;
         }
         body.userName = userDatas.userName;
@@ -242,14 +220,13 @@ function useUserTop() {
         isLoadinGetuser,
         backPage,
         updateAttribute,
-        buttonTitle,
         positiveButtonObj: {
             title: '戻る',
             type: "GRAD_GRAY",
             onclick: backPage
         } as buttonObjType,
         runButtonObj: {
-            title: buttonTitle,
+            title: "更新",
             type: "GRAD_BLUE",
             onclick: updateAttribute
         } as buttonObjType,
