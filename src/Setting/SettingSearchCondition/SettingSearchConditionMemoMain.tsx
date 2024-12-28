@@ -13,6 +13,8 @@ import useSettingSearchConditionMain from './Hook/useSettingSearchConditionMain'
 import WaitLoading from '../../Common/WaitLoading';
 import useSettingSearchConditionMemoMain from './Hook/useSettingSearchConditionMemoMain';
 import DynamicFormComponent from '../../Common/DynamicFormComponent';
+import { checkAuthAction } from '../../Common/Function/Function';
+import { USER_AUTH } from '../../Common/Const/CommonConst';
 
 
 //ボタンのスタイル
@@ -39,6 +41,13 @@ const SpaceDiv = styled.div`
     flex:1;
 `;
 
+//エラーメッセージのスタイル
+const ErrMessageDiv = styled.div`
+    box-sizing: border-box;
+    padding-left: 2%;
+    margin-top: 2%;
+`;
+
 
 function SettingSearchConditionMemoMain() {
 
@@ -49,7 +58,8 @@ function SettingSearchConditionMemoMain() {
         isLoading,
         errMessage,
         isUpdLoading,
-        memoSearchRefInfo
+        memoSearchRefInfo,
+        settingSearchConditionAuthority,
     } = useSettingSearchConditionMemoMain();
 
     //ローディング
@@ -59,7 +69,11 @@ function SettingSearchConditionMemoMain() {
 
     //データ取得時エラー
     if (errMessage) {
-        return <div>{errMessage}</div>;
+        return (
+            <ErrMessageDiv>
+                {errMessage}
+            </ErrMessageDiv>
+        );
     }
 
     return (
@@ -73,16 +87,19 @@ function SettingSearchConditionMemoMain() {
             </InputAreaDiv>
             <BtnDiv>
                 <SpaceDiv />
-                <ButtonComponent
-                    styleTypeNumber={backPageButtonObj.type}
-                    title={backPageButtonObj.title}
-                    onclick={backPageButtonObj.onclick ? backPageButtonObj.onclick : () => { }}
-                    style={{
-                        "fontSize": "0.9rem",
-                        "height": "78%",
-                        "width": "13%",
-                    }}
-                />
+                {
+                    checkAuthAction(settingSearchConditionAuthority, USER_AUTH.PUBLIC) &&
+                    <ButtonComponent
+                        styleTypeNumber={backPageButtonObj.type}
+                        title={backPageButtonObj.title}
+                        onclick={backPageButtonObj.onclick ? backPageButtonObj.onclick : () => { }}
+                        style={{
+                            "fontSize": "0.9rem",
+                            "height": "78%",
+                            "width": "13%",
+                        }}
+                    />
+                }
             </BtnDiv>
             {/* ローディング */}
             {

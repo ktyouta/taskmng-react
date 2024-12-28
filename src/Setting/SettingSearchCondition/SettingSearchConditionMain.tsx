@@ -37,6 +37,13 @@ const SpaceDiv = styled.div`
     flex:1;
 `;
 
+//エラーメッセージのスタイル
+const ErrMessageDiv = styled.div`
+    box-sizing: border-box;
+    padding-left: 2%;
+    margin-top: 2%;
+`;
+
 
 function SettingSearchConditionMain() {
 
@@ -47,7 +54,8 @@ function SettingSearchConditionMain() {
         searchConditionComponent,
         isLoading,
         errMessage,
-        isUpdLoading
+        isUpdLoading,
+        settingSearchConditionAuthority,
     } = useSettingSearchConditionMain();
 
     //ローディング
@@ -57,7 +65,11 @@ function SettingSearchConditionMain() {
 
     //データ取得時エラー
     if (errMessage) {
-        return <div>{errMessage}</div>;
+        return (
+            <ErrMessageDiv>
+                {errMessage}
+            </ErrMessageDiv>
+        );
     }
 
     return (

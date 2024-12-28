@@ -7,6 +7,7 @@ import styled from 'styled-components';
 //import { masterDataListAtom } from '../Main/Hook/useMainLogic';
 import { Routes, Route, Navigate } from "react-router-dom";
 import SearchConditionTop from './SettingSearchConditionTop';
+import useSettingSearchCondition from './Hook/useSettingSearchCondition';
 
 
 //外側のスタイル
@@ -27,6 +28,8 @@ type propsType = {
 function SettingSearchCondition(props: propsType) {
 
     console.log("SettingSearchCondition render");
+
+    useSettingSearchCondition({ ...props });
 
     return (
         <OuterDiv>

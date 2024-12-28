@@ -152,12 +152,12 @@
 	{
 		"userId": "t",
 		"menuId": "CATEGORY-5",
-		"auth": "1"
+		"auth": "0"
 	},
 	{
 		"userId": "t",
 		"menuId": "CATEGORY-6",
-		"auth": "1"
+		"auth": "0"
 	},
 	{
 		"userId": "t",
@@ -182,7 +182,7 @@
 	{
 		"userId": "t",
 		"menuId": "SUBCATEGORY-3",
-		"auth": "2"
+		"auth": "1"
 	},
 	{
 		"userId": "t",

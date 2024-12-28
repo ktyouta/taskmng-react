@@ -5,10 +5,12 @@ import { taskSearchConditionRefType, taskSearchConditionType } from "../../../Ta
 import { buttonObjType, refInfoType } from "../../../Common/Type/CommonType";
 import useQueryWrapper from "../../../Common/Hook/useQueryWrapper";
 import { SEARCHCONDITION_KEY_CUSTOM, SEARCHCONDITION_KEY_DEFAULT, SEARCHCONDITION_QUERY_KEY } from "../../../Task/Const/TaskConst";
-import { useAtom } from "jotai";
-import { taskSearchConditionObjAtom } from "../Atom/SettingSearchConditionAtom";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { settingSearchConditionAuthorityAtom, taskAuthorityAtom, taskSearchConditionObjAtom } from "../Atom/SettingSearchConditionAtom";
 import useMutationWrapper, { errResType, resType } from "../../../Common/Hook/useMutationWrapper";
 import { settingSearchConditionUpdReqType } from "../Type/SettingSearchConditionType";
+import { checkAuthAction } from "../../../Common/Function/Function";
+import { USER_AUTH } from "../../../Common/Const/CommonConst";
 
 
 
@@ -21,6 +23,10 @@ function useSettingSearchConditionMain() {
         default: [],
         custom: []
     });
+    //検索条件設定画面の権限
+    const settingSearchConditionAuthority = useAtomValue(settingSearchConditionAuthorityAtom);
+    //タスク画面の権限
+    const taskAuthority = useAtomValue(taskAuthorityAtom);
 
     //検索条件の設定リスト
     const { isLoading } = useQueryWrapper<taskSearchConditionType[]>({
@@ -69,8 +75,14 @@ function useSettingSearchConditionMain() {
             condition: []
         };
 
+        //タスク画面の権限が不足している場合は更新不可
+        if (!taskAuthority || !checkAuthAction(taskAuthority, USER_AUTH.PUBLIC)) {
+            alert("タスク画面の権限が不足しているため更新できません。");
+            return;
+        }
+
         if (!window.confirm('検索条件の初期値を更新しますか？')) {
-            return
+            return;
         }
         if (!updMutation) {
             alert("リクエストの送信に失敗しました。");
@@ -99,6 +111,7 @@ function useSettingSearchConditionMain() {
         isLoading,
         errMessage,
         isUpdLoading: updMutation.isLoading,
+        settingSearchConditionAuthority,
     }
 }
 
